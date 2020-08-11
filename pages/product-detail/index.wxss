@@ -1,0 +1,113 @@
+.banner_w {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 50vw;
+}
+
+.banner_item {
+    position: relative;
+    height: 100%;
+}
+
+.banner_bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 100rpx 30rpx 20rpx;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+    color: #fff;
+    text-align: right;
+}
+
+.title_w {
+    margin-top: 50vw;
+    padding: 30rpx;
+    background: #fff;
+}
+
+.title_w .title {
+    font-size: 34rpx;
+    color: #333;
+    font-weight: bold;
+}
+
+.title_w .price_w {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10rpx;
+}
+
+.des_w {
+    margin-top: 20rpx;
+    padding: 30rpx;
+    background: #fff;
+}
+
+.des_w .des_title {
+    font-size: 34rpx;
+    color: #333;
+}
+
+.des_w .des {
+    margin-top: 20rpx;
+    font-size: 24rpx;
+    color: #666;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 30rpx;
+}
+
+.footer .left_w {
+    display: flex;
+    align-items: center;
+    color: #999;
+}
+
+.footer button {
+    height: 50px;
+}
+
+.cart_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 30rpx 30rpx;
+}
+
+.num_w {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.num {
+    margin: 0 10rpx;
+    min-width: 20px;
+    text-align: center;
+}
+
+
+.del {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    width: 10px;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+    line-height: 16px;
+}

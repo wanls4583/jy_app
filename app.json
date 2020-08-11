@@ -1,0 +1,21 @@
+{
+    "pages": [
+        "pages/product-detail/index"
+    ],
+    "window":
+    {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "usingComponents":
+    {
+        "van-button": "/vant/button/index",
+        "van-popup": "/vant/popup/index",
+        "van-cell": "/vant/cell/index",
+        "van-popup": "/vant/popup/index",
+        "van-icon": "/vant/icon/index"
+    }
+}
