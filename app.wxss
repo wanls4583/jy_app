@@ -1,6 +1,8 @@
 /**app.wxss**/
 @import "css/van-custom.wxss";
 @import "css/padding-margin.wxss";
+@import "css/theme.wxss";
+
 page {
     height: 100%;
     font-size: 30rpx;
@@ -20,32 +22,6 @@ image {
     overflow: auto;
     height: 100%;
     background-color: #f1f1f1;
-}
-
-.primary-color {
-    color: rgb(42, 175, 255);
-}
-
-.gray-color {
-    color: #999;
-}
-
-.primary-color button,
-.primary-color view {
-    color: rgb(42, 175, 255);
-}
-
-.primary-color .van-info {
-    color: #fff;
-}
-
-.primary-background-color {
-    background-color: rgb(42, 175, 255);
-}
-
-.primary-background-color button,
-.primary-background-color view {
-    background-color: rgb(42, 175, 255);
 }
 
 .footer {

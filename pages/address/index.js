@@ -22,7 +22,21 @@ Page({
     },
     onChange(e) {
         this.setData({
-            checkedId: e.detail.value
+            checkedId: e.currentTarget.dataset.id
+        });
+    },
+    editAddress(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/pages/address-edit/index?id=' + id
+        });
+    },
+    delAddress(e) {
+        var id = e.currentTarget.dataset.id;
+    },
+    addAddress() {
+        wx.navigateTo({
+            url: '/pages/address-edit/index'
         });
     }
 })

@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/address-edit/index",
         "pages/address/index",
+        "pages/address-edit/index",
         "pages/product-detail/index",
         "pages/cart/index"
     ],
@@ -21,6 +21,7 @@
         "van-popup": "/vant/popup/index",
         "van-field": "/vant/field/index",
         "van-cell": "/vant/cell/index",
+        "van-swipe-cell": "/vant/swipe-cell/index",
         "van-cell-group": "/vant/cell-group/index",
         "van-area": "/vant/area/index",
         "van-icon": "/vant/icon/index"
