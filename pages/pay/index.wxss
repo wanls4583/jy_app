@@ -1,0 +1,14 @@
+/* pages/pay/index.wxss */
+.img {
+	width: 100rpx;
+	height: 100rpx;
+	margin-top: 100rpx;
+}
+.title {
+	margin-top: 30rpx;
+	font-size: 40rpx;
+}
+.tip {
+	margin-top: 50rpx;
+	margin-bottom: 60rpx;
+}

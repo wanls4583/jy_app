@@ -10,6 +10,10 @@
     color: #ff976a;
 }
 
+.success-color {
+    color: #07c160;
+}
+
 .primary-color {
     color: rgb(42, 175, 255);
 }
@@ -23,14 +27,16 @@
     color: #fff;
 }
 
-
-
 .danger-background-color {
     background-color: #ee0a24;
 }
 
 .warn-background-color {
     background-color: #ff976a;
+}
+
+.success-background-color {
+    background-color: #07c160;
 }
 
 .primary-background-color {

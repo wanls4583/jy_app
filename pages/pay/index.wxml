@@ -1,0 +1,10 @@
+<view>
+	<view class="flex-center">
+		<image src="/image/pay-suc.png" class="img" mode="aspectFit"></image>
+	</view>
+	<view class="title flex-center success-color">支付成功</view>
+	<view class="tip flex-center">订单已完成支付，可点击查看订单详情</view>
+	<view class="flex-center">
+		<van-button plain type="primary">查看订单</van-button>
+	</view>
+</view>
