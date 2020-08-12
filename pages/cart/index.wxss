@@ -1,0 +1,66 @@
+.address-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 30rpx;
+}
+
+.address {
+    max-width: 300px;
+}
+
+.address-top {
+    margin-bottom: 20rpx;
+}
+
+.phone {
+    margin-left: 30rpx;
+}
+
+.edit-wrap {
+    display: flex;
+    align-items: center;
+    color: #999;
+}
+
+.product-list-wrap {
+    margin-top: 20rpx;
+    padding: 30rpx;
+    background: #fff;
+}
+
+.product-list {
+    margin-top: 20rpx;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    width: 100rpx;
+    height: 100rpx;
+}
+
+.des-wrap {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding-left: 30rpx;
+}
+
+.num-price-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.num {
+    color: #999;
+}
+
+.footer {
+    padding-left: 30rpx;
+}

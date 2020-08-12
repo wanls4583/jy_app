@@ -1,4 +1,6 @@
 /**app.wxss**/
+@import "css/van-custom.wxss";
+@import "css/padding-margin.wxss";
 page {
     height: 100%;
     font-size: 30rpx;
@@ -11,6 +13,7 @@ scroll-view,
 image {
     box-sizing: border-box;
     color: #333;
+    font-size: 30rpx;
 }
 
 .container {
@@ -19,31 +22,75 @@ image {
     background-color: #f1f1f1;
 }
 
-page .van-button--primary {
-    background-color: rgb(42, 175, 255);
-    border-color: rgb(42, 175, 255);
-}
-
 .primary-color {
-	color: rgb(42, 175, 255) !important;
+    color: rgb(42, 175, 255);
 }
 
-.primary-color button, .primary-color view {
-	color: rgb(42, 175, 255);
+.gray-color {
+    color: #999;
+}
+
+.primary-color button,
+.primary-color view {
+    color: rgb(42, 175, 255);
 }
 
 .primary-color .van-info {
-	color: #fff;
+    color: #fff;
 }
 
 .primary-background-color {
-	background-color: rgb(42, 175, 255) !important;
+    background-color: rgb(42, 175, 255);
 }
 
-.primary-background-color button, .primary-background-color view {
-	background-color: rgb(42, 175, 255);
+.primary-background-color button,
+.primary-background-color view {
+    background-color: rgb(42, 175, 255);
 }
 
-.van-button--primary .van-button__text {
-	color: #fff;
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 100;
+    background: #fff;
+}
+
+.footer button {
+    height: 50px;
+    width: 120px !important;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.border-top {
+    border-top: 1rpx solid #eee;
+}
+
+.border-bottom {
+    border-bottom: 1rpx solid #eee;
 }

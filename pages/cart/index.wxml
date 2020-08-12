@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="address-wrap">
+        <block wx:if="{{address}}">
+            <view class="address">
+                <view class="address-top">
+                    <text>{{address.name}}</text>
+                    <text class="phone">{{address.phone}}</text>
+                </view>
+                <view>{{address.detail}}</view>
+            </view>
+            <van-icon name="arrow" color="#ccc" />
+        </block>
+        <block wx:else>
+            <text>收货地址</text>
+            <view class="edit-wrap">
+                <text>编辑地址</text>
+                <van-icon name="arrow" color="#999" />
+            </view>
+        </block>
+    </view>
+    <view class="product-list-wrap">
+        <view>共{{cart.length}}份商品</view>
+        <view class="product-list">
+            <view wx:for="{{cart}}" wx:for-item="product" class="product">
+                <view class="img" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
+                <view class="des-wrap">
+                    <view>{{product.name}}</view>
+                    <view class="num-price-wrap">
+                        <text class="num">x{{product.num}}</text>
+                        <text>￥{{product.price}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <div class="footer primary-color flex">
+        <text>￥{{totalMoney}}</text>
+        <van-button type="primary">提交订单</van-button>
+    </div>
+</view>

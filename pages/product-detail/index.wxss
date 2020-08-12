@@ -1,16 +1,16 @@
-.banner_w {
+.banner-wrap {
     position: fixed;
     top: 0;
     width: 100%;
     height: 50vw;
 }
 
-.banner_item {
+.banner-item {
     position: relative;
     height: 100%;
 }
 
-.banner_bottom {
+.banner-bottom {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -21,65 +21,53 @@
     text-align: right;
 }
 
-.title_w {
+.title-wrap {
     margin-top: 50vw;
     padding: 30rpx;
     background: #fff;
 }
 
-.title_w .title {
+.title-wrap .title {
     font-size: 34rpx;
     color: #333;
-    font-weight: bold;
+    font-size: bold;
 }
 
-.title_w .price_w {
+.title-wrap .price-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 10rpx;
 }
 
-.des_w {
+.des-wrap {
     margin-top: 20rpx;
     padding: 30rpx;
     background: #fff;
 }
 
-.des_w .des_title {
+.des-wrap .des-title {
     font-size: 34rpx;
     color: #333;
 }
 
-.des_w .des {
+.des-wrap .des {
     margin-top: 20rpx;
     font-size: 24rpx;
     color: #666;
 }
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    z-index: 100;
-    width: 100%;
-    background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding-left: 30rpx;
 }
 
-.footer .left_w {
+.footer .left-wrap {
     display: flex;
     align-items: center;
     color: #999;
 }
 
-.footer button {
-    height: 50px;
-}
-
-.cart_item {
+.cart-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -87,7 +75,7 @@
     padding: 30rpx 30rpx;
 }
 
-.num_w {
+.num-wrap {
     position: relative;
     display: flex;
     align-items: center;
@@ -110,4 +98,12 @@
     text-align: center;
     font-weight: bold;
     line-height: 16px;
+}
+
+.clear-wrap {
+    text-align: right;
+}
+.clear {
+    display: inline-block;
+    padding: 20rpx 30rpx;
 }

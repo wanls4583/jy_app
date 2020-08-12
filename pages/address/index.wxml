@@ -1,0 +1,23 @@
+<!--index.wxml-->
+<view class="container">
+    <radio-group bindchange="onChange">
+        <label wx:for="{{addressList}}" wx:key="{{item.id}}" class="flex address-wrap padding-left-right-30 border-bottom">
+            <view class="radio-wrap">
+                <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{checkedId==item.id}}" />
+            </view>
+            <view class="address flex-column padding-left-30 padding-top-bottom-20">
+                <view class="flex">
+                    <view>
+                        <text class="name">{{item.name}}</text>
+                        <text>{{item.phone}}</text>
+                    </view>
+                    <view class="gray-color">编辑</view>
+                </view>
+                <view class="gray-color margin-top-20">{{item.detail}}</view>
+            </view>
+        </label>
+    </radio-group>
+    <view class="padding-left-right-30 margin-top-bottom-30">
+        <van-button plain block type="primary" class="add-btn">＋ 新增地址</van-button>
+    </view>
+</view>

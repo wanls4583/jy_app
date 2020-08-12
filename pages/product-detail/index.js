@@ -47,6 +47,17 @@ Page({
             this.setData({
                 cart: this.data.cart
             });
+            if (!this.data.cart.length) {
+                this.setData({
+                    cartVisible: false
+                });
+            }
         }
+    },
+    clearCart() {
+        this.setData({
+            cart: [],
+            cartVisible: false
+        });
     }
 })

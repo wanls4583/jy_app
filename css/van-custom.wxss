@@ -1,0 +1,20 @@
+page .van-button--primary {
+    background-color: rgb(42, 175, 255);
+    border-color: rgb(42, 175, 255);
+}
+
+page .van-button--primary.van-button--plain {
+    background-color: transparent;
+}
+
+.van-button--primary .van-button__text {
+    color: #fff;
+}
+
+.van-button--primary.van-button--plain .van-button__text {
+    color: rgb(42, 175, 255);
+}
+
+.van-button--block {
+    width: 100% !important;
+}

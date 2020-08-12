@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="container">
+    <van-cell-group>
+        <van-field value="{{address.name}}" label="联系人" placeholder="姓名" />
+        <van-field value="{{address.phone}}" label="手机号" placeholder="11位手机号" />
+        <van-field value="{{address.area}}" label="选择地区" placeholder="地区信息" readonly bindtap="showArea" />
+        <van-field value="{{address.detail}}" label="详细地址" placeholder="街道门牌信息" />
+    </van-cell-group>
+    <view class="padding-left-right-30 margin-top-bottom-30">
+        <van-button block type="primary" class="save-btn">保存</van-button>
+    </view>
+    <van-popup show="{{areaVisible}}" position="bottom">
+        <van-area id="area" area-list="{{areaList}}" value="{{address.code}}" bind:confirm="confirmArea" bind:cancel="cancelArea" />
+    </van-popup>
+</view>

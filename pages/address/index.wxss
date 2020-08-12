@@ -1,0 +1,9 @@
+.address-wrap {
+    background: #fff;
+}
+.address {
+    flex-grow: 1;
+}
+.name {
+    margin-right: 30rpx;
+}

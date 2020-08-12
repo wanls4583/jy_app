@@ -1,6 +1,9 @@
 {
     "pages": [
-        "pages/product-detail/index"
+        "pages/address-edit/index",
+        "pages/address/index",
+        "pages/product-detail/index",
+        "pages/cart/index"
     ],
     "window":
     {
@@ -16,6 +19,10 @@
         "van-popup": "/vant/popup/index",
         "van-cell": "/vant/cell/index",
         "van-popup": "/vant/popup/index",
+        "van-field": "/vant/field/index",
+        "van-cell": "/vant/cell/index",
+        "van-cell-group": "/vant/cell-group/index",
+        "van-area": "/vant/area/index",
         "van-icon": "/vant/icon/index"
     }
 }
