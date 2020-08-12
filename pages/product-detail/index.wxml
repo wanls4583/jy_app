@@ -21,9 +21,9 @@
         <view class="des">信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</view>
     </view>
     <view class="footer flex">
-        <view class="left-wrap {{deliveryFee>0?'primary-color':''}}" bindtap="showCart">
-            <van-icon name="shopping-cart-o" size="20px" info="{{cart.length}}"/>
-            <text style="margin-left:10px">{{'￥'+deliveryFee||'免费配送'}}</text>
+        <view class="left-wrap" bindtap="showCart">
+            <van-icon class="{{deliveryFee>0?'primary-color':''}}" name="shopping-cart-o" size="20px" info="{{cart.length}}"/>
+            <text class="{{deliveryFee>0?'primary-color':''}}" style="margin-left:10px">{{'￥'+deliveryFee||'免费配送'}}</text>
         </view>
         <van-button type="primary" height="50px">￥100</van-button>
     </view>

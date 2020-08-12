@@ -18,15 +18,6 @@
     color: rgb(42, 175, 255);
 }
 
-.primary-color button,
-.primary-color view {
-    color: rgb(42, 175, 255);
-}
-
-.primary-color .van-info {
-    color: #fff;
-}
-
 .danger-background-color {
     background-color: #ee0a24;
 }
@@ -40,10 +31,5 @@
 }
 
 .primary-background-color {
-    background-color: rgb(42, 175, 255);
-}
-
-.primary-background-color button,
-.primary-background-color view {
     background-color: rgb(42, 175, 255);
 }

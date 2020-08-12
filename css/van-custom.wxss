@@ -1,20 +1,38 @@
-page .van-button--primary {
-    background-color: rgb(42, 175, 255);
-    border-color: rgb(42, 175, 255);
+.van-button--primary {
+    background-color: rgb(42, 175, 255) !important;
+    border-color: rgb(42, 175, 255) !important;
 }
 
-page .van-button--primary.van-button--plain {
-    background-color: transparent;
+.van-button--plain {
+    background-color: transparent !important;
 }
 
 .van-button--primary .van-button__text {
-    color: #fff;
+    color: #fff !important;
 }
 
 .van-button--primary.van-button--plain .van-button__text {
-    color: rgb(42, 175, 255);
+    color: rgb(42, 175, 255) !important;
 }
 
 .van-button--block {
     width: 100% !important;
+}
+
+.success-color .van-button__text,
+.success-color .van-button {
+    color: #07c160;
+    border-color: #07c160;
+}
+
+.success-background-color .van-button {
+    background-color: rgb(42, 175, 255) !important;
+    border-color: rgb(42, 175, 255) !important;
+}
+
+.primary-color .van-button__text,
+.primary-color .van-button,
+.primary-color .van-icon {
+    color: rgb(42, 175, 255);
+    border-color: rgb(42, 175, 255);
 }
