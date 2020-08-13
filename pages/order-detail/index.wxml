@@ -29,7 +29,7 @@
         </view>
     </view>
     <view class="padding-30 white-background-color margin-top-20">
-        <view class="flex--center--between">
+        <view class="flex--center--between font-small">
             <text class="gray-color">订单编号</text>
             <text class="gray-color">{{order.orderNum}}</text>
         </view>

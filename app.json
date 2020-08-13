@@ -1,11 +1,11 @@
 {
     "pages": [
+        "pages/order-list/index",
+        "pages/order-detail/index",
         "pages/illness-patient-list/index",
         "pages/illness-edit/index",
         "pages/mine/index",
-        "pages/order-detail/index",
         "pages/cart/index",
-        "pages/order-list/index",
         "pages/address-list/index",
         "pages/product-detail/index",
         "pages/pay/index",

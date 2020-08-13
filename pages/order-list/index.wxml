@@ -2,8 +2,8 @@
 <view class="container">
     <view wx:for="{{orderList}}" wx:for-item="order" class="padding-left-right-30 white-background-color margin-top-20">
         <view class="flex--center--between border-bottom padding-top-bottom-20">
-            <view class="order-num gray-color">订单编号：{{order.orderNum}}</view>    
-            <view class="primary-color">{{order.status}}</view>
+            <view class="order-num gray-color font-small">订单编号：{{order.orderNum}}</view>    
+            <view class="primary-color font-small">{{order.status}}</view>
         </view>
         <view class="padding-top-bottom-30 white-background-color">
             <view wx:for="{{order.list}}" wx:for-item="product" class="flex--center--start">
