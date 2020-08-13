@@ -14,6 +14,10 @@
     color: #07c160;
 }
 
+.danger-color {
+    color: #ee0a24;
+}
+
 .primary-color {
     color: rgb(42, 175, 255);
 }

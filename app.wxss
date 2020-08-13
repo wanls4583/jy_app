@@ -105,3 +105,19 @@ image {
 .right-0 {
     right: 0;
 }
+
+.radius-50 {
+    border-radius: 50%;
+}
+
+.border {
+    border: 1rpx solid rgb(42, 175, 255);
+}
+
+.border.white {
+    border-color: #fff;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
