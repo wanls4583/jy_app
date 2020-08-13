@@ -1,3 +1,63 @@
+.margin-10 {
+    margin: 10rpx;
+}
+
+.margin-top-10 {
+    margin-top: 10rpx;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10rpx;
+}
+
+.margin-left-10 {
+    margin-left: 10rpx;
+}
+
+.margin-right-10 {
+    margin-right: 10rpx;
+}
+
+.margin-top-bottom-10 {
+    margin-top: 10rpx;
+    margin-bottom: 10rpx;
+}
+
+.margin-left-right-10 {
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+}
+
+.margin-15 {
+    margin: 15rpx;
+}
+
+.margin-top-15 {
+    margin-top: 15rpx;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15rpx;
+}
+
+.margin-left-15 {
+    margin-left: 15rpx;
+}
+
+.margin-right-15 {
+    margin-right: 15rpx;
+}
+
+.margin-top-bottom-15 {
+    margin-top: 15rpx;
+    margin-bottom: 15rpx;
+}
+
+.margin-left-right-15 {
+    margin-left: 15rpx;
+    margin-right: 15rpx;
+}
+
 .margin-20 {
     margin: 20rpx;
 }
@@ -86,6 +146,66 @@
 .margin-left-right-0 {
     margin-left: 0rpx;
     margin-right: 0rpx;
+}
+
+.padding-10 {
+    padding: 10rpx;
+}
+
+.padding-top-10 {
+    padding-top: 10rpx;
+}
+
+.padding-bottom-10 {
+    padding-bottom: 10rpx;
+}
+
+.padding-left-10 {
+    padding-left: 10rpx;
+}
+
+.padding-right-10 {
+    padding-right: 10rpx;
+}
+
+.padding-top-bottom-10 {
+    padding-top: 10rpx;
+    padding-bottom: 10rpx;
+}
+
+.padding-left-right-10 {
+    padding-left: 15rpx;
+    padding-right: 15rpx;
+}
+
+.padding-15 {
+    padding: 15rpx;
+}
+
+.padding-top-15 {
+    padding-top: 15rpx;
+}
+
+.padding-bottom-15 {
+    padding-bottom: 15rpx;
+}
+
+.padding-left-15 {
+    padding-left: 15rpx;
+}
+
+.padding-right-15 {
+    padding-right: 15rpx;
+}
+
+.padding-top-bottom-15 {
+    padding-top: 15rpx;
+    padding-bottom: 15rpx;
+}
+
+.padding-left-right-15 {
+    padding-left: 15rpx;
+    padding-right: 15rpx;
 }
 
 .padding-20 {

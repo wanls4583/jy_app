@@ -46,6 +46,10 @@
     flex-shrink: 1;
 }
 
+.flex-wrap-wrap {
+    flex-wrap: wrap;
+}
+
 .flex--center--start {
     display: flex;
     align-items: center;

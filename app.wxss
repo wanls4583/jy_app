@@ -41,12 +41,24 @@ image {
     width: 120px !important;
 }
 
+.border {
+    border: 1rpx solid #eee;
+}
+
 .border-top {
     border-top: 1rpx solid #eee;
 }
 
 .border-bottom {
     border-bottom: 1rpx solid #eee;
+}
+
+.border-color-white {
+    border-color: #fff;
+}
+
+.border-style-none {
+    border-style: none;
 }
 
 .align-right {
@@ -108,14 +120,6 @@ image {
 
 .radius-50 {
     border-radius: 50%;
-}
-
-.border {
-    border: 1rpx solid rgb(42, 175, 255);
-}
-
-.border.white {
-    border-color: #fff;
 }
 
 .overflow-hidden {

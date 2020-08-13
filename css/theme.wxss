@@ -30,6 +30,10 @@
 	color: #666;
 }
 
+.gray-background-color {
+    background-color: #f1f1f1;
+}
+
 .white-background-color {
 	background-color: #fff;
 }
