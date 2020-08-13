@@ -34,8 +34,8 @@
             </view>
         </view>
     </view>
-    <div class="footer padding-left-30 primary-color flex--center--between">
+    <view class="footer padding-left-30 primary-color flex--center--between">
         <text>￥{{totalMoney}}</text>
-        <van-button type="primary">提交订单</van-button>
-    </div>
+        <view class="button primary center height-100">提交订单</view>
+    </view>
 </view>

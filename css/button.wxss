@@ -1,0 +1,107 @@
+.button {
+    position: relative;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+    padding: 22rpx 30rpx;
+    border: 1rpx solid transparent;
+    font-size: 30rpx;
+    user-select: none;
+}
+
+.button:active:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.1)
+}
+
+.button.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button.small {
+    font-size: 24rpx;
+    padding: 10rpx 20rpx;
+}
+
+.button.large {
+    font-size: 34rpx;
+    padding: 30rpx;
+}
+
+.button.block {
+    display: block;
+    width: 100%;
+}
+
+.button.primary {
+    border-color: rgb(42, 175, 255);
+    background-color: rgb(42, 175, 255);
+    color: #fff;
+}
+
+.button.success {
+    border-color: #07c160;
+    background-color: #07c160;
+    color: #fff;
+}
+
+.button.danger {
+    border-color: #ee0a24;
+    background-color: #ee0a24;
+    color: #fff;
+}
+
+.button.warn {
+    border-color: #ff976a;
+    background-color: #ff976a;
+    color: #fff;
+}
+
+.button.plain {
+    background-color: transparent;
+}
+
+.button.plain.primary {
+    color: rgb(42, 175, 255);
+}
+
+.button.plain.success {
+    color: #07c160;
+}
+
+.button.plain.danger {
+    color: #ee0a24;
+}
+
+.button.plain.warn {
+    color: #ff976a;
+}
+
+.button.text {
+    background-color: transparent;
+    border-color: transparent;
+    padding: 0;
+}
+
+.button.text.primary {
+    color: rgb(42, 175, 255);
+}
+
+.button.text.success {
+    color: #07c160;
+}
+
+.button.text.danger {
+    color: #ee0a24;
+}
+
+.button.text.warn {
+    color: #ff976a;
+}

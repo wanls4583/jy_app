@@ -21,5 +21,8 @@
             <view class="gray-color">共<text class="color-333">{{order.list.length}}</text>件商品</view>
             <view class="primary-color margin-left-30">订单金额￥{{order.money}}</view>
         </view>
+        <view class="border-top align-right padding-top-bottom-20">
+            <view class="primary button small">立即支付</view>
+        </view>
     </view>
 </view>

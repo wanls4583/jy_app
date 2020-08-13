@@ -7,7 +7,7 @@
         <van-field value="{{address.detail}}" label="详细地址" placeholder="街道门牌信息" />
     </van-cell-group>
     <view class="padding-left-right-30 margin-top-bottom-30">
-        <van-button block type="primary" class="save-btn">保存</van-button>
+        <view class="button primary block">保存</view>
     </view>
     <van-popup show="{{areaVisible}}" position="bottom">
         <van-area id="area" area-list="{{areaList}}" value="{{address.code}}" bind:confirm="confirmArea" bind:cancel="cancelArea" />

@@ -25,7 +25,7 @@
             <van-icon class="{{deliveryFee>0?'primary-color':'gray-color'}}" name="shopping-cart-o" size="20px" info="{{cart.length}}"/>
             <text class="{{deliveryFee>0?'primary-color':'gray-color'}}" style="margin-left:10px">{{'￥'+deliveryFee||'免费配送'}}</text>
         </view>
-        <van-button type="primary">￥100</van-button>
+        <view class="button primary center height-100">￥100</view>
     </view>
     <van-popup show="{{cartVisible}}" position="bottom" overlay="{{false}}" z-index="0" custom-style="bottom:50px">
         <view class="align-right">

@@ -18,13 +18,13 @@
                     </view>
                 </view>
                 <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:160px">
-                    <div class="flex--center--center height-100 width-50 primary-background-color white-color" data-id="item.id" bindtap="editAddress">编辑</div>
-                    <div class="flex--center--center height-100 width-50 danger-background-color white-color" data-id="item.id" bindtap="delAddress">删除</div>
+                    <view class="button center height-100 width-50 min-width-50px primary" data-id="item.id" bindtap="editAddress">编辑</view>
+                    <view class="button center height-100 width-50 min-width-50px danger" data-id="item.id" bindtap="delAddress">删除</view>
                 </view>
             </van-swipe-cell>
         </view>
     </radio-group>
     <view class="padding-left-right-30 margin-top-bottom-30">
-        <van-button plain block type="primary" bindtap="addAddress">＋ 新增地址</van-button>
+        <view class="button primary plain block" bindtap="addAddress">＋ 新增地址</view>
     </view>
 </view>
