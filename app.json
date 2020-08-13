@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/pay/index",
         "pages/order-list/index",
         "pages/order-detail/index",
         "pages/illness-patient-list/index",
@@ -8,7 +9,7 @@
         "pages/cart/index",
         "pages/address-list/index",
         "pages/product-detail/index",
-        "pages/pay/index",
+        "pages/pay-suc/index",
         "pages/address-edit/index"
     ],
     "window":
