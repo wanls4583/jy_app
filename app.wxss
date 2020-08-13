@@ -57,6 +57,14 @@ image {
     border-color: #fff;
 }
 
+.border-color-primary {
+    border-color: rgb(42, 175, 255);
+}
+
+.border-color-gray {
+    border-color: #999;
+}
+
 .border-style-none {
     border-style: none;
 }

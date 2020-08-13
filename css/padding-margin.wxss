@@ -297,3 +297,7 @@
     padding-left: 0rpx;
     padding-right: 0rpx;
 }
+
+.padding-bottom-160 {
+    padding-bottom: 160rpx;
+}
