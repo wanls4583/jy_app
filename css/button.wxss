@@ -26,6 +26,7 @@
 }
 
 .button.small {
+    min-width: 0;
     font-size: 24rpx;
     padding: 10rpx 20rpx;
 }

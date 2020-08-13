@@ -65,6 +65,15 @@ image {
     font-size: 34rpx;
 }
 
+.font-small {
+    font-size: 24rpx;
+}
+
+.font-large {
+    font-size: 40rpx;
+}
+
+
 .inline-block {
     display: inline-block;
 }

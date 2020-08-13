@@ -26,9 +26,9 @@
                 <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
                 <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                     <view>{{product.name}}</view>
-                    <view class="flex--center--between">
+                    <view class="flex--center--between margin-top-20 width-100">
                         <text class="gray-color">x{{product.num}}</text>
-                        <text>￥{{product.price}}</text>
+                        <text class="primary-color">￥{{product.price}}</text>
                     </view>
                 </view>
             </view>
