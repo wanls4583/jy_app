@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="container">
+    <view wx:for="{{orderList}}" wx:for-item="order" class="padding-left-right-30 white-background-color margin-top-20">
+        <view class="flex--center--between border-bottom padding-top-bottom-20">
+            <view class="order-num gray-color">订单编号：{{order.orderNum}}</view>    
+            <view class="primary-color">{{order.status}}</view>
+        </view>
+        <view class="padding-30 white-background-color">
+            <view wx:for="{{order.list}}" wx:for-item="product" class="flex--center--start">
+                <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
+                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                    <view>{{product.name}}</view>
+                    <view class="flex--center--between margin-top-20">
+                        <text class="gray-color">x{{product.num}}</text>
+                        <text>￥{{product.price}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="flex--center--between padding-top-bottom-20 border-top">
+            <view class="gray-color">共<text class="color-333">{{order.list.length}}</text>件商品</view>
+            <view class="primary-color margin-left-30">订单金额￥{{order.money}}</view>
+        </view>
+    </view>
+</view>

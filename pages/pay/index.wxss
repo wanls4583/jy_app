@@ -1,7 +1,5 @@
 /* pages/pay/index.wxss */
 .img {
-	width: 100rpx;
-	height: 100rpx;
 	margin-top: 100rpx;
 }
 .title {

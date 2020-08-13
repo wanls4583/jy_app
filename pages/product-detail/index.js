@@ -7,7 +7,7 @@ Page({
         currentBannerIndex: 0,
         deliveryFee: 12,
         cart: [{ name: '名称', price: 12, num: 10 }],
-        cartVisible: true,
+        cartVisible: false,
     },
     onLoad() {
         var arr = [];
@@ -24,6 +24,9 @@ Page({
         });
     },
     showCart() {
+        if(!this.data.cartVisible && !this.data.cart.length) {
+            return;
+        }
         this.setData({
             cartVisible: !this.data.cartVisible
         });

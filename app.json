@@ -1,10 +1,11 @@
 {
     "pages": [
-        "pages/pay/index",
+        "pages/product-detail/index",
+        "pages/order-list/index",
+        "pages/address-list/index",
         "pages/cart/index",
-        "pages/address/index",
-        "pages/address-edit/index",
-        "pages/product-detail/index"
+        "pages/pay/index",
+        "pages/address-edit/index"
     ],
     "window":
     {

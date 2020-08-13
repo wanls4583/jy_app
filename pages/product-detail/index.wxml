@@ -1,43 +1,43 @@
 <!--index.wxml-->
 <view class="container">
-    <swiper class="banner-wrap" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="bannerChang">
+    <swiper class="position-fixed top-0 width-100 height-50vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="bannerChang">
         <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="comicid">
-            <view class="banner-item" style="background:url({{item}}) no-repeat center;background-size:cover">
-                <view class="banner-bottom">
+            <view class="position-relative height-100" style="background:url({{item}}) no-repeat center;background-size:cover">
+                <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
                     <text>{{currentBannerIndex+1}}/{{banner.length}}</text>
                 </view>
             </view>
         </swiper-item>
     </swiper>
-    <view class="title-wrap">
-        <view class="title">标题</view>
-        <view class="price-wrap">
+    <view class="title-wrap padding-30 white-background-color">
+        <view class="font-title font-bold color-333">标题</view>
+        <view class="flex--center--between margin-top-20">
             <view class="price">100.00</view>
-            <van-icon name="add-o" size="30px" color="orange" />
+            <van-icon name="add-o" size="30px" class="primary-color" />
         </view>
     </view>
-    <view class="des-wrap">
-        <view class="des-title">商品信息</view>
-        <view class="des">信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</view>
+    <view class="margin-top-20 padding-30 white-background-color">
+        <view class="font-title">商品信息</view>
+        <view class="margin-top-20 color-666">信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</view>
     </view>
-    <view class="footer flex">
-        <view class="left-wrap" bindtap="showCart">
-            <van-icon class="{{deliveryFee>0?'primary-color':''}}" name="shopping-cart-o" size="20px" info="{{cart.length}}"/>
-            <text class="{{deliveryFee>0?'primary-color':''}}" style="margin-left:10px">{{'￥'+deliveryFee||'免费配送'}}</text>
+    <view class="footer flex--center--between padding-left-30">
+        <view class="flex--center--start" bindtap="showCart">
+            <van-icon class="{{deliveryFee>0?'primary-color':'gray-color'}}" name="shopping-cart-o" size="20px" info="{{cart.length}}"/>
+            <text class="{{deliveryFee>0?'primary-color':'gray-color'}}" style="margin-left:10px">{{'￥'+deliveryFee||'免费配送'}}</text>
         </view>
-        <van-button type="primary" height="50px">￥100</van-button>
+        <van-button type="primary">￥100</van-button>
     </view>
     <van-popup show="{{cartVisible}}" position="bottom" overlay="{{false}}" z-index="0" custom-style="bottom:50px">
-        <view class="clear-wrap ">
-            <view class="clear gray-color" bindtap="clearCart">清空购物车</view>
+        <view class="align-right">
+            <view class="inline-block gray-color padding-left-right-30 padding-top-bottom-20" bindtap="clearCart">清空购物车</view>
         </view>
-        <view wx:for="{{cart}}" wx:for-item="product" class="cart-item">
+        <view wx:for="{{cart}}" wx:for-item="product" class="flex--center--between border-bottom padding-30">
             <view>{{product.name}}</view>
             <view class="primary-color">￥{{product.price}}</view>
-            <view class="num-wrap">
+            <view class="flex--center--center position-relative">
                 <view class="primary-color del">—</view>
                 <van-icon name="circle" size="20px" class="primary-color" bindtap="reduceNum" data-index='{{index}}'></van-icon>
-                <view class="num">{{product.num}}</view>
+                <view class="num align-center">{{product.num}}</view>
                 <van-icon name="add-o" size="20px" class="primary-color" bindtap="addNum" data-index='{{index}}'/>
             </view>
         </view>

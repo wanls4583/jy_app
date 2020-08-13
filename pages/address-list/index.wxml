@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<view class="container">
+    <radio-group bindchange="onChange">
+        <view wx:for="{{addressList}}" wx:key="id" class="position-relative white-background-color padding-left-30 border-bottom">
+            <van-swipe-cell right-width="{{160}}">
+                <view class="flex--center--between" data-id="{{item.id}}" bindtap="onChange">
+                    <view class="radio-wrap">
+                        <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{checkedId==item.id}}" />
+                    </view>
+                    <view class="flex-grow-1 flex flex-direction-column padding-left-30 padding-top-bottom-20">
+                        <view class="flex--center--between">
+                            <view>
+                                <text class="margin-right-30">{{item.name}}</text>
+                                <text>{{item.phone}}</text>
+                            </view>
+                        </view>
+                        <view class="gray-color margin-top-20">{{item.detail}}</view>
+                    </view>
+                </view>
+                <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:160px">
+                    <div class="flex--center--center height-100 width-50 primary-background-color white-color" data-id="item.id" bindtap="editAddress">编辑</div>
+                    <div class="flex--center--center height-100 width-50 danger-background-color white-color" data-id="item.id" bindtap="delAddress">删除</div>
+                </view>
+            </van-swipe-cell>
+        </view>
+    </radio-group>
+    <view class="padding-left-right-30 margin-top-bottom-30">
+        <van-button plain block type="primary" bindtap="addAddress">＋ 新增地址</van-button>
+    </view>
+</view>

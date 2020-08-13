@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view class="container">
-    <view class="address-wrap">
+    <view class="flex--center--between white-background-color padding-30">
         <block wx:if="{{address}}">
-            <view class="address">
-                <view class="address-top">
+            <view style="max-width: 300px;">
+                <view class="margin-bottom-20">
                     <text>{{address.name}}</text>
-                    <text class="phone">{{address.phone}}</text>
+                    <text class="margin-left-30">{{address.phone}}</text>
                 </view>
                 <view>{{address.detail}}</view>
             </view>
@@ -13,28 +13,28 @@
         </block>
         <block wx:else>
             <text>收货地址</text>
-            <view class="edit-wrap">
+            <view class="flex--center--center gray-color">
                 <text>编辑地址</text>
                 <van-icon name="arrow" color="#999" />
             </view>
         </block>
     </view>
-    <view class="product-list-wrap">
+    <view class="margin-top-20 padding-30 white-background-color">
         <view>共{{cart.length}}份商品</view>
-        <view class="product-list">
-            <view wx:for="{{cart}}" wx:for-item="product" class="product">
-                <view class="img" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
-                <view class="des-wrap">
+        <view class="margin-top-20">
+            <view wx:for="{{cart}}" wx:for-item="product" class="flex--center--start">
+                <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
+                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                     <view>{{product.name}}</view>
-                    <view class="num-price-wrap">
-                        <text class="num">x{{product.num}}</text>
+                    <view class="flex--center--between">
+                        <text class="gray-color">x{{product.num}}</text>
                         <text>￥{{product.price}}</text>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <div class="footer primary-color flex">
+    <div class="footer padding-left-30 primary-color flex--center--between">
         <text>￥{{totalMoney}}</text>
         <van-button type="primary">提交订单</van-button>
     </div>

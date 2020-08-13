@@ -18,6 +18,18 @@
     color: rgb(42, 175, 255);
 }
 
+.color-333 {
+	color: #333;
+}
+
+.color-666 {
+	color: #666;
+}
+
+.white-background-color {
+	background-color: #fff;
+}
+
 .danger-background-color {
     background-color: #ee0a24;
 }
