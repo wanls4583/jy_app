@@ -3,7 +3,7 @@
     display: inline-block;
     min-width: 120px;
     text-align: center;
-    padding: 22rpx 30rpx;
+    padding: 20rpx 30rpx;
     border: 1rpx solid transparent;
     font-size: 30rpx;
     user-select: none;
@@ -39,7 +39,7 @@
 
 .button.large {
     font-size: 34rpx;
-    padding: 30rpx;
+    padding: 30rpx 40rpx;
 }
 
 .button.block {

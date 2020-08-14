@@ -1,16 +1,18 @@
 {
     "pages": [
-        "pages/pay/index",
-        "pages/order-list/index",
-        "pages/order-detail/index",
-        "pages/illness-patient-list/index",
         "pages/illness-edit/index",
         "pages/mine/index",
-        "pages/cart/index",
+        "pages/address-edit/index",
         "pages/address-list/index",
         "pages/product-detail/index",
-        "pages/pay-suc/index",
-        "pages/address-edit/index"
+        "pages/cart/index",
+        "pages/order-list/index",
+        "pages/order-detail/index",
+        "pages/illness-order-detail/index",
+        "pages/illness-order-list/index",
+        "pages/illness-order/index",
+        "pages/illness-patient-list/index",
+        "pages/pay-suc/index"
     ],
     "window":
     {

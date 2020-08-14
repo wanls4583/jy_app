@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color">
+        <text class="font-large danger-color">未支付</text>
+        <text class="gray-color">超过15分钟未支付，订单自动失效</text>
+        <view class="button plain primary">立即支付</view>
+    </view>
+    <view class="padding-left-right-30 margin-top-20 white-background-color">
+        <view class="flex--center--between padding-top-bottom-20">
+            <text>商品信息：{{order.title}}</text>
+            <text class="primary-color">￥{{order.money}}</text>
+        </view>
+        <view class="flex padding-bottom-20">
+            <text>患者信息：</text>
+            <text class="margin-left-30">{{order.patient.name}}</text>
+            <text class="margin-left-30">{{order.patient.sex}}</text>
+            <text class="margin-left-30">{{order.patient.age}}岁</text>
+            <text class="margin-left-30">{{order.patient.height}}cm</text>
+            <text class="margin-left-30">{{order.patient.weight}}kg</text>
+        </view>
+    </view>
+    <view class="padding-30 white-background-color margin-top-20">
+        <view class="flex--center--between">
+            <text class="gray-color">订单编号</text>
+            <text class="gray-color">{{order.orderNum}}</text>
+        </view>
+        <view class="flex--center--between margin-top-20">
+            <text class="gray-color">下单时间</text>
+            <text class="gray-color">{{order.ceateTime}}</text>
+        </view>
+    </view>
+</view>

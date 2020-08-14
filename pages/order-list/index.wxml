@@ -17,7 +17,7 @@
                 </view>
             </view>
         </view>
-        <view class="flex--center--end padding-top-bottom-20 border-top">
+        <view class="flex--center--end padding-top-bottom-20">
             <view class="gray-color">共<text class="color-333">{{order.list.length}}</text>件商品</view>
             <view class="primary-color margin-left-30">订单金额￥{{order.money}}</view>
         </view>

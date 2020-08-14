@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
     <div class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color">
-        <text class="font-large">未支付</text>
+        <text class="font-large danger-color">未支付</text>
         <text class="gray-color">超过15分钟未支付，订单自动失效</text>
         <view class="button plain primary">立即支付</view>
     </div>
@@ -12,8 +12,8 @@
         </view>
         <view class="gray-color margin-top-20">{{address.detail}}</view>
     </view>
-    <view class="padding-30 margin-top-20 white-background-color">
-        <view wx:for="{{order.list}}" wx:for-item="product" class="flex--center--start">
+    <view class="padding-30 margin-top-20 white-background-color overflow-hidden">
+        <view wx:for="{{order.list}}" wx:for-item="product" class="flex--center--start margin-bottom-30">
             <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
             <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                 <view>{{product.name}}</view>
@@ -23,13 +23,13 @@
                 </view>
             </view>
         </view>
-        <view class="flex--center--end padding-top-30">
+        <view class="flex--center--end">
             <view class="gray-color">共<text class="color-333">{{order.list.length}}</text>件商品</view>
             <view class="primary-color margin-left-30">订单金额￥{{order.money}}</view>
         </view>
     </view>
     <view class="padding-30 white-background-color margin-top-20">
-        <view class="flex--center--between font-small">
+        <view class="flex--center--between">
             <text class="gray-color">订单编号</text>
             <text class="gray-color">{{order.orderNum}}</text>
         </view>

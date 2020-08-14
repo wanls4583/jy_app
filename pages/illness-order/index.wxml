@@ -4,11 +4,11 @@
         <view class="padding-top-bottom-20">商品名称：{{order.title}}</view>
         <view class="padding-top-bottom-20">订单日期：{{order.orderDate}}</view>
         <view class="padding-top-bottom-20">订单编号：{{order.orderNum}}</view>
-        <view class="padding-top-bottom-20">订单金额：<text class="primary-color">order.money</text></view>
+        <view class="padding-top-bottom-20">订单金额：<text class="primary-color">{{order.money}}</text></view>
     </view>
     <view class="padding-left-30 padding-top-bottom-20 font-small">支付方式</view>
     <radio-group>
-        <label class="flex--center--between padding-30 white-background-color">
+        <label class="flex--center--between padding-left-right-30 padding-top-bottom-20 white-background-color">
             <view class="flex--center--center">
                 <image src="/image/pay-suc.png" mode="aspectFit" style="width:60rpx;height:60rpx"></image>
                 <text class="margin-left-30">微信支付</text>

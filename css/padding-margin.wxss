@@ -2,6 +2,22 @@
     margin: 10rpx;
 }
 
+.margin-15 {
+    margin: 15rpx;
+}
+
+.margin-20 {
+    margin: 20rpx;
+}
+
+.margin-30 {
+    margin: 30rpx;
+}
+
+.margin-0 {
+    margin: 0rpx;
+}
+
 .margin-top-bottom-10 {
     margin-top: 10rpx;
     margin-bottom: 10rpx;
@@ -26,10 +42,6 @@
 
 .margin-right-10 {
     margin-right: 10rpx;
-}
-
-.margin-15 {
-    margin: 15rpx;
 }
 
 .margin-top-bottom-15 {
@@ -58,10 +70,6 @@
     margin-right: 15rpx;
 }
 
-.margin-20 {
-    margin: 20rpx;
-}
-
 .margin-top-bottom-20 {
     margin-top: 20rpx;
     margin-bottom: 20rpx;
@@ -88,10 +96,6 @@
     margin-right: 20rpx;
 }
 
-.margin-30 {
-    margin: 30rpx;
-}
-
 .margin-top-bottom-30 {
     margin-top: 30rpx;
     margin-bottom: 30rpx;
@@ -116,10 +120,6 @@
 
 .margin-right-30 {
     margin-right: 30rpx;
-}
-
-.margin-0 {
-    margin: 0rpx;
 }
 
 .margin-top-bottom-0 {
@@ -152,6 +152,22 @@
     padding: 10rpx;
 }
 
+.padding-15 {
+    padding: 15rpx;
+}
+
+.padding-20 {
+    padding: 20rpx;
+}
+
+.padding-30 {
+    padding: 30rpx;
+}
+
+.padding-0 {
+    padding: 0rpx;
+}
+
 .padding-top-bottom-10 {
     padding-top: 10rpx;
     padding-bottom: 10rpx;
@@ -176,10 +192,6 @@
 
 .padding-right-10 {
     padding-right: 10rpx;
-}
-
-.padding-15 {
-    padding: 15rpx;
 }
 
 .padding-top-bottom-15 {
@@ -208,10 +220,6 @@
     padding-right: 15rpx;
 }
 
-.padding-20 {
-    padding: 20rpx;
-}
-
 .padding-top-bottom-20 {
     padding-top: 20rpx;
     padding-bottom: 20rpx;
@@ -238,10 +246,6 @@
     padding-right: 20rpx;
 }
 
-.padding-30 {
-    padding: 30rpx;
-}
-
 .padding-top-bottom-30 {
     padding-top: 30rpx;
     padding-bottom: 30rpx;
@@ -266,10 +270,6 @@
 
 .padding-right-30 {
     padding-right: 30rpx;
-}
-
-.padding-0 {
-    padding: 0rpx;
 }
 
 .padding-top-bottom-0 {

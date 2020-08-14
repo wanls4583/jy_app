@@ -19,7 +19,7 @@
             </view>
         </block>
     </view>
-    <view class="margin-top-20 padding-30 white-background-color">
+    <view class="margin-top-20 padding-30 padding-top-20 white-background-color">
         <view>共{{cart.length}}份商品</view>
         <view class="margin-top-20">
             <view wx:for="{{cart}}" wx:for-item="product" class="flex--center--start">

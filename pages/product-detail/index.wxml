@@ -9,14 +9,14 @@
             </view>
         </swiper-item>
     </swiper>
-    <view class="title-wrap padding-30 white-background-color">
+    <view class="title-wrap padding-left-right-30 padding-top-bottom-20 white-background-color">
         <view class="font-title font-bold color-333">标题</view>
         <view class="flex--center--between margin-top-20">
             <view class="price">100.00</view>
-            <van-icon name="add-o" size="30px" class="primary-color" />
+            <van-icon name="add-o" size="30px" class="primary-color clickable" />
         </view>
     </view>
-    <view class="margin-top-20 padding-30 white-background-color">
+    <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
         <view class="font-title">商品信息</view>
         <view class="margin-top-20 color-666">信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</view>
     </view>
