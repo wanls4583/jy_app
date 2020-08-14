@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/chat/index",
         "pages/illness-edit/index",
         "pages/mine/index",
         "pages/address-edit/index",

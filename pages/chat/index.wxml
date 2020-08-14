@@ -1,0 +1,48 @@
+<view class="container flex--start--between flex-direction-column width-100" style="padding-bottom:{{inputBottom}}px">
+    <view class="flex flex-shrink-0 width-100 padding-30 white-background-color border-top border-bottom gray-color">
+        <text>{{patient.name}}，</text>
+        <text>{{patient.sex}}，</text>
+        <text>{{patient.age}}岁，</text>
+        <text>{{patient.height}}cm，</text>
+        <text>{{patient.weight}}kg</text>
+    </view>
+    <view class="flex-grow-1 width-100 padding-20 overflow-auto" bindtap="onClickChatBlock">
+        <view class="position-relative" style="padding-left:80rpx;padding-right:80rpx">
+            <view wx:for="{{chatList}}" wx:key="timestamp" class="flex flex-wrap-wrap padding-20 padding-left-right-10 margin-left-right-20 {{item.userId==userId?'justify-content-end':''}}" id="{{item.domId}}">
+                <view wx:if="{{item.type=='text'}}" class="position-relative padding-20 radius-8rpx primary-background-color white-color" style="line-height:40rpx">
+                    <text>{{item.msg}}</text>
+                    <view class="{{item.userId==userId?'arrow-right':'arrow-left'}}"></view>
+                    <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
+                </view>
+                <view wx:else class="position-relative">
+                    <image src="{{item.msg}}" mode="heightFix" style="height:240rpx"></image>
+                    <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="flex-shrink-0 width-100 border-top border-color-ddd" style="background:#f5f5f5;">
+        <view class="flex--center--between height-120rpx padding-left-20">
+            <input confirm-type="send" confirm-hold="{{true}}" type="text" class="flex-grow-1 height-80rpx padding-0 padding-left-20 radius-8rpx white-background-color" value="{{inputValue}}" bindfocus="foucus" bindblur="blur" bindinput="onInput" bindconfirm="onSend" adjust-position='{{false}}' focus="{{inputFoucus}}" />
+            <view class="flex--center--center height-120rpx padding-left-30 padding-right-20" bindtap="onShowPanel">
+                <van-icon name="add-o" size="30px" />
+            </view>
+        </view>
+        <view wx:if="{{panelVisible}}" class="flex padding-30 border-top border-color-ddd">
+            <view class="flex--center--center flex-direction-column margin-right-30">
+                <view class="flex--center--center width-120rpx height-120rpx radius-8px white-background-color" bindtap="onChooseImage">
+                    <van-icon name="photo-o" size="30px" />
+                </view>
+                <view class="margin-top-10 font-small">照片</view>
+            </view>
+            <view class="flex--center--center flex-direction-column">
+                <view class="flex--center--center width-120rpx height-120rpx radius-8px white-background-color">
+                    <van-icon name="records" size="30px" />
+                </view>
+                <view class="margin-top-10 font-small">申请营养指导</view>
+            </view>
+        </view>
+    </view>
+    <view>
+    </view>
+</view>

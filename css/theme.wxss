@@ -30,6 +30,14 @@
 	color: #666;
 }
 
+.color-999 {
+    color: #999;
+}
+
+.color-ddd {
+    color: #ddd;
+}
+
 .gray-background-color {
     background-color: #f1f1f1;
 }
@@ -52,4 +60,20 @@
 
 .primary-background-color {
     background-color: rgb(42, 175, 255);
+}
+
+.background-color-333 {
+    background-color: #333;
+}
+
+.background-color-666 {
+    background-color: #666;
+}
+
+.background-color-999 {
+    background-color: #999;
+}
+
+.background-color-ddd {
+    background-color: #ddd;
 }
