@@ -176,9 +176,8 @@ image {
 
 .arrow-right {
     position: absolute;
-    top: 50%;
+    top: 28rpx;
     right: -22rpx;
-    margin-top: -12rpx;
     border-color: transparent;
     border-style: solid;
     border-left-color: rgb(42, 175, 255);
@@ -190,9 +189,8 @@ image {
 
 .arrow-left {
     position: absolute;
-    top: 50%;
+    top: 28rpx;
     left: -22rpx;
-    margin-top: -12rpx;
     border-color: transparent;
     border-style: solid;
     border-right-color: rgb(42, 175, 255);

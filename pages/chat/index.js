@@ -61,7 +61,7 @@ Page({
             type: 'text',
             msg: this.data.inputValue,
             timestamp: new Date().getTime(),
-            domId: Utils.getUUID()
+            domId: 'id-' + Utils.getUUID()
         });
         this.setData({
             chatList: this.data.chatList,
@@ -75,6 +75,20 @@ Page({
     onClickChatBlock() {
         this.setData({
             panelVisible: false
+        });
+    },
+    //点击图片放大
+    onClickImg(e) {
+        var src = e.currentTarget.dataset.src;
+        var picList = this.data.chatList.filter((item) => {
+            return item.type == 'img';
+        });
+        picList = picList.map((item)=>{
+            return item.msg;
+        });
+        wx.previewImage({
+            current: src, // 当前显示图片的http链接
+            urls: picList // 需要预览的图片http链接列表
         });
     },
     onChooseImage() {
@@ -91,13 +105,17 @@ Page({
                             status: 'uploading',
                             progress: 0,
                             timestamp: new Date().getTime(),
-                            domId: Utils.getUUID()
+                            domId: 'id-' + Utils.getUUID()
                         };
                         self.data.chatList.push(obj);
                         uploadingFiles.push(obj);
                     });
                     self.setData({
                         chatList: self.data.chatList.concat([])
+                    }, () => {
+                        self.setData({
+                            domId: self.data.chatList[self.data.chatList.length - 1].domId
+                        })
                     });
                 }
                 // wx.uploadFile({
