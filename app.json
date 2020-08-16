@@ -34,6 +34,7 @@
         "van-swipe-cell": "/vant/swipe-cell/index",
         "van-cell-group": "/vant/cell-group/index",
         "van-area": "/vant/area/index",
+        "van-action-sheet": "/vant/action-sheet/index",
         "van-icon": "/vant/icon/index"
     }
 }

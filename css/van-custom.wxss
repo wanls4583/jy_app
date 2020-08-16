@@ -36,3 +36,8 @@
     color: rgb(42, 175, 255);
     border-color: rgb(42, 175, 255);
 }
+
+page .van-circle__text {
+    color: #fff;
+    font-size: 20rpx;
+}

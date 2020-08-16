@@ -16,14 +16,19 @@
                         <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
                     </view>
                     <view wx:else class="position-relative">
-                        <image src="{{item.msg}}" mode="heightFix" data-src="{{item.msg}}" bindtap="onClickImg" style="height:240rpx"></image>
+                        <image class="flex" src="{{item.msg}}" mode="heightFix" data-src="{{item.msg}}" bindtap="onClickImg" style="height:240rpx"></image>
+                        <block wx:if="{{item.status=='uploading'}}">
+                            <view class="position-absolute top-0 width-100 height-100 flex--center--center" style="background-color:rgba(0,0,0,0.5);">
+                                <text class="font-small white-color">{{item.progress}}%</text>
+                            </view>
+                        </block>
                         <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
                     </view>
                 </view>
             </view>
         </scroll-view>
     </view>
-    <view class="position-fixed width-100 border-top border-color-ddd" style="background:#f5f5f5;transition:bottom 0.25s ease,height 0.25s ease;bottom:{{inputBottom}}px;height:{{panelVisible?panelHeight+inputHeight:inputHeight}}px">
+    <view class="position-fixed width-100 border-top border-color-ddd" style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;">
         <view class="flex--center--between height-60px padding-left-20">
             <input confirm-type="send" confirm-hold="{{true}}" type="text" class="flex-grow-1 height-80rpx padding-0 padding-left-20 radius-8rpx white-background-color" value="{{inputValue}}" bindfocus="foucus" bindblur="blur" bindinput="onInput" bindconfirm="onSend" adjust-position='{{false}}' focus="{{inputFoucus}}" />
             <view class="flex--center--center height-120rpx padding-left-30 padding-right-20" bindtap="onShowPanel">
@@ -38,13 +43,17 @@
                 <view class="font-small">照片</view>
             </view>
             <view class="flex--center--between flex-direction-column height-100">
-                <view class="flex--center--center width-60px height-60px radius-8px white-background-color">
+                <view class="flex--center--center width-60px height-60px radius-8px white-background-color" bindtap="onClickApplay">
                     <van-icon name="records" size="30px" />
                 </view>
                 <view class="font-small">申请营养指导</view>
             </view>
         </view>
     </view>
-    <view>
-    </view>
+    <van-action-sheet show="{{actionVisible}}" actions="{{actions}}" cancel-text="取消" bindtap="cancelAction">
+        <view class="flex--center--center flex-direction-column padding-30" bindtap="apply">
+            <text class="font-title">开营养指导</text>
+            <text class="primary-color font-small margin-top-10">首次免诊金</text>
+        </view>
+    </van-action-sheet>
 </view>

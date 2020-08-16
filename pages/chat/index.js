@@ -19,12 +19,13 @@ Page({
         inputValue: '',
         domId: '',
         inputHeight: 60,
-        panelHeight: 115
+        panelHeight: 115,
+        actionVisible: false
     },
     onLoad() {
-        if(wx.onKeyboardHeightChange) {
-            wx.onKeyboardHeightChange((res)=>{
-                if(!this.data.inputFoucus) {
+        if (wx.onKeyboardHeightChange) {
+            wx.onKeyboardHeightChange((res) => {
+                if (!this.data.inputFoucus) {
                     this.setData({
                         inputBottom: res.height
                     });
@@ -93,7 +94,7 @@ Page({
         var picList = this.data.chatList.filter((item) => {
             return item.type == 'img';
         });
-        picList = picList.map((item)=>{
+        picList = picList.map((item) => {
             return item.msg;
         });
         wx.previewImage({
@@ -113,7 +114,7 @@ Page({
                             type: 'img',
                             msg: item,
                             status: 'uploading',
-                            progress: 0,
+                            progress: 10,
                             timestamp: new Date().getTime(),
                             domId: 'id-' + Utils.getUUID()
                         };
@@ -125,7 +126,7 @@ Page({
                     }, () => {
                         self.setData({
                             domId: self.data.chatList[self.data.chatList.length - 1].domId
-                        })
+                        });
                     });
                 }
                 // wx.uploadFile({
@@ -142,5 +143,19 @@ Page({
                 // })
             }
         });
+    },
+    //申请开处方
+    onClickApplay() {
+        this.setData({
+            actionVisible: true
+        });
+    },
+    cancelAction() {
+        this.setData({
+            actionVisible: false
+        });
+    },
+    //开指导
+    apply() {
     }
 })
