@@ -17,10 +17,20 @@ Page({
         inputFoucus: false,
         panelVisible: false,
         inputValue: '',
-        domId: ''
+        domId: '',
+        inputHeight: 60,
+        panelHeight: 115
     },
     onLoad() {
-
+        if(wx.onKeyboardHeightChange) {
+            wx.onKeyboardHeightChange((res)=>{
+                if(!this.data.inputFoucus) {
+                    this.setData({
+                        inputBottom: res.height
+                    });
+                }
+            });
+        }
     },
     foucus: function(e) {
         this.setData({
