@@ -54,9 +54,9 @@ Page({
                 inputBottom: 0
             });
         } else {
-            this.setData({
-                inputFoucus: true
-            });
+            // this.setData({
+            //     inputFoucus: true
+            // });
         }
     },
     onInput(e) {
