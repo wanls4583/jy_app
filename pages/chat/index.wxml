@@ -51,7 +51,7 @@
         </view>
     </view>
     <van-action-sheet show="{{actionVisible}}" actions="{{actions}}" cancel-text="取消" bindtap="cancelAction">
-        <view class="flex--center--center flex-direction-column padding-30" bindtap="apply">
+        <view class="flex--center--center flex-direction-column padding-30 clickable" bindtap="apply">
             <text class="font-title">开营养指导</text>
             <text class="primary-color font-small margin-top-10">首次免诊金</text>
         </view>
