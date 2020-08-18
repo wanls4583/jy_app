@@ -3,10 +3,6 @@
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
 }
 
-.title-wrap {
-    margin-top: 50vw;
-}
-
 .num {
     margin: 0 10rpx;
     min-width: 20px;

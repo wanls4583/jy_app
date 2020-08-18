@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents":
+    {
+        "ios-scroll": "./ios/index",
+        "android-scroll": "./android/index"
+    }
+}

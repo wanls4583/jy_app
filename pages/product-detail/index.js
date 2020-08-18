@@ -1,22 +1,20 @@
+import http from '../../utils/request';
 const app = getApp()
 
 Page({
     data: {
-        userInfo: {},
+        id: '',
         banner: [],
+        desImgList: [],
         currentBannerIndex: 0,
         deliveryFee: 12,
         cart: [{ name: '名称', price: 12, num: 10 }],
         cartVisible: false,
+        productInfo: {}
     },
-    onLoad() {
-        var arr = [];
-        arr.push('https://p0.ssl.img.360kuai.com/dmfd/279_130_75/t0192175c6834d3154d.webp');
-        arr.push('https://p0.ssl.img.360kuai.com/dmfd/279_130_75/t013ec44d9ead896780.webp');
-        arr.push('https://p0.ssl.img.360kuai.com/dmfd/279_130_75/t012ce1413ee15a6935.webp');
-        this.setData({
-            banner: arr
-        });
+    onLoad(option) {
+        this.data.id = option.id;
+        this.loadInfo();
     },
     bannerChang(e) {
         this.setData({
@@ -62,5 +60,32 @@ Page({
             cart: [],
             cartVisible: false
         });
-    }
+    },
+    loadInfo() {
+        http({
+            url: `/goods/info/${this.data.id}`
+        }).then((data) => {
+            this.setData({
+                productInfo: data.info,
+                banner: data.info.goodsPic.split(','),
+                desImgList: data.info.goodsPicDetails.split(','),
+            });
+        });
+    },
+    //点击商品图片放大
+    onClickTopImg(e) {
+        var src = e.currentTarget.dataset.src;
+        wx.previewImage({
+            current: src, // 当前显示图片的http链接
+            urls: this.data.banner // 需要预览的图片http链接列表
+        });
+    },
+    //点击商品图片放大
+    onClickDesImg(e) {
+        var src = e.currentTarget.dataset.src;
+        wx.previewImage({
+            current: src, // 当前显示图片的http链接
+            urls: this.data.desImgList // 需要预览的图片http链接列表
+        });
+    },
 })

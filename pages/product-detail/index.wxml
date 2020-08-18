@@ -1,7 +1,7 @@
 <!--index.wxml-->
-<view class="container">
-    <swiper class="position-fixed top-0 width-100 height-50vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="bannerChang">
-        <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="comicid">
+<view class="container" style="padding-bottom:50px">
+    <swiper class="width-100 height-50vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="bannerChang">
+        <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="item" data-src="{{item}}" bindtap="onClickTopImg">
             <view class="position-relative height-100" style="background:url({{item}}) no-repeat center;background-size:cover">
                 <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
                     <text>{{currentBannerIndex+1}}/{{banner.length}}</text>
@@ -9,16 +9,17 @@
             </view>
         </swiper-item>
     </swiper>
-    <view class="title-wrap padding-left-right-30 padding-top-bottom-20 white-background-color">
-        <view class="font-title font-bold color-333">标题</view>
+    <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
+        <view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
         <view class="flex--center--between margin-top-20">
-            <view class="price">100.00</view>
+            <view class="price">{{productInfo.price}}</view>
             <van-icon name="add-o" size="30px" class="primary-color clickable" />
         </view>
     </view>
     <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
         <view class="font-title">商品信息</view>
-        <view class="margin-top-20 color-666">信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息信息</view>
+        <view class="margin-top-20 color-666">{{productInfo.description}}</view>
+        <image wx:for="{{desImgList}}" wx:key="item" class="flex width-100" mode="widthFix" src="{{item}}" data-src="{{item}}" bindtap="onClickDesImg"></image>
     </view>
     <view class="footer flex--center--between padding-left-30">
         <view class="flex--center--start" bindtap="showCart">
@@ -31,7 +32,7 @@
         <view class="align-right">
             <view class="inline-block gray-color padding-left-right-30 padding-top-bottom-20" bindtap="clearCart">清空购物车</view>
         </view>
-        <view wx:for="{{cart}}" wx:for-item="product" class="flex--center--between border-bottom padding-30">
+        <view wx:for="{{cart}}" wx:for-item="product" wx:key="id" class="flex--center--between border-bottom padding-30">
             <view>{{product.name}}</view>
             <view class="primary-color">￥{{product.price}}</view>
             <view class="flex--center--center position-relative">

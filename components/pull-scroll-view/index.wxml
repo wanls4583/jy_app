@@ -1,0 +1,10 @@
+<block wx:if="{{platform=='ios'}}">
+    <ios-scroll external-classes="{{externalClasses}}" style="{{style}}" full-screen="{{fullScreen}}" scroll-top="{{scrollTop}}" scroll-to-top="{{scrollToTop}}" stop-refresh="{{stopRefresh}}" lower-threshold="{{lowerThreshold}}" upper-threshold="{{upperThreshold}}" top-height="{{topHeight}}" bindscroll='onScroll' bindrefresh='onRefresh' bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper'>
+        <slot></slot>
+    </ios-scroll>
+</block>
+<block wx:else>
+    <android-scroll external-classes="{{externalClasses}}" style="{{style}}" full-screen="{{fullScreen}}" scroll-top="{{scrollTop}}" scroll-to-top="{{scrollToTop}}" stop-refresh="{{stopRefresh}}" lower-threshold="{{lowerThreshold}}" upper-threshold="{{upperThreshold}}" top-height="{{topHeight}}" bindscroll='onScroll' bindrefresh='onRefresh' bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper'>
+        <slot></slot>
+    </android-scroll>
+</block>

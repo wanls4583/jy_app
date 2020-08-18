@@ -41,3 +41,7 @@ page .van-circle__text {
     color: #fff;
     font-size: 20rpx;
 }
+
+page .van-tabs__line {
+    background-color: rgb(42, 175, 255);
+}

@@ -1,0 +1,39 @@
+<view class="container">
+    <view class="position-relative padding-30 white-background-color" style="height:50vw">
+        <swiper class="height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
+            <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl" data-link="{{item.linkUrl}}" bindtap="onClickBanner">
+                <view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
+                    <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
+                        <text>{{item.bannerName}}</text>
+                    </view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view class="margin-top-20 white-background-color">
+        <view class="flex--center--between padding-30">
+            <text class="font-title font-bold">营养套餐</text>
+            <text class="font-small primary-color">查看更多</text>
+        </view>
+        <view class="flex flex-wrap-wrap">
+            <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+                <image class="width-100 border" style="height:330rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
+                <view class="margin-top-20 font-small">{{item.goodsName}}</view>
+                <view class="margin-top-10 font-small primary-color">{{item.price}}元/天</view>
+            </view>
+        </view>
+    </view>
+    <view class="margin-top-20 white-background-color margin-bottom-20">
+        <view class="flex--center--between padding-30">
+            <text class="font-title font-bold">营养产品</text>
+            <text class="font-small primary-color">查看更多</text>
+        </view>
+        <view class="flex flex-wrap-wrap">
+            <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+                <image class="width-100 border" style="height:330rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
+                <view class="margin-top-20 font-small">{{item.goodsName}}</view>
+                <view class="margin-top-10 font-small primary-color">{{item.price}}元/天</view>
+            </view>
+        </view>
+    </view>
+</view>

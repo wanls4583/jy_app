@@ -1,0 +1,29 @@
+<view class="container">
+    <view class="position-fixed top-0 width-100">
+        <van-search shape="round" placeholder="请输入搜索关键词" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+        <van-tabs active="{{active}}" bind:change="onChangeTab">
+            <van-tab title="营养套餐"></van-tab>
+            <van-tab title="营养产品"></van-tab>
+        </van-tabs>
+    </view>
+    <view class="height-100" style="padding-top:108px">
+        <pull-scroll-view hidden="{{active==1}}" bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
+            <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index">
+                <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
+                    <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="flex--center--start padding-30 white-background-color border-bottom">
+                        <view class="width-200rpx height-200rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                        <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                            <view>{{product.goodsName}}</view>
+                            <view class="flex--center--between margin-top-20 width-100">
+                                <text class="gray-color">一天{{product.frequency}}次</text>
+                                <text class="primary-color">￥{{product.price}}</text>
+                            </view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </pull-scroll-view>
+        <pull-scroll-view hidden="{{active==0}}" bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
+        </pull-scroll-view>
+    </view>
+</view>

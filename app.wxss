@@ -12,9 +12,10 @@ page {
 }
 
 view,
+scroll-view,
+swiper,
 input,
 textarea,
-scroll-view,
 image {
     box-sizing: border-box;
     color: #333;
@@ -148,22 +149,27 @@ image {
 
 .radius-50 {
     border-radius: 50%;
+    overflow: hidden;
 }
 
 .radius-4px {
     border-radius: 4px;
+    overflow: hidden;
 }
 
 .radius-4rpx {
     border-radius: 4rpx;
+    overflow: hidden;
 }
 
 .radius-8px {
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .radius-8rpx {
     border-radius: 8rpx;
+    overflow: hidden;
 }
 
 .overflow-hidden {
