@@ -7,23 +7,47 @@
         </van-tabs>
     </view>
     <view class="height-100" style="padding-top:108px">
-        <pull-scroll-view hidden="{{active==1}}" bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
-            <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index">
-                <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
-                    <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="flex--center--start padding-30 white-background-color border-bottom">
-                        <view class="width-200rpx height-200rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                        <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                            <view>{{product.goodsName}}</view>
-                            <view class="flex--center--between margin-top-20 width-100">
-                                <text class="gray-color">一天{{product.frequency}}次</text>
-                                <text class="primary-color">￥{{product.price}}</text>
+        <swiper class="width-100 height-100" current="{{active}}" bindchange="onChangeSwiper">
+            <swiper-item>
+                <pull-scroll-view bindscroll='onTaocanScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{taocanData.stopRefresh}}'>
+                    <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=taocanData.lastPage}}" style="min-height:{{taocanData.nowPage<taocanData.totalPage ? wrapHeight : 0}}px">
+                        <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
+                            <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
+                                <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                                    <view>{{product.goodsName}}</view>
+                                    <view class="flex--center--between margin-top-30 width-100">
+                                        <text class="gray-color">一天{{product.frequency}}次</text>
+                                        <text class="primary-color">￥{{product.price}}</text>
+                                    </view>
+                                </view>
                             </view>
-                        </view>
+                        </block>
                     </view>
-                </block>
-            </view>
-        </pull-scroll-view>
-        <pull-scroll-view hidden="{{active==0}}" bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
-        </pull-scroll-view>
+                    <view wx:if="{{taocanData.totalPage>-1&&taocanData.nowPage>=taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
+                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
+                </pull-scroll-view>
+            </swiper-item>
+            <swiper-item>
+                <pull-scroll-view bindscroll='onProductScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{productData.stopRefresh}}'>
+                    <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=productData.lastPage}}" style="min-height:{{productData.nowPage<productData.totalPage ? wrapHeight : 0}}px">
+                        <block wx:if='{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}'>
+                            <view wx:for="{{productData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
+                                <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                                    <view>{{product.goodsName}}</view>
+                                    <view class="flex--center--between margin-top-30 width-100">
+                                        <text class="gray-color">一天{{product.frequency}}次</text>
+                                        <text class="primary-color">￥{{product.price}}</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    <view wx:if="{{productData.totalPage>-1&&productData.nowPage>=productData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
+                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
+                </pull-scroll-view>
+            </swiper-item>
+        </swiper>
     </view>
 </view>

@@ -10,6 +10,7 @@ App({
     }).catch((err) => {
       console.log(err);
     });
+    wx.test = ()=>{console.log(1)}
   },
   onShow() {
     this.setGlobalData();
