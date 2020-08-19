@@ -23,6 +23,7 @@ image {
 }
 
 .container {
+    position: relative;
     overflow: auto;
     height: 100%;
     background-color: #f1f1f1;
@@ -204,4 +205,13 @@ image {
     border-left-width: 12rpx;
     border-top-width: 12rpx;
     border-bottom-width: 12rpx;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
 }

@@ -1,12 +1,12 @@
 {
     "pages": [
-        "pages/product-list/index",
+        "pages/address-list/index",
+        "pages/mine/index",
         "pages/home/index",
+        "pages/product-list/index",
         "pages/chat/index",
         "pages/illness-edit/index",
-        "pages/mine/index",
         "pages/address-edit/index",
-        "pages/address-list/index",
         "pages/product-detail/index",
         "pages/cart/index",
         "pages/order-list/index",
@@ -57,10 +57,16 @@
                 "text": "首页"
             },
             {
-                "pagePath": "pages/cart/index",
+                "pagePath": "pages/product-list/index",
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
                 "text": "商城"
+            },
+            {
+                "pagePath": "pages/mine/index",
+                "iconPath": "image/icon_center.png",
+                "selectedIconPath": "image/icon_center_active.png",
+                "text": "我的"
             }
         ]
     }

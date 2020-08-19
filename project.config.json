@@ -23,11 +23,12 @@
 			"outputPath": ""
 		},
 		"useCompilerModule": false,
-		"userConfirmedUseCompilerModuleSwitch": false
+		"userConfirmedUseCompilerModuleSwitch": false,
+		"nodeModules": true
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.12.1",
-	"appid": "wx36d993552b901514",
+	"appid": "wx07f53120a8b0f214",
 	"projectname": "jy_app",
 	"debugOptions": {
 		"hidedInDevtools": []

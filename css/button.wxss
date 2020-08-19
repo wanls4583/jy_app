@@ -1,3 +1,7 @@
+page button.button{
+    width: auto;
+}
+
 .button {
     position: relative;
     display: inline-block;
@@ -21,7 +25,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0,0,0,0.1)
+    background: rgba(0, 0, 0, 0.1)
 }
 
 
@@ -81,18 +85,22 @@
 
 .button.plain.primary {
     color: rgb(42, 175, 255);
+    border-color: rgb(42, 175, 255);
 }
 
 .button.plain.success {
     color: #07c160;
+    border-color: #07c160;
 }
 
 .button.plain.danger {
     color: #ee0a24;
+    border-color: #ee0a24;
 }
 
 .button.plain.warn {
     color: #ff976a;
+    border-color: #ff976a;
 }
 
 .button.text {

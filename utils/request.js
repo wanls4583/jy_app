@@ -2,10 +2,10 @@ const host = require('../config/index.js').httpHost;
 
 function request(obj) {
     var header = obj.header || {};
-    header.cookie = wx.getStorageSync('cookie');
     if (obj.method && obj.method.toLocaleUpperCase() == 'POST') {
         header['content-type'] = header['content-type'] || 'application/json'
     }
+    header['token'] = wx.getStorageSync('token');
     return new Promise((resolve, reject) => {
         wx.request({
             url: host + obj.url,
@@ -13,14 +13,19 @@ function request(obj) {
             header: header,
             data: obj.data,
             success: (res) => {
-                if (res.data.code == 403) {
+                if (res.data.code == 0) {
+                    obj.success && obj.success(res.data);
+                    resolve(res.data);
+                } else {
                     wx.showToast({
-                        title: '登录已过期，请重新登录',
+                        title: res.data.msg,
                         icon: 'none'
                     });
+                    reject(res.data);
+                    if (res.data.code == 401) {
+                        wx.jyApp.loginUtil.login();
+                    }
                 }
-                obj.success && obj.success(res.data);
-                resolve(res.data);
             },
             fail: (err) => {
                 obj.fail && obj.fail(err);
@@ -30,6 +35,10 @@ function request(obj) {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
                     reject(err);
+                    wx.showToast({
+                        title: '服务器错误',
+                        icon: 'none'
+                    });
                 }
                 obj.complete && obj.complete(res);
             }

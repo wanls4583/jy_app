@@ -13,7 +13,7 @@
     <view class="margin-top-20 white-background-color">
         <view class="flex--center--between padding-30">
             <text class="font-title font-bold">营养套餐</text>
-            <text class="font-small primary-color">查看更多</text>
+            <text class="font-small primary-color" bindtap="onClickMore" data-type="1">查看更多</text>
         </view>
         <view class="flex flex-wrap-wrap">
             <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
@@ -26,7 +26,7 @@
     <view class="margin-top-20 white-background-color margin-bottom-20">
         <view class="flex--center--between padding-30">
             <text class="font-title font-bold">营养产品</text>
-            <text class="font-small primary-color">查看更多</text>
+            <text class="font-small primary-color" bindtap="onClickMore" data-type="2">查看更多</text>
         </view>
         <view class="flex flex-wrap-wrap">
             <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">

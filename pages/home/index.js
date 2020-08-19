@@ -65,4 +65,12 @@ Page({
     onClickBanner(e) {
         var link = e.currentTarget.dataset.link;
     },
+    //查看更多
+    onClickMore(e) {
+        var type = e.currentTarget.dataset.type;
+        wx.productType = type;
+        wx.switchTab({
+            url: '/pages/product-list/index'
+        });
+    }
 })

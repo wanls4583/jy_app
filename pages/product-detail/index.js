@@ -1,5 +1,6 @@
 import http from '../../utils/request';
-const app = getApp()
+import { store } from '../../store/index'
+import { createStoreBindings } from 'mobx-miniprogram-bindings';
 
 Page({
     data: {
@@ -7,57 +8,52 @@ Page({
         banner: [],
         desImgList: [],
         currentBannerIndex: 0,
-        deliveryFee: 12,
-        cart: [{ name: '名称', price: 12, num: 10 }],
+        minOrderMoney: 0,
+        deliveryMoney: 0,
         cartVisible: false,
         productInfo: {}
     },
     onLoad(option) {
         this.data.id = option.id;
+        this.storeBindings = createStoreBindings(this, {
+            store,
+            fields: ['cart', 'cartTotalMoney', 'cartNum'],
+            actions: ['addCart', 'addCartNum', 'reduceCartNum', 'clearCart'],
+        });
         this.loadInfo();
     },
-    bannerChang(e) {
+    onBannerChang(e) {
         this.setData({
             currentBannerIndex: e.detail.current
         });
     },
-    showCart() {
-        if(!this.data.cartVisible && !this.data.cart.length) {
+    onShowCart() {
+        if (!this.data.cartVisible && !this.data.cart.length) {
             return;
         }
         this.setData({
             cartVisible: !this.data.cartVisible
         });
     },
-    addNum(e) {
-        var index = e.currentTarget.dataset.index;
-        this.data.cart[index].num++;
-        this.setData({
-            [`cart[${index}]`]: this.data.cart[index]
-        });
+    onAddToCart(e) {
+        this.addCart(this.data.productInfo);
     },
-    reduceNum(e) {
-        var index = e.currentTarget.dataset.index;
-        this.data.cart[index].num--;
-        if (this.data.cart[index].num > 0) {
+    onAddNum(e) {
+        var id = e.currentTarget.dataset.id;
+        this.addCartNum(id);
+    },
+    onReduceNum(e) {
+        var id = e.currentTarget.dataset.id;
+        this.reduceCartNum(id);
+        if (!this.data.cart.length) {
             this.setData({
-                [`cart[${index}]`]: this.data.cart[index]
+                cartVisible: false
             });
-        } else {
-            this.data.cart.splice(index, 1)
-            this.setData({
-                cart: this.data.cart
-            });
-            if (!this.data.cart.length) {
-                this.setData({
-                    cartVisible: false
-                });
-            }
         }
     },
-    clearCart() {
+    onClearCart() {
+        this.clearCart();
         this.setData({
-            cart: [],
             cartVisible: false
         });
     },
@@ -88,4 +84,9 @@ Page({
             urls: this.data.desImgList // 需要预览的图片http链接列表
         });
     },
+    onPay() {
+        wx.navigateTo({
+            url: '/pages/cart/index'
+        });
+    }
 })

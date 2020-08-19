@@ -1,18 +1,12 @@
-const request = require('./request.js');
-
 function checkLogin() {
-    return checkSession().then(()=>{
-        if (wx.getStorageSync('userInfo')) {
-            return login();
-        } else {
-            return Promise.reject('数据错误');
-        }
-    }).catch(()=>{
-        wx.removeStorageSync('userInfo');
-        wx.removeStorageSync('token');
-        return checkAuthorize().then(()=>{
+    return checkSession().then(() => {
+        return login();
+    }).catch(() => {
+        return checkAuthorize().then(() => {
             return getUserInfo();
-        }).then(()=>{
+        }).then(() => {
+            return login();
+        }).catch(() => {
             return login();
         });
     });
@@ -20,7 +14,7 @@ function checkLogin() {
 
 //检测session_key是否失效
 function checkSession() {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         wx.checkSession({
             success(res) {
                 // session_key 未过期，并且在本生命周期一直有效
@@ -36,7 +30,7 @@ function checkSession() {
 
 //检测授权状态
 function checkAuthorize() {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         // 获取用户信息
         wx.getSetting({
             success: res => {
@@ -46,7 +40,7 @@ function checkAuthorize() {
                     reject(res);
                 }
             },
-            fail: (err)=>{
+            fail: (err) => {
                 reject(err);
             }
         })
@@ -55,45 +49,55 @@ function checkAuthorize() {
 
 //获取用户基础信息
 function getUserInfo() {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         wx.getUserInfo({
-            success: (res)=>{
+            success: (res) => {
                 resolve(res.userInfo);
                 wx.setStorageSync('userInfo', res.userInfo);
+                updateUserInfo(res.userInfo);
             },
-            fail: (err)=>{
+            fail: (err) => {
                 reject(err);
             }
         })
     });
 }
 
+//更新用户信息
+function updateUserInfo(userInfo) {
+    return wx.jyApp.http({
+        url: '/wx/user/update',
+        method: 'post',
+        data: userInfo
+    });
+}
+
 //登录
 function login() {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
         wx.login({
             success: (res) => {
                 resolve(res.code);
             },
-            fail: (err)=>{
+            fail: (err) => {
                 reject(err);
             }
         })
-    }).then((code)=>{
-        return new Promise((resolve, reject)=>{
-            var userInfo = wx.getStorageSync('userInfo');
-            userInfo.code = code;
-            request({
-                url: '/users/login',
-                method: 'post',
-                data: userInfo,
-                success: (data)=>{
-                    wx.setStorageSync('token', data.token);
-                },
-                fail: (err)=>{
-                    reject(err);
-                }
+    }).then((code) => {
+        return wx.jyApp.http({
+            url: '/wx/login/auth',
+            method: 'post',
+            data: {
+                code: code
+            }
+        }).then((data) => {
+            wx.setStorageSync('token', data.token);
+            return Promise.resolve(data);
+        }).catch(() => {
+            wx.showToast({
+                title: '登录失败'
             });
+            return Promise.reject();
         });
     });
 }
@@ -103,5 +107,6 @@ module.exports = {
     checkSession: checkSession,
     checkAuthorize: checkAuthorize,
     getUserInfo: getUserInfo,
-    login: login
+    login: login,
+    updateUserInfo: updateUserInfo
 }

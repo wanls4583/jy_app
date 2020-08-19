@@ -1,20 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-    <radio-group bindchange="onChange">
-        <view wx:for="{{addressList}}" wx:key="id" class="position-relative white-background-color padding-left-30 border-bottom">
+    <radio-group>
+        <view wx:for="{{addressList}}" wx:key="id" class="position-relative white-background-color border-bottom {{ifSelect ? 'padding-left-30' : ''}}">
             <van-swipe-cell right-width="{{160}}">
-                <view class="flex--center--between" data-id="{{item.id}}" bindtap="onChange">
-                    <view class="radio-wrap">
+                <view class="flex--center--between" data-address="{{item}}" bindtap="onChange">
+                    <view wx:if="{{ifSelect}}" class="radio-wrap">
                         <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{checkedId==item.id}}" />
                     </view>
                     <view class="flex-grow-1 flex flex-direction-column padding-left-30 padding-top-bottom-20">
                         <view class="flex--center--between">
                             <view>
-                                <text class="margin-right-30">{{item.name}}</text>
+                                <text class="margin-right-30">{{item.contactName}}</text>
                                 <text>{{item.phone}}</text>
+                                <text wx:if="{{item.isDefault}}" class="white-color primary-background-color font-small" style="padding:1px 4px;margin-left:4px">默认</text>
                             </view>
                         </view>
-                        <view class="gray-color margin-top-20">{{item.detail}}</view>
+                        <view class="gray-color margin-top-20">{{item.provinceCity}}{{item.address}}</view>
                     </view>
                 </view>
                 <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:160px">

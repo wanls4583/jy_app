@@ -2,28 +2,32 @@ const app = getApp()
 
 Page({
     data: {
-        addressList: [{
-                id: 1,
-                name: '李四',
-                phone: '13875260171',
-                detail: '地址详情'
-            },
-            {
-                id: 2,
-                name: '张三',
-                phone: '13875260171',
-                detail: '地址详情'
-            }
-        ],
-        checkedId: 1
+        addressList: [],
+        checkedId: 1,
+        ifSelect: false
     },
     onLoad() {
-
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['selectAddress'],
+            actions: ['updateSelectAddress'],
+        });
+    },
+    onShow() {
+        this.loadList();
+        this.setData({
+            ifSelect: wx.jyApp.selectAddressFlag
+        });
+        wx.jyApp.selectAddressFlag = false;
     },
     onChange(e) {
+        var address = e.currentTarget.dataset.address;
         this.setData({
-            checkedId: e.currentTarget.dataset.id
+            checkedId: address.id
         });
+        if (this.data.ifSelect) {
+            this.updateSelectAddress(address);
+        }
     },
     editAddress(e) {
         var id = e.currentTarget.dataset.id;
@@ -37,6 +41,22 @@ Page({
     addAddress() {
         wx.navigateTo({
             url: '/pages/address-edit/index'
+        });
+    },
+    loadList() {
+        wx.jyApp.http({
+            url: '/user/address/list'
+        }).then((data) => {
+            this.setData({
+                addressList: data.list || []
+            });
+            if (!this.selectAddress) {
+                this.data.addressList.map((item) => {
+                    if (item.isDefault) {
+                        this.updateSelectAddress(item);
+                    }
+                });
+            }
         });
     }
 })
