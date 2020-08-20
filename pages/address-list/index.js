@@ -12,13 +12,13 @@ Page({
             fields: ['selectAddress'],
             actions: ['updateSelectAddress'],
         });
-    },
-    onShow() {
-        this.loadList();
         this.setData({
             ifSelect: wx.jyApp.selectAddressFlag || false
         });
         wx.jyApp.selectAddressFlag = false;
+    },
+    onShow() {
+        this.loadList();
         wx.nextTick(() => {
             if (this.data.selectAddress) {
                 this.setData({
@@ -34,6 +34,7 @@ Page({
         });
         if (this.data.ifSelect) {
             this.updateSelectAddress(address);
+            wx.navigateBack();
         }
     },
     onEditAddress(e) {
@@ -63,6 +64,9 @@ Page({
                 this.setData({
                     addressList: this.data.addressList
                 });
+                if (this.data.selectAddress && this.data.selectAddress.id == id) {
+                    this.updateSelectAddress(null);
+                }
             });
         });
     },

@@ -1,3 +1,68 @@
 <view class="container">
-    
+    <view class="position-fixed top-0 width-100">
+        <van-search shape="round" placeholder="请输入医生/产品" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+    </view>
+    <view class="position-relative padding-30 white-background-color" style="height:50vw;margin-top:54px">
+        <swiper class="height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
+            <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl" data-link="{{item.linkUrl}}" bindtap="onClickBanner">
+                <view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
+                    <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
+                        <text>{{item.bannerName}}</text>
+                    </view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+    <view class="flex--center--between padding-30 white-background-color">
+        <view class="flex-direction-column flex--center--between">
+            <view class="width-80rpx height-80rpx" style="background:url(/image/icon_wenzhen.png) no-repeat center;background-size:cover"></view>
+            <text class="font-title margin-top-20">快速问诊</text>
+            <text class="font-small gray-color margin-top-10">智能匹配医生</text>
+        </view>
+        <view class="flex-direction-column flex--center--between">
+            <view class="width-80rpx height-80rpx" style="background:url(/image/icon_doctor.png) no-repeat center;background-size:cover"></view>
+            <text class="font-title margin-top-20">找医生</text>
+            <text class="font-small gray-color margin-top-10">营养专家会诊</text>
+        </view>
+        <view class="flex-direction-column flex--center--between">
+            <view class="width-80rpx height-80rpx" style="background:url(/image/icon_product.png) no-repeat center;background-size:cover"></view>
+            <text class="font-title margin-top-20">营养产品</text>
+            <text class="font-small gray-color margin-top-10">快速送货上门</text>
+        </view>
+    </view>
+    <view class="white-background-color padding-bottom-30">
+        <view class="font-title padding-30 font-bold">营养中心</view>
+        <view class="flex flex-wrap-wrap">
+            <view wx:for="{{departmentList}}" wx:key="id" class="margin-left-30 padding-20 radius-8px gray-background-color" style="width:330rpx">
+                <view>{{item.title}}</view>
+                <view class="margin-top-10">{{item.descripiton}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="white-background-color padding-30">
+    	<view class="flex--center--between">
+            <text class="font-title font-bold">推荐医生</text>
+            <text class="font-small gray-color" bindtap="onClickMore" data-type="1">全部>></text>
+        </view>
+        <view wx:for="{{doctorList}}" wx:key="id" class="flex--start--between padding-top-bottom-30 border-bottom">
+        	<view class="radius-8px width-100rpx height-100rpx gray-background-color"></view>
+        	<view class="flex-grow-1 padding-left-30">
+        		<view class="height-100rpx flex-direction-column flex--start--between">
+	        		<view>
+	        			<text class="font-bold">{{item.name}}</text>
+	        			<text class="gray-color" decode="{{true}}">&nbsp;&nbsp;{{item.zhiwei}}</text>
+	        		</view>
+	        		<text class="gray-color" decode="{{true}}">{{item.hospital}}&nbsp;&nbsp;{{item.department}}</text>
+        		</view>
+        		<view class="margin-top-10 gray-color">擅长：{{item.shanchang}}</view>
+        		<text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;￥{{item.price}}</text>
+        	</view>
+        </view>
+    </view>
+    <view class="overflow-hidden white-background-color padding-left-right-30">
+        <view class="font-title padding-top-bottom-30 font-bold">营养中心</view>
+        <view wx:for="{{kepuList}}" wx:key="id" class="padding-30 margin-bottom-30 radius-8px gray-background-color" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:33vw">
+            <view class="font-title white-color" style="text-shadow:1px 1px 4px #000">{{item.title}}</view>
+        </view>
+    </view>
 </view>

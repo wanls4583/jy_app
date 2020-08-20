@@ -18,7 +18,7 @@
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
                                         <text class="gray-color">一天{{product.frequency}}次</text>
-                                        <text class="primary-color">￥{{product.price}}</text>
+                                        <text>￥{{product.price}}</text>
                                     </view>
                                 </view>
                             </view>
@@ -41,7 +41,7 @@
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
                                         <text class="gray-color">一天{{product.frequency}}次</text>
-                                        <text class="primary-color">￥{{product.price}}</text>
+                                        <text>￥{{product.price}}</text>
                                     </view>
                                 </view>
                             </view>

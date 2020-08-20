@@ -21,7 +21,7 @@
         <view class="margin-top-20 color-666">{{productInfo.description}}</view>
         <image wx:for="{{desImgList}}" wx:key="item" class="flex width-100" mode="widthFix" src="{{item}}" data-src="{{item}}" bindtap="onClickDesImg"></image>
     </view>
-    <view class="footer flex--center--between padding-left-30">
+    <view class="footer flex--center--between padding-left-30 border-top">
         <view class="flex--center--start" bindtap="onShowCart">
             <van-icon class="{{cart.length>0?'primary-color':'gray-color'}} margin-right-30" name="shopping-cart-o" size="20px" info="{{cartNum}}" />
             <text wx:if="{{!cart.length}}" class="gray-color" style="margin-left:10px">{{deliveryMoney?'运费：￥'+deliveryMoney:'免费配送'}}</text>

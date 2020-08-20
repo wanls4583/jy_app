@@ -1,4 +1,3 @@
-import http from '../../utils/request';
 const app = getApp()
 
 Page({
@@ -18,7 +17,7 @@ Page({
         });
     },
     loadProduct() {
-        http({
+        wx.jyApp.http({
             url: '/goods/list',
             data: {
                 page: 1,
@@ -26,11 +25,14 @@ Page({
                 type: 1
             }
         }).then((data) => {
+            data.page.list.map((item) => {
+                item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
+            });
             this.setData({
                 taocanList: data.page.list
             });
         });
-        http({
+        wx.jyApp.http({
             url: '/goods/list',
             data: {
                 page: 1,
@@ -38,13 +40,16 @@ Page({
                 type: 2
             }
         }).then((data) => {
+            data.page.list.map((item) => {
+                item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
+            });
             this.setData({
                 productList: data.page.list
             });
         });
     },
     loadBaner() {
-        http({
+        wx.jyApp.http({
             url: '/banner/list',
             data: {
                 bannerCode: '0001'
@@ -61,7 +66,6 @@ Page({
             url: '/pages/product-detail/index?id=' + id
         });
     },
-    //点击商品图片放大
     onClickBanner(e) {
         var link = e.currentTarget.dataset.link;
     },

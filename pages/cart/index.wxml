@@ -21,18 +21,18 @@
     </view>
     <view class="margin-top-20 padding-30 padding-top-20 white-background-color">
         <view>共{{cart.length}}份商品</view>
-        <view wx:for="{{cart}}" wx:key="{{index}}" class="flex--center--start margin-top-20">
+        <view wx:for="{{cart}}" wx:key="index" class="flex--center--start margin-top-20">
             <view class="width-100rpx height-100rpx" style="background:url({{item.product.firstPic}}) no-repeat center;background-size:cover"></view>
             <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                 <view>{{item.product.goodsName}}</view>
                 <view class="flex--center--between margin-top-20 width-100">
                     <text class="gray-color">x{{item.num}}</text>
-                    <text class="primary-color">￥{{item.product.price}}</text>
+                    <text>￥{{item.product.price}}</text>
                 </view>
             </view>
         </view>
     </view>
-    <view class="footer padding-left-30 primary-color flex--center--between">
+    <view class="footer padding-left-30 primary-color flex--center--between border-top">
         <text>￥{{cartTotalMoney}}</text>
         <view class="button primary center height-100" bindtap="onSubmit">提交订单</view>
     </view>

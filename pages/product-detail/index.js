@@ -85,8 +85,10 @@ Page({
         });
     },
     onPay() {
-        wx.navigateTo({
-            url: '/pages/cart/index'
-        });
+        if(this.data.cart.length) {
+            wx.navigateTo({
+                url: '/pages/cart/index'
+            });
+        }
     }
 })
