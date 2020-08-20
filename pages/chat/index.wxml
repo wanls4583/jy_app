@@ -8,20 +8,53 @@
     </view>
     <view class="position-fixed width-100" bindtap="onClickChatBlock" style="padding:10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px">
         <scroll-view class="height-100" scroll-y="{{true}}" scroll-into-view="{{domId}}">
-            <view class="position-relative" style="padding-left:80rpx;padding-right:80rpx">
+            <view class="position-relative">
                 <view wx:for="{{chatList}}" wx:key="timestamp" class="flex flex-wrap-wrap padding-20 padding-left-right-10 margin-left-right-20 {{item.userId==userId?'justify-content-end':''}}" id="{{item.domId}}">
-                    <view wx:if="{{item.type=='text'}}" class="position-relative padding-20 radius-8rpx primary-background-color white-color" style="line-height:40rpx">
+                    <view wx:if="{{item.type=='text'}}" class="position-relative padding-20 radius-8rpx primary-background-color white-color" style="{{item.userId==userId?'margin-right:80rpx':'margin-left:80rpx'}};line-height:40rpx">
                         <text>{{item.msg}}</text>
                         <view class="{{item.userId==userId?'arrow-right':'arrow-left'}}"></view>
                         <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
                     </view>
-                    <view wx:else class="position-relative">
+                    <view wx:elif="{{item.type=='img'}}" class="position-relative">
                         <image class="flex" src="{{item.msg}}" mode="heightFix" data-src="{{item.msg}}" bindtap="onClickImg" style="height:240rpx"></image>
                         <block wx:if="{{item.status=='uploading'}}">
                             <view class="position-absolute top-0 width-100 height-100 flex--center--center" style="background-color:rgba(0,0,0,0.5);">
                                 <text class="font-small white-color">{{item.progress}}%</text>
                             </view>
                         </block>
+                        <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
+                    </view>
+                    <view wx:elif="{{item.type=='start'}}" class="position-relative padding-20 radius-8rpx white-background-color" style="{{item.userId==userId?'margin-right:80rpx':'margin-left:80rpx'}};line-height:40rpx">
+                        <view>
+                            <view>您好，我已发起图文问诊，这是我的问诊单</view>
+                            <view class="align-center">
+                                <view class="button small primary margin-top-30" data-item="item">查看问诊单</view>
+                            </view>
+                        </view>
+                        <view class="white-arrow {{item.userId==userId?'arrow-right':'arrow-left'}}"></view>
+                        <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
+                    </view>
+                    <view wx:elif="{{item.type=='order'}}" class="position-relative" style="{{item.userId==userId?'margin-right:80rpx':'margin-left:80rpx'}};line-height:40rpx">
+                        <view class="white-background-color border primary-border-color overflow-hidden radius-8rpx">
+                            <view class="width-100 padding-20 primary-background-color white-color align-center">营养指导申请</view>
+                            <view class="padding-30">
+                                <view class="flex--center--between">
+                                    <text>编号：1234</text>
+                                    <text>已完成</text>
+                                </view>
+                                <view class="margin-top-20">
+                                    <text>王小样，</text>
+                                    <text>男，</text>
+                                    <text>31岁，</text>
+                                    <text>173cm，</text>
+                                    <text>60kg</text>
+                                </view>
+                            </view>
+                            <view class="align-center padding-bottom-20">
+                                <view class="button small primary" data-item="item">开营养指导</view>
+                            </view>
+                        </view>
+                        <view class="{{item.userId==userId?'arrow-right':'arrow-left'}}"></view>
                         <view class="position-absolute top-0 width-80rpx height-80rpx radius-8rpx background-color-ddd" style="{{item.userId==userId?'right:-110rpx':'left:-110rpx'}}"></view>
                     </view>
                 </view>

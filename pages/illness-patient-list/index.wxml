@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container padding-bottom-160">
     <view class="padding-30 white-background-color">
-        <view wx:for="{{patientList}}" class="flex--center--between padding-30 margin-bottom-30 border clickable {{selectId==item.id ? 'border-color-primary primary-color' : 'border-color-gray gray-color'}}" data-id="{{item.id}}" bindtap="selectPatient">
+        <view wx:for="{{patientList}}" class="flex--center--between padding-30 margin-bottom-30 border clickable {{selectId==item.id ? 'primary-border-color primary-color' : 'gray-border-color gray-color'}}" data-id="{{item.id}}" bindtap="selectPatient">
             <text>{{item.name}}</text>
             <text>{{item.sex}}</text>
             <text>{{item.age}}岁</text>

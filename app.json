@@ -1,12 +1,12 @@
 {
     "pages": [
+        "pages/chat/index",
         "pages/search/index",
         "pages/home/index",
         "pages/mall/index",
         "pages/address-list/index",
         "pages/mine/index",
         "pages/product-list/index",
-        "pages/chat/index",
         "pages/illness-edit/index",
         "pages/address-edit/index",
         "pages/product-detail/index",
