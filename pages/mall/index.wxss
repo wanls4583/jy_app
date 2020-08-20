@@ -1,0 +1,4 @@
+.banner-bottom {
+    padding: 80rpx 30rpx 20rpx;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+}

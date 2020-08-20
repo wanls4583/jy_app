@@ -16,9 +16,16 @@ Page({
     onShow() {
         this.loadList();
         this.setData({
-            ifSelect: wx.jyApp.selectAddressFlag
+            ifSelect: wx.jyApp.selectAddressFlag || false
         });
         wx.jyApp.selectAddressFlag = false;
+        wx.nextTick(() => {
+            if (this.data.selectAddress) {
+                this.setData({
+                    checkedId: this.data.selectAddress.id
+                });
+            }
+        });
     },
     onChange(e) {
         var address = e.currentTarget.dataset.address;
@@ -29,16 +36,37 @@ Page({
             this.updateSelectAddress(address);
         }
     },
-    editAddress(e) {
+    onEditAddress(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
             url: '/pages/address-edit/index?id=' + id
         });
     },
-    delAddress(e) {
-        var id = e.currentTarget.dataset.id;
+    onDelAddress(e) {
+        wx.jyApp.dialog.confirm({
+            message: '确认删除？'
+        }).then(() => {
+            var id = e.currentTarget.dataset.id;
+            wx.jyApp.http({
+                url: `/user/address/delete`,
+                method: 'post',
+                data: {
+                    id: id
+                }
+            }).then((data) => {
+                wx.showToast({
+                    title: '删除成功'
+                });
+                this.data.addressList = this.data.addressList.filter((item) => {
+                    return item.id != id
+                });
+                this.setData({
+                    addressList: this.data.addressList
+                });
+            });
+        });
     },
-    addAddress() {
+    onAddAddress() {
         wx.navigateTo({
             url: '/pages/address-edit/index'
         });

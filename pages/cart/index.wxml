@@ -1,13 +1,13 @@
 <!--index.wxml-->
 <view class="container">
-    <view class="flex--center--between white-background-color padding-30">
-        <block wx:if="{{address}}">
+    <view class="flex--center--between white-background-color padding-30" bindtap="onSelectAddress">
+        <block wx:if="{{selectAddress}}">
             <view style="max-width: 300px;">
                 <view class="margin-bottom-20">
-                    <text>{{address.name}}</text>
-                    <text class="margin-left-30">{{address.phone}}</text>
+                    <text>{{selectAddress.contactName}}</text>
+                    <text class="margin-left-30">{{selectAddress.phone}}</text>
                 </view>
-                <view>{{address.detail}}</view>
+                <view>{{selectAddress.provinceCity}}{{selectAddress.address}}</view>
             </view>
             <van-icon name="arrow" color="#ccc" />
         </block>
@@ -21,7 +21,7 @@
     </view>
     <view class="margin-top-20 padding-30 padding-top-20 white-background-color">
         <view>共{{cart.length}}份商品</view>
-        <view wx:for="{{cart}}" class="flex--center--start margin-top-20">
+        <view wx:for="{{cart}}" wx:key="{{index}}" class="flex--center--start margin-top-20">
             <view class="width-100rpx height-100rpx" style="background:url({{item.product.firstPic}}) no-repeat center;background-size:cover"></view>
             <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                 <view>{{item.product.goodsName}}</view>
@@ -34,6 +34,6 @@
     </view>
     <view class="footer padding-left-30 primary-color flex--center--between">
         <text>￥{{cartTotalMoney}}</text>
-        <view class="button primary center height-100">提交订单</view>
+        <view class="button primary center height-100" bindtap="onSubmit">提交订单</view>
     </view>
 </view>

@@ -13,11 +13,17 @@
         </block>
     </view>
     <view class="white-background-color">
+        <view class="padding-left-right-30 clickable" bindtap="onClickOrder">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom">
+                <text>订单列表</text>
+                <van-icon name="arrow" color="#ccc" />
+            </view>
+        </view>
         <view class="padding-left-right-30 clickable">
             <view class="flex--center--between padding-top-bottom-30 border-bottom">
                 <text>营养咨询</text>
                 <view class="flex--center--center">
-                    <text class="margin-right-30 danger-color font-small">13条信息</text>
+                    <text wx:if="{{messageCount}}" class="margin-right-30 danger-color font-small">{{messageCount}}条信息</text>
                     <van-icon name="arrow" color="#ccc" />
                 </view>
             </view>

@@ -1,20 +1,58 @@
-const app = getApp()
+import { orderStatusMap } from '../../utils/data';
 
 Page({
     data: {
-        orderList: [{
-            list: [{
-                name: '商品',
-                url: 'https://p0.ssl.img.360kuai.com/dmfd/279_130_75/t0192175c6834d3154d.webp',
-                num: 100,
-                price: 100000
-            }],
-            money: 0,
-            orderNum: '125432113',
-            status: '已支付'
-        }],
+        orderList: [],
+        page: 1,
+        limit: 10,
+        totalPage: -1,
+        stopRefresh: false
     },
     onLoad() {
-
+        this.loadList();
+    },
+    onRefresh() {
+        this.loadList(true).then(() => {
+            this.setData({
+                stopRefresh: true
+            });
+        });
+    },
+    onLoadMore() {
+        this.loadList();
+    },
+    onClickOrder(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/pages/order-detail/index?id=' + id
+        });
+    },
+    loadList(refresh) {
+        if (this.loading || !refresh && this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
+            return;
+        }
+        this.loading = true;
+        if (refresh) {
+            this.setData({
+                page: 1,
+                totalPage: -1,
+                orderList:  []
+            });
+        }
+        return wx.jyApp.http({
+            url: '/order/list',
+            page: this.data.page,
+            limit: this.data.limit
+        }).then((data) => {
+            this.loading = false;
+            data.page.list.map((item) => {
+                item._status = orderStatusMap[item.status];
+            });
+            this.setData({
+                page: this.data.page + 1,
+                totalPage: data.page.totalPage,
+                orderList: this.data.orderList.concat(data.page.list)
+            });
+        })
     }
 })

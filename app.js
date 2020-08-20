@@ -3,6 +3,7 @@ var loginUtil = require('./utils/login.js');
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 import { store } from './store/index';
 import http from './utils/request';
+import Dialog from './vant/dialog/dialog';
 App({
     onLaunch: function() {
         //登录检测
@@ -19,6 +20,13 @@ App({
         wx.jyApp.store = store;
         wx.jyApp.http = http;
         wx.jyApp.loginUtil = loginUtil;
+        wx.jyApp.dialog = Dialog;
+        wx.jyApp.toast = (msg)=>{
+            wx.showToast({
+                title: msg,
+                icon: 'none'
+            });
+        }
     },
     onShow() {
         this.setGlobalData();
@@ -89,4 +97,8 @@ Number.prototype.toFixed = function(n, addZero) {
         des = '-' + des;
     }
     return des
+}
+
+if(!wx.nextTick) {
+    wx.nextTick =  function(cb) { setTimeout(() => { cb() }) }
 }

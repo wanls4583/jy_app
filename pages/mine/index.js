@@ -2,7 +2,8 @@ const app = getApp()
 
 Page({
     data: {
-        userInfo: null
+        userInfo: null,
+        messageCount: 0
     },
     onLoad() {
         var userInfo = wx.getStorageSync('userInfo')
@@ -23,6 +24,11 @@ Page({
     onClickAddress() {
         wx.navigateTo({
             url: '/pages/address-list/index'
+        });
+    },
+    onClickOrder() {
+        wx.navigateTo({
+            url: '/pages/order-list/index'
         });
     }
 })

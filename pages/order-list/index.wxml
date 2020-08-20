@@ -1,28 +1,32 @@
 <!--index.wxml-->
 <view class="container">
-    <view wx:for="{{orderList}}" wx:for-item="order" class="padding-left-right-30 white-background-color margin-top-20">
-        <view class="flex--center--between border-bottom padding-top-bottom-20">
-            <view class="order-num gray-color font-small">订单编号：{{order.orderNum}}</view>    
-            <view class="primary-color font-small">{{order.status}}</view>
-        </view>
-        <view class="padding-top-bottom-30 white-background-color">
-            <view wx:for="{{order.list}}" wx:for-item="product" class="flex--center--start">
-                <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
-                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                    <view>{{product.name}}</view>
-                    <view class="flex--center--between margin-top-20 width-100">
-                        <text class="gray-color">x{{product.num}}</text>
-                        <text class="primary-color">￥{{product.price}}</text>
+    <pull-scroll-view bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
+        <view class="overflow-hidden">
+            <view wx:for="{{orderList}}" wx:for-item="order" class="padding-left-right-30 white-background-color margin-top-20" data-id="{{order.id}}" bindtap="onClickOrder">
+                <view class="flex--center--between border-bottom padding-top-bottom-20">
+                    <view class="order-num gray-color font-small">订单编号：{{order.orderNo}}</view>
+                    <view class="primary-color font-small">{{order._status}}</view>
+                </view>
+                <view class="padding-top-bottom-30 white-background-color">
+                    <view wx:for="{{order.goods}}" wx:for-item="product" class="flex--center--start">
+                        <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
+                        <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                            <view>{{product.goodsName}}</view>
+                            <view class="flex--center--between margin-top-20 width-100">
+                                <text class="gray-color">x{{product.count}}</text>
+                                <text class="primary-color">￥{{product.price}}</text>
+                            </view>
+                        </view>
                     </view>
+                </view>
+                <view class="flex--center--end padding-top-bottom-20">
+                    <view class="gray-color">共<text class="color-333">{{order.totalNum}}</text>件商品</view>
+                    <view class="primary-color margin-left-30">订单金额￥{{order.totalAmount}}</view>
+                </view>
+                <view wx:if="{{item.status==0}}" class="border-top align-right padding-top-bottom-20">
+                    <view class="primary button small">立即支付</view>
                 </view>
             </view>
         </view>
-        <view class="flex--center--end padding-top-bottom-20">
-            <view class="gray-color">共<text class="color-333">{{order.list.length}}</text>件商品</view>
-            <view class="primary-color margin-left-30">订单金额￥{{order.money}}</view>
-        </view>
-        <view class="border-top align-right padding-top-bottom-20">
-            <view class="primary button small">立即支付</view>
-        </view>
-    </view>
+    </pull-scroll-view>
 </view>

@@ -26,12 +26,11 @@ Page({
         pageArr: [],
         wrapHeight: 0
     },
-    onLoad() {
-        if(wx.productType == 2) {
+    onLoad(option) {
+        if (option && option.type == 2) {
             this.setData({
                 active: 1
             });
-            delete wx.productType;
         }
         var tmp = [];
         for (var i = 1; i <= 500; i++) {

@@ -6,7 +6,7 @@
         <van-field value="{{address.provinceCity}}" label="选择地区" placeholder="地区信息" readonly bindtap="onShowArea" />
         <van-field value="{{address.address}}" label="详细地址" placeholder="街道门牌信息" data-prop="address" bind:input="onInput" />
     </van-cell-group>
-    <view class="flex--center--between width-100 padding-30 margin-top-20 white-background-color">
+    <view class="flex--center--between width-100 padding-30 padding-top-bottom-20 margin-top-20 white-background-color">
         <text>设为默认地址</text>
         <switch checked="{{address.isDefault}}" bindchange="onSwitchChange" color="rgb(42, 175, 255)" />
     </view>
@@ -14,6 +14,6 @@
         <view class="button primary block" bindtap="onSave">保存</view>
     </view>
     <van-popup show="{{areaVisible}}" position="bottom">
-        <van-area id="area" area-list="{{areaList}}" value="{{address.code}}" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
+        <van-area id="area" area-list="{{areaList}}" value="{{address.cityCode}}" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
     </van-popup>
 </view>

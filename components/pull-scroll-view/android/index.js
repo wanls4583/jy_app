@@ -90,11 +90,15 @@ Component({
     },
     lifetimes: {
         attached() {
-            this._attached();
+            wx.nextTick(() => {
+                this._attached();
+            });
         }
     },
     attached: function(option) {
-        this._attached();
+        wx.nextTick(() => {
+            this._attached();
+        });
     },
     methods: {
         _attached() {

@@ -19,13 +19,14 @@
                     </view>
                 </view>
                 <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:160px">
-                    <view class="button center height-100 width-50 min-width-50px primary" data-id="item.id" bindtap="editAddress">编辑</view>
-                    <view class="button center height-100 width-50 min-width-50px danger" data-id="item.id" bindtap="delAddress">删除</view>
+                    <view class="button center height-100 width-50 min-width-50px primary" data-id="{{item.id}}" bindtap="onEditAddress">编辑</view>
+                    <view class="button center height-100 width-50 min-width-50px danger" data-id="{{item.id}}" bindtap="onDelAddress">删除</view>
                 </view>
             </van-swipe-cell>
         </view>
     </radio-group>
     <view class="padding-left-right-30 margin-top-bottom-30">
-        <view class="button primary plain block" bindtap="addAddress">＋ 新增地址</view>
+        <view class="button primary plain block" bindtap="onAddAddress">＋ 新增地址</view>
     </view>
+    <van-dialog id="van-dialog" />
 </view>

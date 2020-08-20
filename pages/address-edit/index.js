@@ -4,10 +4,11 @@ const app = getApp()
 Page({
     data: {
         address: {
+            id: 0,
             contactName: '',
             phone: '',
             provinceCity: '',
-            code: '',
+            cityCode: '',
             address: '',
             isDefault: false
         },
@@ -24,6 +25,7 @@ Page({
             wx.setNavigationBarTitle({
                 title: '编辑地址'
             });
+            this.loadInfo(option.id);
         } else {
             wx.setNavigationBarTitle({
                 title: '新增地址'
@@ -46,19 +48,19 @@ Page({
     },
     onConfirmArea(e) {
         var arr = e.detail.values;
-        var code = arr[arr.length - 1].code;
+        var cityCode = arr[arr.length - 1].code;
         var area = '';
         arr.map((item) => {
             area += item.name;
         });
         this.setData({
             areaVisible: false,
-            'address.code': code,
+            'address.cityCode': cityCode,
             'address.provinceCity': area
         });
     },
     onCancelArea() {
-        this.selectComponent('#area').reset(this.data.address.code);
+        this.selectComponent('#area').reset(this.data.address.cityCode);
         this.setData({
             areaVisible: false
         });
@@ -84,20 +86,28 @@ Page({
             return;
         }
         wx.jyApp.http({
-            url: '/user/address/save',
+            url: `/user/address/${this.data.address.id?'update':'save'}`,
             method: 'post',
             data: this.data.address
         }).then(() => {
-            wx.showToast({
-                title: '添加成功'
-            });
             if (this.data.address.isDefault && !this.data.selectAddress) {
                 this.updateSelectAddress(this.data.address);
             }
-            wx.navigateBack();
+            wx.showToast({
+                title: '操作成功',
+                complete: () => {
+                    wx.navigateBack();
+                }
+            });
         });
     },
-    loadInfo() {
-        
+    loadInfo(id) {
+        wx.jyApp.http({
+            url: `/user/address/info/${id}`
+        }).then((data) => {
+            this.setData({
+                address: data.userAddress
+            });
+        });
     }
 })

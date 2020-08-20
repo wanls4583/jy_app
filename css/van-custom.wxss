@@ -45,3 +45,7 @@ page .van-circle__text {
 page .van-tabs__line {
     background-color: rgb(42, 175, 255);
 }
+
+.dialog-index--van-dialog__confirm .van-button__text {
+    color: rgb(42, 175, 255)
+}

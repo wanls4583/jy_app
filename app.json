@@ -1,8 +1,9 @@
 {
     "pages": [
+        "pages/home/index",
+        "pages/mall/index",
         "pages/address-list/index",
         "pages/mine/index",
-        "pages/home/index",
         "pages/product-list/index",
         "pages/chat/index",
         "pages/illness-edit/index",
@@ -42,6 +43,7 @@
         "van-cell-group": "/vant/cell-group/index",
         "van-area": "/vant/area/index",
         "van-action-sheet": "/vant/action-sheet/index",
+        "van-dialog": "/vant/dialog/index",
         "van-icon": "/vant/icon/index"
     },
     "tabBar": {
@@ -57,7 +59,7 @@
                 "text": "首页"
             },
             {
-                "pagePath": "pages/product-list/index",
+                "pagePath": "pages/mall/index",
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
                 "text": "商城"
