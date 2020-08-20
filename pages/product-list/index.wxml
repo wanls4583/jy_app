@@ -24,8 +24,10 @@
                             </view>
                         </block>
                     </view>
-                    <view wx:if="{{taocanData.totalPage>-1&&taocanData.nowPage>=taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{taocanData.totalPage==0}}" class="padding-30 gray-color align-center font-small">未查询到相关商品，请重新搜索</view>
+                    <view wx:if="{{taocanData.totalPage>0&&taocanData.nowPage>=taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
+                    <view wx:elif="{{taocanData.totalPage==0}}" class="padding-30 gray-color align-center font-small">
+                        <van-empty description="未查询到相关商品，请重新搜索" />
+                    </view>
                     <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
                 </pull-scroll-view>
             </swiper-item>
@@ -45,8 +47,10 @@
                             </view>
                         </block>
                     </view>
-                    <view wx:if="{{productData.totalPage>-1&&productData.nowPage>=productData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{productData.totalPage==0}}" class="padding-30 gray-color align-center font-small">未查询到相关商品，请重新搜索</view>
+                    <view wx:if="{{productData.totalPage>0&&productData.nowPage>=productData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
+                    <view wx:elif="{{productData.totalPage==0}}" class="padding-30 gray-color align-center font-small">
+                        <van-empty description="未查询到相关商品，请重新搜索" />
+                    </view>
                     <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
                 </pull-scroll-view>
             </swiper-item>

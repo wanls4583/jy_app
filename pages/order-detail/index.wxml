@@ -13,7 +13,7 @@
         <view class="gray-color margin-top-20">{{address.provinceCity}}{{address.address}}</view>
     </view>
     <view class="padding-30 margin-top-20 white-background-color overflow-hidden">
-        <view wx:for="{{order.goods}}" wx:for-item="product" class="flex--center--start margin-bottom-30">
+        <view wx:for="{{order.goods}}" wx:for-item="product" wx:key="id" class="flex--center--start margin-bottom-30">
             <view class="width-100rpx height-100rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
             <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                 <view>{{product.goodsName}}</view>

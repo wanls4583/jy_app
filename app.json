@@ -44,6 +44,7 @@
         "van-area": "/vant/area/index",
         "van-action-sheet": "/vant/action-sheet/index",
         "van-dialog": "/vant/dialog/index",
+        "van-empty": "/vant/empty/index",
         "van-icon": "/vant/icon/index"
     },
     "tabBar": {
