@@ -35,7 +35,7 @@
                 <image class="width-100 border radius-8px" style="height:330rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
                 <view class="flex--center--between margin-top-bottom-20">
                     <view class="font-small">{{item._goodsName}}</view>
-                    <view class="font-small gray-color">{{item.price}}元/天</view>
+                    <view class="font-small gray-color">{{item.price}}元/{{item._useUnit}}</view>
                 </view>
             </view>
         </view>

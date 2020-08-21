@@ -6,8 +6,8 @@
         <view wx:if="{{!doctorData.list.length&&!productData.list.length&&!taocanData.list.length}}" class="padding-30 gray-color align-center font-small">
             <van-empty description="未查询到相关商品，请重新搜索" />
         </view>
-        <view wx:if="{{doctorData.list.length}}" class="padding-30">
-            <view>医生</view>
+        <view wx:if="{{doctorVisible&&doctorData.list.length}}" class="padding-30">
+            <view class="font-bold">医生</view>
             <view>
                 <view wx:for="{{doctorData.list}}" wx:key="id" class="flex--start--between padding-top-bottom-30 border-bottom">
                     <view class="radius-8px width-100rpx height-100rpx gray-background-color"></view>
@@ -27,7 +27,7 @@
             <view wx:if="{{doctorData.totalPage>=doctorData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="3" bindtap="onLoadMore">查看更多</view>
         </view>
         <view wx:if="{{taocanData.list.length}}" class="padding-30 border-top">
-            <view>营养套餐</view>
+            <view class="font-bold">营养套餐</view>
             <view>
                 <view wx:for="{{taocanData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
                     <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
@@ -43,14 +43,14 @@
             <view wx:if="{{taocanData.totalPage>=taocanData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="1" bindtap="onLoadMore">查看更多</view>
         </view>
         <view wx:if="{{productData.list.length}}" class="padding-30 border-top">
-            <view>营养产品</view>
+            <view class="font-bold">营养产品</view>
             <view>
                 <view wx:for="{{productData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
                     <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
                     <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between margin-top-30 width-100">
-                            <text class="gray-color">一天{{product.frequency}}次</text>
+                            <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
                             <text>￥{{product.price}}</text>
                         </view>
                     </view>

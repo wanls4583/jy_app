@@ -1,8 +1,6 @@
-import http from '../../utils/request';
-const app = getApp()
-
 Page({
     data: {
+        unitChange: wx.jyApp.constData.unitChange,
         searchText: '',
         goodsName: '',
         active: 0,
@@ -48,6 +46,11 @@ Page({
         });
         this.loadList(true, 0);
         this.loadList(true, 1);
+    },
+    onGotoSearch() {
+        wx.navigateTo({
+            url: '/pages/search/index'
+        });
     },
     onChangeText(e) {
         this.setData({
@@ -146,12 +149,12 @@ Page({
             }
             this.data.taocanData.loading = true;
             page = this.data.taocanData.page;
-            http({
+            wx.jyApp.http({
                 url: '/goods/list',
                 data: {
                     page: page,
                     limit: this.data.limit,
-                    type: 1,
+                    type: 2,
                     goodsName: this.data.goodsName
                 },
                 complete: () => {
@@ -190,12 +193,12 @@ Page({
             }
             this.data.productData.loading = true;
             page = this.data.productData.page;
-            http({
+            wx.jyApp.http({
                 url: '/goods/list',
                 data: {
                     page: page,
                     limit: this.data.limit,
-                    type: 2,
+                    type: 1,
                     goodsName: this.data.goodsName
                 },
                 complete: () => {

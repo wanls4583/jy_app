@@ -1,6 +1,6 @@
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" placeholder="请输入搜索关键词" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+        <van-search shape="round" placeholder="请输入搜索关键词" disabled="{{true}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" bindtap="onGotoSearch"/>
         <van-tabs active="{{active}}" bind:change="onChangeTab">
             <van-tab title="营养套餐"></van-tab>
             <van-tab title="营养产品"></van-tab>
@@ -18,7 +18,7 @@
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
                                         <text class="gray-color">一天{{product.frequency}}次</text>
-                                        <text>￥{{product.price}}</text>
+                                        <text>￥{{product.price}}/天</text>
                                     </view>
                                 </view>
                             </view>
@@ -40,7 +40,7 @@
                                 <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
-                                        <text class="gray-color">一天{{product.frequency}}次</text>
+                                        <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
                                         <text>￥{{product.price}}</text>
                                     </view>
                                 </view>

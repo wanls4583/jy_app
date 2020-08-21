@@ -3,6 +3,7 @@ var loginUtil = require('./utils/login.js');
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 import { store } from './store/index';
 import http from './utils/request';
+import * as constData from './utils/data';
 import Dialog from './vant/dialog/dialog';
 App({
     onLaunch: function() {
@@ -21,6 +22,7 @@ App({
         wx.jyApp.http = http;
         wx.jyApp.loginUtil = loginUtil;
         wx.jyApp.dialog = Dialog;
+        wx.jyApp.constData = constData;
         wx.jyApp.toast = (msg)=>{
             wx.showToast({
                 title: msg,

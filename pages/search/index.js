@@ -1,5 +1,6 @@
 Page({
     data: {
+        unitChange: wx.jyApp.constData.unitChange,
         searchText: '',
         goodsName: '',
         doctorData: {
@@ -26,10 +27,15 @@ Page({
             page: 1,
             limit: 3,
             totalPage: -1
-        }
+        },
+        doctorVisible: false
     },
-    onLoad() {
-
+    onLoad(option) {
+        if(option && option.showDoctor) {
+            this.setData({
+                doctorVisible: true
+            });
+        }
     },
     onSearch() {
         this.setData({
@@ -82,7 +88,7 @@ Page({
             data: {
                 page: this.data.productData.page,
                 limit: this.data.productData.limit,
-                type: 2,
+                type: 1,
                 goodsName: this.data.goodsName
             },
             complete: () => {
@@ -119,7 +125,7 @@ Page({
             data: {
                 page: this.data.taocanData.page,
                 limit: this.data.taocanData.limit,
-                type: 1,
+                type: 2,
                 goodsName: this.data.goodsName
             },
             complete: () => {

@@ -28,6 +28,11 @@ Page({
         this.loadProduct();
         this.loadBaner();
     },
+    onGotoSearch() {
+        wx.navigateTo({
+            url: '/pages/search/index?showDoctor=1'
+        });
+    },
     bannerChang(e) {
         this.setData({
             currentBannerIndex: e.detail.current

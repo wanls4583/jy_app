@@ -1,6 +1,6 @@
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" placeholder="请输入医生/产品" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+        <van-search shape="round" placeholder="请输入医生/产品" disabled="{{true}}" bindtap="onGotoSearch" />
     </view>
     <view class="position-relative padding-30 white-background-color" style="height:50vw;margin-top:54px">
         <swiper class="overflow-hidden height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">

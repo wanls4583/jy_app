@@ -22,7 +22,7 @@ Page({
             data: {
                 page: 1,
                 limit: 6,
-                type: 1
+                type: 2
             }
         }).then((data) => {
             data.page.list.map((item) => {
@@ -37,11 +37,12 @@ Page({
             data: {
                 page: 1,
                 limit: 6,
-                type: 2
+                type: 1
             }
         }).then((data) => {
             data.page.list.map((item) => {
                 item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
+                item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
             });
             this.setData({
                 productList: data.page.list
