@@ -1,0 +1,18 @@
+.avatar-left {
+	position: absolute;
+	top: 0;
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 8rpx;
+	background-color: #ddd;
+	left: -110rpx;
+}
+.avatar-right {
+	position: absolute;
+	top: 0;
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 8rpx;
+	background-color: #ddd;
+	right: -110rpx;
+}

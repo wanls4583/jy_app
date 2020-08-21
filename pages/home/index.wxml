@@ -3,7 +3,7 @@
         <van-search shape="round" placeholder="请输入医生/产品" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
     </view>
     <view class="position-relative padding-30 white-background-color" style="height:50vw;margin-top:54px">
-        <swiper class="height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
+        <swiper class="overflow-hidden height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
             <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl" data-link="{{item.linkUrl}}" bindtap="onClickBanner">
                 <view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
                     <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
@@ -63,6 +63,17 @@
         <view class="font-title padding-top-bottom-30 font-bold">营养中心</view>
         <view wx:for="{{kepuList}}" wx:key="id" class="padding-30 margin-bottom-30 radius-8px gray-background-color" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:33vw">
             <view class="font-title white-color" style="text-shadow:1px 1px 4px #000">{{item.title}}</view>
+        </view>
+    </view>
+    <view class="padding-30 white-background-color">
+        <view class="flex--center--center padding-top-30">
+            <image src="/image/logo.ico" style="width:40rpx;height:40rpx;"></image>
+            <text class="margin-left-20 font-title">钜元营养</text>
+        </view>
+        <view class="padding-bottom-30 margin-top-20 flex--center--between">
+            <view class="flex-grow-1 border-bottom border-color-ddd"></view>
+            <text class="margin-left-right-30 gray-color font-small" decode="{{true}}">健康营养&nbsp;&nbsp;严格审核&nbsp;&nbsp;专业安全</text>
+            <view class="flex-grow-1 border-bottom border-color-ddd"></view>
         </view>
     </view>
 </view>

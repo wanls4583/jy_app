@@ -69,7 +69,7 @@ Page({
         this.data.chatList.push({
             userId: this.data.userId,
             avatar: this.data.avatar,
-            type: 'order',
+            type: 'start',
             msg: this.data.inputValue,
             timestamp: new Date().getTime(),
             domId: 'id-' + Utils.getUUID()

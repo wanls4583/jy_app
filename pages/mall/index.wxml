@@ -1,6 +1,6 @@
 <view class="container">
     <view class="position-relative padding-30 white-background-color" style="height:50vw">
-        <swiper class="height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
+        <swiper class="overflow-hidden height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
             <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl" data-link="{{item.linkUrl}}" bindtap="onClickBanner">
                 <view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
                     <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">

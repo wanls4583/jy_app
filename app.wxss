@@ -148,6 +148,22 @@ image {
     right: 0;
 }
 
+.top-100 {
+    top: 100%;
+}
+
+.bottom-100 {
+    bottom: 100%;
+}
+
+.left-100 {
+    left: 100%;
+}
+
+.right-100 {
+    right: 100%;
+}
+
 .radius-50 {
     border-radius: 50%;
 }
