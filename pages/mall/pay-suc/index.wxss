@@ -1,0 +1,11 @@
+.img {
+	margin-top: 100rpx;
+}
+.title {
+	margin-top: 30rpx;
+	font-size: 40rpx;
+}
+.tip {
+	margin-top: 50rpx;
+	margin-bottom: 60rpx;
+}

@@ -1,23 +1,23 @@
 {
     "pages": [
-        "pages/home/index",
-        "pages/chat/index",
-        "pages/search/index",
-        "pages/mall/index",
-        "pages/address-list/index",
-        "pages/mine/index",
-        "pages/product-list/index",
-        "pages/illness-edit/index",
-        "pages/address-edit/index",
-        "pages/product-detail/index",
-        "pages/cart/index",
-        "pages/order-list/index",
-        "pages/order-detail/index",
-        "pages/illness-order-detail/index",
-        "pages/illness-order-list/index",
-        "pages/illness-order/index",
-        "pages/illness-patient-list/index",
-        "pages/pay-suc/index"
+        "pages/mall/home/index",
+        "pages/mall/chat/index",
+        "pages/mall/search/index",
+        "pages/mall/mall/index",
+        "pages/mall/address-list/index",
+        "pages/mall/mine/index",
+        "pages/mall/product-list/index",
+        "pages/interrogation/illness-edit/index",
+        "pages/mall/address-edit/index",
+        "pages/mall/product-detail/index",
+        "pages/mall/cart/index",
+        "pages/mall/order-list/index",
+        "pages/mall/order-detail/index",
+        "pages/interrogation/order-detail/index",
+        "pages/interrogation/order-list/index",
+        "pages/interrogation/illness-order/index",
+        "pages/interrogation/patient-list/index",
+        "pages/mall/pay-suc/index"
     ],
     "window":
     {
@@ -55,19 +55,19 @@
         "backgroundColor": "#fff",
         "list": [
             {
-                "pagePath": "pages/home/index",
+                "pagePath": "pages/mall/home/index",
                 "iconPath": "image/icon_home.png",
                 "selectedIconPath": "image/icon_home_active.png",
                 "text": "首页"
             },
             {
-                "pagePath": "pages/mall/index",
+                "pagePath": "pages/mall/mall/index",
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
                 "text": "商城"
             },
             {
-                "pagePath": "pages/mine/index",
+                "pagePath": "pages/mall/mine/index",
                 "iconPath": "image/icon_center.png",
                 "selectedIconPath": "image/icon_center_active.png",
                 "text": "我的"
