@@ -34,7 +34,7 @@ function request(obj) {
             complete: (res) => {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
-                    reject(err);
+                    reject(res);
                     wx.showToast({
                         title: '服务器错误',
                         icon: 'none'

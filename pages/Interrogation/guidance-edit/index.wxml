@@ -1,0 +1,40 @@
+<!--index.wxml-->
+<view class="container padding-bottom-footer">
+    <view class="padding-30 white-background-color">
+        <view class="flex--center--between">
+            <text>营养诊断</text>
+            <text class="primary-color clickable">诊断模板</text>
+        </view>
+        <textarea class="height-50vw margin-top-20" value="{{guidence}}" adjust-position="{{false}}" placeholder="请输入营养诊断信息" bindinput="onInput"></textarea>
+    </view>
+    <view class="padding-30 margin-top-20 white-background-color">
+        <view class="flex--center--between">
+            <text>营养指导</text>
+            <text class="primary-color clickable">添加营养指导</text>
+        </view>
+        <view wx:if="!prductList.length" class="margin-top-20 gray-color font-small">请点击“添加营养指导”增加套餐或产品</view>
+        <view wx:else class="margin-top-20 gray-color">
+            <view wx:for="{{prductList}}" wx:for-item="product" wx:key="id" class="product padding-bottom-30 margin-bottom-30 border-bottom">
+                <view class="flex--center--start">
+                    <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                    <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                        <view>{{product.goodsName}}</view>
+                        <view class="flex--center--between margin-top-30 width-100">
+                            <text class="gray-color">x{{product.num}}/{{unitChange[product.useUnit]||'份'}}</text>
+                            <text>￥{{product.price}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
+                <view class="margin-top-10 gray-color font-small">{{product.remark}}</view>
+            </view>
+            <view class="margin-top-20 primary-color align-right">
+                <text>订单金额</text>
+                <text>￥{{sumOfMoney}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="position-fixed bottom-0 width-100 padding-30">
+        <view class="button primary block {{guidence&&prductList.length ? '' : 'disabled'}}">保存</view>
+    </view>
+</view>

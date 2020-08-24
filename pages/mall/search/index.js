@@ -28,7 +28,8 @@ Page({
             limit: 3,
             totalPage: -1
         },
-        doctorVisible: false
+        doctorVisible: false,
+        searched: false
     },
     onLoad(option) {
         if(option && option.showDoctor) {
@@ -65,8 +66,11 @@ Page({
         });
     },
     search() {
-        this.loadProduct(true);
-        this.loadToacan(true);
+        Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(()=>{
+            this.setData({
+                searched: true
+            });
+        });
     },
     loadProduct(refresh) {
         if (this.data.productData.loading || !refresh && this.data.productData.page > this.data.productData.totalPage) {
@@ -84,7 +88,7 @@ Page({
         }
         this.data.productData.loading = true;
         wx.jyApp.http({
-            url: '/goods/list',
+            url: '/emall/app/api/goods/list',
             data: {
                 page: this.data.productData.page,
                 limit: this.data.productData.limit,
@@ -121,7 +125,7 @@ Page({
         }
         this.data.taocanData.loading = true;
         wx.jyApp.http({
-            url: '/goods/list',
+            url: '/emall/app/api/goods/list',
             data: {
                 page: this.data.taocanData.page,
                 limit: this.data.taocanData.limit,
@@ -143,6 +147,6 @@ Page({
         });
     },
     loadDoctor(refresh) {
-
+        
     }
 })

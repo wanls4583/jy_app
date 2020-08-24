@@ -66,7 +66,7 @@ function getUserInfo() {
 //更新用户信息
 function updateUserInfo(userInfo) {
     return wx.jyApp.http({
-        url: '/wx/user/update',
+        url: '/emall/app/api/wx/user/update',
         method: 'post',
         data: userInfo
     });
@@ -85,7 +85,7 @@ function login() {
         })
     }).then((code) => {
         return wx.jyApp.http({
-            url: '/wx/login/auth',
+            url: '/emall/app/api/wx/login/auth',
             method: 'post',
             data: {
                 code: code

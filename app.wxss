@@ -22,6 +22,10 @@ image {
     font-size: 30rpx;
 }
 
+switch {
+    transform: scale(0.8);
+}
+
 .container {
     position: relative;
     overflow: auto;
@@ -105,6 +109,10 @@ image {
 
 .font-title {
     font-size: 34rpx;
+}
+
+.font-mini {
+    font-size: 22rpx;
 }
 
 .font-small {

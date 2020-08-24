@@ -40,7 +40,7 @@ Page({
             });
         }
         return wx.jyApp.http({
-            url: '/order/list',
+            url: '/emall/app/api/order/list',
             page: this.data.page,
             limit: this.data.limit
         }).then((data) => {

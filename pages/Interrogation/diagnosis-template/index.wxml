@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="container padding-bottom-footer">
+    <block wx:if="{{templateList.length}}">
+        <view wx:for="{{templateList}}" wx:key="id" class="padding-30 margin-bottom-20 white-background-color">
+            <view>{{item.templateName}}</view>
+            <view class="margin-top-20 gray-color">{{item.content}}</view>
+            <view class="margin-top-20 align-right">
+                <view class="button plain primary small" data-id="{{item.id}}" bindtap="onDelete">删除模板</view>
+                <view class="button plain primary small margin-left-20" data-id="{{item.id}}" bindtap="onEdit">修改模板</view>
+                <view class="button primary small margin-left-20">使用模板</view>
+            </view>
+        </view>
+    </block>
+    <block wx:else>
+        <van-empty description="暂无模板" />
+    </block>
+    <view class="position-fixed bottom-0 width-100 padding-30">
+        <view class="button primary block" bindtap="onAdd">添加模板</view>
+    </view>
+    <van-dialog id="van-dialog" />
+</view>

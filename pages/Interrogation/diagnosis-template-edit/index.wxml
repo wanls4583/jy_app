@@ -1,0 +1,14 @@
+<!--index.wxml-->
+<view class="container padding-bottom-footer">
+    <view class="padding-30 white-background-color">
+        <view>模板名称：</view>
+        <input class="margin-top-20" value="{{templateName}}" placeholder="请输入模板名称" data-prop="templateName" bindinput="onInput" />
+    </view>
+    <view class="padding-30 margin-top-20 white-background-color">
+        <view>模板内容：</view>
+        <textarea class="margin-top-20 height-50vw" value="{{content}}" placeholder="请输入模板名称" data-prop="content" bindinput="onInput"></textarea>
+    </view>
+    <view class="position-fixed bottom-0 width-100 padding-30">
+        <view class="button primary block" bindtap="onSave">保存模板</view>
+    </view>
+</view>

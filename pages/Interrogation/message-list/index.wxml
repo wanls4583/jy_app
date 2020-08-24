@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="padding-left-right-20 white-background-color">
+        <view wx:for="{{messageList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 clickable">
+            <view class="width-80rpx height-80rpx radius-8rpx gray-background-color" style="background:url({{item.avatar}}) no-repeat center;background-size:cover"></view>
+            <view class="flex-grow-1 margin-left-20 border-bottom">
+                <view>{{item.name}}</view>
+                <view class="margin-top-10 gray-color font-small">{{item.msg}}</view>
+            </view>
+        </view>
+    </view>
+</view>

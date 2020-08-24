@@ -1,4 +1,3 @@
-import http from '../../../utils/request';
 import { store } from '../../../store/index'
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 
@@ -39,7 +38,7 @@ Page({
             }
         });
         wx.jyApp.http({
-            url: '/order/save',
+            url: '/emall/app/api/order/save',
             method: 'post',
             data: {
                 addressId: this.data.selectAddress.id,
@@ -75,7 +74,7 @@ Page({
     },
     loadAddressList() {
         wx.jyApp.http({
-            url: '/user/address/list'
+            url: '/emall/app/api/user/address/list'
         }).then((data) => {
             if (!this.selectAddress) {
                 data.list.map((item) => {

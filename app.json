@@ -1,6 +1,18 @@
 {
     "pages": [
+        "pages/interrogation/patient-edit/index",
+        "pages/interrogation/patient-list/index",
+        "pages/interrogation/diagnosis-template/index",
+        "pages/interrogation/diagnosis-template-edit/index",
         "pages/mall/home/index",
+        "pages/order-list/index",
+        "pages/interrogation/usage/index",
+        "pages/interrogation/search/index",
+        "pages/interrogation/product-list/index",
+        "pages/interrogation/guidance-edit/index",
+        "pages/interrogation/message-list/index",
+        "pages/interrogation/home/index",
+        "pages/interrogation/doctor-setting/index",
         "pages/mall/chat/index",
         "pages/mall/search/index",
         "pages/mall/mall/index",
@@ -16,7 +28,6 @@
         "pages/interrogation/order-detail/index",
         "pages/interrogation/order-list/index",
         "pages/interrogation/illness-order/index",
-        "pages/interrogation/patient-list/index",
         "pages/mall/pay-suc/index"
     ],
     "window":
@@ -35,7 +46,6 @@
         "van-tab": "/vant/tab/index",
         "van-search": "/vant/search/index",
         "van-button": "/vant/button/index",
-        "van-popup": "/vant/popup/index",
         "van-cell": "/vant/cell/index",
         "van-popup": "/vant/popup/index",
         "van-field": "/vant/field/index",
@@ -46,6 +56,8 @@
         "van-action-sheet": "/vant/action-sheet/index",
         "van-dialog": "/vant/dialog/index",
         "van-empty": "/vant/empty/index",
+        "van-picker": "/vant/picker/index",
+        "van-datetime-picker": "/vant/datetime-picker/index",
         "van-icon": "/vant/icon/index"
     },
     "tabBar": {
@@ -65,6 +77,12 @@
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
                 "text": "商城"
+            },
+            {
+                "pagePath": "pages/interrogation/message-list/index",
+                "iconPath": "image/icon_message.png",
+                "selectedIconPath": "image/icon_message_active.png",
+                "text": "消息"
             },
             {
                 "pagePath": "pages/mall/mine/index",

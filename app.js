@@ -3,6 +3,7 @@ var loginUtil = require('./utils/login.js');
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 import { store } from './store/index';
 import http from './utils/request';
+import utils from './utils/util';
 import * as constData from './utils/data';
 import Dialog from './vant/dialog/dialog';
 App({
@@ -23,12 +24,17 @@ App({
         wx.jyApp.loginUtil = loginUtil;
         wx.jyApp.dialog = Dialog;
         wx.jyApp.constData = constData;
+        wx.jyApp.utils = utils;
         wx.jyApp.toast = (msg)=>{
             wx.showToast({
                 title: msg,
                 icon: 'none'
             });
         }
+        wx.setTabBarBadge({
+          index: 2,
+          text: '1'
+        });
     },
     onShow() {
         this.setGlobalData();

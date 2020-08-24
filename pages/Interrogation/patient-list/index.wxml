@@ -1,12 +1,13 @@
 <!--index.wxml-->
-<view class="container padding-bottom-160">
+<view class="container padding-bottom-footer">
     <view class="padding-30 white-background-color">
-        <view wx:for="{{patientList}}" class="flex--center--between padding-30 margin-bottom-30 border clickable {{selectId==item.id ? 'primary-border-color primary-color' : 'gray-border-color gray-color'}}" data-id="{{item.id}}" bindtap="selectPatient">
-            <text>{{item.name}}</text>
+        <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-30 margin-bottom-30 border clickable {{selectId==item.id ? 'primary-border-color primary-color' : 'gray-border-color gray-color'}}" data-id="{{item.id}}" bindtap="selectPatient">
+            <text>{{item.patientName}}</text>
             <text>{{item.sex}}</text>
             <text>{{item.age}}岁</text>
             <text>{{item.height}}cm</text>
             <text>{{item.weight}}kg</text>
+            <view class="primary button small" data-id="{{item.id}}" catchtap="onEdit">修改</view>
         </view>
     </view>
     <view class="padding-30">

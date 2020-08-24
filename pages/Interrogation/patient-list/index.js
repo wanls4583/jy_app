@@ -20,12 +20,19 @@ Page({
         selectId: 0
     },
     onLoad(option) {
-    	
+    	this.loadList();
     },
     selectPatient(e) {
     	var id = e.currentTarget.dataset.id;
     	this.setData({
     		selectId: id
     	});
+    },
+    loadList() {
+        wx.jyApp.http({
+            url: '/online/nutrition/api/patientdocument/list'
+        }).then((data)=>{
+            console.log(data)
+        });
     }
 })
