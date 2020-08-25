@@ -47,7 +47,7 @@ Page({
         }).then(() => {
             var id = e.currentTarget.dataset.id;
             wx.jyApp.http({
-                url: `/emall/app/api/user/address/delete`,
+                url: `/user/address/delete`,
                 method: 'post',
                 data: {
                     id: id
@@ -75,7 +75,7 @@ Page({
     },
     loadList() {
         wx.jyApp.http({
-            url: '/emall/app/api/user/address/list'
+            url: '/user/address/list'
         }).then((data) => {
             this.setData({
                 addressList: data.list || []

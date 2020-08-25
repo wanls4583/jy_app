@@ -30,7 +30,7 @@ Page({
     },
     loadList() {
         wx.jyApp.http({
-            url: '/online/nutrition/api/patientdocument/list'
+            url: '/patientdocument/list'
         }).then((data)=>{
             console.log(data)
         });

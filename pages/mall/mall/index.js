@@ -16,7 +16,7 @@ Page({
     },
     loadProduct() {
         wx.jyApp.http({
-            url: '/emall/app/api/goods/list',
+            url: '/goods/list',
             data: {
                 page: 1,
                 limit: 6,
@@ -31,7 +31,7 @@ Page({
             });
         });
         wx.jyApp.http({
-            url: '/emall/app/api/goods/list',
+            url: '/goods/list',
             data: {
                 page: 1,
                 limit: 6,
@@ -49,7 +49,7 @@ Page({
     },
     loadBaner() {
         wx.jyApp.http({
-            url: '/emall/app/api/banner/list',
+            url: '/banner/list',
             data: {
                 bannerCode: '0001'
             }

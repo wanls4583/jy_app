@@ -59,7 +59,7 @@ Page({
     },
     loadInfo() {
         http({
-            url: `/emall/app/api/goods/info/${this.data.id}`
+            url: `/goods/info/${this.data.id}`
         }).then((data) => {
             this.setData({
                 productInfo: data.info,

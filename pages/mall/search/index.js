@@ -88,7 +88,7 @@ Page({
         }
         this.data.productData.loading = true;
         wx.jyApp.http({
-            url: '/emall/app/api/goods/list',
+            url: '/goods/list',
             data: {
                 page: this.data.productData.page,
                 limit: this.data.productData.limit,
@@ -125,7 +125,7 @@ Page({
         }
         this.data.taocanData.loading = true;
         wx.jyApp.http({
-            url: '/emall/app/api/goods/list',
+            url: '/goods/list',
             data: {
                 page: this.data.taocanData.page,
                 limit: this.data.taocanData.limit,

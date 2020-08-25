@@ -9,7 +9,7 @@ Page({
     },
     loadInfo(id) {
         wx.jyApp.http({
-            url: `/emall/app/api/order/info/${id}`
+            url: `/order/info/${id}`
         }).then((data) => {
             
         });

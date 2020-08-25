@@ -2,7 +2,7 @@
 <view class="container">
     <radio-group>
         <view wx:for="{{addressList}}" wx:key="id" class="position-relative white-background-color border-bottom {{ifSelect ? 'padding-left-30' : ''}}">
-            <van-swipe-cell right-width="{{160}}">
+            <van-swipe-cell right-width="{{150}}">
                 <view class="flex--center--between" data-address="{{item}}" bindtap="onChange">
                     <view wx:if="{{ifSelect}}" class="radio-wrap">
                         <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{checkedId==item.id}}" />
@@ -18,7 +18,7 @@
                         <view class="gray-color margin-top-20">{{item.provinceCity}}{{item.address}}</view>
                     </view>
                 </view>
-                <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:160px">
+                <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:150px">
                     <view class="button center height-100 width-50 min-width-50px primary" data-id="{{item.id}}" bindtap="onEditAddress">编辑</view>
                     <view class="button center height-100 width-50 min-width-50px danger" data-id="{{item.id}}" bindtap="onDelAddress">删除</view>
                 </view>

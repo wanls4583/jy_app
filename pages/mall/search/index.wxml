@@ -30,7 +30,7 @@
             <view class="font-bold">营养套餐</view>
             <view>
                 <view wx:for="{{taocanData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                    <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
                     <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between margin-top-30 width-100">
@@ -46,7 +46,7 @@
             <view class="font-bold">营养产品</view>
             <view>
                 <view wx:for="{{productData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                    <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
                     <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between margin-top-30 width-100">

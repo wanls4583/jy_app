@@ -13,13 +13,13 @@
         </view>
     </view>
     <view wx:else class="flex flex-wrap-wrap overflow-hidden white-background-color" style="padding-top:22rpx">
-        <view wx:for="{{picList}}" wx:key="item" class="item position-relative border width-160rpx height-160rpx gray-background-color">
+        <view wx:for="{{picList}}" wx:key="item" class="item position-relative border width-150rpx height-150rpx gray-background-color">
             <image class="width-100 height-100" mode="aspectFill" src="{{item}}"></image>
             <view class="position-absolute top-0 right-0 flex--center--center clickable" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPic">
                 <van-icon name="cross" size="15px" color="#ee0a24"/>
             </view>
         </view>
-        <view wx:if="{{picList.length<9}}" class="item flex--center--center width-160rpx height-160rpx gray-background-color border-style-none clickable gray-color" bindtap="chooseImage">
+        <view wx:if="{{picList.length<9}}" class="item flex--center--center width-150rpx height-150rpx gray-background-color border-style-none clickable gray-color" bindtap="chooseImage">
             <text style="font-size:100rpx;margin-top:-20rpx">+</text>
         </view>
     </view>

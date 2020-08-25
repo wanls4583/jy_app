@@ -28,7 +28,7 @@ Page({
             message: '确认删除？'
         }).then(() => {
             wx.jyApp.http({
-                url: '/online/nutrition/api/diagnosis/template/delete',
+                url: '/diagnosis/template/delete',
                 method: 'delete',
                 data: {
                     id: id
@@ -47,7 +47,7 @@ Page({
     loadList() {
         wx.showLoading({ title: '加载中' });
         wx.jyApp.http({
-            url: '/online/nutrition/api/diagnosis/template/list'
+            url: '/diagnosis/template/list'
         }).then((data) => {
             this.setData({
                 templateList: data.list || []

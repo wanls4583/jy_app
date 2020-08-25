@@ -1,7 +1,7 @@
 <view class="container padding-bottom-footer">
     <view class="flex--center--between padding-30 white-background-color">
-        <view class="width-160rpx height-160rpx border" style="background:url(https://p0.ssl.img.360kuai.com/t01c1450b45e20efea2.jpg) no-repeat center;background-size:cover"></view>
-        <view class="height-160rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
+        <view class="width-150rpx height-150rpx border" style="background:url(https://p0.ssl.img.360kuai.com/t01c1450b45e20efea2.jpg) no-repeat center;background-size:cover"></view>
+        <view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
             <view>产品名称</view>
             <view class="gray-color">200克/袋</view>
             <view>800￥/袋</view>

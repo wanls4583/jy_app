@@ -66,8 +66,8 @@
     width: 120rpx;
 }
 
-.width-160rpx {
-    width: 160rpx;
+.width-150rpx {
+    width: 150rpx;
 }
 
 .width-200rpx {
@@ -130,8 +130,8 @@
     height: 120rpx;
 }
 
-.height-160rpx {
-    height: 160rpx;
+.height-150rpx {
+    height: 150rpx;
 }
 
 .height-200rpx {

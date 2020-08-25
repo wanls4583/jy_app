@@ -17,7 +17,7 @@ Page({
             title: '加载中'
         });
         wx.jyApp.http({
-            url: '/online/nutrition/api/diagnosis/template/info/' + this.data.id
+            url: '/diagnosis/template/info/' + this.data.id
         }).then((data) => {
             this.setData({
                 templateName: data.diagnosisTemplate.templateName,
@@ -42,7 +42,7 @@ Page({
             return;
         }
         wx.jyApp.http({
-            url: `/online/nutrition/api/diagnosis/template/${this.data.id?'update':'save'}`,
+            url: `/diagnosis/template/${this.data.id?'update':'save'}`,
             method: 'post',
             data: {
                 id: this.data.id,

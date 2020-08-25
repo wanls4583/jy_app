@@ -86,7 +86,7 @@ Page({
             return;
         }
         wx.jyApp.http({
-            url: `/emall/app/api/user/address/${this.data.address.id?'update':'save'}`,
+            url: `/user/address/${this.data.address.id?'update':'save'}`,
             method: 'post',
             data: this.data.address
         }).then(() => {
@@ -103,7 +103,7 @@ Page({
     },
     loadInfo(id) {
         wx.jyApp.http({
-            url: `/emall/app/api/user/address/info/${id}`
+            url: `/user/address/info/${id}`
         }).then((data) => {
             this.setData({
                 address: data.userAddress

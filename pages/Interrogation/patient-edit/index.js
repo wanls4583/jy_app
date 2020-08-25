@@ -60,7 +60,7 @@ Page({
     },
     onSave() {
         wx.jyApp.http({
-            url: `/online/nutrition/api/patientdocument/${this.data.patient.id?'update':'save'}`,
+            url: `/patientdocument/${this.data.patient.id?'update':'save'}`,
             method: 'post',
             data: this.data.patient
         }).then(() => {
@@ -74,7 +74,7 @@ Page({
     },
     loadInfo(id) {
         wx.jyApp.http({
-            url: `/online/nutrition/api/patientdocument/info/${id}`
+            url: `/patientdocument/info/${id}`
         }).then((data) => {
             this.setData({
                 patient: data.patientdocument

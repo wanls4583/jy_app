@@ -16,7 +16,7 @@
         <view wx:else class="margin-top-20 gray-color">
             <view wx:for="{{prductList}}" wx:for-item="product" wx:key="id" class="product padding-bottom-30 margin-bottom-30 border-bottom">
                 <view class="flex--center--start">
-                    <view class="width-160rpx height-160rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
                     <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between margin-top-30 width-100">

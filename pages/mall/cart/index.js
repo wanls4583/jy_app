@@ -38,7 +38,7 @@ Page({
             }
         });
         wx.jyApp.http({
-            url: '/emall/app/api/order/save',
+            url: '/order/save',
             method: 'post',
             data: {
                 addressId: this.data.selectAddress.id,
@@ -74,7 +74,7 @@ Page({
     },
     loadAddressList() {
         wx.jyApp.http({
-            url: '/emall/app/api/user/address/list'
+            url: '/user/address/list'
         }).then((data) => {
             if (!this.selectAddress) {
                 data.list.map((item) => {

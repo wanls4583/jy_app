@@ -1,11 +1,14 @@
 {
     "pages": [
+        "pages/order-list/index",
+        "pages/interrogation/guidence-order-detail/index",
+        "pages/mall/order-detail/index",
+        "pages/interrogation/apply-order-detail/index",
         "pages/interrogation/patient-edit/index",
         "pages/interrogation/patient-list/index",
         "pages/interrogation/diagnosis-template/index",
         "pages/interrogation/diagnosis-template-edit/index",
         "pages/mall/home/index",
-        "pages/order-list/index",
         "pages/interrogation/usage/index",
         "pages/interrogation/search/index",
         "pages/interrogation/product-list/index",
@@ -23,8 +26,6 @@
         "pages/mall/address-edit/index",
         "pages/mall/product-detail/index",
         "pages/mall/cart/index",
-        "pages/mall/order-detail/index",
-        "pages/interrogation/order-detail/index",
         "pages/interrogation/illness-order/index",
         "pages/mall/pay-suc/index"
     ],
