@@ -23,10 +23,8 @@
         "pages/mall/address-edit/index",
         "pages/mall/product-detail/index",
         "pages/mall/cart/index",
-        "pages/mall/order-list/index",
         "pages/mall/order-detail/index",
         "pages/interrogation/order-detail/index",
-        "pages/interrogation/order-list/index",
         "pages/interrogation/illness-order/index",
         "pages/mall/pay-suc/index"
     ],
