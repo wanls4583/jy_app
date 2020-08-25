@@ -1,0 +1,25 @@
+<!--index.wxml-->
+<view class="container">
+    <view class="position-fixed top-0 width-100">
+        <van-search shape="round" placeholder="请输入搜索关键词" disabled="{{true}}" bindtap="onGotoSearch"/>
+    </view>
+    <view class="padding-left-right-30 white-background-color" style="padding-top:54px">
+        <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 border-bottom" data-id="{{item.id}}" bindtap="onClickPatient">
+            <view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
+                <image src="{{item.avater}}" mode="aspectFill" />
+            </view>
+            <view class="flex-grow-1 flex-direction-column flex--start--between height-100rpx padding-left-30">
+                <view class="flex--center--between">
+                    <text>{{item.patientName}}</text>
+                    <text>{{item.sex}}</text>
+                    <text>{{item.age}}岁</text>
+                    <text>{{item.height}}cm</text>
+                    <text>{{item.weight}}kg</text>
+                </view>
+                <view>
+                    <text class="font-small gray-color">{{item.creatTime}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,11 +1,13 @@
 {
     "pages": [
+        "pages/interrogation/doctor-patient-search/index",
+        "pages/interrogation/doctor-patient-list/index",
+        "pages/interrogation/user-patient-list/index",
         "pages/order-list/index",
         "pages/interrogation/guidence-order-detail/index",
         "pages/mall/order-detail/index",
         "pages/interrogation/apply-order-detail/index",
-        "pages/interrogation/patient-edit/index",
-        "pages/interrogation/patient-list/index",
+        "pages/interrogation/user-patient-edit/index",
         "pages/interrogation/diagnosis-template/index",
         "pages/interrogation/diagnosis-template-edit/index",
         "pages/mall/home/index",
@@ -59,36 +61,36 @@
         "van-datetime-picker": "/vant/datetime-picker/index",
         "van-icon": "/vant/icon/index"
     },
-    "tabBar": {
+    "tabBar":
+    {
         "color": "#999",
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
         "list": [
-            {
-                "pagePath": "pages/mall/home/index",
-                "iconPath": "image/icon_home.png",
-                "selectedIconPath": "image/icon_home_active.png",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/mall/mall/index",
-                "iconPath": "image/icon_marks.png",
-                "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城"
-            },
-            {
-                "pagePath": "pages/interrogation/message-list/index",
-                "iconPath": "image/icon_message.png",
-                "selectedIconPath": "image/icon_message_active.png",
-                "text": "消息"
-            },
-            {
-                "pagePath": "pages/mall/mine/index",
-                "iconPath": "image/icon_center.png",
-                "selectedIconPath": "image/icon_center_active.png",
-                "text": "我的"
-            }
-        ]
+        {
+            "pagePath": "pages/mall/home/index",
+            "iconPath": "image/icon_home.png",
+            "selectedIconPath": "image/icon_home_active.png",
+            "text": "首页"
+        },
+        {
+            "pagePath": "pages/mall/mall/index",
+            "iconPath": "image/icon_marks.png",
+            "selectedIconPath": "image/icon_marks_active.png",
+            "text": "商城"
+        },
+        {
+            "pagePath": "pages/interrogation/message-list/index",
+            "iconPath": "image/icon_message.png",
+            "selectedIconPath": "image/icon_message_active.png",
+            "text": "消息"
+        },
+        {
+            "pagePath": "pages/mall/mine/index",
+            "iconPath": "image/icon_center.png",
+            "selectedIconPath": "image/icon_center_active.png",
+            "text": "我的"
+        }]
     }
 }
