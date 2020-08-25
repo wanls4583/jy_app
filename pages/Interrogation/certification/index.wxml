@@ -1,0 +1,41 @@
+<!--index.wxml-->
+<view class="container">
+    <van-collapse value="{{activeNames}}" bind:change="onCollapseChange">
+        <van-collapse-item title="基本信息" name="1">
+            <van-field label="姓名" placeholder="请输入本人真实姓名" value="{{name}}" data-prop="name" bind:input="onInput" ></van-field>
+            <van-field label="身份证" placeholder="请输入本人身份证号" value="{{card}}"  data-prop="card" bind:input="onInput" ></van-field>
+            <van-field label="个人头像" placeholder="{{avater?'':'请输入本人身份证号'}}" readonly bindtap="chooseAvater">
+                <view slot="right-icon" class="flex--center--center">
+                    <image class="width-80rpx height-80rpx radius-50" mode="aspectFill" src="{{avater}}"></image>
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </van-field>
+            <van-field label="擅长" placeholder="请选择擅长疾病或领域" value="{{disease}}" readonly bindtap="onShowDisease">
+                <view slot="right-icon" class="flex--center--center">
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </van-field>
+            <van-field label="个人简介" placeholder="请输入个人简介" type="textarea" autosize border="{{false}}" value="{{introduction}}" data-prop="introduction" bind:input="onInput" ></van-field>
+        </van-collapse-item>
+        <van-collapse-item title="科室信息" name="2" class="margin-top-20">
+            <van-field label="就职科室" placeholder="请输入所就职医院的科室" value="{{department1}}" data-prop="department1" bind:input="onInput" ></van-field>
+            <van-field label="执业科室" placeholder="请输入执业证上的科室" value="{{department2}}"  data-prop="department2" bind:input="onInput" ></van-field>
+            <van-field label="线上科室" placeholder="请选择线上科室" value="{{department3}}" readonly bindtap="onShowDepartment">
+                <view slot="right-icon" class="flex--center--center">
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </van-field>
+        </van-collapse-item>
+    </van-collapse>
+    <van-popup show="{{diseaseVisible}}" position="bottom" bind:click-overlay="onShowDisease">
+        <checkbox-group bindchange="onDiseaseChange" class="padding-left-right-20" style="max-height:100vw;overflow:auto;">
+            <label wx:for="{{diseaseList}}" wx:key="index" class="flex--center--between padding-top-bottom-20 border-bottom">
+                <view>{{item}}</view>
+                <checkbox value="{{item}}" checked="{{item==checkedDisease}}" />
+            </label>
+        </checkbox-group>
+    </van-popup>
+    <van-popup show="{{departmentVisible}}" position="bottom" bind:click-overlay="onShowDepartment">
+        <van-picker show-toolbar="{{true}}" columns="{{departmentList}}" bind:confirm="onConfirmDepartment" bind:cancel="onShowDepartment"></van-picker>
+    </van-popup>
+</view>

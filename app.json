@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/interrogation/certification/index",
         "pages/interrogation/doctor-patient-search/index",
         "pages/interrogation/doctor-patient-list/index",
         "pages/interrogation/user-patient-list/index",
@@ -58,6 +59,8 @@
         "van-dialog": "/vant/dialog/index",
         "van-empty": "/vant/empty/index",
         "van-picker": "/vant/picker/index",
+        "van-collapse": "/vant/collapse/index",
+        "van-collapse-item": "/vant/collapse-item/index",
         "van-datetime-picker": "/vant/datetime-picker/index",
         "van-icon": "/vant/icon/index"
     },

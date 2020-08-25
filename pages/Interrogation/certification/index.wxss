@@ -1,0 +1,4 @@
+.item {
+	margin-left: 22rpx;
+	margin-bottom: 22rpx;
+}

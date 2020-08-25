@@ -51,10 +51,23 @@ page .van-tabs__line {
 }
 
 page .van-cell {
-    padding: 20rpx 30rpx;
+    padding: 30rpx;
 }
 
 page .van-cell:after {
     left: 30rpx;
     right: 30rpx;
+}
+
+page .van-cell__title {
+    display: flex;
+    align-items: center;
+}
+
+page .van-collapse-item__content {
+    padding: 0
+}
+
+.van-collapse-item .item-index--van-cell {
+    font-weight: bold;
 }
