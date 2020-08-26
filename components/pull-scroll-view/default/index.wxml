@@ -1,0 +1,7 @@
+<view class='pull_scroll_view external-classes' style='{{style}}'>
+    <scroll-view class='scroll_view' refresher-enabled="{{true}}" refresher-triggered="{{refresherTriggered}}"  bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper' bindscroll='onScroll' bindrefresherrefresh="refresh" scroll-top='{{_scrollTop}}' scroll-with-animation='{{animation}}' scroll-y>
+        <view class='content'>
+            <slot></slot>
+        </view>
+    </scroll-view>
+</view>

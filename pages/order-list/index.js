@@ -32,29 +32,9 @@ Page({
     },
     onLoad() {
         this.loadMallOrderList();
-        // this.loadInterrogationOrderList();
+        this.loadInterrogationOrderList();
         // this.loadApplyOrderList();
         // this.loadGuidenceOrderList();
-        this.setData({
-            interrogationOrder: {
-                orderList: [{
-                    title: '商品信息',
-                    money: 100,
-                    orderNum: '125432113',
-                    status: '未支付',
-                    money: '500',
-                    patient: {
-                        name: '张三',
-                        sex: '男',
-                        age: 31,
-                        height: '170',
-                        weight: 100
-                    }
-                }],
-                page: 2,
-                totalPage: 1
-            }
-        });
         this.setData({
             applyOrder: {
                 orderList: [{
@@ -143,7 +123,7 @@ Page({
     onClickInterrogationOrder(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/interrogation/apply-order-detail/index?id=' + id
+            url: '/pages/interrogation/apply-order-detail/index?type=interrogation&id=' + id
         });
     },
     onApplyOrderRefresh() {
@@ -227,13 +207,15 @@ Page({
             });
         }
         return wx.jyApp.http({
-            url: '/order/list',
+            url: '/consultorder/list',
             page: this.data.interrogationOrder.page,
             limit: this.data.interrogationOrder.limit
         }).then((data) => {
             this.data.interrogationOrder.loading = false;
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item.patient._sex = item.patient.sex == 1 ? '男' : '女';
+                item.patient.age = new Date().getFullYear() - Date.prototype.parseDate(item.patient.birthday);
             });
             this.setData({
                 'interrogationOrder.page': this.data.interrogationOrder.page + 1,

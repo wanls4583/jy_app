@@ -1,40 +1,43 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
-    <view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color">
+    <view wx:if="{{order.status==0}}" class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color">
         <text class="font-large danger-color">未支付</text>
         <text class="gray-color">超过15分钟未支付，订单自动失效</text>
         <view class="button plain primary">立即支付</view>
     </view>
+    <view wx:else class="flex--center--center padding-30 white-background-color">
+        <view class="font-large {{statusColor}}">{{order._status}}</view>
+    </view>
     <view class="padding-left-right-30 margin-top-20 white-background-color">
         <view class="flex padding-top-bottom-20">
-            <text>商品信息：{{order.title}}</text>
-            <text class="margin-left-30">(￥{{order.money}})</text>
+            <text>商品信息：{{order.goodsName}}</text>
+            <text class="margin-left-30">(￥{{order.orderAmount}})</text>
         </view>
         <view class="flex padding-bottom-20">
             <text>患者信息：</text>
             <text>{{order.patient.name}}</text>
-            <text class="margin-left-30">{{order.patient.sex}}</text>
+            <text class="margin-left-30">{{order.patient._sex}}</text>
             <text class="margin-left-30">{{order.patient.age}}岁</text>
             <text class="margin-left-30">{{order.patient.height}}cm</text>
             <text class="margin-left-30">{{order.patient.weight}}kg</text>
         </view>
         <view class="padding-bottom-20">
-            <text>病情描述：{{order.detail}}</text>
+            <text>病情描述：{{order.diseaseDetail}}</text>
         </view>
     </view>
     <view class="flex flex-wrap-wrap padding-top-20 padding-bottom-30 padding-left-30 white-background-color">
-        <view wx:for="{{order.pics}}" wx:key="item" class="border gray-background-color margin-right-30" style="width:150rpx;height:150rpx;">
+        <view wx:for="{{order.picUrls}}" wx:key="item" class="border gray-background-color margin-right-30" style="width:150rpx;height:150rpx;">
             <image class="width-100 height-100" mode="aspectFill" src="{{item}}"></image>
         </view>
     </view>
     <view class="padding-30 white-background-color margin-top-20">
         <view class="flex--center--between">
             <text class="gray-color">订单编号</text>
-            <text class="gray-color">{{order.orderNum}}</text>
+            <text class="gray-color">{{order.orderNo}}</text>
         </view>
         <view class="flex--center--between margin-top-20">
             <text class="gray-color">下单时间</text>
-            <text class="gray-color">{{order.ceateTime}}</text>
+            <text class="gray-color">{{order.orderTime}}</text>
         </view>
     </view>
 </view>

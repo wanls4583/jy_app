@@ -11,19 +11,19 @@
         <swiper class="width-100 height-100" current="{{active}}" bindchange="onChangeSwiper">
             <swiper-item>
                 <pull-scroll-view bindrefresh='onInterrogationOrderRefresh' bindscrolltolower='onInterrogationOrderLoadMore' lower-threshold='3000px' stop-refresh='{{interrogationOrder.stopRefresh}}'>
-                    <view wx:for="{{interrogationOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color">
+                    <view wx:for="{{interrogationOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickInterrogationOrder">
                         <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
                             <text class="gray-color">订单编号：{{order.orderNum}}</text>
-                            <text>{{order.status}}</text>
+                            <text>{{order._status}}</text>
                         </view>
-                        <view class="flex--center--between padding-top-bottom-20">
-                            <text>商品信息：{{order.title}}</text>
-                            <text class="primary-color">￥{{order.money}}</text>
+                        <view class="flex--center-between padding-top-bottom-20">
+                            <text>商品信息：{{order.goodsName}}</text>
+                            <text class="margin-left-30 primary-color">￥{{order.orderAmount}}</text>
                         </view>
                         <view class="flex padding-bottom-20">
                             <text>患者信息：</text>
-                            <text class="margin-left-30">{{order.patient.name}}</text>
-                            <text class="margin-left-30">{{order.patient.sex}}</text>
+                            <text>{{order.patient.patientName}}</text>
+                            <text class="margin-left-30">{{order.patient._sex}}</text>
                             <text class="margin-left-30">{{order.patient.age}}岁</text>
                             <text class="margin-left-30">{{order.patient.height}}cm</text>
                             <text class="margin-left-30">{{order.patient.weight}}kg</text>

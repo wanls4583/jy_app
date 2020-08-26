@@ -31,9 +31,7 @@ Component({
             observer: function(newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.scrollToTop = false;
-                this.setData({
-                    _scrollTop: 0
-                });
+                this.toTop();
             }
         },
         stopRefresh: {
@@ -46,10 +44,13 @@ Component({
                     finished: true
                 });
                 clearTimeout(this.returnTimer);
+                clearTimeout(this.hideTipTimer);
                 //防止频繁刷新，导致画面闪烁
                 this.returnTimer = setTimeout(() => {
+                    this.toTop();
+                }, 500);
+                this.hideTipTimer = setTimeout(() => {
                     this.setData({
-                        _translateY: -this.properties.topHeight,
                         finished: false
                     });
                     this.refreshing = false;
@@ -74,8 +75,8 @@ Component({
                 this.properties.topHeight = newVal;
                 this.setData({
                     _topHeight: newVal,
-                    _translateY: -newVal
                 });
+                this.toTop();
             }
         }
     },
@@ -83,18 +84,21 @@ Component({
         statusBarHeight: 0,
         _scrollTop: 0,
         _topHeight: 0,
-        _translateY: 0,
         animation: true,
         finished: false,
         minHeight: 0
     },
     lifetimes: {
         attached() {
-            this._attached();
+            wx.nextTick(() => {
+                this._attached();
+            });
         }
     },
     attached: function(option) {
-        this._attached();
+        wx.nextTick(() => {
+            this._attached();
+        });
     },
     methods: {
         _attached() {
@@ -103,22 +107,31 @@ Component({
                 this.properties.topHeight += systemInfo.statusBarHeight;
             }
             this.setData({
-                statusBarHeight: systemInfo.statusBarHeight,
-                _topHeight: this.properties.topHeight,
-                _translateY: -this.properties.topHeight
+                statusBarHeight: systemInfo.statusBarHeight
             });
             this.getRect().then((res) => {
                 this.setData({
-                    minHeight: res.height + this.properties.topHeight
+                    minHeight: res.height,
+                    _topHeight: this.properties.topHeight
                 }, () => {
                     this.setData({
-                        _scrollTop: this.properties.scrollTop || 0,
+                        _scrollTop: this.properties.scrollTop ? this.properties.scrollTop : this.properties.topHeight
                     });
                 });
             });
             this.hasAttached = true;
         },
         onScroll(e) {
+            var scrollTop = e.detail.scrollTop;
+            this.triggerEvent('scroll', e.detail);
+            if (!this.touching && !this.refreshing && !this.gettingRect && !this.returnToTop) {
+                if (scrollTop < this.properties.topHeight) {
+                    clearTimeout(this.scrollTimer);
+                    this.scrollTimer = setTimeout(()=>{
+                        this.toTop();
+                    }, 100);
+                }
+            }
             this.triggerEvent('scroll', e.detail);
         },
         onScrolltolower(e) {
@@ -142,9 +155,16 @@ Component({
                     return;
                 }
                 //时间太短，不触发更新
-                if (res.scrollTop <= -this.properties.topHeight && !(this.endTime - this.startTime < 200)) {
+                if (res.scrollTop <= 0 && !(this.endTime - this.startTime < 200)) {
                     this.refresh();
+                } else if (res.scrollTop < this.data.topHeight) {
+                    this.toTop();
                 }
+            });
+        },
+        toTop() {
+            this.setData({
+                _scrollTop: this.data._scrollTop == this.properties.topHeight ? this.properties.topHeight + 1 : this.properties.topHeight
             });
         },
         refresh() {
@@ -153,9 +173,6 @@ Component({
             }
             this.refreshing = true;
             this.triggerEvent('refresh');
-            this.setData({
-                _translateY: 0
-            });
         },
         getRect() {
             clearTimeout(this.rectTimer);

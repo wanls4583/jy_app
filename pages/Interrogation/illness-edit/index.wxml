@@ -1,22 +1,26 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
     <view class="padding-30 border-bottom border-top height-50vw white-background-color">
-        <textarea placeholder="为了更好的得到医生的帮助，请详细描述您的病情" class="height-100 width-100"/>
+        <textarea placeholder="为了更好的得到医生的帮助，请详细描述您的病情" class="height-100 width-100" value="{{diseaseDetail}}" bindinput="onInput" />
     </view>
     <view wx:if="{{!picList.length}}" class="padding-30 white-background-color flex--center--between" bindtap="chooseImage">
-        <view class="flex--center--center width-100rpx height-100rpx margin-right-30 gray-background-color clickable gray-color">
-            <text style="font-size:80rpx;margin-top:-14rpx">+</text>
+        <view class="flex--center--center width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
+            <text style="font-size:100rpx;margin-top:-20rpx">+</text>
         </view>
-        <view class="flex-grow-1">
+        <view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
             <view>上传检查报告、病历或者照片（最多9张）</view>
-            <view class="gray-color">我们会确保您的隐私安全</view>
+            <view class="gray-color font-small">我们会确保您的隐私安全</view>
         </view>
     </view>
-    <view wx:else class="flex flex-wrap-wrap overflow-hidden white-background-color" style="padding-top:22rpx">
-        <view wx:for="{{picList}}" wx:key="item" class="item position-relative border width-150rpx height-150rpx gray-background-color">
+    <view wx:else class="flex flex-wrap-wrap padding-top-30 overflow-hidden white-background-color">
+        <view wx:for="{{picList}}" wx:key="item" class="position-relative margin-left-30 margin-bottom-30 border width-150rpx height-150rpx gray-background-color">
             <image class="width-100 height-100" mode="aspectFill" src="{{item}}"></image>
-            <view class="position-absolute top-0 right-0 flex--center--center clickable" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPic">
-                <van-icon name="cross" size="15px" color="#ee0a24"/>
+            <view class="position-absolute top-0 right-0 flex--center--center clickable z-index-100" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPic">
+                <van-icon name="cross" size="15px" color="#ee0a24" />
+            </view>
+            <view wx:if="{{processMap[item]<100}}" class="position-absolute top-0 right-0 bottom-0 left-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPic">
+                <text wx:if="{{processMap[item]<0}}" class="danger-color">失败</text>
+                <text wx:else>{{processMap[item]}}</text>
             </view>
         </view>
         <view wx:if="{{picList.length<9}}" class="item flex--center--center width-150rpx height-150rpx gray-background-color border-style-none clickable gray-color" bindtap="chooseImage">
@@ -24,6 +28,6 @@
         </view>
     </view>
     <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block {{picList.length ? '' : 'disabled'}}">下一步</view>
+        <view class="button primary block" bindtap="onNext">下一步</view>
     </view>
 </view>

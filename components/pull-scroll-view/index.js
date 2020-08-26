@@ -40,31 +40,27 @@ Component({
         }
     },
     data: {
-        platform: 'android'
+        SDKVersion: ''
     },
     lifetimes: {
         attached() {
+            this._attached();
+        }
+    },
+    attached: function (option) {
+        this._attached();
+    },
+    methods: {
+        _attached() {
             var self = this;
             wx.getSystemInfo({
-                success: function(res) {
+                success: function (res) {
                     self.setData({
-                        platform: res.platform
+                        SDKVersion: res.SDKVersion
                     });
                 }
             });
-        }
-    },
-    attached: function(option) {
-        var self = this;
-        wx.getSystemInfo({
-            success: function(res) {
-                self.setData({
-                    platform: res.platform
-                });
-            }
-        });
-    },
-    methods: {
+        },
         onScroll(e) {
             this.triggerEvent('scroll', e.detail);
         },

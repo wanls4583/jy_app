@@ -1,24 +1,33 @@
 Page({
     data: {
-        order: {
-            title: '商品信息',
-            money: 100,
-            orderNum: '125432113',
-            status: '未支付',
-            ceateTime: '2018-08-08',
-            money: '500',
-            detail: '病情描述',
-            pics: ['https://p0.ssl.img.360kuai.com/t01e9b0ee675fb9a2f4.webp', 'https://p0.ssl.img.360kuai.com/t01e9b0ee675fb9a2f4.webp'],
-            patient: {
-                name: '张三',
-                sex: '男',
-                age: 31,
-                height: '170',
-                weight: 100
-            }
-        }
+        order: {},
+        statusColor: 'danger-color'
     },
-    onLoad() {
-
+    onLoad(option) {
+        this.type = option.type;
+        this.id = option.id;
+        this.loadInfo();
+    },
+    loadInfo() {
+        var url = '/apply/info/';
+        if (this.type == 'interrogation') {
+            url = '/consultorder/info/';
+        }
+        wx.jyApp.http({
+            url: url + this.id
+        }).then((data) => {
+            data.consultOrder.patient._sex = data.consultOrder.patient.sex == 1 ? '男' : '女';
+            data.consultOrder.patient.age = new Date().getFullYear() - Date.prototype.parseDate(data.consultOrder.patient.birthday);
+            data.consultOrder._status = wx.jyApp.constData.orderStatusMap[data.consultOrder.status];
+            data.consultOrder.picUrls = data.consultOrder.picUrls && data.consultOrder.picUrls.split(',') || [];
+            this.setData({
+                order: data.consultOrder
+            });
+            if ([1, 7, 8].indexOf(this.data.order.status) > -1) {
+                this.setData({
+                    statusColor: 'success-color'
+                });
+            }
+        });
     }
 })

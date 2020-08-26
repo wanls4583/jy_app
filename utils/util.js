@@ -17,6 +17,11 @@ function formatTime(date, format = 'yyyy-MM-dd hh:mm:ss:SSS') {
     return format;
 }
 
+function parseDate(str, split) {
+    var arr = str.split(split || '-');
+    return new Date(Number(arr[0]), Number(arr[1]), Number(arr[2]));
+}
+
 const formatNumber = n => {
     n = n.toString()
     return n[1] ? n : '0' + n
@@ -27,6 +32,9 @@ function getUUID() {
         return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
     })
 }
+
+Date.prototype.formatTime = formatTime;
+Date.prototype.parseDate = parseDate;
 
 module.exports = {
     formatTime: formatTime,

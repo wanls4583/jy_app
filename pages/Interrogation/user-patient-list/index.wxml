@@ -3,7 +3,7 @@
     <view class="padding-30 white-background-color">
         <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-30 margin-bottom-30 border clickable {{selectId==item.id ? 'primary-border-color primary-color' : 'gray-border-color gray-color'}}" data-id="{{item.id}}" bindtap="selectPatient">
             <text>{{item.patientName}}</text>
-            <text>{{item.sex}}</text>
+            <text>{{item._sex}}</text>
             <text>{{item.age}}岁</text>
             <text>{{item.height}}cm</text>
             <text>{{item.weight}}kg</text>
@@ -14,6 +14,6 @@
         <view class="button plain primary block">+ 添加患者</view>
     </view>
     <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block {{selectId ? '' : 'disabled'}}">提交问诊</view>
+        <view class="button primary block" bindtap="onSave">提交问诊</view>
     </view>
 </view>
