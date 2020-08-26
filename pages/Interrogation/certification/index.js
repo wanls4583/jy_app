@@ -1,8 +1,9 @@
 Page({
     data: {
-        picList: [],
+        practicePics: [],
+        positionPics: [],
         detail: '',
-        activeNames: ['1', '2'],
+        activeNames: ['1', '2', '3', '4'],
         name: '',
         card: '',
         introduction: '',
@@ -15,7 +16,11 @@ Page({
         department2: '',
         department3: '',
         departmentVisible: false,
-        departmentList: ['营养科', '中医科', '肛肠科']
+        departmentList: ['营养科', '中医科', '肛肠科'],
+        practiceHospital: '',
+        practicePosition: '',
+        positionVisible: false,
+        positionList: ['营养师', '主任医师', '副主任医师', '主治医师', '医师']
     },
     onLoad(option) {
 
@@ -42,6 +47,12 @@ Page({
             departmentVisible: false
         });
     },
+    onConfirmPosition(e) {
+        this.setData({
+            practicePosition: e.detail.value,
+            positionVisible: false
+        });
+    },
     onShowDisease() {
         this.setData({
             diseaseVisible: !this.data.diseaseVisible
@@ -50,6 +61,11 @@ Page({
     onShowDepartment() {
         this.setData({
             departmentVisible: !this.data.departmentVisible
+        });
+    },
+    onShowPosition() {
+        this.setData({
+            positionVisible: !this.data.positionVisible
         });
     },
     chooseAvater() {
@@ -63,14 +79,14 @@ Page({
             }
         });
     },
-    chooseImage() {
+    onChoosePracticeImage() {
         var self = this;
         wx.chooseImage({
             success(res) {
                 const tempFilePaths = res.tempFilePaths
                 console.log(res);
                 self.setData({
-                    picList: self.data.picList.concat(tempFilePaths)
+                    practicePics: self.data.practicePics.concat(tempFilePaths)
                 });
                 // wx.uploadFile({
                 //     url: 'https://example.weixin.qq.com/upload', //仅为示例，非真实的接口地址
@@ -87,11 +103,80 @@ Page({
             }
         })
     },
-    delPic(e) {
+    delPracticPic(e) {
         var index = e.currentTarget.dataset.index;
-        this.data.picList.splice(index, 1);
+        this.data.practicePics.splice(index, 1);
         this.setData({
-            picList: this.data.picList
+            practicePics: this.data.practicePics
         });
+    },
+    onChoosePositionImage() {
+        var self = this;
+        wx.chooseImage({
+            success(res) {
+                const tempFilePaths = res.tempFilePaths
+                console.log(res);
+                self.setData({
+                    positionPics: self.data.positionPics.concat(tempFilePaths)
+                });
+            }
+        })
+    },
+    delPositionPic(e) {
+        var index = e.currentTarget.dataset.index;
+        this.data.positionPics.splice(index, 1);
+        this.setData({
+            positionPics: this.data.positionPics
+        });
+    },
+    onSave() {
+        if (!this.data.name) {
+            wx.jyApp.toast('姓名不能为空');
+            return;
+        }
+        if (!this.data.card) {
+            wx.jyApp.toast('身份证不能为空');
+            return;
+        }
+        if (!this.data.avater) {
+            wx.jyApp.toast('个人头像不能为空');
+            return;
+        }
+        if (!this.data.disease) {
+            wx.jyApp.toast('擅长不能为空');
+            return;
+        }
+        if (!this.data.introduction) {
+            wx.jyApp.toast('个人简介不能为空');
+            return;
+        }
+        if (!this.data.department1) {
+            wx.jyApp.toast('就职科室不能为空');
+            return;
+        }
+        if (!this.data.department2) {
+            wx.jyApp.toast('执业科室不能为空');
+            return;
+        }
+        if (!this.data.department3) {
+            wx.jyApp.toast('线上科室不能为空');
+            return;
+        }
+        if (!this.data.practiceHospital) {
+            wx.jyApp.toast('执业医院不能为空');
+            return;
+        }
+        if (!this.data.practicePics.lenght) {
+            wx.jyApp.toast('请上传执业证');
+            return;
+        }
+        if (!this.data.practicePosition) {
+            wx.jyApp.toast('职称不能为空');
+            return;
+        }
+        if (!this.data.positionPics.lenght) {
+            wx.jyApp.toast('请上传职称证');
+            return;
+        }
     }
 })

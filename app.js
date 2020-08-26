@@ -31,10 +31,10 @@ App({
                 icon: 'none'
             });
         }
-        wx.setTabBarBadge({
-          index: 2,
-          text: '1'
-        });
+        // wx.setTabBarBadge({
+        //   index: 2,
+        //   text: '1'
+        // });
     },
     onShow() {
         this.setGlobalData();
