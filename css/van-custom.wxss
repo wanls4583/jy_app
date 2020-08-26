@@ -71,3 +71,11 @@ page .van-collapse-item__content {
 .van-collapse-item .item-index--van-cell {
     font-weight: bold;
 }
+
+.van-collapse-item {
+    margin-top: 20rpx;
+}
+
+van-collapse-item:first-of-type .van-collapse-item {
+    margin-top: 0;
+}
