@@ -1,0 +1,113 @@
+<view class="container">
+    <view class="position-fixed top-0 flex--center--start width-100 height-50px white-background-color border-top border-bottom gray-color" style="padding:15px;">
+        <text>{{patient.patientName}}，</text>
+        <text>{{patient._sex}}，</text>
+        <text>{{patient.age}}岁，</text>
+        <text>{{patient.height}}cm，</text>
+        <text>{{patient.weight}}kg</text>
+    </view>
+    <view class="position-fixed width-100" bindtap="onClickChatBlock" style="padding:10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px">
+        <scroll-view class="height-100" scroll-y="{{true}}" scroll-into-view="{{domId}}">
+            <view wx:if="{{totalPage>1}}" class="flex--center--center padding-30">
+                <view class="clickable gray-color" bindtap="onPre">点击加载更多</view>
+            </view>
+            <view wx:for="{{chatList}}" wx:key="id" class="position-relative">
+                <view wx:if="{{item.type==-1||item.type==-2}}" class="flex--center--between padding-top-bottom-20">
+                    <view class="flex-grow-1 border-bottom border-color-ddd"></view>
+                    <text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
+                    <view class="flex-grow-1 border-bottom border-color-ddd"></view>
+                </view>
+                <view wx:elif="{{item.type==0}}" class="flex--center--center padding-top-bottom-20">
+                    <text class="margin-left-right-20 gray-color  font-small">{{item.txt}}</text>
+                </view>
+                <view wx:else class="flex padding-20 padding-left-right-0 {{item.sender==currentUser.id?'myself':'other'}}" id="{{item.domId}}" style="line-height:40rpx">
+                    <view wx:if="{{item.sender==talker.id}}" class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx">
+                        <image class="width-100 height-100" src="{{talker.avatarUrl}}" mode="scaleToFill" />
+                    </view>
+                    <view wx:if="{{item.type==1}}" class="position-relative padding-20 radius-8rpx primary-background-color white-color">
+                        <text>{{item.txt}}</text>
+                        <view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
+                        <image wx:if="{{item.sendStatus=='sending'}}" src="/image/icon_loading.gif" mode="aspectFit" class="send-status" />
+                        <icon wx:if="{{item.sendStatus=='sendFail'}}" type="warn" size="20" class="send-status" data-index="{{index}}" bindtap="onResend"></icon>
+                    </view>
+                    <view wx:elif="{{item.type==2}}" class="position-relative">
+                        <view class="overflow-hidden">
+                            <image class="flex" src="{{item.txt}}" mode="heightFix" data-src="{{item.txt}}" bindtap="onClickImg" style="height:240rpx"></image>
+                        </view>
+                        <view wx:if="{{item.sendStatus=='uploading'}}" class="position-absolute top-0 width-100 height-100 flex--center--center" style="background-color:rgba(0,0,0,0.5);">
+                            <text class="font-small white-color">{{item.progress}}%</text>
+                        </view>
+                        <image wx:if="{{item.sendStatus=='sending'}}" src="/image/icon_loading.gif" mode="aspectFit" class="send-status" />
+                        <icon wx:if="{{item.sendStatus=='sendFail'||item.sendStatus=='uploadFail'}}" type="warn" size="20" class="send-status" data-index="{{index}}" bindtap="onResendImg"></icon>
+                    </view>
+                    <view wx:elif="{{item.type==3}}" class="position-relative padding-20 radius-8rpx white-background-color">
+                        <view>
+                            <view>{{item.txt}}</view>
+                            <view class="align-center">
+                                <view class="button small primary margin-top-30" data-id="{{item.associateId}}" bindtap="onClickInterrogationOrder">
+                                    查看问诊单
+                                </view>
+                            </view>
+                        </view>
+                        <view class="white-arrow {{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
+                    </view>
+                    <view wx:elif="{{item.type==4}}" class="position-relative">
+                        <view class="white-background-color border primary-border-color overflow-hidden radius-8rpx">
+                            <view class="width-100 padding-20 primary-background-color white-color align-center">
+                                营养指导申请
+                            </view>
+                            <view class="padding-30">
+                                <view class="flex--center--between">
+                                    <text>编号：1234</text>
+                                    <text>已完成</text>
+                                </view>
+                                <view class="margin-top-20">
+                                    <text>王小样，</text>
+                                    <text>男，</text>
+                                    <text>31岁，</text>
+                                    <text>173cm，</text>
+                                    <text>60kg</text>
+                                </view>
+                            </view>
+                            <view class="align-center padding-bottom-20">
+                                <view class="button small primary" data-item="item">开营养指导</view>
+                            </view>
+                        </view>
+                        <view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
+                    </view>
+                    <view wx:if="{{item.sender==currentUser.id}}" class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx">
+                        <image class="width-100 height-100" src="{{currentUser.avatarUrl}}" mode="scaleToFill" />
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
+    </view>
+    <view class="position-fixed width-100 border-top border-color-ddd" style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;">
+        <view class="flex--center--between height-60px padding-left-20">
+            <input confirm-type="send" confirm-hold="{{true}}" type="text" class="flex-grow-1 height-80rpx padding-0 padding-left-20 radius-8rpx white-background-color" value="{{inputValue}}" bindfocus="foucus" bindblur="blur" bindinput="onInput" bindconfirm="onSend" adjust-position='{{false}}' focus="{{inputFoucus}}" />
+            <view class="flex--center--center height-120rpx padding-left-30 padding-right-20" bindtap="onShowPanel">
+                <van-icon name="add-o" size="30px" />
+            </view>
+        </view>
+        <view wx:if="{{panelVisible}}" class="flex--center--start padding-30 padding-bottom-20 border-top border-color-ddd" style="height:{{panelHeight}}px">
+            <view class="flex--center--between flex-direction-column height-100 margin-right-30">
+                <view class="flex--center--center width-60px height-60px radius-8px white-background-color" bindtap="onChooseImage">
+                    <van-icon name="photo-o" size="30px" />
+                </view>
+                <view class="font-small">照片</view>
+            </view>
+            <view class="flex--center--between flex-direction-column height-100">
+                <view class="flex--center--center width-60px height-60px radius-8px white-background-color" bindtap="onClickApply">
+                    <van-icon name="records" size="30px" />
+                </view>
+                <view class="font-small">申请营养指导</view>
+            </view>
+        </view>
+    </view>
+    <van-action-sheet show="{{actionVisible}}" actions="{{actions}}" cancel-text="取消" bindtap="onCancelAction">
+        <view class="flex--center--center flex-direction-column padding-30 clickable" bindtap="onApply">
+            <text class="font-title">申请营养指导</text>
+            <text class="primary-color font-small margin-top-10">首次免诊金</text>
+        </view>
+    </van-action-sheet>
+</view>

@@ -16,3 +16,20 @@
 	background-color: #ddd;
 	right: -110rpx;
 }
+.myself {
+	justify-content: flex-end;
+	padding-left: 60rpx;
+}
+
+.other {
+	padding-right: 60rpx;
+}
+
+.send-status {
+	position: absolute;
+	top: 50%;
+	left: -60rpx;
+	margin-top: -20rpx;
+	width: 40rpx;
+	height: 40rpx;
+}

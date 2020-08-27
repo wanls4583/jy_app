@@ -26,7 +26,7 @@ Page({
     },
     onClickOrder() {
         wx.navigateTo({
-            url: '/pages/mall/order-list/index'
+            url: '/pages/order-list/index'
         });
     }
 })

@@ -1,5 +1,8 @@
 {
     "pages": [
+        "pages/interrogation/message-list/index",
+        "pages/interrogation/chat/index",
+        "pages/mine/index",
         "pages/mall/home/index",
         "pages/mall/product-list/index",
         "pages/order-list/index",
@@ -18,14 +21,11 @@
         "pages/interrogation/search/index",
         "pages/interrogation/product-list/index",
         "pages/interrogation/guidance-edit/index",
-        "pages/interrogation/message-list/index",
         "pages/interrogation/home/index",
         "pages/interrogation/doctor-setting/index",
-        "pages/mall/chat/index",
         "pages/mall/search/index",
         "pages/mall/mall/index",
         "pages/mall/address-list/index",
-        "pages/mall/mine/index",
         "pages/mall/address-edit/index",
         "pages/mall/product-detail/index",
         "pages/mall/cart/index",
@@ -47,7 +47,6 @@
         "van-tab": "/vant/tab/index",
         "van-search": "/vant/search/index",
         "van-button": "/vant/button/index",
-        "van-cell": "/vant/cell/index",
         "van-popup": "/vant/popup/index",
         "van-field": "/vant/field/index",
         "van-cell": "/vant/cell/index",
@@ -89,7 +88,7 @@
             "text": "消息"
         },
         {
-            "pagePath": "pages/mall/mine/index",
+            "pagePath": "pages/mine/index",
             "iconPath": "image/icon_center.png",
             "selectedIconPath": "image/icon_center_active.png",
             "text": "我的"

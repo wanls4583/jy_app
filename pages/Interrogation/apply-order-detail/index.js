@@ -17,7 +17,6 @@ Page({
             url: url + this.id
         }).then((data) => {
             data.consultOrder.patient._sex = data.consultOrder.patient.sex == 1 ? '男' : '女';
-            data.consultOrder.patient.age = new Date().getFullYear() - Date.prototype.parseDate(data.consultOrder.patient.birthday);
             data.consultOrder._status = wx.jyApp.constData.orderStatusMap[data.consultOrder.status];
             data.consultOrder.picUrls = data.consultOrder.picUrls && data.consultOrder.picUrls.split(',') || [];
             this.setData({
