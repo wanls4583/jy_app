@@ -27,7 +27,7 @@ Page({
         });
     },
     getUserInfo(e) {
-        e.detail.userInfo.sex = e.detail.userInfo.gender == 1 ? 1 : 2;
+        e.detail.userInfo.sex = e.detail.userInfo.gender == 1 ? 1 : 0;
         wx.setStorageSync('userInfo', e.detail.userInfo);
         this.setData({
             userInfo: e.detail.userInfo,

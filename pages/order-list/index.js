@@ -33,28 +33,8 @@ Page({
     onLoad() {
         this.loadMallOrderList();
         this.loadInterrogationOrderList();
-        // this.loadApplyOrderList();
+        this.loadApplyOrderList();
         // this.loadGuidenceOrderList();
-        this.setData({
-            applyOrder: {
-                orderList: [{
-                    title: '商品信息',
-                    money: 100,
-                    orderNum: '125432113',
-                    status: '未支付',
-                    money: '500',
-                    patient: {
-                        name: '张三',
-                        sex: '男',
-                        age: 31,
-                        height: '170',
-                        weight: 100
-                    }
-                }],
-                page: 2,
-                totalPage: 1
-            }
-        });
         this.setData({
             guidenceOrder: {
                 orderList: [{
@@ -215,7 +195,6 @@ Page({
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.orderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
-                item.patient.age = new Date().getFullYear() - Date.prototype.parseDate(item.patient.birthday);
             });
             this.setData({
                 'interrogationOrder.page': this.data.interrogationOrder.page + 1,

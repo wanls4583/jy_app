@@ -1,7 +1,7 @@
 <!-- index.wxml -->
 <view class="container">
     <view class="padding-left-right-20 white-background-color">
-        <view wx:for="{{messageList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 clickable" data-id="{{item.id}}" bindtap="onClickMsg">
+        <view wx:for="{{messageList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 clickable" data-id="{{item.id}}" data-roomid="{{item.roomId}}" bindtap="onClickMsg">
             <view class="width-80rpx height-80rpx gray-background-color">
                 <image class="width-100 height-100 radius-8rpx" src="{{item.wxAvatar}}" mode="aspectFill" />
             </view>

@@ -7,8 +7,16 @@ Page({
     },
     onClickMsg(e) {
         var id = e.currentTarget.dataset.id;
+        var roomId = e.currentTarget.dataset.roomid;
         wx.navigateTo({
-            url: '/pages/interrogation/chat/index?id=' + id
+            url: '/pages/interrogation/chat/index?roomId=' + roomId
+        });
+        wx.jyApp.http({
+            url: '/chat/resetNotReadNum',
+            method: 'post',
+            data: {
+                id: id
+            }
         });
     },
     loadList() {

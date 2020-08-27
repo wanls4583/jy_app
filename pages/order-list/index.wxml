@@ -16,7 +16,7 @@
                             <text class="gray-color">订单编号：{{order.orderNum}}</text>
                             <text>{{order._status}}</text>
                         </view>
-                        <view class="flex--center-between padding-top-bottom-20">
+                        <view class="flex--center--between padding-top-bottom-20">
                             <text>商品信息：{{order.goodsName}}</text>
                             <text class="margin-left-30 primary-color">￥{{order.orderAmount}}</text>
                         </view>
@@ -52,7 +52,7 @@
                         </view>
                         <view class="flex padding-bottom-20">
                             <text>患者信息：</text>
-                            <text class="margin-left-30">{{order.patient.name}}</text>
+                            <text>{{order.patient.name}}</text>
                             <text class="margin-left-30">{{order.patient.sex}}</text>
                             <text class="margin-left-30">{{order.patient.age}}岁</text>
                             <text class="margin-left-30">{{order.patient.height}}cm</text>

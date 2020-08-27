@@ -22,11 +22,11 @@
                 </view>
                 <view wx:else class="flex padding-20 padding-left-right-0 {{item.sender==currentUser.id?'myself':'other'}}" id="{{item.domId}}" style="line-height:40rpx">
                     <view wx:if="{{item.sender==talker.id}}" class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx">
-                        <image class="width-100 height-100" src="{{talker.avatarUrl}}" mode="scaleToFill" />
+                        <image class="width-100 height-100 radius-8rpx" src="{{talker.avatarUrl}}" mode="scaleToFill" />
                     </view>
-                    <view wx:if="{{item.type==1}}" class="position-relative padding-20 radius-8rpx primary-background-color white-color">
-                        <text>{{item.txt}}</text>
-                        <view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
+                    <view wx:if="{{item.type==1}}" class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color white-color">
+                        <text class="{{item.sender==talker.id&&'color-333'||''}}">{{item.txt}}</text>
+                        <view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
                         <image wx:if="{{item.sendStatus=='sending'}}" src="/image/icon_loading.gif" mode="aspectFit" class="send-status" />
                         <icon wx:if="{{item.sendStatus=='sendFail'}}" type="warn" size="20" class="send-status" data-index="{{index}}" bindtap="onResend"></icon>
                     </view>
@@ -73,10 +73,10 @@
                                 <view class="button small primary" data-item="item">开营养指导</view>
                             </view>
                         </view>
-                        <view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
+                        <view class="white-arrow {{item.sender==currentUser.id?'arrow-right':'arrow-left'}}"></view>
                     </view>
                     <view wx:if="{{item.sender==currentUser.id}}" class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx">
-                        <image class="width-100 height-100" src="{{currentUser.avatarUrl}}" mode="scaleToFill" />
+                        <image class="width-100 height-100 radius-8rpx" src="{{currentUser.avatarUrl}}" mode="scaleToFill" />
                     </view>
                 </view>
             </view>

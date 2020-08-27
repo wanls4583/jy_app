@@ -1,6 +1,7 @@
 .login-btn {
 	width: 100% !important;
 	height: 100% !important;
+	min-width: auto;
 	margin: 0;
 	padding: 0;
 	border-style: none;

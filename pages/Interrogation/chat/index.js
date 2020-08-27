@@ -15,6 +15,7 @@ Page({
         panelHeight: 115,
         actionVisible: false,
         roomId: '',
+        consultOrderId: '',
         earlistId: '',
         lastestId: '',
         sendedIds: [],
@@ -34,16 +35,16 @@ Page({
             title: '加载中...',
             mask: true
         });
-        this.initRoom(option.id).then(() => {
+        this.initRoom(option.roomId).then(() => {
             this.getNewHistory();
         });
     },
     onUnload() {
         clearTimeout(this.pollTimer);
     },
-    initRoom(id) {
+    initRoom(roomId) {
         return wx.jyApp.http({
-            url: '/chat/room/info/' + id
+            url: '/chat/room/info/' + roomId
         }).then((data) => {
             data.patient._sex = data.patient.sex == 1 ? '男' : '女';
             this.setData({
@@ -85,7 +86,7 @@ Page({
     },
     //发文字消息
     onSend() {
-        this.getNewHistory(() => {
+        this.getNewHistory().then(() => {
             var inputValue = this.data.inputValue;
             var chat = {
                 sendStatus: 'sending',
@@ -188,7 +189,7 @@ Page({
             urls: picList // 需要预览的图片http链接列表
         });
     },
-    //申请开处方
+    //申请开指导
     onClickApply() {
         this.setData({
             actionVisible: true,
@@ -201,13 +202,13 @@ Page({
             panelVisible: false
         });
     },
-    //开指导
+    //申请开指导
     onApply() {
         wx.jyApp.http({
             url: '/apply/save',
             method: 'post',
             data: {
-                id: 2
+                id: this.data.consultOrderId
             }
         }).then(() => {
             this.setData({
@@ -284,14 +285,14 @@ Page({
     },
     //轮询消息
     getNewHistory() {
-        this.getHistory();
+        return this.getHistory();
     },
     //上翻消息
     getPreHistory() {
-        this.getHistory(true);
+        return this.getHistory(true);
     },
     getHistory(ifPre) {
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: '/chat/history/poll',
             method: 'get',
             data: {
@@ -309,7 +310,7 @@ Page({
                 item.domId = 'id-' + item.id;
             });
             this.data.chatList = this.data.chatList.filter((item) => {
-                return !item.sendStatus && this.data.sendedIds.indexOf(item.id) == -1;
+                return this.data.sendedIds.indexOf(item.id) == -1;
             });
             if (ifPre) {
                 this.data.chatList = list.concat(this.data.chatList);
@@ -345,7 +346,8 @@ Page({
             this.pollTimer = setTimeout(() => {
                 this.getNewHistory();
             }, 3000);
-        }).catch(() => {
+        }).catch((err) => {
+            console.log(err)
             this.pollTimer = setTimeout(() => {
                 this.getNewHistory();
             }, 3000);

@@ -1,8 +1,8 @@
 {
     "pages": [
+        "pages/mine/index",
         "pages/interrogation/message-list/index",
         "pages/interrogation/chat/index",
-        "pages/mine/index",
         "pages/mall/home/index",
         "pages/mall/product-list/index",
         "pages/order-list/index",

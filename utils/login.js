@@ -54,6 +54,7 @@ function getUserInfo() {
             success: (res) => {
                 resolve(res.userInfo);
                 wx.setStorageSync('userInfo', res.userInfo);
+                res.userInfo.sex = e.detail.userInfo.gender == 1 ? 1 : 0;
                 updateUserInfo(res.userInfo);
             },
             fail: (err) => {
@@ -74,6 +75,10 @@ function updateUserInfo(userInfo) {
 
 //登录
 function login() {
+    if(login.logining) {
+        return;
+    }
+    login.logining = true;
     return new Promise((resolve, reject) => {
         wx.login({
             success: (res) => {
@@ -92,13 +97,18 @@ function login() {
             }
         }).then((data) => {
             wx.setStorageSync('token', data.token);
+            login.logining = false;
             return Promise.resolve(data);
         }).catch(() => {
             wx.showToast({
                 title: '登录失败'
             });
+            login.logining = false;
             return Promise.reject();
         });
+    }).catch(()=>{
+        login.logining = false;
+        return Promise.reject();
     });
 }
 
