@@ -241,7 +241,7 @@ Page({
                 success(res) {
                     var data = {};
                     try {
-                        JSON.parse(res.data)
+                        data = JSON.parse(res.data);
                     } catch (e) {
                         data = {};
                     }
@@ -281,6 +281,8 @@ Page({
         }).then((data) => {
             this.setSendStatus(chat, 'sended');
             this.data.sendedIds.push(data.id);
+        }).catch(()=>{
+            this.setSendStatus(chat, 'sendFail');
         });
     },
     //轮询消息
