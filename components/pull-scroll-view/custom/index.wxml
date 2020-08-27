@@ -1,11 +1,13 @@
 <view class='pull_scroll_view external-classes' style='{{style}}'>
-    <scroll-view class='scroll_view' scroll-anchoring="{{true}}" lower-threshold='{{lowerThreshold}}' upper-threshold='{{upperThreshold}}' bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper' bindscroll='onScroll' bindtouchstart='touchStart' bindtouchend='touchEnd' scroll-top='{{_scrollTop}}' scroll-with-animation='{{animation}}' scroll-y>
-        <view class='pull_down' style='height:{{_topHeight}}px;'>
-            <view wx:if='{{finished}}' class='loading_tip'><icon class="icon-small" type="success_no_circle" size="23" color="#fa9144"></icon>刷新完成</view>
-            <image wx:else class='loading_gif' src='/image/loading.gif'></image>
-        </view>
-        <view class='content' style="min-height:{{minHeight}}px;">
-            <slot></slot>
+    <scroll-view class='scroll_view' scroll-anchoring="{{true}}" lower-threshold='{{lowerThreshold}}' upper-threshold='{{upperThreshold}}' bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper' bindscroll='onScroll' scroll-top='{{_scrollTop}}' scroll-with-animation='{{animation}}' scroll-y>
+        <view bindtouchstart='touchStart' bindtouchend='touchEnd'>
+            <view class='pull_down' style='height:{{_topHeight}}px;'>
+                <view wx:if='{{finished}}' class='loading_tip'><icon class="icon-small" type="success_no_circle" size="23" color="#fa9144"></icon>刷新完成</view>
+                <image wx:else class='loading_gif' src='/image/loading.gif'></image>
+            </view>
+            <view class='content' style="min-height:{{minHeight}}px;">
+                <slot></slot>
+            </view>
         </view>
     </scroll-view>
 </view>

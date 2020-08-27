@@ -14,7 +14,7 @@ Component({
         scrollTop: {
             type: Number,
             value: 0,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 this.properties.scrollTop = newVal + 1;
                 if (!this.hasAttached) {
                     return;
@@ -28,7 +28,7 @@ Component({
         scrollToTop: {
             type: Boolean,
             value: false,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.scrollToTop = false;
                 this.toTop();
@@ -37,7 +37,7 @@ Component({
         stopRefresh: {
             type: Boolean,
             value: false,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.stopRefresh = false;
                 this.setData({
@@ -68,7 +68,7 @@ Component({
         topHeight: {
             type: Number,
             value: 60,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 if (this.properties.fullScreen) {
                     newVal += this.data.statusBarHeight;
                 }
@@ -86,7 +86,8 @@ Component({
         _topHeight: 0,
         animation: true,
         finished: false,
-        minHeight: 0
+        minHeight: 0,
+        test: '1'
     },
     lifetimes: {
         attached() {
@@ -95,7 +96,7 @@ Component({
             });
         }
     },
-    attached: function(option) {
+    attached: function (option) {
         wx.nextTick(() => {
             this._attached();
         });
@@ -122,16 +123,6 @@ Component({
             this.hasAttached = true;
         },
         onScroll(e) {
-            var scrollTop = e.detail.scrollTop;
-            this.triggerEvent('scroll', e.detail);
-            if (!this.touching && !this.refreshing && !this.gettingRect && !this.returnToTop) {
-                if (scrollTop < this.properties.topHeight) {
-                    clearTimeout(this.scrollTimer);
-                    this.scrollTimer = setTimeout(()=>{
-                        this.toTop();
-                    }, 100);
-                }
-            }
             this.triggerEvent('scroll', e.detail);
         },
         onScrolltolower(e) {
@@ -146,26 +137,35 @@ Component({
         },
         touchEnd(e) {
             this.endTime = new Date().getTime();
-            if (this.refreshing || this.readyToRefresh) {
+            if (this.refreshing) {
                 return;
             }
-            this.getRect().then((res) => {
-                this.touching = false;
-                if (!res) {
-                    return;
-                }
-                //时间太短，不触发更新
-                if (res.scrollTop <= 0 && !(this.endTime - this.startTime < 200)) {
-                    this.refresh();
-                } else if (res.scrollTop < this.data.topHeight) {
-                    this.toTop();
-                }
-            });
+            _computeRect.bind(this)();
+            function _computeRect() {
+                return this.getRect().then((res) => {
+                    this.touching = false;
+                    if (!res) {
+                        wx.nextTick(()=>{
+                            _computeRect.bind(this)();
+                        })
+                        return;
+                    }
+                    //时间太短，不触发更新
+                    if (res.scrollTop <= 0 && !(this.endTime - this.startTime < 200)) {
+                        this.refresh();
+                    } else if (res.scrollTop < this.data.topHeight) {
+                        this.toTop();
+                    }
+                });
+            }
         },
         toTop() {
-            this.setData({
-                _scrollTop: this.data._scrollTop == this.properties.topHeight ? this.properties.topHeight + 1 : this.properties.topHeight
-            });
+            clearTimeout(this.scrollTimer);
+            this.scrollTimer = setTimeout(() => {
+                this.setData({
+                    _scrollTop: this.data._scrollTop == this.properties.topHeight ? this.properties.topHeight + 1 : this.properties.topHeight
+                });
+            }, 50);
         },
         refresh() {
             if (this.refreshing) {
