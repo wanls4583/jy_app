@@ -21,7 +21,7 @@ Page({
         sendedIds: [],
         totalPage: 0,
         applyOrderMap: {},
-        status: 0
+        status: 0 //1:聊天未关闭，0:聊天已关闭
     },
     onLoad(option) {
         if (wx.onKeyboardHeightChange) {
@@ -40,6 +40,14 @@ Page({
         this.initRoom(option.roomId).then(() => {
             this.getNewHistory();
         });
+    },
+    onShow() {
+        if (this.data.roomId) {
+            this.getNewHistory();
+        }
+    },
+    onHide() {
+        clearTimeout(this.pollTimer);
     },
     onUnload() {
         clearTimeout(this.pollTimer);
@@ -195,10 +203,16 @@ Page({
             urls: picList // 需要预览的图片http链接列表
         });
     },
-    //申请开指导
+    //点击[申请]开指导按钮
     onClickApply() {
+        if (this.data.currentUser.role != 'DOCTOR') { //患者申请指导
+            this.setData({
+                actionVisible: true
+            });
+        } else { //医生开指导
+            this.onGuide();
+        }
         this.setData({
-            actionVisible: true,
             panelVisible: false
         });
     },
@@ -223,11 +237,17 @@ Page({
             this.getNewHistory();
         });
     },
-    //点击申请指导单
-    onClickApplyOrder(e) {
+    //开指导
+    onGuide() {
+        wx.navigateTo({
+            url: '/pages/interrogation/guidence-edit/index?id=' + this.data.consultOrderId
+        });
+    },
+    //点击指导单详情按钮
+    onClickGuideOrderDetail() {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/interrogation/apply-order-detail/index?id=' + id
+            url: '/pages/interrogation/guidence-order-detail/index?id=' + id
         });
     },
     //图片加载失败
@@ -315,6 +335,7 @@ Page({
     getPreHistory() {
         return this.getHistory(true);
     },
+    //请求消息记录
     getHistory(ifPre) {
         return wx.jyApp.http({
             url: '/chat/history/poll',
@@ -329,7 +350,7 @@ Page({
         }).then((data) => {
             var list = data.page.list;
             var originLength = this.data.chatList.length;
-            if (this.data.status == 1) {
+            if (this.data.status == 1) { //聊天是否未关闭
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
                 }, 3000);
@@ -341,13 +362,13 @@ Page({
             this.data.chatList = this.data.chatList.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
-            if (ifPre) {
+            if (ifPre) { //上翻记录
                 this.data.chatList = list.concat(this.data.chatList);
             } else {
                 this.data.chatList = this.data.chatList.concat(list);
             }
             list.map((item) => {
-                item.domId = 'id-' + item.id;
+                item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
                     item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[item.orderApplyVO.status];
                 }

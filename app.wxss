@@ -242,6 +242,14 @@ switch {
     border-right-color: #fff;
 }
 
+.arrow-right.success-arrow {
+    border-left-color: #07c160;
+}
+
+.arrow-left.success-arrow {
+    border-right-color: #07c160;
+}
+
 .overlay {
     position: absolute;
     top: 0;
