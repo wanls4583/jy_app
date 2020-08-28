@@ -19,7 +19,9 @@ Page({
         earlistId: '',
         lastestId: '',
         sendedIds: [],
-        totalPage: 0
+        totalPage: 0,
+        applyOrderMap: {},
+        status: 0
     },
     onLoad(option) {
         if (wx.onKeyboardHeightChange) {
@@ -51,7 +53,8 @@ Page({
                 roomId: data.chatRoom.roomId,
                 currentUser: data.currentUser,
                 talker: data.talker,
-                patient: data.patient
+                patient: data.patient,
+                status: data.chatRoom.status
             });
             wx.hideLoading();
         });
@@ -70,6 +73,9 @@ Page({
         });
     },
     onShowPanel() {
+        if (this.data.status != 1) {
+            return;
+        }
         this.setData({
             panelVisible: !this.data.panelVisible
         });
@@ -179,7 +185,7 @@ Page({
     onClickImg(e) {
         var src = e.currentTarget.dataset.src;
         var picList = this.data.chatList.filter((item) => {
-            return item.type == 2;
+            return item.type == 2 && !item.failImgUrl;
         });
         picList = picList.map((item) => {
             return item.txt;
@@ -215,6 +221,22 @@ Page({
                 actionVisible: false
             });
             this.getNewHistory();
+        });
+    },
+    //点击申请指导单
+    onClickApplyOrder(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/pages/interrogation/apply-order-detail/index?id=' + id
+        });
+    },
+    //图片加载失败
+    onImgLoadError(e) {
+        var index = e.currentTarget.dataset.index;
+        var chat = this.data.chatList[index];
+        chat.failImgUrl = '/image/icon_pic_loading_failed.png';
+        this.setData({
+            [`chatList[${index}]`]: chat
         });
     },
     //设置消息发送状态
@@ -281,7 +303,7 @@ Page({
         }).then((data) => {
             this.setSendStatus(chat, 'sended');
             this.data.sendedIds.push(data.id);
-        }).catch(()=>{
+        }).catch(() => {
             this.setSendStatus(chat, 'sendFail');
         });
     },
@@ -307,10 +329,15 @@ Page({
         }).then((data) => {
             var list = data.page.list;
             var originLength = this.data.chatList.length;
+            if (this.data.status == 1) {
+                this.pollTimer = setTimeout(() => {
+                    this.getNewHistory();
+                }, 3000);
+            }
+            if (!list.length) {
+                return;
+            }
             list.reverse();
-            list.map((item) => {
-                item.domId = 'id-' + item.id;
-            });
             this.data.chatList = this.data.chatList.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
@@ -319,6 +346,29 @@ Page({
             } else {
                 this.data.chatList = this.data.chatList.concat(list);
             }
+            list.map((item) => {
+                item.domId = 'id-' + item.id;
+                if (item.type == 4 && item.orderApplyVO) {
+                    item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[item.orderApplyVO.status];
+                }
+            });
+            list.map((item) => {
+                if (item.type == 0 && item.associateId) {
+                    var obj = null
+                    try {
+                        obj = JSON.parse(item.txt);
+                    } catch (e) {
+                        obj = {};
+                    }
+                    this.data.chatList.map((_item) => {
+                        if (_item.type == obj.type) {
+                            _item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[obj.status];
+                        }
+                    });
+                    var index = this.data.chatList.indexOf(item);
+                    this.data.chatList.splice(index, 1);
+                }
+            });
             this.setData({
                 chatList: this.data.chatList
             }, () => {
@@ -345,14 +395,13 @@ Page({
                     totalPage: data.page.totalPage
                 });
             }
-            this.pollTimer = setTimeout(() => {
-                this.getNewHistory();
-            }, 3000);
         }).catch((err) => {
             console.log(err)
-            this.pollTimer = setTimeout(() => {
-                this.getNewHistory();
-            }, 3000);
+            if (this.data.status == 1) {
+                this.pollTimer = setTimeout(() => {
+                    this.getNewHistory();
+                }, 3000);
+            }
         });
-    }
+    },
 })

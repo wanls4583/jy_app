@@ -11,7 +11,7 @@
     <view class="padding-left-right-30 margin-top-20 white-background-color">
         <view class="flex padding-top-bottom-20">
             <text>商品信息：{{order.goodsName}}</text>
-            <text class="margin-left-30">(￥{{order.orderAmount}})</text>
+            <text class="margin-left-30">(￥{{order.orderAmount||order.price||0}})</text>
         </view>
         <view class="flex padding-bottom-20">
             <text>患者信息：</text>

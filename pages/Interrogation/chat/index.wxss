@@ -18,11 +18,11 @@
 }
 .myself {
 	justify-content: flex-end;
-	padding-left: 60rpx;
+	margin-left: 60rpx;
 }
 
 .other {
-	padding-right: 60rpx;
+	margin-right: 60rpx;
 }
 
 .send-status {

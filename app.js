@@ -8,14 +8,6 @@ import * as constData from './utils/data';
 import Dialog from './vant/dialog/dialog';
 App({
     onLaunch: function() {
-        //登录检测
-        loginUtil.checkLogin().then(() => {
-            var userInfo = wx.getStorageSync('userInfo');
-            this.globalData.userInfo = userInfo;
-            wx.jyApp.loginCallback && wx.jyApp.loginCallback(userInfo);
-        }).catch((err) => {
-            console.log(err);
-        });
         wx.jyApp = {};
         wx.jyApp.app = this;
         wx.jyApp.createStoreBindings = createStoreBindings;

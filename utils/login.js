@@ -73,6 +73,18 @@ function updateUserInfo(userInfo) {
     });
 }
 
+function getAuthUserInfo() {
+    if(getAuthUserInfo.authUserInfo) {
+        return Promise.resolve(getAuthUserInfo.authUserInfo);
+    }
+    return wx.jyApp.http({
+        url: '/wx/user/info'
+    }).then((data)=>{
+        getAuthUserInfo.authUserInfo = data;
+        return data;
+    });
+}
+
 //登录
 function login() {
     if(login.logining) {
@@ -118,5 +130,6 @@ module.exports = {
     checkAuthorize: checkAuthorize,
     getUserInfo: getUserInfo,
     login: login,
-    updateUserInfo: updateUserInfo
+    updateUserInfo: updateUserInfo,
+    getAuthUserInfo: getAuthUserInfo
 }

@@ -16,6 +16,7 @@ Page({
         wx.jyApp.http({
             url: url + this.id
         }).then((data) => {
+            data.consultOrder = data.consultOrder || data.detail;
             data.consultOrder.patient._sex = data.consultOrder.patient.sex == 1 ? '男' : '女';
             data.consultOrder._status = wx.jyApp.constData.orderStatusMap[data.consultOrder.status];
             data.consultOrder.picUrls = data.consultOrder.picUrls && data.consultOrder.picUrls.split(',') || [];
