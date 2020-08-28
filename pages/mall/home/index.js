@@ -4,29 +4,17 @@ Page({
         currentBannerIndex: 0,
         productList: [],
         taocanList: [],
-        departmentList: [{
-            title: '科室1',
-            descripiton: '科室介绍'
-        }, {
-            title: '科室1',
-            descripiton: '科室介绍'
-        }],
-        doctorList: [{
-        	name: '医生1',
-        	zhiwei: '主任医师',
-        	hospital: '金沙洲医院',
-        	department: '营养科',
-        	shanchang: '对对对、顶顶顶顶',
-        	price: 30
-        }],
+        departmentList: [],
+        doctorList: [],
         kepuList: [{
             title: '标题',
             picUrl: 'http://img.canteen.juyuanyingyang.com/upload/20200820/33d03e045d3a42fba2e133e87ec30de8.jpeg'
         }]
     },
     onLoad() {
-        this.loadProduct();
         this.loadBaner();
+        this.loadDoctor();
+        this.loadDepartmentList();
     },
     onGotoSearch() {
         wx.navigateTo({
@@ -38,37 +26,27 @@ Page({
             currentBannerIndex: e.detail.current
         });
     },
-    loadProduct() {
+    loadDoctor() {
         wx.jyApp.http({
-            url: '/goods/list',
+            url: '/doctor/list',
             data: {
                 page: 1,
-                limit: 6,
-                type: 1
+                limit: 3
             }
-        }).then((data) => {
-            data.page.list.map((item) => {
-                item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
-            });
+        }).then((data)=>{
             this.setData({
-                taocanList: data.page.list
+                doctorList: data.page.list
             });
-        });
+        })
+    },
+    loadDepartmentList() {
         wx.jyApp.http({
-            url: '/goods/list',
-            data: {
-                page: 1,
-                limit: 6,
-                type: 2
-            }
-        }).then((data) => {
-            data.page.list.map((item) => {
-                item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
-            });
+            url: '/department/list'
+        }).then((data)=>{
             this.setData({
-                productList: data.page.list
+                departmentList: data.list
             });
-        });
+        })
     },
     loadBaner() {
         wx.jyApp.http({
@@ -93,9 +71,6 @@ Page({
     },
     //查看更多
     onClickMore(e) {
-        var type = e.currentTarget.dataset.type;
-        wx.navigateTo({
-            url: `/pages/mall/product-list/index?type=${type}`
-        });
+        
     }
 })

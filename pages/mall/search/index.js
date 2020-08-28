@@ -4,17 +4,10 @@ Page({
         searchText: '',
         goodsName: '',
         doctorData: {
-            list: [{
-                name: '医生1',
-                zhiwei: '主任医师',
-                hospital: '金沙洲医院',
-                department: '营养科',
-                shanchang: '对对对、顶顶顶顶',
-                price: 30
-            }],
+            list: [],
             page: 1,
             limit: 3,
-            totalPage: 1
+            totalPage: -1
         },
         taocanData: {
             list: [],
@@ -66,7 +59,7 @@ Page({
         });
     },
     search() {
-        Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(()=>{
+        Promise.all([this.loadDoctor(true),this.loadProduct(true), this.loadToacan(true)]).then(()=>{
             this.setData({
                 searched: true
             });
@@ -147,6 +140,37 @@ Page({
         });
     },
     loadDoctor(refresh) {
-        
+        if (this.data.doctorData.loading || !refresh && this.data.doctorData.page > this.data.doctorData.totalPage) {
+            return;
+        }
+        if (refresh) {
+            this.setData({
+                doctorData: {
+                    list: [],
+                    page: 1,
+                    limit: 3,
+                    totalPage: -1
+                }
+            });
+        }
+        this.data.doctorData.loading = true;
+        wx.jyApp.http({
+            url: '/doctor/list',
+            data: {
+                page: this.data.doctorData.page,
+                limit: this.data.doctorData.limit,
+                type: 2,
+                goodsName: this.data.goodsName
+            },
+            complete: () => {
+                this.data.doctorData.loading = false;
+            }
+        }).then((data) => {
+            this.setData({
+                [`doctorData.list`]: this.data.doctorData.list.concat(data.page.list || []),
+                [`doctorData.page`]: this.data.doctorData.page + 1,
+                [`doctorData.totalPage`]: data.page.totalPage
+            });
+        });
     }
 })

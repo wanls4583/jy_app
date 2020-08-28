@@ -13,7 +13,7 @@
                 <van-icon name="arrow" color="#ccc" />
             </view>
         </view>
-        <view class="padding-left-right-30 clickable">
+        <!-- <view class="padding-left-right-30 clickable">
             <view class="flex--center--between padding-top-bottom-30 border-bottom">
                 <text>营养咨询</text>
                 <view class="flex--center--center">
@@ -27,7 +27,7 @@
                 <text>患者信息</text>
                 <van-icon name="arrow" color="#ccc" />
             </view>
-        </view>
+        </view> -->
         <view class="padding-left-right-30 clickable" bindtap="onClickAddress">
             <view class="flex--center--between padding-top-bottom-30 border-bottom">
                 <text>收货地址</text>
