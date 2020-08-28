@@ -77,3 +77,47 @@
 .background-color-ddd {
     background-color: #ddd;
 }
+
+.warn-border-color {
+    border-color: #ff976a;
+}
+
+.success-border-color {
+    border-color: #07c160;
+}
+
+.danger-border-color {
+    border-color: #ee0a24;
+}
+
+.white-border-color {
+    border-color: #fff;
+}
+
+.primary-border-color {
+    border-color: rgb(42, 175, 255);
+}
+
+.gray-border-color {
+    border-color: #999;
+}
+
+.border-color-333 {
+    border-color: #333;
+}
+
+.border-color-666 {
+    border-color: #333;
+}
+
+.border-color-999 {
+    border-color: #999;
+}
+
+.border-color-ddd {
+    border-color: #ddd;
+}
+
+.border-color-eee {
+    border-color: #eee;
+}

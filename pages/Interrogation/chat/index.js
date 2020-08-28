@@ -372,6 +372,9 @@ Page({
                 if (item.type == 4 && item.orderApplyVO) {
                     item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[item.orderApplyVO.status];
                 }
+                if (item.type == 5 && item.nutrionOrderChatVo) {
+                    item.nutrionOrderChatVo._status = wx.jyApp.constData.orderStatusMap[item.nutrionOrderChatVo.status];
+                }
             });
             list.map((item) => {
                 if (item.type == 0 && item.associateId) {
@@ -383,7 +386,8 @@ Page({
                     }
                     this.data.chatList.map((_item) => {
                         if (_item.type == obj.type) {
-                            _item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[obj.status];
+                            var vo = _item.orderApplyVO || _item.nutrionOrderChatVo;
+                            vo._status = wx.jyApp.constData.orderStatusMap[obj.status];
                         }
                     });
                     var index = this.data.chatList.indexOf(item);
