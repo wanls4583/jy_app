@@ -87,10 +87,6 @@ function getAuthUserInfo() {
 
 //登录
 function login() {
-    if(login.logining) {
-        return;
-    }
-    login.logining = true;
     return new Promise((resolve, reject) => {
         wx.login({
             success: (res) => {
@@ -115,12 +111,7 @@ function login() {
             wx.showToast({
                 title: '登录失败'
             });
-            login.logining = false;
-            return Promise.reject();
         });
-    }).catch(()=>{
-        login.logining = false;
-        return Promise.reject();
     });
 }
 

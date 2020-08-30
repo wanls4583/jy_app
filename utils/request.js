@@ -17,13 +17,12 @@ function request(obj) {
                     obj.success && obj.success(res.data);
                     resolve(res.data);
                 } else {
-                    wx.showToast({
-                        title: res.data.msg,
-                        icon: 'none'
-                    });
+                    wx.jyApp.toast(res.data.msg);
                     reject(res.data);
-                    if (res.data.code == 401) {
-                        wx.jyApp.loginUtil.login();
+                    if (res.data.code == 401) { //登录失效
+                        wx.navigateTo({
+                            url: 'pages/index/index'
+                        });
                     }
                 }
             },
@@ -35,10 +34,7 @@ function request(obj) {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
                     reject(res);
-                    wx.showToast({
-                        title: '服务器错误',
-                        icon: 'none'
-                    });
+                    wx.jyApp.toast('服务器错误');
                 }
                 obj.complete && obj.complete(res);
             }

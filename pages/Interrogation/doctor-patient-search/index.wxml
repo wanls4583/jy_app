@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" focus="{{true}}" placeholder="请输入搜索关键词" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+        <van-search shape="round" focus="{{true}}" placeholder="请输入患者姓名" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
     </view>
     <view class="padding-left-right-30 white-background-color height-100" style="padding-top:54px">
         <pull-scroll-view bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>

@@ -1,0 +1,223 @@
+page {
+    height: 100%;
+    font-size: 28rpx;
+    color: #333;
+}
+
+view,
+scroll-view,
+swiper,
+input,
+textarea,
+text,
+image {
+    box-sizing: border-box;
+}
+
+switch {
+    transform: scale(0.8);
+}
+
+.container {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 100;
+    background: #fff;
+}
+
+.footer button {
+    height: 50px;
+    width: 120px !important;
+}
+
+.border {
+    border: 1rpx solid #eee;
+}
+
+.border-top {
+    border-top: 1rpx solid #eee;
+}
+
+.border-bottom {
+    border-bottom: 1rpx solid #eee;
+}
+
+.border-style-none {
+    border-style: none;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.font-title {
+    font-size: 32rpx;
+}
+
+.font-mini {
+    font-size: 20rpx;
+}
+
+.font-small {
+    font-size: 24rpx;
+}
+
+.font-large {
+    font-size: 36rpx;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.position-relative {
+    position: relative !important;
+}
+
+.position-absolute {
+    position: absolute !important;
+}
+
+.position-fixed {
+    position: fixed !important;
+}
+
+.z-index-1 {
+    z-index: 1
+}
+
+.z-index-100 {
+    z-index: 100
+}
+
+.top-0 {
+    top: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.left-0 {
+    left: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.top-100 {
+    top: 100%;
+}
+
+.bottom-100 {
+    bottom: 100%;
+}
+
+.left-100 {
+    left: 100%;
+}
+
+.right-100 {
+    right: 100%;
+}
+
+.radius-0 {
+    border-radius: 0 !important;
+}
+
+.radius-50 {
+    border-radius: 50%;
+}
+
+.radius-4px {
+    border-radius: 4px;
+}
+
+.radius-4rpx {
+    border-radius: 4rpx;
+}
+
+.radius-8px {
+    border-radius: 8px;
+}
+
+.radius-8rpx {
+    border-radius: 8rpx;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.arrow-right {
+    position: absolute;
+    top: 28rpx;
+    right: -22rpx;
+    border-color: transparent;
+    border-style: solid;
+    border-left-color: rgb(42, 175, 255);
+    border-left-width: 12rpx;
+    border-right-width: 12rpx;
+    border-top-width: 12rpx;
+    border-bottom-width: 12rpx;
+}
+
+.arrow-left {
+    position: absolute;
+    top: 28rpx;
+    left: -22rpx;
+    border-color: transparent;
+    border-style: solid;
+    border-right-color: rgb(42, 175, 255);
+    border-right-width: 12rpx;
+    border-left-width: 12rpx;
+    border-top-width: 12rpx;
+    border-bottom-width: 12rpx;
+}
+
+.arrow-right.white-arrow {
+    border-left-color: #fff;
+}
+
+.arrow-left.white-arrow {
+    border-right-color: #fff;
+}
+
+.arrow-right.success-arrow {
+    border-left-color: #07c160;
+}
+
+.arrow-left.success-arrow {
+    border-right-color: #07c160;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}

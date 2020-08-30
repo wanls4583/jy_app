@@ -1,17 +1,21 @@
-<!--index.wxml-->
+<!-- index.wxml -->
 <view class="container">
     <van-cell-group>
         <van-field value="{{patient.patientName}}" label="姓名" placeholder="姓名" data-prop="patientName" bind:input="onInput" />
         <van-field value="{{patient._sex}}" label="性别" placeholder="性别" readonly bindtap="onShowSex" />
         <van-field value="{{patient.birthday}}" label="生日" placeholder="生日" readonly bindtap="onShowBirthday" />
-        <van-field value="{{patient.hegiht}}" label="身高" placeholder="身高" data-prop="hegiht" bind:input="onInput" />
-        <van-field value="{{patient.weight}}" label="体重" placeholder="体重" data-prop="weight" bind:input="onInput" />
+        <van-field value="{{patient.height}}" label="身高" placeholder="身高" data-prop="height" bind:input="onInput">
+            <view slot="right-icon">cm</view>
+        </van-field>
+        <van-field value="{{patient.weight}}" label="体重" placeholder="体重" data-prop="weight" bind:input="onInput">
+            <view slot="right-icon">kg</view>
+        </van-field>
     </van-cell-group>
     <view class="padding-left-right-30 margin-top-bottom-30">
         <view class="button primary block" bindtap="onSave">保存</view>
     </view>
     <van-popup show="{{sexVisible}}" position="bottom">
-        <van-picker show-toolbar="{{true}}" columns="{{['女','男']}}" bind:confirm="onConfirmSex" bind:cancel="onCancel"></van-picker>
+        <van-picker show-toolbar="{{true}}" default-index="{{patient._sex=='男'?1:0}}" columns="{{['女','男']}}" bind:confirm="onConfirmSex" bind:cancel="onCancel"></van-picker>
     </van-popup>
     <van-popup show="{{birthDayVisible}}" position="bottom">
         <van-datetime-picker type="date" value="{{birthday}}" bind:confirm="onConfirmBirthday" bind:cancel="onCancel" min-date="{{minDate}}" />

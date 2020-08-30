@@ -1,6 +1,6 @@
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" placeholder="请输入搜索关键词" disabled="{{true}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" bindtap="onGotoSearch"/>
+        <van-search shape="round" placeholder="请输入产品" disabled="{{true}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" bindtap="onGotoSearch"/>
         <van-tabs active="{{active}}" bind:change="onChangeTab">
             <van-tab title="营养套餐"></van-tab>
             <van-tab title="营养产品"></van-tab>

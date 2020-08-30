@@ -1,5 +1,5 @@
 <view class="container">
-    <view class="primary-background-color padding-30 flex--center--start">
+    <view class="background-gradient padding-30 flex--center--start">
         <view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
             <image wx:if="{{userInfo}}" src="{{userInfo.avatarUrl}}" class="width-100 height-100"></image>
             <button wx:else class='login-btn flex--center--center white-color font-small' open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>

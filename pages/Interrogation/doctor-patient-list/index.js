@@ -1,4 +1,7 @@
-Page({
+Component({
+    options: {
+        styleIsolation: 'shared'
+    },
     data: {
         patientList: [{
                 id: 1,
@@ -22,20 +25,26 @@ Page({
             }
         ]
     },
-    onLoad(option) {
-    	this.loadList();
+    lifetimes: {
+        attached(option) {
+            this.loadList();
+        }
     },
-    onClickPatient(e) {
-    	var id = e.currentTarget.dataset.id;
-    },
-    onGotoSearch() {
-
-    },
-    loadList() {
-        wx.jyApp.http({
-            url: '/patientdocument/list'
-        }).then((data)=>{
-            console.log(data)
-        });
+    methods: {
+        onClickPatient(e) {
+            var id = e.currentTarget.dataset.id;
+        },
+        onGotoSearch() {
+            wx.navigateTo({
+                url: '/pages/interrogation/doctor-patient-search/index'
+            });
+        },
+        loadList() {
+            wx.jyApp.http({
+                url: '/doctor/patients'
+            }).then((data) => {
+                console.log(data)
+            });
+        }
     }
 })

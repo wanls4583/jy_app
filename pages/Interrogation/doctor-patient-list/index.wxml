@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" placeholder="请输入搜索关键词" disabled="{{true}}" bindtap="onGotoSearch"/>
+        <van-search shape="round" placeholder="请输入患者姓名" disabled="{{true}}" bindtap="onGotoSearch"/>
     </view>
     <view class="padding-left-right-30 white-background-color" style="padding-top:54px">
         <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 border-bottom" data-id="{{item.id}}" bindtap="onClickPatient">

@@ -27,6 +27,8 @@
         </view>
     </van-dialog>
     <van-dialog use-slot title="营养指导诊金" show="{{showGuidePrice}}" show-cancel-button bind:confirm="confirmGuidPrice">
-        <input type="text" value="{{editGuidePrice}}" bind:input="onInput" data-prop="editGuidePrice" class="border padding-20 align-center" bindconfirm="confirmGuidPrice" style="height:auto" />
+        <view class="padding-30" >
+            <input type="text" value="{{editGuidePrice}}" bind:input="onInput" data-prop="editGuidePrice" class="border padding-20 align-center" bindconfirm="confirmGuidPrice" style="height:auto" />
+        </view>
     </van-dialog>
 </view>

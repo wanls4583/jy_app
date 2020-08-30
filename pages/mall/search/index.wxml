@@ -1,10 +1,10 @@
 <view class="container">
     <view class="position-fixed top-0 width-100">
-        <van-search shape="round" focus="{{true}}" placeholder="请输入搜索关键词" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
+        <van-search shape="round" focus="{{true}}" placeholder="{{doctorVisible?'请输入医生/产品':'请输入产品'}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
     </view>
     <view class="white-background-color" style="margin-top:54px">
-        <view wx:if="{{searched&&!doctorData.list.length&&!productData.list.length&&!taocanData.list.length}}" class="padding-30 gray-color align-center font-small">
-            <van-empty description="未查询到相关商品，请重新搜索" />
+        <view wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">
+            <van-empty description="未查询到相关{{doctorVisible?'医生/产品':'产品'}}，请重新搜索" />
         </view>
         <view wx:if="{{doctorVisible&&doctorData.list.length}}" class="padding-30">
             <view class="font-bold">医生</view>
@@ -14,21 +14,17 @@
                         <image class="width-100 height-100" src="{{item.avatar}}" mode="aspectFill"></image>
                     </view>
                     <view class="flex-grow-1 padding-left-30">
-                        <view class="height-100rpx flex-direction-column flex--start--between">
-                            <view>
-                                <text class="font-bold">{{item.doctorName}}</text>
-                                <text class="gray-color" decode="{{true}}"> &nbsp;&nbsp;{{item.jobTitle}}</text>
-                            </view>
-                            <text class="gray-color" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
+                        <view>
+                            <text>{{item.doctorName}}</text>
+                            <text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
                         </view>
-                        <view class="margin-top-10 gray-color">擅长：{{item.goodAtDomain}}</view>
-                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;￥{{item.consultOrderPrice}}</text>
+                        <text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
+                        <view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
+                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;<text class="danger-color">￥{{item.consultOrderPrice}}</text></text>
                     </view>
                 </view>
             </view>
-            <view wx:if="{{doctorData.totalPage>=doctorData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="3" bindtap="onLoadMore">
-                查看更多
-            </view>
+            <view wx:if="{{doctorData.totalPage>=doctorData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="3" bindtap="onLoadMore">查看更多</view>
         </view>
         <view wx:if="{{taocanData.list.length}}" class="padding-30 border-top">
             <view class="font-bold">营养套餐</view>
@@ -44,9 +40,7 @@
                     </view>
                 </view>
             </view>
-            <view wx:if="{{taocanData.totalPage>=taocanData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="1" bindtap="onLoadMore">
-                查看更多
-            </view>
+            <view wx:if="{{taocanData.totalPage>=taocanData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="1" bindtap="onLoadMore">查看更多</view>
         </view>
         <view wx:if="{{productData.list.length}}" class="padding-30 border-top">
             <view class="font-bold">营养产品</view>
@@ -56,17 +50,13 @@
                     <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between margin-top-30 width-100">
-                            <text class="gray-color">
-                                {{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}
-                            </text>
+                            <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
                             <text>￥{{product.price}}</text>
                         </view>
                     </view>
                 </view>
             </view>
-            <view wx:if="{{productData.totalPage>=productData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="2" bindtap="onLoadMore">
-                查看更多
-            </view>
+            <view wx:if="{{productData.totalPage>=productData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="2" bindtap="onLoadMore">查看更多</view>
         </view>
     </view>
 </view>

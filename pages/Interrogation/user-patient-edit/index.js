@@ -9,7 +9,7 @@ Page({
             _sex: '',
             sex: '',
             birthday: '',
-            hegiht: '',
+            height: '',
             weight: ''
         },
         minDate: new Date(1900, 0, 1),
@@ -76,8 +76,12 @@ Page({
         wx.jyApp.http({
             url: `/patientdocument/info/${id}`
         }).then((data) => {
+            var patient = data.patientDocument;
+            patient._sex = patient.sex == 1 ? '男' : '女';
+            this.data.birthday = Date.prototype.parseDate(patient.birthday);
             this.setData({
-                patient: data.patientdocument
+                patient: patient,
+                birthday: this.data.birthday
             });
         });
     }

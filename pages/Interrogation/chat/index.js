@@ -37,9 +37,25 @@ Page({
             title: '加载中...',
             mask: true
         });
-        this.initRoom(option.roomId).then(() => {
-            this.getNewHistory();
-        });
+        if (option.id) {
+            return wx.jyApp.http({
+                url: '/chat/init',
+                method: 'post',
+                data: {
+                    data: option.id
+                }
+            }).then((data) => {
+                this.initRoom(data);
+                this.getNewHistory();
+            });
+        } else if (option.roomId) {
+            return wx.jyApp.http({
+                url: '/chat/room/info/' + option.roomId
+            }).then((data) => {
+                this.initRoom(data);
+                this.getNewHistory();
+            });
+        }
     },
     onShow() {
         if (this.data.roomId) {
@@ -52,29 +68,25 @@ Page({
     onUnload() {
         clearTimeout(this.pollTimer);
     },
-    initRoom(roomId) {
-        return wx.jyApp.http({
-            url: '/chat/room/info/' + roomId
-        }).then((data) => {
-            data.patient._sex = data.patient.sex == 1 ? '男' : '女';
-            this.setData({
-                roomId: data.chatRoom.roomId,
-                currentUser: data.currentUser,
-                talker: data.talker,
-                patient: data.patient,
-                status: data.chatRoom.status
-            });
-            wx.hideLoading();
+    initRoom(data) {
+        data.patient._sex = data.patient.sex == 1 ? '男' : '女';
+        this.setData({
+            roomId: data.chatRoom.roomId,
+            currentUser: data.currentUser,
+            talker: data.talker,
+            patient: data.patient,
+            status: data.chatRoom.status
         });
+        wx.hideLoading();
     },
-    foucus: function (e) {
+    foucus: function(e) {
         this.setData({
             inputBottom: e.detail.height,
             inputFoucus: true,
             panelVisible: false
         });
     },
-    blur: function (e) {
+    blur: function(e) {
         this.setData({
             inputBottom: 0,
             inputFoucus: false

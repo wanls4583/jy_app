@@ -1,14 +1,17 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/tab-bar-first/index",
+        "pages/tab-bar-second/index",
+        "pages/interrogation/illness-edit/index",
+        "pages/interrogation/user-patient-list/index",
+        "pages/mall/address-list/index",
         "pages/mine/index",
         "pages/interrogation/message-list/index",
         "pages/interrogation/chat/index",
         "pages/mall/home/index",
         "pages/mall/product-list/index",
         "pages/order-list/index",
-        "pages/interrogation/illness-edit/index",
-        "pages/interrogation/user-patient-list/index",
         "pages/interrogation/certification/index",
         "pages/interrogation/doctor-patient-search/index",
         "pages/interrogation/doctor-patient-list/index",
@@ -26,22 +29,23 @@
         "pages/interrogation/doctor-setting/index",
         "pages/mall/search/index",
         "pages/mall/mall/index",
-        "pages/mall/address-list/index",
         "pages/mall/address-edit/index",
         "pages/mall/product-detail/index",
         "pages/mall/cart/index",
         "pages/mall/pay-suc/index"
     ],
-    "window":
-    {
+    "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
         "navigationBarTextStyle": "black"
     },
     "style": "v2",
     "sitemapLocation": "sitemap.json",
-    "usingComponents":
-    {
+    "usingComponents": {
+        "user-home": "/pages/mall/home/index",
+        "doctor-home": "/pages/interrogation/home/index",
+        "user-mall": "/pages/mall/mall/index",
+        "patient-manage": "/pages/interrogation/doctor-patient-list/index",
         "navigationBar": "/components/navigationBar/index",
         "pull-scroll-view": "/components/pull-scroll-view/index",
         "van-tabs": "/vant/tabs/index",
@@ -63,36 +67,35 @@
         "van-datetime-picker": "/vant/datetime-picker/index",
         "van-icon": "/vant/icon/index"
     },
-    "tabBar":
-    {
+    "tabBar": {
         "color": "#999",
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
-        "list": [
-        {
-            "pagePath": "pages/mall/home/index",
-            "iconPath": "image/icon_home.png",
-            "selectedIconPath": "image/icon_home_active.png",
-            "text": "首页"
-        },
-        {
-            "pagePath": "pages/mall/mall/index",
-            "iconPath": "image/icon_marks.png",
-            "selectedIconPath": "image/icon_marks_active.png",
-            "text": "商城"
-        },
-        {
-            "pagePath": "pages/interrogation/message-list/index",
-            "iconPath": "image/icon_message.png",
-            "selectedIconPath": "image/icon_message_active.png",
-            "text": "消息"
-        },
-        {
-            "pagePath": "pages/mine/index",
-            "iconPath": "image/icon_center.png",
-            "selectedIconPath": "image/icon_center_active.png",
-            "text": "我的"
-        }]
+        "list": [{
+                "pagePath": "pages/tab-bar-first/index",
+                "iconPath": "image/icon_home.png",
+                "selectedIconPath": "image/icon_home_active.png",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/tab-bar-second/index",
+                "iconPath": "image/icon_marks.png",
+                "selectedIconPath": "image/icon_marks_active.png",
+                "text": "商城"
+            },
+            {
+                "pagePath": "pages/interrogation/message-list/index",
+                "iconPath": "image/icon_message.png",
+                "selectedIconPath": "image/icon_message_active.png",
+                "text": "消息"
+            },
+            {
+                "pagePath": "pages/mine/index",
+                "iconPath": "image/icon_center.png",
+                "selectedIconPath": "image/icon_center_active.png",
+                "text": "我的"
+            }
+        ]
     }
 }

@@ -4,6 +4,9 @@ Page({
         selectId: 0
     },
     onLoad(option) {
+
+    },
+    onShow() {
         this.loadList();
     },
     selectPatient(e) {
@@ -22,7 +25,7 @@ Page({
             method: 'post',
             data: {
                 "diseaseDetail": wx.jyApp.illness.diseaseDetail,
-                "doctorId": 1,
+                "doctorId": 2,
                 "patientId": this.data.selectId,
                 "picUrls": wx.jyApp.illness.picUrls.join(',')
             }
@@ -32,10 +35,32 @@ Page({
                 wx.showToast({
                     title: '操作成功',
                     success: (result) => {
-
+                        this.gotoChat(data.id);
                     }
                 });
             }
+        });
+    },
+    gotoChat(id) {
+        wx.navigateTo({
+            url: '/pages/interrogation/chat/index?id=' + id
+        });
+    },
+    onChange(e) {
+        var item = e.currentTarget.dataset.item;
+        this.setData({
+            selectId: item.id
+        });
+    },
+    onEdit(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/pages/interrogation/user-patient-edit/index?id=' + id
+        });
+    },
+    onAdd(e) {
+        wx.navigateTo({
+            url: '/pages/interrogation/user-patient-edit/index'
         });
     },
     loadList() {
@@ -51,17 +76,9 @@ Page({
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
             });
             this.setData({
-                patientList: data.list || []
+                patientList: data.list || [],
+                selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
             });
         });
-        // wx.jyApp.http({
-        //     url: '/doctor/list',
-        //     data: {
-        //         page: 1,
-        //         limit: 1000
-        //     }
-        // }).then((data) => {
-        //     console.log(data);
-        // })
     }
 })

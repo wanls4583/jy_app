@@ -23,11 +23,11 @@
 }
 
 .color-333 {
-	color: #333;
+    color: #333;
 }
 
 .color-666 {
-	color: #666;
+    color: #666;
 }
 
 .color-999 {
@@ -43,7 +43,7 @@
 }
 
 .white-background-color {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 .danger-background-color {
@@ -120,4 +120,12 @@
 
 .border-color-eee {
     border-color: #eee;
+}
+
+.background-gradient {
+    background: linear-gradient(to right, rgb(42, 175, 255), #56CCF2);
+}
+
+.background-gradient-cool-blues {
+    background: linear-gradient(to left, #6dd5ed, #2193b0);
 }

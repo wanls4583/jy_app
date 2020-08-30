@@ -1,0 +1,4 @@
+<view class="container">
+    <doctor-home wx:if="{{authUserInfo.role=='DOCTOR'}}"></doctor-home>
+    <user-home wx:else></user-home>
+</view>

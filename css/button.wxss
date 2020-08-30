@@ -1,4 +1,4 @@
-page button.button{
+page button.button {
     width: auto;
 }
 
@@ -11,6 +11,7 @@ page button.button{
     border: 1rpx solid transparent;
     font-size: 30rpx;
     user-select: none;
+    border-radius: 8rpx;
 }
 
 .clickable {
@@ -27,7 +28,6 @@ page button.button{
     bottom: 0;
     background: rgba(0, 0, 0, 0.1)
 }
-
 
 .button.center {
     display: flex;
