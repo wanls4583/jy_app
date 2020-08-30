@@ -10,29 +10,33 @@
             </swiper-item>
         </swiper>
     </view>
-    <view class="white-background-color">
+    <view>
         <view class="flex--center--between padding-30">
-            <text class="font-title">营养套餐</text>
-            <text class="font-small gray-color" bindtap="onClickMore" data-type="1">全部>></text>
+            <view class="font-title left-bar">营养套餐</view>
+            <text class="font-small primary-color" bindtap="onClickMore" data-type="1">全部>></text>
         </view>
         <view class="flex flex-wrap-wrap">
-            <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column padding-20 margin-left-30 margin-bottom-30 radius-8px overflow-hidden gray-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
-                <image class="width-100" style="height:270rpx" mode="aspectFit" src="{{item.goodsPic}}"></image>
-                <view class="margin-top-20">{{item._goodsName}}</view>
-                <view class="margin-top-10 danger-color">{{item.price}}元/天</view>
+            <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden white-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+                <image class="width-100" style="height:270rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
+                <view class="padding-20 padding-top-10">
+                    <view class="ellipse">{{item._goodsName}}</view>
+                    <view class="margin-top-10 danger-color">{{item.price}}元/天</view>
+                </view>
             </view>
         </view>
     </view>
-    <view class="white-background-color">
+    <view>
         <view class="flex--center--between padding-30 padding-top-0">
-            <text class="font-title">营养产品</text>
-            <text class="font-small gray-color" bindtap="onClickMore" data-type="2">全部>></text>
+            <view class="font-title left-bar">营养产品</view>
+            <text class="font-small primary-color" bindtap="onClickMore" data-type="2">全部>></text>
         </view>
         <view class="flex flex-wrap-wrap">
-            <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column padding-30 margin-left-30 margin-bottom-30 radius-8px overflow-hidden gray-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
-                <image class="width-100 border" style="height:270rpx" mode="aspectFit" src="{{item.goodsPic}}"></image>
-                <view class="margin-top-20">{{item._goodsName}}</view>
-                <view class="margin-top-10 danger-color">{{item.price}}元/{{item._useUnit}}</view>
+            <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden white-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+                <image class="width-100 border" style="height:270rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
+                <view class="padding-20 padding-top-10">
+                    <view class="ellipse">{{item._goodsName}}</view>
+                    <view class="margin-top-10 danger-color">{{item.price}}元/{{item._useUnit}}</view>
+                </view>
             </view>
         </view>
     </view>

@@ -221,3 +221,33 @@ switch {
     right: 0;
     z-index: 999;
 }
+
+.ellipse {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ellipse-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.left-bar {
+    position: relative;
+    padding-left: 20rpx;
+    line-height: 1em;
+}
+
+.left-bar:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 6rpx;
+    border-radius: 4rpx;
+    background-color: rgb(42, 175, 255);
+}
