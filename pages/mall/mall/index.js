@@ -15,6 +15,11 @@ Component({
         }
     },
     methods: {
+        onGotoSearch() {
+            wx.navigateTo({
+                url: '/pages/mall/search/index'
+            });
+        },
         bannerChang(e) {
             this.setData({
                 currentBannerIndex: e.detail.current
