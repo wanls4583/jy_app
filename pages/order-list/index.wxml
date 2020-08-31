@@ -13,7 +13,7 @@
                 <pull-scroll-view bindrefresh='onInterrogationOrderRefresh' bindscrolltolower='onInterrogationOrderLoadMore' lower-threshold='3000px' stop-refresh='{{interrogationOrder.stopRefresh}}'>
                     <view wx:for="{{interrogationOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickInterrogationOrder">
                         <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNum}}</text>
+                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
                             <text>{{order._status}}</text>
                         </view>
                         <view class="flex--center--between padding-top-bottom-20">
@@ -41,10 +41,10 @@
             </swiper-item>
             <swiper-item>
                 <pull-scroll-view bindrefresh='onApplyOrderRefresh' bindscrolltolower='onApplyOrderLoadMore' lower-threshold='3000px' stop-refresh='{{applyOrder.stopRefresh}}'>
-                    <view wx:for="{{applyOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color">
+                    <view wx:for="{{applyOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickApplyOrder">
                         <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNum}}</text>
-                            <text>{{order.status}}</text>
+                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
+                            <text>{{order._status}}</text>
                         </view>
                         <view class="flex--center--between padding-top-bottom-20">
                             <text>商品信息：{{order.title}}</text>
@@ -52,8 +52,8 @@
                         </view>
                         <view class="flex padding-bottom-20">
                             <text>患者信息：</text>
-                            <text>{{order.patient.name}}</text>
-                            <text class="margin-left-30">{{order.patient.sex}}</text>
+                            <text>{{order.patient.patientName}}</text>
+                            <text class="margin-left-30">{{order.patient._sex}}</text>
                             <text class="margin-left-30">{{order.patient.age}}岁</text>
                             <text class="margin-left-30">{{order.patient.height}}cm</text>
                             <text class="margin-left-30">{{order.patient.weight}}kg</text>
@@ -71,25 +71,25 @@
             </swiper-item>
             <swiper-item>
                 <pull-scroll-view bindrefresh='onGuidanceOrderRefresh' bindscrolltolower='onGuidanceOrderLoadMore' lower-threshold='3000px' stop-refresh='{{guidanceOrder.stopRefresh}}'>
-                    <view wx:for="{{guidanceOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color">
+                    <view wx:for="{{guidanceOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickGuidanceOrder">
                         <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNum}}</text>
-                            <text>{{order.status}}</text>
+                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
+                            <text>{{order._status}}</text>
                         </view>
                         <view class="flex padding-top-bottom-20">
                             <text>患者信息：</text>
-                            <text class="margin-left-30">{{order.patient.name}}</text>
-                            <text class="margin-left-30">{{order.patient.sex}}</text>
-                            <text class="margin-left-30">{{order.patient.age}}岁</text>
-                            <text class="margin-left-30">{{order.patient.height}}cm</text>
-                            <text class="margin-left-30">{{order.patient.weight}}kg</text>
+                            <text class="margin-left-30">{{order.patientName}}</text>
+                            <text class="margin-left-30">{{order._sex}}</text>
+                            <text class="margin-left-30">{{order.age}}岁</text>
+                            <text class="margin-left-30">{{order.height}}cm</text>
+                            <text class="margin-left-30">{{order.weight}}kg</text>
                         </view>
                         <view class="padding-bottom-20">
                             <text>医生姓名：{{order.doctorName}}</text>
                         </view>
                         <view class="padding-top-bottom-30 white-background-color border-top">
                             <view wx:for="{{order.goods}}" wx:for-item="product" wx:key="id" class="flex--center--start">
-                                <view class="width-150rpx height-150rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
+                                <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
                                 <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between width-100">
@@ -100,7 +100,7 @@
                             </view>
                         </view>
                         <view class="flex--center--between padding-bottom-20">
-                            <view>配送金额￥{{order.deliveryAmount}}</view>
+                            <view>配送金额￥{{order.deliveryCost}}</view>
                             <view class="primary-color">订单金额￥{{order.totalAmount}}</view>
                         </view>
                         <view class="padding-top-bottom-20 border-top align-right">
@@ -135,7 +135,7 @@
                                 </view>
                             </view>
                             <view class="flex--center--between padding-bottom-20">
-                                <view>配送金额￥{{order.deliveryAmount}}</view>
+                                <view>配送金额￥{{order.deliveryCost}}</view>
                                 <view class="primary-color">订单金额￥{{order.totalAmount}}</view>
                             </view>
                             <view wx:if="{{item.status==0}}" class="border-top align-right padding-top-bottom-20">

@@ -38,35 +38,7 @@ Page({
         this.loadMallOrderList();
         this.loadInterrogationOrderList();
         this.loadApplyOrderList();
-        // this.loadGuidanceOrderList();
-        this.setData({
-            guidanceOrder: {
-                orderList: [{
-                    money: 100,
-                    orderNum: '125432113',
-                    status: '未支付',
-                    money: '500',
-                    doctorName: '李医生',
-                    deliveryAmount: 10,
-                    totalAmount: 100,
-                    patient: {
-                        name: '张三',
-                        sex: '男',
-                        age: 31,
-                        height: '170',
-                        weight: 100
-                    },
-                    goods: [{
-                        goodsName: '名称',
-                        url: 'https://p0.ssl.img.360kuai.com/t01e9b0ee675fb9a2f4.webp',
-                        count: 1,
-                        price: 100
-                    }]
-                }],
-                page: 2,
-                totalPage: 1
-            }
-        });
+        this.loadGuidanceOrderList();
     },
     onChangeTab(e) {
         this.setData({
@@ -224,13 +196,15 @@ Page({
             });
         }
         return wx.jyApp.http({
-            url: '/order/list',
+            url: '/nutritionorder/list',
             page: this.data.guidanceOrder.page,
             limit: this.data.guidanceOrder.limit
         }).then((data) => {
             this.data.guidanceOrder.loading = false;
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item._sex = item.sex == 1 ? '男' : '女';
+                item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
             });
             this.setData({
                 'guidanceOrder.page': this.data.guidanceOrder.page + 1,
@@ -263,6 +237,7 @@ Page({
             this.data.applyOrder.loading = false;
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item.patient._sex = item.patient.sex == 1 ? '男' : '女';
             });
             this.setData({
                 'applyOrder.page': this.data.applyOrder.page + 1,

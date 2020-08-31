@@ -58,14 +58,17 @@ Page({
         }
     },
     onShow() {
+        this.stopPoll = false;
         if (this.data.roomId) {
             this.getNewHistory();
         }
     },
     onHide() {
+        this.stopPoll = true;
         clearTimeout(this.pollTimer);
     },
     onUnload() {
+        this.stopPoll = true;
         clearTimeout(this.pollTimer);
     },
     initRoom(data) {
@@ -257,7 +260,7 @@ Page({
         });
     },
     //点击指导单详情按钮
-    onClickGuideOrderDetail() {
+    onClickGuideOrderDetail(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
             url: '/pages/interrogation/guidance-order-detail/index?id=' + id
@@ -363,7 +366,8 @@ Page({
         }).then((data) => {
             var list = data.page.list;
             var originLength = this.data.chatList.length;
-            if (this.data.status == 1) { //聊天是否未关闭
+            if (this.data.status == 1 && !this.stopPoll) { //聊天是否未关闭
+                clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
                 }, 3000);
@@ -398,9 +402,16 @@ Page({
                         obj = {};
                     }
                     this.data.chatList.map((_item) => {
-                        if (_item.type == obj.type) {
-                            var vo = _item.orderApplyVO || _item.nutrionOrderChatVo;
+                        if (_item.type == obj.type && item.associateId == _item.associateId) {
+                            var vo = null;
+                            if (obj.type == 4) {
+                                vo = _item.orderApplyVO || {};
+                            }
+                            if (obj.type == 5) {
+                                vo = _item.nutrionOrderChatVo || {};
+                            }
                             vo._status = wx.jyApp.constData.orderStatusMap[obj.status];
+                            _item.vo = vo;
                         }
                     });
                     var index = this.data.chatList.indexOf(item);
@@ -435,7 +446,8 @@ Page({
             }
         }).catch((err) => {
             console.log(err)
-            if (this.data.status == 1) {
+            if (this.data.status == 1 && !this.stopPoll) {
+                clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
                 }, 3000);

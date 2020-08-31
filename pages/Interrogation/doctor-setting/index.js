@@ -107,10 +107,10 @@ Page({
                 editConsultOrderPrice: data.doctor.consultOrderPrice,
                 editNutritionOrderPrice: data.doctor.nutritionOrderPrice,
                 consultOrderSwitch: data.doctor.consultOrderSwitch,
-                status: data.doctor.authStatus
+                status: data.doctor.status
             });
             this.data.statusList.map((item, index) => {
-                if (item.value == data.doctor.authStatus) {
+                if (item.value == data.doctor.status) {
                     this.setData({
                         statusList: this.data.statusList,
                         statusDefault: index

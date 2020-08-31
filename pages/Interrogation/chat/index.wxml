@@ -43,17 +43,13 @@
                         <view>
                             <view>{{item.txt}}</view>
                             <view class="align-center">
-                                <view class="button small primary margin-top-30" data-id="{{item.associateId}}" bindtap="onClickInterrogationOrder">
-                                    查看问诊单
-                                </view>
+                                <view class="button small primary margin-top-30" data-id="{{item.associateId}}" bindtap="onClickInterrogationOrder">查看问诊单</view>
                             </view>
                         </view>
                     </view>
                     <view wx:elif="{{item.type==4}}" class="position-relative">
                         <view class="white-background-color border primary-border-color overflow-hidden radius-8rpx" data-id="{{item.orderApplyVO.id}}">
-                            <view class="width-100 padding-20 primary-background-color white-color align-center">
-                                营养指导申请（{{item.orderApplyVO._status}}）
-                            </view>
+                            <view class="width-100 padding-20 primary-background-color white-color align-center">营养指导申请（{{item.orderApplyVO._status}}）</view>
                             <view class="padding-30">
                                 <text>{{patient.patientName}}，</text>
                                 <text>{{patient._sex}}，</text>
@@ -67,10 +63,8 @@
                         </view>
                     </view>
                     <view wx:elif="{{item.type==5}}" class="position-relative">
-                        <view class="white-background-color border success-border-color overflow-hidden radius-8rpx" data-id="{{item.orderApplyVO.id}}" bindtap="onClickApplyOrder">
-                            <view class="width-100 padding-20 success-background-color white-color align-center">
-                                营养指导（{{item.nutrionOrderChatVo._status}}）
-                            </view>
+                        <view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+                            <view class="width-100 padding-20 success-background-color white-color align-center">营养指导（{{item.nutrionOrderChatVo._status}}）</view>
                             <view class="padding-30">
                                 <text>{{patient.patientName}}，</text>
                                 <text>{{patient._sex}}，</text>
@@ -79,7 +73,7 @@
                                 <text>{{patient.weight}}kg</text>
                             </view>
                             <view class="align-center padding-bottom-20">
-                                <view class="button small success" data-item="item" data-id="{{item.nutrionOrderChatVo.id}}" bindtap="onClickGuideOrderDetail">查看详情</view>
+                                <view class="button small success" data-item="item" data-id="{{item.associateId}}" bindtap="onClickGuideOrderDetail">查看详情</view>
                             </view>
                         </view>
                     </view>
