@@ -4,7 +4,7 @@ Page({
         selectId: 0
     },
     onLoad(option) {
-
+        this.doctorId = option.doctorId;
     },
     onShow() {
         this.loadList();
@@ -25,7 +25,7 @@ Page({
             method: 'post',
             data: {
                 "diseaseDetail": wx.jyApp.illness.diseaseDetail,
-                "doctorId": 2,
+                "doctorId": this.doctorId,
                 "patientId": this.data.selectId,
                 "picUrls": wx.jyApp.illness.picUrls.join(',')
             }
@@ -64,6 +64,10 @@ Page({
         });
     },
     loadList() {
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
         wx.jyApp.http({
             url: '/patientdocument/list',
             data: {
@@ -71,6 +75,7 @@ Page({
                 limit: 1000
             }
         }).then((data) => {
+            wx.hideLoading();
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
@@ -79,6 +84,8 @@ Page({
                 patientList: data.list || [],
                 selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     }
 })

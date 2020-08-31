@@ -76,10 +76,10 @@ Component({
                 });
             });
         },
-        onclickProdcut(e) {
+        onClickDoctor(e) {
             var id = e.currentTarget.dataset.id;
             wx.navigateTo({
-                url: '/pages/mall/product-detail/index?id=' + id
+                url: '/pages/interrogation/doctor-detail/index?id=' + id
             });
         },
         onClickBanner(e) {

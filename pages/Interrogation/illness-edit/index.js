@@ -7,6 +7,7 @@ Page({
         pciMap: {}
     },
     onLoad(option) {
+        this.doctorId = option.doctorId;
         this.taskMap = {}
     },
     onUnload() {
@@ -29,7 +30,7 @@ Page({
             picUrls: this.data.picUrls
         }
         wx.navigateTo({
-            url: '/pages/interrogation/user-patient-list/index'
+            url: '/pages/interrogation/user-patient-list/index?doctorId=' + this.doctorId
         });
     },
     chooseImage() {

@@ -14,9 +14,13 @@ Page({
             ifSelect: wx.jyApp.selectAddressFlag || false
         });
         wx.jyApp.selectAddressFlag = false;
+        this.loadList();
     },
     onShow() {
-        this.loadList();
+        if(wx.jyApp.reloadAddressList) {
+            this.loadList();
+            delete wx.jyApp.reloadAddressList;
+        }
         wx.nextTick(() => {
             if (this.data.selectAddress) {
                 this.setData({
@@ -74,9 +78,14 @@ Page({
         });
     },
     loadList() {
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
+            wx.hideLoading();
             this.setData({
                 addressList: data.list || []
             });
@@ -87,6 +96,8 @@ Page({
                     }
                 });
             }
+        }).catch(()=>{
+            wx.hideLoading();
         });
     }
 })

@@ -102,12 +102,19 @@ Page({
         });
     },
     loadInfo(id) {
+        wx.showLoading({
+            title: '加载中',
+            mask: true
+        });
         wx.jyApp.http({
             url: `/user/address/info/${id}`
         }).then((data) => {
+            wx.hideLoading();
             this.setData({
                 address: data.userAddress
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     }
 })

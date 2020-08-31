@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/doctor-detail/index",
         "pages/interrogation/user-patient-list/index",
         "pages/mall/home/index",
         "pages/mall/mall/index",
