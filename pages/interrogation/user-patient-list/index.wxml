@@ -1,0 +1,31 @@
+<!-- index.wxml -->
+<view class="container padding-bottom-footer">
+    <radio-group>
+        <view wx:for="{{patientList}}" wx:key="id" class="position-relative white-background-color border-top padding-left-30">
+            <van-swipe-cell right-width="{{150}}">
+                <view class="flex--center--between" data-item="{{item}}" bindtap="onChange">
+                    <view class="radio-wrap">
+                        <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{selectId==item.id}}" />
+                    </view>
+                    <view class="flex-grow-1 flex--center--between height-120rpx padding-left-right-30">
+                        <text>{{item.patientName}}</text>
+                        <text>{{item._sex}}</text>
+                        <text>{{item.age}}岁</text>
+                        <text>{{item.height}}cm</text>
+                        <text>{{item.weight}}kg</text>
+                    </view>
+                </view>
+                <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:150px">
+                    <view class="button center height-100 width-50 min-width-50px primary radius-0" data-id="{{item.id}}" bindtap="onEdit">编辑</view>
+                    <view class="button center height-100 width-50 min-width-50px danger radius-0" data-id="{{item.id}}" bindtap="onDelete">删除</view>
+                </view>
+            </van-swipe-cell>
+        </view>
+    </radio-group>
+    <view class="padding-30">
+        <view class="button plain primary block" catchtap="onAdd">+ 添加患者</view>
+    </view>
+    <view class="position-fixed bottom-0 width-100 padding-30">
+        <view class="button primary block" bindtap="onSave">提交问诊</view>
+    </view>
+</view>
