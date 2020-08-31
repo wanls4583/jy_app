@@ -3,7 +3,10 @@ Component({
         styleIsolation: 'shared'
     },
     data: {
-        patientList: []
+        patientList: [],
+        stopRefresh: false,
+        totalPage: -1,
+        page: 1
     },
     lifetimes: {
         attached(option) {
@@ -26,14 +29,14 @@ Component({
             });
         },
         loadList(refresh) {
-            if (this.loading || this.data.toltalPage > -1 && this.data.page > this.data.toltalPage) {
+            if (this.loading || !refresh && this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
                 return;
             }
             this.loading = true;
             if (refresh) {
                 this.setData({
                     page: 1,
-                    toltalPage: -1,
+                    totalPage: -1,
                     patientList: []
                 });
             }
@@ -45,8 +48,13 @@ Component({
                 this.setData({
                     patientList: this.data.patientList,
                     page: this.data.page + 1,
-                    toltalPage: data.toltalPage
+                    totalPage: data.page.totalPage
                 });
+                if (refresh) {
+                    this.setData({
+                        stopRefresh: true
+                    });
+                }
             }).catch(() => {
                 this.loading = false;
             });

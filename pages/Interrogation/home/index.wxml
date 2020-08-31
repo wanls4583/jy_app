@@ -16,17 +16,17 @@
             <view class="flex--center--around margin-top-30">
                 <view>
                     <view class="white-color">待接诊</view>
-                    <view class="align-center font-large">19</view>
+                    <view class="align-center font-large">{{doctor.consultNum.waitingNum}}</view>
                 </view>
                 <view class="white-color">|</view>
                 <view>
                     <view class="white-color">问诊中</view>
-                    <view class="align-center font-large">19</view>
+                    <view class="align-center font-large">{{doctor.consultNum.talkingNum}}</view>
                 </view>
                 <view class="white-color">|</view>
                 <view>
                     <view class="white-color">已服务</view>
-                    <view class="align-center font-large">19</view>
+                    <view class="align-center font-large">{{doctor.consultNum.completeNum}}</view>
                 </view>
             </view>
         </view>

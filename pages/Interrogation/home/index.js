@@ -24,6 +24,11 @@ Component({
             });
         }
     },
+    pageLifetimes: {
+        show() {
+            // this.getDoctorInfo();
+        }
+    },
     methods: {
         onGoto(e) {
             var url = e.currentTarget.dataset.url;

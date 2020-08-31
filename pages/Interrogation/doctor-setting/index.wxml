@@ -2,12 +2,12 @@
     <view class="padding-left-right-30 white-background-color">
         <view class="flex--center--between padding-top-bottom-30 border-bottom">
             <text>图文问诊</text>
-            <switch checked="{{oepnText}}" bindchange="onSwitchChange" color="rgb(42, 175, 255)" />
+            <switch checked="{{consultOrderSwitch}}" bindchange="onSwitchChange" color="rgb(42, 175, 255)" />
         </view>
         <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onClickTextPrice">
             <text>图文问诊每次金额</text>
             <view class="flex--center--center">
-                <text class="primary-color margin-right-20">{{textPrice}}</text>
+                <text class="primary-color margin-right-20">{{consultOrderPrice}}</text>
                 <van-icon name="arrow" color="#ccc" />
             </view>
         </view>
@@ -16,19 +16,19 @@
         <view class="flex--center--between padding-top-bottom-30 border-bottom">
             <text>营养指导诊金</text>
             <view class="flex--center--center">
-                <text class="primary-color margin-right-20">{{guidePrice}}</text>
+                <text class="primary-color margin-right-20">{{nutritionOrderPrice}}</text>
                 <van-icon name="arrow" color="#ccc" />
             </view>
         </view>
     </view>
     <van-dialog use-slot title="图文问诊每次金额" show="{{showTextPrice}}" show-cancel-button bind:confirm="confirmTextPrice">
         <view class="padding-30">
-            <input type="text" value="{{editTextPrice}}" bind:input="onInput" data-prop="editTextPrice" class="border padding-20 align-center" bindconfirm="confirmTextPrice" style="height:auto" />
+            <input type="text" value="{{editConsultOrderPrice}}" bind:input="onInput" data-prop="editConsultOrderPrice" class="border padding-20 align-center" bindconfirm="confirmTextPrice" style="height:auto" />
         </view>
     </van-dialog>
     <van-dialog use-slot title="营养指导诊金" show="{{showGuidePrice}}" show-cancel-button bind:confirm="confirmGuidPrice">
         <view class="padding-30" >
-            <input type="text" value="{{editGuidePrice}}" bind:input="onInput" data-prop="editGuidePrice" class="border padding-20 align-center" bindconfirm="confirmGuidPrice" style="height:auto" />
+            <input type="text" value="{{editNutritionOrderPrice}}" bind:input="onInput" data-prop="editNutritionOrderPrice" class="border padding-20 align-center" bindconfirm="confirmGuidPrice" style="height:auto" />
         </view>
     </van-dialog>
 </view>

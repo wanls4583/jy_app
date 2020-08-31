@@ -9,7 +9,7 @@ Component({
         scrollTop: {
             type: Number,
             value: 0,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
                 this.properties.scrollTop = newVal + 1;
                 if (!this.hasAttached) {
                     return;
@@ -23,7 +23,7 @@ Component({
         scrollToTop: {
             type: Boolean,
             value: false,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.scrollToTop = false;
                 this.toTop();
@@ -32,14 +32,16 @@ Component({
         stopRefresh: {
             type: Boolean,
             value: false,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
+                //使下次能再触发observer
+                this.properties.stopRefresh = false;
                 clearTimeout(this.stopTimer);
                 this.stopTimer = setTimeout(() => {
                     this.setData({
                         refresherTriggered: false
                     });
                     this.refreshing = false;
-                }, 1000);
+                }, 500);
             }
         },
         lowerThreshold: {
@@ -63,7 +65,7 @@ Component({
             });
         }
     },
-    attached: function (option) {
+    attached: function(option) {
         wx.nextTick(() => {
             this._attached();
         });
