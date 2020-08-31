@@ -371,14 +371,14 @@ Page({
                 return;
             }
             list.reverse();
-            this.data.chatList = this.data.chatList.filter((item) => {
-                return this.data.sendedIds.indexOf(item.id) == -1;
-            });
             if (ifPre) { //上翻记录
                 this.data.chatList = list.concat(this.data.chatList);
             } else {
                 this.data.chatList = this.data.chatList.concat(list);
             }
+            this.data.chatList = this.data.chatList.filter((item) => {
+                return this.data.sendedIds.indexOf(item.id) == -1;
+            });
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
@@ -389,7 +389,7 @@ Page({
                 }
             });
             list.map((item) => {
-                if (item.type == 0 && item.associateId) {
+                if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
                     var obj = null
                     try {
                         obj = JSON.parse(item.txt);
