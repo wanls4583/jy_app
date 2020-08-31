@@ -42,7 +42,7 @@ Page({
                 url: '/chat/init',
                 method: 'post',
                 data: {
-                    data: option.id
+                    id: option.id
                 }
             }).then((data) => {
                 this.initRoom(data);
