@@ -78,7 +78,7 @@ Page({
         }).then((data) => {
             var patient = data.patientDocument;
             patient._sex = patient.sex == 1 ? '男' : '女';
-            this.data.birthday = Date.prototype.parseDate(patient.birthday);
+            this.data.birthday = Date.prototype.parseDate(patient.birthday).getTime();
             this.setData({
                 patient: patient,
                 birthday: this.data.birthday

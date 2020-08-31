@@ -1,12 +1,12 @@
 {
     "pages": [
-        "pages/mall/mall/index",
-        "pages/mall/home/index",
         "pages/index/index",
+        "pages/interrogation/user-patient-list/index",
+        "pages/mall/home/index",
+        "pages/mall/mall/index",
         "pages/tab-bar-first/index",
         "pages/tab-bar-second/index",
         "pages/interrogation/illness-edit/index",
-        "pages/interrogation/user-patient-list/index",
         "pages/mall/address-list/index",
         "pages/mine/index",
         "pages/interrogation/message-list/index",

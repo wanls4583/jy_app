@@ -1,10 +1,10 @@
-<view class="container">
+<view class="container white-background-color">
     <view class="position-fixed top-0 z-index-100 width-100">
         <van-search shape="round" placeholder="请输入产品" disabled="{{true}}" bindtap="onGotoSearch" />
     </view>
     <view style="height:54px"></view>
-    <view class="position-relative padding-30" style="height:40vw">
-        <swiper class="overflow-hidden height-100 radius-8px" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
+    <view wx:if="{{banner.length}}" class="position-relative padding-30" style="height:40vw">
+        <swiper class="overflow-hidden height-100 radius-8px shadow" style="transform:translateY(0);" circular="{{true}}" autoplay="{{true}}" interval="{{500000}}" duration="{{500}}" bindchange="bannerChang">
             <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl" data-link="{{item.linkUrl}}" bindtap="onClickBanner">
                 <view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
                     <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
@@ -20,7 +20,7 @@
             <text class="font-small primary-color" bindtap="onClickMore" data-type="1">全部>></text>
         </view>
         <view class="flex flex-wrap-wrap">
-            <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden white-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+            <view wx:for="{{taocanList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden shadow" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
                 <image class="width-100" style="height:270rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
                 <view class="padding-20 padding-top-10">
                     <view class="ellipse">{{item._goodsName}}</view>
@@ -35,7 +35,7 @@
             <text class="font-small primary-color" bindtap="onClickMore" data-type="2">全部>></text>
         </view>
         <view class="flex flex-wrap-wrap">
-            <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden white-background-color" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
+            <view wx:for="{{productList}}" wx:key="id" class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden shadow" data-id="{{item.id}}" bindtap="onclickProdcut" style="width:330rpx;">
                 <image class="width-100 border" style="height:270rpx" mode="aspectFill" src="{{item.goodsPic}}"></image>
                 <view class="padding-20 padding-top-10">
                     <view class="ellipse">{{item._goodsName}}</view>

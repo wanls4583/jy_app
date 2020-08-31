@@ -3,27 +3,7 @@ Component({
         styleIsolation: 'shared'
     },
     data: {
-        patientList: [{
-                id: 1,
-                name: '李四',
-                sex: '男',
-                age: 18,
-                height: 100,
-                weight: 50,
-                avater: '',
-                creatTime: '2020-8-6 9:11'
-            },
-            {
-                id: 2,
-                name: '张三',
-                sex: '男',
-                age: 18,
-                height: 100,
-                weight: 50,
-                avater: '',
-                creatTime: '2020-8-6 9:11'
-            }
-        ]
+        patientList: []
     },
     lifetimes: {
         attached(option) {
@@ -31,6 +11,12 @@ Component({
         }
     },
     methods: {
+        onRefresh() {
+            this.loadList(true);
+        },
+        onLoadMore() {
+            this.loadList();
+        },
         onClickPatient(e) {
             var id = e.currentTarget.dataset.id;
         },
@@ -39,11 +25,30 @@ Component({
                 url: '/pages/interrogation/doctor-patient-search/index'
             });
         },
-        loadList() {
+        loadList(refresh) {
+            if (this.loading || this.data.toltalPage > -1 && this.data.page > this.data.toltalPage) {
+                return;
+            }
+            this.loading = true;
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    toltalPage: -1,
+                    patientList: []
+                });
+            }
             wx.jyApp.http({
                 url: '/doctor/patients'
             }).then((data) => {
-                console.log(data)
+                this.loading = false;
+                this.data.patientList = this.data.patientList.concat(data.page.list);
+                this.setData({
+                    patientList: this.data.patientList,
+                    page: this.data.page + 1,
+                    toltalPage: data.toltalPage
+                });
+            }).catch(() => {
+                this.loading = false;
             });
         }
     }

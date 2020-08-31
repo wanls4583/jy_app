@@ -3,31 +3,25 @@ Component({
         styleIsolation: 'shared'
     },
     data: {
-        userInfo: null,
-        messageCount: 0,
-        doctor: {
-            name: '医生名称',
-            zhiwei: '主任医生',
-            hospital: '医院名称',
-            department: '科室名称'
-        },
+        doctor: {},
         banner: []
     },
     lifetimes: {
         attached() {
-            var userInfo = wx.getStorageSync('userInfo')
-            if (userInfo) {
-                this.setData({
-                    userInfo: userInfo
-                })
-            }
+            this.storeBindings = wx.jyApp.createStoreBindings(this, {
+                store: wx.jyApp.store,
+                fields: ['authUserInfo']
+            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_center.png",
                 "selectedIconPath": "image/icon_center_active.png",
                 "text": "患者管理"
             });
-            this.loadBaner();
+            wx.nextTick(() => {
+                this.loadBaner();
+                this.getDoctorInfo();
+            });
         }
     },
     methods: {
@@ -37,13 +31,14 @@ Component({
                 url: url
             });
         },
-        getUserInfo(e) {
-            e.detail.userInfo.sex = e.detail.userInfo.gender == 1 ? 1 : 0;
-            wx.setStorageSync('userInfo', e.detail.userInfo);
-            this.setData({
-                userInfo: e.detail.userInfo,
+        getDoctorInfo() {
+            wx.jyApp.http({
+                url: '/doctor/info/' + this.data.authUserInfo.id
+            }).then((data) => {
+                this.setData({
+                    doctor: data.doctor
+                });
             });
-            wx.jyApp.loginUtil.updateUserInfo(this.data.userInfo);
         },
         loadBaner() {
             wx.jyApp.http({
