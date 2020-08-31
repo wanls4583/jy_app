@@ -70,8 +70,8 @@
                 </pull-scroll-view>
             </swiper-item>
             <swiper-item>
-                <pull-scroll-view bindrefresh='onGuidenceOrderRefresh' bindscrolltolower='onGuidenceOrderLoadMore' lower-threshold='3000px' stop-refresh='{{guidenceOrder.stopRefresh}}'>
-                    <view wx:for="{{guidenceOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color">
+                <pull-scroll-view bindrefresh='onGuidanceOrderRefresh' bindscrolltolower='onGuidanceOrderLoadMore' lower-threshold='3000px' stop-refresh='{{guidanceOrder.stopRefresh}}'>
+                    <view wx:for="{{guidanceOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color">
                         <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
                             <text class="gray-color">订单编号：{{order.orderNum}}</text>
                             <text>{{order.status}}</text>
@@ -107,8 +107,8 @@
                             <view class="button primary small">立即支付</view>
                         </view>
                     </view>
-                    <view wx:if="{{guidenceOrder.totalPage>0&&guidenceOrder.page>guidenceOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{guidenceOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
+                    <view wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
+                    <view wx:elif="{{guidanceOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
                         <van-empty description="暂无订单" />
                     </view>
                     <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>

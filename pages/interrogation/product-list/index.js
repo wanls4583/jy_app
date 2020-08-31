@@ -40,11 +40,33 @@ Page({
         this.loadList(false, 0);
         this.loadList(false, 1);
     },
-    onAddTaocan() {
-
+    onAddTaocan(e) {
+        var item = Object.assign({}, e.currentTarget.dataset.item);
+        item.type = 2;
+        var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
+            return _item.id == item.id && _item.type == item.type
+        });
+        if (!arr.lenght) {
+            wx.jyApp.diagnosisGoods.push(item);
+            wx.jyApp.usageGoods = item;
+            wx.redirectTo({
+                url: '/pages/interrogation/usage/index'
+            });
+        }
     },
-    onAddProduct() {
-
+    onAddProduct(e) {
+        var item = Object.assign({}, e.currentTarget.dataset.item);
+        item.type = 1;
+        var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
+            return _item.id == item.id && _item.type == item.type
+        });
+        if (!arr.lenght) {
+            wx.jyApp.diagnosisGoods.push(item);
+            wx.jyApp.usageGoods = item;
+            wx.redirectTo({
+                url: '/pages/interrogation/usage/index'
+            });
+        }
     },
     onSearch() {
         this.setData({

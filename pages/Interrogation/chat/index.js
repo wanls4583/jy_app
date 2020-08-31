@@ -75,7 +75,8 @@ Page({
             currentUser: data.currentUser,
             talker: data.talker,
             patient: data.patient,
-            status: data.chatRoom.status
+            status: data.chatRoom.status,
+            consultOrderId: data.chatRoom.consultOrderId
         });
         wx.hideLoading();
     },
@@ -252,14 +253,14 @@ Page({
     //开指导
     onGuide() {
         wx.navigateTo({
-            url: '/pages/interrogation/guidence-edit/index?id=' + this.data.consultOrderId
+            url: '/pages/interrogation/guidance-edit/index?id=' + this.data.consultOrderId
         });
     },
     //点击指导单详情按钮
     onClickGuideOrderDetail() {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/interrogation/guidence-order-detail/index?id=' + id
+            url: '/pages/interrogation/guidance-order-detail/index?id=' + id
         });
     },
     //图片加载失败

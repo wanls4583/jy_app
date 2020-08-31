@@ -7,7 +7,7 @@
             <view class="margin-top-20 align-right">
                 <view class="button plain primary small" data-id="{{item.id}}" bindtap="onDelete">删除模板</view>
                 <view class="button plain primary small margin-left-20" data-id="{{item.id}}" bindtap="onEdit">修改模板</view>
-                <view class="button primary small margin-left-20">使用模板</view>
+                <view class="button primary small margin-left-20" data-content="{{item.content}}" bindtap="onUse">使用模板</view>
             </view>
         </view>
     </block>

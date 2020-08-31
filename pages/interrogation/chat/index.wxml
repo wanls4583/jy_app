@@ -1,9 +1,9 @@
 <view class="container">
     <view class="position-fixed top-0 flex--center--start width-100 height-50px white-background-color border-top border-bottom gray-color" style="padding:15px;">
-        <text>{{patient.patientName}}，</text>
-        <text>{{patient._sex}}，</text>
-        <text>{{patient.age}}岁，</text>
-        <text>{{patient.height}}cm，</text>
+        <text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
+        <text decode="{{true}}">{{patient._sex}}&nbsp;&nbsp;</text>
+        <text decode="{{true}}">{{patient.age}}岁&nbsp;&nbsp;</text>
+        <text decode="{{true}}">{{patient.height}}cm&nbsp;&nbsp;</text>
         <text>{{patient.weight}}kg</text>
     </view>
     <view class="position-fixed width-100" bindtap="onClickChatBlock" style="padding:10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px">

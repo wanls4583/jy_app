@@ -6,7 +6,12 @@ Page({
         nutritionOrderPrice: 0,
         editConsultOrderPrice: 0,
         editNutritionOrderPrice: 0,
-        consultOrderSwitch: false
+        consultOrderSwitch: false,
+        status: '',
+        statusVisible: false,
+        statusList: [],
+        statusMap: {},
+        statusDefault: 0,
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -15,6 +20,20 @@ Page({
         });
         wx.nextTick(() => {
             this.getDoctorInfo();
+        });
+        this.setData({
+            statusList: [{
+                label: '上线',
+                value: 1
+            }, {
+                label: '下线',
+                value: 2
+            }],
+            statusMap: {
+                1: '上线',
+                2: '下线',
+                3: '禁用'
+            }
         });
     },
     onSwitchChange(e) {
@@ -31,6 +50,14 @@ Page({
     onClickGuidePrice() {
         this.setData({
             showGuidePrice: true
+        });
+    },
+    onClickStatus() {
+        if (this.data.status != 1 && this.data.status != 2) {
+            return;
+        }
+        this.setData({
+            statusVisible: true
         });
     },
     onInput(e) {
@@ -53,6 +80,18 @@ Page({
         });
         this.submit();
     },
+    onConfirmStatus(e) {
+        this.setData({
+            statusVisible: false,
+            status: e.detail.value.value
+        });
+        this.submit();
+    },
+    onCancel() {
+        this.setData({
+            statusVisible: false
+        });
+    },
     getDoctorInfo() {
         wx.showLoading({
             title: '加载中',
@@ -67,7 +106,16 @@ Page({
                 nutritionOrderPrice: data.doctor.nutritionOrderPrice,
                 editConsultOrderPrice: data.doctor.consultOrderPrice,
                 editNutritionOrderPrice: data.doctor.nutritionOrderPrice,
-                consultOrderSwitch: data.doctor.consultOrderSwitch
+                consultOrderSwitch: data.doctor.consultOrderSwitch,
+                status: data.doctor.authStatus
+            });
+            this.data.statusList.map((item, index) => {
+                if (item.value == data.doctor.authStatus) {
+                    this.setData({
+                        statusList: this.data.statusList,
+                        statusDefault: index
+                    });
+                }
             });
         });
     },
@@ -78,7 +126,8 @@ Page({
             data: {
                 consultOrderPrice: this.data.consultOrderPrice,
                 nutritionOrderPrice: this.data.nutritionOrderPrice,
-                consultOrderSwitch: this.data.consultOrderSwitch
+                consultOrderSwitch: this.data.consultOrderSwitch,
+                status: this.data.status
             }
         }).then(() => {
 

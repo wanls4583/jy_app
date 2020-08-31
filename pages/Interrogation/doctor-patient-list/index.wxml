@@ -7,10 +7,10 @@
         <pull-scroll-view bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
             <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 border-bottom" data-id="{{item.id}}" bindtap="onClickPatient">
                 <view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
-                    <image src="{{item.avater}}" mode="aspectFill" />
+                    <image class="width-100 height-100" src="{{item.wxAvatar}}" mode="aspectFill" />
                 </view>
                 <view class="flex-grow-1 flex-direction-column flex--start--between height-100rpx padding-left-30">
-                    <view class="flex--center--between">
+                    <view class="flex--center--between width-100">
                         <text>{{item.patientName}}</text>
                         <text>{{item.sex}}</text>
                         <text>{{item.age}}岁</text>
@@ -18,7 +18,7 @@
                         <text>{{item.weight}}kg</text>
                     </view>
                     <view>
-                        <text class="font-small gray-color">{{item.creatTime}}</text>
+                        <text class="font-small gray-color">{{item.joinTime}}</text>
                     </view>
                 </view>
             </view>

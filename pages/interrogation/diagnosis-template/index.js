@@ -6,7 +6,7 @@ Page({
         this.loadList();
     },
     onShow() {
-        if(wx.refreshingDiagnosisTemplate) {
+        if (wx.refreshingDiagnosisTemplate) {
             this.loadList();
             delete wx.refreshingDiagnosisTemplate;
         }
@@ -43,6 +43,10 @@ Page({
 
             });
         })
+    },
+    onUse(e) {
+        wx.jyApp.diagnosisTemplate = e.currentTarget.dataset.content;
+        wx.navigateBack();
     },
     loadList() {
         wx.showLoading({ title: '加载中' });

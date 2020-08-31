@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/guidance-edit/index",
         "pages/interrogation/doctor-detail/index",
         "pages/interrogation/user-patient-list/index",
         "pages/mall/home/index",
@@ -17,7 +18,7 @@
         "pages/interrogation/certification/index",
         "pages/interrogation/doctor-patient-search/index",
         "pages/interrogation/doctor-patient-list/index",
-        "pages/interrogation/guidence-order-detail/index",
+        "pages/interrogation/guidance-order-detail/index",
         "pages/mall/order-detail/index",
         "pages/interrogation/apply-order-detail/index",
         "pages/interrogation/user-patient-edit/index",
@@ -26,7 +27,6 @@
         "pages/interrogation/usage/index",
         "pages/interrogation/search/index",
         "pages/interrogation/product-list/index",
-        "pages/interrogation/guidance-edit/index",
         "pages/interrogation/home/index",
         "pages/interrogation/doctor-setting/index",
         "pages/mall/search/index",
@@ -66,7 +66,8 @@
         "van-collapse": "/vant/collapse/index",
         "van-collapse-item": "/vant/collapse-item/index",
         "van-datetime-picker": "/vant/datetime-picker/index",
-        "van-icon": "/vant/icon/index"
+        "van-icon": "/vant/icon/index",
+        "van-stepper": "/vant/stepper/index"
     },
     "tabBar": {
         "color": "#999",

@@ -1,25 +1,68 @@
 Page({
     data: {
+        unitChange: wx.jyApp.constData.unitChange,
         frequencyVisible: false,
         giveWayVisible: false,
-        frequencyArray: wx.jyApp.constData.frequencyArray,
+        frequencyArray: [],
         giveWayList: [],
         frequency: '',
         _frequency: '',
         _giveWay: '',
-        giveWay: ''
+        giveWay: '',
+        totalAmount: 0,
+        gross: 1,
+        days: 1,
+        modulateDose: 0,
+        perUseNum: 1,
+        frequencyDefault: 0,
+        giveWayDefault: 0
     },
     onLoad() {
         var giveWayMap = wx.jyApp.constData.giveWayMap;
+        var giveWayList = [];
+        var goods = wx.jyApp.usageGoods;
         for (var key in giveWayMap) {
-            this.data.giveWayList.push({
+            giveWayList.push({
                 label: giveWayMap[key],
                 value: key
             });
         }
         this.setData({
-            giveWayList: this.data.giveWayList
+            frequencyArray: wx.jyApp.constData.frequencyArray,
+            goods: goods,
+            perUseNum: goods.perUseNum || 1,
+            gross: goods.gross || 1,
+            days: goods.days || 1,
+            modulateDose: goods.modulateDose || 0,
+            giveWay: goods.giveWay || giveWayList[0].value,
+            _giveWay: giveWayMap[goods.giveWay] || giveWayList[0].label,
+            frequency: goods.frequency || 1,
+            _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
+            frequencyDefault: goods.frequency - 1 || 0,
+            totalAmount: goods.totalAmount || goods.price
         });
+        giveWayList.map((item, index) => {
+            if (this.data.giveWay == item.value) {
+                this.setData({
+                    giveWayDefault: index
+                });
+            }
+        });
+        this.setData({
+            giveWayList: giveWayList
+        });
+    },
+    onUnload() {
+        if (!this.saved) {
+            wx.jyApp.usageGoods = undefined;
+        }
+    },
+    onInput(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [prop]: e.detail
+        });
+        this.caculateGross();
     },
     onShowFrequency() {
         this.setData({
@@ -37,6 +80,7 @@ Page({
             _frequency: e.detail.value,
             frequencyVisible: false
         });
+        this.caculateGross();
     },
     onConfirmGiveWay(e) {
         this.setData({
@@ -50,5 +94,33 @@ Page({
             frequencyVisible: false,
             giveWayVisible: false
         });
+    },
+    caculateGross() {
+        var gross = 0;
+        if (this.data.goods.type == 1) {
+            gross = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
+        } else {
+            gross = this.data.frequency * this.data.days;
+        }
+        this.setData({
+            gross: gross,
+            totalAmount: (gross * this.data.goods.price).toFixed(2)
+        });
+    },
+    onSave() {
+        this.saved = true;
+        this.data.goods.frequency = this.data.frequency;
+        this.data.goods.giveWay = this.data.giveWay;
+        this.data.goods.days = this.data.days;
+        this.data.goods.perUseNum = this.data.perUseNum;
+        this.data.goods.gross = this.data.gross;
+        this.data.goods.modulateDose = this.data.modulateDose;
+        this.data.goods.remark = this.data.remark;
+        if (this.data.goods.type == 1) {
+            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
+        } else {
+            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次1份，配制${this.data.modulateDose}毫升，${this.data._giveWay}`;
+        }
+        wx.navigateBack();
     }
 })

@@ -6,8 +6,9 @@ function request(obj) {
         header['content-type'] = header['content-type'] || 'application/json'
     }
     header['token'] = wx.getStorageSync('token');
-    return new Promise((resolve, reject) => {
-        wx.request({
+    var requestTask = null;
+    var promise = new Promise((resolve, reject) => {
+        requestTask = wx.request({
             url: host + obj.url,
             method: obj.method || 'get',
             header: header,
@@ -39,7 +40,9 @@ function request(obj) {
                 obj.complete && obj.complete(res);
             }
         });
-    })
+    });
+    promise.requestTask = requestTask;
+    return promise;
 }
 
 module.exports = request;

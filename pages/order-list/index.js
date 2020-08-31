@@ -21,7 +21,7 @@ Page({
             totalPage: -1,
             stopRefresh: false,
         },
-        guidenceOrder: {
+        guidanceOrder: {
             orderList: [],
             page: 1,
             limit: 10,
@@ -38,9 +38,9 @@ Page({
         this.loadMallOrderList();
         this.loadInterrogationOrderList();
         this.loadApplyOrderList();
-        // this.loadGuidenceOrderList();
+        // this.loadGuidanceOrderList();
         this.setData({
-            guidenceOrder: {
+            guidanceOrder: {
                 orderList: [{
                     money: 100,
                     orderNum: '125432113',
@@ -126,20 +126,20 @@ Page({
             url: '/pages/interrogation/apply-order-detail/index?id=' + id
         });
     },
-    onGuidenceOrderRefresh() {
-        this.loadGuidenceOrderList(true).then(() => {
+    onGuidanceOrderRefresh() {
+        this.loadGuidanceOrderList(true).then(() => {
             this.setData({
-                'guidenceOrder.stopRefresh': true
+                'guidanceOrder.stopRefresh': true
             });
         });
     },
-    onGuidenceOrderLoadMore() {
-        this.loadGuidenceOrderList();
+    onGuidanceOrderLoadMore() {
+        this.loadGuidanceOrderList();
     },
-    onClickGuidenceOrder(e) {
+    onClickGuidanceOrder(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/interrogation/guidence-order-detail/index?id=' + id
+            url: '/pages/interrogation/guidance-order-detail/index?id=' + id
         });
     },
     loadMallOrderList(refresh) {
@@ -207,14 +207,14 @@ Page({
             });
         })
     },
-    loadGuidenceOrderList(refresh) {
-        if (this.data.guidenceOrder.loading || !refresh && this.data.guidenceOrder.totalPage > -1 && this.data.guidenceOrder.page > this.data.guidenceOrder.totalPage) {
+    loadGuidanceOrderList(refresh) {
+        if (this.data.guidanceOrder.loading || !refresh && this.data.guidanceOrder.totalPage > -1 && this.data.guidanceOrder.page > this.data.guidanceOrder.totalPage) {
             return;
         }
-        this.data.guidenceOrder.loading = true;
+        this.data.guidanceOrder.loading = true;
         if (refresh) {
             this.setData({
-                guidenceOrder: {
+                guidanceOrder: {
                     orderList: [],
                     page: 1,
                     limit: 10,
@@ -225,17 +225,17 @@ Page({
         }
         return wx.jyApp.http({
             url: '/order/list',
-            page: this.data.guidenceOrder.page,
-            limit: this.data.guidenceOrder.limit
+            page: this.data.guidanceOrder.page,
+            limit: this.data.guidanceOrder.limit
         }).then((data) => {
-            this.data.guidenceOrder.loading = false;
+            this.data.guidanceOrder.loading = false;
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.orderStatusMap[item.status];
             });
             this.setData({
-                'guidenceOrder.page': this.data.guidenceOrder.page + 1,
-                'guidenceOrder.totalPage': data.page.totalPage,
-                'guidenceOrder.orderList': this.data.guidenceOrder.orderList.concat(data.page.list)
+                'guidanceOrder.page': this.data.guidanceOrder.page + 1,
+                'guidanceOrder.totalPage': data.page.totalPage,
+                'guidanceOrder.orderList': this.data.guidanceOrder.orderList.concat(data.page.list)
             });
         })
     },

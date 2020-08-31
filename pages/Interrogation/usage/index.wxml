@@ -1,34 +1,43 @@
 <view class="container padding-bottom-footer">
     <view class="flex--center--between padding-30 white-background-color">
-        <view class="width-150rpx height-150rpx border" style="background:url(https://p0.ssl.img.360kuai.com/t01c1450b45e20efea2.jpg) no-repeat center;background-size:cover"></view>
+        <view class="width-150rpx height-150rpx border" style="background:url({{goods.goodsPic}}) no-repeat center;background-size:cover"></view>
         <view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
-            <view>产品名称</view>
-            <view class="gray-color">200克/袋</view>
-            <view>800￥/袋</view>
+            <view>{{goods.goodsName}}</view>
+            <view wx:if="{{goods.type==1}}" class="gray-color">{{goods.standardNum}}{{unitChange[goods.standardUnit]}}/{{unitChange[goods.useUnit]}}</view>
+            <view wx:if="{{goods.type==1}}">￥{{goods.price}}/{{unitChange[goods.useUnit]}}</view>
+            <view wx:else class="danger-color">￥{{goods.price}}/天</view>
         </view>
     </view>
     <view class="margin-top-20 white-background-color">
-        <van-field title-width="4.5em" label="每次用量" value="{{perUseNum}}" type="number">
-            <view slot="right-icon">克</view>
+        <van-field title-width="4.5em" label="每次用量" value="{{perUseNum}}" type="number" data-prop="perUseNum" bind:input="onInput">
+            <view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
+            <view slot="right-icon" wx:else>份</view>
+        </van-field>
+        <van-field wx:if="{{goods.type==2}}" title-width="4.5em" label="配制用量" value="{{modulateDose}}" type="number" data-prop="modulateDose" bind:input="onInput">
+            <view slot="right-icon">毫升</view>
         </van-field>
         <van-field title-width="4.5em" label="频率" value="{{_frequency}}" readonly bindtap="onShowFrequency"></van-field>
-        <van-field title-width="4.5em" label="天数" value="{{days}}" type="number">
-            <view slot="right-icon">天</view>
-        </van-field>
+        <van-cell>
+            <view class="flex--center--between">
+                <text>天数</text>
+                <van-stepper value="{{days}}" data-prop="days" bind:change="onInput" input-width="300rpx" />
+                <text>天</text>
+            </view>
+        </van-cell>
         <van-field title-width="4.5em" label="给予方式" value="{{_giveWay}}" readonly bindtap="onShowGiveWay"></van-field>
-        <van-field title-width="4.5em" label="备注" value="{{remark}}"></van-field>
+        <van-field title-width="4.5em" label="备注" value="{{remark}}" data-prop="remark" bind:input="onInput"></van-field>
         <view class="flex--center--between padding-30">
-            <view>总量：3袋</view>
-            <view>金额：￥100</view>
+            <view>总量：{{gross}}袋</view>
+            <view>金额：￥{{totalAmount}}</view>
         </view>
     </view>
     <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block">保存</view>
+        <view class="button primary block" bindtap="onSave">保存</view>
     </view>
     <van-popup show="{{frequencyVisible}}" position="bottom">
-        <van-picker show-toolbar columns="{{frequencyArray}}" default-index="{{0}}" bind:confirm="onConfirmFrequency" bind:cancel="onCancel"></van-picker>
+        <van-picker show-toolbar columns="{{frequencyArray}}" default-index="{{frequencyDefault}}" bind:confirm="onConfirmFrequency" bind:cancel="onCancel"></van-picker>
     </van-popup>
     <van-popup show="{{giveWayVisible}}" position="bottom">
-        <van-picker show-toolbar columns="{{giveWayList}}" default-index="{{0}}" value-key="label" bind:confirm="onConfirmGiveWay" bind:cancel="onCancel"></van-picker>
+        <van-picker show-toolbar columns="{{giveWayList}}" default-index="{{giveWayDefault}}" value-key="label" bind:confirm="onConfirmGiveWay" bind:cancel="onCancel"></van-picker>
     </van-popup>
 </view>
