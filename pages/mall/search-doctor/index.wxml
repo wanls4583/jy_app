@@ -1,6 +1,6 @@
 <view class="container">
     <view class="position-fixed top-0 z-index-100 width-100">
-        <van-search shape="round" focus="{{true}}" show-action="{{searchTipVisible}}" placeholder="请输入医生/疾病/营养中心" value="{{searchText}}" bind:search="onSearch" bind:cancel="onCancel" bind:focus="onFocus" bind:change="onChangeText" />
+        <van-search shape="round" focus="{{searchTipVisible}}" show-action="{{searchTipVisible}}" placeholder="请输入医生/疾病/营养中心" value="{{searchText}}" bind:search="onSearch" bind:cancel="onCancel" bind:focus="onFocus" bind:change="onChangeText" />
     </view>
     <view class="position-fixed z-index-100 width-100 flex--center--around white-background-color" style="top:54px;height:54px;">
         <view class="flex--center--center height-100" bindtap="onShowOrderBy">

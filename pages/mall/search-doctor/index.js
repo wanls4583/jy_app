@@ -2,7 +2,7 @@ import area from '../../../data/area.js';
 Page({
     data: {
         searchText: '',
-        searchTipVisible: false,
+        searchTipVisible: true,
         orderByVisible: false,
         diseaseList: [],
         departmentList: [],
@@ -42,6 +42,9 @@ Page({
         this.setData({
             areaList: area
         });
+    },
+    onShow() {
+        console.log('show')
     },
     onChangeText(e) {
         this.setData({
