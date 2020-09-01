@@ -13,7 +13,7 @@
                     <text class="font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.onlineDepartmentName || '--'}}</text>
                 </view>
             </view>
-            <view class="flex--center--around margin-top-30">
+            <view wx:if="{{doctor.consultNum}}" class="flex--center--around margin-top-30">
                 <view>
                     <view class="white-color">待接诊</view>
                     <view class="align-center font-large">{{doctor.consultNum.waitingNum}}</view>

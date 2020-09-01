@@ -12,6 +12,7 @@
 }
 
 .content {
+    overflow: hidden;
     min-height: 100%;
 }
 
@@ -34,14 +35,14 @@
     color: #fa9144;
 }
 
-.loading_tip .iconfont{
+.loading_tip .iconfont {
     margin-right: 10rpx;
     font-family: 'iconfont';
     font-size: 36rpx;
 }
 
 .icon-chenggong:before {
-  content: '\e638';
+    content: '\e638';
 }
 
 .loading_gif {
