@@ -19,8 +19,8 @@
                     </view>
                 </view>
                 <view slot="right" class="flex--center--between position-absolute top-0 bottom-0" style="width:150px">
-                    <view class="button center height-100 width-50 min-width-50px primary" data-id="{{item.id}}" bindtap="onEditAddress">编辑</view>
-                    <view class="button center height-100 width-50 min-width-50px danger" data-id="{{item.id}}" bindtap="onDelAddress">删除</view>
+                    <view class="button center height-100 width-50 min-width-50px primary radius-0" data-id="{{item.id}}" bindtap="onEditAddress">编辑</view>
+                    <view class="button center height-100 width-50 min-width-50px danger radius-0" data-id="{{item.id}}" bindtap="onDelAddress">删除</view>
                 </view>
             </van-swipe-cell>
         </view>

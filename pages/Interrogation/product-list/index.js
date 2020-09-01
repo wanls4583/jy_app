@@ -203,6 +203,12 @@ Page({
                         [`taocanData.stopRefresh`]: true
                     });
                 }
+            }).finally(() => {
+                if (refresh) {
+                    this.setData({
+                        [`taocanData.stopRefresh`]: true
+                    });
+                }
             });
         } else {
             if (this.data.productData.loading || !refresh && this.data.productData.totalPage > -1 && this.data.productData.page > this.data.productData.totalPage) {
@@ -239,6 +245,12 @@ Page({
                     [`productData.lastPage`]: page,
                     [`productData.totalPage`]: data.page.totalPage
                 });
+                if (refresh) {
+                    this.setData({
+                        [`productData.stopRefresh`]: true
+                    });
+                }
+            }).finally(() => {
                 if (refresh) {
                     this.setData({
                         [`productData.stopRefresh`]: true

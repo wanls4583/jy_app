@@ -49,3 +49,7 @@ page .van-collapse-item__content {
 van-collapse-item:first-of-type .van-collapse-item {
     margin-top: 0;
 }
+
+page .van-picker__confirm {
+    color: rgb(42, 175, 255)
+}

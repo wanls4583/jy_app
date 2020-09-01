@@ -1,5 +1,6 @@
 {
     "pages": [
+        "pages/mall/search-doctor/index",
         "pages/index/index",
         "pages/interrogation/certification/index",
         "pages/interrogation/guidance-edit/index",

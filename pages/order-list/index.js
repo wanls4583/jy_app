@@ -132,8 +132,10 @@ Page({
         }
         return wx.jyApp.http({
             url: '/order/list',
-            page: this.data.mallOrder.page,
-            limit: this.data.mallOrder.limit
+            data: {
+                page: this.data.mallOrder.page,
+                limit: this.data.mallOrder.limit
+            }
         }).then((data) => {
             this.data.mallOrder.loading = false;
             data.page.list.map((item) => {
@@ -144,7 +146,11 @@ Page({
                 'mallOrder.totalPage': data.page.totalPage,
                 'mallOrder.orderList': this.data.mallOrder.orderList.concat(data.page.list)
             });
-        })
+        }).finally(() => {
+            this.setData({
+                'mallOrder.stopRefresh': true
+            });
+        });
     },
     loadInterrogationOrderList(refresh) {
         if (this.data.interrogationOrder.loading || !refresh && this.data.interrogationOrder.totalPage > -1 && this.data.interrogationOrder.page > this.data.interrogationOrder.totalPage) {
@@ -164,8 +170,10 @@ Page({
         }
         return wx.jyApp.http({
             url: '/consultorder/list',
-            page: this.data.interrogationOrder.page,
-            limit: this.data.interrogationOrder.limit
+            data: {
+                page: this.data.interrogationOrder.page,
+                limit: this.data.interrogationOrder.limit
+            }
         }).then((data) => {
             this.data.interrogationOrder.loading = false;
             data.page.list.map((item) => {
@@ -177,7 +185,11 @@ Page({
                 'interrogationOrder.totalPage': data.page.totalPage,
                 'interrogationOrder.orderList': this.data.interrogationOrder.orderList.concat(data.page.list)
             });
-        })
+        }).finally(() => {
+            this.setData({
+                'interrogationOrder.stopRefresh': true
+            });
+        });
     },
     loadGuidanceOrderList(refresh) {
         if (this.data.guidanceOrder.loading || !refresh && this.data.guidanceOrder.totalPage > -1 && this.data.guidanceOrder.page > this.data.guidanceOrder.totalPage) {
@@ -197,8 +209,10 @@ Page({
         }
         return wx.jyApp.http({
             url: '/nutritionorder/list',
-            page: this.data.guidanceOrder.page,
-            limit: this.data.guidanceOrder.limit
+            data: {
+                page: this.data.guidanceOrder.page,
+                limit: this.data.guidanceOrder.limit
+            }
         }).then((data) => {
             this.data.guidanceOrder.loading = false;
             data.page.list.map((item) => {
@@ -211,7 +225,11 @@ Page({
                 'guidanceOrder.totalPage': data.page.totalPage,
                 'guidanceOrder.orderList': this.data.guidanceOrder.orderList.concat(data.page.list)
             });
-        })
+        }).finally(() => {
+            this.setData({
+                'guidanceOrder.stopRefresh': true
+            });
+        });
     },
     loadApplyOrderList(refresh) {
         if (this.data.applyOrder.loading || !refresh && this.data.applyOrder.totalPage > -1 && this.data.applyOrder.page > this.data.applyOrder.totalPage) {
@@ -231,8 +249,10 @@ Page({
         }
         return wx.jyApp.http({
             url: '/order/list',
-            page: this.data.applyOrder.page,
-            limit: this.data.applyOrder.limit
+            data: {
+                page: this.data.applyOrder.page,
+                limit: this.data.applyOrder.limit
+            }
         }).then((data) => {
             this.data.applyOrder.loading = false;
             data.page.list.map((item) => {
@@ -244,6 +264,10 @@ Page({
                 'applyOrder.totalPage': data.page.totalPage,
                 'applyOrder.orderList': this.data.applyOrder.orderList.concat(data.page.list)
             });
-        })
+        }).finally(() => {
+            this.setData({
+                'applyOrder.stopRefresh': true
+            });
+        });
     }
 })
