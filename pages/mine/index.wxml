@@ -13,16 +13,13 @@
                 <van-icon name="arrow" color="#ccc" />
             </view>
         </view>
-        <!-- <view class="padding-left-right-30 clickable">
-            <view class="flex--center--between padding-top-bottom-30 border-bottom">
-                <text>营养咨询</text>
-                <view class="flex--center--center">
-                    <text wx:if="{{messageCount}}" class="margin-right-30 danger-color font-small">{{messageCount}}条信息</text>
-                    <van-icon name="arrow" color="#ccc" />
-                </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onClickCertificate">
+                <text>医生入驻</text>
+                <van-icon name="arrow" color="#ccc" />
             </view>
         </view>
-        <view class="padding-left-right-30 clickable">
+        <!-- <view class="padding-left-right-30 clickable">
             <view class="flex--center--between padding-top-bottom-30 border-bottom">
                 <text>患者信息</text>
                 <van-icon name="arrow" color="#ccc" />

@@ -28,5 +28,10 @@ Page({
         wx.navigateTo({
             url: '/pages/order-list/index'
         });
+    },
+    onClickCertificate() {
+        wx.navigateTo({
+            url: '/pages/interrogation/certification/index'
+        });
     }
 })
