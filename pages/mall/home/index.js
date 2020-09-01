@@ -13,10 +13,18 @@ Component({
     },
     lifetimes: {
         attached() {
-            this.loadBaner();
-            this.loadKepu();
-            this.loadDoctor();
-            this.loadDepartmentList();
+            this.storeBindings = wx.jyApp.createStoreBindings(this, {
+                store: wx.jyApp.store,
+                fields: ['authUserInfo']
+            });
+            wx.nextTick(() => {
+                if (this.data.authUserInfo.role != 'DOCTOR') {
+                    this.loadBaner();
+                    this.loadKepu();
+                    this.loadDoctor();
+                    this.loadDepartmentList();
+                }
+            });
         }
     },
     methods: {

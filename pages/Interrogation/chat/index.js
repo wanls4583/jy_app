@@ -58,18 +58,16 @@ Page({
         }
     },
     onShow() {
-        this.stopPoll = false;
+        this.pollStoped = false;
         if (this.data.roomId) {
             this.getNewHistory();
         }
     },
     onHide() {
-        this.stopPoll = true;
-        clearTimeout(this.pollTimer);
+        this.stopPoll();
     },
     onUnload() {
-        this.stopPoll = true;
-        clearTimeout(this.pollTimer);
+        this.stopPoll();
     },
     initRoom(data) {
         data.patient._sex = data.patient.sex == 1 ? '男' : '女';
@@ -116,6 +114,7 @@ Page({
     },
     //发文字消息
     onSend() {
+        this.request && this.request.requestTask.abort();
         this.getNewHistory().then(() => {
             var inputValue = this.data.inputValue;
             var chat = {
@@ -353,7 +352,7 @@ Page({
     },
     //请求消息记录
     getHistory(ifPre) {
-        return wx.jyApp.http({
+        return this.request = wx.jyApp.http({
             url: '/chat/history/poll',
             method: 'get',
             data: {
@@ -366,12 +365,6 @@ Page({
         }).then((data) => {
             var list = data.page.list;
             var originLength = this.data.chatList.length;
-            if (this.data.status == 1 && !this.stopPoll) { //聊天是否未关闭
-                clearTimeout(this.pollTimer);
-                this.pollTimer = setTimeout(() => {
-                    this.getNewHistory();
-                }, 3000);
-            }
             if (!list.length) {
                 return;
             }
@@ -403,15 +396,15 @@ Page({
                     }
                     this.data.chatList.map((_item) => {
                         if (_item.type == obj.type && item.associateId == _item.associateId) {
-                            var vo = null;
+                            var _status = wx.jyApp.constData.orderStatusMap[obj.status];
                             if (obj.type == 4) {
-                                vo = _item.orderApplyVO || {};
+                                _item.orderApplyVO = _item.orderApplyVO || {};
+                                _item.orderApplyVO._status = _status;
                             }
                             if (obj.type == 5) {
-                                vo = _item.nutrionOrderChatVo || {};
+                                _item.nutrionOrderChatVo = _item.nutrionOrderChatVo || {};
+                                _item.nutrionOrderChatVo._status = _status;
                             }
-                            vo._status = wx.jyApp.constData.orderStatusMap[obj.status];
-                            _item.vo = vo;
                         }
                     });
                     var index = this.data.chatList.indexOf(item);
@@ -445,8 +438,10 @@ Page({
                 });
             }
         }).catch((err) => {
-            console.log(err)
-            if (this.data.status == 1 && !this.stopPoll) {
+            console.log(err);
+        }).finally(() => {
+            this.request = null;
+            if (this.data.status == 1 && !this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
@@ -454,4 +449,9 @@ Page({
             }
         });
     },
+    stopPoll() {
+        this.pollStoped = true;
+        clearTimeout(this.pollTimer);
+        this.request && this.request.requestTask.abort();
+    }
 })

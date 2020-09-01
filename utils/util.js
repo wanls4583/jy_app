@@ -1,5 +1,10 @@
 function formatTime(date, format = 'yyyy-MM-dd hh:mm:ss:SSS') {
-    date = date instanceof Date ? date : new Date(date);
+    if (this instanceof Date) {
+        format = date || 'yyyy-MM-dd hh:mm:ss:SSS';
+        date = this;
+    } else {
+        date = date instanceof Date ? date : new Date(date);
+    }
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();

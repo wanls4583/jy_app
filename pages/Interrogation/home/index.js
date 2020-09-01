@@ -19,8 +19,10 @@ Component({
                 "text": "患者管理"
             });
             wx.nextTick(() => {
-                this.loadBaner();
-                this.getDoctorInfo();
+                if (this.data.authUserInfo.role == 'DOCTOR') {
+                    this.loadBaner();
+                    this.getDoctorInfo();
+                }
             });
         }
     },

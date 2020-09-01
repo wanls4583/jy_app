@@ -18,7 +18,7 @@
                         </view>
                         <view class="flex--center--between padding-top-bottom-20">
                             <text>商品信息：{{order.goodsName}}</text>
-                            <text class="margin-left-30 primary-color">￥{{order.orderAmount}}</text>
+                            <text class="margin-left-30 danger-color">￥{{order.orderAmount}}</text>
                         </view>
                         <view class="flex padding-bottom-20">
                             <text>患者信息：</text>
@@ -94,7 +94,7 @@
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between width-100">
                                         <text class="gray-color">x{{product.count}}</text>
-                                        <text>￥{{product.price}}</text>
+                                        <text class="danger-color">￥{{product.price}}</text>
                                     </view>
                                 </view>
                             </view>
@@ -129,7 +129,7 @@
                                         <view>{{product.goodsName}}</view>
                                         <view class="flex--center--between width-100">
                                             <text class="gray-color">x{{product.count}}</text>
-                                            <text>￥{{product.price}}</text>
+                                            <text class="danger-color">￥{{product.price}}</text>
                                         </view>
                                     </view>
                                 </view>
