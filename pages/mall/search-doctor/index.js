@@ -33,18 +33,36 @@ Page({
             label: '价格从低到高',
             value: 4
         }],
+        priceList: [{
+            label: '1-30',
+            value: 1
+        }, {
+            label: '30-50',
+            value: 2
+        }, {
+            label: '50-100',
+            value: 3
+        }, {
+            label: '100以上',
+            value: 4
+        }],
+        positionList: ['营养师', '主任医师', '副主任医师', '主治医师', '医师'],
         areaList: [],
         areaVisible: false,
+        screenVisible: false
     },
-    onLoad() {
+    onLoad(option) {
+        this.jobTitle = ''; //职称搜索条件
+        this.price = ''; //价格搜索条件
         this.loadDiseaseList();
         this.loadDepartmentList();
         this.setData({
             areaList: area
         });
+        this.loadList();
     },
     onShow() {
-        console.log('show')
+
     },
     onChangeText(e) {
         this.setData({
@@ -61,21 +79,56 @@ Page({
             searchTipVisible: true
         });
     },
+    //显示排序
     onShowOrderBy() {
         this.setData({
             orderByVisible: !this.data.orderByVisible,
             areaVisible: false,
+            screenVisible: false
         });
+        this.onCancelArea();
+        this.onCancelScreen();
     },
+    //显示地区选择
     onShowArea() {
         this.setData({
             areaVisible: !this.data.areaVisible,
-            orderByVisible: false
+            orderByVisible: false,
+            screenVisible: false
         });
-        if(!this.data.areaVisible) {
+        if (!this.data.areaVisible) {
             this.onCancelArea();
         }
+        this.onCancelScreen();
     },
+    //取消地区选择
+    onCancelArea() {
+        this.selectComponent('#area').reset(this.data.cityCode);
+        this.setData({
+            areaVisible: false
+        });
+    },
+    //显示筛选
+    onShowScreen() {
+        this.setData({
+            screenVisible: !this.data.screenVisible,
+            orderByVisible: false,
+            areaVisible: false
+        });
+        if (!this.data.screenVisible) {
+            this.onCancelScreen();
+        }
+        this.onCancelArea();
+    },
+    //取消隐藏筛选
+    onCancelScreen() {
+        this.setData({
+            screenVisible: false,
+            jobTitle: this.jobTitle || '',
+            price: this.price || ''
+        });
+    },
+    //选中排序
     onClickOrderBy(e) {
         var item = e.currentTarget.dataset.item;
         this.setData({
@@ -85,6 +138,7 @@ Page({
         });
         this.loadList(true);
     },
+    //选中提示搜索文案
     onClickTxt(e) {
         var txt = e.currentTarget.dataset.txt;
         this.setData({
@@ -94,10 +148,12 @@ Page({
         this.complexName = txt;
         this.loadList(true);
     },
+    //选中地区
     onConfirmArea(e) {
         var arr = e.detail.values;
-        var cityCode = arr[arr.length - 1].code;
-        var area = arr[arr.length - 1].name;
+        var city = arr[arr.length - 1];
+        var cityCode = city && city.code || '';
+        var area = city && city.name || '全国';
         this.setData({
             areaVisible: false,
             cityCode: cityCode,
@@ -105,10 +161,29 @@ Page({
         });
         this.loadList(true);
     },
-    onCancelArea() {
-        this.selectComponent('#area').reset(this.data.cityCode);
+    //选中职称
+    onClickPosition(e) {
+        var index = e.currentTarget.dataset.index;
+        var position = this.data.positionList[index];
         this.setData({
-            areaVisible: false
+            jobTitle: position == this.data.jobTitle ? '' : position
+        });
+    },
+    //选中价格
+    onClickPrice(e) {
+        var index = e.currentTarget.dataset.index;
+        var price = this.data.priceList[index];
+        this.setData({
+            price: price.value == this.data.price ? '' : price.value
+        });
+    },
+    //确认筛选
+    onConfirmScreen() {
+        this.jobTitle = this.data.jobTitle || '';
+        this.price = this.data.price || '';
+        this.loadList(true);
+        this.setData({
+            screenVisible: false
         });
     },
     onSearch() {
@@ -155,6 +230,7 @@ Page({
             }
         })
     },
+    //加载医生列表
     loadList(refresh) {
         if (this.loading || !refresh && this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -176,7 +252,9 @@ Page({
                 limit: this.data.limit,
                 complexName: this.complexName || '',
                 orderBy: this.data.orderBy,
-                cityCode: this.data.cityCode
+                cityCode: this.data.cityCode,
+                jobTitle: this.jobTitle,
+                price: this.price
             }
         }).then((data) => {
             this.loading = false;

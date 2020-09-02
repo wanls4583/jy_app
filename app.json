@@ -1,7 +1,7 @@
 {
     "pages": [
-        "pages/mall/search-doctor/index",
         "pages/index/index",
+        "pages/mall/search-doctor/index",
         "pages/interrogation/certification/index",
         "pages/interrogation/guidance-edit/index",
         "pages/interrogation/doctor-detail/index",

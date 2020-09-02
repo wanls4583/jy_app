@@ -12,10 +12,12 @@ page button.button {
     font-size: 30rpx;
     user-select: none;
     border-radius: 8rpx;
+    overflow: hidden;
 }
 
 .clickable {
     position: relative;
+    overflow: hidden;
 }
 
 .button:active:after,

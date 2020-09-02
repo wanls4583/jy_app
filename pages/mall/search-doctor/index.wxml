@@ -11,7 +11,7 @@
             <text decode="{{true}}">{{area}}&nbsp;</text>
             <van-icon name="arrow-down" />
         </view>
-        <view class="flex--center--center height-100">
+        <view class="flex--center--center height-100" bindtap="onShowScreen">
             <text decode="{{true}}">筛选&nbsp;</text>
             <van-icon name="arrow-down" />
         </view>
@@ -42,8 +42,7 @@
                         </view>
                         <text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
                         <view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
-                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;<text class="danger-color">￥{{item.consultOrderPrice}}</text>
-                        </text>
+                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;<text class="danger-color">￥{{item.consultOrderPrice}}</text></text>
                     </view>
                 </view>
             </view>
@@ -68,6 +67,20 @@
         </view>
     </van-popup>
     <van-popup show="{{areaVisible}}" position="top" z-index="{{0}}" custom-style="top:108px" bind:click-overlay="onShowArea">
-        <van-area id="area" area-list="{{areaList}}" columns-num="{{2}}" value="{{cityCode}}" title="地区选择" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
+        <van-area id="area" area-list="{{areaList}}" columns-num="{{2}}" value="{{cityCode}}" columns-placeholder="{{['全国']}}" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
+    </van-popup>
+    <van-popup show="{{screenVisible}}" position="top" z-index="{{0}}" custom-style="top:108px" bind:click-overlay="onCancelScreen">
+        <view class="padding-30 font-title">医生职称</view>
+        <view class="flex flex-wrap-wrap">
+            <view wx:for="{{positionList}}" wx:key="index" class="button primary small margin-bottom-30 margin-left-30 {{jobTitle==item?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickPosition">{{item}}</view>
+        </view>
+        <view class="padding-30 font-title">价格区间</view>
+        <view class="flex flex-wrap-wrap">
+            <view wx:for="{{priceList}}" wx:key="index" class="button primary small margin-bottom-30 margin-left-30 {{price==item.value?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickPrice">{{item.label}}</view>
+        </view>
+        <view class="flex--center--between">
+            <view class="flex--center--center padding-30 gray-color" style="height:44px" bindtap="onCancelScreen">取消</view>
+            <view class="flex--center--center padding-30 primary-color" style="height:44px" bindtap="onConfirmScreen">确定</view>
+        </view>
     </van-popup>
 </view>

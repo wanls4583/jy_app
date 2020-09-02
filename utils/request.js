@@ -7,7 +7,7 @@ function request(obj) {
     }
     header['token'] = wx.getStorageSync('token');
     var requestTask = null;
-    var promise = new Promise((resolve, reject) => {
+    var promise = new wx.jyApp.Promise((resolve, reject) => {
         requestTask = wx.request({
             url: host + obj.url,
             method: obj.method || 'get',
