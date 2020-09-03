@@ -1,0 +1,14 @@
+{
+	"text": {
+		"prefix": "text",
+		"body": [
+			"<text>$1<text>"
+		],
+		"description": "text"
+	},
+	"view": {
+		"prefix": "view",
+		"body": "<view>$1</view>",
+		"description": "view"
+	}
+}

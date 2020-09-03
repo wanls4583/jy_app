@@ -1,33 +1,20 @@
 <view class="container">
-    <view class="background-gradient padding-30 flex--center--start">
-        <view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
-            <image wx:if="{{userInfo}}" src="{{userInfo.avatarUrl}}" class="width-100 height-100"></image>
-            <button wx:else class='login-btn flex--center--center white-color font-small' open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
+    <view class="flex--center--between background-gradient padding-30">
+        <view class="flex--center--center">
+            <view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+                <image src="{{userInfo.avatarUrl}}" class="width-100 height-100"></image>
+            </view>
+            <text class="white-color">{{userInfo.nickname || '--'}}</text>
         </view>
-        <text class="white-color">{{userInfo.nickName || '匿名用户'}}</text>
+        <button class="flex--center--center white-color padding-30 padding-right-0" hover-class="none" open-type="getUserInfo" bindgetuserinfo="getUserInfo">
+            个人资料
+            <van-icon name="arrow" color="#fff" />
+        </button>
     </view>
     <view class="white-background-color">
         <view class="padding-left-right-30 clickable" bindtap="onClickOrder">
             <view class="flex--center--between padding-top-bottom-30 border-bottom">
                 <text>我的订单</text>
-                <van-icon name="arrow" color="#ccc" />
-            </view>
-        </view>
-        <view class="padding-left-right-30 clickable">
-            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onClickCertificate">
-                <text>医生入驻</text>
-                <van-icon name="arrow" color="#ccc" />
-            </view>
-        </view>
-        <!-- <view class="padding-left-right-30 clickable">
-            <view class="flex--center--between padding-top-bottom-30 border-bottom">
-                <text>患者信息</text>
-                <van-icon name="arrow" color="#ccc" />
-            </view>
-        </view> -->
-        <view class="padding-left-right-30 clickable" bindtap="onClickAddress">
-            <view class="flex--center--between padding-top-bottom-30 border-bottom">
-                <text>收货地址</text>
                 <van-icon name="arrow" color="#ccc" />
             </view>
         </view>

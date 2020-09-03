@@ -4,20 +4,33 @@ Page({
         messageCount: 0
     },
     onLoad() {
-        var userInfo = wx.getStorageSync('userInfo')
-        if (userInfo) {
-            this.setData({
-                userInfo: userInfo
-            })
-        }
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+            actions: ['updateUserInfo'],
+        });
     },
     getUserInfo(e) {
-        e.detail.userInfo.sex = e.detail.userInfo.gender == 1 ? 1 : 0;
-        wx.setStorageSync('userInfo', e.detail.userInfo);
-        this.setData({
-            userInfo: e.detail.userInfo,
-        });
-        wx.jyApp.loginUtil.updateUserInfo(this.data.userInfo);
+        var userInfo = e.detail.userInfo;
+        if (userInfo && userInfo.avatarUrl != this.data.userInfo.avatarUrl) {
+            userInfo.sex = userInfo.gender == 1 ? 1 : 0;
+            userInfo.nickname = userInfo.nickName;
+            wx.showLoading({
+                title: '更新资料中...',
+                mask: true
+            });
+            wx.jyApp.loginUtil.updateUserInfo(userInfo).then(() => {
+                return wx.jyApp.loginUtil.getUserInfo().then((data) => {
+                    wx.hideLoading();
+                    this.updateUserInfo(data.info);
+                });
+            }).finally(()=>{
+                wx.navigateTo({ url: '/pages/user/index' });
+            });
+        } else {
+            wx.navigateTo({ url: '/pages/user/index' });
+        }
+
     },
     onClickAddress() {
         wx.navigateTo({

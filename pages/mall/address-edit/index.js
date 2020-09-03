@@ -96,6 +96,7 @@ Page({
             wx.showToast({
                 title: '操作成功',
                 complete: () => {
+                    wx.jyApp.reloadAddressList = true;
                     wx.navigateBack();
                 }
             });

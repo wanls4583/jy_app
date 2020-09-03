@@ -10,16 +10,16 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['authUserInfo']
+                fields: ['userInfo']
             });
             wx.setTabBarItem({
                 index: 1,
-                "iconPath": "image/icon_center.png",
-                "selectedIconPath": "image/icon_center_active.png",
+                "iconPath": "image/icon_users.png",
+                "selectedIconPath": "image/icon_users_active.png",
                 "text": "患者管理"
             });
             wx.nextTick(() => {
-                if (this.data.authUserInfo.role == 'DOCTOR') {
+                if (this.data.userInfo.role == 'DOCTOR') {
                     this.loadBaner();
                     this.getDoctorInfo();
                 }
@@ -40,7 +40,7 @@ Component({
         },
         getDoctorInfo() {
             wx.jyApp.http({
-                url: '/doctor/info/' + this.data.authUserInfo.id
+                url: '/doctor/info/' + this.data.userInfo.id
             }).then((data) => {
                 this.setData({
                     doctor: data.doctor

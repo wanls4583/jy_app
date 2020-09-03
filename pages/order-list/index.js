@@ -33,7 +33,7 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['authUserInfo']
+            fields: ['userInfo']
         });
         this.loadMallOrderList();
         this.loadInterrogationOrderList();

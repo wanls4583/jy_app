@@ -1,5 +1,21 @@
-page button.button {
+page button {
+    display: block;
+    border-style: none;
     width: auto;
+    padding: 0;
+    font-size: 28rpx;
+    font-weight: normal;
+    color: #333;
+    background-color: transparent;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+}
+
+page button:not([size='mini']) {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .button {

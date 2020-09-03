@@ -15,10 +15,10 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['authUserInfo']
+                fields: ['userInfo']
             });
             wx.nextTick(() => {
-                if (this.data.authUserInfo.role != 'DOCTOR') {
+                if (this.data.userInfo.role != 'DOCTOR') {
                     this.loadBaner();
                     this.loadKepu();
                     this.loadDoctor();

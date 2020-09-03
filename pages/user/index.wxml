@@ -1,0 +1,46 @@
+<!-- index.wxml -->
+<view class="container padding-bottom-footer">
+    <van-field input-align="right" label="个人头像" readonly bindtap="chooseAvater">
+        <view slot="right-icon" class="flex--center--center">
+            <view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
+                <image class="width-100 height-100" mode="aspectFill" src="{{avatar.path}}"></image>
+                <view wx:if="{{progressMap[avatar.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color font-small" style="background:rgba(0,0,0,0.5)">
+                    <text wx:if="{{progressMap[avatar.id]<0}}" class="danger-color">失败</text>
+                    <text wx:else>{{progressMap[avatar.id]}}%</text>
+                </view>
+            </view>
+            <van-icon name="arrow" color="#ccc" />
+        </view>
+    </van-field>
+    <van-field input-align="right" label="昵称" value="{{userInfo.nickname}}" readonly bindtap="onShowNickname">
+        <view slot="right-icon" class="flex">
+            <van-icon name="arrow" color="#ccc" />
+        </view>
+    </van-field>
+    <van-field input-align="right" label="性别" value="{{sex}}" readonly bindtap="onShowSex">
+        <view slot="right-icon" class="flex">
+            <van-icon name="arrow" color="#ccc" />
+        </view>
+    </van-field>
+    <view class="padding-left-right-30 white-background-color">
+        <view class="flex--center--center border-bottom">
+            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" hover-class="none" class="flex-grow-1 flex--center--between padding-top-bottom-30" style="text-align:left;color:#646566">
+                <text>绑定手机号</text>
+            </button>
+            <van-icon name="arrow" color="#ccc" />
+        </view>
+    </view>
+    <van-field input-align="right" label="地址" value="{{address}}" readonly bindtap="onShowAddress">
+        <view slot="right-icon" class="flex">
+            <van-icon name="arrow" color="#ccc" />
+        </view>
+    </van-field>
+</view>
+<van-dialog use-slot title="修改昵称" show="{{nicknameVisible}}" show-cancel-button bind:confirm="onConfirmNickname">
+    <view class="padding-30">
+        <input type="text" value="{{nickname}}" bind:input="onInput" data-prop="nickname" class="border padding-20 align-center" bindconfirm="onConfirmNickname" style="height:auto" />
+    </view>
+</van-dialog>
+<van-popup show="{{sexVisible}}" position="bottom">
+    <van-picker id="sex" show-toolbar="{{true}}" default-index="{{userInfo.sex}}" columns="{{sexList}}" bind:confirm="onConfirmSex" bind:cancel="onCancelSex"></van-picker>
+</van-popup>

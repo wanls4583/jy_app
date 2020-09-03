@@ -64,8 +64,8 @@ export const store = observable({
     updateSelectAddress: action(function(address) {
         this.selectAddress = address;
     }),
-    authUserInfo: null,
-    updateAuthUserInfo: action(function(authUserInfo) {
-        this.authUserInfo = authUserInfo;
+    userInfo: null,
+    updateUserInfo: action(function(userInfo) {
+        this.userInfo = userInfo;
     }),
 })

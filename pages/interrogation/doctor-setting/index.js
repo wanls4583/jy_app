@@ -16,7 +16,7 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['authUserInfo']
+            fields: ['userInfo']
         });
         wx.nextTick(() => {
             this.getDoctorInfo();
@@ -98,7 +98,7 @@ Page({
             mask: true
         });
         wx.jyApp.http({
-            url: '/doctor/info/' + this.data.authUserInfo.id
+            url: '/doctor/info/' + this.data.userInfo.id
         }).then((data) => {
             wx.hideLoading();
             this.setData({

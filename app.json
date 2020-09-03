@@ -1,6 +1,8 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/user/index",
+        "pages/mine/index",
         "pages/mall/search-doctor/index",
         "pages/interrogation/certification/index",
         "pages/interrogation/guidance-edit/index",
@@ -12,7 +14,6 @@
         "pages/tab-bar-second/index",
         "pages/interrogation/illness-edit/index",
         "pages/mall/address-list/index",
-        "pages/mine/index",
         "pages/interrogation/message-list/index",
         "pages/interrogation/chat/index",
         "pages/mall/product-list/index",

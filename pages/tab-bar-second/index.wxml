@@ -1,4 +1,4 @@
 <view class="container">
-    <patient-manage wx:if="{{authUserInfo.role=='DOCTOR'}}"></patient-manage>
+    <patient-manage wx:if="{{userInfo.role=='DOCTOR'}}"></patient-manage>
     <user-mall wx:else></user-mall>
 </view>

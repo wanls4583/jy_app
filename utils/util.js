@@ -32,10 +32,13 @@ const formatNumber = n => {
     return n[1] ? n : '0' + n
 }
 
-function getUUID() {
-    return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
-    })
+function getUUID(len) {
+    len = len || 16;
+    var str = '';
+    for (var i = 0; i < len; i++) {
+        str += (Math.random() * 16 | 0).toString(16);
+    }
+    return str;
 }
 
 Date.prototype.formatTime = formatTime;
