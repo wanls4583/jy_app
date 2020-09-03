@@ -96,7 +96,7 @@ Component({
         //查看更多
         onClickMore(e) {
             wx.navigateTo({
-                url: '/pages/interrogation/search-doctor/index?'
+                url: '/pages/mall/search-doctor/index'
             });
         }
     }

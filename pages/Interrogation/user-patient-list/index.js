@@ -1,12 +1,17 @@
 Page({
     data: {
         patientList: [],
-        selectId: 0
+        selectId: 0,
+        ifSelect: false
     },
     onLoad(option) {
         this.doctorId = option.doctorId;
     },
     onShow() {
+        this.setData({
+            ifSelect: wx.jyApp.selectPatientFlag || false
+        });
+        wx.jyApp.selectPatientFlag = false;
         this.loadList();
     },
     selectPatient(e) {
@@ -39,11 +44,6 @@ Page({
                     }
                 });
             }
-        });
-    },
-    gotoChat(id) {
-        wx.navigateTo({
-            url: '/pages/interrogation/chat/index?id=' + id
         });
     },
     onChange(e) {

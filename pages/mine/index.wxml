@@ -11,11 +11,34 @@
             <van-icon name="arrow" color="#fff" />
         </button>
     </view>
-    <view class="white-background-color">
-        <view class="padding-left-right-30 clickable" bindtap="onClickOrder">
-            <view class="flex--center--between padding-top-bottom-30 border-bottom">
-                <text>我的订单</text>
-                <van-icon name="arrow" color="#ccc" />
+    <view class="flex padding-30 white-background-color">
+        <block wx:if="{{userInfo.role=='USER'}}">
+            <view class="width-25 align-center" bindtap="onGoto" data-url="/pages/order-list/index">
+                <image class="width-80rpx height-80rpx" src="/image/icon_order.png"></image>
+                <view class="font-mini">订单列表</view>
+            </view>
+            <view class="width-25 align-center" bindtap="onGoto" data-url="/pages/interrogation/user-patient-list/index">
+                <image class="width-80rpx height-80rpx" src="/image/icon_wenzhen.png"></image>
+                <view class="font-mini">问诊患者</view>
+            </view>
+        </block>
+    </view>
+    <view class="margin-top-20 white-background-color">
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onSitchRole">
+                <text>切换账号</text>
+                <view class="flex--center--center">
+                    <text>{{userInfo.role=='DOCTOR'?'切换为患者账号':'切换为医生账号'}}</text>
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </view>
+        </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onGoto" data-url="/pages/feedback/index">
+                <text>功能反馈</text>
+                <view class="flex--center--center">
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
             </view>
         </view>
     </view>

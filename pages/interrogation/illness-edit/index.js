@@ -21,7 +21,7 @@ Page({
         });
     },
     onNext() {
-        if(!this.data.diseaseDetail) {
+        if (!this.data.diseaseDetail) {
             wx.jyApp.toast('请输入病情描述');
             return;
         }
@@ -29,6 +29,7 @@ Page({
             diseaseDetail: this.data.diseaseDetail,
             picUrls: this.data.picUrls
         }
+        wx.jyApp.selectPatientFlag = true;
         wx.navigateTo({
             url: '/pages/interrogation/user-patient-list/index?doctorId=' + this.doctorId
         });

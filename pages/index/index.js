@@ -22,6 +22,12 @@ Page({
                         nickname: data.info.nickname
                     });
                 }
+                var role = wx.getStorageSync('role');
+                if (role == 'DOCTOR') {
+                    data.info.role = 'DOCTOR';
+                } else if (role == 'USER') {
+                    data.info.role = 'USER';
+                }
                 this.updateUserInfo(data.info);
                 wx.switchTab({ url: '/pages/tab-bar-first/index' });
             });

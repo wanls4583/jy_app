@@ -1,10 +1,10 @@
 <!-- index.wxml -->
 <view class="container padding-bottom-footer">
     <radio-group>
-        <view wx:for="{{patientList}}" wx:key="id" class="position-relative white-background-color border-top padding-left-30">
+        <view wx:for="{{patientList}}" wx:key="id" class="position-relative white-background-color border-top {{ifSelect?'padding-left-30':''}}">
             <van-swipe-cell right-width="{{150}}">
                 <view class="flex--center--between" data-item="{{item}}" bindtap="onChange">
-                    <view class="radio-wrap">
+                    <view wx:if="{{ifSelect}}" class="radio-wrap">
                         <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{selectId==item.id}}" />
                     </view>
                     <view class="flex-grow-1 flex--center--between height-120rpx padding-left-right-30">

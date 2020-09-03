@@ -1,6 +1,5 @@
 Page({
     data: {
-        userInfo: null,
         messageCount: 0
     },
     onLoad() {
@@ -24,7 +23,7 @@ Page({
                     wx.hideLoading();
                     this.updateUserInfo(data.info);
                 });
-            }).finally(()=>{
+            }).finally(() => {
                 wx.navigateTo({ url: '/pages/user/index' });
             });
         } else {
@@ -32,19 +31,20 @@ Page({
         }
 
     },
-    onClickAddress() {
+    onGoto(e) {
+        var url = e.currentTarget.dataset.url;
         wx.navigateTo({
-            url: '/pages/mall/address-list/index'
+            url: url
         });
     },
-    onClickOrder() {
+    onSitchRole() {
+        if(this.data.userInfo.role == 'DOCTOR') {
+            wx.setStorageSync('role', 'USER');
+        } else {
+            wx.setStorageSync('role', 'DOCTOR');
+        }
         wx.navigateTo({
-            url: '/pages/order-list/index'
-        });
-    },
-    onClickCertificate() {
-        wx.navigateTo({
-            url: '/pages/interrogation/certification/index'
+            url: '/pages/index/index'
         });
     }
 })
