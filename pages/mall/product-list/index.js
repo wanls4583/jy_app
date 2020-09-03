@@ -211,6 +211,9 @@ Page({
                     this.data.productData.loading = false;
                 }
             }).then((data) => {
+                data.page.list.map((item) => {
+                    item.goodsPic = item.goodsPic.split(',')[0];
+                });
                 this.setData({
                     [`productData.pageList[${page}]`]: data.page.list || [],
                     [`productData.page`]: page + 1,

@@ -17,6 +17,7 @@ Page({
             data.detail.goods.map((item) => {
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
+                item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 if (item.type == 1) {
                     item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
                 } else {
