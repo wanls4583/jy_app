@@ -10,7 +10,7 @@
                     <text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
                 </view>
                 <text class="margin-top-10 font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.onlineDepartmentName || '--'}}</text>
-                <view class="margin-top-10 font-small gray-color">{{doctor.goodAtDomain}}</view>
+                <view class="margin-top-10 font-small">擅长：{{doctor.goodAtDomain || ''}}</view>
             </view>
         </view>
         <view class="flex--center--around margin-top-30">
@@ -46,7 +46,7 @@
     </view>
     <view class="padding-30">
         <view class="flex--center--between">
-            <text>患者评价（{{doctor.appraiseNum}}）</text>
+            <text>患者评价（{{appraiseNum}}）</text>
             <view class="button text small gray-color">更多></view>
         </view>
     </view>
