@@ -28,7 +28,7 @@
             <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onSitchRole">
                 <text>切换账号</text>
                 <view class="flex--center--center">
-                    <text>{{userInfo.role=='DOCTOR'?'切换为患者账号':'切换为医生账号'}}</text>
+                    <text class="primary-color">{{userInfo.role=='DOCTOR'?'切换为患者账号':'切换为医生账号'}}</text>
                     <van-icon name="arrow" color="#ccc" />
                 </view>
             </view>
@@ -36,6 +36,40 @@
         <view class="padding-left-right-30 clickable">
             <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onGoto" data-url="/pages/feedback/index">
                 <text>功能反馈</text>
+                <view class="flex--center--center">
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </view>
+        </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onGoto" data-type="tab" data-url="/pages/interrogation/message-list/index">
+                <text>消息通知</text>
+                <view class="flex--center--center">
+                    <text wx:if="{{messageCount}}" class="danger-color">{{messageCount}}条未读消息</text>
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </view>
+        </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom">
+                <text>医生入驻</text>
+                <view class="flex--center--center">
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </view>
+        </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onClickPhone">
+                <text>客服</text>
+                <view class="flex--center--center">
+                    <text class="primary-color">{{phone}}</text>
+                    <van-icon name="arrow" color="#ccc" />
+                </view>
+            </view>
+        </view>
+        <view class="padding-left-right-30 clickable">
+            <view class="flex--center--between padding-top-bottom-30 border-bottom" bindtap="onGoto" data-url="/pages/setting/index">
+                <text>设置</text>
                 <view class="flex--center--center">
                     <van-icon name="arrow" color="#ccc" />
                 </view>

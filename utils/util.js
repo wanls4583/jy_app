@@ -41,10 +41,33 @@ function getUUID(len) {
     return str;
 }
 
+function navigateTo(e) {
+    var url = e.currentTarget.dataset.url;
+    var type = e.currentTarget.dataset.type;
+    if (type == 'tab') {
+        wx.switchTab({
+            url: url
+        });
+    } else {
+        wx.navigateTo({
+            url: url
+        });
+    }
+}
+
+function onInput(e, context, ifOrigin) {
+    var prop = e.currentTarget.dataset.prop;
+    context.setData({
+        [prop]: ifOrigin ? e.detail.value : e.detail
+    });
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
 module.exports = {
     formatTime: formatTime,
+    navigateTo: navigateTo,
+    onInput: onInput,
     getUUID: getUUID
 }

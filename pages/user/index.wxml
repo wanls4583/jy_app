@@ -24,7 +24,8 @@
     </van-field>
     <view class="padding-left-right-30 white-background-color">
         <view class="flex--center--center border-bottom">
-            <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" hover-class="none" class="flex-grow-1 flex--center--between padding-top-bottom-30" style="text-align:left;color:#646566">
+            <view wx:if="{{userInfo.phone}}" class="flex-grow-1 flex--center--between padding-top-bottom-30" style="color:#646566" data-url="/pages/phone-bind/index?phone={{userInfo.phone}}" bindtap="onGotao">{{userInfo.phone}}</view>
+            <button wx:else open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" hover-class="none" class="flex-grow-1 flex--center--between padding-top-bottom-30" style="text-align:left;color:#646566">
                 <text>绑定手机号</text>
             </button>
             <van-icon name="arrow" color="#ccc" />

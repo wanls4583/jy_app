@@ -1,6 +1,7 @@
 Page({
     data: {
-        messageCount: 0
+        messageCount: 0,
+        phone: ''
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -8,6 +9,7 @@ Page({
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
+        this.getPhone();
     },
     getUserInfo(e) {
         var userInfo = e.detail.userInfo;
@@ -31,14 +33,13 @@ Page({
         }
 
     },
+    //页面跳转
     onGoto(e) {
-        var url = e.currentTarget.dataset.url;
-        wx.navigateTo({
-            url: url
-        });
+        wx.jyApp.utils.navigateTo(e);
     },
+    //切换账号
     onSitchRole() {
-        if(this.data.userInfo.role == 'DOCTOR') {
+        if (this.data.userInfo.role == 'DOCTOR') {
             wx.setStorageSync('role', 'USER');
         } else {
             wx.setStorageSync('role', 'DOCTOR');
@@ -46,5 +47,26 @@ Page({
         wx.navigateTo({
             url: '/pages/index/index'
         });
-    }
+    },
+    //拨打电话
+    onClickPhone() {
+        wx.makePhoneCall({
+            phoneNumber: this.data.phone
+        })
+    },
+    //获取客服电话
+    getPhone() {
+        wx.jyApp.http({
+            url: '/sys/config/list',
+            data: {
+                configNames: 'servicePhone'
+            }
+        }).then((data) => {
+            if (data.list.length) {
+                this.setData({
+                    phone: data.list[0].servicePhone
+                });
+            }
+        })
+    },
 })

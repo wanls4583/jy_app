@@ -1,6 +1,9 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/phone-bind/index",
+        "pages/feedback/index",
+        "pages/setting/index",
         "pages/user/index",
         "pages/mine/index",
         "pages/mall/search-doctor/index",

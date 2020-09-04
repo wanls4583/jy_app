@@ -1,0 +1,12 @@
+<!-- index.wxml -->
+<view class="container">
+    <van-cell-group>
+        <van-field value="{{phone}}" label="手机号" placeholder="手机号" data-prop="phone" bind:input="onInput">
+            <view slot="button" class="button primary small" bindtap="onSend">{{sendTxt}}</view>
+        </van-field>
+        <van-field value="{{patient.height}}" label="身高" placeholder="身高" data-prop="height" bind:input="onInput"></van-field>
+    </van-cell-group>
+    <view class="padding-left-right-30 margin-top-bottom-30">
+        <view class="button primary block" bindtap="onSave">保存</view>
+    </view>
+</view>

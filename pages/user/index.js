@@ -28,6 +28,9 @@ Page({
             this.pciMap = {};
         });
     },
+    onGotao(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onShow() {
         this.getDefaultAdderss();
     },
@@ -144,7 +147,10 @@ Page({
         });
     },
     getPhoneNumber(e) {
-
+        var phone = '';
+        wx.navigateTo({
+            url: '/pages/phone-bind/index?phone=' + phone
+        });
     },
     getDefaultAdderss() {
         wx.jyApp.http({
