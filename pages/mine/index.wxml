@@ -5,7 +5,7 @@
 			<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 				<image class="width-100 height-100" src="{{doctor.avatar}}" />
 			</view>
-			<view class="flex--start--between flex-direction-column height-100rpx">
+			<view class="flex--start--between flex-direction-column height-100rpx padding-top-bottom-10">
 				<view class="white-color">
 					<text class="font-bold">{{doctor.doctorName || '--'}}</text>
 					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>

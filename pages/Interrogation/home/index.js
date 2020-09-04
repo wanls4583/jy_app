@@ -39,12 +39,25 @@ Component({
             });
         },
         getDoctorInfo() {
+            wx.showLoading({
+                title: '加载中...',
+                mask: true
+            });
             wx.jyApp.http({
-                url: '/doctor/info/' + this.data.userInfo.id
+                url: '/doctor/approve/history'
             }).then((data) => {
-                this.setData({
-                    doctor: data.doctor
-                });
+                if (data.list) {
+                    for (var i = 0; i < data.list.length; i++) {
+                        if (data.list[i].approveStatus == 2) {
+                            this.setData({
+                                doctor: data.list[i]
+                            });
+                            break;
+                        }
+                    }
+                }
+            }).finally(() => {
+                wx.hideLoading();
             });
         },
         loadBaner() {
