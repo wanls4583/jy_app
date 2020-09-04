@@ -53,3 +53,9 @@ van-collapse-item:first-of-type .van-collapse-item {
 page .van-picker__confirm {
     color: rgb(42, 175, 255)
 }
+
+.icon-index--van-icon__info.van-info {
+    height: 16px;
+    line-height: 1em;
+    padding-bottom: 2px;
+}

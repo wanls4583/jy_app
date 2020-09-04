@@ -9,16 +9,16 @@
             </view>
         </swiper-item>
     </swiper>
-    <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
+    <view class="padding-left-right-30 padding-top-bottom-20 white-background-color">
         <view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
         <view class="flex--center--between margin-top-20">
-            <view class="price primary-color">￥{{productInfo.price}}</view>
+            <view class="price danger-color">￥{{productInfo.price}}</view>
             <van-icon name="add-o" size="30px" class="primary-color clickable" bindtap="onAddToCart" />
         </view>
     </view>
     <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
         <view class="font-title">商品信息</view>
-        <view class="margin-top-20 color-666">{{productInfo.description}}</view>
+        <view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description}}</view>
         <image wx:for="{{desImgList}}" wx:key="item" class="flex width-100" mode="widthFix" src="{{item}}" data-src="{{item}}" bindtap="onClickDesImg"></image>
     </view>
     <view class="footer flex--center--between padding-left-30 border-top">
@@ -27,7 +27,7 @@
             <text wx:if="{{!cart.length}}" class="gray-color" style="margin-left:10px">{{deliveryMoney?'运费：￥'+deliveryMoney:'免费配送'}}</text>
             <text wx:else class="primary-color">￥{{cartTotalMoney+deliveryMoney}}</text>
         </view>
-        <view class="button primary center height-100 {{!cart.length ? 'disabled' : ''}}" bindtap="onPay">
+        <view class="button primary center height-100 radius-0 {{!cart.length ? 'disabled' : ''}}" bindtap="onPay">
             <text wx:if="{{cart.length}}">去结算</text>
             <text wx:elif="{{minOrderMoney}}">￥{{minOrderMoney}}起送</text>
             <text wx:else>去结算</text>
