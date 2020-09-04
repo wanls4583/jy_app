@@ -8,20 +8,16 @@ Page({
         sendTxt: '发送验证码',
         bindVisible: true
     },
-    onLoad(option) {
+    onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
-        if (option.phone) {
-            this.setData({
-                phone: option.phone
-            });
-        }
         wx.nextTick(() => {
             if (this.data.userInfo.phone) {
                 this.setData({
+                    phone: this.data.userInfo.phone,
                     bindVisible: false,
                     starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
                 });
@@ -91,14 +87,13 @@ Page({
             }
         }).then(() => {
             wx.showToast({
-                title: '绑定成功',
-                duration: 3000
+                title: '绑定成功'
             });
             this.toastTimer = setTimeout(() => {
                 this.data.userInfo.phone = this.data.phone;
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
                 wx.navigateBack();
-            }, 3000);
+            }, 1500);
         });
     }
 })

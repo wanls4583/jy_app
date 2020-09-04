@@ -68,12 +68,11 @@ Page({
             data: this.data.patient
         }).then(() => {
             wx.showToast({
-                title: '操作成功',
-                duration: 3000
+                title: '操作成功'
             });
             this.toastTimer = setTimeout(() => {
                 wx.navigateBack();
-            }, 3000);
+            }, 1500);
         });
     },
     loadInfo(id) {

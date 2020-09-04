@@ -36,7 +36,7 @@
 				wx:if="{{userInfo.phone}}"
 			>
 				<text>绑定手机号</text>
-				<text>{{userInfo.phone}}</text>
+				<text>{{starPhone}}</text>
 			</view>
 			<button
 				bindgetphonenumber="getPhoneNumber"

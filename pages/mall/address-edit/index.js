@@ -97,13 +97,12 @@ Page({
                 this.updateSelectAddress(this.data.address);
             }
             wx.showToast({
-                title: '操作成功',
-                duration: 3000
+                title: '操作成功'
             });
             this.toastTimer = setTimeout(() => {
                 wx.jyApp.reloadAddressList = true;
                     wx.navigateBack();
-            }, 3000);
+            }, 1500);
         });
     },
     loadInfo(id) {

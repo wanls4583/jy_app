@@ -58,28 +58,28 @@
 			<van-icon color="#fff" name="arrow" />
 		</button>
 	</view>
-	<view class="flex padding-30 white-background-color">
+	<view class="flex white-background-color">
 		<block wx:if="{{userInfo.role=='USER'}}">
-			<view bindtap="onGoto" class="width-25 align-center" data-url="/pages/order-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_order.png" mode="aspectFit" />
+			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<image style="width:60rpx;height:60rpx;" src="/image/icon_order.png" mode="aspectFit" />
 				<view class="font-mini">订单列表</view>
 			</view>
-			<view bindtap="onGoto" class="width-25 align-center" data-url="/pages/interrogation/user-patient-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_wenzhen.png" mode="aspectFit" />
+			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
+				<image style="width:60rpx;height:60rpx;" src="/image/icon_wenzhen.png" mode="aspectFit" />
 				<view class="font-mini">问诊患者</view>
 			</view>
         </block>
         <block wx:if="{{userInfo.role=='DOCTOR'}}">
-            <view bindtap="onGoto" class="width-25 align-center" data-url="/pages/order-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_order.png" mode="aspectFit" />
+            <view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<image style="width:60rpx;height:60rpx;" src="/image/icon_order.png" mode="aspectFit" />
 				<view class="font-mini">订单列表</view>
             </view>
-            <view bindtap="onGoto" class="width-25 align-center" data-url="/pages/order-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_trend.png" mode="aspectFit" />
+            <view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<image style="width:60rpx;height:60rpx;" src="/image/icon_trend.png" mode="aspectFit" />
 				<view class="font-mini">查看收益</view>
             </view>
-            <view bindtap="onGoto" class="width-25 align-center" data-url="/pages/order-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_withdrawal.png" mode="aspectFit" />
+            <view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<image style="width:60rpx;height:60rpx;" src="/image/icon_withdrawal.png" mode="aspectFit" />
 				<view class="font-mini">提现</view>
 			</view>
         </block>
@@ -103,7 +103,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-type="tab" data-url="/pages/interrogation/message-list/index">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
 				<text>消息通知</text>
 				<view class="flex--center--center">
 					<text class="danger-color" wx:if="{{messageCount}}">{{messageCount}}条未读消息</text>

@@ -5,7 +5,8 @@ Page({
         nicknameVisible: false,
         sexVisible: false,
         nickname: '',
-        address: ''
+        address: '',
+        starPhone: ''
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -26,6 +27,11 @@ Page({
             })
             this.taskMap = {};
             this.pciMap = {};
+            if (this.data.userInfo.phone) {
+                this.setData({
+                    starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
+                });
+            }
         });
     },
     onGotao(e) {
@@ -147,10 +153,32 @@ Page({
         });
     },
     getPhoneNumber(e) {
-        var phone = '';
-        wx.navigateTo({
-            url: '/pages/phone-bind/index?phone=' + phone
-        });
+        if (e.detail.iv && e.detail.encryptedData) {
+            wx.showLoading({
+                title: '获取中...',
+                mask: true
+            });
+            wx.jyApp.http({
+                url: '/wx/user/authorize/phone',
+                method: 'post',
+                data: {
+                    iv: e.detail.iv,
+                    encryptedData: e.detail.encryptedData
+                }
+            }).then((data) => {
+                this.data.userInfo.phone = data.phone;
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
+            }).finally(() => {
+                wx.hideLoading();
+                wx.navigateTo({
+                    url: '/pages/phone-bind/index'
+                });
+            });
+        } else {
+            wx.navigateTo({
+                url: '/pages/phone-bind/index'
+            });
+        }
     },
     getDefaultAdderss() {
         wx.jyApp.http({

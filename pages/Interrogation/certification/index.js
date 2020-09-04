@@ -47,6 +47,7 @@ Page({
     },
     onUnload() {
         this.saveLoaclInfo();
+        clearTimeout(this.toastTimer);
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
@@ -385,6 +386,10 @@ Page({
         }).then(() => {
             wx.hideLoading();
             wx.removeStorageSync('approvInfo');
+            wx.showToast({ title: '提交成功' });
+            this.toastTimer = setTimeout(() => {
+                wx.navigateBack();
+            }, 1500);
             this.setData({
                 approveStatus: 1
             });

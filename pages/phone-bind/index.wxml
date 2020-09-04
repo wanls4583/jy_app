@@ -12,7 +12,7 @@
 		</view>
 	</block>
 	<block wx:else>
-		<view class="height-100 white-backgournd-color overflow-hidden">
+		<view class="height-100 white-background-color overflow-hidden">
 			<view class="flex--center--center" style="margin-top:40vh">
 				<text>当前绑定手机号：</text>
 				<text>{{starPhone}}</text>

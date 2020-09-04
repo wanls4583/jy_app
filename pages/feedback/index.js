@@ -33,8 +33,8 @@ Page({
                 side: this.data.userInfo.role == 'DOCTOR' ? 'DOCTOR' : 'USER'
             }
         }).then(() => {
-            wx.jyApp.toast('反馈成功');
-            this.toastTimer = setTimeout(()=>{
+            wx.showToast({ title: '反馈成功' });
+            this.toastTimer = setTimeout(() => {
                 wx.navigateBack();
             }, 1500);
         }).finally(() => {

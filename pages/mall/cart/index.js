@@ -66,16 +66,12 @@ Page({
                     });
                 },
                 fail(res) {
-                    wx.showToast({
-                        title: '支付失败',
-                        icon: 'none',
-                        duration: 3000
-                    });
+                    wx.jyApp.toast('支付失败');
                     self.toastTimer = setTimeout(() => {
                         wx.navigateTo({
                             url: '/pages/mall/order-detail/index?id=' + data.id
                         });
-                    }, 3000);
+                    }, 1500);
                 }
             });
         });
