@@ -36,11 +36,8 @@ Page({
             }).then((data) => {
                 wx.showToast({
                     title: '操作成功',
-                    complete: () => {
-                        this.loadList();
-                    }
                 });
-
+                this.loadList();
             });
         })
     },

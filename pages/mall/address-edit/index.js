@@ -35,6 +35,9 @@ Page({
             areaList: area
         });
     },
+    onUnload() {
+        clearTimeout(this.toastTimer);
+    },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
@@ -95,11 +98,12 @@ Page({
             }
             wx.showToast({
                 title: '操作成功',
-                complete: () => {
-                    wx.jyApp.reloadAddressList = true;
-                    wx.navigateBack();
-                }
+                duration: 3000
             });
+            this.toastTimer = setTimeout(() => {
+                wx.jyApp.reloadAddressList = true;
+                    wx.navigateBack();
+            }, 3000);
         });
     },
     loadInfo(id) {

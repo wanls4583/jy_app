@@ -3,7 +3,10 @@ const app = getApp()
 Page({
     data: {
         phone: '',
-        sendTxt: '发送验证码'
+        starPhone: '',
+        smsCode: '',
+        sendTxt: '发送验证码',
+        bindVisible: true
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -16,9 +19,26 @@ Page({
                 phone: option.phone
             });
         }
+        wx.nextTick(() => {
+            if (this.data.userInfo.phone) {
+                this.setData({
+                    bindVisible: false,
+                    starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
+                });
+            }
+        });
+    },
+    onUnload() {
+        clearTimeout(this.toastTimer);
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
+    },
+    //更换手机号
+    onClickChange() {
+        this.setData({
+            bindVisible: true
+        });
     },
     onSend() {
         if (this.data.sendTxt != '发送验证码') {
@@ -36,13 +56,14 @@ Page({
                 phone: this.data.phone
             }
         }).then((data) => {
-            this.smsCode = data.smsCode;
+            wx.jyApp.toast('发送成功');
             this.reduceSecond();
         });
     },
     reduceSecond() {
         var second = 60;
         var self = this;
+        _reduce();
         function _reduce() {
             if (second <= 0) {
                 self.setData({
@@ -66,17 +87,18 @@ Page({
             method: 'post',
             data: {
                 phone: this.phone,
-                smsCode: this.smsCode
+                smsCode: Number(this.data.smsCode)
             }
         }).then(() => {
-            this.data.userInfo.phone = this.data.phone;
-            this.updateUserInfo(Object.assign({}, this.data.userInfo));
             wx.showToast({
-                title: '操作成功',
-                complete: () => {
-                    wx.navigateBack();
-                }
+                title: '绑定成功',
+                duration: 3000
             });
+            this.toastTimer = setTimeout(() => {
+                this.data.userInfo.phone = this.data.phone;
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                wx.navigateBack();
+            }, 3000);
         });
     }
 })

@@ -15,6 +15,12 @@ Page({
             }
         });
     },
+    onHide() {
+        clearTimeout(this.toastTimer);
+    },
+    onUnload() {
+        clearTimeout(this.toastTimer);
+    },
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
         wx.navigateTo({
@@ -46,6 +52,7 @@ Page({
                 goods: goods
             }
         }).then((data) => {
+            var self = this;
             this.clearCart();
             wx.requestPayment({
                 timeStamp: data.params.timeStamp,
@@ -62,12 +69,13 @@ Page({
                     wx.showToast({
                         title: '支付失败',
                         icon: 'none',
-                        complete: () => {
-                            wx.navigateTo({
-                                url: '/pages/mall/order-detail/index?id=' + data.id
-                            });
-                        }
+                        duration: 3000
                     });
+                    self.toastTimer = setTimeout(() => {
+                        wx.navigateTo({
+                            url: '/pages/mall/order-detail/index?id=' + data.id
+                        });
+                    }, 3000);
                 }
             });
         });

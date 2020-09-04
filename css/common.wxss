@@ -255,3 +255,25 @@ switch {
 .shadow {
     box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.2);
 }
+
+.tag {
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 20rpx;
+    background-color: rgb(42, 175, 255);
+    color: #fff;
+    margin-left: 10rpx;
+    border-radius: 8rpx;
+}
+
+.tag.success {
+    background-color: #07c160;
+}
+
+.tag.warn {
+    background-color: #ff976a;
+}
+
+.tag.danger {
+    background-color: #ee0a24;
+}

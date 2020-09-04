@@ -1,7 +1,8 @@
 Page({
     data: {
         messageCount: 0,
-        phone: ''
+        phone: '',
+        doctor: null
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -10,6 +11,7 @@ Page({
             actions: ['updateUserInfo'],
         });
         this.getPhone();
+        this.getDoctorInfo();
     },
     getUserInfo(e) {
         var userInfo = e.detail.userInfo;
@@ -32,6 +34,28 @@ Page({
             wx.navigateTo({ url: '/pages/user/index' });
         }
 
+    },
+    getDoctorInfo() {
+        wx.showLoading({
+            title: '加载中...',
+            mask: true
+        });
+        wx.jyApp.http({
+            url: '/doctor/approve/history'
+        }).then((data) => {
+            if (data.list) {
+                for (var i = 0; i < data.list.length; i++) {
+                    if (data.list[i].approveStatus == 2) {
+                        this.setData({
+                            doctor: data.list[i]
+                        });
+                        break;
+                    }
+                }
+            }
+        }).finally(() => {
+            wx.hideLoading();
+        });
     },
     //页面跳转
     onGoto(e) {

@@ -385,6 +385,9 @@ Page({
         }).then(() => {
             wx.hideLoading();
             wx.removeStorageSync('approvInfo');
+            this.setData({
+                approveStatus: 1
+            });
         });
     },
     saveLoaclInfo() {
