@@ -1,21 +1,18 @@
-import { store } from '../../../store/index'
-import { createStoreBindings } from 'mobx-miniprogram-bindings';
-
 Page({
     data: {},
     onLoad() {
-        this.storeBindings = createStoreBindings(this, {
-            store,
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
             fields: ['cart', 'cartTotalMoney', 'cartNum', 'selectAddress'],
             actions: ['addCart', 'addCartNum', 'reduceCartNum', 'clearCart', 'updateSelectAddress'],
         });
-        wx.nextTick(() => {
-            if (!this.data.selectAddress) {
-                this.loadAddressList();
-            }
-        });
+        this.storeBindings.updateStoreBindings();
+        if (!this.data.selectAddress) {
+            this.loadAddressList();
+        }
     },
     onHide() {
+        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onUnload() {

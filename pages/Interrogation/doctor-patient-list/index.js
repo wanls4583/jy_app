@@ -77,7 +77,7 @@ Component({
                 });
             });
         },
-        //检查是否有患者
+        //检查是否有新患者
         checkList() {
             wx.jyApp.http({
                 url: '/doctor/patients',

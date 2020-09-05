@@ -10,8 +10,12 @@ Page({
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
+        this.storeBindings.updateStoreBindings();
         this.getPhone();
         this.getDoctorInfo();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     getUserInfo(e) {
         var userInfo = e.detail.userInfo;

@@ -35,10 +35,14 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo']
         });
+        this.storeBindings.updateStoreBindings();
         this.loadMallOrderList();
         this.loadInterrogationOrderList();
         this.loadApplyOrderList();
         this.loadGuidanceOrderList();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onChangeTab(e) {
         this.setData({

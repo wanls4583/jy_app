@@ -3,12 +3,18 @@ Page({
         userInfo: null,
         messageCount: 0
     },
-    onShow() {
+    onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
+        this.storeBindings.updateStoreBindings();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
+    onShow() {
         wx.showLoading({
             title: '加载中...'
         });

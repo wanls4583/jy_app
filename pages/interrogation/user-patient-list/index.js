@@ -10,9 +10,13 @@ Page({
             ifSelect: wx.jyApp.selectPatientFlag || false
         });
         wx.jyApp.selectPatientFlag = false;
+        this.loadList();
     },
     onShow() {
-        this.loadList();
+        if (wx.jyApp.reloadPatientList) {
+            this.loadList();
+            delete wx.jyApp.reloadPatientList;
+        }
     },
     selectPatient(e) {
         var id = e.currentTarget.dataset.id;

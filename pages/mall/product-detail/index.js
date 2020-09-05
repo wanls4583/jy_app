@@ -1,7 +1,3 @@
-import http from '../../../utils/request';
-import { store } from '../../../store/index'
-import { createStoreBindings } from 'mobx-miniprogram-bindings';
-
 Page({
     data: {
         id: '',
@@ -11,16 +7,36 @@ Page({
         minOrderMoney: 0,
         deliveryMoney: 0,
         cartVisible: false,
-        productInfo: {}
+        productInfo: {},
+        bTop: 28,
+        bHeight: 32
     },
     onLoad(option) {
         this.data.id = option.id;
-        this.storeBindings = createStoreBindings(this, {
-            store,
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
             fields: ['cart', 'cartTotalMoney', 'cartNum'],
             actions: ['addCart', 'addCartNum', 'reduceCartNum', 'clearCart'],
         });
+        this.storeBindings.updateStoreBindings();
+        this.setBackButtonRect();
         this.loadInfo();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
+    setBackButtonRect() {
+        var bRect = wx.getMenuButtonBoundingClientRect();
+        var bTop = bRect && bRect.top || 28;
+        var bHeight = bRect && bRect.height || 32;
+        this.setData({
+            bTop: bTop,
+            bHeight: bHeight
+        });
+    },
+    //返回
+    onBack() {
+        wx.navigateBack();
     },
     onBannerChang(e) {
         this.setData({
@@ -58,7 +74,7 @@ Page({
         });
     },
     loadInfo() {
-        http({
+        wx.jyApp.http({
             url: `/goods/info/${this.data.id}`
         }).then((data) => {
             this.setData({
@@ -85,7 +101,7 @@ Page({
         });
     },
     onPay() {
-        if(this.data.cart.length) {
+        if (this.data.cart.length) {
             wx.navigateTo({
                 url: '/pages/mall/cart/index'
             });

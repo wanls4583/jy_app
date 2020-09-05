@@ -10,11 +10,15 @@ Page({
             fields: ['selectAddress'],
             actions: ['updateSelectAddress'],
         });
+        this.storeBindings.updateStoreBindings();
         this.setData({
             ifSelect: wx.jyApp.selectAddressFlag || false
         });
         wx.jyApp.selectAddressFlag = false;
         this.loadList();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onShow() {
         if(wx.jyApp.reloadAddressList) {

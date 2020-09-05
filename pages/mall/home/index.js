@@ -17,21 +17,21 @@ Component({
                 store: wx.jyApp.store,
                 fields: ['userInfo']
             });
-            wx.nextTick(() => {
-                if (this.data.userInfo.role != 'DOCTOR') {
-                    this.loadBaner();
-                    this.loadKepu();
-                    this.loadDoctor();
-                    this.loadDepartmentList();
-                }
-            });
+            this.storeBindings.updateStoreBindings();
+            if (this.data.userInfo.role != 'DOCTOR') {
+                this.loadBaner();
+                this.loadKepu();
+                this.loadDoctor();
+                this.loadDepartmentList();
+            }
+        },
+        detached() {
+            this.storeBindings.destroyStoreBindings();
         }
     },
     methods: {
-        onGotoSearch() {
-            wx.navigateTo({
-                url: '/pages/mall/search/index?showDoctor=1'
-            });
+        onGoto(e) {
+            wx.jyApp.utils.navigateTo(e);
         },
         bannerChang(e) {
             this.setData({

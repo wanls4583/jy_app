@@ -13,25 +13,27 @@ Page({
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
-        wx.nextTick(() => {
-            var id = wx.jyApp.utils.getUUID();
-            this.setData({
-                sexList: ['女', '男'],
-                nickname: this.data.userInfo.nickname,
-                sex: this.data.userInfo.sex == 1 ? '男' : '女',
-                avatar: {
-                    path: this.data.userInfo.avatarUrl,
-                    id: id
-                }
-            })
-            this.taskMap = {};
-            this.pciMap = {};
-            if (this.data.userInfo.phone) {
-                this.setData({
-                    starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
-                });
+        this.storeBindings.updateStoreBindings();
+        var id = wx.jyApp.utils.getUUID();
+        this.setData({
+            sexList: ['女', '男'],
+            nickname: this.data.userInfo.nickname,
+            sex: this.data.userInfo.sex == 1 ? '男' : '女',
+            avatar: {
+                path: this.data.userInfo.avatarUrl,
+                id: id
             }
-        });
+        })
+        this.taskMap = {};
+        this.pciMap = {};
+        if (this.data.userInfo.phone) {
+            this.setData({
+                starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
+            });
+        }
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onGotao(e) {
         wx.jyApp.utils.navigateTo(e);

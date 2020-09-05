@@ -11,6 +11,7 @@ Page({
         });
     },
     onUnload() {
+        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onInput(e) {

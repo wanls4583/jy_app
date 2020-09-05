@@ -71,6 +71,7 @@ Page({
                 title: '操作成功'
             });
             this.toastTimer = setTimeout(() => {
+                wx.jyApp.reloadPatientList = true;
                 wx.navigateBack();
             }, 1500);
         });

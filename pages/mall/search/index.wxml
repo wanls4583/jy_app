@@ -1,62 +1,89 @@
 <view class="container">
-    <view class="position-fixed top-0 width-100">
-        <van-search shape="round" focus="{{true}}" placeholder="{{doctorVisible?'请输入医生/产品':'请输入产品'}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" />
-    </view>
-    <view class="white-background-color" style="margin-top:54px">
-        <view wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">
-            <van-empty description="未查询到相关{{doctorVisible?'医生/产品':'产品'}}，请重新搜索" />
-        </view>
-        <view wx:if="{{doctorVisible&&doctorData.list.length}}" class="padding-30">
-            <view class="font-bold">医生</view>
-            <view>
-                <view wx:for="{{doctorData.list}}" wx:key="id" class="flex--start--between padding-top-bottom-30 border-bottom">
-                    <view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
-                        <image class="width-100 height-100" src="{{item.avatar}}" mode="aspectFill"></image>
-                    </view>
-                    <view class="flex-grow-1 padding-left-30">
-                        <view>
-                            <text>{{item.doctorName}}</text>
-                            <text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
-                        </view>
-                        <text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
-                        <view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
-                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;<text class="danger-color">￥{{item.consultOrderPrice}}</text></text>
-                    </view>
-                </view>
-            </view>
-            <view wx:if="{{doctorData.totalPage>=doctorData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="3" bindtap="onLoadMore">查看更多</view>
-        </view>
-        <view wx:if="{{taocanData.list.length}}" class="padding-30 border-top">
-            <view class="font-bold">营养套餐</view>
-            <view>
-                <view wx:for="{{taocanData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                    <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                        <view>{{product.goodsName}}</view>
-                        <view class="flex--center--between margin-top-30 width-100">
-                            <text class="gray-color">一天{{product.frequency}}次</text>
-                            <text>￥{{product.price}}</text>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view wx:if="{{taocanData.totalPage>=taocanData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="1" bindtap="onLoadMore">查看更多</view>
-        </view>
-        <view wx:if="{{productData.list.length}}" class="padding-30 border-top">
-            <view class="font-bold">营养产品</view>
-            <view>
-                <view wx:for="{{productData.list}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                    <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                        <view>{{product.goodsName}}</view>
-                        <view class="flex--center--between margin-top-30 width-100">
-                            <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
-                            <text>￥{{product.price}}</text>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view wx:if="{{productData.totalPage>=productData.page}}" class="padding-top-bottom-30 primary-color align-center" data-type="2" bindtap="onLoadMore">查看更多</view>
-        </view>
-    </view>
+	<view class="position-fixed top-0 width-100">
+		<van-search
+			bind:change="onChangeText"
+			bind:search="onSearch"
+			focus="{{true}}"
+			placeholder="{{doctorVisible?'请输入医生/产品':'请输入产品'}}"
+			shape="round"
+			value="{{searchText}}"
+		/>
+	</view>
+	<view class="white-background-color" style="margin-top:54px">
+		<view
+			class="padding-30 gray-color align-center font-small"
+			wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}"
+		>
+			<van-empty description="未查询到相关{{doctorVisible?'医生/产品':'产品'}}，请重新搜索" />
+		</view>
+		<view class="padding-30" wx:if="{{doctorVisible&&doctorData.list.length}}">
+			<view class="font-bold">医生</view>
+			<view>
+				<view class="flex--start--between padding-top-bottom-30 border-bottom" wx:for="{{doctorData.list}}" wx:key="id">
+					<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
+						<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
+					</view>
+					<view class="flex-grow-1 padding-left-30">
+						<view>
+							<text>{{item.doctorName}}</text>
+							<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
+						</view>
+						<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
+						<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
+						<view class="flex margin-top-10">
+							<text decode="{{true}}">图文问诊&nbsp;</text>
+							<text class="danger-color">￥{{item.consultOrderPrice}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="3" wx:if="{{doctorData.totalPage>=doctorData.page}}">查看更多</view>
+		</view>
+		<view class="padding-30 border-top" wx:if="{{taocanData.list.length}}">
+			<view class="font-bold">营养套餐</view>
+			<view>
+				<view
+					bindtap="onclickProdcut"
+					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
+					data-id="{{product.id}}"
+					wx:for="{{taocanData.list}}"
+					wx:for-item="product"
+					wx:key="id"
+				>
+					<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+						<view>{{product.goodsName}}</view>
+						<view class="flex--center--between margin-top-30 width-100">
+							<text class="gray-color">一天{{product.frequency}}次</text>
+							<text>￥{{product.price}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="1" wx:if="{{taocanData.totalPage>=taocanData.page}}">查看更多</view>
+		</view>
+		<view class="padding-30 border-top" wx:if="{{productData.list.length}}">
+			<view class="font-bold">营养产品</view>
+			<view>
+				<view
+					bindtap="onclickProdcut"
+					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
+					data-id="{{product.id}}"
+					wx:for="{{productData.list}}"
+					wx:for-item="product"
+					wx:key="id"
+				>
+					<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+						<view>{{product.goodsName}}</view>
+						<view class="flex--center--between margin-top-30 width-100">
+							<text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
+							<text>￥{{product.price}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="2" wx:if="{{productData.totalPage>=productData.page}}">查看更多</view>
+		</view>
+	</view>
 </view>

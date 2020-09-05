@@ -21,6 +21,7 @@ Page({
             fields: ['selectAddress'],
             actions: ['updateSelectAddress'],
         });
+        this.storeBindings.updateStoreBindings();
         if (option && option.id) {
             wx.setNavigationBarTitle({
                 title: '编辑地址'
@@ -36,6 +37,7 @@ Page({
         });
     },
     onUnload() {
+        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onInput(e) {

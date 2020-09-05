@@ -1,51 +1,56 @@
 <!--index.wxml-->
 <view class="container" style="padding-bottom:50px">
-    <swiper class="width-100 height-100vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="onBannerChang">
-        <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="item" data-src="{{item}}" bindtap="onClickTopImg">
-            <view class="position-relative height-100" style="background:url({{item}}) no-repeat center;background-size:cover">
-                <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
-                    <text>{{currentBannerIndex+1}}/{{banner.length}}</text>
-                </view>
-            </view>
-        </swiper-item>
-    </swiper>
-    <view class="padding-30 white-background-color">
-        <view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
-        <view class="flex--center--between margin-top-20">
-            <view class="font-large font-bold danger-color">￥{{productInfo.price}}</view>
-            <view class="button primary small" style="border-radius:100px" bindtap="onAddToCart">添加到购物车</view>
-        </view>
-    </view>
-    <view class="margin-top-20 padding-30 white-background-color">
-        <view class="font-title font-bold">商品信息</view>
-        <view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description}}</view>
-        <image wx:for="{{desImgList}}" wx:key="item" class="flex width-100" mode="widthFix" src="{{item}}" data-src="{{item}}" bindtap="onClickDesImg"></image>
-    </view>
-    <view class="footer flex--center--between padding-left-30 border-top">
-        <view class="flex--center--start" bindtap="onShowCart">
-            <van-icon class="{{cart.length>0?'primary-color':'gray-color'}} margin-right-30" name="shopping-cart-o" size="20px" info="{{cartNum}}" />
-            <text wx:if="{{!cart.length}}" class="gray-color" style="margin-left:10px">{{deliveryMoney?'运费：￥'+deliveryMoney:'免费配送'}}</text>
-            <text wx:else class="primary-color">￥{{cartTotalMoney+deliveryMoney}}</text>
-        </view>
-        <view class="button primary center height-100 radius-0 {{!cart.length ? 'disabled' : ''}}" bindtap="onPay">
-            <text wx:if="{{cart.length}}">去结算</text>
-            <text wx:elif="{{minOrderMoney}}">￥{{minOrderMoney}}起送</text>
-            <text wx:else>去结算</text>
-        </view>
-    </view>
-    <van-popup show="{{cartVisible}}" position="bottom"  z-index="0" custom-style="bottom:50px" bind:click-overlay="onShowCart">
-        <view class="align-right">
-            <view class="inline-block gray-color padding-left-right-30 padding-top-bottom-20" bindtap="onClearCart">清空购物车</view>
-        </view>
-        <view wx:for="{{cart}}" wx:key="index" class="flex--center--between border-bottom padding-30">
-            <view>{{item.product.goodsName}}</view>
-            <view class="primary-color">￥{{item.product.price}}</view>
-            <view class="flex--center--center position-relative">
-                <view class="primary-color del">—</view>
-                <van-icon name="circle" size="20px" class="primary-color" bindtap="onReduceNum" data-id='{{item.product.id}}'></van-icon>
-                <view class="num align-center">{{item.num}}</view>
-                <van-icon name="add-o" size="20px" class="primary-color" bindtap="onAddNum" data-id='{{item.product.id}}' />
-            </view>
-        </view>
-    </van-popup>
+	<view class="position-fixed z-index-100" style="top:{{bTop}}px;left:0;padding-left:20px;" bindtap="onBack">
+		<view class="flex--center--center radius-50 clickable" style="width:{{bHeight}}px;height:{{bHeight}}px;background:rgba(0,0,0,0.5)">
+			<van-icon color="#fff" name="arrow-left" size="20px" />
+		</view>
+	</view>
+	<swiper autoplay="{{true}}" bindchange="onBannerChang" circular="{{true}}" class="width-100 height-100vw" duration="{{500}}" interval="{{5000}}">
+		<swiper-item bindtap="onClickTopImg" data-src="{{item}}" wx:for="{{banner}}" wx:for-item="item" wx:key="item">
+			<view class="position-relative height-100" style="background:url({{item}}) no-repeat center;background-size:cover">
+				<view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
+					<text>{{currentBannerIndex+1}}/{{banner.length}}</text>
+				</view>
+			</view>
+		</swiper-item>
+	</swiper>
+	<view class="padding-30 white-background-color">
+		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
+		<view class="flex--center--between margin-top-20">
+			<view class="font-large font-bold danger-color">￥{{productInfo.price}}</view>
+			<view bindtap="onAddToCart" class="button primary small" style="border-radius:100px">添加到购物车</view>
+		</view>
+	</view>
+	<view class="margin-top-20 padding-30 white-background-color">
+		<view class="font-title font-bold">商品信息</view>
+		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description}}</view>
+		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
+	</view>
+	<view class="footer flex--center--between padding-left-30 border-top">
+		<view bindtap="onShowCart" class="flex--center--start">
+			<van-icon class="{{cart.length>0?'primary-color':'gray-color'}} margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" />
+			<text class="gray-color" style="margin-left:10px" wx:if="{{!cart.length}}">{{deliveryMoney?'运费：￥'+deliveryMoney:'免费配送'}}</text>
+			<text class="primary-color" wx:else>￥{{cartTotalMoney+deliveryMoney}}</text>
+		</view>
+		<view bindtap="onPay" class="button primary center height-100 radius-0 {{!cart.length ? 'disabled' : ''}}">
+			<text wx:if="{{cart.length}}">去结算</text>
+			<text wx:elif="{{minOrderMoney}}">￥{{minOrderMoney}}起送</text>
+			<text wx:else>去结算</text>
+		</view>
+	</view>
+	<van-popup bind:click-overlay="onShowCart" custom-style="bottom:50px" position="bottom" show="{{cartVisible}}" z-index="0">
+		<view class="align-right">
+			<view bindtap="onClearCart" class="inline-block gray-color padding-left-right-30 padding-top-bottom-20">清空购物车</view>
+		</view>
+		<view class="flex--center--between border-bottom padding-30" wx:for="{{cart}}" wx:key="index">
+			<view>{{item.product.goodsName}}</view>
+			<view class="primary-color">￥{{item.product.price}}</view>
+			<view class="flex--center--center position-relative">
+				<view class="primary-color del">—</view>
+				<van-icon bindtap="onReduceNum" class="primary-color" data-id="{{item.product.id}}" name="circle" size="20px"></van-icon>
+				<view class="num align-center">{{item.num}}</view>
+				<van-icon bindtap="onAddNum" class="primary-color" data-id="{{item.product.id}}" name="add-o" size="20px" />
+			</view>
+		</view>
+	</van-popup>
 </view>

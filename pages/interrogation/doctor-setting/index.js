@@ -14,9 +14,8 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo']
         });
-        wx.nextTick(() => {
-            this.getDoctorInfo();
-        });
+        this.storeBindings.updateStoreBindings();
+        this.getDoctorInfo();
         this.setData({
             statusList: [{
                 label: '上线',
@@ -31,6 +30,9 @@ Page({
                 3: '禁用'
             }
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onSwitchChange(e) {
         this.setData({

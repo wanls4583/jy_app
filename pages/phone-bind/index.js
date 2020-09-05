@@ -14,17 +14,17 @@ Page({
             fields: ['userInfo'],
             actions: ['updateUserInfo'],
         });
-        wx.nextTick(() => {
-            if (this.data.userInfo.phone) {
-                this.setData({
-                    phone: this.data.userInfo.phone,
-                    bindVisible: false,
-                    starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
-                });
-            }
-        });
+        this.storeBindings.updateStoreBindings();
+        if (this.data.userInfo.phone) {
+            this.setData({
+                phone: this.data.userInfo.phone,
+                bindVisible: false,
+                starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
+            });
+        }
     },
     onUnload() {
+        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onInput(e) {

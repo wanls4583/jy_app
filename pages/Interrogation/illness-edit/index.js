@@ -7,7 +7,7 @@ Page({
         pciMap: {}
     },
     onLoad(option) {
-        this.doctorId = option.doctorId;
+        this.doctorId = option.doctorId || '';
         this.taskMap = {}
     },
     onUnload() {

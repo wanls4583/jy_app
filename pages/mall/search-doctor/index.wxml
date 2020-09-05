@@ -1,86 +1,135 @@
 <view class="container">
-    <view class="position-fixed top-0 z-index-100 width-100">
-        <van-search shape="round" focus="{{searchTipVisible}}" show-action="{{searchTipVisible}}" placeholder="请输入医生/疾病/营养中心" value="{{searchText}}" bind:search="onSearch" bind:cancel="onCancel" bind:focus="onFocus" bind:change="onChangeText" />
-    </view>
-    <view class="position-fixed z-index-100 width-100 flex--center--around white-background-color" style="top:54px;height:54px;">
-        <view class="flex--center--center height-100" bindtap="onShowOrderBy">
-            <text decode="{{true}}">{{_orderBy}}&nbsp;</text>
-            <van-icon name="arrow-down" />
-        </view>
-        <view class="flex--center--center height-100" bindtap="onShowArea">
-            <text decode="{{true}}">{{area}}&nbsp;</text>
-            <van-icon name="arrow-down" />
-        </view>
-        <view class="flex--center--center height-100" bindtap="onShowScreen">
-            <text decode="{{true}}">筛选&nbsp;</text>
-            <van-icon name="arrow-down" />
-        </view>
-    </view>
-    <view wx:if="{{searchTipVisible}}" class="position-absolute top-0 width-100 bottom-0 z-index-100 gray-background-color" style="top:54px">
-        <view class="white-background-color overflow-hidden">
-            <view class="padding-30 font-title">按疾病找医生</view>
-            <view class="flex">
-                <view wx:for="{{diseaseList}}" wx:key="index" class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable" style="border-radius:100px;line-height:60rpx" data-txt="{{item}}" bindtap="onClickTxt">{{item}}</view>
-            </view>
-            <view class="padding-30 font-title">按营养中心找医生</view>
-            <view class="flex">
-                <view wx:for="{{departmentList}}" wx:key="index" class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable" style="border-radius:100px;line-height:70rpx" data-txt="{{item.departmentName}}" bindtap="onClickTxt">{{item.departmentName}}</view>
-            </view>
-        </view>
-    </view>
-    <view class="height-100" style="padding-top:108px">
-        <pull-scroll-view bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
-            <view class="padding-left-right-30 white-background-color">
-                <view wx:for="{{doctorList}}" wx:key="id" class="flex--start--between padding-top-bottom-30 border-bottom" data-id="{{item.id}}" bindtap="onClickDoctor">
-                    <view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
-                        <image class="width-100 height-100" src="{{item.avatar}}" mode="aspectFill"></image>
-                    </view>
-                    <view class="flex-grow-1 padding-left-30">
-                        <view>
-                            <text>{{item.doctorName}}</text>
-                            <text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
-                        </view>
-                        <text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
-                        <view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
-                        <text class="flex margin-top-10" decode="{{true}}">图文问诊&nbsp;<text class="danger-color">￥{{item.consultOrderPrice}}</text></text>
-                    </view>
-                </view>
-            </view>
-            <view wx:if="{{totalPage>0&&page>totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-            <view wx:elif="{{totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                <van-empty description="未查询到相关医生，请重新搜索" />
-            </view>
-            <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-        </pull-scroll-view>
-    </view>
-    <van-popup show="{{orderByVisible}}" position="top" z-index="{{0}}" custom-style="top:108px" bind:click-overlay="onShowOrderBy">
-        <view class="padding-left-right-30">
-            <block wx:for="{{orderByList}}" wx:key="label">
-                <view class="padding-top-bottom-30 border-bottom" data-item="{{item}}" bindtap="onClickOrderBy">
-                    <view wx:if="{{item.value==orderBy}}" class="primary-color">
-                        <van-icon name="success" />
-                        <text>{{item.label}}</text>
-                    </view>
-                    <view wx:else>{{item.label}}</view>
-                </view>
-            </block>
-        </view>
-    </van-popup>
-    <van-popup show="{{areaVisible}}" position="top" z-index="{{0}}" custom-style="top:108px" bind:click-overlay="onShowArea">
-        <van-area id="area" area-list="{{areaList}}" columns-num="{{2}}" value="{{cityCode}}" columns-placeholder="{{['全国']}}" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
-    </van-popup>
-    <van-popup show="{{screenVisible}}" position="top" z-index="{{0}}" custom-style="top:108px" bind:click-overlay="onCancelScreen">
-        <view class="padding-30 font-title">医生职称</view>
-        <view class="flex flex-wrap-wrap">
-            <view wx:for="{{positionList}}" wx:key="index" class="button primary small margin-bottom-30 margin-left-30 {{jobTitle==item?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickPosition">{{item}}</view>
-        </view>
-        <view class="padding-30 font-title">价格区间</view>
-        <view class="flex flex-wrap-wrap">
-            <view wx:for="{{priceList}}" wx:key="index" class="button primary small margin-bottom-30 margin-left-30 {{price==item.value?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickPrice">{{item.label}}</view>
-        </view>
-        <view class="flex--center--between">
-            <view class="flex--center--center padding-30 gray-color" style="height:44px" bindtap="onCancelScreen">取消</view>
-            <view class="flex--center--center padding-30 primary-color" style="height:44px" bindtap="onConfirmScreen">确定</view>
-        </view>
-    </van-popup>
+	<view class="position-fixed top-0 z-index-100 width-100">
+		<van-search
+			bind:cancel="onCancel"
+			bind:change="onChangeText"
+			bind:focus="onFocus"
+			bind:search="onSearch"
+			focus="{{searchTipVisible}}"
+			placeholder="请输入医生/疾病/营养中心"
+			shape="round"
+			show-action="{{searchTipVisible}}"
+			value="{{searchText}}"
+		/>
+	</view>
+	<view class="position-fixed z-index-100 width-100 flex--center--around white-background-color" style="top:54px;height:54px;">
+		<view bindtap="onShowOrderBy" class="flex--center--center height-100">
+			<text decode="{{true}}">{{_orderBy}}&nbsp;</text>
+			<van-icon name="arrow-down" />
+		</view>
+		<view bindtap="onShowArea" class="flex--center--center height-100">
+			<text decode="{{true}}">{{area}}&nbsp;</text>
+			<van-icon name="arrow-down" />
+		</view>
+		<view bindtap="onShowScreen" class="flex--center--center height-100">
+			<text decode="{{true}}">筛选&nbsp;</text>
+			<van-icon name="arrow-down" />
+		</view>
+	</view>
+	<view class="position-absolute top-0 width-100 bottom-0 z-index-100 gray-background-color" style="top:54px" wx:if="{{searchTipVisible}}">
+		<view class="white-background-color overflow-hidden">
+			<view class="padding-30 font-title">按疾病找医生</view>
+			<view class="flex">
+				<view
+					bindtap="onClickTxt"
+					class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable"
+					data-txt="{{item}}"
+					style="border-radius:100px;line-height:60rpx"
+					wx:for="{{diseaseList}}"
+					wx:key="index"
+				>{{item}}</view>
+			</view>
+			<view class="padding-30 font-title">按营养中心找医生</view>
+			<view class="flex">
+				<view
+					bindtap="onClickTxt"
+					class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable"
+					data-txt="{{item.departmentName}}"
+					style="border-radius:100px;line-height:70rpx"
+					wx:for="{{departmentList}}"
+					wx:key="index"
+				>{{item.departmentName}}</view>
+			</view>
+		</view>
+	</view>
+	<view class="height-100" style="padding-top:108px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+			<view class="padding-left-right-30 white-background-color">
+				<view bindtap="onClickDoctor" class="flex--start--between padding-top-bottom-30 border-bottom" data-id="{{item.id}}" wx:for="{{doctorList}}" wx:key="id">
+					<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
+						<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
+					</view>
+					<view class="flex-grow-1 padding-left-30">
+						<view>
+							<text>{{item.doctorName}}</text>
+							<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
+						</view>
+						<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
+						<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
+						<view class="flex margin-top-10">
+							<text decode="{{true}}">图文问诊&nbsp;</text>
+							<text class="danger-color">￥{{item.consultOrderPrice}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>
+			<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+				<van-empty description="未查询到相关医生，请重新搜索" />
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+		</pull-scroll-view>
+	</view>
+	<van-popup bind:click-overlay="onShowOrderBy" custom-style="top:108px" position="top" show="{{orderByVisible}}" z-index="{{0}}">
+		<view class="padding-left-right-30">
+			<block wx:for="{{orderByList}}" wx:key="label">
+				<view bindtap="onClickOrderBy" class="padding-top-bottom-30 border-bottom" data-item="{{item}}">
+					<view class="primary-color" wx:if="{{item.value==orderBy}}">
+						<van-icon name="success" />
+						<text>{{item.label}}</text>
+					</view>
+					<view wx:else>{{item.label}}</view>
+				</view>
+			</block>
+		</view>
+	</van-popup>
+	<van-popup bind:click-overlay="onShowArea" custom-style="top:108px" position="top" show="{{areaVisible}}" z-index="{{0}}">
+		<van-area
+			area-list="{{areaList}}"
+			bind:cancel="onCancelArea"
+			bind:confirm="onConfirmArea"
+			columns-num="{{2}}"
+			columns-placeholder="{{['全国']}}"
+			id="area"
+			value="{{cityCode}}"
+		/>
+	</van-popup>
+	<van-popup bind:click-overlay="onCancelScreen" custom-style="top:108px" position="top" show="{{screenVisible}}" z-index="{{0}}">
+		<view class="padding-30 font-title">医生职称</view>
+		<view class="flex flex-wrap-wrap">
+			<view
+				bindtap="onClickPosition"
+				class="button primary small margin-bottom-30 margin-left-30 {{jobTitle==item?'':'plain'}}"
+				data-index="{{index}}"
+				style="border-radius:100px"
+				wx:for="{{positionList}}"
+				wx:key="index"
+			>{{item}}</view>
+		</view>
+		<view class="padding-30 font-title">价格区间</view>
+		<view class="flex flex-wrap-wrap">
+			<view
+				bindtap="onClickPrice"
+				class="button primary small margin-bottom-30 margin-left-30 {{price==item.value?'':'plain'}}"
+				data-index="{{index}}"
+				style="border-radius:100px"
+				wx:for="{{priceList}}"
+				wx:key="index"
+			>{{item.label}}</view>
+		</view>
+		<view class="flex--center--between">
+			<view bindtap="onCancelScreen" class="flex--center--center padding-30 gray-color" style="height:44px">取消</view>
+			<view bindtap="onConfirmScreen" class="flex--center--center padding-30 primary-color" style="height:44px">确定</view>
+		</view>
+	</van-popup>
 </view>

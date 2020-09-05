@@ -7,5 +7,8 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo']
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     }
 })

@@ -57,8 +57,11 @@ Page({
         this.loadDiseaseList();
         this.loadDepartmentList();
         this.setData({
-            areaList: area
+            areaList: area,
+            searchText: option.departmentName || '',
+            searchTipVisible: !option.departmentName
         });
+        this.complexName = option.departmentName || ''
         this.loadList();
     },
     onShow() {
@@ -191,7 +194,7 @@ Page({
             searchTipVisible: false
         });
         this.complexName = this.data.searchText;
-        this.loadList();
+        this.loadList(true);
     },
     onRefresh() {
         this.loadList(true);
@@ -232,10 +235,6 @@ Page({
     },
     //加载医生列表
     loadList(refresh) {
-        if (this.loading || !refresh && this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
-            return;
-        }
-        this.loading = true;
         if (refresh) {
             this.setData({
                 doctorList: [],
@@ -244,8 +243,12 @@ Page({
                 totalPage: -1,
                 stopRefresh: false,
             });
+            this.request && this.request.requestTask.abort();
+        } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
+            return;
         }
-        return wx.jyApp.http({
+        this.loading = true;
+        this.request = wx.jyApp.http({
             url: '/doctor/list',
             data: {
                 page: this.data.page,
@@ -256,11 +259,9 @@ Page({
                 jobTitle: this.jobTitle,
                 price: this.price
             }
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             this.loading = false;
-            data.page.list.map((item) => {
-
-            });
             this.setData({
                 'page': this.data.page + 1,
                 'totalPage': data.page.totalPage,
@@ -268,9 +269,11 @@ Page({
             });
         }).finally(() => {
             this.loading = false;
+            this.request = null;
             this.setData({
                 stopRefresh: true
             });
         });
+        return this.request;
     }
 })
