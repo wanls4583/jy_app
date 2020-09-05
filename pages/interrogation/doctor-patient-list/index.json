@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "患者管理"
+    "navigationBarTitleText": "患者管理",
+    "component": true
 }

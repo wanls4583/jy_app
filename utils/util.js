@@ -1,6 +1,6 @@
-function formatTime(date, format = 'yyyy-MM-dd hh:mm:ss:SSS') {
+function formatTime(date, format = 'yyyy-MM-dd hh:mm:ss') {
     if (this instanceof Date) {
-        format = date || 'yyyy-MM-dd hh:mm:ss:SSS';
+        format = date || 'yyyy-MM-dd hh:mm:ss';
         date = this;
     } else {
         date = date instanceof Date ? date : new Date(date);

@@ -3,13 +3,16 @@ Page({
         messageList: [],
         stopRefresh: false,
         page: 1,
-        totalPage: -1
+        totalPage: -1,
+        totalCount: 0
     },
     onLoad(option) {
-
+        this.loadList(true);
     },
     onShow() {
-        this.loadList();
+        if(this.data.totalPage > -1) {
+            this.checkList(true);
+        }
     },
     onClickMsg(e) {
         var id = e.currentTarget.dataset.id;
@@ -53,6 +56,7 @@ Page({
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,
+                totalCount: data.page.totalCount,
                 messageList: this.data.messageList.concat(data.page.list)
             });
         }).finally(() => {
@@ -60,6 +64,20 @@ Page({
                 stopRefresh: true
             });
             this.request = null;
+        });
+    },
+    //检查是否有新消息
+    checkList() {
+        wx.jyApp.http({
+            url: '/chat/list',
+            data: {
+                page: 1,
+                limit: 1
+            }
+        }).then((data)=>{
+            if(data.page.totalCount != this.data.totalCount) {
+                this.loadList(true);
+            }
         });
     }
 })

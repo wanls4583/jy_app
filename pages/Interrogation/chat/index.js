@@ -352,7 +352,7 @@ Page({
     },
     //请求消息记录
     getHistory(ifPre) {
-        return this.request = wx.jyApp.http({
+        this.request = wx.jyApp.http({
             url: '/chat/history/poll',
             method: 'get',
             data: {
@@ -362,7 +362,8 @@ Page({
                 lastestId: !ifPre && this.data.lastestId || '',
                 roomId: this.data.roomId
             }
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             var list = data.page.list;
             var originLength = this.data.chatList.length;
             if (!list.length) {
@@ -448,6 +449,7 @@ Page({
                 }, 3000);
             }
         });
+        return this.request;
     },
     stopPoll() {
         this.pollStoped = true;

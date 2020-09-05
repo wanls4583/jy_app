@@ -1,59 +1,69 @@
 Page({
     data: {
-        patientList: [{
-                id: 1,
-                name: '李四',
-                sex: '男',
-                age: 18,
-                height: 100,
-                weight: 50,
-                avater: '',
-                creatTime: '2020-8-6 9:11'
-            },
-            {
-                id: 2,
-                name: '张三',
-                sex: '男',
-                age: 18,
-                height: 100,
-                weight: 50,
-                avater: '',
-                creatTime: '2020-8-6 9:11'
-            }
-        ],
-        page: 2,
-        totalPage: 1,
+        patientList: [],
         stopRefresh: false,
-        patientName: '',
+        totalPage: -1,
+        totalCount: 0,
+        page: 1,
+        focus: true,
         searchText: ''
     },
-    onLoad(option) {
+    onLoad() {
     },
-    onClickPatient(e) {
-    	var id = e.currentTarget.dataset.id;
-    },
-    onSearch() {
-        this.setData({
-            patientName: this.data.searchText
-        });
-        this.search();
-    },
-    onChangeText(e) {
-        this.setData({
-            searchText: e.detail
-        });
+    onInput(e) {
+        wx.jyApp.utils.onInput(e, this);
     },
     onRefresh() {
-
+        this.loadList(true);
     },
     onLoadMore() {
-
+        this.loadList();
     },
-    search() {
-        wx.jyApp.http({
-            url: '/patientdocument/list'
-        }).then((data)=>{
-            console.log(data)
+    onClickPatient(e) {
+        var id = e.currentTarget.dataset.id;
+    },
+    onSearch() {
+        this.patientName = this.data.searchText;
+        this.loadList(true);
+    },
+    loadList(refresh) {
+        if (refresh) {
+            this.setData({
+                page: 1,
+                totalPage: -1,
+                patientList: []
+            });
+            this.request && this.request.requestTask.abort();
+        } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
+            return;
+        }
+        this.loading = true;
+        this.request = wx.jyApp.http({
+            url: '/doctor/patients',
+            data: {
+                patientName: this.patientName || ''
+            }
         });
-    }
+        this.request.then((data) => {
+            data.page.list.map((item) => {
+                item._sex = item.sex == 1 ? '男' : '女';
+                // item.joinTime = new Date(item.joinTime);
+            });
+            this.data.patientList = this.data.patientList.concat(data.page.list);
+            this.setData({
+                patientList: this.data.patientList,
+                page: this.data.page + 1,
+                totalPage: data.page.totalPage,
+                totalCount: data.page.totalCount
+            });
+        }).catch((err) => {
+            console.log(err);
+        }).finally(() => {
+            this.loading = false;
+            this.request = null;
+            this.setData({
+                stopRefresh: true
+            });
+        });
+    },
 })
