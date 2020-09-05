@@ -35,7 +35,7 @@ Component({
                 }
             }).then((data) => {
                 data.page.list.map((item) => {
-                    item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
+                    item._goodsName = item.goodsName;
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
@@ -51,7 +51,7 @@ Component({
                 }
             }).then((data) => {
                 data.page.list.map((item) => {
-                    item._goodsName = item.goodsName.length > 6 ? item.goodsName.slice(0, 6) + '...' : item.goodsName;
+                    item._goodsName = item.goodsName;
                     item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
                 });
                 this.setData({

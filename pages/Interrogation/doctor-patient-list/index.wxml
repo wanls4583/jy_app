@@ -1,36 +1,38 @@
 <!-- index.wxml -->
 <view class="container">
-    <view class="position-fixed top-0 z-index-100 width-100">
-        <van-search shape="round" placeholder="请输入患者姓名" disabled="{{true}}" bindtap="onGotoSearch" />
-    </view>
-    <view class="height-100 padding-left-right-30 white-background-color" style="padding-top:54px">
-        <pull-scroll-view bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{stopRefresh}}'>
-            <view wx:for="{{patientList}}" wx:key="id" class="flex--center--between padding-top-bottom-20 border-bottom" data-id="{{item.id}}" bindtap="onClickPatient">
-                <view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
-                    <image class="width-100 height-100" src="{{item.wxAvatar}}" mode="aspectFill" />
-                </view>
-                <view class="flex-grow-1 flex-direction-column flex--start--between height-100rpx padding-left-30">
-                    <view class="flex--center--between width-100">
-                        <text>{{item.patientName}}</text>
-                        <text>{{item.sex}}</text>
-                        <text>{{item.age}}岁</text>
-                        <text>{{item.height}}cm</text>
-                        <text>{{item.weight}}kg</text>
-                    </view>
-                    <view>
-                        <text class="font-small gray-color">{{item.joinTime}}</text>
-                    </view>
-                </view>
-            </view>
-            <view wx:if="{{totalPage>0}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-            <view wx:elif="{{totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                <view class="flex-direction-column flex--center--center" style="margin-top:50vw">
-                    <view>您目前没有线上患者</view>
-                    <view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
-                    <view class="button primary margin-top-30">我的二维码名片</view>
-                </view>
-            </view>
-            <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-        </pull-scroll-view>
-    </view>
+	<view class="position-fixed top-0 z-index-100 width-100">
+		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入患者姓名" shape="round" />
+	</view>
+	<view class="height-100 padding-left-right-30 white-background-color" style="padding-top:54px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+			<view bindtap="onClickPatient" class="flex--start--between padding-top-20" data-id="{{item.id}}" wx:for="{{patientList}}" wx:key="id">
+				<view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
+					<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
+				</view>
+				<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
+					<view class="flex-direction-column flex--start--between height-100rpx">
+						<view class="flex--center--between width-100">
+							<text>{{item.patientName}}</text>
+							<text>{{item.sex}}</text>
+							<text>{{item.age}}岁</text>
+							<text>{{item.height}}cm</text>
+							<text>{{item.weight}}kg</text>
+						</view>
+						<view>
+							<text class="font-small gray-color">{{item.joinTime}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0}}">没有更多了</view>
+			<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+				<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
+					<view>您目前没有线上患者</view>
+					<view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
+					<view class="button primary margin-top-30">我的二维码名片</view>
+				</view>
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+		</pull-scroll-view>
+	</view>
 </view>

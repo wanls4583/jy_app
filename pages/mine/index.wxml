@@ -1,6 +1,6 @@
 <view class="container">
 	<!-- 认证医生 -->
-	<view class="flex--center--between background-gradient padding-30" wx:if="{{doctor}}">
+	<view class="flex--center--between background-gradient padding-30" wx:if="{{userInfo.role=='DOCTOR'&&doctor}}">
 		<view class="flex--center--center">
 			<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 				<image class="width-100 height-100" src="{{doctor.avatar}}" />

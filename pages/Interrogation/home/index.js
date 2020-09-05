@@ -44,17 +44,12 @@ Component({
                 mask: true
             });
             wx.jyApp.http({
-                url: '/doctor/approve/history'
+                url: `/doctor/info/${this.data.userInfo.id}`
             }).then((data) => {
-                if (data.list) {
-                    for (var i = 0; i < data.list.length; i++) {
-                        if (data.list[i].approveStatus == 2) {
-                            this.setData({
-                                doctor: data.list[i]
-                            });
-                            break;
-                        }
-                    }
+                if (data.doctor) {
+                    this.setData({
+                        doctor: data.doctor
+                    });
                 }
             }).finally(() => {
                 wx.hideLoading();

@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container" style="padding-bottom:50px">
-    <swiper class="width-100 height-50vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="onBannerChang">
+    <swiper class="width-100 height-100vw" circular="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}" bindchange="onBannerChang">
         <swiper-item wx:for="{{banner}}" wx:for-item="item" wx:key="item" data-src="{{item}}" bindtap="onClickTopImg">
             <view class="position-relative height-100" style="background:url({{item}}) no-repeat center;background-size:cover">
                 <view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
@@ -9,15 +9,15 @@
             </view>
         </swiper-item>
     </swiper>
-    <view class="padding-left-right-30 padding-top-bottom-20 white-background-color">
+    <view class="padding-30 white-background-color">
         <view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
         <view class="flex--center--between margin-top-20">
-            <view class="price danger-color">￥{{productInfo.price}}</view>
-            <van-icon name="add-o" size="30px" class="primary-color clickable" bindtap="onAddToCart" />
+            <view class="font-large font-bold danger-color">￥{{productInfo.price}}</view>
+            <view class="button primary small" style="border-radius:100px" bindtap="onAddToCart">添加到购物车</view>
         </view>
     </view>
-    <view class="margin-top-20 padding-left-right-30 padding-top-bottom-20 white-background-color">
-        <view class="font-title">商品信息</view>
+    <view class="margin-top-20 padding-30 white-background-color">
+        <view class="font-title font-bold">商品信息</view>
         <view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description}}</view>
         <image wx:for="{{desImgList}}" wx:key="item" class="flex width-100" mode="widthFix" src="{{item}}" data-src="{{item}}" bindtap="onClickDesImg"></image>
     </view>

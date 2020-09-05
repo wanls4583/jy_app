@@ -6,12 +6,12 @@ Page({
     },
     onLoad(option) {
         this.doctorId = option.doctorId;
-    },
-    onShow() {
         this.setData({
             ifSelect: wx.jyApp.selectPatientFlag || false
         });
         wx.jyApp.selectPatientFlag = false;
+    },
+    onShow() {
         this.loadList();
     },
     selectPatient(e) {
@@ -35,15 +35,10 @@ Page({
                 "picUrls": wx.jyApp.illness.picUrls.join(',')
             }
         }).then((data) => {
-            if (data.code == 0) {
-                delete wx.jyApp.illness;
-                wx.showToast({
-                    title: '操作成功',
-                    success: (result) => {
-                        this.gotoChat(data.id);
-                    }
-                });
-            }
+            delete wx.jyApp.illness;
+            wx.navigateTo({
+                url: '/pages/interrogation/chat/index?id=' + data.id
+            });
         });
     },
     onChange(e) {
@@ -84,7 +79,7 @@ Page({
                 patientList: data.list || [],
                 selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
             });
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
     }
