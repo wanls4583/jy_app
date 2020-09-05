@@ -2,7 +2,6 @@ Page({
     data: {
         avatar: {},
         progressMap: {},
-        nicknameVisible: false,
         sexVisible: false,
         nickname: '',
         address: '',
@@ -40,15 +39,18 @@ Page({
     onShow() {
         this.getDefaultAdderss();
     },
-    onInput(e) {
-        var prop = e.currentTarget.dataset.prop;
-        this.setData({
-            [prop]: e.detail.value
-        });
-    },
     onShowNickname() {
-        this.setData({
-            nicknameVisible: true
+        wx.jyApp.utils.setText({
+            title: '设置昵称',
+            defaultValue: this.data.nickname,
+            complete: (value) => {
+                this.setData({
+                    nickname: value
+                });
+                this.data.userInfo.nickname = this.data.nickname;
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                this._updateUserInfo();
+            }
         });
     },
     onShowSex() {
@@ -60,14 +62,6 @@ Page({
         wx.navigateTo({
             url: '/pages/mall/address-list/index'
         });
-    },
-    onConfirmNickname() {
-        this.setData({
-            nicknameVisible: false,
-        });
-        this.data.userInfo.nickname = this.data.nickname;
-        this.updateUserInfo(Object.assign({}, this.data.userInfo));
-        this._updateUserInfo();
     },
     onConfirmSex(e) {
         this.setData({

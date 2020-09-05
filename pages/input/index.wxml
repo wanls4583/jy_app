@@ -1,0 +1,7 @@
+<view class="container">
+	<view class="flex--center--between height-100rpx padding-30">
+		<view class="button text">取消</view>
+		<view bindtap="onSave" class="button primary small {{value===''?'disabled':''}}">完成</view>
+	</view>
+	<van-field bind:input="onInput" data-prop="value" type="{{type}}" value="{{value}}"></van-field>
+</view>

@@ -59,6 +59,10 @@ page button:not([size='mini']) {
     padding: 10rpx 20rpx;
 }
 
+.button.text {
+    min-width: 0;
+}
+
 .button.large {
     font-size: 34rpx;
     padding: 30rpx 40rpx;

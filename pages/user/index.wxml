@@ -59,19 +59,6 @@
 		</view>
 	</van-field>
 </view>
-<van-dialog bind:confirm="onConfirmNickname" show="{{nicknameVisible}}" show-cancel-button title="修改昵称" use-slot>
-	<view class="padding-30">
-		<input
-			bind:input="onInput"
-			bindconfirm="onConfirmNickname"
-			class="border padding-20 align-center"
-			data-prop="nickname"
-			style="height:auto"
-			type="text"
-			value="{{nickname}}"
-		/>
-	</view>
-</van-dialog>
 <van-popup position="bottom" show="{{sexVisible}}">
 	<van-picker bind:cancel="onCancelSex" bind:confirm="onConfirmSex" columns="{{sexList}}" default-index="{{userInfo.sex}}" id="sex" show-toolbar="{{true}}"></van-picker>
 </van-popup>

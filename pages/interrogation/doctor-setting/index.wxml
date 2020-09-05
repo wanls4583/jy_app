@@ -34,16 +34,6 @@
             </view>
         </view>
     </view>
-    <van-dialog use-slot title="图文问诊每次金额" show="{{showTextPrice}}" show-cancel-button bind:confirm="confirmTextPrice">
-        <view class="padding-30">
-            <input type="text" value="{{editConsultOrderPrice}}" bind:input="onInput" data-prop="editConsultOrderPrice" class="border padding-20 align-center" bindconfirm="confirmTextPrice" style="height:auto" />
-        </view>
-    </van-dialog>
-    <van-dialog use-slot title="营养指导诊金" show="{{showGuidePrice}}" show-cancel-button bind:confirm="confirmGuidPrice">
-        <view class="padding-30" >
-            <input type="text" value="{{editNutritionOrderPrice}}" bind:input="onInput" data-prop="editNutritionOrderPrice" class="border padding-20 align-center" bindconfirm="confirmGuidPrice" style="height:auto" />
-        </view>
-    </van-dialog>
     <van-popup show="{{statusVisible}}" position="bottom">
         <van-picker show-toolbar columns="{{statusList}}" default-index="{{statusDefault}}" value-key="label" bind:confirm="onConfirmStatus" bind:cancel="onCancel"></van-picker>
     </van-popup>

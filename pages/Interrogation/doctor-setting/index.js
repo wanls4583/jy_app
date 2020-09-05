@@ -1,11 +1,7 @@
 Page({
     data: {
-        showTextPrice: false,
-        showGuidePrice: false,
         consultOrderPrice: 0,
         nutritionOrderPrice: 0,
-        editConsultOrderPrice: 0,
-        editNutritionOrderPrice: 0,
         consultOrderSwitch: false,
         status: '',
         statusVisible: false,
@@ -43,13 +39,29 @@ Page({
         this.submit();
     },
     onClickTextPrice() {
-        this.setData({
-            showTextPrice: true
+        wx.jyApp.utils.setText({
+            title: '图文问诊每次金额',
+            defaultValue: this.data.consultOrderPrice,
+            type: 'number',
+            complete: (value) => {
+                this.setData({
+                    consultOrderPrice: value
+                });
+                this.submit();
+            }
         });
     },
     onClickGuidePrice() {
-        this.setData({
-            showGuidePrice: true
+        wx.jyApp.utils.setText({
+            title: '营养指导诊金',
+            defaultValue: this.data.nutritionOrderPrice,
+            type: 'number',
+            complete: (value) => {
+                this.setData({
+                    nutritionOrderPrice: value
+                });
+                this.submit();
+            }
         });
     },
     onClickStatus() {
@@ -59,26 +71,6 @@ Page({
         this.setData({
             statusVisible: true
         });
-    },
-    onInput(e) {
-        var prop = e.currentTarget.dataset.prop;
-        this.setData({
-            [prop]: e.detail.value
-        });
-    },
-    confirmTextPrice(e) {
-        this.setData({
-            consultOrderPrice: this.data.editConsultOrderPrice,
-            showTextPrice: false
-        });
-        this.submit();
-    },
-    confirmGuidPrice(e) {
-        this.setData({
-            nutritionOrderPrice: this.data.editNutritionOrderPrice,
-            showGuidePrice: false
-        });
-        this.submit();
     },
     onConfirmStatus(e) {
         this.setData({
@@ -124,8 +116,8 @@ Page({
             url: '/doctor/config',
             method: 'post',
             data: {
-                consultOrderPrice: this.data.consultOrderPrice,
-                nutritionOrderPrice: this.data.nutritionOrderPrice,
+                consultOrderPrice: Number(this.data.consultOrderPrice) || 0,
+                nutritionOrderPrice: Number(this.data.nutritionOrderPrice) || 0,
                 consultOrderSwitch: this.data.consultOrderSwitch,
                 status: this.data.status
             }

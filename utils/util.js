@@ -62,6 +62,13 @@ function onInput(e, context, ifOrigin) {
     });
 }
 
+function setText(inputParam) {
+    wx.jyApp.inputParam = inputParam;
+    wx.navigateTo({
+        url: '/pages/input/index'
+    });
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
@@ -69,5 +76,6 @@ module.exports = {
     formatTime: formatTime,
     navigateTo: navigateTo,
     onInput: onInput,
+    setText: setText,
     getUUID: getUUID
 }

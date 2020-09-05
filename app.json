@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/input/index",
         "pages/notice-list/index",
         "pages/phone-bind/index",
         "pages/feedback/index",
