@@ -23,6 +23,7 @@ Page({
                 templateName: data.diagnosisTemplate.templateName,
                 content: data.diagnosisTemplate.content
             });
+        }).finally(()=>{
             wx.hideLoading();
         });
     },

@@ -40,6 +40,10 @@ Page({
     },
     onShow() {
         this.getDefaultAdderss();
+        if (this.needUpdate) { //延时更新，防止hideLoading干扰toast
+            this._updateUserInfo();
+            this.needUpdate = false;
+        }
     },
     onShowNickname() {
         wx.jyApp.utils.setText({
@@ -51,7 +55,7 @@ Page({
                 });
                 this.data.userInfo.nickname = this.data.nickname;
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
-                this._updateUserInfo();
+                this.needUpdate = true;
             }
         });
     },
@@ -194,8 +198,9 @@ Page({
             mask: true
         });
         wx.jyApp.loginUtil.updateUserInfo(this.data.userInfo).then(() => {
+            wx.hideLoading();
             wx.jyApp.toast('更新成功');
-        }).finally(() => {
+        }).catch(() => {
             wx.hideLoading();
         });
     }

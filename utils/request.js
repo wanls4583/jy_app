@@ -18,7 +18,9 @@ function request(obj) {
                     obj.success && obj.success(res.data);
                     resolve(res.data);
                 } else {
-                    wx.jyApp.toast(res.data.msg);
+                    setTimeout(() => { //延时提示，防止hideLoading干扰
+                        wx.jyApp.toast(res.data.msg);
+                    }, 300);
                     reject(res.data);
                     if (res.data.code == 401) { //登录失效
                         wx.navigateTo({
@@ -35,7 +37,9 @@ function request(obj) {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
                     reject(res);
-                    wx.jyApp.toast('服务器错误');
+                    setTimeout(() => { //延时提示，防止hideLoading干扰
+                        wx.jyApp.toast('服务器错误');
+                    }, 300);
                 }
                 obj.complete && obj.complete(res);
             }

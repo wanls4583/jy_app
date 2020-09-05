@@ -28,10 +28,10 @@ Page({
             });
             wx.jyApp.loginUtil.updateUserInfo(userInfo).then(() => {
                 return wx.jyApp.loginUtil.getUserInfo().then((data) => {
-                    wx.hideLoading();
                     this.updateUserInfo(data.info);
                 });
             }).finally(() => {
+                wx.hideLoading();
                 wx.navigateTo({ url: '/pages/user/index' });
             });
         } else {

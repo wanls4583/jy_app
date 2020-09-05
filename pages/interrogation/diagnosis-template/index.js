@@ -53,6 +53,7 @@ Page({
             this.setData({
                 templateList: data.list || []
             });
+        }).finally(()=>{
             wx.hideLoading();
         });
     }

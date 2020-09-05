@@ -74,7 +74,6 @@ Page({
                 limit: 1000
             }
         }).then((data) => {
-            wx.hideLoading();
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
@@ -83,7 +82,7 @@ Page({
                 patientList: data.list || [],
                 selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
             });
-        }).catch(() => {
+        }).finally(()=>{
             wx.hideLoading();
         });
     }

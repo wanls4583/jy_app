@@ -10,14 +10,14 @@ function updateUserInfo(userInfo) {
 function getUserInfo() {
     return wx.jyApp.http({
         url: '/wx/user/info'
-    }).then((data)=>{
+    }).then((data) => {
         return data;
     });
 }
 
 //登录
 function login() {
-    return new Promise((resolve, reject) => {
+    return new wx.jyApp.Promise((resolve, reject) => {
         wx.login({
             success: (res) => {
                 resolve(res.code);
@@ -36,7 +36,7 @@ function login() {
         }).then((data) => {
             wx.setStorageSync('token', data.token);
             login.logining = false;
-            return Promise.resolve(data);
+            return wx.jyApp.Promise.resolve(data);
         }).catch(() => {
             wx.showToast({
                 title: '登录失败'

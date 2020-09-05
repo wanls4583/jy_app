@@ -115,11 +115,10 @@ Page({
         wx.jyApp.http({
             url: `/user/address/info/${id}`
         }).then((data) => {
-            wx.hideLoading();
             this.setData({
                 address: data.userAddress
             });
-        }).catch(()=>{
+        }).finally(()=>{
             wx.hideLoading();
         });
     }

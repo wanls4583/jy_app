@@ -393,6 +393,8 @@ Page({
             this.setData({
                 approveStatus: 1
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     saveLoaclInfo() {

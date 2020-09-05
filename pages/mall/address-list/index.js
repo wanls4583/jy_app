@@ -89,7 +89,6 @@ Page({
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
-            wx.hideLoading();
             this.setData({
                 addressList: data.list || []
             });
@@ -100,7 +99,7 @@ Page({
                     }
                 });
             }
-        }).catch(()=>{
+        }).finally(()=>{
             wx.hideLoading();
         });
     }

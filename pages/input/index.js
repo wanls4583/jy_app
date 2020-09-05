@@ -18,5 +18,9 @@ Page({
         wx.jyApp.inputParam.complete(this.data.value);
         wx.jyApp.inputParam = null;
         wx.navigateBack();
+    },
+    onCancel() {
+        wx.jyApp.inputParam = null;
+        wx.navigateBack();
     }
 })

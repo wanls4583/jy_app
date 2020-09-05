@@ -94,7 +94,6 @@ Page({
         wx.jyApp.http({
             url: '/doctor/info/' + this.data.userInfo.id
         }).then((data) => {
-            wx.hideLoading();
             this.setData({
                 consultOrderPrice: data.doctor.consultOrderPrice,
                 nutritionOrderPrice: data.doctor.nutritionOrderPrice,
@@ -111,6 +110,8 @@ Page({
                     });
                 }
             });
+        }).finally(()=>{
+            wx.hideLoading();
         });
     },
     submit() {
