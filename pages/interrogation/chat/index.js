@@ -21,7 +21,13 @@ Page({
         sendedIds: [],
         totalPage: 0,
         applyOrderMap: {},
-        status: 0 //1:聊天未关闭，0:聊天已关闭
+        status: 0, //1:聊天未关闭，0:聊天已关闭
+        limit: 20,
+        pages: [],
+        pageMap: {},
+        pageHeightMap: {},
+        bottomId: '',
+        nowPageIndex: 0
     },
     onLoad(option) {
         if (wx.onKeyboardHeightChange) {
@@ -81,14 +87,14 @@ Page({
         });
         wx.hideLoading();
     },
-    foucus: function(e) {
+    foucus: function (e) {
         this.setData({
             inputBottom: e.detail.height,
             inputFoucus: true,
             panelVisible: false
         });
     },
-    blur: function(e) {
+    blur: function (e) {
         this.setData({
             inputBottom: 0,
             inputFoucus: false
@@ -207,8 +213,13 @@ Page({
     //点击图片放大
     onClickImg(e) {
         var src = e.currentTarget.dataset.src;
-        var picList = this.data.chatList.filter((item) => {
-            return item.type == 2 && !item.failImgUrl;
+        var picList = [];
+        this.data.pages.map((pageId)=>{
+            this.data.pageMap[pageId].map((item)=>{
+                if(item.type == 2) {
+                    picList.push(item);
+                }
+            });
         });
         picList = picList.map((item) => {
             return item.txt;
@@ -280,6 +291,48 @@ Page({
         chat.sendStatus = status;
         this.setData({
             [`chatList[${index}]`]: chat
+        });
+    },
+    //计算渲染页码
+    onScroll(e) {
+        this.computeScroll(e);
+    },
+    //计算当前渲染的页码，每次渲染三页
+    computeScroll(e) {
+        var scrollTop = e.detail.scrollTop;
+        var height = 0;
+        for (var i = 0; i < this.data.pages.length; i++) {
+            var pageId = this.data.pages[i];
+            height += this.data.pageHeightMap[pageId];
+            if (scrollTop < height) {
+                if (this.data.nowPageIndex != i) {
+                    this.setData({
+                        nowPageIndex: i
+                    });
+                }
+                break;
+            }
+        }
+    },
+    //获取page的高度
+    getPageHeight(pageId) {
+        var self = this;
+        if (this.data.pageHeightMap[pageId]) {
+            return Promise.resolve(this.data.pageHeightMap[pageId]);
+        }
+        return new Promise((resolve) => {
+            var query = wx.createSelectorQuery()
+            query.select('#page-id-' + pageId).boundingClientRect()
+            query.exec(function (rect) {
+                if (rect && rect[0]) {
+                    if (!self.data.pageHeightMap[pageId]) {
+                        self.setData({
+                            [`pageHeightMap[${pageId}]`]: rect[0].height
+                        });
+                    }
+                }
+                resolve(self.data.pageHeightMap[pageId]);
+            });
         });
     },
     //上传图片
@@ -357,7 +410,7 @@ Page({
             method: 'get',
             data: {
                 page: 1,
-                limit: 30,
+                limit: this.data.limit,
                 earlistId: ifPre && this.data.earlistId || '',
                 lastestId: !ifPre && this.data.lastestId || '',
                 roomId: this.data.roomId
@@ -365,19 +418,13 @@ Page({
         });
         this.request.then((data) => {
             var list = data.page.list;
-            var originLength = this.data.chatList.length;
+            list = list.filter((item) => {
+                return this.data.sendedIds.indexOf(item.id) == -1;
+            });
             if (!list.length) {
                 return;
             }
             list.reverse();
-            if (ifPre) { //上翻记录
-                this.data.chatList = list.concat(this.data.chatList);
-            } else {
-                this.data.chatList = this.data.chatList.concat(list);
-            }
-            this.data.chatList = this.data.chatList.filter((item) => {
-                return this.data.sendedIds.indexOf(item.id) == -1;
-            });
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
@@ -412,29 +459,66 @@ Page({
                     this.data.chatList.splice(index, 1);
                 }
             });
-            this.setData({
-                chatList: this.data.chatList
-            }, () => {
-                if (list.length && originLength < this.data.chatList.length) {
+            if (ifPre || !this.data.pages.length) { //上翻记录
+                var pageId = list[0].id;
+                this.data.pages.unshift(pageId);
+                this.setData({
+                    pages: this.data.pages,
+                    [`pageMap[${pageId}]`]: list
+                }, () => {
                     if (ifPre) {
                         this.setData({
-                            domId: list[list.length - 1].domId
+                            domId: 'page-id-' + this.data.pages[1]
                         });
                     } else {
                         this.setData({
-                            domId: this.data.chatList[this.data.chatList.length - 1].domId
+                            bottomId: 'bottom-id-' + list[list.length - 1].id
+                        }, () => {
+                            this.setData({
+                                domId: 'bottom-id-' + list[list.length - 1].id
+                            });
                         });
                     }
+                    this.getPageHeight(pageId);
+                });
+            } else {
+                var lastPageId = this.data.pages[this.data.pages.length - 1].id;
+                var lastPageList = this.data.pageMap[lastPage];
+                var index = this.data.limit - lastPageList.length;
+                var pageId = list[index].id;
+                if (lastPageList.length + list.length > this.data.limit) {
+                    lastPageList = lastPageList.concat(list.slice(0, index));
+                    this.data.pages.push(pageId);
+                    this.setData({
+                        paegs: this.data.pages,
+                        [`pageMap[${pageId}]`]: list.slice(index)
+                    }, () => {
+                        this.getPageHeight(pageId);
+                    });
+                } else {
+                    lastPageList = lastPageList.concat(list);
                 }
-            });
+                this.setData({
+                    [`pageMap[${lastPageId}]`]: lastPageList
+                }, () => {
+                    this.getPageHeight(lastPageId);
+                    this.setData({
+                        bottomId: 'bottom-id-' + list[list.length - 1].id
+                    }, () => {
+                        this.setData({
+                            domId: 'bottom-id-' + list[list.length - 1].id
+                        });
+                    });
+                });
+            }
             if (!ifPre && list.length) {
                 this.setData({
                     lastestId: list[list.length - 1].id,
                 });
             }
             if (ifPre || !this.data.earlistId && list.length) {
-                this.data.earlistId = list[0].id;
                 this.setData({
+                    earlistId: list[0].id,
                     totalPage: data.page.totalPage
                 });
             }
