@@ -74,6 +74,7 @@
         "van-collapse-item": "/vant/collapse-item/index",
         "van-datetime-picker": "/vant/datetime-picker/index",
         "van-icon": "/vant/icon/index",
+        "van-loading": "/vant/loading/index",
         "van-stepper": "/vant/stepper/index"
     },
     "tabBar": {

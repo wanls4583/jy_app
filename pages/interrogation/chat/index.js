@@ -27,7 +27,9 @@ Page({
         pageMap: {},
         pageHeightMap: {},
         bottomId: '',
-        nowPageIndex: 0
+        nowPageIndex: 0,
+        loadButtonHeight: 45, //加载更多按钮的高度
+        loading: true, //上翻页加载中状态
     },
     onLoad(option) {
         if (wx.onKeyboardHeightChange) {
@@ -62,6 +64,8 @@ Page({
                 this.getNewHistory();
             });
         }
+        var devicePixelRatio = wx.getSystemInfoSync();
+        this.maxImgWidth = 550 / devicePixelRatio;
     },
     onShow() {
         this.pollStoped = false;
@@ -214,9 +218,9 @@ Page({
     onClickImg(e) {
         var src = e.currentTarget.dataset.src;
         var picList = [];
-        this.data.pages.map((pageId)=>{
-            this.data.pageMap[pageId].map((item)=>{
-                if(item.type == 2) {
+        this.data.pages.map((pageId) => {
+            this.data.pageMap[pageId].map((item) => {
+                if (item.type == 2) {
                     picList.push(item);
                 }
             });
@@ -276,6 +280,28 @@ Page({
             url: '/pages/interrogation/guidance-order-detail/index?id=' + id
         });
     },
+    //图片加载完成
+    onImgLoadSuccess(e) {
+        var id = e.currentTarget.dataset.id;
+        var width = e.detail.width;
+        var height = e.detail.height;
+        this.data.pages.map((pageId) => {
+            this.data.pageMap[pageId].map((item, index) => {
+                if (item.id == id) {
+                    if (width / height > this.maxImgWidth / 120) {
+                        item.width = this.maxImgWidth;
+                        item.height = height / width * this.maxImgWidth;
+                    } else {
+                        item.height = 120;
+                        item.width = width / height * 120;
+                    }
+                    this.setData({
+                        [`pageMap[${pageId}][${index}]`]: item
+                    });
+                }
+            });
+        });
+    },
     //图片加载失败
     onImgLoadError(e) {
         var index = e.currentTarget.dataset.index;
@@ -300,7 +326,7 @@ Page({
     //计算当前渲染的页码，每次渲染三页
     computeScroll(e) {
         var scrollTop = e.detail.scrollTop;
-        var height = 0;
+        var height = this.loadButtonHeight;
         for (var i = 0; i < this.data.pages.length; i++) {
             var pageId = this.data.pages[i];
             height += this.data.pageHeightMap[pageId];
@@ -405,6 +431,11 @@ Page({
     },
     //请求消息记录
     getHistory(ifPre) {
+        if (ifPre || !this.data.pages.length) {
+            this.setData({
+                loading: true
+            });
+        }
         this.request = wx.jyApp.http({
             url: '/chat/history/poll',
             method: 'get',
@@ -526,6 +557,9 @@ Page({
             console.log(err);
         }).finally(() => {
             this.request = null;
+            this.setData({
+                loading: false
+            });
             if (this.data.status == 1 && !this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {

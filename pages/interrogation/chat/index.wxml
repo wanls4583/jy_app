@@ -13,7 +13,15 @@
 	>
 		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-y="{{true}}">
 			<view class="flex--center--center" wx:if="{{totalPage>1}}">
-				<view bindtap="onPre" class="padding-30 clickable gray-color font-small">点击加载更多</view>
+				<view class="flex--center--center" style="height:{{loadButtonHeight}}px;" wx:if="{{loading}}">
+					<van-loading size="20" type="spinner" />
+				</view>
+				<view
+					bindtap="onPre"
+					class="padding-left-right-30 flex--center--center clickable gray-color font-small"
+					style="height:{{loadButtonHeight}}px;"
+					wx:else
+				>点击加载更多</view>
 			</view>
 			<view id="{{'page-id-' + page}}" style="min-height:{{pageHeightMap[page]}}px" wx:for="{{pages}}" wx:for-item="page" wx:key="index">
 				<block wx:if="{{index>=nowPageIndex-1&&index<=nowPageIndex+1}}">
@@ -44,16 +52,17 @@
 								<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
 								<icon bindtap="onResend" class="send-status" data-index="{{index}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
 							</view>
-							<view class="position-relative flex-shrink-1 overflow-hidden radius-8rpx" wx:elif="{{item.type==2}}">
-								<image class="flex" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
+							<view class="position-relative flex-shrink-1 overflow-hidden radius-8rpx" style="height:120px" wx:elif="{{item.type==2}}">
+								<image class="flex" mode="widthFix" src="{{item.failImgUrl}}" style="width:120px;height:120px" wx:if="{{item.failImgUrl}}" />
 								<image
 									binderror="onImgLoadError"
+									bindload="onImgLoadSuccess"
 									bindtap="onClickImg"
 									class="flex"
+									data-id="{{item.id}}"
 									data-src="{{item.txt}}"
-									mode="heightFix"
 									src="{{item.txt}}"
-									style="height:240rpx"
+									style="width:{{item.width||0}}px;height:{{item.height||120}}px"
 									wx:else
 								/>
 								<view
