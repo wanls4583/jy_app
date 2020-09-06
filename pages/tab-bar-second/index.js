@@ -8,7 +8,9 @@ Page({
             fields: ['userInfo']
         });
         this.storeBindings.updateStoreBindings();
-        if(this.data.userInfo.role == 'DOCTOR') {
+    },
+    onShow() {
+        if (this.data.userInfo.role == 'DOCTOR') {
             wx.setNavigationBarTitle({
                 title: '患者管理'
             });

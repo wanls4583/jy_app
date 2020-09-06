@@ -13,12 +13,6 @@ Component({
                 fields: ['userInfo']
             });
             this.storeBindings.updateStoreBindings();
-            wx.setTabBarItem({
-                index: 1,
-                "iconPath": "image/icon_users.png",
-                "selectedIconPath": "image/icon_users_active.png",
-                "text": "患者管理"
-            });
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
                 this.getDoctorInfo();

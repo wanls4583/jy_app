@@ -18,12 +18,6 @@ Component({
                 fields: ['userInfo']
             });
             this.storeBindings.updateStoreBindings();
-            wx.setTabBarItem({
-                index: 1,
-                "iconPath": "image/icon_marks.png",
-                "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城"
-            });
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
                 this.loadKepu();
