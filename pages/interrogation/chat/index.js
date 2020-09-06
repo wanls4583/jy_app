@@ -326,7 +326,7 @@ Page({
     //计算当前渲染的页码，每次渲染三页
     computeScroll(e) {
         var scrollTop = e.detail.scrollTop;
-        var height = this.loadButtonHeight;
+        var height = this.data.loadButtonHeight;
         for (var i = 0; i < this.data.pages.length; i++) {
             var pageId = this.data.pages[i];
             height += this.data.pageHeightMap[pageId];
@@ -557,9 +557,11 @@ Page({
             console.log(err);
         }).finally(() => {
             this.request = null;
-            this.setData({
-                loading: false
-            });
+            setTimeout(()=>{
+                this.setData({
+                    loading: false
+                });
+            }, 500);
             if (this.data.status == 1 && !this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
