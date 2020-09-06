@@ -50,9 +50,10 @@
 								<text class="{{item.sender==talker.id&&'color-333'||''}}">{{item.txt}}</text>
 								<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
 								<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
-								<icon bindtap="onResend" class="send-status" data-id="{{id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
+								<icon bindtap="onResend" class="send-status" data-id="{{item.id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
 							</view>
-							<view class="position-relative flex-shrink-1 overflow-hidden radius-8rpx" wx:elif="{{item.type==2}}">
+							<view class="position-relative flex-shrink-1" wx:elif="{{item.type==2}}">
+								<view>{{item.sendStatus}}</view>
 								<image class="flex radius-8rpx" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
 								<image
 									binderror="onImgLoadError"
@@ -76,7 +77,7 @@
 								<icon
 									bindtap="onResendImg"
 									class="send-status"
-									data-id="{{id}}"
+									data-id="{{item.id}}"
 									size="20"
 									type="warn"
 									wx:if="{{item.sendStatus=='sendFail'||item.sendStatus=='uploadFail'}}"
