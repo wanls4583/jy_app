@@ -32,6 +32,7 @@ Page({
         loading: true, //上翻页加载中状态
     },
     onLoad(option) {
+        this.maxImgWidth = 550 / wx.getSystemInfoSync().devicePixelRatio;
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
@@ -64,8 +65,6 @@ Page({
                 this.getNewHistory();
             });
         }
-        var devicePixelRatio = wx.getSystemInfoSync();
-        this.maxImgWidth = 550 / devicePixelRatio;
     },
     onShow() {
         this.pollStoped = false;
@@ -127,31 +126,28 @@ Page({
         this.request && this.request.requestTask.abort();
         this.getNewHistory().then(() => {
             var inputValue = this.data.inputValue;
+            var id = Utils.getUUID();
             var chat = {
+                id: id,
                 sendStatus: 'sending',
                 sender: this.data.currentUser.id,
                 avatarUrl: this.data.currentUser.avatarUrl,
                 type: 1,
                 txt: inputValue,
                 sendTime: new Date().getTime(),
-                domId: 'id-' + Utils.getUUID()
+                domId: 'id-' + id
             };
-            this.data.chatList.push(chat);
+            this.addLocalChat(chat);
             this.setData({
-                chatList: this.data.chatList,
                 inputValue: ''
-            }, () => {
-                this.setData({
-                    domId: chat.domId
-                })
             });
             this.sendMsg(1, chat);
         });
     },
     //重发文字消息
     onResend(e) {
-        var index = e.currentTarget.dataset.index;
-        var chat = this.data.chatList[index];
+        var id = e.currentTarget.dataset.id;
+        var chat = this.getChatById(id);
         this.sendMsg(1, chat);
     },
     //发送图片
@@ -163,25 +159,21 @@ Page({
                 var uploadingChats = [];
                 if (res.errMsg == 'chooseImage:ok') {
                     res.tempFilePaths.map((item) => {
+                        var id = wx.jyApp.utils.getUUID();
                         var obj = {
+                            id: id,
                             sender: self.data.currentUser.id,
                             type: 2,
                             txt: item,
                             sendStatus: 'uploading',
                             progress: 10,
                             sendTime: new Date().getTime(),
-                            domId: 'id-' + Utils.getUUID()
+                            domId: 'id-' + id
                         };
-                        self.data.chatList.push(obj);
+                        self.addLocalChat(obj);
                         uploadingChats.push(obj);
                     });
-                    self.setData({
-                        chatList: self.data.chatList.concat([])
-                    }, () => {
-                        self.setData({
-                            domId: self.data.chatList[self.data.chatList.length - 1].domId
-                        });
-                    });
+                    self.scrollToBottom();
                     self.uploadingFiles(uploadingChats);
                 }
             }
@@ -189,13 +181,34 @@ Page({
     },
     //重发图片
     onResendImg(e) {
-        var index = e.currentTarget.dataset.index;
-        var chat = this.data.chatList[index];
+        var id = e.currentTarget.dataset.id;
+        var chat = this.getChatById(id);
         if (chat.sendStatus == 'uploadFail') {
             this.setSendStatus(chat, 'uploading');
             this.uploadingFiles([chat]);
         } else {
             this.sendMsg(2, chat);
+        }
+    },
+    //添加本地消息
+    addLocalChat(chat) {
+        var lastPageId = this.data.pages[this.data.pages.length - 1];
+        var lastPageList = this.data.pageMap[lastPageId];
+        if (lastPageList.length > this.data.limit) {
+            this.data.pages.push(chat.id);
+            this.setData({
+                pages: this.data.pages,
+                [`pageMap[${id}]`]: [chat]
+            }, () => {
+                this.scrollToBottom();
+            });
+        } else {
+            lastPageList.push(chat);
+            this.setData({
+                [`pageMap[${lastPageId}]`]: lastPageList
+            }, () => {
+                this.scrollToBottom();
+            });
         }
     },
     //加载更多
@@ -226,7 +239,7 @@ Page({
             });
         });
         picList = picList.map((item) => {
-            return item.txt;
+            return item.originTxt || item.txt;
         });
         wx.previewImage({
             current: src, // 当前显示图片的http链接
@@ -285,38 +298,47 @@ Page({
         var id = e.currentTarget.dataset.id;
         var width = e.detail.width;
         var height = e.detail.height;
-        this.data.pages.map((pageId) => {
-            this.data.pageMap[pageId].map((item, index) => {
-                if (item.id == id) {
-                    if (width / height > this.maxImgWidth / 120) {
-                        item.width = this.maxImgWidth;
-                        item.height = height / width * this.maxImgWidth;
-                    } else {
-                        item.height = 120;
-                        item.width = width / height * 120;
-                    }
-                    this.setData({
-                        [`pageMap[${pageId}][${index}]`]: item
-                    });
+        this.chatListMapCall((item, index, pageId) => {
+            if (item.id == id) {
+                if (width / height > this.maxImgWidth / 120) {
+                    item.width = this.maxImgWidth;
+                    item.height = height / width * this.maxImgWidth;
+                } else {
+                    item.height = 120;
+                    item.width = width / height * 120;
                 }
-            });
+                this.setData({
+                    [`pageMap[${pageId}][${index}]`]: item
+                }, () => {
+                    if (item.height != 120) {
+                        this.setData({
+                            [`pageHeightMap[${pageId}]`]: 0
+                        }, () => {
+                            this.getPageHeight(pageId); //刷新page高度
+                        });
+                    }
+                });
+            }
         });
     },
     //图片加载失败
     onImgLoadError(e) {
-        var index = e.currentTarget.dataset.index;
-        var chat = this.data.chatList[index];
-        chat.failImgUrl = '/image/icon_pic_loading_failed.png';
-        this.setData({
-            [`chatList[${index}]`]: chat
-        });
-    },
-    //设置消息发送状态
-    setSendStatus(chat, status) {
-        var index = this.data.chatList.indexOf(chat);
-        chat.sendStatus = status;
-        this.setData({
-            [`chatList[${index}]`]: chat
+        var id = e.currentTarget.dataset.id;
+        this.chatListMapCall((item, index, pageId) => {
+            if (item.id == id) {
+                item.failImgUrl = '/image/icon_pic_loading_failed.png';
+                this.setData({
+                    [`pageMap[${pageId}][${index}]`]: item
+                }, () => {
+                    if (item.height != 120) {
+                        this.setData({
+                            [`pageHeightMap[${pageId}]`]: 0
+                        }, () => {
+                            this.getPageHeight(pageId); //刷新page高度
+                        });
+                    }
+                });
+            }
         });
     },
     //计算渲染页码
@@ -340,9 +362,33 @@ Page({
             }
         }
     },
+    //设置消息发送状态
+    setSendStatus(chat, status) {
+        this.chatListMapCall((item, index, pageId) => {
+            if (item.id == chat.id) {
+                item.sendStatus = status;
+                this.setData({
+                    [`pageMap[${pageId}][${index}]`]: item
+                });
+            }
+        });
+    },
+    //获取每个chat对象并处理
+    chatListMapCall(callback) {
+        this.data.pages.map((pageId) => {
+            this.data.pageMap[pageId].map((item, index) => {
+                callback(item, index, pageId);
+            });
+        });
+    },
     //获取page的高度
     getPageHeight(pageId) {
         var self = this;
+        this.gettingPageHeight = this.gettingPageHeight || {};
+        if (this.gettingPageHeight[pageId]) { //避免同时获取
+            return;
+        }
+        this.gettingPageHeight[pageId] = true;
         if (this.data.pageHeightMap[pageId]) {
             return Promise.resolve(this.data.pageHeightMap[pageId]);
         }
@@ -350,6 +396,8 @@ Page({
             var query = wx.createSelectorQuery()
             query.select('#page-id-' + pageId).boundingClientRect()
             query.exec(function (rect) {
+                self.gettingPageHeight[pageId] = false;
+                console.log(pageId, rect[0])
                 if (rect && rect[0]) {
                     if (!self.data.pageHeightMap[pageId]) {
                         self.setData({
@@ -360,6 +408,18 @@ Page({
                 resolve(self.data.pageHeightMap[pageId]);
             });
         });
+    },
+    //根据id获取chat对象
+    getChatById(id) {
+        var chat = null
+        this.data.pages.map((pageId) => {
+            this.data.pageMap[pageId].map((item) => {
+                if (item.id == id) {
+                    chat = item;
+                }
+            });
+        });
+        return chat;
     },
     //上传图片
     uploadingFiles(uploadingChats) {
@@ -383,6 +443,7 @@ Page({
                     }
                     delete self.taskMap[item.domId];
                     if (data.url) {
+                        item.originTxt = item.txt; //避免请求网络图片
                         item.txt = data.url;
                         self.sendMsg(2, item);
                     } else {
@@ -395,10 +456,13 @@ Page({
                 }
             });
             self.taskMap[item.domId] && self.taskMap[item.domId].onProgressUpdate((data) => {
-                var index = self.data.chatList.indexOf(item);
-                item.progress = data.progress;
-                self.setData({
-                    [`chatList[${index}]`]: item
+                this.chatListMapCall((_item, index, pageId) => {
+                    if (_item.id == item.id) {
+                        item.progress = data.progress;
+                        this.setData({
+                            [`pageMap[${pageId}][${index}]`]: item
+                        });
+                    }
                 });
             });
         });
@@ -419,6 +483,17 @@ Page({
             this.data.sendedIds.push(data.id);
         }).catch(() => {
             this.setSendStatus(chat, 'sendFail');
+        });
+    },
+    //滚动到底部
+    scrollToBottom() {
+        var id = wx.jyApp.utils.getUUID();
+        this.setData({
+            bottomId: 'bottom-id-' + id
+        }, () => {
+            this.setData({
+                domId: 'bottom-id-' + id
+            });
         });
     },
     //轮询消息
@@ -449,6 +524,7 @@ Page({
         });
         this.request.then((data) => {
             var list = data.page.list;
+            //去除本地已发送的消息
             list = list.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
@@ -473,7 +549,7 @@ Page({
                     } catch (e) {
                         obj = {};
                     }
-                    this.data.chatList.map((_item) => {
+                    this.chatListMapCall.map((_item) => {
                         if (_item.type == obj.type && item.associateId == _item.associateId) {
                             var _status = wx.jyApp.constData.orderStatusMap[obj.status];
                             if (obj.type == 4) {
@@ -486,9 +562,11 @@ Page({
                             }
                         }
                     });
-                    var index = this.data.chatList.indexOf(item);
-                    this.data.chatList.splice(index, 1);
                 }
+            });
+            //去除状态消息
+            list = list.filter((item) => {
+                return !(item.type == 0 && item.associateId);
             });
             if (ifPre || !this.data.pages.length) { //上翻记录
                 var pageId = list[0].id;
@@ -502,13 +580,7 @@ Page({
                             domId: 'page-id-' + this.data.pages[1]
                         });
                     } else {
-                        this.setData({
-                            bottomId: 'bottom-id-' + list[list.length - 1].id
-                        }, () => {
-                            this.setData({
-                                domId: 'bottom-id-' + list[list.length - 1].id
-                            });
-                        });
+                        this.scrollToBottom();
                     }
                     this.getPageHeight(pageId);
                 });
@@ -533,16 +605,10 @@ Page({
                     [`pageMap[${lastPageId}]`]: lastPageList
                 }, () => {
                     this.getPageHeight(lastPageId);
-                    this.setData({
-                        bottomId: 'bottom-id-' + list[list.length - 1].id
-                    }, () => {
-                        this.setData({
-                            domId: 'bottom-id-' + list[list.length - 1].id
-                        });
-                    });
+                    this.scrollToBottom();
                 });
             }
-            if (!ifPre && list.length) {
+            if (!ifPre) {
                 this.setData({
                     lastestId: list[list.length - 1].id,
                 });
@@ -557,7 +623,7 @@ Page({
             console.log(err);
         }).finally(() => {
             this.request = null;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.setData({
                     loading: false
                 });

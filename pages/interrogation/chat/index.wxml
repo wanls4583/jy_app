@@ -50,24 +50,24 @@
 								<text class="{{item.sender==talker.id&&'color-333'||''}}">{{item.txt}}</text>
 								<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
 								<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
-								<icon bindtap="onResend" class="send-status" data-index="{{index}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
+								<icon bindtap="onResend" class="send-status" data-id="{{id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
 							</view>
-							<view class="position-relative flex-shrink-1 overflow-hidden radius-8rpx" style="height:120px" wx:elif="{{item.type==2}}">
-								<image class="flex" mode="widthFix" src="{{item.failImgUrl}}" style="width:120px;height:120px" wx:if="{{item.failImgUrl}}" />
+							<view class="position-relative flex-shrink-1 overflow-hidden radius-8rpx" wx:elif="{{item.type==2}}">
+								<image class="flex radius-8rpx" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
 								<image
 									binderror="onImgLoadError"
 									bindload="onImgLoadSuccess"
 									bindtap="onClickImg"
-									class="flex"
+									class="flex radius-8rpx"
 									data-id="{{item.id}}"
-									data-src="{{item.txt}}"
-									src="{{item.txt}}"
+									data-src="{{item.originTxt||item.txt}}"
+									src="{{item.originTxt||item.txt}}"
 									style="width:{{item.width||0}}px;height:{{item.height||120}}px"
 									wx:else
 								/>
 								<view
-									class="position-absolute top-0 width-100 height-100 flex--center--center"
-									style="background-color:rgba(0,0,0,0.5);"
+									class="position-absolute top-0 width-100 flex--center--center"
+									style="background-color:rgba(0,0,0,0.5);height:{{item.height||120}}px"
 									wx:if="{{item.sendStatus=='uploading'}}"
 								>
 									<text class="font-small white-color">{{item.progress}}%</text>
@@ -76,7 +76,7 @@
 								<icon
 									bindtap="onResendImg"
 									class="send-status"
-									data-index="{{index}}"
+									data-id="{{id}}"
 									size="20"
 									type="warn"
 									wx:if="{{item.sendStatus=='sendFail'||item.sendStatus=='uploadFail'}}"
