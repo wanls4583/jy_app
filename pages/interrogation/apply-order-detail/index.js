@@ -1,7 +1,6 @@
 Page({
     data: {
-        order: {},
-        statusColor: 'danger-color'
+        order: {}
     },
     onLoad(option) {
         this.type = option.type;
@@ -20,18 +19,30 @@ Page({
             url: url + this.id
         }).then((data) => {
             wx.hideLoading();
-            data.consultOrder = data.consultOrder || data.detail;
-            data.consultOrder.patient._sex = data.consultOrder.patient.sex == 1 ? '男' : '女';
-            data.consultOrder._status = this.type == 'interrogation' ? wx.jyApp.constData.interrogationOrderStatusMap[data.consultOrder.status] : wx.jyApp.constData.applyOrderStatusMap[data.consultOrder.status];
-            data.consultOrder.picUrls = data.consultOrder.picUrls && data.consultOrder.picUrls.split(',') || [];
-            this.setData({
-                order: data.consultOrder
-            });
-            if ([1, 7, 8].indexOf(this.data.order.status) > -1) {
-                this.setData({
-                    statusColor: 'success-color'
-                });
+            var order = data.consultOrder || data.detail;
+            order.patient._sex = order.patient.sex == 1 ? '男' : '女';
+            order._status = this.type == 'interrogation' ? wx.jyApp.constData.interrogationOrderStatusMap[order.status] : wx.jyApp.constData.applyOrderStatusMap[order.status];
+            order.picUrls = order.picUrls && order.picUrls.split(',') || [];
+            if (this.type == 'interrogation') {
+                switch (order.status) {
+                    case 0:
+                    case 6:
+                    case 7: order.statusColor = 'danger-color'; break;
+                    case 1:
+                    case 3: order.statusColor = 'success-color'; break;
+                }
+            } else {
+                switch (order.status) {
+                    case 0:
+                    case 1:
+                    case 4:
+                    case 5: order.statusColor = 'danger-color'; break;
+                    case 2: order.statusColor = 'success-color'; break;
+                }
             }
+            this.setData({
+                order: order
+            });
         });
     }
 })
