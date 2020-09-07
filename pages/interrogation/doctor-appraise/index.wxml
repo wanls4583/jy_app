@@ -1,0 +1,9 @@
+<view class="container">
+	<view class="padding-30 flex--center--between white-background-color">
+		<image class="width-100rpx height-100rpx radius-50" src="{{doctor.avatar}}" />
+		<view class="flex-grow-1 flex--start--between flex-direction-column height-100rpx margin-left-30">
+			<text class="font-title">{{doctor.doctorName}}</text>
+			<van-rate bind:change="onChange" color="rgb(255, 210, 30)" size="{{25}}" value="{{score}}" void-color="#f1f1f1" void-icon="star" />
+		</view>
+	</view>
+</view>

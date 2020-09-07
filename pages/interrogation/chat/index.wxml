@@ -32,10 +32,10 @@
 							<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 							<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 						</view>
-						<view class="flex--center--center padding-20" wx:if="{{item.type==-2}}">
+						<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'}}">
 							<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
 								<view>请对本次图文问诊进行评价吧</view>
-								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctorappraise/index?id={{consultOrderId}}">去评价</view>
+								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{talker.id}}">去评价</view>
 							</view>
 						</view>
 						<!-- 系统消息 -->
