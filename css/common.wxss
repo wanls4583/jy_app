@@ -14,7 +14,7 @@ image {
     box-sizing: border-box;
 }
 
-switch {
+switch,radio,checkbox {
     transform: scale(0.8);
 }
 

@@ -1,13 +1,13 @@
 <view class="container">
-    <view class="padding-20">反馈内容</view>
-    <view class="padding-30 border height-50vw white-background-color">
-        <textarea value="{{content}}" placeholder="请留下您的宝贵意见或者建议，我们将持续改进。" class="height-100 width-100" bindinput="onInput" />
-    </view>
-    <view class="padding-20">手机号</view>
-    <view class="padding-30 border white-background-color">
-        <input type="number" value="{{phone}}" placeholder="请留下手机号码，方便我们联系您" data-prop="phone" bindinput="onInput" />
-    </view>
-    <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block" bindtap="onSubmit">提交</view>
-    </view>
+	<view class="padding-20">反馈内容</view>
+	<view class="padding-30 border height-50vw white-background-color">
+		<textarea bindinput="onInput" class="height-100 width-100" data-prop="content" placeholder="请留下您的宝贵意见或者建议，我们将持续改进。" value="{{content}}" />
+	</view>
+	<view class="padding-20">手机号</view>
+	<view class="padding-30 border white-background-color">
+		<input bindinput="onInput" data-prop="phone" placeholder="请留下手机号码，方便我们联系您" type="number" value="{{phone}}" />
+	</view>
+	<view class="position-fixed bottom-0 width-100 padding-30">
+		<view bindtap="onSubmit" class="button primary block">提交</view>
+	</view>
 </view>

@@ -88,6 +88,9 @@ Page({
             status: data.chatRoom.status,
             consultOrderId: data.chatRoom.consultOrderId
         });
+        wx.setNavigationBarTitle({
+            title: data.talker.nickname
+        });
         wx.hideLoading();
     },
     foucus: function (e) {

@@ -2,16 +2,16 @@ Page({
     data: {
         content: '',
         score: 5,
-        doctor: {}
+        anonymous: 0,
+        doctor: {},
+        result: '非常满意'
     },
     onLoad(option) {
         this.id = option.id;
         this.doctorId = option.doctorId;
-        this.storeBindings.updateBindings();
         this.getDoctorInfo();
     },
     onUnload() {
-        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onInput(e) {
@@ -22,24 +22,48 @@ Page({
     },
     onChange(e) {
         this.setData({
-            score: e.datail
+            score: e.detail
+        });
+        if (this.data.score <= 2) {
+            this.setData({
+                result: '差'
+            });
+        } else if (this.data.score <= 4) {
+            this.setData({
+                result: '满意'
+            });
+        } else {
+            this.setData({
+                result: '非常满意'
+            });
+        }
+    },
+    //匿名选项
+    onCheck() {
+        this.setData({
+            anonymous: this.data.anonymous == 1 ? 0 : 1
         });
     },
     onSubmit() {
+        if (this.data.content.length < 5) {
+            wx.jyApp.toast('评价内容不能少于5个字');
+            return;
+        }
         wx.showLoading({
             title: '提交中...',
             mask: true
         });
         wx.jyApp.http({
-            url: '/usersuggestion/save',
+            url: '/doctorappraise/save',
             method: 'post',
             data: {
+                anonymous: this.data.anonymous,
                 content: this.data.content,
-                phone: this.data.phone,
-                side: this.data.userInfo.role == 'DOCTOR' ? 'DOCTOR' : 'USER'
+                consultOrderId: this.id,
+                score: this.data.score
             }
         }).then(() => {
-            wx.showToast({ title: '反馈成功' });
+            wx.showToast({ title: '提交成功' });
             this.toastTimer = setTimeout(() => {
                 wx.navigateBack();
             }, 1500);

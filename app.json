@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/doctor-appraise/index",
         "pages/input/index",
         "pages/notice-list/index",
         "pages/phone-bind/index",
@@ -83,7 +84,8 @@
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
-        "list": [{
+        "list": [
+            {
                 "pagePath": "pages/tab-bar-first/index",
                 "iconPath": "image/icon_home.png",
                 "selectedIconPath": "image/icon_home_active.png",
