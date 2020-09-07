@@ -540,7 +540,7 @@ Page({
                     } catch (e) {
                         obj = {};
                     }
-                    this.chatListMapCall.map((_item) => {
+                    this.chatListMapCall((_item) => {
                         if (_item.type == obj.type && item.associateId == _item.associateId) {
                             if (obj.type == 4) {
                                 _item.orderApplyVO = _item.orderApplyVO || {};
