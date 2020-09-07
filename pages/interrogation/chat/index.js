@@ -103,6 +103,9 @@ Page({
             inputFoucus: false
         });
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onShowPanel() {
         if (this.data.status != 1) {
             return;
@@ -215,13 +218,6 @@ Page({
     onPre() {
         this.getPreHistory();
     },
-    //查看问诊单
-    onClickInterrogationOrder(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/interrogation/apply-order-detail/index?type=interrogation&id=' + id
-        });
-    },
     onClickChatBlock() {
         this.setData({
             panelVisible: false
@@ -273,24 +269,16 @@ Page({
             data: {
                 id: this.data.consultOrderId
             }
-        }).then(() => {
+        }).then((data) => {
             this.setData({
                 actionVisible: false
             });
-            this.getNewHistory();
-        });
-    },
-    //开指导
-    onGuide() {
-        wx.navigateTo({
-            url: '/pages/interrogation/guidance-edit/index?id=' + this.data.consultOrderId
-        });
-    },
-    //点击指导单详情按钮
-    onClickGuideOrderDetail(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/interrogation/guidance-order-detail/index?id=' + id
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.jyApp.toast('支付成功');
+                this.getNewHistory();
+            }).catch(() => {
+                wx.jyApp.toast('支付失败');
+            });
         });
     },
     //图片加载完成

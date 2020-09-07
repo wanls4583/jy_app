@@ -26,11 +26,19 @@
 			<view id="{{'page-id-' + page}}" style="min-height:{{pageHeightMap[page]}}px" wx:for="{{pages}}" wx:for-item="page" wx:key="index">
 				<block wx:if="{{index>=nowPageIndex-1&&index<=nowPageIndex+1}}">
 					<view class="position-relative" wx:for="{{pageMap[page]}}" wx:key="id">
+						<!-- 开始或结束消息 -->
 						<view class="flex--center--between padding-top-bottom-20" id="{{item.domId}}" wx:if="{{item.type==-1||item.type==-2}}">
 							<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 							<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 							<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 						</view>
+						<view class="flex--center--center padding-20" wx:if="{{item.type==-2}}">
+							<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
+								<view>请对本次图文问诊进行评价吧</view>
+								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctorappraise/index?id={{consultOrderId}}">去评价</view>
+							</view>
+						</view>
+						<!-- 系统消息 -->
 						<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0}}">
 							<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 						</view>
@@ -87,7 +95,11 @@
 								<view>
 									<view>{{item.txt}}</view>
 									<view class="align-center">
-										<view bindtap="onClickInterrogationOrder" class="button small primary margin-top-30" data-id="{{item.associateId}}">查看问诊单</view>
+										<view
+											bindtap="onGoto"
+											class="button small primary margin-top-30"
+											data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{item.associateId}}"
+										>查看问诊单</view>
 									</view>
 								</view>
 							</view>
@@ -102,7 +114,7 @@
 										<text>{{patient.weight}}kg</text>
 									</view>
 									<view class="align-center padding-bottom-20" wx:if="{{currentUser.role=='DOCTOR'&&item.orderApplyVO.status==1}}">
-										<view bindtap="onGuide" class="button small primary" data-id="{{item.associateId}}" data-item="item">开营养指导</view>
+										<view bindtap="onGoto" class="button small primary" data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}">开营养指导</view>
 									</view>
 								</view>
 							</view>
@@ -117,7 +129,11 @@
 										<text>{{patient.weight}}kg</text>
 									</view>
 									<view class="align-center padding-bottom-20">
-										<view bindtap="onClickGuideOrderDetail" class="button small success" data-id="{{item.associateId}}" data-item="item">查看详情</view>
+										<view
+											bindtap="onClickGuideOrderDetail"
+											class="button small success"
+											data-url="/pages/interrogation/guidance-order-detail/index?id={{consultOrderId}}"
+										>查看详情</view>
 									</view>
 								</view>
 							</view>

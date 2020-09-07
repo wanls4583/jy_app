@@ -69,6 +69,24 @@ function setText(inputParam) {
     });
 }
 
+function pay(params) {
+    return new wx.jyApp.Promise((resolve, reject) => {
+        wx.requestPayment({
+            timeStamp: params.timeStamp,
+            nonceStr: params.nonceStr,
+            package: params.packageValue,
+            signType: 'MD5',
+            paySign: params.paySign,
+            success(res) {
+                resolve(res);
+            },
+            fail(res) {
+                reject(res);
+            }
+        });
+    });
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
@@ -77,5 +95,6 @@ module.exports = {
     navigateTo: navigateTo,
     onInput: onInput,
     setText: setText,
+    pay: pay,
     getUUID: getUUID
 }
