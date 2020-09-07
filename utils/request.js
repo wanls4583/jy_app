@@ -6,6 +6,7 @@ function request(obj) {
         header['content-type'] = header['content-type'] || 'application/json'
     }
     header['token'] = wx.getStorageSync('token');
+    header['role'] = wx.getStorageSync('role');
     var requestTask = null;
     var promise = new wx.jyApp.Promise((resolve, reject) => {
         obj.data = obj.data || {};
