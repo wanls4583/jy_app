@@ -140,7 +140,7 @@
 							<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0}}">
-							<view catchtap="onGuidanceOrderPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
+							<view class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
@@ -186,8 +186,8 @@
 								<view>配送金额￥{{order.deliveryCost}}</view>
 								<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 							</view>
-							<view class="border-top align-right padding-top-bottom-20" wx:if="{{item.status==0}}">
-								<view catchtap="onMallOrderPay" class="primary button small" data-id="{{item.id}}">立即支付</view>
+							<view class="border-top align-right padding-top-bottom-20" wx:if="{{order.status==0}}">
+								<view catchtap="onMallOrderPay" class="primary button small" data-id="{{order.id}}">立即支付</view>
 							</view>
 						</view>
 					</view>
