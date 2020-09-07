@@ -63,10 +63,24 @@ Page({
     onMallOrderLoadMore() {
         this.loadMallOrderList();
     },
-    onClickMallOrder(e) {
+    //支付商城订单
+    onMallOrderPay(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/mall/order-detail/index?id=' + id
+        wx.jyApp.http({
+            url: '/wx/pay/submit',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).then((data) => {
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.showToast({
+                    title: '支付成功'
+                });
+                this.loadMallOrderList(true);
+            }).then(() => {
+                wx.jyApp.toast('支付失败');
+            });
         });
     },
     onInterrogationOrderRefresh() {
@@ -75,10 +89,24 @@ Page({
     onInterrogationOrderLoadMore() {
         this.loadInterrogationOrderList();
     },
-    onClickInterrogationOrder(e) {
+    //支付问诊单
+    onInterrogationPay(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/interrogation/apply-order-detail/index?type=interrogation&id=' + id
+        wx.jyApp.http({
+            url: '/consultorder/pay',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).then((data) => {
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.showToast({
+                    title: '支付成功'
+                });
+                this.loadInterrogationOrderList(true);
+            }).then(() => {
+                wx.jyApp.toast('支付失败');
+            });
         });
     },
     onApplyOrderRefresh() {
@@ -87,22 +115,31 @@ Page({
     onApplyOrderLoadMore() {
         this.loadApplyOrderList();
     },
-    onClickApplyOrder(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/interrogation/apply-order-detail/index?id=' + id
-        });
-    },
     onGuidanceOrderRefresh() {
         this.loadGuidanceOrderList(true);
     },
     onGuidanceOrderLoadMore() {
         this.loadGuidanceOrderList();
     },
-    onClickGuidanceOrder(e) {
+    //支付营养指导单
+    onGuidanceOrderPay(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/interrogation/guidance-order-detail/index?id=' + id
+        wx.jyApp.http({
+            url: '/wx/pay/nutrition/submit',
+            method: 'post',
+            data: {
+                addressId: 0,
+                orderId: id
+            }
+        }).then((data) => {
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.showToast({
+                    title: '支付成功'
+                });
+                this.loadInterrogationOrderList(true);
+            }).then(() => {
+                wx.jyApp.toast('支付失败');
+            });
         });
     },
     loadMallOrderList(refresh) {

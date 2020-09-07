@@ -17,16 +17,16 @@
 					stop-refresh="{{interrogationOrder.stopRefresh}}"
 				>
 					<view
-						bindtap="onClickInterrogationOrder"
+						bindtap="onGoto"
 						class="padding-left-right-30 margin-top-20 white-background-color"
-						data-id="{{order.id}}"
+						data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}"
 						wx:for="{{interrogationOrder.orderList}}"
 						wx:for-item="order"
 						wx:key="id"
 					>
 						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
 							<text class="gray-color">订单编号：{{order.orderNo}}</text>
-							<text clss="{{order.statusColor}}">{{order._status}}</text>
+							<text class="{{order.statusColor}}">{{order._status}}</text>
 						</view>
 						<view class="flex--center--between padding-top-bottom-20">
 							<text>商品信息：{{order.goodsName}}</text>
@@ -40,8 +40,8 @@
 							<text class="margin-left-30">{{order.patient.height}}cm</text>
 							<text class="margin-left-30">{{order.patient.weight}}kg</text>
 						</view>
-						<view class="padding-top-bottom-20 border-top align-right">
-							<view class="button primary small">立即支付</view>
+						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0}}">
+							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
 					</view>
 					<view
@@ -62,16 +62,16 @@
 					stop-refresh="{{applyOrder.stopRefresh}}"
 				>
 					<view
-						bindtap="onClickApplyOrder"
+						bindtap="onGoto"
 						class="padding-left-right-30 margin-top-20 white-background-color"
-						data-id="{{order.id}}"
+						data-url="/pages/interrogation/apply-order-detail/index?id={{order.id}}"
 						wx:for="{{applyOrder.orderList}}"
 						wx:for-item="order"
 						wx:key="id"
 					>
 						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
 							<text class="gray-color">订单编号：{{order.orderNo}}</text>
-							<text clss="{{order.statusColor}}">{{order._status}}</text>
+							<text class="{{order.statusColor}}">{{order._status}}</text>
 						</view>
 						<view class="flex--center--between padding-top-bottom-20">
 							<text>商品信息：{{order.title}}</text>
@@ -84,9 +84,6 @@
 							<text class="margin-left-30">{{order.patient.age}}岁</text>
 							<text class="margin-left-30">{{order.patient.height}}cm</text>
 							<text class="margin-left-30">{{order.patient.weight}}kg</text>
-						</view>
-						<view class="padding-top-bottom-20 border-top align-right">
-							<view class="button primary small">立即支付</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}">没有更多了</view>
@@ -104,16 +101,16 @@
 					stop-refresh="{{guidanceOrder.stopRefresh}}"
 				>
 					<view
-						bindtap="onClickGuidanceOrder"
+						bindtap="onGoto"
 						class="padding-left-right-30 margin-top-20 white-background-color"
-						data-id="{{order.id}}"
+						data-url="/pages/interrogation/guidance-order-detail/index?id={{order.id}}"
 						wx:for="{{guidanceOrder.orderList}}"
 						wx:for-item="order"
 						wx:key="id"
 					>
 						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
 							<text class="gray-color">订单编号：{{order.orderNo}}</text>
-							<text clss="{{order.statusColor}}">{{order._status}}</text>
+							<text class="{{order.statusColor}}">{{order._status}}</text>
 						</view>
 						<view class="flex padding-top-bottom-20">
 							<text>患者信息：</text>
@@ -142,8 +139,8 @@
 							<view>配送金额￥{{order.deliveryCost}}</view>
 							<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top align-right">
-							<view class="button primary small">立即支付</view>
+						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0}}">
+							<view bindtap="onGuidanceOrderPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
@@ -163,8 +160,8 @@
 					<view class="overflow-hidden">
 						<view
 							bindtap="onGoto"
-                            data-url="/pages/mall/order-detail/index?id={{order.id}}"
 							class="padding-left-right-30 white-background-color margin-top-20"
+							data-url="/pages/mall/order-detail/index?id={{order.id}}"
 							wx:for="{{mallOrder.orderList}}"
 							wx:for-item="order"
 							wx:key="id"
@@ -190,7 +187,7 @@
 								<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 							</view>
 							<view class="border-top align-right padding-top-bottom-20" wx:if="{{item.status==0}}">
-								<view class="primary button small">立即支付</view>
+								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{item.id}}">立即支付</view>
 							</view>
 						</view>
 					</view>

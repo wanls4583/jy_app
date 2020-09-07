@@ -59,3 +59,7 @@ page .van-picker__confirm {
     line-height: 1em;
     padding-bottom: 2px;
 }
+
+page .van-empty__description {
+    font-size: 24rpx;
+}

@@ -51,12 +51,13 @@ Page({
         }).then((data) => {
             var self = this;
             this.clearCart();
-            wx.jyApp.pay(data.params).then(() => {
-                wx.navigateTo({
-                    url: '/pages/mall/pay-suc/index'
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.showToast({
+                    title: '支付成功'
                 });
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
+            }).finally(() => {
                 self.toastTimer = setTimeout(() => {
                     wx.navigateTo({
                         url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
