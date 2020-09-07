@@ -43,7 +43,7 @@
 		</view>
 		<view class="flex--center--between margin-top-20">
 			<text class="gray-color">下单时间</text>
-			<text class="gray-color">{{order.orderTime}}</text>
+			<text class="gray-color">{{order.orderTime||order.createTime}}</text>
 		</view>
 	</view>
 </view>

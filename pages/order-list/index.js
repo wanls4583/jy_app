@@ -121,27 +121,6 @@ Page({
     onGuidanceOrderLoadMore() {
         this.loadGuidanceOrderList();
     },
-    //支付营养指导单
-    onGuidanceOrderPay(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.http({
-            url: '/wx/pay/nutrition/submit',
-            method: 'post',
-            data: {
-                addressId: 0,
-                orderId: id
-            }
-        }).then((data) => {
-            wx.jyApp.utils.pay(data.params).then(() => {
-                wx.showToast({
-                    title: '支付成功'
-                });
-                this.loadInterrogationOrderList(true);
-            }).then(() => {
-                wx.jyApp.toast('支付失败');
-            });
-        });
-    },
     loadMallOrderList(refresh) {
         if (refresh) {
             this.setData({
@@ -272,6 +251,10 @@ Page({
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
+                item.goods.map((_item) => {
+                    _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
+                    _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
+                });
                 switch (item.status) {
                     case 0:
                     case 5:

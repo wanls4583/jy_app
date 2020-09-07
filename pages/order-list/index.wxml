@@ -35,13 +35,13 @@
 						<view class="flex padding-bottom-20">
 							<text>患者信息：</text>
 							<text>{{order.patient.patientName}}</text>
-							<text class="margin-left-30">{{order.patient._sex}}</text>
-							<text class="margin-left-30">{{order.patient.age}}岁</text>
-							<text class="margin-left-30">{{order.patient.height}}cm</text>
-							<text class="margin-left-30">{{order.patient.weight}}kg</text>
+							<text>，{{order.patient._sex}}</text>
+							<text>，{{order.patient.age}}岁</text>
+							<text>，{{order.patient.height}}cm</text>
+							<text>，{{order.patient.weight}}kg</text>
 						</view>
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0}}">
-							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
+							<view class="button primary small">立即支付</view>
 						</view>
 					</view>
 					<view
@@ -74,16 +74,16 @@
 							<text class="{{order.statusColor}}">{{order._status}}</text>
 						</view>
 						<view class="flex--center--between padding-top-bottom-20">
-							<text>商品信息：{{order.title}}</text>
-							<text class="primary-color">￥{{order.money}}</text>
+							<text>商品信息：{{order.goodsName}}</text>
+							<text class="danger-color">￥{{order.price}}</text>
 						</view>
 						<view class="flex padding-bottom-20">
 							<text>患者信息：</text>
 							<text>{{order.patient.patientName}}</text>
-							<text class="margin-left-30">{{order.patient._sex}}</text>
-							<text class="margin-left-30">{{order.patient.age}}岁</text>
-							<text class="margin-left-30">{{order.patient.height}}cm</text>
-							<text class="margin-left-30">{{order.patient.weight}}kg</text>
+							<text>，{{order.patient._sex}}</text>
+							<text>，{{order.patient.age}}岁</text>
+							<text>，{{order.patient.height}}cm</text>
+							<text>，{{order.patient.weight}}kg</text>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}">没有更多了</view>
@@ -114,11 +114,11 @@
 						</view>
 						<view class="flex padding-top-bottom-20">
 							<text>患者信息：</text>
-							<text class="margin-left-30">{{order.patientName}}</text>
-							<text class="margin-left-30">{{order._sex}}</text>
-							<text class="margin-left-30">{{order.age}}岁</text>
-							<text class="margin-left-30">{{order.height}}cm</text>
-							<text class="margin-left-30">{{order.weight}}kg</text>
+							<text>{{order.patientName}}</text>
+							<text>，{{order._sex}}</text>
+							<text>，{{order.age}}岁</text>
+							<text>，{{order.height}}cm</text>
+							<text>，{{order.weight}}kg</text>
 						</view>
 						<view class="padding-bottom-20">
 							<text>医生姓名：{{order.doctorName}}</text>
@@ -129,7 +129,7 @@
 								<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 									<view>{{product.goodsName}}</view>
 									<view class="flex--center--between width-100">
-										<text class="gray-color">x{{product.count}}</text>
+										<text class="gray-color">x{{product.count}}{{product._unit}}</text>
 										<text class="danger-color">￥{{product.price}}</text>
 									</view>
 								</view>
@@ -140,7 +140,7 @@
 							<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0}}">
-							<view bindtap="onGuidanceOrderPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
+							<view catchtap="onGuidanceOrderPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
@@ -187,7 +187,7 @@
 								<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
 							</view>
 							<view class="border-top align-right padding-top-bottom-20" wx:if="{{item.status==0}}">
-								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{item.id}}">立即支付</view>
+								<view catchtap="onMallOrderPay" class="primary button small" data-id="{{item.id}}">立即支付</view>
 							</view>
 						</view>
 					</view>

@@ -528,8 +528,8 @@ Page({
                 if (item.type == 4 && item.orderApplyVO) {
                     item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[item.orderApplyVO.status];
                 }
-                if (item.type == 5 && item.nutrionOrderChatVo) {
-                    item.nutrionOrderChatVo._status = wx.jyApp.constData.mallOrderStatusMap[item.nutrionOrderChatVo.status];
+                if (item.type == 5 && item.nutritionOrderChatVO) {
+                    item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[item.nutritionOrderChatVO.status];
                 }
             });
             list.map((item) => {
@@ -541,19 +541,26 @@ Page({
                         obj = {};
                     }
                     this.chatListMapCall((_item) => {
-                        if (_item.type == obj.type && item.associateId == _item.associateId) {
-                            if (obj.type == 4) {
-                                _item.orderApplyVO = _item.orderApplyVO || {};
-                                _item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[obj.status];
-                            }
-                            if (obj.type == 5) {
-                                _item.nutrionOrderChatVo = _item.nutrionOrderChatVo || {};
-                                _item.nutrionOrderChatVo._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
-                            }
-                        }
+                        _updateStatus(_item, item, obj);
+                    });
+                    list.map((_item) => {
+                        _updateStatus(_item, item, obj);
                     });
                 }
             });
+            //通过动态消息更新申请单和指导单的状态
+            function _updateStatus(_item, item, obj) {
+                if (_item.type == obj.type && item.associateId == _item.associateId) {
+                    if (obj.type == 4) {
+                        _item.orderApplyVO = _item.orderApplyVO || {};
+                        _item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[obj.status];
+                    }
+                    if (obj.type == 5) {
+                        _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
+                        _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
+                    }
+                }
+            }
             //去除状态消息
             list = list.filter((item) => {
                 return !(item.type == 0 && item.associateId);
@@ -576,7 +583,7 @@ Page({
                 });
             } else {
                 var lastPageId = this.data.pages[this.data.pages.length - 1].id;
-                var lastPageList = this.data.pageMap[lastPage];
+                var lastPageList = this.data.pageMap[lastPageId];
                 var index = this.data.limit - lastPageList.length;
                 var pageId = list[index].id;
                 if (lastPageList.length + list.length > this.data.limit) {

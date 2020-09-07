@@ -120,7 +120,7 @@
 							</view>
 							<view class="position-relative" wx:elif="{{item.type==5}}">
 								<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-									<view class="width-100 padding-20 success-background-color white-color align-center">营养指导（{{item.nutrionOrderChatVo._status}}）</view>
+									<view class="width-100 padding-20 success-background-color white-color align-center">营养指导（{{item.nutritionOrderChatVO._status}}）</view>
 									<view class="padding-30">
 										<text>{{patient.patientName}}，</text>
 										<text>{{patient._sex}}，</text>
