@@ -526,10 +526,10 @@ Page({
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
-                    item.orderApplyVO._status = wx.jyApp.constData.orderStatusMap[item.orderApplyVO.status];
+                    item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[item.orderApplyVO.status];
                 }
                 if (item.type == 5 && item.nutrionOrderChatVo) {
-                    item.nutrionOrderChatVo._status = wx.jyApp.constData.orderStatusMap[item.nutrionOrderChatVo.status];
+                    item.nutrionOrderChatVo._status = wx.jyApp.constData.mallOrderStatusMap[item.nutrionOrderChatVo.status];
                 }
             });
             list.map((item) => {
@@ -542,14 +542,13 @@ Page({
                     }
                     this.chatListMapCall.map((_item) => {
                         if (_item.type == obj.type && item.associateId == _item.associateId) {
-                            var _status = wx.jyApp.constData.orderStatusMap[obj.status];
                             if (obj.type == 4) {
                                 _item.orderApplyVO = _item.orderApplyVO || {};
-                                _item.orderApplyVO._status = _status;
+                                _item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[obj.status];
                             }
                             if (obj.type == 5) {
                                 _item.nutrionOrderChatVo = _item.nutrionOrderChatVo || {};
-                                _item.nutrionOrderChatVo._status = _status;
+                                _item.nutrionOrderChatVo._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
                             }
                         }
                     });

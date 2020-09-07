@@ -100,21 +100,21 @@ export const payMap = {
   'OUTLINE-WXPAY': '微信H5支付'
 }
 export const payList = [{
-    label: '微信支付',
-    value: 'WXPAY'
-  },
-  {
-    label: '支付宝支付',
-    value: 'ALIPAY'
-  },
-  {
-    label: 'POS机刷卡',
-    value: 'POS'
-  },
-  {
-    label: '现金支付',
-    value: 'CASH'
-  }
+  label: '微信支付',
+  value: 'WXPAY'
+},
+{
+  label: '支付宝支付',
+  value: 'ALIPAY'
+},
+{
+  label: 'POS机刷卡',
+  value: 'POS'
+},
+{
+  label: '现金支付',
+  value: 'CASH'
+}
 ]
 export const payMapRev = {
   '微信支付': 'WXPAY',
@@ -123,7 +123,8 @@ export const payMapRev = {
   'POS机刷卡': 'POS',
   '微信H5支付': 'OUTLINE-WXPAY'
 }
-export const orderStatusMap = {
+//商城订单
+export const mallOrderStatusMap = {
   '0': '未支付',
   '1': '已支付',
   '2': '支付失败',
@@ -134,6 +135,26 @@ export const orderStatusMap = {
   '7': '已发货',
   '8': '已完成',
   '9': '已删除'
+}
+//问诊订单
+export const interrogationOrderStatusMap = {
+  '0': '未支付',
+  '1': '已支付',
+  '2': '支付失败',
+  '3': '已完成',
+  '4': '已失效',
+  '5': '接诊中',
+  '6': '退款中',
+  '7': '已退款'
+}
+//申请指导订单
+export const applyOrderStatusMap = {
+  '0': '未支付',
+  '1': '待处理',
+  '2': '已完成',
+  '3': '支付失败',
+  '4': '退费中',
+  '5': '已退费'
 }
 export const typeMap = {
   '1': '非处方',

@@ -1,41 +1,45 @@
 <!--index.wxml-->
 <view class="container">
-    <div wx:if="{{order.status===0}}" class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color">
-        <text class="font-large danger-color">未支付</text>
-        <text class="gray-color">超过15分钟未支付，订单自动失效</text>
-        <view class="button plain primary">立即支付</view>
-    </div>
-    <view class="white-background-color padding-30 margin-top-20">
-        <view>
-            <text>{{address.contactName}}</text>
-            <text class="margin-left-30">{{address.phone}}</text>
-        </view>
-        <view class="gray-color margin-top-20">{{address.provinceCity}}{{address.address}}</view>
-    </view>
-    <view class="padding-30 margin-top-20 white-background-color overflow-hidden">
-        <view wx:for="{{order.goods}}" wx:for-item="product" wx:key="id" class="flex--center--start margin-bottom-30">
-            <view class="width-150rpx height-150rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
-            <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                <view>{{product.goodsName}}</view>
-                <view class="flex--center--between width-100">
-                    <text class="gray-color">x{{product.count}}</text>
-                    <text>￥{{product.price}}</text>
-                </view>
-            </view>
-        </view>
-        <view class="flex--center--end">
-            <view class="gray-color">共<text class="color-333">{{order.totalNum}}</text>件商品</view>
-            <view class="primary-color margin-left-30">订单金额￥{{order.totalAmount}}</view>
-        </view>
-    </view>
-    <view class="padding-30 white-background-color margin-top-20">
-        <view class="flex--center--between">
-            <text class="gray-color">订单编号</text>
-            <text class="gray-color">{{order.orderNo}}</text>
-        </view>
-        <view class="flex--center--between margin-top-20">
-            <text class="gray-color">下单时间</text>
-            <text class="gray-color">{{order.orderTime}}</text>
-        </view>
-    </view>
+	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status===0}}">
+		<text class="font-large danger-color">未支付</text>
+		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
+		<view class="button plain primary">立即支付</view>
+	</view>
+	<view class="flex--center--center height-150rpx white-background-color font-large {{order.statusColor}}" wx:else>{{order._status}}</view>
+	<view class="white-background-color padding-30 margin-top-20">
+		<view>
+			<text>{{order.contactName}}</text>
+			<text class="margin-left-30">{{order.contactPhone}}</text>
+		</view>
+		<view class="gray-color margin-top-20">{{order.address}}</view>
+	</view>
+	<view class="padding-30 margin-top-20 white-background-color overflow-hidden">
+		<view class="flex--center--start padding-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+			<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{product.goodsPic}}" />
+			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+				<view>{{product.goodsName}}</view>
+				<view class="flex--center--between width-100">
+					<text class="gray-color">x{{product.count}}{{product._unit}}</text>
+					<text class="danger-color">￥{{product.price}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="flex--center--end">
+			<view class="gray-color">
+				<texx>共</texx>
+				<text class="color-333">{{order.totalNum}}</text>件商品
+			</view>
+			<view class="primary-color margin-left-30">订单金额￥{{order.totalAmount}}</view>
+		</view>
+	</view>
+	<view class="padding-30 white-background-color margin-top-20">
+		<view class="flex--center--between">
+			<text class="gray-color">订单编号</text>
+			<text class="gray-color">{{order.orderNo}}</text>
+		</view>
+		<view class="flex--center--between margin-top-20">
+			<text class="gray-color">下单时间</text>
+			<text class="gray-color">{{order.orderTime}}</text>
+		</view>
+	</view>
 </view>

@@ -1,155 +1,206 @@
 <view class="container">
-    <view class="position-fixed top-0 width-100">
-        <van-tabs active="{{active}}" bind:change="onChangeTab">
-            <van-tab title="问诊订单"></van-tab>
-            <van-tab title="申请订单"></van-tab>
-            <van-tab title="指导订单"></van-tab>
-            <van-tab wx:if="{{userInfo.role=='USER'}}" title="商城订单"></van-tab>
-        </van-tabs>
-    </view>
-    <view class="height-100" style="padding-top:44px">
-        <swiper class="width-100 height-100" current="{{active}}" bindchange="onChangeSwiper">
-            <swiper-item>
-                <pull-scroll-view bindrefresh='onInterrogationOrderRefresh' bindscrolltolower='onInterrogationOrderLoadMore' lower-threshold='3000px' stop-refresh='{{interrogationOrder.stopRefresh}}'>
-                    <view wx:for="{{interrogationOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickInterrogationOrder">
-                        <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
-                            <text>{{order._status}}</text>
-                        </view>
-                        <view class="flex--center--between padding-top-bottom-20">
-                            <text>商品信息：{{order.goodsName}}</text>
-                            <text class="margin-left-30 danger-color">￥{{order.orderAmount}}</text>
-                        </view>
-                        <view class="flex padding-bottom-20">
-                            <text>患者信息：</text>
-                            <text>{{order.patient.patientName}}</text>
-                            <text class="margin-left-30">{{order.patient._sex}}</text>
-                            <text class="margin-left-30">{{order.patient.age}}岁</text>
-                            <text class="margin-left-30">{{order.patient.height}}cm</text>
-                            <text class="margin-left-30">{{order.patient.weight}}kg</text>
-                        </view>
-                        <view class="padding-top-bottom-20 border-top align-right">
-                            <view class="button primary small">立即支付</view>
-                        </view>
-                    </view>
-                    <view wx:if="{{interrogationOrder.totalPage>0&&interrogationOrder.page>interrogationOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{interrogationOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="暂无订单" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-            <swiper-item>
-                <pull-scroll-view bindrefresh='onApplyOrderRefresh' bindscrolltolower='onApplyOrderLoadMore' lower-threshold='3000px' stop-refresh='{{applyOrder.stopRefresh}}'>
-                    <view wx:for="{{applyOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickApplyOrder">
-                        <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
-                            <text>{{order._status}}</text>
-                        </view>
-                        <view class="flex--center--between padding-top-bottom-20">
-                            <text>商品信息：{{order.title}}</text>
-                            <text class="primary-color">￥{{order.money}}</text>
-                        </view>
-                        <view class="flex padding-bottom-20">
-                            <text>患者信息：</text>
-                            <text>{{order.patient.patientName}}</text>
-                            <text class="margin-left-30">{{order.patient._sex}}</text>
-                            <text class="margin-left-30">{{order.patient.age}}岁</text>
-                            <text class="margin-left-30">{{order.patient.height}}cm</text>
-                            <text class="margin-left-30">{{order.patient.weight}}kg</text>
-                        </view>
-                        <view class="padding-top-bottom-20 border-top align-right">
-                            <view class="button primary small">立即支付</view>
-                        </view>
-                    </view>
-                    <view wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{applyOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="暂无订单" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-            <swiper-item>
-                <pull-scroll-view bindrefresh='onGuidanceOrderRefresh' bindscrolltolower='onGuidanceOrderLoadMore' lower-threshold='3000px' stop-refresh='{{guidanceOrder.stopRefresh}}'>
-                    <view wx:for="{{guidanceOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 margin-top-20 white-background-color" data-id="{{order.id}}" bindtap="onClickGuidanceOrder">
-                        <view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-                            <text class="gray-color">订单编号：{{order.orderNo}}</text>
-                            <text>{{order._status}}</text>
-                        </view>
-                        <view class="flex padding-top-bottom-20">
-                            <text>患者信息：</text>
-                            <text class="margin-left-30">{{order.patientName}}</text>
-                            <text class="margin-left-30">{{order._sex}}</text>
-                            <text class="margin-left-30">{{order.age}}岁</text>
-                            <text class="margin-left-30">{{order.height}}cm</text>
-                            <text class="margin-left-30">{{order.weight}}kg</text>
-                        </view>
-                        <view class="padding-bottom-20">
-                            <text>医生姓名：{{order.doctorName}}</text>
-                        </view>
-                        <view class="padding-top-bottom-30 white-background-color border-top">
-                            <view wx:for="{{order.goods}}" wx:for-item="product" wx:key="id" class="flex--center--start">
-                                <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                                <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-                                    <view>{{product.goodsName}}</view>
-                                    <view class="flex--center--between width-100">
-                                        <text class="gray-color">x{{product.count}}</text>
-                                        <text class="danger-color">￥{{product.price}}</text>
-                                    </view>
-                                </view>
-                            </view>
-                        </view>
-                        <view class="flex--center--between padding-bottom-20">
-                            <view>配送金额￥{{order.deliveryCost}}</view>
-                            <view class="primary-color">订单金额￥{{order.totalAmount}}</view>
-                        </view>
-                        <view class="padding-top-bottom-20 border-top align-right">
-                            <view class="button primary small">立即支付</view>
-                        </view>
-                    </view>
-                    <view wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{guidanceOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="暂无订单" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-            <swiper-item wx:if="{{userInfo.role=='USER'}}">
-                <pull-scroll-view bindrefresh='onMallOrderRefresh' bindscrolltolower='onMallOrderLoadMore' lower-threshold='3000px' stop-refresh='{{mallOrder.stopRefresh}}'>
-                    <view class="overflow-hidden">
-                        <view wx:for="{{mallOrder.orderList}}" wx:for-item="order" wx:key="id" class="padding-left-right-30 white-background-color margin-top-20" data-id="{{order.id}}" bindtap="onClickOrder">
-                            <view class="flex--center--between border-bottom padding-top-bottom-20">
-                                <view class="order-num gray-color font-small">订单编号：{{order.orderNo}}</view>
-                                <view class="primary-color font-small">{{order._status}}</view>
-                            </view>
-                            <view class="padding-top-bottom-30 white-background-color">
-                                <view wx:for="{{order.goods}}" wx:for-item="product" wx:key="id" class="flex--center--start">
-                                    <view class="width-150rpx height-150rpx" style="background:url({{product.url}}) no-repeat center;background-size:cover"></view>
-                                    <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-                                        <view>{{product.goodsName}}</view>
-                                        <view class="flex--center--between width-100">
-                                            <text class="gray-color">x{{product.count}}</text>
-                                            <text class="danger-color">￥{{product.price}}</text>
-                                        </view>
-                                    </view>
-                                </view>
-                            </view>
-                            <view class="flex--center--between padding-bottom-20">
-                                <view>配送金额￥{{order.deliveryCost}}</view>
-                                <view class="primary-color">订单金额￥{{order.totalAmount}}</view>
-                            </view>
-                            <view wx:if="{{item.status==0}}" class="border-top align-right padding-top-bottom-20">
-                                <view class="primary button small">立即支付</view>
-                            </view>
-                        </view>
-                    </view>
-                    <view wx:if="{{mallOrder.totalPage>0&&mallOrder.page>mallOrder.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{mallOrder.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="暂无订单" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-        </swiper>
-    </view>
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="问诊订单"></van-tab>
+			<van-tab title="申请订单"></van-tab>
+			<van-tab title="指导订单"></van-tab>
+			<van-tab title="商城订单" wx:if="{{userInfo.role=='USER'}}"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
+			<swiper-item>
+				<pull-scroll-view
+					bindrefresh="onInterrogationOrderRefresh"
+					bindscrolltolower="onInterrogationOrderLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{interrogationOrder.stopRefresh}}"
+				>
+					<view
+						bindtap="onClickInterrogationOrder"
+						class="padding-left-right-30 margin-top-20 white-background-color"
+						data-id="{{order.id}}"
+						wx:for="{{interrogationOrder.orderList}}"
+						wx:for-item="order"
+						wx:key="id"
+					>
+						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
+							<text class="gray-color">订单编号：{{order.orderNo}}</text>
+							<text clss="{{order.statusColor}}">{{order._status}}</text>
+						</view>
+						<view class="flex--center--between padding-top-bottom-20">
+							<text>商品信息：{{order.goodsName}}</text>
+							<text class="margin-left-30 danger-color">￥{{order.orderAmount}}</text>
+						</view>
+						<view class="flex padding-bottom-20">
+							<text>患者信息：</text>
+							<text>{{order.patient.patientName}}</text>
+							<text class="margin-left-30">{{order.patient._sex}}</text>
+							<text class="margin-left-30">{{order.patient.age}}岁</text>
+							<text class="margin-left-30">{{order.patient.height}}cm</text>
+							<text class="margin-left-30">{{order.patient.weight}}kg</text>
+						</view>
+						<view class="padding-top-bottom-20 border-top align-right">
+							<view class="button primary small">立即支付</view>
+						</view>
+					</view>
+					<view
+						class="padding-30 gray-color align-center font-small"
+						wx:if="{{interrogationOrder.totalPage>0&&interrogationOrder.page>interrogationOrder.totalPage}}"
+					>没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{interrogationOrder.totalPage==0}}">
+						<van-empty description="暂无订单" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<pull-scroll-view
+					bindrefresh="onApplyOrderRefresh"
+					bindscrolltolower="onApplyOrderLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{applyOrder.stopRefresh}}"
+				>
+					<view
+						bindtap="onClickApplyOrder"
+						class="padding-left-right-30 margin-top-20 white-background-color"
+						data-id="{{order.id}}"
+						wx:for="{{applyOrder.orderList}}"
+						wx:for-item="order"
+						wx:key="id"
+					>
+						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
+							<text class="gray-color">订单编号：{{order.orderNo}}</text>
+							<text clss="{{order.statusColor}}">{{order._status}}</text>
+						</view>
+						<view class="flex--center--between padding-top-bottom-20">
+							<text>商品信息：{{order.title}}</text>
+							<text class="primary-color">￥{{order.money}}</text>
+						</view>
+						<view class="flex padding-bottom-20">
+							<text>患者信息：</text>
+							<text>{{order.patient.patientName}}</text>
+							<text class="margin-left-30">{{order.patient._sex}}</text>
+							<text class="margin-left-30">{{order.patient.age}}岁</text>
+							<text class="margin-left-30">{{order.patient.height}}cm</text>
+							<text class="margin-left-30">{{order.patient.weight}}kg</text>
+						</view>
+						<view class="padding-top-bottom-20 border-top align-right">
+							<view class="button primary small">立即支付</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{applyOrder.totalPage==0}}">
+						<van-empty description="暂无订单" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<pull-scroll-view
+					bindrefresh="onGuidanceOrderRefresh"
+					bindscrolltolower="onGuidanceOrderLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{guidanceOrder.stopRefresh}}"
+				>
+					<view
+						bindtap="onClickGuidanceOrder"
+						class="padding-left-right-30 margin-top-20 white-background-color"
+						data-id="{{order.id}}"
+						wx:for="{{guidanceOrder.orderList}}"
+						wx:for-item="order"
+						wx:key="id"
+					>
+						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
+							<text class="gray-color">订单编号：{{order.orderNo}}</text>
+							<text clss="{{order.statusColor}}">{{order._status}}</text>
+						</view>
+						<view class="flex padding-top-bottom-20">
+							<text>患者信息：</text>
+							<text class="margin-left-30">{{order.patientName}}</text>
+							<text class="margin-left-30">{{order._sex}}</text>
+							<text class="margin-left-30">{{order.age}}岁</text>
+							<text class="margin-left-30">{{order.height}}cm</text>
+							<text class="margin-left-30">{{order.weight}}kg</text>
+						</view>
+						<view class="padding-bottom-20">
+							<text>医生姓名：{{order.doctorName}}</text>
+						</view>
+						<view class="padding-top-bottom-30 white-background-color border-top">
+							<view class="flex--center--start" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+								<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+								<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+									<view>{{product.goodsName}}</view>
+									<view class="flex--center--between width-100">
+										<text class="gray-color">x{{product.count}}</text>
+										<text class="danger-color">￥{{product.price}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+						<view class="flex--center--between padding-bottom-20">
+							<view>配送金额￥{{order.deliveryCost}}</view>
+							<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top align-right">
+							<view class="button primary small">立即支付</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{guidanceOrder.totalPage==0}}">
+						<van-empty description="暂无订单" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item wx:if="{{userInfo.role=='USER'}}">
+				<pull-scroll-view
+					bindrefresh="onMallOrderRefresh"
+					bindscrolltolower="onMallOrderLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{mallOrder.stopRefresh}}"
+				>
+					<view class="overflow-hidden">
+						<view
+							bindtap="onGoto"
+                            data-url="/pages/mall/order-detail/index?id={{order.id}}"
+							class="padding-left-right-30 white-background-color margin-top-20"
+							wx:for="{{mallOrder.orderList}}"
+							wx:for-item="order"
+							wx:key="id"
+						>
+							<view class="flex--center--between border-bottom padding-top-bottom-20">
+								<view class="order-num gray-color font-small">订单编号：{{order.orderNo}}</view>
+								<view class="font-small {{order.statusColor}}">{{order._status}}</view>
+							</view>
+							<view class="padding-top-30 white-background-color">
+								<view class="flex--center--start padding-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+									<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{product.goodsPic}}" />
+									<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+										<view>{{product.goodsName}}</view>
+										<view class="flex--center--between width-100">
+											<text class="gray-color">x{{product.count}}{{product._unit}}</text>
+											<text class="danger-color">￥{{product.price}}</text>
+										</view>
+									</view>
+								</view>
+							</view>
+							<view class="flex--center--between padding-bottom-20">
+								<view>配送金额￥{{order.deliveryCost}}</view>
+								<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
+							</view>
+							<view class="border-top align-right padding-top-bottom-20" wx:if="{{item.status==0}}">
+								<view class="primary button small">立即支付</view>
+							</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{mallOrder.totalPage>0&&mallOrder.page>mallOrder.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{mallOrder.totalPage==0}}">
+						<van-empty description="暂无订单" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
 </view>

@@ -51,25 +51,17 @@ Page({
         }).then((data) => {
             var self = this;
             this.clearCart();
-            wx.requestPayment({
-                timeStamp: data.params.timeStamp,
-                nonceStr: data.params.nonceStr,
-                package: data.params.packageValue,
-                signType: 'MD5',
-                paySign: data.params.paySign,
-                success(res) {
+            wx.jyApp.pay(data.params).then(() => {
+                wx.navigateTo({
+                    url: '/pages/mall/pay-suc/index'
+                });
+            }).catch(() => {
+                wx.jyApp.toast('支付失败');
+                self.toastTimer = setTimeout(() => {
                     wx.navigateTo({
-                        url: '/pages/mall/pay-suc/index'
+                        url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                     });
-                },
-                fail(res) {
-                    wx.jyApp.toast('支付失败');
-                    self.toastTimer = setTimeout(() => {
-                        wx.navigateTo({
-                            url: '/pages/mall/order-detail/index?id=' + data.id
-                        });
-                    }, 1500);
-                }
+                }, 1500);
             });
         });
     },

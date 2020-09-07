@@ -22,7 +22,7 @@ Page({
             wx.hideLoading();
             data.consultOrder = data.consultOrder || data.detail;
             data.consultOrder.patient._sex = data.consultOrder.patient.sex == 1 ? '男' : '女';
-            data.consultOrder._status = wx.jyApp.constData.orderStatusMap[data.consultOrder.status];
+            data.consultOrder._status = this.type == 'interrogation' ? wx.jyApp.constData.interrogationOrderStatusMap[data.consultOrder.status] : wx.jyApp.constData.applyOrderStatusMap[data.consultOrder.status];
             data.consultOrder.picUrls = data.consultOrder.picUrls && data.consultOrder.picUrls.split(',') || [];
             this.setData({
                 order: data.consultOrder

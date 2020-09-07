@@ -49,17 +49,16 @@ Page({
             active: e.detail.index
         });
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onChangeSwiper(e) {
         this.setData({
             active: e.detail.current
         });
     },
     onMallOrderRefresh() {
-        this.loadMallOrderList(true).then(() => {
-            this.setData({
-                'mallOrder.stopRefresh': true
-            });
-        });
+        this.loadMallOrderList(true);
     },
     onMallOrderLoadMore() {
         this.loadMallOrderList();
@@ -71,11 +70,7 @@ Page({
         });
     },
     onInterrogationOrderRefresh() {
-        this.loadInterrogationOrderList(true).then(() => {
-            this.setData({
-                'interrogationOrder.stopRefresh': true
-            });
-        });
+        this.loadInterrogationOrderList(true);
     },
     onInterrogationOrderLoadMore() {
         this.loadInterrogationOrderList();
@@ -87,11 +82,7 @@ Page({
         });
     },
     onApplyOrderRefresh() {
-        this.loadApplyOrderList(true).then(() => {
-            this.setData({
-                'applyOrder.stopRefresh': true
-            });
-        });
+        this.loadApplyOrderList(true);
     },
     onApplyOrderLoadMore() {
         this.loadApplyOrderList();
@@ -103,11 +94,7 @@ Page({
         });
     },
     onGuidanceOrderRefresh() {
-        this.loadGuidanceOrderList(true).then(() => {
-            this.setData({
-                'guidanceOrder.stopRefresh': true
-            });
-        });
+        this.loadGuidanceOrderList(true);
     },
     onGuidanceOrderLoadMore() {
         this.loadGuidanceOrderList();
@@ -119,10 +106,6 @@ Page({
         });
     },
     loadMallOrderList(refresh) {
-        if (this.data.mallOrder.loading || !refresh && this.data.mallOrder.totalPage > -1 && this.data.mallOrder.page > this.data.mallOrder.totalPage) {
-            return;
-        }
-        this.data.mallOrder.loading = true;
         if (refresh) {
             this.setData({
                 mallOrder: {
@@ -133,17 +116,33 @@ Page({
                     stopRefresh: false,
                 }
             });
+            this.mallRequest && this.mallRequest.requestTask.abort();
+        } else if (this.data.mallOrder.loading || this.data.mallOrder.totalPage > -1 && this.data.mallOrder.page > this.data.mallOrder.totalPage) {
+            return;
         }
-        return wx.jyApp.http({
+        this.data.mallOrder.loading = true;
+        this.mallRequest = wx.jyApp.http({
             url: '/order/list',
             data: {
                 page: this.data.mallOrder.page,
                 limit: this.data.mallOrder.limit
             }
-        }).then((data) => {
-            this.data.mallOrder.loading = false;
+        });
+        this.mallRequest.then((data) => {
             data.page.list.map((item) => {
-                item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                item.goods.map((_item) => {
+                    _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
+                    _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
+                });
+                switch (item.status) {
+                    case 0:
+                    case 5:
+                    case 6: item.statusColor = 'danger-color'; break;
+                    case 1:
+                    case 7:
+                    case 8: item.statusColor = 'success-color'; break;
+                }
             });
             this.setData({
                 'mallOrder.page': this.data.mallOrder.page + 1,
@@ -151,16 +150,15 @@ Page({
                 'mallOrder.orderList': this.data.mallOrder.orderList.concat(data.page.list)
             });
         }).finally(() => {
+            this.mallRequest = null;
+            this.data.mallOrder.loading = false;
             this.setData({
                 'mallOrder.stopRefresh': true
             });
         });
+        return this.mallRequest;
     },
     loadInterrogationOrderList(refresh) {
-        if (this.data.interrogationOrder.loading || !refresh && this.data.interrogationOrder.totalPage > -1 && this.data.interrogationOrder.page > this.data.interrogationOrder.totalPage) {
-            return;
-        }
-        this.data.interrogationOrder.loading = true;
         if (refresh) {
             this.setData({
                 interrogationOrder: {
@@ -171,17 +169,21 @@ Page({
                     stopRefresh: false,
                 }
             });
+            this.interrogationRequest && this.interrogationRequest.requestTask.abort();
+        } else if (this.data.interrogationOrder.loading || this.data.interrogationOrder.totalPage > -1 && this.data.interrogationOrder.page > this.data.interrogationOrder.totalPage) {
+            return;
         }
-        return wx.jyApp.http({
+        this.data.interrogationOrder.loading = true;
+        this.interrogationRequest = wx.jyApp.http({
             url: '/consultorder/list',
             data: {
                 page: this.data.interrogationOrder.page,
                 limit: this.data.interrogationOrder.limit
             }
-        }).then((data) => {
-            this.data.interrogationOrder.loading = false;
+        });
+        this.interrogationRequest.then((data) => {
             data.page.list.map((item) => {
-                item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
             });
             this.setData({
@@ -190,16 +192,15 @@ Page({
                 'interrogationOrder.orderList': this.data.interrogationOrder.orderList.concat(data.page.list)
             });
         }).finally(() => {
+            this.interrogationRequest = null;
+            this.data.interrogationOrder.loading = false;
             this.setData({
                 'interrogationOrder.stopRefresh': true
             });
         });
+        return this.interrogationRequest;
     },
     loadGuidanceOrderList(refresh) {
-        if (this.data.guidanceOrder.loading || !refresh && this.data.guidanceOrder.totalPage > -1 && this.data.guidanceOrder.page > this.data.guidanceOrder.totalPage) {
-            return;
-        }
-        this.data.guidanceOrder.loading = true;
         if (refresh) {
             this.setData({
                 guidanceOrder: {
@@ -210,19 +211,31 @@ Page({
                     stopRefresh: false,
                 }
             });
+            this.guidanceRequest && this.guidanceRequest.requestTask.abort();
+        } else if (this.data.guidanceOrder.loading || this.data.guidanceOrder.totalPage > -1 && this.data.guidanceOrder.page > this.data.guidanceOrder.totalPage) {
+            return;
         }
-        return wx.jyApp.http({
+        this.data.guidanceOrder.loading = true;
+        this.guidanceRequest = wx.jyApp.http({
             url: '/nutritionorder/list',
             data: {
                 page: this.data.guidanceOrder.page,
                 limit: this.data.guidanceOrder.limit
             }
-        }).then((data) => {
-            this.data.guidanceOrder.loading = false;
+        });
+        this.guidanceRequest.then((data) => {
             data.page.list.map((item) => {
-                item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
+                switch (item.status) {
+                    case 0:
+                    case 5:
+                    case 6: item.statusColor = 'danger-color'; break;
+                    case 1:
+                    case 7:
+                    case 8: item.statusColor = 'success-color'; break;
+                }
             });
             this.setData({
                 'guidanceOrder.page': this.data.guidanceOrder.page + 1,
@@ -230,16 +243,15 @@ Page({
                 'guidanceOrder.orderList': this.data.guidanceOrder.orderList.concat(data.page.list)
             });
         }).finally(() => {
+            this.guidanceRequest = null;
+            this.data.guidanceOrder.loading = false;
             this.setData({
                 'guidanceOrder.stopRefresh': true
             });
         });
+        return this.guidanceRequest;
     },
     loadApplyOrderList(refresh) {
-        if (this.data.applyOrder.loading || !refresh && this.data.applyOrder.totalPage > -1 && this.data.applyOrder.page > this.data.applyOrder.totalPage) {
-            return;
-        }
-        this.data.applyOrder.loading = true;
         if (refresh) {
             this.setData({
                 applyOrder: {
@@ -250,17 +262,21 @@ Page({
                     stopRefresh: false,
                 }
             });
+            this.applyRequest && this.applyRequest.requestTask.abort();
+        } else if (this.data.applyOrder.loading || this.data.applyOrder.totalPage > -1 && this.data.applyOrder.page > this.data.applyOrder.totalPage) {
+            return;
         }
-        return wx.jyApp.http({
-            url: '/order/list',
+        this.data.applyOrder.loading = true;
+        this.applyRequest = wx.jyApp.http({
+            url: '/apply/list',
             data: {
                 page: this.data.applyOrder.page,
                 limit: this.data.applyOrder.limit
             }
-        }).then((data) => {
-            this.data.applyOrder.loading = false;
+        });
+        this.applyRequest.then((data) => {
             data.page.list.map((item) => {
-                item._status = wx.jyApp.constData.orderStatusMap[item.status];
+                item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
             });
             this.setData({
@@ -269,9 +285,12 @@ Page({
                 'applyOrder.orderList': this.data.applyOrder.orderList.concat(data.page.list)
             });
         }).finally(() => {
+            this.applyRequest = null;
+            this.data.applyOrder.loading = false;
             this.setData({
                 'applyOrder.stopRefresh': true
             });
         });
+        return this.applyRequest;
     }
 })
