@@ -2,6 +2,7 @@
     "pages": [
         "pages/index/index",
         "pages/interrogation/doctor-appraise/index",
+        "pages/interrogation/appraise-list/index",
         "pages/input/index",
         "pages/notice-list/index",
         "pages/phone-bind/index",

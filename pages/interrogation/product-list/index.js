@@ -25,7 +25,7 @@ Page({
         wrapHeight: 0
     },
     onLoad(option) {
-        if (option && option.type == 2) {
+        if (option && option.type == 1) {
             this.setData({
                 active: 1
             });

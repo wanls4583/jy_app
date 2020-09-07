@@ -14,11 +14,11 @@
                         <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
                             <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
                                 <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                                <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
                                         <text class="gray-color">一天{{product.frequency}}次</text>
-                                        <text>￥{{product.price}}/天</text>
+                                        <text class="danger-color">￥{{product.price}}/天</text>
                                     </view>
                                 </view>
                             </view>
@@ -37,11 +37,11 @@
                         <block wx:if='{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}'>
                             <view wx:for="{{productData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
                                 <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
+                                <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
                                     <view>{{product.goodsName}}</view>
                                     <view class="flex--center--between margin-top-30 width-100">
                                         <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
-                                        <text>￥{{product.price}}</text>
+                                        <text class="danger-color">￥{{product.price}}</text>
                                     </view>
                                 </view>
                             </view>

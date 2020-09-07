@@ -25,7 +25,7 @@
 	<view>
 		<view class="flex--center--between height-120rpx padding-left-right-30">
 			<view class="font-title left-bar">营养套餐</view>
-			<text bindtap="onClickMore" class="font-small primary-color" data-type="1">全部>></text>
+			<text bindtap="onClickMore" class="clickable font-small gray-color" data-type="2">全部></text>
 		</view>
 		<view class="flex flex-wrap-wrap">
 			<view
@@ -47,7 +47,7 @@
 	<view>
 		<view class="flex--center--between height-120rpx padding-left-right-30">
 			<view class="font-title left-bar">营养产品</view>
-			<text bindtap="onClickMore" class="font-small primary-color" data-type="2">全部>></text>
+			<text bindtap="onClickMore" class="clickable font-small gray-color" data-type="1">全部></text>
 		</view>
 		<view class="flex flex-wrap-wrap">
 			<view

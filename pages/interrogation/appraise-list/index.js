@@ -1,17 +1,14 @@
 Page({
     data: {
-        patientList: [],
+        list: [],
         stopRefresh: false,
-        totalPage: -1,
-        totalCount: 0,
         page: 1,
-        focus: true,
-        searchText: ''
+        totalPage: -1,
+        totalCount: 0
     },
-    onLoad() {
-    },
-    onInput(e) {
-        wx.jyApp.utils.onInput(e, this);
+    onLoad(option) {
+        this.doctorId = option.id;
+        this.loadList(true);
     },
     onRefresh() {
         this.loadList(true);
@@ -19,19 +16,12 @@ Page({
     onLoadMore() {
         this.loadList();
     },
-    onClickPatient(e) {
-        var id = e.currentTarget.dataset.id;
-    },
-    onSearch() {
-        this.patientName = this.data.searchText;
-        this.loadList(true);
-    },
     loadList(refresh) {
         if (refresh) {
             this.setData({
                 page: 1,
                 totalPage: -1,
-                patientList: []
+                list: []
             });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
@@ -39,32 +29,29 @@ Page({
         }
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: '/doctor/patients',
+            url: '/doctorappraise/list',
             data: {
-                patientName: this.patientName || '',
+                doctorId: this.doctorId,
                 page: this.data.page,
                 limit: 20
             }
-        });
-        this.request.then((data) => {
+        }).then((data) => {
             data.page.list.map((item) => {
-                item._sex = item.sex == 1 ? '男' : '女';
+                if (item.type == 1) {
+                    item._type = '图文问诊';
+                }
             });
-            this.data.patientList = this.data.patientList.concat(data.page.list);
             this.setData({
-                patientList: this.data.patientList,
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,
-                totalCount: data.page.totalCount
+                totalCount: data.page.totalCount,
+                list: this.data.list.concat(data.page.list)
             });
-        }).catch((err) => {
-            console.log(err);
         }).finally(() => {
-            this.loading = false;
-            this.request = null;
             this.setData({
                 stopRefresh: true
             });
+            this.request = null;
         });
-    },
+    }
 })

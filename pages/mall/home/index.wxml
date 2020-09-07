@@ -65,7 +65,7 @@
 	<view class="white-background-color padding-30">
 		<view class="flex--center--between">
 			<text class="font-title">推荐医生</text>
-			<text bindtap="onClickMore" class="font-small primary-color">全部>></text>
+			<text bindtap="onClickMore" class="clickable font-small gray-color">全部></text>
 		</view>
 		<view bindtap="onClickDoctor" class="flex--start--between padding-top-bottom-30 border-bottom" data-id="{{item.id}}" wx:for="{{doctorList}}" wx:key="id">
 			<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">

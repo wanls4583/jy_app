@@ -144,23 +144,27 @@ switch,radio,checkbox {
 }
 
 .radius-50 {
-    border-radius: 50%;
+    border-radius: 50% !important;
 }
 
 .radius-4px {
-    border-radius: 4px;
+    border-radius: 4px !important;
 }
 
 .radius-4rpx {
-    border-radius: 4rpx;
+    border-radius: 4rpx !important;
 }
 
 .radius-8px {
-    border-radius: 8px;
+    border-radius: 8px !important;
 }
 
 .radius-8rpx {
-    border-radius: 8rpx;
+    border-radius: 8rpx !important;
+}
+
+.radius-100px {
+    border-radius: 100px !important;
 }
 
 .overflow-hidden {

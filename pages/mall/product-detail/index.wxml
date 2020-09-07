@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container" style="padding-bottom:50px">
-	<view class="position-fixed z-index-100" style="top:{{bTop}}px;left:0;padding-left:20px;" bindtap="onBack">
+	<view bindtap="onBack" class="position-fixed z-index-100" style="top:{{bTop}}px;left:0;padding-left:20px;">
 		<view class="flex--center--center radius-50 clickable" style="width:{{bHeight}}px;height:{{bHeight}}px;background:rgba(0,0,0,0.5)">
 			<van-icon color="#fff" name="arrow-left" size="20px" />
 		</view>
@@ -18,7 +18,10 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
 			<view class="font-large font-bold danger-color">￥{{productInfo.price}}</view>
-			<view bindtap="onAddToCart" class="button primary small" style="border-radius:100px">添加到购物车</view>
+			<view bindtap="onAddToCart" class="flex--center--center button primary small" style="border-radius:100px">
+				<van-icon name="plus" style="transform:translateY(2rpx)"/>
+				<text>购买</text>
+			</view>
 		</view>
 	</view>
 	<view class="margin-top-20 padding-30 white-background-color">
@@ -30,7 +33,7 @@
 		<view bindtap="onShowCart" class="flex--center--start">
 			<van-icon class="{{cart.length>0?'primary-color':'gray-color'}} margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" />
 			<text class="gray-color" style="margin-left:10px" wx:if="{{!cart.length}}">{{deliveryMoney?'运费：￥'+deliveryMoney:'免费配送'}}</text>
-			<text class="primary-color" wx:else>￥{{cartTotalMoney+deliveryMoney}}</text>
+			<text class="primary-color" wx:else>￥{{cartTotalMoney}}</text>
 		</view>
 		<view bindtap="onPay" class="button primary center height-100 radius-0 {{!cart.length ? 'disabled' : ''}}">
 			<text wx:if="{{cart.length}}">去结算</text>
@@ -46,10 +49,7 @@
 			<view>{{item.product.goodsName}}</view>
 			<view class="primary-color">￥{{item.product.price}}</view>
 			<view class="flex--center--center position-relative">
-				<view class="primary-color del">—</view>
-				<van-icon bindtap="onReduceNum" class="primary-color" data-id="{{item.product.id}}" name="circle" size="20px"></van-icon>
-				<view class="num align-center">{{item.num}}</view>
-				<van-icon bindtap="onAddNum" class="primary-color" data-id="{{item.product.id}}" name="add-o" size="20px" />
+				<van-stepper bind:minus="onReduceNum" bind:plus="onAddNum" data-id="{{item.product.id}}" integer min="{{0}}" value="{{item.num}}" />
 			</view>
 		</view>
 	</van-popup>

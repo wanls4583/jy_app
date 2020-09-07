@@ -1,65 +1,111 @@
 <view class="container">
-    <view class="position-fixed top-0 width-100">
-        <van-search shape="round" placeholder="请输入搜索关键词" disabled="{{true}}" value="{{searchText}}" bind:search="onSearch" bind:change="onChangeText" bindtap="onGotoSearch"/>
-        <van-tabs active="{{active}}" bind:change="onChangeTab">
-            <van-tab title="营养套餐"></van-tab>
-            <van-tab title="营养产品"></van-tab>
-        </van-tabs>
-    </view>
-    <view class="height-100" style="padding-top:108px">
-        <swiper class="width-100 height-100" current="{{active}}" bindchange="onChangeSwiper">
-            <swiper-item>
-                <pull-scroll-view bindscroll='onTaocanScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{taocanData.stopRefresh}}'>
-                    <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=taocanData.lastPage}}" style="min-height:{{taocanData.nowPage<taocanData.totalPage ? wrapHeight : 0}}px">
-                        <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
-                            <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                                <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                                    <view>{{product.goodsName}}</view>
-                                    <view class="flex--center--between margin-top-20 width-100">
-                                        <text class="gray-color">一天{{product.frequency}}次</text>
-                                    </view>
-                                    <view class="flex--center--between margin-top-20 width-100">
-                                        <text class="danger-color">￥{{product.price}}/天</text>
-                                        <view class="button primary small" data-item="{{product}}" catchtap="onAddTaocan">添加该套餐</view>
-                                    </view>
-                                </view>
-                            </view>
-                        </block>
-                    </view>
-                    <view wx:if="{{taocanData.totalPage>0&&taocanData.nowPage>=taocanData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{taocanData.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="未查询到相关商品，请重新搜索" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-            <swiper-item>
-                <pull-scroll-view bindscroll='onProductScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{productData.stopRefresh}}'>
-                    <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=productData.lastPage}}" style="min-height:{{productData.nowPage<productData.totalPage ? wrapHeight : 0}}px">
-                        <block wx:if='{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}'>
-                            <view wx:for="{{productData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
-                                <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                                <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                                    <view>{{product.goodsName}}</view>
-                                    <view class="flex--center--between margin-top-20 width-100">
-                                        <text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
-                                    </view>
-                                    <view class="flex--center--between margin-top-20 width-100">
-                                        <text class="danger-color">￥{{product.price}}</text>
-                                        <view class="button primary small" data-item="{{product}}" catchtap="onAddProduct">添加该产品</view>
-                                    </view>
-                                </view>
-                            </view>
-                        </block>
-                    </view>
-                    <view wx:if="{{productData.totalPage>0&&productData.nowPage>=productData.totalPage}}" class="padding-30 gray-color align-center font-small">没有更多了</view>
-                    <view wx:elif="{{productData.totalPage==0}}" class="padding-30 gray-color align-center font-small">
-                        <van-empty description="未查询到相关商品，请重新搜索" />
-                    </view>
-                    <view wx:else class="padding-30 gray-color align-center font-small">正在加载中...</view>
-                </pull-scroll-view>
-            </swiper-item>
-        </swiper>
-    </view>
+	<view class="position-fixed top-0 width-100">
+		<van-search
+			bind:change="onChangeText"
+			bind:search="onSearch"
+			bindtap="onGotoSearch"
+			disabled="{{true}}"
+			placeholder="请输入搜索关键词"
+			shape="round"
+			value="{{searchText}}"
+		/>
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="营养套餐"></van-tab>
+			<van-tab title="营养产品"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:108px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
+			<swiper-item>
+				<pull-scroll-view
+					bindrefresh="onRefresh"
+					bindscroll="onTaocanScroll"
+					bindscrolltolower="onLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{taocanData.stopRefresh}}"
+				>
+					<view
+						style="min-height:{{taocanData.nowPage<taocanData.totalPage ? wrapHeight : 0}}px"
+						wx:for="{{pageArr}}"
+						wx:for-item="page"
+						wx:if="{{page<=taocanData.lastPage}}"
+						wx:key="index"
+					>
+						<block wx:if="{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}">
+							<view
+								bindtap="onclickProdcut"
+								class="product flex--center--start padding-30 white-background-color border-bottom"
+								data-id="{{product.id}}"
+								wx:for="{{taocanData.pageList[page]}}"
+								wx:for-item="product"
+								wx:key="id"
+							>
+								<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+								<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+									<view>{{product.goodsName}}</view>
+									<view class="flex--center--between width-100">
+										<text class="gray-color">一天{{product.frequency}}次</text>
+									</view>
+									<view class="flex--center--between width-100">
+										<text class="danger-color">￥{{product.price}}/天</text>
+										<view catchtap="onAddTaocan" class="button primary small" data-item="{{product}}">添加该套餐</view>
+									</view>
+								</view>
+							</view>
+						</block>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{taocanData.totalPage>0&&taocanData.nowPage>=taocanData.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{taocanData.totalPage==0}}">
+						<van-empty description="未查询到相关商品，请重新搜索" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<pull-scroll-view
+					bindrefresh="onRefresh"
+					bindscroll="onProductScroll"
+					bindscrolltolower="onLoadMore"
+					lower-threshold="3000px"
+					stop-refresh="{{productData.stopRefresh}}"
+				>
+					<view
+						style="min-height:{{productData.nowPage<productData.totalPage ? wrapHeight : 0}}px"
+						wx:for="{{pageArr}}"
+						wx:for-item="page"
+						wx:if="{{page<=productData.lastPage}}"
+						wx:key="index"
+					>
+						<block wx:if="{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}">
+							<view
+								bindtap="onclickProdcut"
+								class="product flex--center--start padding-30 white-background-color border-bottom"
+								data-id="{{product.id}}"
+								wx:for="{{productData.pageList[page]}}"
+								wx:for-item="product"
+								wx:key="id"
+							>
+								<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+								<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+									<view>{{product.goodsName}}</view>
+									<view class="flex--center--between width-100">
+										<text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
+									</view>
+									<view class="flex--center--between width-100">
+										<text class="danger-color">￥{{product.price}}</text>
+										<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}">添加该产品</view>
+									</view>
+								</view>
+							</view>
+						</block>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{productData.totalPage>0&&productData.nowPage>=productData.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{productData.totalPage==0}}">
+						<van-empty description="未查询到相关商品，请重新搜索" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
 </view>
