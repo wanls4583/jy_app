@@ -144,8 +144,8 @@ export const interrogationOrderStatusMap = {
   '3': '已完成',
   '4': '已失效',
   '5': '接诊中',
-  '6': '退款中',
-  '7': '已退款'
+  '6': '退费中',
+  '7': '已退费'
 }
 //申请指导订单
 export const applyOrderStatusMap = {

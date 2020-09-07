@@ -185,6 +185,13 @@ Page({
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
+                switch (item.status) {
+                    case 0:
+                    case 6:
+                    case 7: item.statusColor = 'danger-color'; break;
+                    case 1:
+                    case 3: item.statusColor = 'success-color'; break;
+                }
             });
             this.setData({
                 'interrogationOrder.page': this.data.interrogationOrder.page + 1,
@@ -278,6 +285,13 @@ Page({
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
+                switch (item.status) {
+                    case 0:
+                    case 1:
+                    case 4:
+                    case 5: item.statusColor = 'danger-color'; break;
+                    case 2: item.statusColor = 'success-color'; break;
+                }
             });
             this.setData({
                 'applyOrder.page': this.data.applyOrder.page + 1,
