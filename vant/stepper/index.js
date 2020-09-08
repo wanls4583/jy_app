@@ -1,329 +1,191 @@
-import { createNamespace, isDef, addUnit } from '../utils';
-import { resetScroll } from '../utils/dom/reset-scroll';
-import { preventDefault } from '../utils/dom/event';
-import { formatNumber } from '../utils/format/number';
-import { isNaN } from '../utils/validate/number';
-import { FieldMixin } from '../mixins/field';
-
-const [createComponent, bem] = createNamespace('stepper');
-
+import { VantComponent } from '../common/component';
+import { isDef } from '../common/utils';
 const LONG_PRESS_START_TIME = 600;
 const LONG_PRESS_INTERVAL = 200;
-
+// add num and avoid float number
+function add(num1, num2) {
+  const cardinal = Math.pow(10, 10);
+  return Math.round((num1 + num2) * cardinal) / cardinal;
+}
 function equal(value1, value2) {
   return String(value1) === String(value2);
 }
-
-// add num and avoid float number
-function add(num1, num2) {
-  const cardinal = 10 ** 10;
-  return Math.round((num1 + num2) * cardinal) / cardinal;
-}
-
-export default createComponent({
-  mixins: [FieldMixin],
-
+VantComponent({
+  field: true,
+  classes: ['input-class', 'plus-class', 'minus-class'],
   props: {
-    value: null,
-    theme: String,
-    integer: Boolean,
+    value: {
+      type: null,
+      observer(value) {
+        if (!equal(value, this.data.currentValue)) {
+          this.setData({ currentValue: this.format(value) });
+        }
+      },
+    },
+    integer: {
+      type: Boolean,
+      observer: 'check',
+    },
     disabled: Boolean,
-    allowEmpty: Boolean,
-    inputWidth: [Number, String],
-    buttonSize: [Number, String],
+    inputWidth: null,
+    buttonSize: null,
     asyncChange: Boolean,
-    placeholder: String,
-    disablePlus: Boolean,
-    disableMinus: Boolean,
     disableInput: Boolean,
-    decimalLength: [Number, String],
-    name: {
-      type: [Number, String],
-      default: '',
+    decimalLength: {
+      type: Number,
+      value: null,
+      observer: 'check',
     },
     min: {
-      type: [Number, String],
-      default: 1,
+      type: null,
+      value: 1,
+      observer: 'check',
     },
     max: {
-      type: [Number, String],
-      default: Infinity,
+      type: null,
+      value: Number.MAX_SAFE_INTEGER,
+      observer: 'check',
     },
     step: {
-      type: [Number, String],
-      default: 1,
-    },
-    defaultValue: {
-      type: [Number, String],
-      default: 1,
+      type: null,
+      value: 1,
     },
     showPlus: {
       type: Boolean,
-      default: true,
+      value: true,
     },
     showMinus: {
       type: Boolean,
-      default: true,
+      value: true,
     },
+    disablePlus: Boolean,
+    disableMinus: Boolean,
     longPress: {
       type: Boolean,
-      default: true,
+      value: true,
     },
   },
-
-  data() {
-    const defaultValue = this.value ?? this.defaultValue;
-    const value = this.format(defaultValue);
-
-    if (!equal(value, this.value)) {
-      this.$emit('input', value);
-    }
-
-    return {
-      currentValue: value,
-    };
+  data: {
+    currentValue: '',
   },
-
-  computed: {
-    minusDisabled() {
-      return (
-        this.disabled || this.disableMinus || this.currentValue <= +this.min
-      );
-    },
-
-    plusDisabled() {
-      return (
-        this.disabled || this.disablePlus || this.currentValue >= +this.max
-      );
-    },
-
-    inputStyle() {
-      const style = {};
-
-      if (this.inputWidth) {
-        style.width = addUnit(this.inputWidth);
-      }
-
-      if (this.buttonSize) {
-        style.height = addUnit(this.buttonSize);
-      }
-
-      return style;
-    },
-
-    buttonStyle() {
-      if (this.buttonSize) {
-        const size = addUnit(this.buttonSize);
-
-        return {
-          width: size,
-          height: size,
-        };
-      }
-    },
+  created() {
+    this.setData({
+      currentValue: this.format(this.data.value),
+    });
   },
-
-  watch: {
-    max: 'check',
-    min: 'check',
-    integer: 'check',
-    decimalLength: 'check',
-
-    value(val) {
-      if (!equal(val, this.currentValue)) {
-        this.currentValue = this.format(val);
-      }
-    },
-
-    currentValue(val) {
-      this.$emit('input', val);
-      this.$emit('change', val, { name: this.name });
-    },
-  },
-
   methods: {
     check() {
-      const val = this.format(this.currentValue);
-      if (!equal(val, this.currentValue)) {
-        this.currentValue = val;
+      const val = this.format(this.data.currentValue);
+      if (!equal(val, this.data.currentValue)) {
+        this.setData({ currentValue: val });
       }
     },
-
-    // formatNumber illegal characters
-    formatNumber(value) {
-      return formatNumber(String(value), !this.integer);
+    isDisabled(type) {
+      if (type === 'plus') {
+        return (
+          this.data.disabled ||
+          this.data.disablePlus ||
+          this.data.currentValue >= this.data.max
+        );
+      }
+      return (
+        this.data.disabled ||
+        this.data.disableMinus ||
+        this.data.currentValue <= this.data.min
+      );
     },
-
-    format(value) {
-      if (this.allowEmpty && value === '') {
-        return value;
+    onFocus(event) {
+      this.$emit('focus', event.detail);
+    },
+    onBlur(event) {
+      const value = this.format(event.detail.value);
+      this.emitChange(value);
+      this.$emit(
+        'blur',
+        Object.assign(Object.assign({}, event.detail), { value })
+      );
+    },
+    // filter illegal characters
+    filter(value) {
+      value = String(value).replace(/[^0-9.-]/g, '');
+      if (this.data.integer && value.indexOf('.') !== -1) {
+        value = value.split('.')[0];
       }
-
-      value = this.formatNumber(value);
-
-      // format range
-      value = value === '' ? 0 : +value;
-      value = isNaN(value) ? this.min : value;
-      value = Math.max(Math.min(this.max, value), this.min);
-
-      // format decimal
-      if (isDef(this.decimalLength)) {
-        value = value.toFixed(this.decimalLength);
-      }
-
       return value;
     },
-
+    // limit value range
+    format(value) {
+      value = this.filter(value);
+      // format range
+      value = value === '' ? 0 : +value;
+      value = Math.max(Math.min(this.data.max, value), this.data.min);
+      // format decimal
+      if (isDef(this.data.decimalLength)) {
+        value = value.toFixed(this.data.decimalLength);
+      }
+      return value;
+    },
     onInput(event) {
-      const { value } = event.target;
-
-      let formatted = this.formatNumber(value);
-
+      const { value = '' } = event.detail || {};
+      // allow input to be empty
+      if (value === '') {
+        return;
+      }
+      let formatted = this.filter(value);
       // limit max decimal length
-      if (isDef(this.decimalLength) && formatted.indexOf('.') !== -1) {
+      if (isDef(this.data.decimalLength) && formatted.indexOf('.') !== -1) {
         const pair = formatted.split('.');
-        formatted = `${pair[0]}.${pair[1].slice(0, this.decimalLength)}`;
+        formatted = `${pair[0]}.${pair[1].slice(0, this.data.decimalLength)}`;
       }
-
-      if (!equal(value, formatted)) {
-        event.target.value = formatted;
-      }
-
       this.emitChange(formatted);
     },
-
     emitChange(value) {
-      if (this.asyncChange) {
-        this.$emit('input', value);
-        this.$emit('change', value, { name: this.name });
-      } else {
-        this.currentValue = value;
+      if (!this.data.asyncChange) {
+        this.setData({ currentValue: value });
       }
+      this.$emit('change', value);
     },
-
     onChange() {
       const { type } = this;
-
-      if (this[`${type}Disabled`]) {
+      if (this.isDisabled(type)) {
         this.$emit('overlimit', type);
         return;
       }
-
-      const diff = type === 'minus' ? -this.step : +this.step;
-
-      const value = this.format(add(+this.currentValue, diff));
-
+      const diff = type === 'minus' ? -this.data.step : +this.data.step;
+      const value = this.format(add(+this.data.currentValue, diff));
       this.emitChange(value);
       this.$emit(type);
     },
-
-    onFocus(event) {
-      // readonly not work in lagacy mobile safari
-      if (this.disableInput && this.$refs.input) {
-        this.$refs.input.blur();
-      } else {
-        this.$emit('focus', event);
-      }
-    },
-
-    onBlur(event) {
-      const value = this.format(event.target.value);
-      event.target.value = value;
-      this.currentValue = value;
-      this.$emit('blur', event);
-
-      resetScroll();
-    },
-
     longPressStep() {
       this.longPressTimer = setTimeout(() => {
         this.onChange();
-        this.longPressStep(this.type);
+        this.longPressStep();
       }, LONG_PRESS_INTERVAL);
     },
-
-    onTouchStart() {
-      if (!this.longPress) {
+    onTap(event) {
+      const { type } = event.currentTarget.dataset;
+      this.type = type;
+      this.onChange();
+    },
+    onTouchStart(event) {
+      if (!this.data.longPress) {
         return;
       }
-
       clearTimeout(this.longPressTimer);
+      const { type } = event.currentTarget.dataset;
+      this.type = type;
       this.isLongPress = false;
-
       this.longPressTimer = setTimeout(() => {
         this.isLongPress = true;
         this.onChange();
         this.longPressStep();
       }, LONG_PRESS_START_TIME);
     },
-
-    onTouchEnd(event) {
-      if (!this.longPress) {
+    onTouchEnd() {
+      if (!this.data.longPress) {
         return;
       }
-
       clearTimeout(this.longPressTimer);
-
-      if (this.isLongPress) {
-        preventDefault(event);
-      }
     },
-  },
-
-  render() {
-    const createListeners = (type) => ({
-      on: {
-        click: (e) => {
-          // disable double tap scrolling on mobile safari
-          e.preventDefault();
-          this.type = type;
-          this.onChange();
-        },
-        touchstart: () => {
-          this.type = type;
-          this.onTouchStart();
-        },
-        touchend: this.onTouchEnd,
-        touchcancel: this.onTouchEnd,
-      },
-    });
-
-    return (
-      <div class={bem([this.theme])}>
-        <button
-          vShow={this.showMinus}
-          type="button"
-          style={this.buttonStyle}
-          class={bem('minus', { disabled: this.minusDisabled })}
-          {...createListeners('minus')}
-        />
-        <input
-          ref="input"
-          type={this.integer ? 'tel' : 'text'}
-          role="spinbutton"
-          class={bem('input')}
-          value={this.currentValue}
-          style={this.inputStyle}
-          disabled={this.disabled}
-          readonly={this.disableInput}
-          // set keyboard in mordern browers
-          inputmode={this.integer ? 'numeric' : 'decimal'}
-          placeholder={this.placeholder}
-          aria-valuemax={this.max}
-          aria-valuemin={this.min}
-          aria-valuenow={this.currentValue}
-          onInput={this.onInput}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-        />
-        <button
-          vShow={this.showPlus}
-          type="button"
-          style={this.buttonStyle}
-          class={bem('plus', { disabled: this.plusDisabled })}
-          {...createListeners('plus')}
-        />
-      </div>
-    );
   },
 });

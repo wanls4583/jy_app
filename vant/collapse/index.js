@@ -1,38 +1,47 @@
-import { createNamespace } from '../utils';
-import { ParentMixin } from '../mixins/relation';
-import { BORDER_TOP_BOTTOM } from '../utils/constant';
-
-const [createComponent, bem] = createNamespace('collapse');
-
-export default createComponent({
-  mixins: [ParentMixin('vanCollapse')],
-
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    name: 'collapse-item',
+    type: 'descendant',
+    current: 'collapse',
+  },
   props: {
-    accordion: Boolean,
-    value: [String, Number, Array],
+    value: {
+      type: null,
+      observer: 'updateExpanded',
+    },
+    accordion: {
+      type: Boolean,
+      observer: 'updateExpanded',
+    },
     border: {
       type: Boolean,
-      default: true,
+      value: true,
     },
   },
-
   methods: {
+    updateExpanded() {
+      this.children.forEach((child) => {
+        child.updateExpanded();
+      });
+    },
     switch(name, expanded) {
-      if (!this.accordion) {
+      const { accordion, value } = this.data;
+      const changeItem = name;
+      if (!accordion) {
         name = expanded
-          ? this.value.concat(name)
-          : this.value.filter((activeName) => activeName !== name);
+          ? (value || []).concat(name)
+          : (value || []).filter((activeName) => activeName !== name);
+      } else {
+        name = expanded ? name : '';
+      }
+      if (expanded) {
+        this.$emit('open', changeItem);
+      } else {
+        this.$emit('close', changeItem);
       }
       this.$emit('change', name);
       this.$emit('input', name);
     },
-  },
-
-  render() {
-    return (
-      <div class={[bem(), { [BORDER_TOP_BOTTOM]: this.border }]}>
-        {this.slots()}
-      </div>
-    );
   },
 });

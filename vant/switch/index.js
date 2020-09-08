@@ -1,69 +1,51 @@
-// Utils
-import { createNamespace, addUnit } from '../utils';
-import { switchProps } from './shared';
-
-// Mixins
-import { FieldMixin } from '../mixins/field';
-
-// Components
-import Loading from '../loading';
-
-const [createComponent, bem] = createNamespace('switch');
-
-export default createComponent({
-  mixins: [FieldMixin],
-
-  props: switchProps,
-
-  computed: {
-    checked() {
-      return this.value === this.activeValue;
+import { VantComponent } from '../common/component';
+import { BLUE, GRAY_DARK } from '../common/color';
+VantComponent({
+  field: true,
+  classes: ['node-class'],
+  props: {
+    checked: {
+      type: null,
+      observer(value) {
+        const loadingColor = this.getLoadingColor(value);
+        this.setData({ value, loadingColor });
+      },
     },
-
-    style() {
-      return {
-        fontSize: addUnit(this.size),
-        backgroundColor: this.checked ? this.activeColor : this.inactiveColor,
-      };
+    loading: Boolean,
+    disabled: Boolean,
+    activeColor: String,
+    inactiveColor: String,
+    size: {
+      type: String,
+      value: '30px',
+    },
+    activeValue: {
+      type: null,
+      value: true,
+    },
+    inactiveValue: {
+      type: null,
+      value: false,
     },
   },
-
+  created() {
+    const { checked: value } = this.data;
+    const loadingColor = this.getLoadingColor(value);
+    this.setData({ value, loadingColor });
+  },
   methods: {
-    onClick(event) {
-      this.$emit('click', event);
-
-      if (!this.disabled && !this.loading) {
-        const newValue = this.checked ? this.inactiveValue : this.activeValue;
-        this.$emit('input', newValue);
-        this.$emit('change', newValue);
+    getLoadingColor(checked) {
+      const { activeColor, inactiveColor } = this.data;
+      return checked ? activeColor || BLUE : inactiveColor || GRAY_DARK;
+    },
+    onClick() {
+      const { activeValue, inactiveValue } = this.data;
+      if (!this.data.disabled && !this.data.loading) {
+        const checked = this.data.checked === activeValue;
+        const value = checked ? inactiveValue : activeValue;
+        this.$emit('input', value);
+        this.$emit('change', value);
       }
     },
-
-    genLoading() {
-      if (this.loading) {
-        const color = this.checked ? this.activeColor : this.inactiveColor;
-        return <Loading class={bem('loading')} color={color} />;
-      }
-    },
-  },
-
-  render() {
-    const { checked, loading, disabled } = this;
-
-    return (
-      <div
-        class={bem({
-          on: checked,
-          loading,
-          disabled,
-        })}
-        role="switch"
-        style={this.style}
-        aria-checked={String(checked)}
-        onClick={this.onClick}
-      >
-        <div class={bem('node')}>{this.genLoading()}</div>
-      </div>
-    );
   },
 });

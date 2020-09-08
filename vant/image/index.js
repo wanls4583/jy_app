@@ -1,180 +1,101 @@
-import { createNamespace, isDef, addUnit, inBrowser } from '../utils';
-import Icon from '../icon';
-
-const [createComponent, bem] = createNamespace('image');
-
-export default createComponent({
+import { addUnit, isDef } from '../common/utils';
+import { VantComponent } from '../common/component';
+import { button } from '../mixins/button';
+import { openType } from '../mixins/open-type';
+const FIT_MODE_MAP = {
+  none: 'center',
+  fill: 'scaleToFill',
+  cover: 'aspectFill',
+  contain: 'aspectFit',
+  widthFix: 'widthFix',
+  heightFix: 'heightFix',
+};
+VantComponent({
+  mixins: [button, openType],
+  classes: ['custom-class', 'loading-class', 'error-class', 'image-class'],
   props: {
-    src: String,
-    fit: String,
-    alt: String,
+    src: {
+      type: String,
+      observer() {
+        this.setData({
+          error: false,
+          loading: true,
+        });
+      },
+    },
     round: Boolean,
-    width: [Number, String],
-    height: [Number, String],
-    radius: [Number, String],
+    width: {
+      type: null,
+      observer: 'setStyle',
+    },
+    height: {
+      type: null,
+      observer: 'setStyle',
+    },
+    radius: null,
     lazyLoad: Boolean,
+    useErrorSlot: Boolean,
+    useLoadingSlot: Boolean,
+    showMenuByLongpress: Boolean,
+    fit: {
+      type: String,
+      value: 'fill',
+      observer: 'setMode',
+    },
     showError: {
       type: Boolean,
-      default: true,
+      value: true,
     },
     showLoading: {
       type: Boolean,
-      default: true,
-    },
-    errorIcon: {
-      type: String,
-      default: 'photo-fail',
-    },
-    loadingIcon: {
-      type: String,
-      default: 'photo',
+      value: true,
     },
   },
-
-  data() {
-    return {
-      loading: true,
-      error: false,
-    };
+  data: {
+    error: false,
+    loading: true,
+    viewStyle: '',
   },
-
-  watch: {
-    src() {
-      this.loading = true;
-      this.error = false;
-    },
+  mounted() {
+    this.setMode();
+    this.setStyle();
   },
-
-  computed: {
-    style() {
-      const style = {};
-
-      if (isDef(this.width)) {
-        style.width = addUnit(this.width);
-      }
-
-      if (isDef(this.height)) {
-        style.height = addUnit(this.height);
-      }
-
-      if (isDef(this.radius)) {
-        style.overflow = 'hidden';
-        style.borderRadius = addUnit(this.radius);
-      }
-
-      return style;
-    },
-  },
-
-  created() {
-    const { $Lazyload } = this;
-
-    if ($Lazyload && inBrowser) {
-      $Lazyload.$on('loaded', this.onLazyLoaded);
-      $Lazyload.$on('error', this.onLazyLoadError);
-    }
-  },
-
-  beforeDestroy() {
-    const { $Lazyload } = this;
-
-    if ($Lazyload) {
-      $Lazyload.$off('loaded', this.onLazyLoaded);
-      $Lazyload.$off('error', this.onLazyLoadError);
-    }
-  },
-
   methods: {
+    setMode() {
+      this.setData({
+        mode: FIT_MODE_MAP[this.data.fit],
+      });
+    },
+    setStyle() {
+      const { width, height, radius } = this.data;
+      let style = '';
+      if (isDef(width)) {
+        style += `width: ${addUnit(width)};`;
+      }
+      if (isDef(height)) {
+        style += `height: ${addUnit(height)};`;
+      }
+      if (isDef(radius)) {
+        style += 'overflow: hidden;';
+        style += `border-radius: ${addUnit(radius)};`;
+      }
+      this.setData({ viewStyle: style });
+    },
     onLoad(event) {
-      this.loading = false;
-      this.$emit('load', event);
+      this.setData({
+        loading: false,
+      });
+      this.$emit('load', event.detail);
     },
-
-    onLazyLoaded({ el }) {
-      if (el === this.$refs.image && this.loading) {
-        this.onLoad();
-      }
-    },
-
-    onLazyLoadError({ el }) {
-      if (el === this.$refs.image && !this.error) {
-        this.onError();
-      }
-    },
-
     onError(event) {
-      this.error = true;
-      this.loading = false;
-      this.$emit('error', event);
+      this.setData({
+        loading: false,
+        error: true,
+      });
+      this.$emit('error', event.detail);
     },
-
     onClick(event) {
-      this.$emit('click', event);
+      this.$emit('click', event.detail);
     },
-
-    genPlaceholder() {
-      if (this.loading && this.showLoading) {
-        return (
-          <div class={bem('loading')}>
-            {this.slots('loading') || (
-              <Icon name={this.loadingIcon} class={bem('loading-icon')} />
-            )}
-          </div>
-        );
-      }
-
-      if (this.error && this.showError) {
-        return (
-          <div class={bem('error')}>
-            {this.slots('error') || (
-              <Icon name={this.errorIcon} class={bem('error-icon')} />
-            )}
-          </div>
-        );
-      }
-    },
-
-    genImage() {
-      const imgData = {
-        class: bem('img'),
-        attrs: {
-          alt: this.alt,
-        },
-        style: {
-          objectFit: this.fit,
-        },
-      };
-
-      if (this.error) {
-        return;
-      }
-
-      if (this.lazyLoad) {
-        return <img ref="image" vLazy={this.src} {...imgData} />;
-      }
-
-      return (
-        <img
-          src={this.src}
-          onLoad={this.onLoad}
-          onError={this.onError}
-          {...imgData}
-        />
-      );
-    },
-  },
-
-  render() {
-    return (
-      <div
-        class={bem({ round: this.round })}
-        style={this.style}
-        onClick={this.onClick}
-      >
-        {this.genImage()}
-        {this.genPlaceholder()}
-        {this.slots()}
-      </div>
-    );
   },
 });

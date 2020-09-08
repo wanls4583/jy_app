@@ -1,34 +1,33 @@
-import { createNamespace } from '../utils';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('steps');
-
-export default createComponent({
-  mixins: [ParentMixin('vanSteps')],
-
+import { VantComponent } from '../common/component';
+import { GREEN, GRAY_DARK } from '../common/color';
+VantComponent({
+  classes: ['desc-class'],
   props: {
-    activeColor: String,
-    inactiveIcon: String,
-    inactiveColor: String,
-    active: {
-      type: [Number, String],
-      default: 0,
-    },
+    icon: String,
+    steps: Array,
+    active: Number,
     direction: {
       type: String,
-      default: 'horizontal',
+      value: 'horizontal',
+    },
+    activeColor: {
+      type: String,
+      value: GREEN,
+    },
+    inactiveColor: {
+      type: String,
+      value: GRAY_DARK,
     },
     activeIcon: {
       type: String,
-      default: 'checked',
+      value: 'checked',
     },
+    inactiveIcon: String,
   },
-
-  render() {
-    return (
-      <div class={bem([this.direction])}>
-        <div class={bem('items')}>{this.slots()}</div>
-      </div>
-    );
+  methods: {
+    onClick(event) {
+      const { index } = event.currentTarget.dataset;
+      this.$emit('click-step', index);
+    },
   },
 });

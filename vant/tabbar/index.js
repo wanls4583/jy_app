@@ -1,113 +1,61 @@
-import { createNamespace } from '../utils';
-import { BORDER_TOP_BOTTOM } from '../utils/constant';
-import { callInterceptor } from '../utils/interceptor';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('tabbar');
-
-export default createComponent({
-  mixins: [ParentMixin('vanTabbar')],
-
-  props: {
-    route: Boolean,
-    zIndex: [Number, String],
-    placeholder: Boolean,
-    activeColor: String,
-    beforeChange: Function,
-    inactiveColor: String,
-    value: {
-      type: [Number, String],
-      default: 0,
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    name: 'tabbar-item',
+    type: 'descendant',
+    current: 'tabbar',
+    linked(target) {
+      target.parent = this;
+      target.updateFromParent();
     },
-    border: {
-      type: Boolean,
-      default: true,
+    unlinked() {
+      this.updateChildren();
+    },
+  },
+  props: {
+    active: {
+      type: null,
+      observer: 'updateChildren',
+    },
+    activeColor: {
+      type: String,
+      observer: 'updateChildren',
+    },
+    inactiveColor: {
+      type: String,
+      observer: 'updateChildren',
     },
     fixed: {
       type: Boolean,
-      default: true,
+      value: true,
+    },
+    border: {
+      type: Boolean,
+      value: true,
+    },
+    zIndex: {
+      type: Number,
+      value: 1,
     },
     safeAreaInsetBottom: {
       type: Boolean,
-      default: null,
+      value: true,
     },
   },
-
-  data() {
-    return {
-      height: null,
-    };
-  },
-
-  computed: {
-    fit() {
-      if (this.safeAreaInsetBottom !== null) {
-        return this.safeAreaInsetBottom;
-      }
-      // enable safe-area-inset-bottom by default when fixed
-      return this.fixed;
-    },
-  },
-
-  watch: {
-    value: 'setActiveItem',
-    children: 'setActiveItem',
-  },
-
-  mounted() {
-    if (this.placeholder && this.fixed) {
-      this.height = this.$refs.tabbar.getBoundingClientRect().height;
-    }
-  },
-
   methods: {
-    setActiveItem() {
-      this.children.forEach((item, index) => {
-        item.active = (item.name || index) === this.value;
-      });
+    updateChildren() {
+      const { children } = this;
+      if (!Array.isArray(children) || !children.length) {
+        return Promise.resolve();
+      }
+      return Promise.all(children.map((child) => child.updateFromParent()));
     },
-
-    onChange(active) {
-      if (active !== this.value) {
-        callInterceptor({
-          interceptor: this.beforeChange,
-          args: [active],
-          done: () => {
-            this.$emit('input', active);
-            this.$emit('change', active);
-          },
-        });
+    onChange(child) {
+      const index = this.children.indexOf(child);
+      const active = child.data.name || index;
+      if (active !== this.data.active) {
+        this.$emit('change', active);
       }
     },
-
-    genTabbar() {
-      return (
-        <div
-          ref="tabbar"
-          style={{ zIndex: this.zIndex }}
-          class={[
-            { [BORDER_TOP_BOTTOM]: this.border },
-            bem({
-              unfit: !this.fit,
-              fixed: this.fixed,
-            }),
-          ]}
-        >
-          {this.slots()}
-        </div>
-      );
-    },
-  },
-
-  render() {
-    if (this.placeholder && this.fixed) {
-      return (
-        <div class={bem('placeholder')} style={{ height: `${this.height}px` }}>
-          {this.genTabbar()}
-        </div>
-      );
-    }
-
-    return this.genTabbar();
   },
 });

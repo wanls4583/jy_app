@@ -1,75 +1,72 @@
-import { createNamespace } from '../utils';
-import { CheckboxMixin } from '../mixins/checkbox';
-
-const [createComponent, bem] = createNamespace('checkbox');
-
-export default createComponent({
-  mixins: [
-    CheckboxMixin({
-      bem,
-      role: 'checkbox',
-      parent: 'vanCheckbox',
-    }),
-  ],
-
-  computed: {
-    checked: {
-      get() {
-        if (this.parent) {
-          return this.parent.value.indexOf(this.name) !== -1;
-        }
-        return this.value;
-      },
-
-      set(val) {
-        if (this.parent) {
-          this.setParentValue(val);
-        } else {
-          this.$emit('input', val);
-        }
-      },
+import { VantComponent } from '../common/component';
+function emit(target, value) {
+  target.$emit('input', value);
+  target.$emit('change', value);
+}
+VantComponent({
+  field: true,
+  relation: {
+    name: 'checkbox-group',
+    type: 'ancestor',
+    current: 'checkbox',
+  },
+  classes: ['icon-class', 'label-class'],
+  props: {
+    value: Boolean,
+    disabled: Boolean,
+    useIconSlot: Boolean,
+    checkedColor: String,
+    labelPosition: String,
+    labelDisabled: Boolean,
+    shape: {
+      type: String,
+      value: 'round',
+    },
+    iconSize: {
+      type: null,
+      value: 20,
     },
   },
-
-  watch: {
-    value(val) {
-      this.$emit('change', val);
-    },
+  data: {
+    parentDisabled: false,
   },
-
   methods: {
-    // @exposed-api
-    toggle(checked = !this.checked) {
-      // When toggle method is called multiple times at the same time,
-      // only the last call is valid.
-      // This is a hack for usage inside Cell.
-      clearTimeout(this.toggleTask);
-      this.toggleTask = setTimeout(() => {
-        this.checked = checked;
-      });
+    emitChange(value) {
+      if (this.parent) {
+        this.setParentValue(this.parent, value);
+      } else {
+        emit(this, value);
+      }
     },
-
-    setParentValue(val) {
-      const { parent } = this;
-      const value = parent.value.slice();
-
-      if (val) {
-        if (parent.max && value.length >= parent.max) {
+    toggle() {
+      const { parentDisabled, disabled, value } = this.data;
+      if (!disabled && !parentDisabled) {
+        this.emitChange(!value);
+      }
+    },
+    onClickLabel() {
+      const { labelDisabled, parentDisabled, disabled, value } = this.data;
+      if (!disabled && !labelDisabled && !parentDisabled) {
+        this.emitChange(!value);
+      }
+    },
+    setParentValue(parent, value) {
+      const parentValue = parent.data.value.slice();
+      const { name } = this.data;
+      const { max } = parent.data;
+      if (value) {
+        if (max && parentValue.length >= max) {
           return;
         }
-
-        /* istanbul ignore else */
-        if (value.indexOf(this.name) === -1) {
-          value.push(this.name);
-          parent.$emit('input', value);
+        if (parentValue.indexOf(name) === -1) {
+          parentValue.push(name);
+          emit(parent, parentValue);
         }
       } else {
-        const index = value.indexOf(this.name);
-
-        /* istanbul ignore else */
+        const index = parentValue.indexOf(name);
         if (index !== -1) {
-          value.splice(index, 1);
-          parent.$emit('input', value);
+          parentValue.splice(index, 1);
+          emit(parent, parentValue);
         }
       }
     },

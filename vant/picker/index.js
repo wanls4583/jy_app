@@ -1,353 +1,145 @@
-// Utils
-import { createNamespace } from '../utils';
-import { preventDefault } from '../utils/dom/event';
-import { BORDER_UNSET_TOP_BOTTOM } from '../utils/constant';
-import { pickerProps, DEFAULT_ITEM_HEIGHT } from './shared';
-import { unitToPx } from '../utils/format/unit';
-
-// Components
-import Loading from '../loading';
-import PickerColumn from './PickerColumn';
-
-const [createComponent, bem, t] = createNamespace('picker');
-
-export default createComponent({
-  props: {
-    ...pickerProps,
-    defaultIndex: {
-      type: [Number, String],
-      default: 0,
-    },
-    columns: {
-      type: Array,
-      default: () => [],
+import { VantComponent } from '../common/component';
+import { pickerProps } from './shared';
+VantComponent({
+  classes: ['active-class', 'toolbar-class', 'column-class'],
+  props: Object.assign(Object.assign({}, pickerProps), {
+    valueKey: {
+      type: String,
+      value: 'text',
     },
     toolbarPosition: {
       type: String,
-      default: 'top',
+      value: 'top',
     },
-    valueKey: {
-      type: String,
-      default: 'text',
+    defaultIndex: {
+      type: Number,
+      value: 0,
     },
-  },
-
-  data() {
-    return {
-      children: [],
-      formattedColumns: [],
-    };
-  },
-
-  computed: {
-    itemPxHeight() {
-      return this.itemHeight ? unitToPx(this.itemHeight) : DEFAULT_ITEM_HEIGHT;
-    },
-
-    dataType() {
-      const { columns } = this;
-      const firstColumn = columns[0] || {};
-
-      if (firstColumn.children) {
-        return 'cascade';
-      }
-
-      if (firstColumn.values) {
-        return 'object';
-      }
-
-      return 'text';
-    },
-  },
-
-  watch: {
     columns: {
-      handler: 'format',
-      immediate: true,
+      type: Array,
+      value: [],
+      observer(columns = []) {
+        this.simple = columns.length && !columns[0].values;
+        this.children = this.selectAllComponents('.van-picker__column');
+        if (Array.isArray(this.children) && this.children.length) {
+          this.setColumns().catch(() => {});
+        }
+      },
     },
+  }),
+  beforeCreate() {
+    this.children = [];
   },
-
   methods: {
-    format() {
-      const { columns, dataType } = this;
-
-      if (dataType === 'text') {
-        this.formattedColumns = [{ values: columns }];
-      } else if (dataType === 'cascade') {
-        this.formatCascade();
-      } else {
-        this.formattedColumns = columns;
-      }
+    noop() {},
+    setColumns() {
+      const { data } = this;
+      const columns = this.simple ? [{ values: data.columns }] : data.columns;
+      const stack = columns.map((column, index) =>
+        this.setColumnValues(index, column.values)
+      );
+      return Promise.all(stack);
     },
-
-    formatCascade() {
-      const formatted = [];
-
-      let cursor = { children: this.columns };
-
-      while (cursor && cursor.children) {
-        const defaultIndex = cursor.defaultIndex ?? +this.defaultIndex;
-
-        formatted.push({
-          values: cursor.children,
-          className: cursor.className,
-          defaultIndex,
-        });
-
-        cursor = cursor.children[defaultIndex];
-      }
-
-      this.formattedColumns = formatted;
-    },
-
     emit(event) {
-      if (this.dataType === 'text') {
-        this.$emit(event, this.getColumnValue(0), this.getColumnIndex(0));
+      const { type } = event.currentTarget.dataset;
+      if (this.simple) {
+        this.$emit(type, {
+          value: this.getColumnValue(0),
+          index: this.getColumnIndex(0),
+        });
       } else {
-        let values = this.getValues();
-
-        // compatible with old version of wrong parameters
-        // should be removed in next major version
-        // see: https://github.com/youzan/vant/issues/5905
-        if (this.dataType === 'cascade') {
-          values = values.map((item) => item[this.valueKey]);
-        }
-
-        this.$emit(event, values, this.getIndexes());
+        this.$emit(type, {
+          value: this.getValues(),
+          index: this.getIndexes(),
+        });
       }
     },
-
-    onCascadeChange(columnIndex) {
-      let cursor = { children: this.columns };
-      const indexes = this.getIndexes();
-
-      for (let i = 0; i <= columnIndex; i++) {
-        cursor = cursor.children[indexes[i]];
-      }
-
-      while (cursor && cursor.children) {
-        columnIndex++;
-        this.setColumnValues(columnIndex, cursor.children);
-        cursor = cursor.children[cursor.defaultIndex || 0];
-      }
-    },
-
-    onChange(columnIndex) {
-      if (this.dataType === 'cascade') {
-        this.onCascadeChange(columnIndex);
-      }
-
-      if (this.dataType === 'text') {
-        this.$emit(
-          'change',
-          this,
-          this.getColumnValue(0),
-          this.getColumnIndex(0)
-        );
+    onChange(event) {
+      if (this.simple) {
+        this.$emit('change', {
+          picker: this,
+          value: this.getColumnValue(0),
+          index: this.getColumnIndex(0),
+        });
       } else {
-        let values = this.getValues();
-
-        // compatible with old version of wrong parameters
-        // should be removed in next major version
-        // see: https://github.com/youzan/vant/issues/5905
-        if (this.dataType === 'cascade') {
-          values = values.map((item) => item[this.valueKey]);
-        }
-
-        this.$emit('change', this, values, columnIndex);
+        this.$emit('change', {
+          picker: this,
+          value: this.getValues(),
+          index: event.currentTarget.dataset.index,
+        });
       }
     },
-
     // get column instance by index
     getColumn(index) {
       return this.children[index];
     },
-
-    // @exposed-api
     // get column value by index
     getColumnValue(index) {
       const column = this.getColumn(index);
       return column && column.getValue();
     },
-
-    // @exposed-api
     // set column value by index
     setColumnValue(index, value) {
       const column = this.getColumn(index);
-
-      if (column) {
-        column.setValue(value);
-
-        if (this.dataType === 'cascade') {
-          this.onCascadeChange(index);
-        }
+      if (column == null) {
+        return Promise.reject(new Error('setColumnValue: 对应列不存在'));
       }
+      return column.setValue(value);
     },
-
-    // @exposed-api
     // get column option index by column index
     getColumnIndex(columnIndex) {
-      return (this.getColumn(columnIndex) || {}).currentIndex;
+      return (this.getColumn(columnIndex) || {}).data.currentIndex;
     },
-
-    // @exposed-api
     // set column option index by column index
     setColumnIndex(columnIndex, optionIndex) {
       const column = this.getColumn(columnIndex);
-
-      if (column) {
-        column.setIndex(optionIndex);
-
-        if (this.dataType === 'cascade') {
-          this.onCascadeChange(columnIndex);
-        }
+      if (column == null) {
+        return Promise.reject(new Error('setColumnIndex: 对应列不存在'));
       }
+      return column.setIndex(optionIndex);
     },
-
-    // @exposed-api
     // get options of column by index
     getColumnValues(index) {
-      return (this.children[index] || {}).options;
+      return (this.children[index] || {}).data.options;
     },
-
-    // @exposed-api
     // set options of column by index
-    setColumnValues(index, options) {
+    setColumnValues(index, options, needReset = true) {
       const column = this.children[index];
-
-      if (column) {
-        column.setOptions(options);
+      if (column == null) {
+        return Promise.reject(new Error('setColumnValues: 对应列不存在'));
       }
+      const isSame =
+        JSON.stringify(column.data.options) === JSON.stringify(options);
+      if (isSame) {
+        return Promise.resolve();
+      }
+      return column.set({ options }).then(() => {
+        if (needReset) {
+          column.setIndex(0);
+        }
+      });
     },
-
-    // @exposed-api
     // get values of all columns
     getValues() {
       return this.children.map((child) => child.getValue());
     },
-
-    // @exposed-api
     // set values of all columns
     setValues(values) {
-      values.forEach((value, index) => {
-        this.setColumnValue(index, value);
-      });
+      const stack = values.map((value, index) =>
+        this.setColumnValue(index, value)
+      );
+      return Promise.all(stack);
     },
-
-    // @exposed-api
     // get indexes of all columns
     getIndexes() {
-      return this.children.map((child) => child.currentIndex);
+      return this.children.map((child) => child.data.currentIndex);
     },
-
-    // @exposed-api
     // set indexes of all columns
     setIndexes(indexes) {
-      indexes.forEach((optionIndex, columnIndex) => {
-        this.setColumnIndex(columnIndex, optionIndex);
-      });
-    },
-
-    // @exposed-api
-    confirm() {
-      this.children.forEach((child) => child.stopMomentum());
-      this.emit('confirm');
-    },
-
-    cancel() {
-      this.emit('cancel');
-    },
-
-    genTitle() {
-      const titleSlot = this.slots('title');
-
-      if (titleSlot) {
-        return titleSlot;
-      }
-
-      if (this.title) {
-        return <div class={['van-ellipsis', bem('title')]}>{this.title}</div>;
-      }
-    },
-
-    genToolbar() {
-      if (this.showToolbar) {
-        return (
-          <div class={bem('toolbar')}>
-            {this.slots() || [
-              <button type="button" class={bem('cancel')} onClick={this.cancel}>
-                {this.cancelButtonText || t('cancel')}
-              </button>,
-              this.genTitle(),
-              <button
-                type="button"
-                class={bem('confirm')}
-                onClick={this.confirm}
-              >
-                {this.confirmButtonText || t('confirm')}
-              </button>,
-            ]}
-          </div>
-        );
-      }
-    },
-
-    genColumns() {
-      const { itemPxHeight } = this;
-      const wrapHeight = itemPxHeight * this.visibleItemCount;
-
-      const frameStyle = { height: `${itemPxHeight}px` };
-      const columnsStyle = { height: `${wrapHeight}px` };
-      const maskStyle = {
-        backgroundSize: `100% ${(wrapHeight - itemPxHeight) / 2}px`,
-      };
-
-      return (
-        <div
-          class={bem('columns')}
-          style={columnsStyle}
-          onTouchmove={preventDefault}
-        >
-          {this.genColumnItems()}
-          <div class={bem('mask')} style={maskStyle} />
-          <div
-            class={[BORDER_UNSET_TOP_BOTTOM, bem('frame')]}
-            style={frameStyle}
-          />
-        </div>
+      const stack = indexes.map((optionIndex, columnIndex) =>
+        this.setColumnIndex(columnIndex, optionIndex)
       );
+      return Promise.all(stack);
     },
-
-    genColumnItems() {
-      return this.formattedColumns.map((item, columnIndex) => (
-        <PickerColumn
-          readonly={this.readonly}
-          valueKey={this.valueKey}
-          allowHtml={this.allowHtml}
-          className={item.className}
-          itemHeight={this.itemPxHeight}
-          defaultIndex={item.defaultIndex ?? +this.defaultIndex}
-          swipeDuration={this.swipeDuration}
-          visibleItemCount={this.visibleItemCount}
-          initialOptions={item.values}
-          onChange={() => {
-            this.onChange(columnIndex);
-          }}
-        />
-      ));
-    },
-  },
-
-  render(h) {
-    return (
-      <div class={bem()}>
-        {this.toolbarPosition === 'top' ? this.genToolbar() : h()}
-        {this.loading ? <Loading class={bem('loading')} /> : h()}
-        {this.slots('columns-top')}
-        {this.genColumns()}
-        {this.slots('columns-bottom')}
-        {this.toolbarPosition === 'bottom' ? this.genToolbar() : h()}
-      </div>
-    );
   },
 });

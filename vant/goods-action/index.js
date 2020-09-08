@@ -1,23 +1,32 @@
-import { createNamespace } from '../utils';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('goods-action');
-
-export default createComponent({
-  mixins: [ParentMixin('vanGoodsAction')],
-
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    type: 'descendant',
+    name: 'goods-action-button',
+    current: 'goods-action',
+    linked() {
+      this.updateStyle();
+    },
+    unlinked() {
+      this.updateStyle();
+    },
+    linkChanged() {
+      this.updateStyle();
+    },
+  },
   props: {
     safeAreaInsetBottom: {
       type: Boolean,
-      default: true,
+      value: true,
     },
   },
-
-  render() {
-    return (
-      <div class={bem({ unfit: !this.safeAreaInsetBottom })}>
-        {this.slots()}
-      </div>
-    );
+  methods: {
+    updateStyle() {
+      wx.nextTick(() => {
+        this.children.forEach((child) => {
+          child.updateStyle();
+        });
+      });
+    },
   },
 });

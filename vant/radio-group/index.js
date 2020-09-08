@@ -1,31 +1,34 @@
-import { createNamespace } from '../utils';
-import { FieldMixin } from '../mixins/field';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('radio-group');
-
-export default createComponent({
-  mixins: [ParentMixin('vanRadio'), FieldMixin],
-
-  props: {
-    value: null,
-    disabled: Boolean,
-    direction: String,
-    checkedColor: String,
-    iconSize: [Number, String],
-  },
-
-  watch: {
-    value(value) {
-      this.$emit('change', value);
+import { VantComponent } from '../common/component';
+VantComponent({
+  field: true,
+  relation: {
+    name: 'radio',
+    type: 'descendant',
+    current: 'radio-group',
+    linked(target) {
+      this.updateChild(target);
     },
   },
-
-  render() {
-    return (
-      <div class={bem([this.direction])} role="radiogroup">
-        {this.slots()}
-      </div>
-    );
+  props: {
+    value: {
+      type: null,
+      observer: 'updateChildren',
+    },
+    disabled: {
+      type: Boolean,
+      observer: 'updateChildren',
+    },
+  },
+  methods: {
+    updateChildren() {
+      (this.children || []).forEach((child) => this.updateChild(child));
+    },
+    updateChild(child) {
+      const { value, disabled } = this.data;
+      child.setData({
+        value,
+        disabled: disabled || child.data.disabled,
+      });
+    },
   },
 });

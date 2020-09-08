@@ -1,252 +1,250 @@
-// Utils
-import { createNamespace, isDef } from '../utils';
-import { isHidden } from '../utils/dom/style';
-import { preventDefault } from '../utils/dom/event';
-import {
-  getScroller,
-  getScrollTop,
-  getElementTop,
-  getRootScrollTop,
-  setRootScrollTop,
-} from '../utils/dom/scroll';
-
-// Mixins
-import { TouchMixin } from '../mixins/touch';
-import { ParentMixin } from '../mixins/relation';
-import { BindEventMixin } from '../mixins/bind-event';
-
-function genAlphabet() {
+import { VantComponent } from '../common/component';
+import { GREEN } from '../common/color';
+import { pageScrollMixin } from '../mixins/page-scroll';
+const indexList = () => {
   const indexList = [];
   const charCodeOfA = 'A'.charCodeAt(0);
-
   for (let i = 0; i < 26; i++) {
     indexList.push(String.fromCharCode(charCodeOfA + i));
   }
-
   return indexList;
-}
-
-const [createComponent, bem] = createNamespace('index-bar');
-
-export default createComponent({
-  mixins: [
-    TouchMixin,
-    ParentMixin('vanIndexBar'),
-    BindEventMixin(function (bind) {
-      if (!this.scroller) {
-        this.scroller = getScroller(this.$el);
-      }
-
-      bind(this.scroller, 'scroll', this.onScroll);
-    }),
-  ],
-
+};
+VantComponent({
+  relation: {
+    name: 'index-anchor',
+    type: 'descendant',
+    current: 'index-bar',
+    linked() {
+      this.updateData();
+    },
+    unlinked() {
+      this.updateData();
+    },
+  },
   props: {
-    zIndex: [Number, String],
-    highlightColor: String,
     sticky: {
       type: Boolean,
-      default: true,
+      value: true,
+    },
+    zIndex: {
+      type: Number,
+      value: 1,
+    },
+    highlightColor: {
+      type: String,
+      value: GREEN,
     },
     stickyOffsetTop: {
       type: Number,
-      default: 0,
+      value: 0,
     },
     indexList: {
       type: Array,
-      default: genAlphabet,
+      value: indexList(),
     },
   },
-
-  data() {
-    return {
-      activeAnchorIndex: null,
-    };
+  mixins: [
+    pageScrollMixin(function (event) {
+      this.scrollTop = event.scrollTop || 0;
+      this.onScroll();
+    }),
+  ],
+  data: {
+    activeAnchorIndex: null,
+    showSidebar: false,
   },
-
-  computed: {
-    sidebarStyle() {
-      if (isDef(this.zIndex)) {
-        return {
-          zIndex: this.zIndex + 1,
-        };
-      }
-    },
-
-    highlightStyle() {
-      const { highlightColor } = this;
-      if (highlightColor) {
-        return {
-          color: highlightColor,
-        };
-      }
-    },
+  created() {
+    this.scrollTop = 0;
   },
-
-  watch: {
-    indexList() {
-      this.$nextTick(this.onScroll);
-    },
-  },
-
   methods: {
-    onScroll() {
-      if (isHidden(this.$el)) {
-        return;
-      }
-
-      const scrollTop = getScrollTop(this.scroller);
-      const scrollerRect = this.getScrollerRect();
-      const rects = this.children.map((item) => ({
-        height: item.height,
-        top: this.getElementTop(item.$el, scrollerRect),
-      }));
-
-      const active = this.getActiveAnchorIndex(scrollTop, rects);
-
-      this.activeAnchorIndex = this.indexList[active];
-
-      if (this.sticky) {
-        this.children.forEach((item, index) => {
-          if (index === active || index === active - 1) {
-            const rect = item.$el.getBoundingClientRect();
-            item.left = rect.left;
-            item.width = rect.width;
-          } else {
-            item.left = null;
-            item.width = null;
-          }
-
-          if (index === active) {
-            item.active = true;
-            item.top =
-              Math.max(this.stickyOffsetTop, rects[index].top - scrollTop) +
-              scrollerRect.top;
-          } else if (index === active - 1) {
-            const activeItemTop = rects[active].top - scrollTop;
-            item.active = activeItemTop > 0;
-            item.top = activeItemTop + scrollerRect.top - item.height;
-          } else {
-            item.active = false;
-          }
+    updateData() {
+      wx.nextTick(() => {
+        if (this.timer != null) {
+          clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+          this.setData({
+            showSidebar: !!this.children.length,
+          });
+          this.setRect().then(() => {
+            this.onScroll();
+          });
+        }, 0);
+      });
+    },
+    setRect() {
+      return Promise.all([
+        this.setAnchorsRect(),
+        this.setListRect(),
+        this.setSiderbarRect(),
+      ]);
+    },
+    setAnchorsRect() {
+      return Promise.all(
+        this.children.map((anchor) =>
+          anchor.getRect('.van-index-anchor-wrapper').then((rect) => {
+            Object.assign(anchor, {
+              height: rect.height,
+              top: rect.top + this.scrollTop,
+            });
+          })
+        )
+      );
+    },
+    setListRect() {
+      return this.getRect('.van-index-bar').then((rect) => {
+        Object.assign(this, {
+          height: rect.height,
+          top: rect.top + this.scrollTop,
         });
+      });
+    },
+    setSiderbarRect() {
+      return this.getRect('.van-index-bar__sidebar').then((res) => {
+        this.sidebar = {
+          height: res.height,
+          top: res.top,
+        };
+      });
+    },
+    setDiffData({ target, data }) {
+      const diffData = {};
+      Object.keys(data).forEach((key) => {
+        if (target.data[key] !== data[key]) {
+          diffData[key] = data[key];
+        }
+      });
+      if (Object.keys(diffData).length) {
+        target.setData(diffData);
       }
     },
-
-    getScrollerRect() {
-      if (this.scroller.getBoundingClientRect) {
-        return this.scroller.getBoundingClientRect();
-      }
-
-      return {
-        top: 0,
-        left: 0,
-      };
+    getAnchorRect(anchor) {
+      return anchor.getRect('.van-index-anchor-wrapper').then((rect) => ({
+        height: rect.height,
+        top: rect.top,
+      }));
     },
-
-    getElementTop(ele, scrollerRect) {
-      const { scroller } = this;
-
-      if (scroller === window || scroller === document.body) {
-        return getElementTop(ele);
-      }
-
-      const eleRect = ele.getBoundingClientRect();
-
-      return eleRect.top - scrollerRect.top + getScrollTop(scroller);
-    },
-
-    getActiveAnchorIndex(scrollTop, rects) {
+    getActiveAnchorIndex() {
+      const { children, scrollTop } = this;
+      const { sticky, stickyOffsetTop } = this.data;
       for (let i = this.children.length - 1; i >= 0; i--) {
-        const prevHeight = i > 0 ? rects[i - 1].height : 0;
-        const reachTop = this.sticky ? prevHeight + this.stickyOffsetTop : 0;
-
-        if (scrollTop + reachTop >= rects[i].top) {
+        const preAnchorHeight = i > 0 ? children[i - 1].height : 0;
+        const reachTop = sticky ? preAnchorHeight + stickyOffsetTop : 0;
+        if (reachTop + scrollTop >= children[i].top) {
           return i;
         }
       }
       return -1;
     },
-
-    onClick(event) {
-      this.scrollToElement(event.target);
-    },
-
-    onTouchMove(event) {
-      this.touchMove(event);
-
-      if (this.direction === 'vertical') {
-        preventDefault(event);
-
-        const { clientX, clientY } = event.touches[0];
-        const target = document.elementFromPoint(clientX, clientY);
-        if (target) {
-          const { index } = target.dataset;
-
-          /* istanbul ignore else */
-          if (this.touchActiveIndex !== index) {
-            this.touchActiveIndex = index;
-            this.scrollToElement(target);
-          }
-        }
-      }
-    },
-
-    scrollToElement(element) {
-      const { index } = element.dataset;
-      if (!index) {
+    onScroll() {
+      const { children = [], scrollTop } = this;
+      if (!children.length) {
         return;
       }
-
-      const match = this.children.filter(
-        (item) => String(item.index) === index
-      );
-      if (match[0]) {
-        match[0].scrollIntoView();
-
-        if (this.sticky && this.stickyOffsetTop) {
-          setRootScrollTop(getRootScrollTop() - this.stickyOffsetTop);
+      const { sticky, stickyOffsetTop, zIndex, highlightColor } = this.data;
+      const active = this.getActiveAnchorIndex();
+      this.setDiffData({
+        target: this,
+        data: {
+          activeAnchorIndex: active,
+        },
+      });
+      if (sticky) {
+        let isActiveAnchorSticky = false;
+        if (active !== -1) {
+          isActiveAnchorSticky =
+            children[active].top <= stickyOffsetTop + scrollTop;
         }
-
-        this.$emit('select', match[0].index);
+        children.forEach((item, index) => {
+          if (index === active) {
+            let wrapperStyle = '';
+            let anchorStyle = `
+              color: ${highlightColor};
+            `;
+            if (isActiveAnchorSticky) {
+              wrapperStyle = `
+                height: ${children[index].height}px;
+              `;
+              anchorStyle = `
+                position: fixed;
+                top: ${stickyOffsetTop}px;
+                z-index: ${zIndex};
+                color: ${highlightColor};
+              `;
+            }
+            this.setDiffData({
+              target: item,
+              data: {
+                active: true,
+                anchorStyle,
+                wrapperStyle,
+              },
+            });
+          } else if (index === active - 1) {
+            const currentAnchor = children[index];
+            const currentOffsetTop = currentAnchor.top;
+            const targetOffsetTop =
+              index === children.length - 1
+                ? this.top
+                : children[index + 1].top;
+            const parentOffsetHeight = targetOffsetTop - currentOffsetTop;
+            const translateY = parentOffsetHeight - currentAnchor.height;
+            const anchorStyle = `
+              position: relative;
+              transform: translate3d(0, ${translateY}px, 0);
+              z-index: ${zIndex};
+              color: ${highlightColor};
+            `;
+            this.setDiffData({
+              target: item,
+              data: {
+                active: true,
+                anchorStyle,
+              },
+            });
+          } else {
+            this.setDiffData({
+              target: item,
+              data: {
+                active: false,
+                anchorStyle: '',
+                wrapperStyle: '',
+              },
+            });
+          }
+        });
       }
     },
-
-    onTouchEnd() {
-      this.active = null;
+    onClick(event) {
+      this.scrollToAnchor(event.target.dataset.index);
     },
-  },
-
-  render() {
-    const Indexes = this.indexList.map((index) => {
-      const active = index === this.activeAnchorIndex;
-
-      return (
-        <span
-          class={bem('index', { active })}
-          style={active ? this.highlightStyle : null}
-          data-index={index}
-        >
-          {index}
-        </span>
+    onTouchMove(event) {
+      const sidebarLength = this.children.length;
+      const touch = event.touches[0];
+      const itemHeight = this.sidebar.height / sidebarLength;
+      let index = Math.floor((touch.clientY - this.sidebar.top) / itemHeight);
+      if (index < 0) {
+        index = 0;
+      } else if (index > sidebarLength - 1) {
+        index = sidebarLength - 1;
+      }
+      this.scrollToAnchor(index);
+    },
+    onTouchStop() {
+      this.scrollToAnchorIndex = null;
+    },
+    scrollToAnchor(index) {
+      if (typeof index !== 'number' || this.scrollToAnchorIndex === index) {
+        return;
+      }
+      this.scrollToAnchorIndex = index;
+      const anchor = this.children.find(
+        (item) => item.data.index === this.data.indexList[index]
       );
-    });
-
-    return (
-      <div class={bem()}>
-        <div
-          class={bem('sidebar')}
-          style={this.sidebarStyle}
-          onClick={this.onClick}
-          onTouchstart={this.touchStart}
-          onTouchmove={this.onTouchMove}
-          onTouchend={this.onTouchEnd}
-          onTouchcancel={this.onTouchEnd}
-        >
-          {Indexes}
-        </div>
-        {this.slots('default')}
-      </div>
-    );
+      if (anchor) {
+        anchor.scrollIntoView(this.scrollTop);
+        this.$emit('select', anchor.data.index);
+      }
+    },
   },
 });

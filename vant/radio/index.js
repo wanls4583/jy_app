@@ -1,36 +1,48 @@
-import { createNamespace } from '../utils';
-import { CheckboxMixin } from '../mixins/checkbox';
-
-const [createComponent, bem] = createNamespace('radio');
-
-export default createComponent({
-  mixins: [
-    CheckboxMixin({
-      bem,
-      role: 'radio',
-      parent: 'vanRadio',
-    }),
-  ],
-
-  computed: {
-    currentValue: {
-      get() {
-        return this.parent ? this.parent.value : this.value;
-      },
-
-      set(val) {
-        (this.parent || this).$emit('input', val);
-      },
+import { VantComponent } from '../common/component';
+VantComponent({
+  field: true,
+  relation: {
+    name: 'radio-group',
+    type: 'ancestor',
+    current: 'radio',
+  },
+  classes: ['icon-class', 'label-class'],
+  props: {
+    name: null,
+    value: null,
+    disabled: Boolean,
+    useIconSlot: Boolean,
+    checkedColor: String,
+    labelPosition: {
+      type: String,
+      value: 'right',
     },
-
-    checked() {
-      return this.currentValue === this.name;
+    labelDisabled: Boolean,
+    shape: {
+      type: String,
+      value: 'round',
+    },
+    iconSize: {
+      type: null,
+      value: 20,
     },
   },
-
   methods: {
-    toggle() {
-      this.currentValue = this.name;
+    emitChange(value) {
+      const instance = this.parent || this;
+      instance.$emit('input', value);
+      instance.$emit('change', value);
+    },
+    onChange() {
+      if (!this.data.disabled) {
+        this.emitChange(this.data.name);
+      }
+    },
+    onClickLabel() {
+      const { disabled, labelDisabled, name } = this.data;
+      if (!disabled && !labelDisabled) {
+        this.emitChange(name);
+      }
     },
   },
 });

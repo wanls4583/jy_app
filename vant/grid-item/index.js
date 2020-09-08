@@ -1,157 +1,83 @@
-// Utils
-import { createNamespace, addUnit } from '../utils';
-import { BORDER } from '../utils/constant';
-import { route, routeProps } from '../utils/router';
-
-// Mixins
-import { ChildrenMixin } from '../mixins/relation';
-
-// Components
-import Info from '../info';
-import Icon from '../icon';
-
-const [createComponent, bem] = createNamespace('grid-item');
-
-export default createComponent({
-  mixins: [ChildrenMixin('vanGrid')],
-
-  props: {
-    ...routeProps,
-    dot: Boolean,
-    text: String,
-    icon: String,
-    iconPrefix: String,
-    info: [Number, String],
-    badge: [Number, String],
+import { link } from '../mixins/link';
+import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
+VantComponent({
+  relation: {
+    name: 'grid',
+    type: 'ancestor',
+    current: 'grid-item',
   },
-
-  computed: {
-    style() {
-      const { square, gutter, columnNum } = this.parent;
-      const percent = `${100 / columnNum}%`;
-
-      const style = {
-        flexBasis: percent,
-      };
-
+  classes: ['content-class', 'icon-class', 'text-class'],
+  mixins: [link],
+  props: {
+    icon: String,
+    iconColor: String,
+    dot: Boolean,
+    info: null,
+    badge: null,
+    text: String,
+    useSlot: Boolean,
+  },
+  data: {
+    viewStyle: '',
+  },
+  mounted() {
+    this.updateStyle();
+  },
+  methods: {
+    updateStyle() {
+      if (!this.parent) {
+        return;
+      }
+      const { data, children } = this.parent;
+      const {
+        columnNum,
+        border,
+        square,
+        gutter,
+        clickable,
+        center,
+        direction,
+        iconSize,
+      } = data;
+      const width = `${100 / columnNum}%`;
+      const styleWrapper = [];
+      styleWrapper.push(`width: ${width}`);
       if (square) {
-        style.paddingTop = percent;
-      } else if (gutter) {
+        styleWrapper.push(`padding-top: ${width}`);
+      }
+      if (gutter) {
         const gutterValue = addUnit(gutter);
-        style.paddingRight = gutterValue;
-
-        if (this.index >= columnNum) {
-          style.marginTop = gutterValue;
+        styleWrapper.push(`padding-right: ${gutterValue}`);
+        const index = children.indexOf(this);
+        if (index >= columnNum && !square) {
+          styleWrapper.push(`margin-top: ${gutterValue}`);
         }
       }
-
-      return style;
-    },
-
-    contentStyle() {
-      const { square, gutter } = this.parent;
-
+      let contentStyle = '';
       if (square && gutter) {
         const gutterValue = addUnit(gutter);
-
-        return {
-          right: gutterValue,
-          bottom: gutterValue,
-          height: 'auto',
-        };
+        contentStyle = `
+          right: ${gutterValue};
+          bottom: ${gutterValue};
+          height: auto;
+        `;
       }
+      this.setData({
+        viewStyle: styleWrapper.join('; '),
+        contentStyle,
+        center,
+        border,
+        square,
+        gutter,
+        clickable,
+        direction,
+        iconSize,
+      });
     },
-  },
-
-  methods: {
-    onClick(event) {
-      this.$emit('click', event);
-      route(this.$router, this);
+    onClick() {
+      this.$emit('click');
+      this.jumpLink();
     },
-
-    genIcon() {
-      const iconSlot = this.slots('icon');
-      const info = this.badge ?? this.info;
-
-      if (iconSlot) {
-        return (
-          <div class={bem('icon-wrapper')}>
-            {iconSlot}
-            <Info dot={this.dot} info={info} />
-          </div>
-        );
-      }
-
-      if (this.icon) {
-        return (
-          <Icon
-            name={this.icon}
-            dot={this.dot}
-            info={info}
-            size={this.parent.iconSize}
-            class={bem('icon')}
-            classPrefix={this.iconPrefix}
-          />
-        );
-      }
-    },
-
-    getText() {
-      const textSlot = this.slots('text');
-
-      if (textSlot) {
-        return textSlot;
-      }
-
-      if (this.text) {
-        return <span class={bem('text')}>{this.text}</span>;
-      }
-    },
-
-    genContent() {
-      const slot = this.slots();
-
-      if (slot) {
-        return slot;
-      }
-
-      return [this.genIcon(), this.getText()];
-    },
-  },
-
-  render() {
-    const {
-      center,
-      border,
-      square,
-      gutter,
-      direction,
-      clickable,
-    } = this.parent;
-
-    return (
-      <div class={[bem({ square })]} style={this.style}>
-        <div
-          style={this.contentStyle}
-          role={clickable ? 'button' : null}
-          tabindex={clickable ? 0 : null}
-          class={[
-            bem('content', [
-              direction,
-              {
-                center,
-                square,
-                clickable,
-                surround: border && gutter,
-              },
-            ]),
-            { [BORDER]: border },
-          ]}
-          onClick={this.onClick}
-        >
-          {this.genContent()}
-        </div>
-      </div>
-    );
   },
 });

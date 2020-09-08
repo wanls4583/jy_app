@@ -1,52 +1,65 @@
-import { createNamespace, addUnit } from '../utils';
-import { BORDER_TOP } from '../utils/constant';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('grid');
-
-export default createComponent({
-  mixins: [ParentMixin('vanGrid')],
-
+import { VantComponent } from '../common/component';
+import { addUnit } from '../common/utils';
+VantComponent({
+  relation: {
+    name: 'grid-item',
+    type: 'descendant',
+    current: 'grid',
+  },
   props: {
-    square: Boolean,
-    gutter: [Number, String],
-    iconSize: [Number, String],
-    direction: String,
-    clickable: Boolean,
-    columnNum: {
+    square: {
+      type: Boolean,
+      observer: 'updateChildren',
+    },
+    gutter: {
       type: [Number, String],
-      default: 4,
+      value: 0,
+      observer: 'updateChildren',
+    },
+    clickable: {
+      type: Boolean,
+      observer: 'updateChildren',
+    },
+    columnNum: {
+      type: Number,
+      value: 4,
+      observer: 'updateChildren',
     },
     center: {
       type: Boolean,
-      default: true,
+      value: true,
+      observer: 'updateChildren',
     },
     border: {
       type: Boolean,
-      default: true,
+      value: true,
+      observer: 'updateChildren',
+    },
+    direction: {
+      type: String,
+      observer: 'updateChildren',
+    },
+    iconSize: {
+      type: String,
+      observer: 'updateChildren',
     },
   },
-
-  computed: {
-    style() {
-      const { gutter } = this;
-
-      if (gutter) {
-        return {
-          paddingLeft: addUnit(gutter),
-        };
-      }
-    },
+  data: {
+    viewStyle: '',
   },
-
-  render() {
-    return (
-      <div
-        style={this.style}
-        class={[bem(), { [BORDER_TOP]: this.border && !this.gutter }]}
-      >
-        {this.slots()}
-      </div>
-    );
+  created() {
+    const { gutter } = this.data;
+    if (gutter) {
+      this.setData({
+        viewStyle: `padding-left: ${addUnit(gutter)}`,
+      });
+    }
+  },
+  methods: {
+    updateChildren() {
+      this.children.forEach((child) => {
+        child.updateStyle();
+      });
+    },
   },
 });

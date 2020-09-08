@@ -1,65 +1,30 @@
-import { createNamespace } from '../utils';
-import { ChildrenMixin } from '../mixins/relation';
-import { BORDER_BOTTOM } from '../utils/constant';
-
-const [createComponent, bem] = createNamespace('index-anchor');
-
-export default createComponent({
-  mixins: [ChildrenMixin('vanIndexBar', { indexKey: 'childrenIndex' })],
-
+import { VantComponent } from '../common/component';
+VantComponent({
+  relation: {
+    name: 'index-bar',
+    type: 'ancestor',
+    current: 'index-anchor',
+  },
   props: {
-    index: [Number, String],
+    useSlot: Boolean,
+    index: null,
   },
-
-  data() {
-    return {
-      top: 0,
-      left: null,
-      width: null,
-      active: false,
-    };
+  data: {
+    active: false,
+    wrapperStyle: '',
+    anchorStyle: '',
   },
-
-  computed: {
-    sticky() {
-      return this.active && this.parent.sticky;
-    },
-
-    anchorStyle() {
-      if (this.sticky) {
-        return {
-          zIndex: `${this.parent.zIndex}`,
-          left: this.left ? `${this.left}px` : null,
-          width: this.width ? `${this.width}px` : null,
-          transform: `translate3d(0, ${this.top}px, 0)`,
-          color: this.parent.highlightColor,
-        };
-      }
-    },
-  },
-
-  mounted() {
-    this.height = this.$el.offsetHeight;
-  },
-
   methods: {
-    scrollIntoView() {
-      this.$el.scrollIntoView();
+    scrollIntoView(scrollTop) {
+      this.getBoundingClientRect().then((rect) => {
+        wx.pageScrollTo({
+          duration: 0,
+          scrollTop: scrollTop + rect.top - this.parent.data.stickyOffsetTop,
+        });
+      });
     },
-  },
-
-  render() {
-    const { sticky } = this;
-
-    return (
-      <div style={{ height: sticky ? `${this.height}px` : null }}>
-        <div
-          style={this.anchorStyle}
-          class={[bem({ sticky }), { [BORDER_BOTTOM]: sticky }]}
-        >
-          {this.slots('default') || this.index}
-        </div>
-      </div>
-    );
+    getBoundingClientRect() {
+      return this.getRect('.van-index-anchor-wrapper');
+    },
   },
 });

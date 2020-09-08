@@ -1,149 +1,109 @@
-import { isHidden } from '../utils/dom/style';
-import { unitToPx } from '../utils/format/unit';
-import { createNamespace, isDef, isServer } from '../utils';
-import { getScrollTop, getElementTop, getScroller } from '../utils/dom/scroll';
-import { BindEventMixin } from '../mixins/bind-event';
-
-const [createComponent, bem] = createNamespace('sticky');
-
-export default createComponent({
+import { VantComponent } from '../common/component';
+import { pageScrollMixin } from '../mixins/page-scroll';
+const ROOT_ELEMENT = '.van-sticky';
+VantComponent({
+  props: {
+    zIndex: {
+      type: Number,
+      value: 99,
+    },
+    offsetTop: {
+      type: Number,
+      value: 0,
+      observer: 'onScroll',
+    },
+    disabled: {
+      type: Boolean,
+      observer: 'onScroll',
+    },
+    container: {
+      type: null,
+      observer: 'onScroll',
+    },
+    scrollTop: {
+      type: null,
+      observer(val) {
+        this.onScroll({ scrollTop: val });
+      },
+    },
+  },
   mixins: [
-    BindEventMixin(function (bind, isBind) {
-      if (!this.scroller) {
-        this.scroller = getScroller(this.$el);
+    pageScrollMixin(function (event) {
+      if (this.data.scrollTop != null) {
+        return;
       }
-
-      if (this.observer) {
-        const method = isBind ? 'observe' : 'unobserve';
-        this.observer[method](this.$el);
-      }
-
-      bind(this.scroller, 'scroll', this.onScroll, true);
-      this.onScroll();
+      this.onScroll(event);
     }),
   ],
-
-  props: {
-    zIndex: [Number, String],
-    container: null,
-    offsetTop: {
-      type: [Number, String],
-      default: 0,
-    },
+  data: {
+    height: 0,
+    fixed: false,
+    transform: 0,
   },
-
-  data() {
-    return {
-      fixed: false,
-      height: 0,
-      transform: 0,
-    };
+  mounted() {
+    this.onScroll();
   },
-
-  computed: {
-    offsetTopPx() {
-      return unitToPx(this.offsetTop);
-    },
-
-    style() {
-      if (!this.fixed) {
-        return;
-      }
-
-      const style = {};
-
-      if (isDef(this.zIndex)) {
-        style.zIndex = this.zIndex;
-      }
-
-      if (this.offsetTopPx && this.fixed) {
-        style.top = `${this.offsetTopPx}px`;
-      }
-
-      if (this.transform) {
-        style.transform = `translate3d(0, ${this.transform}px, 0)`;
-      }
-
-      return style;
-    },
-  },
-
-  created() {
-    // compatibility: https://caniuse.com/#feat=intersectionobserver
-    if (!isServer && window.IntersectionObserver) {
-      this.observer = new IntersectionObserver(
-        (entries) => {
-          // trigger scroll when visibility changed
-          if (entries[0].intersectionRatio > 0) {
-            this.onScroll();
-          }
-        },
-        { root: document.body }
-      );
-    }
-  },
-
   methods: {
-    onScroll() {
-      if (isHidden(this.$el)) {
+    onScroll({ scrollTop } = {}) {
+      const { container, offsetTop, disabled } = this.data;
+      if (disabled) {
+        this.setDataAfterDiff({
+          fixed: false,
+          transform: 0,
+        });
         return;
       }
-
-      this.height = this.$el.offsetHeight;
-
-      const { container, offsetTopPx } = this;
-      const scrollTop = getScrollTop(window);
-      const topToPageTop = getElementTop(this.$el);
-
-      const emitScrollEvent = () => {
-        this.$emit('scroll', {
-          scrollTop,
-          isFixed: this.fixed,
-        });
-      };
-
-      // The sticky component should be kept inside the container element
-      if (container) {
-        const bottomToPageTop = topToPageTop + container.offsetHeight;
-
-        if (scrollTop + offsetTopPx + this.height > bottomToPageTop) {
-          const distanceToBottom = this.height + scrollTop - bottomToPageTop;
-
-          if (distanceToBottom < this.height) {
-            this.fixed = true;
-            this.transform = -(distanceToBottom + offsetTopPx);
-          } else {
-            this.fixed = false;
+      this.scrollTop = scrollTop || this.scrollTop;
+      if (typeof container === 'function') {
+        Promise.all([this.getRect(ROOT_ELEMENT), this.getContainerRect()]).then(
+          ([root, container]) => {
+            if (offsetTop + root.height > container.height + container.top) {
+              this.setDataAfterDiff({
+                fixed: false,
+                transform: container.height - root.height,
+              });
+            } else if (offsetTop >= root.top) {
+              this.setDataAfterDiff({
+                fixed: true,
+                height: root.height,
+                transform: 0,
+              });
+            } else {
+              this.setDataAfterDiff({ fixed: false, transform: 0 });
+            }
           }
-
-          emitScrollEvent();
-          return;
+        );
+        return;
+      }
+      this.getRect(ROOT_ELEMENT).then((root) => {
+        if (offsetTop >= root.top) {
+          this.setDataAfterDiff({ fixed: true, height: root.height });
+          this.transform = 0;
+        } else {
+          this.setDataAfterDiff({ fixed: false });
         }
-      }
-
-      if (scrollTop + offsetTopPx > topToPageTop) {
-        this.fixed = true;
-        this.transform = 0;
-      } else {
-        this.fixed = false;
-      }
-
-      emitScrollEvent();
+      });
     },
-  },
-
-  render() {
-    const { fixed } = this;
-    const style = {
-      height: fixed ? `${this.height}px` : null,
-    };
-
-    return (
-      <div style={style}>
-        <div class={bem({ fixed })} style={this.style}>
-          {this.slots()}
-        </div>
-      </div>
-    );
+    setDataAfterDiff(data) {
+      wx.nextTick(() => {
+        const diff = Object.keys(data).reduce((prev, key) => {
+          if (data[key] !== this.data[key]) {
+            prev[key] = data[key];
+          }
+          return prev;
+        }, {});
+        this.setData(diff);
+        this.$emit('scroll', {
+          scrollTop: this.scrollTop,
+          isFixed: data.fixed || this.data.fixed,
+        });
+      });
+    },
+    getContainerRect() {
+      const nodesRef = this.data.container();
+      return new Promise((resolve) =>
+        nodesRef.boundingClientRect(resolve).exec()
+      );
+    },
   },
 });

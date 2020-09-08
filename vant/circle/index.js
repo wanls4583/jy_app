@@ -1,183 +1,184 @@
-import { createNamespace, isObject, addUnit } from '../utils';
-import { raf, cancelRaf } from '../utils/dom/raf';
-import { BLUE, WHITE } from '../utils/constant';
-
-const [createComponent, bem] = createNamespace('circle');
-
-const PERIMETER = 3140;
-
-let uid = 0;
-
+import { VantComponent } from '../common/component';
+import { isObj } from '../common/utils';
+import { BLUE, WHITE } from '../common/color';
+import { adaptor } from './canvas';
 function format(rate) {
   return Math.min(Math.max(rate, 0), 100);
 }
-
-function getPath(clockwise, viewBoxSize) {
-  const sweepFlag = clockwise ? 1 : 0;
-  return `M ${viewBoxSize / 2} ${
-    viewBoxSize / 2
-  } m 0, -500 a 500, 500 0 1, ${sweepFlag} 0, 1000 a 500, 500 0 1, ${sweepFlag} 0, -1000`;
-}
-
-export default createComponent({
+const PERIMETER = 2 * Math.PI;
+const BEGIN_ANGLE = -Math.PI / 2;
+const STEP = 1;
+VantComponent({
   props: {
     text: String,
-    strokeLinecap: String,
+    lineCap: {
+      type: String,
+      value: 'round',
+    },
     value: {
       type: Number,
-      default: 0,
+      value: 0,
+      observer: 'reRender',
     },
     speed: {
-      type: [Number, String],
-      default: 0,
+      type: Number,
+      value: 50,
     },
     size: {
-      type: [Number, String],
-      default: 100,
+      type: Number,
+      value: 100,
+      observer() {
+        this.drawCircle(this.currentValue);
+      },
     },
-    fill: {
-      type: String,
-      default: 'none',
-    },
-    rate: {
-      type: [Number, String],
-      default: 100,
-    },
+    fill: String,
     layerColor: {
       type: String,
-      default: WHITE,
+      value: WHITE,
     },
     color: {
       type: [String, Object],
-      default: BLUE,
+      value: BLUE,
+      observer() {
+        this.setHoverColor().then(() => {
+          this.drawCircle(this.currentValue);
+        });
+      },
+    },
+    type: {
+      type: String,
+      value: '',
     },
     strokeWidth: {
-      type: [Number, String],
-      default: 40,
+      type: Number,
+      value: 4,
     },
     clockwise: {
       type: Boolean,
-      default: true,
+      value: true,
     },
   },
-
-  beforeCreate() {
-    this.uid = `van-circle-gradient-${uid++}`;
+  data: {
+    hoverColor: BLUE,
   },
-
-  computed: {
-    style() {
-      const size = addUnit(this.size);
-      return {
-        width: size,
-        height: size,
-      };
+  methods: {
+    getContext() {
+      const { type, size } = this.data;
+      if (type === '') {
+        const ctx = wx.createCanvasContext('van-circle', this);
+        return Promise.resolve(ctx);
+      }
+      const dpr = wx.getSystemInfoSync().pixelRatio;
+      return new Promise((resolve) => {
+        wx.createSelectorQuery()
+          .in(this)
+          .select('#van-circle')
+          .node()
+          .exec((res) => {
+            const canvas = res[0].node;
+            const ctx = canvas.getContext(type);
+            if (!this.inited) {
+              this.inited = true;
+              canvas.width = size * dpr;
+              canvas.height = size * dpr;
+              ctx.scale(dpr, dpr);
+            }
+            resolve(adaptor(ctx));
+          });
+      });
     },
-
-    path() {
-      return getPath(this.clockwise, this.viewBoxSize);
+    setHoverColor() {
+      const { color, size } = this.data;
+      if (isObj(color)) {
+        return this.getContext().then((context) => {
+          const LinearColor = context.createLinearGradient(size, 0, 0, 0);
+          Object.keys(color)
+            .sort((a, b) => parseFloat(a) - parseFloat(b))
+            .map((key) =>
+              LinearColor.addColorStop(parseFloat(key) / 100, color[key])
+            );
+          this.hoverColor = LinearColor;
+        });
+      }
+      this.hoverColor = color;
+      return Promise.resolve();
     },
-
-    viewBoxSize() {
-      return +this.strokeWidth + 1000;
+    presetCanvas(context, strokeStyle, beginAngle, endAngle, fill) {
+      const { strokeWidth, lineCap, clockwise, size } = this.data;
+      const position = size / 2;
+      const radius = position - strokeWidth / 2;
+      context.setStrokeStyle(strokeStyle);
+      context.setLineWidth(strokeWidth);
+      context.setLineCap(lineCap);
+      context.beginPath();
+      context.arc(position, position, radius, beginAngle, endAngle, !clockwise);
+      context.stroke();
+      if (fill) {
+        context.setFillStyle(fill);
+        context.fill();
+      }
     },
-
-    layerStyle() {
-      const offset = (PERIMETER * this.value) / 100;
-
-      return {
-        stroke: `${this.color}`,
-        strokeWidth: `${+this.strokeWidth + 1}px`,
-        strokeLinecap: this.strokeLinecap,
-        strokeDasharray: `${offset}px ${PERIMETER}px`,
-      };
+    renderLayerCircle(context) {
+      const { layerColor, fill } = this.data;
+      this.presetCanvas(context, layerColor, 0, PERIMETER, fill);
     },
-
-    hoverStyle() {
-      return {
-        fill: `${this.fill}`,
-        stroke: `${this.layerColor}`,
-        strokeWidth: `${this.strokeWidth}px`,
-      };
+    renderHoverCircle(context, formatValue) {
+      const { clockwise } = this.data;
+      // 结束角度
+      const progress = PERIMETER * (formatValue / 100);
+      const endAngle = clockwise
+        ? BEGIN_ANGLE + progress
+        : 3 * Math.PI - (BEGIN_ANGLE + progress);
+      this.presetCanvas(context, this.hoverColor, BEGIN_ANGLE, endAngle);
     },
-
-    gradient() {
-      return isObject(this.color);
+    drawCircle(currentValue) {
+      const { size } = this.data;
+      this.getContext().then((context) => {
+        context.clearRect(0, 0, size, size);
+        this.renderLayerCircle(context);
+        const formatValue = format(currentValue);
+        if (formatValue !== 0) {
+          this.renderHoverCircle(context, formatValue);
+        }
+        context.draw();
+      });
     },
-
-    LinearGradient() {
-      if (!this.gradient) {
+    reRender() {
+      // tofector 动画暂时没有想到好的解决方案
+      const { value, speed } = this.data;
+      if (speed <= 0 || speed > 1000) {
+        this.drawCircle(value);
         return;
       }
-
-      const Stops = Object.keys(this.color)
-        .sort((a, b) => parseFloat(a) - parseFloat(b))
-        .map((key, index) => (
-          <stop key={index} offset={key} stop-color={this.color[key]} />
-        ));
-
-      return (
-        <defs>
-          <linearGradient id={this.uid} x1="100%" y1="0%" x2="0%" y2="0%">
-            {Stops}
-          </linearGradient>
-        </defs>
-      );
-    },
-  },
-
-  watch: {
-    rate: {
-      handler(rate) {
-        this.startTime = Date.now();
-        this.startRate = this.value;
-        this.endRate = format(rate);
-        this.increase = this.endRate > this.startRate;
-        this.duration = Math.abs(
-          ((this.startRate - this.endRate) * 1000) / this.speed
-        );
-
-        if (this.speed) {
-          cancelRaf(this.rafId);
-          this.rafId = raf(this.animate);
+      this.clearInterval();
+      this.currentValue = this.currentValue || 0;
+      this.interval = setInterval(() => {
+        if (this.currentValue !== value) {
+          if (this.currentValue < value) {
+            this.currentValue += STEP;
+          } else {
+            this.currentValue -= STEP;
+          }
+          this.drawCircle(this.currentValue);
         } else {
-          this.$emit('input', this.endRate);
+          this.clearInterval();
         }
-      },
-      immediate: true,
+      }, 1000 / speed);
     },
-  },
-
-  methods: {
-    animate() {
-      const now = Date.now();
-      const progress = Math.min((now - this.startTime) / this.duration, 1);
-      const rate = progress * (this.endRate - this.startRate) + this.startRate;
-
-      this.$emit('input', format(parseFloat(rate.toFixed(1))));
-
-      if (this.increase ? rate < this.endRate : rate > this.endRate) {
-        this.rafId = raf(this.animate);
+    clearInterval() {
+      if (this.interval) {
+        clearInterval(this.interval);
+        this.interval = null;
       }
     },
   },
-
-  render() {
-    return (
-      <div class={bem()} style={this.style}>
-        <svg viewBox={`0 0 ${this.viewBoxSize} ${this.viewBoxSize}`}>
-          {this.LinearGradient}
-          <path class={bem('hover')} style={this.hoverStyle} d={this.path} />
-          <path
-            d={this.path}
-            class={bem('layer')}
-            style={this.layerStyle}
-            stroke={this.gradient ? `url(#${this.uid})` : this.color}
-          />
-        </svg>
-        {this.slots() ||
-          (this.text && <div class={bem('text')}>{this.text}</div>)}
-      </div>
-    );
+  mounted() {
+    this.currentValue = this.data.value;
+    this.setHoverColor().then(() => {
+      this.drawCircle(this.currentValue);
+    });
+  },
+  destroyed() {
+    this.clearInterval();
   },
 });

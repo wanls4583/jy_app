@@ -1,62 +1,41 @@
-import { createNamespace } from '../utils';
-import { route, routeProps } from '../utils/router';
-import { ChildrenMixin } from '../mixins/relation';
-import Button from '../button';
-
-const [createComponent, bem] = createNamespace('goods-action-button');
-
-export default createComponent({
-  mixins: [ChildrenMixin('vanGoodsAction')],
-
+import { VantComponent } from '../common/component';
+import { link } from '../mixins/link';
+import { button } from '../mixins/button';
+import { openType } from '../mixins/open-type';
+VantComponent({
+  mixins: [link, button, openType],
+  relation: {
+    type: 'ancestor',
+    name: 'goods-action',
+    current: 'goods-action-button',
+  },
   props: {
-    ...routeProps,
-    type: String,
     text: String,
-    icon: String,
     color: String,
     loading: Boolean,
     disabled: Boolean,
-  },
-
-  computed: {
-    isFirst() {
-      const prev = this.parent && this.parent.children[this.index - 1];
-      return !prev || prev.$options.name !== this.$options.name;
-    },
-
-    isLast() {
-      const next = this.parent && this.parent.children[this.index + 1];
-      return !next || next.$options.name !== this.$options.name;
+    plain: Boolean,
+    type: {
+      type: String,
+      value: 'danger',
     },
   },
-
   methods: {
     onClick(event) {
-      this.$emit('click', event);
-      route(this.$router, this);
+      this.$emit('click', event.detail);
+      this.jumpLink();
     },
-  },
-
-  render() {
-    return (
-      <Button
-        class={bem([
-          {
-            first: this.isFirst,
-            last: this.isLast,
-          },
-          this.type,
-        ])}
-        size="large"
-        type={this.type}
-        icon={this.icon}
-        color={this.color}
-        loading={this.loading}
-        disabled={this.disabled}
-        onClick={this.onClick}
-      >
-        {this.slots() || this.text}
-      </Button>
-    );
+    updateStyle() {
+      if (this.parent == null) {
+        return;
+      }
+      const { children = [] } = this.parent;
+      const { length } = children;
+      const index = children.indexOf(this);
+      this.setData({
+        isFirst: index === 0,
+        isLast: index === length - 1,
+      });
+    },
   },
 });

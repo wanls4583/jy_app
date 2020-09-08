@@ -1,108 +1,116 @@
-import Vue from 'vue';
-import VanDialog from './Dialog';
-import { isServer } from '../utils';
-
-let instance;
-
-function isInDocument(element) {
-  return document.body.contains(element);
-}
-
-function initInstance() {
-  if (instance) {
-    instance.$destroy();
-  }
-
-  instance = new (Vue.extend(VanDialog))({
-    el: document.createElement('div'),
-    // avoid missing animation when first rendered
-    propsData: {
-      lazyRender: false,
+import { VantComponent } from '../common/component';
+import { button } from '../mixins/button';
+import { openType } from '../mixins/open-type';
+import { GRAY, RED } from '../common/color';
+VantComponent({
+  mixins: [button, openType],
+  props: {
+    show: {
+      type: Boolean,
+      observer(show) {
+        !show && this.stopLoading();
+      },
     },
-  });
-
-  instance.$on('input', (value) => {
-    instance.value = value;
-  });
-}
-
-function Dialog(options) {
-  /* istanbul ignore if */
-  if (isServer) {
-    return Promise.resolve();
-  }
-
-  return new Promise((resolve, reject) => {
-    if (!instance || !isInDocument(instance.$el)) {
-      initInstance();
-    }
-
-    Object.assign(instance, Dialog.currentOptions, options, {
-      resolve,
-      reject,
-    });
-  });
-}
-
-Dialog.defaultOptions = {
-  value: true,
-  title: '',
-  width: '',
-  theme: null,
-  message: '',
-  overlay: true,
-  className: '',
-  allowHtml: true,
-  lockScroll: true,
-  transition: 'van-dialog-bounce',
-  beforeClose: null,
-  overlayClass: '',
-  overlayStyle: null,
-  messageAlign: '',
-  getContainer: 'body',
-  cancelButtonText: '',
-  cancelButtonColor: null,
-  confirmButtonText: '',
-  confirmButtonColor: null,
-  showConfirmButton: true,
-  showCancelButton: false,
-  closeOnPopstate: true,
-  closeOnClickOverlay: false,
-  callback: (action) => {
-    instance[action === 'confirm' ? 'resolve' : 'reject'](action);
+    title: String,
+    message: String,
+    theme: {
+      type: String,
+      value: 'default',
+    },
+    useSlot: Boolean,
+    className: String,
+    customStyle: String,
+    asyncClose: Boolean,
+    messageAlign: String,
+    overlayStyle: String,
+    useTitleSlot: Boolean,
+    showCancelButton: Boolean,
+    closeOnClickOverlay: Boolean,
+    confirmButtonOpenType: String,
+    width: null,
+    zIndex: {
+      type: Number,
+      value: 2000,
+    },
+    confirmButtonText: {
+      type: String,
+      value: '确认',
+    },
+    cancelButtonText: {
+      type: String,
+      value: '取消',
+    },
+    confirmButtonColor: {
+      type: String,
+      value: RED,
+    },
+    cancelButtonColor: {
+      type: String,
+      value: GRAY,
+    },
+    showConfirmButton: {
+      type: Boolean,
+      value: true,
+    },
+    overlay: {
+      type: Boolean,
+      value: true,
+    },
+    transition: {
+      type: String,
+      value: 'scale',
+    },
   },
-};
-
-Dialog.alert = Dialog;
-
-Dialog.confirm = (options) =>
-  Dialog({
-    showCancelButton: true,
-    ...options,
-  });
-
-Dialog.close = () => {
-  if (instance) {
-    instance.value = false;
-  }
-};
-
-Dialog.setDefaultOptions = (options) => {
-  Object.assign(Dialog.currentOptions, options);
-};
-
-Dialog.resetDefaultOptions = () => {
-  Dialog.currentOptions = { ...Dialog.defaultOptions };
-};
-
-Dialog.resetDefaultOptions();
-
-Dialog.install = () => {
-  Vue.use(VanDialog);
-};
-
-Dialog.Component = VanDialog;
-
-Vue.prototype.$dialog = Dialog;
-
-export default Dialog;
+  data: {
+    loading: {
+      confirm: false,
+      cancel: false,
+    },
+  },
+  methods: {
+    onConfirm() {
+      this.handleAction('confirm');
+    },
+    onCancel() {
+      this.handleAction('cancel');
+    },
+    onClickOverlay() {
+      this.onClose('overlay');
+    },
+    handleAction(action) {
+      if (this.data.asyncClose) {
+        this.setData({
+          [`loading.${action}`]: true,
+        });
+      }
+      this.onClose(action);
+    },
+    close() {
+      this.setData({
+        show: false,
+      });
+    },
+    stopLoading() {
+      this.setData({
+        loading: {
+          confirm: false,
+          cancel: false,
+        },
+      });
+    },
+    onClose(action) {
+      if (!this.data.asyncClose) {
+        this.close();
+      }
+      this.$emit('close', action);
+      // 把 dialog 实例传递出去，可以通过 stopLoading() 在外部关闭按钮的 loading
+      this.$emit(action, { dialog: this });
+      const callback = this.data[
+        action === 'confirm' ? 'onConfirm' : 'onCancel'
+      ];
+      if (callback) {
+        callback(this);
+      }
+    },
+  },
+});

@@ -1,49 +1,35 @@
-import { createNamespace } from '../utils';
-import { FieldMixin } from '../mixins/field';
-import { ParentMixin } from '../mixins/relation';
-
-const [createComponent, bem] = createNamespace('checkbox-group');
-
-export default createComponent({
-  mixins: [ParentMixin('vanCheckbox'), FieldMixin],
-
+import { VantComponent } from '../common/component';
+VantComponent({
+  field: true,
+  relation: {
+    name: 'checkbox',
+    type: 'descendant',
+    current: 'checkbox-group',
+    linked(target) {
+      this.updateChild(target);
+    },
+  },
   props: {
-    max: [Number, String],
-    disabled: Boolean,
-    direction: String,
-    iconSize: [Number, String],
-    checkedColor: String,
+    max: Number,
     value: {
       type: Array,
-      default: () => [],
+      observer: 'updateChildren',
+    },
+    disabled: {
+      type: Boolean,
+      observer: 'updateChildren',
     },
   },
-
-  watch: {
-    value(val) {
-      this.$emit('change', val);
-    },
-  },
-
   methods: {
-    // @exposed-api
-    toggleAll(checked) {
-      if (checked === false) {
-        this.$emit('input', []);
-        return;
-      }
-
-      let { children } = this;
-      if (!checked) {
-        children = children.filter((item) => !item.checked);
-      }
-
-      const names = children.map((item) => item.name);
-      this.$emit('input', names);
+    updateChildren() {
+      (this.children || []).forEach((child) => this.updateChild(child));
     },
-  },
-
-  render() {
-    return <div class={bem([this.direction])}>{this.slots()}</div>;
+    updateChild(child) {
+      const { value, disabled } = this.data;
+      child.setData({
+        value: value.indexOf(child.data.name) !== -1,
+        parentDisabled: disabled,
+      });
+    },
   },
 });
