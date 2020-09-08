@@ -582,7 +582,7 @@ Page({
                     this.getPageHeight(pageId);
                 });
             } else {
-                var lastPageId = this.data.pages[this.data.pages.length - 1].id;
+                var lastPageId = this.data.pages[this.data.pages.length - 1];
                 var lastPageList = this.data.pageMap[lastPageId];
                 var index = this.data.limit - lastPageList.length;
                 var pageId = list[index].id;
