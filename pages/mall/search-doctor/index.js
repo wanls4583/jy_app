@@ -261,7 +261,6 @@ Page({
             }
         });
         this.request.then((data) => {
-            this.loading = false;
             this.setData({
                 'page': this.data.page + 1,
                 'totalPage': data.page.totalPage,

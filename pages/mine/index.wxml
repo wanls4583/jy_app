@@ -74,7 +74,7 @@
 				<image style="width:60rpx;height:60rpx;" src="/image/icon_order.png" mode="aspectFit" />
 				<view class="font-mini">订单列表</view>
             </view>
-            <view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+            <view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/income-list/index">
 				<image style="width:60rpx;height:60rpx;" src="/image/icon_trend.png" mode="aspectFit" />
 				<view class="font-mini">查看收益</view>
             </view>

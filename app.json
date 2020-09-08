@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/income-list/index",
         "pages/interrogation/doctor-appraise/index",
         "pages/interrogation/appraise-list/index",
         "pages/input/index",
@@ -85,8 +86,7 @@
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
-        "list": [
-            {
+        "list": [{
                 "pagePath": "pages/tab-bar-first/index",
                 "iconPath": "image/icon_home.png",
                 "selectedIconPath": "image/icon_home_active.png",

@@ -53,6 +53,7 @@ Page({
                 stopRefresh: true
             });
             this.request = null;
+            this.loading = false;
         });
     },
     //设置已读

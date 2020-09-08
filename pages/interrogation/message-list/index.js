@@ -10,7 +10,7 @@ Page({
         this.loadList(true);
     },
     onShow() {
-        if(this.data.totalPage > -1) {
+        if (this.data.totalPage > -1) {
             this.checkList(true);
         }
     },
@@ -63,6 +63,7 @@ Page({
             this.setData({
                 stopRefresh: true
             });
+            this.loading = false;
             this.request = null;
         });
     },
@@ -74,8 +75,8 @@ Page({
                 page: 1,
                 limit: 1
             }
-        }).then((data)=>{
-            if(data.page.totalCount != this.data.totalCount) {
+        }).then((data) => {
+            if (data.page.totalCount != this.data.totalCount) {
                 this.loadList(true);
             }
         });

@@ -29,7 +29,7 @@
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.12.2",
+	"libVersion": "2.7.3",
 	"appid": "wx270627231aff4f2c",
 	"projectname": "jy_app",
 	"cloudfunctionTemplateRoot": "",

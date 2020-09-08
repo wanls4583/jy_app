@@ -51,6 +51,7 @@ Page({
             this.setData({
                 stopRefresh: true
             });
+            this.loading = false;
             this.request = null;
         });
     }
