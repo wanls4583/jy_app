@@ -278,12 +278,16 @@ Page({
             this.setData({
                 actionVisible: false
             });
-            wx.jyApp.utils.pay(data.params).then(() => {
-                wx.jyApp.toast('支付成功');
-                this.getNewHistory();
-            }).catch(() => {
-                wx.jyApp.toast('支付失败');
-            });
+            if (data.params) {
+                wx.jyApp.utils.pay(data.params).then(() => {
+                    wx.jyApp.toast('申请成功');
+                    this.getNewHistory();
+                }).catch(() => {
+                    wx.jyApp.toast('支付失败');
+                });
+            } else {
+                wx.jyApp.toast('申请成功');
+            }
         });
     },
     //图片加载完成

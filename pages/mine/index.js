@@ -14,7 +14,11 @@ Page({
         this.getPhone();
         this.getDoctorInfo();
     },
+    onShow() {
+        this.getMessageCount();
+    },
     onUnload() {
+        clearTimeout(this.pollCountTimer);
         this.storeBindings.destroyStoreBindings();
     },
     getUserInfo(e) {
@@ -97,4 +101,18 @@ Page({
             }
         })
     },
+    //获取未读消息数量
+    getMessageCount() {
+        wx.jyApp.http({
+            url: '/systemnotice/totalNotRead'
+        }).then((data) => {
+            this.setData({
+                messageCount: data.totalNotRead || 0
+            });
+            clearTimeout(this.pollCountTimer);
+            this.pollCountTimer = setTimeout(() => {
+                this.getMessageCount();
+            }, 15000);
+        })
+    }
 })
