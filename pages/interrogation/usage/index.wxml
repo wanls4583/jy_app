@@ -1,43 +1,49 @@
 <view class="container padding-bottom-footer">
-    <view class="flex--center--between padding-30 white-background-color">
-        <view class="width-150rpx height-150rpx border" style="background:url({{goods.goodsPic}}) no-repeat center;background-size:cover"></view>
-        <view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
-            <view>{{goods.goodsName}}</view>
-            <view wx:if="{{goods.type==1}}" class="gray-color">{{goods.standardNum}}{{unitChange[goods.standardUnit]}}/{{unitChange[goods.useUnit]}}</view>
-            <view wx:if="{{goods.type==1}}">￥{{goods.price}}/{{unitChange[goods.useUnit]}}</view>
-            <view wx:else class="danger-color">￥{{goods.price}}/天</view>
-        </view>
-    </view>
-    <view class="margin-top-20 white-background-color">
-        <van-field title-width="4.5em" label="每次用量" value="{{perUseNum}}" type="number" data-prop="perUseNum" bind:input="onInput">
-            <view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
-            <view slot="right-icon" wx:else>份</view>
-        </van-field>
-        <van-field wx:if="{{goods.type==2}}" title-width="4.5em" label="配制用量" value="{{modulateDose}}" type="number" data-prop="modulateDose" bind:input="onInput">
-            <view slot="right-icon">毫升</view>
-        </van-field>
-        <van-field title-width="4.5em" label="频率" value="{{_frequency}}" readonly bindtap="onShowFrequency"></van-field>
-        <van-cell>
-            <view class="flex--center--between">
-                <text>天数</text>
-                <van-stepper value="{{days}}" data-prop="days" bind:change="onInput" input-width="300rpx" />
-                <text>天</text>
-            </view>
-        </van-cell>
-        <van-field title-width="4.5em" label="给予方式" value="{{_giveWay}}" readonly bindtap="onShowGiveWay"></van-field>
-        <van-field title-width="4.5em" label="备注" value="{{remark}}" data-prop="remark" bind:input="onInput"></van-field>
-        <view class="flex--center--between padding-30">
-            <view>总量：{{gross}}袋</view>
-            <view>金额：￥{{totalAmount}}</view>
-        </view>
-    </view>
-    <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block" bindtap="onSave">保存</view>
-    </view>
-    <van-popup show="{{frequencyVisible}}" position="bottom">
-        <van-picker show-toolbar columns="{{frequencyArray}}" default-index="{{frequencyDefault}}" bind:confirm="onConfirmFrequency" bind:cancel="onCancel"></van-picker>
-    </van-popup>
-    <van-popup show="{{giveWayVisible}}" position="bottom">
-        <van-picker show-toolbar columns="{{giveWayList}}" default-index="{{giveWayDefault}}" value-key="label" bind:confirm="onConfirmGiveWay" bind:cancel="onCancel"></van-picker>
-    </van-popup>
+	<view class="flex--center--between padding-30 white-background-color">
+		<view class="width-150rpx height-150rpx border" style="background:url({{goods.goodsPic}}) no-repeat center;background-size:cover"></view>
+		<view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
+			<view>{{goods.goodsName}}</view>
+			<view class="gray-color" wx:if="{{goods.type==1}}">{{goods.standardNum}}{{unitChange[goods.standardUnit]}}/{{unitChange[goods.useUnit]}}</view>
+			<view class="danger-color">￥{{goods.price}}/{{goods._unit}}</view>
+		</view>
+	</view>
+	<view class="margin-top-20 white-background-color">
+		<van-field bind:input="onInputNum" data-prop="perUseNum" label="每次用量" title-width="4.5em" type="number" value="{{perUseNum}}">
+			<view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
+			<view slot="right-icon" wx:else>份</view>
+		</van-field>
+		<van-field bind:input="onInputNum" data-prop="modulateDose" label="配制用量" title-width="4.5em" type="number" value="{{modulateDose}}" wx:if="{{goods.type==2}}">
+			<view slot="right-icon">毫升</view>
+		</van-field>
+		<van-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}"></van-field>
+		<van-cell>
+			<view class="flex--center--between">
+				<text>天数</text>
+				<van-stepper bind:change="onInputNum" data-prop="days" input-width="300rpx" value="{{days}}" />
+				<text>天</text>
+			</view>
+		</van-cell>
+		<van-field bindtap="onShowGiveWay" label="给予方式" readonly title-width="4.5em" value="{{_giveWay}}"></van-field>
+		<van-field bind:input="onInput" data-prop="remark" label="备注" title-width="4.5em" value="{{remark}}"></van-field>
+		<view class="flex--center--between padding-30">
+			<view>总量：{{gross}}{{goods._unit}}</view>
+			<view class="primary-color">金额：￥{{totalAmount}}</view>
+		</view>
+	</view>
+	<view class="position-fixed bottom-0 width-100 padding-30">
+		<view bindtap="onSave" class="button primary block">保存</view>
+	</view>
+	<van-popup position="bottom" show="{{frequencyVisible}}">
+		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmFrequency" columns="{{frequencyArray}}" default-index="{{frequencyDefault}}" show-toolbar></van-picker>
+	</van-popup>
+	<van-popup position="bottom" show="{{giveWayVisible}}">
+		<van-picker
+			bind:cancel="onCancel"
+			bind:confirm="onConfirmGiveWay"
+			columns="{{giveWayList}}"
+			default-index="{{giveWayDefault}}"
+			show-toolbar
+			value-key="label"
+		></van-picker>
+	</van-popup>
 </view>

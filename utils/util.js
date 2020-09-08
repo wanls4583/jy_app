@@ -55,10 +55,31 @@ function navigateTo(e) {
     }
 }
 
-function onInput(e, context, ifOrigin) {
+function onInput(e, context) {
     var prop = e.currentTarget.dataset.prop;
     context.setData({
-        [prop]: ifOrigin ? e.detail.value : e.detail
+        [prop]: typeof e.detail == 'string' ? e.detail : e.detail.value
+    });
+}
+
+function onInputNum(e, context, dot) {
+    var prop = e.currentTarget.dataset.prop;
+    var value = typeof e.detail == 'object' ? e.detail.value : e.detail;
+    value = String(value);
+    value = value.replace(/[^0123456789\.]/g, '');
+    var reg = /^\d+(\.\d*)?$/;
+    var r = reg.exec(value);
+    var num = r && r[0] || '';
+    if (dot === 0) { //整数
+        num = parseInt(num) || '';
+    } else {
+        dot = dot || 2; //默认两位小数
+        if (r && r[1] && r[1].length > (dot + 1)) {
+            num = num.slice(0, num.length - (r[1].length - (dot + 1)));
+        }
+    }
+    context.setData({
+        [prop]: num
     });
 }
 
@@ -94,6 +115,7 @@ module.exports = {
     formatTime: formatTime,
     navigateTo: navigateTo,
     onInput: onInput,
+    onInputNum: onInputNum,
     setText: setText,
     pay: pay,
     getUUID: getUUID

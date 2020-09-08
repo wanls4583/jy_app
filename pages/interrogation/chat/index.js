@@ -93,14 +93,14 @@ Page({
         });
         wx.hideLoading();
     },
-    foucus: function (e) {
+    foucus: function(e) {
         this.setData({
             inputBottom: e.detail.height,
             inputFoucus: true,
             panelVisible: false
         });
     },
-    blur: function (e) {
+    blur: function(e) {
         this.setData({
             inputBottom: 0,
             inputFoucus: false
@@ -252,7 +252,9 @@ Page({
                 actionVisible: true
             });
         } else { //医生开指导
-            this.onGuide();
+            wx.navigateTo({
+                url: '/pages/interrogation/guidance-edit/index?id=' + this.data.consultOrderId
+            });
         }
         this.setData({
             panelVisible: false
@@ -386,7 +388,7 @@ Page({
         return new Promise((resolve) => {
             var query = wx.createSelectorQuery()
             query.select('#page-id-' + pageId).boundingClientRect()
-            query.exec(function (rect) {
+            query.exec(function(rect) {
                 self.gettingPageHeight[pageId] = false;
                 console.log(pageId, rect[0])
                 if (rect && rect[0]) {
@@ -584,9 +586,9 @@ Page({
             } else {
                 var lastPageId = this.data.pages[this.data.pages.length - 1];
                 var lastPageList = this.data.pageMap[lastPageId];
-                var index = this.data.limit - lastPageList.length;
-                var pageId = list[index].id;
                 if (lastPageList.length + list.length > this.data.limit) {
+                    var index = this.data.limit - lastPageList.length;
+                    var pageId = list[index].id;
                     lastPageList = lastPageList.concat(list.slice(0, index));
                     this.data.pages.push(pageId);
                     this.setData({

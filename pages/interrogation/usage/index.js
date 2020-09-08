@@ -21,6 +21,7 @@ Page({
         var giveWayMap = wx.jyApp.constData.giveWayMap;
         var giveWayList = [];
         var goods = wx.jyApp.usageGoods;
+        goods._unit = goods.type == 1 ? wx.jyApp.constData.unitChange[goods.unit] : '天';
         for (var key in giveWayMap) {
             giveWayList.push({
                 label: giveWayMap[key],
@@ -58,10 +59,11 @@ Page({
         }
     },
     onInput(e) {
-        var prop = e.currentTarget.dataset.prop;
-        this.setData({
-            [prop]: e.detail
-        });
+        wx.jyApp.utils.onInput(e, this);
+    },
+    //输入数字
+    onInputNum(e) {
+        wx.jyApp.utils.onInputNum(e, this);
         this.caculateGross();
     },
     onShowFrequency() {
