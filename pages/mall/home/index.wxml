@@ -50,10 +50,10 @@
 		<view class="flex flex-wrap-wrap">
 			<view
 				bindtap="onGoto"
-				class="margin-left-30 margin-bottom-30 padding-20 radius-8px background-gradient"
+				class="margin-left-30 margin-bottom-30 padding-20 radius-8px"
 				data-id="{{item.id}}"
 				data-url="/pages/mall/search-doctor/index?departmentName={{item.departmentName}}"
-				style="width:330rpx"
+				style="width:330rpx;{{item.background}}"
 				wx:for="{{departmentList}}"
 				wx:key="id"
 			>
@@ -65,7 +65,10 @@
 	<view class="white-background-color padding-30">
 		<view class="flex--center--between">
 			<text class="font-title">推荐医生</text>
-			<text bindtap="onClickMore" class="clickable font-small gray-color">全部></text>
+			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
+				<text>全部</text>
+				<van-icon name="arrow" />
+			</view>
 		</view>
 		<view bindtap="onClickDoctor" class="flex--start--between padding-top-bottom-30 border-bottom" data-id="{{item.id}}" wx:for="{{doctorList}}" wx:key="id">
 			<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">

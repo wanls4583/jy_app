@@ -283,3 +283,7 @@ checkbox {
 .tag.danger {
     background-color: #ee0a24;
 }
+
+.line-height-1em {
+    line-height: 1em;
+}

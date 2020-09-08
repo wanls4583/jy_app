@@ -55,6 +55,20 @@ Component({
             wx.jyApp.http({
                 url: '/department/list'
             }).then((data) => {
+                data.list.map((item, index) => {
+                    var _index = index % 3;
+                    switch (_index) {
+                        case 0:
+                            item.background = 'background: linear-gradient(to right, rgb(33, 147, 176), rgb(109, 213, 237));';
+                            break;
+                        case 1:
+                            item.background = 'background: linear-gradient(to right, rgb(0, 131, 176), rgb(0, 180, 219));';
+                            break;
+                        case 2:
+                            item.background = 'background: linear-gradient(to right, rgb(41, 128, 185), rgb(109, 213, 250));';
+                            break;
+                    }
+                });
                 this.setData({
                     departmentList: data.list
                 });
