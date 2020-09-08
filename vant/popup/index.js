@@ -1,84 +1,95 @@
-import { VantComponent } from '../common/component';
-import { transition } from '../mixins/transition';
-VantComponent({
-  classes: [
-    'enter-class',
-    'enter-active-class',
-    'enter-to-class',
-    'leave-class',
-    'leave-active-class',
-    'leave-to-class',
-    'close-icon-class',
-  ],
-  mixins: [transition(false)],
+import { createNamespace, isDef } from '../utils';
+import { PopupMixin } from '../mixins/popup';
+import Icon from '../icon';
+
+const [createComponent, bem] = createNamespace('popup');
+
+export default createComponent({
+  mixins: [PopupMixin()],
+
   props: {
     round: Boolean,
+    duration: [Number, String],
     closeable: Boolean,
-    customStyle: String,
-    overlayStyle: String,
-    transition: {
-      type: String,
-      observer: 'observeClass',
-    },
-    zIndex: {
-      type: Number,
-      value: 100,
-    },
-    overlay: {
-      type: Boolean,
-      value: true,
-    },
+    transition: String,
+    safeAreaInsetBottom: Boolean,
     closeIcon: {
       type: String,
-      value: 'cross',
+      default: 'cross',
     },
     closeIconPosition: {
       type: String,
-      value: 'top-right',
-    },
-    closeOnClickOverlay: {
-      type: Boolean,
-      value: true,
+      default: 'top-right',
     },
     position: {
       type: String,
-      value: 'center',
-      observer: 'observeClass',
+      default: 'center',
     },
-    safeAreaInsetBottom: {
+    overlay: {
       type: Boolean,
-      value: true,
+      default: true,
     },
-    safeAreaInsetTop: {
+    closeOnClickOverlay: {
       type: Boolean,
-      value: false,
+      default: true,
     },
   },
-  created() {
-    this.observeClass();
+
+  beforeCreate() {
+    const createEmitter = (eventName) => (event) =>
+      this.$emit(eventName, event);
+
+    this.onClick = createEmitter('click');
+    this.onOpened = createEmitter('opened');
+    this.onClosed = createEmitter('closed');
   },
-  methods: {
-    onClickCloseIcon() {
-      this.$emit('close');
-    },
-    onClickOverlay() {
-      this.$emit('click-overlay');
-      if (this.data.closeOnClickOverlay) {
-        this.$emit('close');
-      }
-    },
-    observeClass() {
-      const { transition, position, duration } = this.data;
-      const updateData = {
-        name: transition || position,
-      };
-      if (transition === 'none') {
-        updateData.duration = 0;
-        this.originDuration = duration;
-      } else if (this.originDuration != null) {
-        updateData.duration = this.originDuration;
-      }
-      this.setData(updateData);
-    },
+
+  render() {
+    if (!this.shouldRender) {
+      return;
+    }
+
+    const { round, position, duration } = this;
+    const isCenter = position === 'center';
+
+    const transitionName =
+      this.transition ||
+      (isCenter ? 'van-fade' : `van-popup-slide-${position}`);
+
+    const style = {};
+    if (isDef(duration)) {
+      const key = isCenter ? 'animationDuration' : 'transitionDuration';
+      style[key] = `${duration}s`;
+    }
+
+    return (
+      <transition
+        name={transitionName}
+        onAfterEnter={this.onOpened}
+        onAfterLeave={this.onClosed}
+      >
+        <div
+          vShow={this.value}
+          style={style}
+          class={bem({
+            round,
+            [position]: position,
+            'safe-area-inset-bottom': this.safeAreaInsetBottom,
+          })}
+          onClick={this.onClick}
+        >
+          {this.slots()}
+          {this.closeable && (
+            <Icon
+              role="button"
+              tabindex="0"
+              name={this.closeIcon}
+              class={bem('close-icon', this.closeIconPosition)}
+              onClick={this.close}
+            />
+          )}
+        </div>
+      </transition>
+    );
   },
 });

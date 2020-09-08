@@ -1,188 +1,441 @@
-import { VantComponent } from '../common/component';
-import { isImageFile, isVideo, chooseFile, isPromise } from './utils';
-import { chooseImageProps, chooseVideoProps } from './shared';
-VantComponent({
-  props: Object.assign(
-    Object.assign(
-      {
-        disabled: Boolean,
-        multiple: Boolean,
-        uploadText: String,
-        useBeforeRead: Boolean,
-        afterRead: null,
-        beforeRead: null,
-        previewSize: {
-          type: null,
-          value: 80,
-        },
-        name: {
-          type: [Number, String],
-          value: '',
-        },
-        accept: {
-          type: String,
-          value: 'image',
-        },
-        fileList: {
-          type: Array,
-          value: [],
-          observer: 'formatFileList',
-        },
-        maxSize: {
-          type: Number,
-          value: Number.MAX_VALUE,
-        },
-        maxCount: {
-          type: Number,
-          value: 100,
-        },
-        deletable: {
-          type: Boolean,
-          value: true,
-        },
-        showUpload: {
-          type: Boolean,
-          value: true,
-        },
-        previewImage: {
-          type: Boolean,
-          value: true,
-        },
-        previewFullImage: {
-          type: Boolean,
-          value: true,
-        },
-        imageFit: {
-          type: String,
-          value: 'scaleToFill',
-        },
-        uploadIcon: {
-          type: String,
-          value: 'photograph',
-        },
-      },
-      chooseImageProps
-    ),
-    chooseVideoProps
-  ),
-  data: {
-    lists: [],
-    isInCount: true,
+// Utils
+import { createNamespace, addUnit, noop, isPromise, isDef } from '../utils';
+import { toArray, readFile, isOversize, isImageFile } from './utils';
+
+// Mixins
+import { FieldMixin } from '../mixins/field';
+
+// Components
+import Icon from '../icon';
+import Image from '../image';
+import Loading from '../loading';
+import ImagePreview from '../image-preview';
+
+const [createComponent, bem] = createNamespace('uploader');
+
+export default createComponent({
+  inheritAttrs: false,
+
+  mixins: [FieldMixin],
+
+  model: {
+    prop: 'fileList',
   },
-  methods: {
-    formatFileList() {
-      const { fileList = [], maxCount } = this.data;
-      const lists = fileList.map((item) =>
-        Object.assign(Object.assign({}, item), {
-          isImage:
-            typeof item.isImage === 'undefined'
-              ? isImageFile(item)
-              : item.isImage,
-          deletable:
-            typeof item.deletable === 'undefined' ? true : item.deletable,
-        })
-      );
-      this.setData({ lists, isInCount: lists.length < maxCount });
+
+  props: {
+    disabled: Boolean,
+    lazyLoad: Boolean,
+    uploadText: String,
+    afterRead: Function,
+    beforeRead: Function,
+    beforeDelete: Function,
+    previewSize: [Number, String],
+    previewOptions: Object,
+    name: {
+      type: [Number, String],
+      default: '',
     },
-    getDetail(index) {
+    accept: {
+      type: String,
+      default: 'image/*',
+    },
+    fileList: {
+      type: Array,
+      default: () => [],
+    },
+    maxSize: {
+      type: [Number, String],
+      default: Number.MAX_VALUE,
+    },
+    maxCount: {
+      type: [Number, String],
+      default: Number.MAX_VALUE,
+    },
+    deletable: {
+      type: Boolean,
+      default: true,
+    },
+    showUpload: {
+      type: Boolean,
+      default: true,
+    },
+    previewImage: {
+      type: Boolean,
+      default: true,
+    },
+    previewFullImage: {
+      type: Boolean,
+      default: true,
+    },
+    imageFit: {
+      type: String,
+      default: 'cover',
+    },
+    resultType: {
+      type: String,
+      default: 'dataUrl',
+    },
+    uploadIcon: {
+      type: String,
+      default: 'photograph',
+    },
+  },
+
+  computed: {
+    previewSizeWithUnit() {
+      return addUnit(this.previewSize);
+    },
+
+    // for form
+    value() {
+      return this.fileList;
+    },
+  },
+
+  methods: {
+    getDetail(index = this.fileList.length) {
       return {
-        name: this.data.name,
-        index: index == null ? this.data.fileList.length : index,
+        name: this.name,
+        index,
       };
     },
-    startUpload() {
-      const { maxCount, multiple, accept, lists, disabled } = this.data;
-      if (disabled) return;
-      chooseFile(
-        Object.assign(Object.assign({}, this.data), {
-          maxCount: maxCount - lists.length,
-        })
-      )
-        .then((res) => {
-          let file = null;
-          if (isVideo(res, accept)) {
-            file = Object.assign({ path: res.tempFilePath }, res);
-          } else {
-            file = multiple ? res.tempFiles : res.tempFiles[0];
-          }
-          this.onBeforeRead(file);
-        })
-        .catch((error) => {
-          this.$emit('error', error);
-        });
-    },
-    onBeforeRead(file) {
-      const { beforeRead, useBeforeRead } = this.data;
-      let res = true;
-      if (typeof beforeRead === 'function') {
-        res = beforeRead(file, this.getDetail());
+
+    onChange(event) {
+      let { files } = event.target;
+
+      if (this.disabled || !files.length) {
+        return;
       }
-      if (useBeforeRead) {
-        res = new Promise((resolve, reject) => {
-          this.$emit(
-            'before-read',
-            Object.assign(Object.assign({ file }, this.getDetail()), {
-              callback: (ok) => {
-                ok ? resolve() : reject();
-              },
+
+      files = files.length === 1 ? files[0] : [].slice.call(files);
+
+      if (this.beforeRead) {
+        const response = this.beforeRead(files, this.getDetail());
+
+        if (!response) {
+          this.resetInput();
+          return;
+        }
+
+        if (isPromise(response)) {
+          response
+            .then((data) => {
+              if (data) {
+                this.readFile(data);
+              } else {
+                this.readFile(files);
+              }
             })
-          );
+            .catch(this.resetInput);
+
+          return;
+        }
+      }
+
+      this.readFile(files);
+    },
+
+    readFile(files) {
+      const oversize = isOversize(files, this.maxSize);
+
+      if (Array.isArray(files)) {
+        const maxCount = this.maxCount - this.fileList.length;
+
+        if (files.length > maxCount) {
+          files = files.slice(0, maxCount);
+        }
+
+        Promise.all(files.map((file) => readFile(file, this.resultType))).then(
+          (contents) => {
+            const fileList = files.map((file, index) => {
+              const result = { file, status: '', message: '' };
+
+              if (contents[index]) {
+                result.content = contents[index];
+              }
+
+              return result;
+            });
+
+            this.onAfterRead(fileList, oversize);
+          }
+        );
+      } else {
+        readFile(files, this.resultType).then((content) => {
+          const result = { file: files, status: '', message: '' };
+
+          if (content) {
+            result.content = content;
+          }
+
+          this.onAfterRead(result, oversize);
         });
       }
-      if (!res) {
-        return;
-      }
-      if (isPromise(res)) {
-        res.then((data) => this.onAfterRead(data || file));
-      } else {
-        this.onAfterRead(file);
-      }
     },
-    onAfterRead(file) {
-      const { maxSize } = this.data;
-      const oversize = Array.isArray(file)
-        ? file.some((item) => item.size > maxSize)
-        : file.size > maxSize;
+
+    onAfterRead(files, oversize) {
+      this.resetInput();
+
+      let validFiles = files;
+
       if (oversize) {
-        this.$emit('oversize', Object.assign({ file }, this.getDetail()));
+        let oversizeFiles = files;
+        if (Array.isArray(files)) {
+          oversizeFiles = [];
+          validFiles = [];
+          files.forEach((item) => {
+            if (item.file) {
+              if (item.file.size > this.maxSize) {
+                oversizeFiles.push(item);
+              } else {
+                validFiles.push(item);
+              }
+            }
+          });
+        } else {
+          validFiles = null;
+        }
+        this.$emit('oversize', oversizeFiles, this.getDetail());
+      }
+
+      const isValidFiles = Array.isArray(validFiles)
+        ? Boolean(validFiles.length)
+        : Boolean(validFiles);
+
+      if (isValidFiles) {
+        this.$emit('input', [...this.fileList, ...toArray(validFiles)]);
+
+        if (this.afterRead) {
+          this.afterRead(validFiles, this.getDetail());
+        }
+      }
+    },
+
+    onDelete(file, index) {
+      if (this.beforeDelete) {
+        const response = this.beforeDelete(file, this.getDetail(index));
+
+        if (!response) {
+          return;
+        }
+
+        if (isPromise(response)) {
+          response
+            .then(() => {
+              this.deleteFile(file, index);
+            })
+            .catch(noop);
+          return;
+        }
+      }
+
+      this.deleteFile(file, index);
+    },
+
+    deleteFile(file, index) {
+      const fileList = this.fileList.slice(0);
+      fileList.splice(index, 1);
+
+      this.$emit('input', fileList);
+      this.$emit('delete', file, this.getDetail(index));
+    },
+
+    resetInput() {
+      /* istanbul ignore else */
+      if (this.$refs.input) {
+        this.$refs.input.value = '';
+      }
+    },
+
+    onPreviewImage(item) {
+      if (!this.previewFullImage) {
         return;
       }
-      if (typeof this.data.afterRead === 'function') {
-        this.data.afterRead(file, this.getDetail());
-      }
-      this.$emit('after-read', Object.assign({ file }, this.getDetail()));
-    },
-    deleteItem(event) {
-      const { index } = event.currentTarget.dataset;
-      this.$emit(
-        'delete',
-        Object.assign(Object.assign({}, this.getDetail(index)), {
-          file: this.data.fileList[index],
-        })
-      );
-    },
-    onPreviewImage(event) {
-      if (!this.data.previewFullImage) return;
-      const { index } = event.currentTarget.dataset;
-      const { lists } = this.data;
-      const item = lists[index];
-      wx.previewImage({
-        urls: lists
-          .filter((item) => item.isImage)
-          .map((item) => item.url || item.path),
-        current: item.url || item.path,
-        fail() {
-          wx.showToast({ title: '预览图片失败', icon: 'none' });
+
+      const imageFiles = this.fileList.filter((item) => isImageFile(item));
+      const imageContents = imageFiles.map((item) => item.content || item.url);
+
+      this.imagePreview = ImagePreview({
+        images: imageContents,
+        startPosition: imageFiles.indexOf(item),
+        onClose: () => {
+          this.$emit('close-preview');
         },
+        ...this.previewOptions,
       });
     },
-    onClickPreview(event) {
-      const { index } = event.currentTarget.dataset;
-      const item = this.data.lists[index];
-      this.$emit(
-        'click-preview',
-        Object.assign(Object.assign({}, item), this.getDetail(index))
+
+    // @exposed-api
+    closeImagePreview() {
+      if (this.imagePreview) {
+        this.imagePreview.close();
+      }
+    },
+
+    // @exposed-api
+    chooseFile() {
+      if (this.disabled) {
+        return;
+      }
+      /* istanbul ignore else */
+      if (this.$refs.input) {
+        this.$refs.input.click();
+      }
+    },
+
+    genPreviewMask(item) {
+      const { status, message } = item;
+
+      if (status === 'uploading' || status === 'failed') {
+        const MaskIcon =
+          status === 'failed' ? (
+            <Icon name="close" class={bem('mask-icon')} />
+          ) : (
+            <Loading class={bem('loading')} />
+          );
+
+        const showMessage = isDef(message) && message !== '';
+
+        return (
+          <div class={bem('mask')}>
+            {MaskIcon}
+            {showMessage && <div class={bem('mask-message')}>{message}</div>}
+          </div>
+        );
+      }
+    },
+
+    genPreviewItem(item, index) {
+      const showDelete = item.status !== 'uploading' && this.deletable;
+
+      const DeleteIcon = showDelete && (
+        <div
+          class={bem('preview-delete')}
+          onClick={(event) => {
+            event.stopPropagation();
+            this.onDelete(item, index);
+          }}
+        >
+          <Icon name="cross" class={bem('preview-delete-icon')} />
+        </div>
+      );
+
+      const PreviewCoverContent = this.slots('preview-cover', {
+        index,
+        ...item,
+      });
+
+      const PreviewCover = PreviewCoverContent && (
+        <div class={bem('preview-cover')}>{PreviewCoverContent}</div>
+      );
+
+      const Preview = isImageFile(item) ? (
+        <Image
+          fit={this.imageFit}
+          src={item.content || item.url}
+          class={bem('preview-image')}
+          width={this.previewSize}
+          height={this.previewSize}
+          lazyLoad={this.lazyLoad}
+          onClick={() => {
+            this.onPreviewImage(item);
+          }}
+        >
+          {PreviewCover}
+        </Image>
+      ) : (
+        <div
+          class={bem('file')}
+          style={{
+            width: this.previewSizeWithUnit,
+            height: this.previewSizeWithUnit,
+          }}
+        >
+          <Icon class={bem('file-icon')} name="description" />
+          <div class={[bem('file-name'), 'van-ellipsis']}>
+            {item.file ? item.file.name : item.url}
+          </div>
+          {PreviewCover}
+        </div>
+      );
+
+      return (
+        <div
+          class={bem('preview')}
+          onClick={() => {
+            this.$emit('click-preview', item, this.getDetail(index));
+          }}
+        >
+          {Preview}
+          {this.genPreviewMask(item)}
+          {DeleteIcon}
+        </div>
       );
     },
+
+    genPreviewList() {
+      if (this.previewImage) {
+        return this.fileList.map(this.genPreviewItem);
+      }
+    },
+
+    genUpload() {
+      if (this.fileList.length >= this.maxCount || !this.showUpload) {
+        return;
+      }
+
+      const slot = this.slots();
+
+      const Input = (
+        <input
+          {...{ attrs: this.$attrs }}
+          ref="input"
+          type="file"
+          accept={this.accept}
+          class={bem('input')}
+          disabled={this.disabled}
+          onChange={this.onChange}
+        />
+      );
+
+      if (slot) {
+        return (
+          <div class={bem('input-wrapper')}>
+            {slot}
+            {Input}
+          </div>
+        );
+      }
+
+      let style;
+      if (this.previewSize) {
+        const size = this.previewSizeWithUnit;
+        style = {
+          width: size,
+          height: size,
+        };
+      }
+
+      return (
+        <div class={bem('upload')} style={style}>
+          <Icon name={this.uploadIcon} class={bem('upload-icon')} />
+          {this.uploadText && (
+            <span class={bem('upload-text')}>{this.uploadText}</span>
+          )}
+          {Input}
+        </div>
+      );
+    },
+  },
+
+  render() {
+    return (
+      <div class={bem()}>
+        <div class={bem('wrapper', { disabled: this.disabled })}>
+          {this.genPreviewList()}
+          {this.genUpload()}
+        </div>
+      </div>
+    );
   },
 });

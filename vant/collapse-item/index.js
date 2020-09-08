@@ -1,95 +1,181 @@
-import { VantComponent } from '../common/component';
-VantComponent({
-  classes: ['title-class', 'content-class'],
-  relation: {
-    name: 'collapse',
-    type: 'ancestor',
-    current: 'collapse-item',
-  },
+// Utils
+import { createNamespace } from '../utils';
+import { raf, doubleRaf } from '../utils/dom/raf';
+
+// Mixins
+import { ChildrenMixin } from '../mixins/relation';
+
+// Components
+import Cell from '../cell';
+import { cellProps } from '../cell/shared';
+
+const [createComponent, bem] = createNamespace('collapse-item');
+
+const CELL_SLOTS = ['title', 'icon', 'right-icon'];
+
+export default createComponent({
+  mixins: [ChildrenMixin('vanCollapse')],
+
   props: {
-    name: null,
-    title: null,
-    value: null,
-    icon: String,
-    label: String,
+    ...cellProps,
+    name: [Number, String],
     disabled: Boolean,
-    clickable: Boolean,
-    border: {
-      type: Boolean,
-      value: true,
-    },
     isLink: {
       type: Boolean,
-      value: true,
+      default: true,
     },
   },
-  data: {
-    expanded: false,
+
+  data() {
+    return {
+      show: null,
+      inited: null,
+    };
   },
-  created() {
-    this.animation = wx.createAnimation({
-      duration: 0,
-      timingFunction: 'ease-in-out',
-    });
-  },
-  mounted() {
-    this.updateExpanded();
-    this.inited = true;
-  },
-  methods: {
-    updateExpanded() {
+
+  computed: {
+    currentName() {
+      return this.name ?? this.index;
+    },
+
+    expanded() {
       if (!this.parent) {
-        return Promise.resolve();
+        return null;
       }
-      const { value, accordion } = this.parent.data;
-      const { children = [] } = this.parent;
-      const { name } = this.data;
-      const index = children.indexOf(this);
-      const currentName = name == null ? index : name;
-      const expanded = accordion
-        ? value === currentName
-        : (value || []).some((name) => name === currentName);
-      if (expanded !== this.data.expanded) {
-        this.updateStyle(expanded);
-      }
-      this.setData({ index, expanded });
-    },
-    updateStyle(expanded) {
-      const { inited } = this;
-      this.getRect('.van-collapse-item__content')
-        .then((rect) => rect.height)
-        .then((height) => {
-          const { animation } = this;
-          if (expanded) {
-            animation
-              .height(height)
-              .top(1)
-              .step({
-                duration: inited ? 300 : 1,
-              })
-              .height('auto')
-              .step();
-            this.setData({
-              animation: animation.export(),
-            });
-            return;
-          }
-          animation.height(height).top(0).step({ duration: 1 }).height(0).step({
-            duration: 300,
-          });
-          this.setData({
-            animation: animation.export(),
-          });
-        });
-    },
-    onClick() {
-      if (this.data.disabled) {
+
+      const { value, accordion } = this.parent;
+
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        !accordion &&
+        !Array.isArray(value)
+      ) {
+        console.error('[Vant] Collapse: type of prop "value" should be Array');
         return;
       }
-      const { name, expanded } = this.data;
-      const index = this.parent.children.indexOf(this);
-      const currentName = name == null ? index : name;
-      this.parent.switch(currentName, !expanded);
+
+      return accordion
+        ? value === this.currentName
+        : value.some((name) => name === this.currentName);
     },
+  },
+
+  created() {
+    this.show = this.expanded;
+    this.inited = this.expanded;
+  },
+
+  watch: {
+    expanded(expanded, prev) {
+      if (prev === null) {
+        return;
+      }
+
+      if (expanded) {
+        this.show = true;
+        this.inited = true;
+      }
+
+      // Use raf: flick when opened in safari
+      // Use nextTick: closing animation failed when set `user-select: none`
+      const nextTick = expanded ? this.$nextTick : raf;
+
+      nextTick(() => {
+        const { content, wrapper } = this.$refs;
+
+        if (!content || !wrapper) {
+          return;
+        }
+
+        const { offsetHeight } = content;
+        if (offsetHeight) {
+          const contentHeight = `${offsetHeight}px`;
+          wrapper.style.height = expanded ? 0 : contentHeight;
+
+          // use double raf to ensure animation can start
+          doubleRaf(() => {
+            wrapper.style.height = expanded ? contentHeight : 0;
+          });
+        } else {
+          this.onTransitionEnd();
+        }
+      });
+    },
+  },
+
+  methods: {
+    onClick() {
+      if (this.disabled) {
+        return;
+      }
+
+      const { parent, currentName } = this;
+      const close = parent.accordion && currentName === parent.value;
+      const name = close ? '' : currentName;
+
+      parent.switch(name, !this.expanded);
+    },
+
+    onTransitionEnd() {
+      if (!this.expanded) {
+        this.show = false;
+      } else {
+        this.$refs.wrapper.style.height = '';
+      }
+    },
+
+    genTitle() {
+      const { border, disabled, expanded } = this;
+
+      const titleSlots = CELL_SLOTS.reduce((slots, name) => {
+        if (this.slots(name)) {
+          slots[name] = () => this.slots(name);
+        }
+
+        return slots;
+      }, {});
+
+      if (this.slots('value')) {
+        titleSlots.default = () => this.slots('value');
+      }
+
+      return (
+        <Cell
+          role="button"
+          class={bem('title', { disabled, expanded, borderless: !border })}
+          onClick={this.onClick}
+          scopedSlots={titleSlots}
+          tabindex={disabled ? -1 : 0}
+          aria-expanded={String(expanded)}
+          {...{ props: this.$props }}
+        />
+      );
+    },
+
+    genContent() {
+      if (this.inited) {
+        return (
+          <div
+            vShow={this.show}
+            ref="wrapper"
+            class={bem('wrapper')}
+            onTransitionend={this.onTransitionEnd}
+          >
+            <div ref="content" class={bem('content')}>
+              {this.slots()}
+            </div>
+          </div>
+        );
+      }
+    },
+  },
+
+  render() {
+    return (
+      <div class={[bem({ border: this.index && this.border })]}>
+        {this.genTitle()}
+        {this.genContent()}
+      </div>
+    );
   },
 });

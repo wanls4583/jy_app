@@ -64,7 +64,15 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/interrogation/invite/index",
+					"pathName": "pages/interrogation/invite/index",
+					"query": "scene=12321&name=1",
+					"scene": 1001
+				}
+			]
 		}
 	}
 }

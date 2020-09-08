@@ -1,0 +1,26 @@
+<!-- index.wxml -->
+<view class="container">
+	<pull-scroll-view bindrefresh="onRefresh" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-20 border-bottom flex--center--between">
+					<view class="font-bold">时间</view>
+					<view class="font-bold">姓名</view>
+					<view class="font-bold">邀请方式</view>
+				</view>
+			</view>
+			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
+				<view class="padding-top-bottom-20 border-bottom flex--center--between">
+					<view>{{item.createTime}}</view>
+					<view>{{item.nickname}}</view>
+					<view>{{item.inviteWay}}</view>
+				</view>
+			</view>
+		</view>
+		<view class="padding-30 gray-color align-center font-small" wx:if="{{totalCount>0}}">没有更多了</view>
+		<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+			<van-empty description="暂无记录" />
+		</view>
+		<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+	</pull-scroll-view>
+</view>

@@ -1,48 +1,80 @@
-import { VantComponent } from '../common/component';
-VantComponent({
+// Utils
+import { createNamespace, isObject, isDef } from '../utils';
+import { route, routeProps } from '../utils/router';
+
+// Mixins
+import { ChildrenMixin } from '../mixins/relation';
+
+// Components
+import Icon from '../icon';
+import Info from '../info';
+
+const [createComponent, bem] = createNamespace('tabbar-item');
+
+export default createComponent({
+  mixins: [ChildrenMixin('vanTabbar')],
+
   props: {
-    info: null,
-    name: null,
-    icon: String,
+    ...routeProps,
     dot: Boolean,
+    icon: String,
+    name: [Number, String],
+    info: [Number, String],
+    badge: [Number, String],
+    iconPrefix: String,
   },
-  relation: {
-    name: 'tabbar',
-    type: 'ancestor',
-    current: 'tabbar-item',
+
+  data() {
+    return {
+      active: false,
+    };
   },
-  data: {
-    active: false,
+
+  computed: {
+    routeActive() {
+      const { to, $route } = this;
+      if (to && $route) {
+        const config = isObject(to) ? to : { path: to };
+        const pathMatched = config.path === $route.path;
+        const nameMatched = isDef(config.name) && config.name === $route.name;
+
+        return pathMatched || nameMatched;
+      }
+    },
   },
+
   methods: {
-    onClick() {
-      if (this.parent) {
-        this.parent.onChange(this);
-      }
-      this.$emit('click');
+    onClick(event) {
+      this.parent.onChange(this.name || this.index);
+      this.$emit('click', event);
+      route(this.$router, this);
     },
-    updateFromParent() {
-      const { parent } = this;
-      if (!parent) {
-        return;
+
+    genIcon(active) {
+      const slot = this.slots('icon', { active });
+
+      if (slot) {
+        return slot;
       }
-      const index = parent.children.indexOf(this);
-      const parentData = parent.data;
-      const { data } = this;
-      const active = (data.name || index) === parentData.active;
-      const patch = {};
-      if (active !== data.active) {
-        patch.active = active;
+
+      if (this.icon) {
+        return <Icon name={this.icon} classPrefix={this.iconPrefix} />;
       }
-      if (parentData.activeColor !== data.activeColor) {
-        patch.activeColor = parentData.activeColor;
-      }
-      if (parentData.inactiveColor !== data.inactiveColor) {
-        patch.inactiveColor = parentData.inactiveColor;
-      }
-      return Object.keys(patch).length > 0
-        ? this.set(patch)
-        : Promise.resolve();
     },
+  },
+
+  render() {
+    const active = this.parent.route ? this.routeActive : this.active;
+    const color = this.parent[active ? 'activeColor' : 'inactiveColor'];
+
+    return (
+      <div class={bem({ active })} style={{ color }} onClick={this.onClick}>
+        <div class={bem('icon')}>
+          {this.genIcon(active)}
+          <Info dot={this.dot} info={this.badge ?? this.info} />
+        </div>
+        <div class={bem('text')}>{this.slots('default', { active })}</div>
+      </div>
+    );
   },
 });

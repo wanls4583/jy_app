@@ -1,5 +1,7 @@
 {
     "pages": [
+        "pages/interrogation/qrcode-share/index",
+        "pages/interrogation/invite/index",
         "pages/index/index",
         "pages/interrogation/withdraw-list/index",
         "pages/interrogation/withdraw/index",
@@ -81,6 +83,8 @@
         "van-icon": "/vant/icon/index",
         "van-loading": "/vant/loading/index",
         "van-rate": "/vant/rate/index",
+        "van-steps": "/vant/steps/index",
+        "van-share-sheet": "/vant/share-sheet/index",
         "van-stepper": "/vant/stepper/index"
     },
     "tabBar": {

@@ -5,7 +5,7 @@
 			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 				<view class="padding-top-bottom-20 border-bottom">
 					<view class="flex--center--between">
-						<view>{{item.nickname}}</view>
+						<view>提现到：{{item.nickname}}</view>
 						<view>{{item._status}}</view>
 						<view>{{item.amount}}元</view>
 					</view>

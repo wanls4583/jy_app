@@ -1,99 +1,160 @@
-import { VantComponent } from '../common/component';
-import { isSameSecond, parseFormat, parseTimeData } from './utils';
-function simpleTick(fn) {
-  return setTimeout(fn, 30);
-}
-VantComponent({
+import { createNamespace } from '../utils';
+import { raf, cancelRaf } from '../utils/dom/raf';
+import { isSameSecond, parseTimeData, parseFormat } from './utils';
+
+const [createComponent, bem] = createNamespace('count-down');
+
+export default createComponent({
   props: {
-    useSlot: Boolean,
     millisecond: Boolean,
     time: {
-      type: Number,
-      observer: 'reset',
+      type: [Number, String],
+      default: 0,
     },
     format: {
       type: String,
-      value: 'HH:mm:ss',
+      default: 'HH:mm:ss',
     },
     autoStart: {
       type: Boolean,
-      value: true,
+      default: true,
     },
   },
-  data: {
-    timeData: parseTimeData(0),
-    formattedTime: '0',
+
+  data() {
+    return {
+      remain: 0,
+    };
   },
-  destroyed() {
-    clearTimeout(this.tid);
-    this.tid = null;
+
+  computed: {
+    timeData() {
+      return parseTimeData(this.remain);
+    },
+
+    formattedTime() {
+      return parseFormat(this.format, this.timeData);
+    },
   },
+
+  watch: {
+    time: {
+      immediate: true,
+      handler: 'reset',
+    },
+  },
+
+  activated() {
+    if (this.keepAlivePaused) {
+      this.counting = true;
+      this.keepAlivePaused = false;
+      this.tick();
+    }
+  },
+
+  deactivated() {
+    if (this.counting) {
+      this.pause();
+      this.keepAlivePaused = true;
+    }
+  },
+
+  beforeDestroy() {
+    this.pause();
+  },
+
   methods: {
-    // 开始
+    // @exposed-api
     start() {
       if (this.counting) {
         return;
       }
+
       this.counting = true;
       this.endTime = Date.now() + this.remain;
       this.tick();
     },
-    // 暂停
+
+    // @exposed-api
     pause() {
       this.counting = false;
-      clearTimeout(this.tid);
+      cancelRaf(this.rafId);
     },
-    // 重置
+
+    // @exposed-api
     reset() {
       this.pause();
-      this.remain = this.data.time;
-      this.setRemain(this.remain);
-      if (this.data.autoStart) {
+      this.remain = +this.time;
+
+      if (this.autoStart) {
         this.start();
       }
     },
+
     tick() {
-      if (this.data.millisecond) {
+      if (this.millisecond) {
         this.microTick();
       } else {
         this.macroTick();
       }
     },
+
     microTick() {
-      this.tid = simpleTick(() => {
+      this.rafId = raf(() => {
+        /* istanbul ignore if */
+        // in case of call reset immediately after finish
+        if (!this.counting) {
+          return;
+        }
+
         this.setRemain(this.getRemain());
-        if (this.remain !== 0) {
+
+        if (this.remain > 0) {
           this.microTick();
         }
       });
     },
+
     macroTick() {
-      this.tid = simpleTick(() => {
+      this.rafId = raf(() => {
+        /* istanbul ignore if */
+        // in case of call reset immediately after finish
+        if (!this.counting) {
+          return;
+        }
+
         const remain = this.getRemain();
+
         if (!isSameSecond(remain, this.remain) || remain === 0) {
           this.setRemain(remain);
         }
-        if (this.remain !== 0) {
+
+        if (this.remain > 0) {
           this.macroTick();
         }
       });
     },
+
     getRemain() {
       return Math.max(this.endTime - Date.now(), 0);
     },
+
     setRemain(remain) {
       this.remain = remain;
-      const timeData = parseTimeData(remain);
-      if (this.data.useSlot) {
-        this.$emit('change', timeData);
-      }
-      this.setData({
-        formattedTime: parseFormat(this.data.format, timeData),
-      });
+      this.$emit('change', this.timeData);
+
       if (remain === 0) {
         this.pause();
         this.$emit('finish');
       }
     },
+  },
+
+  render() {
+    return (
+      <div class={bem()}>
+        {this.slots('default', this.timeData) || this.formattedTime}
+      </div>
+    );
   },
 });

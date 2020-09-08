@@ -1,0 +1,15 @@
+<view class="container white-background-color" style="padding-bottom:60px">
+	<view class="flex--center--end padding-right-30">
+		<view class="padding-top-20 font-small">活动规则？</view>
+	</view>
+	<view class="padding-30">
+		<view class="border width-100 height-100"></view>
+	</view>
+	<view class="padding-left-30">操作步骤：</view>
+	<van-steps active="{{2}}" direction="vertical" steps="{{steps}}" />
+	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
+		<view bindtap="onShowShare" class="button primary">邀请医生</view>
+		<view bindtap="onGoto" class="button primary plain" data-url="/pages/interrogation/invite-list/index">邀请记录</view>
+	</view>
+</view>
+<van-share-sheet bind:close="onShowShare" bind:select="onSelect" options="{{ options }}" show="{{ shareVisble }}" />

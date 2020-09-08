@@ -1,70 +1,146 @@
-import { isObj } from '../common/utils';
-const defaultOptions = {
-  type: 'text',
-  mask: false,
-  message: '',
-  show: true,
-  zIndex: 1000,
-  duration: 2000,
-  position: 'middle',
-  forbidClick: false,
-  loadingType: 'circular',
-  selector: '#van-toast',
-};
-let queue = [];
-let currentOptions = Object.assign({}, defaultOptions);
-function parseOptions(message) {
-  return isObj(message) ? message : { message };
-}
-function getContext() {
-  const pages = getCurrentPages();
-  return pages[pages.length - 1];
-}
-function Toast(toastOptions) {
-  const options = Object.assign(
-    Object.assign({}, currentOptions),
-    parseOptions(toastOptions)
-  );
-  const context = options.context || getContext();
-  const toast = context.selectComponent(options.selector);
-  if (!toast) {
-    console.warn('未找到 van-toast 节点，请确认 selector 及 context 是否正确');
-    return;
-  }
-  delete options.context;
-  delete options.selector;
-  toast.clear = () => {
-    toast.setData({ show: false });
-    if (options.onClose) {
-      options.onClose();
-    }
-  };
-  queue.push(toast);
-  toast.setData(options);
-  clearTimeout(toast.timer);
-  if (options.duration > 0) {
-    toast.timer = setTimeout(() => {
-      toast.clear();
-      queue = queue.filter((item) => item !== toast);
-    }, options.duration);
-  }
-  return toast;
-}
-const createMethod = (type) => (options) =>
-  Toast(Object.assign({ type }, parseOptions(options)));
-Toast.loading = createMethod('loading');
-Toast.success = createMethod('success');
-Toast.fail = createMethod('fail');
-Toast.clear = () => {
-  queue.forEach((toast) => {
-    toast.clear();
-  });
-  queue = [];
-};
-Toast.setDefaultOptions = (options) => {
-  Object.assign(currentOptions, options);
-};
-Toast.resetDefaultOptions = () => {
-  currentOptions = Object.assign({}, defaultOptions);
-};
-export default Toast;
+// Utils
+import { createNamespace, isDef } from '../utils';
+import { lockClick } from './lock-click';
+
+// Mixins
+import { PopupMixin } from '../mixins/popup';
+
+// Components
+import Icon from '../icon';
+import Loading from '../loading';
+
+const [createComponent, bem] = createNamespace('toast');
+
+export default createComponent({
+  mixins: [PopupMixin()],
+
+  props: {
+    icon: String,
+    className: null,
+    iconPrefix: String,
+    loadingType: String,
+    forbidClick: Boolean,
+    closeOnClick: Boolean,
+    message: [Number, String],
+    type: {
+      type: String,
+      default: 'text',
+    },
+    position: {
+      type: String,
+      default: 'middle',
+    },
+    transition: {
+      type: String,
+      default: 'van-fade',
+    },
+    lockScroll: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      clickable: false,
+    };
+  },
+
+  mounted() {
+    this.toggleClickable();
+  },
+
+  destroyed() {
+    this.toggleClickable();
+  },
+
+  watch: {
+    value: 'toggleClickable',
+    forbidClick: 'toggleClickable',
+  },
+
+  methods: {
+    onClick() {
+      if (this.closeOnClick) {
+        this.close();
+      }
+    },
+
+    toggleClickable() {
+      const clickable = this.value && this.forbidClick;
+
+      if (this.clickable !== clickable) {
+        this.clickable = clickable;
+        lockClick(clickable);
+      }
+    },
+
+    /* istanbul ignore next */
+    onAfterEnter() {
+      this.$emit('opened');
+
+      if (this.onOpened) {
+        this.onOpened();
+      }
+    },
+
+    onAfterLeave() {
+      this.$emit('closed');
+    },
+
+    genIcon() {
+      const { icon, type, iconPrefix, loadingType } = this;
+      const hasIcon = icon || type === 'success' || type === 'fail';
+
+      if (hasIcon) {
+        return (
+          <Icon
+            class={bem('icon')}
+            classPrefix={iconPrefix}
+            name={icon || type}
+          />
+        );
+      }
+
+      if (type === 'loading') {
+        return <Loading class={bem('loading')} type={loadingType} />;
+      }
+    },
+
+    genMessage() {
+      const { type, message } = this;
+
+      if (!isDef(message) || message === '') {
+        return;
+      }
+
+      if (type === 'html') {
+        return <div class={bem('text')} domPropsInnerHTML={message} />;
+      }
+
+      return <div class={bem('text')}>{message}</div>;
+    },
+  },
+
+  render() {
+    return (
+      <transition
+        name={this.transition}
+        onAfterEnter={this.onAfterEnter}
+        onAfterLeave={this.onAfterLeave}
+      >
+        <div
+          vShow={this.value}
+          class={[
+            bem([this.position, { [this.type]: !this.icon }]),
+            this.className,
+          ]}
+          onClick={this.onClick}
+        >
+          {this.genIcon()}
+          {this.genMessage()}
+        </div>
+      </transition>
+    );
+  },
+});

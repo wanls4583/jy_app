@@ -1,119 +1,139 @@
-import { VantComponent } from '../common/component';
-import { addUnit } from '../common/utils';
-let ARRAY = [];
-VantComponent({
-  field: true,
-  relation: {
-    name: 'dropdown-item',
-    type: 'descendant',
-    current: 'dropdown-menu',
-    linked() {
-      this.updateItemListData();
-    },
-    unlinked() {
-      this.updateItemListData();
-    },
-  },
+// Utils
+import { createNamespace, isDef } from '../utils';
+import { getScroller } from '../utils/dom/scroll';
+
+// Mixins
+import { ParentMixin } from '../mixins/relation';
+import { ClickOutsideMixin } from '../mixins/click-outside';
+
+const [createComponent, bem] = createNamespace('dropdown-menu');
+
+export default createComponent({
+  mixins: [
+    ParentMixin('vanDropdownMenu'),
+    ClickOutsideMixin({
+      event: 'click',
+      method: 'onClickOutside',
+    }),
+  ],
+
   props: {
-    activeColor: {
-      type: String,
-      observer: 'updateChildrenData',
-    },
+    zIndex: [Number, String],
+    activeColor: String,
     overlay: {
       type: Boolean,
-      value: true,
-      observer: 'updateChildrenData',
-    },
-    zIndex: {
-      type: Number,
-      value: 10,
+      default: true,
     },
     duration: {
-      type: Number,
-      value: 200,
-      observer: 'updateChildrenData',
+      type: [Number, String],
+      default: 0.2,
     },
     direction: {
       type: String,
-      value: 'down',
-      observer: 'updateChildrenData',
+      default: 'down',
     },
     closeOnClickOverlay: {
       type: Boolean,
-      value: true,
-      observer: 'updateChildrenData',
-    },
-    closeOnClickOutside: {
-      type: Boolean,
-      value: true,
+      default: true,
     },
   },
-  data: {
-    itemListData: [],
+
+  data() {
+    return {
+      offset: 0,
+    };
   },
-  beforeCreate() {
-    const { windowHeight } = wx.getSystemInfoSync();
-    this.windowHeight = windowHeight;
-    ARRAY.push(this);
+
+  computed: {
+    scroller() {
+      return getScroller(this.$el);
+    },
+
+    opened() {
+      return this.children.some((item) => item.showWrapper);
+    },
+
+    barStyle() {
+      if (this.opened && isDef(this.zIndex)) {
+        return {
+          zIndex: 1 + this.zIndex,
+        };
+      }
+    },
   },
-  destroyed() {
-    ARRAY = ARRAY.filter((item) => item !== this);
-  },
+
   methods: {
-    updateItemListData() {
-      this.setData({
-        itemListData: this.children.map((child) => child.data),
-      });
+    updateOffset() {
+      if (!this.$refs.bar) {
+        return;
+      }
+
+      const rect = this.$refs.bar.getBoundingClientRect();
+
+      if (this.direction === 'down') {
+        this.offset = rect.bottom;
+      } else {
+        this.offset = window.innerHeight - rect.top;
+      }
     },
-    updateChildrenData() {
-      this.children.forEach((child) => {
-        child.updateDataFromParent();
-      });
-    },
+
     toggleItem(active) {
       this.children.forEach((item, index) => {
-        const { showPopup } = item.data;
         if (index === active) {
           item.toggle();
-        } else if (showPopup) {
+        } else if (item.showPopup) {
           item.toggle(false, { immediate: true });
         }
       });
     },
-    close() {
-      this.children.forEach((child) => {
-        child.toggle(false, { immediate: true });
+
+    onClickOutside() {
+      this.children.forEach((item) => {
+        item.toggle(false);
       });
     },
-    getChildWrapperStyle() {
-      const { zIndex, direction } = this.data;
-      return this.getRect('.van-dropdown-menu').then((rect) => {
-        const { top = 0, bottom = 0 } = rect;
-        const offset = direction === 'down' ? bottom : this.windowHeight - top;
-        let wrapperStyle = `z-index: ${zIndex};`;
-        if (direction === 'down') {
-          wrapperStyle += `top: ${addUnit(offset)};`;
-        } else {
-          wrapperStyle += `bottom: ${addUnit(offset)};`;
-        }
-        return wrapperStyle;
-      });
-    },
-    onTitleTap(event) {
-      const { index } = event.currentTarget.dataset;
-      const child = this.children[index];
-      if (!child.data.disabled) {
-        ARRAY.forEach((menuItem) => {
-          if (
-            menuItem &&
-            menuItem.data.closeOnClickOutside &&
-            menuItem !== this
-          ) {
-            menuItem.close();
+  },
+
+  render() {
+    const Titles = this.children.map((item, index) => (
+      <div
+        role="button"
+        tabindex={item.disabled ? -1 : 0}
+        class={bem('item', { disabled: item.disabled })}
+        onClick={() => {
+          if (!item.disabled) {
+            this.toggleItem(index);
           }
-        });
-        this.toggleItem(index);
-      }
-    },
+        }}
+      >
+        <span
+          class={[
+            bem('title', {
+              active: item.showPopup,
+              down: item.showPopup === (this.direction === 'down'),
+            }),
+            item.titleClass,
+          ]}
+          style={{ color: item.showPopup ? this.activeColor : '' }}
+        >
+          <div class="van-ellipsis">
+            {item.slots('title') || item.displayTitle}
+          </div>
+        </span>
+      </div>
+    ));
+
+    return (
+      <div class={bem()}>
+        <div
+          ref="bar"
+          style={this.barStyle}
+          class={bem('bar', { opened: this.opened })}
+        >
+          {Titles}
+        </div>
+        {this.slots('default')}
+      </div>
+    );
   },
 });

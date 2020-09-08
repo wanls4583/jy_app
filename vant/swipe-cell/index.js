@@ -1,129 +1,246 @@
-import { VantComponent } from '../common/component';
-import { touch } from '../mixins/touch';
-import { range } from '../common/utils';
-const THRESHOLD = 0.3;
-let ARRAY = [];
-VantComponent({
+// Utils
+import { createNamespace } from '../utils';
+import { range } from '../utils/format/number';
+import { preventDefault } from '../utils/dom/event';
+
+// Mixins
+import { TouchMixin } from '../mixins/touch';
+import { ClickOutsideMixin } from '../mixins/click-outside';
+
+const [createComponent, bem] = createNamespace('swipe-cell');
+const THRESHOLD = 0.15;
+
+export default createComponent({
+  mixins: [
+    TouchMixin,
+    ClickOutsideMixin({
+      event: 'touchstart',
+      method: 'onClick',
+    }),
+  ],
+
   props: {
+    // @deprecated
+    // should be removed in next major version, use beforeClose instead
+    onClose: Function,
     disabled: Boolean,
-    leftWidth: {
-      type: Number,
-      value: 0,
-      observer(leftWidth = 0) {
-        if (this.offset > 0) {
-          this.swipeMove(leftWidth);
-        }
-      },
-    },
-    rightWidth: {
-      type: Number,
-      value: 0,
-      observer(rightWidth = 0) {
-        if (this.offset < 0) {
-          this.swipeMove(-rightWidth);
-        }
-      },
-    },
-    asyncClose: Boolean,
+    leftWidth: [Number, String],
+    rightWidth: [Number, String],
+    beforeClose: Function,
+    stopPropagation: Boolean,
     name: {
       type: [Number, String],
-      value: '',
+      default: '',
     },
   },
-  mixins: [touch],
-  data: {
-    catchMove: false,
+
+  data() {
+    return {
+      offset: 0,
+      dragging: false,
+    };
   },
-  created() {
-    this.offset = 0;
-    ARRAY.push(this);
+
+  computed: {
+    computedLeftWidth() {
+      return +this.leftWidth || this.getWidthByRef('left');
+    },
+
+    computedRightWidth() {
+      return +this.rightWidth || this.getWidthByRef('right');
+    },
   },
-  destroyed() {
-    ARRAY = ARRAY.filter((item) => item !== this);
+
+  mounted() {
+    this.bindTouchEvent(this.$el);
   },
+
   methods: {
+    getWidthByRef(ref) {
+      if (this.$refs[ref]) {
+        const rect = this.$refs[ref].getBoundingClientRect();
+        return rect.width;
+      }
+
+      return 0;
+    },
+
+    // @exposed-api
     open(position) {
-      const { leftWidth, rightWidth } = this.data;
-      const offset = position === 'left' ? leftWidth : -rightWidth;
-      this.swipeMove(offset);
+      const offset =
+        position === 'left' ? this.computedLeftWidth : -this.computedRightWidth;
+
+      this.opened = true;
+      this.offset = offset;
+
       this.$emit('open', {
         position,
-        name: this.data.name,
+        name: this.name,
+        // @deprecated
+        // should be removed in next major version
+        detail: this.name,
       });
     },
-    close() {
-      this.swipeMove(0);
-    },
-    swipeMove(offset = 0) {
-      this.offset = range(offset, -this.data.rightWidth, this.data.leftWidth);
-      const transform = `translate3d(${this.offset}px, 0, 0)`;
-      const transition = this.dragging
-        ? 'none'
-        : 'transform .6s cubic-bezier(0.18, 0.89, 0.32, 1)';
-      this.setData({
-        wrapperStyle: `
-        -webkit-transform: ${transform};
-        -webkit-transition: ${transition};
-        transform: ${transform};
-        transition: ${transition};
-      `,
-      });
-    },
-    swipeLeaveTransition() {
-      const { leftWidth, rightWidth } = this.data;
-      const { offset } = this;
-      if (rightWidth > 0 && -offset > rightWidth * THRESHOLD) {
-        this.open('right');
-      } else if (leftWidth > 0 && offset > leftWidth * THRESHOLD) {
-        this.open('left');
-      } else {
-        this.swipeMove(0);
+
+    // @exposed-api
+    close(position) {
+      this.offset = 0;
+
+      if (this.opened) {
+        this.opened = false;
+        this.$emit('close', {
+          position,
+          name: this.name,
+        });
       }
-      this.setData({ catchMove: false });
     },
-    startDrag(event) {
-      if (this.data.disabled) {
+
+    onTouchStart(event) {
+      if (this.disabled) {
         return;
       }
+
       this.startOffset = this.offset;
       this.touchStart(event);
     },
-    noop() {},
-    onDrag(event) {
-      if (this.data.disabled) {
+
+    onTouchMove(event) {
+      if (this.disabled) {
         return;
       }
+
       this.touchMove(event);
-      if (this.direction !== 'horizontal') {
-        return;
+
+      if (this.direction === 'horizontal') {
+        this.dragging = true;
+        this.lockClick = true;
+
+        const isPrevent = !this.opened || this.deltaX * this.startOffset < 0;
+
+        if (isPrevent) {
+          preventDefault(event, this.stopPropagation);
+        }
+
+        this.offset = range(
+          this.deltaX + this.startOffset,
+          -this.computedRightWidth,
+          this.computedLeftWidth
+        );
       }
-      this.dragging = true;
-      ARRAY.filter((item) => item !== this).forEach((item) => item.close());
-      this.setData({ catchMove: true });
-      this.swipeMove(this.startOffset + this.deltaX);
     },
-    endDrag() {
-      if (this.data.disabled) {
+
+    onTouchEnd() {
+      if (this.disabled) {
         return;
       }
-      this.dragging = false;
-      this.swipeLeaveTransition();
+
+      if (this.dragging) {
+        this.toggle(this.offset > 0 ? 'left' : 'right');
+        this.dragging = false;
+
+        // compatible with desktop scenario
+        setTimeout(() => {
+          this.lockClick = false;
+        }, 0);
+      }
     },
-    onClick(event) {
-      const { key: position = 'outside' } = event.currentTarget.dataset;
-      this.$emit('click', position);
-      if (!this.offset) {
-        return;
-      }
-      if (this.data.asyncClose) {
-        this.$emit('close', {
-          position,
-          instance: this,
-          name: this.data.name,
-        });
+
+    toggle(direction) {
+      const offset = Math.abs(this.offset);
+      const threshold = this.opened ? 1 - THRESHOLD : THRESHOLD;
+      const { computedLeftWidth, computedRightWidth } = this;
+
+      if (
+        computedRightWidth &&
+        direction === 'right' &&
+        offset > computedRightWidth * threshold
+      ) {
+        this.open('right');
+      } else if (
+        computedLeftWidth &&
+        direction === 'left' &&
+        offset > computedLeftWidth * threshold
+      ) {
+        this.open('left');
       } else {
-        this.swipeMove(0);
+        this.close();
       }
     },
+
+    onClick(position = 'outside') {
+      this.$emit('click', position);
+
+      if (this.opened && !this.lockClick) {
+        if (this.beforeClose) {
+          this.beforeClose({
+            position,
+            name: this.name,
+            instance: this,
+          });
+        } else if (this.onClose) {
+          this.onClose(position, this, { name: this.name });
+        } else {
+          this.close(position);
+        }
+      }
+    },
+
+    getClickHandler(position, stop) {
+      return (event) => {
+        if (stop) {
+          event.stopPropagation();
+        }
+        this.onClick(position);
+      };
+    },
+
+    genLeftPart() {
+      const content = this.slots('left');
+
+      if (content) {
+        return (
+          <div
+            ref="left"
+            class={bem('left')}
+            onClick={this.getClickHandler('left', true)}
+          >
+            {content}
+          </div>
+        );
+      }
+    },
+
+    genRightPart() {
+      const content = this.slots('right');
+
+      if (content) {
+        return (
+          <div
+            ref="right"
+            class={bem('right')}
+            onClick={this.getClickHandler('right', true)}
+          >
+            {content}
+          </div>
+        );
+      }
+    },
+  },
+
+  render() {
+    const wrapperStyle = {
+      transform: `translate3d(${this.offset}px, 0, 0)`,
+      transitionDuration: this.dragging ? '0s' : '.6s',
+    };
+
+    return (
+      <div class={bem()} onClick={this.getClickHandler('cell')}>
+        <div class={bem('wrapper')} style={wrapperStyle}>
+          {this.genLeftPart()}
+          {this.slots()}
+          {this.genRightPart()}
+        </div>
+      </div>
+    );
   },
 });

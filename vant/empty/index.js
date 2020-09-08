@@ -1,26 +1,68 @@
-import { VantComponent } from '../common/component';
-const PRESETS = ['error', 'search', 'default', 'network'];
-VantComponent({
+import { createNamespace } from '../utils';
+import Network from './Network';
+
+const [createComponent, bem] = createNamespace('empty');
+
+const PRESETS = ['error', 'search', 'default'];
+
+export default createComponent({
   props: {
     description: String,
     image: {
       type: String,
-      value: 'default',
+      default: 'default',
     },
   },
-  created() {
-    if (PRESETS.indexOf(this.data.image) !== -1) {
-      if(this.data.image == 'default') {
-        this.setData({
-          imageUrl: '/image/empty.png'
-        });
-      } else {
-        this.setData({
-          imageUrl: `https://img.yzcdn.cn/vant/empty-image-${this.data.image}.png`,
-        });
+
+  methods: {
+    genImageContent() {
+      const slots = this.slots('image');
+
+      if (slots) {
+        return slots;
       }
-    } else {
-      this.setData({ imageUrl: this.data.image });
-    }
+
+      if (this.image === 'network') {
+        return <Network />;
+      }
+
+      let { image } = this;
+
+      if (PRESETS.indexOf(image) !== -1) {
+        image = `https://img.yzcdn.cn/vant/empty-image-${image}.png`;
+      }
+
+      return <img src={image} />;
+    },
+
+    genImage() {
+      return <div class={bem('image')}>{this.genImageContent()}</div>;
+    },
+
+    genDescription() {
+      const description = this.slots('description') || this.description;
+
+      if (description) {
+        return <p class={bem('description')}>{description}</p>;
+      }
+    },
+
+    genBottom() {
+      const slot = this.slots();
+
+      if (slot) {
+        return <div class={bem('bottom')}>{slot}</div>;
+      }
+    },
+  },
+
+  render() {
+    return (
+      <div class={bem()}>
+        {this.genImage()}
+        {this.genDescription()}
+        {this.genBottom()}
+      </div>
+    );
   },
 });

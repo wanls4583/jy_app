@@ -1,41 +1,44 @@
-import { VantComponent } from '../common/component';
-VantComponent({
-  relation: {
-    name: 'sidebar-item',
-    type: 'descendant',
-    current: 'sidebar',
-    linked() {
-      this.setActive(this.data.activeKey);
-    },
-    unlinked() {
-      this.setActive(this.data.activeKey);
-    },
+import { createNamespace } from '../utils';
+import { ParentMixin } from '../mixins/relation';
+
+const [createComponent, bem] = createNamespace('sidebar');
+
+export default createComponent({
+  mixins: [ParentMixin('vanSidebar')],
+
+  model: {
+    prop: 'activeKey',
   },
+
   props: {
     activeKey: {
-      type: Number,
-      value: 0,
-      observer: 'setActive',
+      type: [Number, String],
+      default: 0,
     },
   },
-  beforeCreate() {
-    this.currentActive = -1;
+
+  data() {
+    return {
+      index: +this.activeKey,
+    };
   },
+
+  watch: {
+    activeKey() {
+      this.setIndex(+this.activeKey);
+    },
+  },
+
   methods: {
-    setActive(activeKey) {
-      const { children, currentActive } = this;
-      if (!children.length) {
-        return Promise.resolve();
+    setIndex(index) {
+      if (index !== this.index) {
+        this.index = index;
+        this.$emit('change', index);
       }
-      this.currentActive = activeKey;
-      const stack = [];
-      if (currentActive !== activeKey && children[currentActive]) {
-        stack.push(children[currentActive].setActive(false));
-      }
-      if (children[activeKey]) {
-        stack.push(children[activeKey].setActive(true));
-      }
-      return Promise.all(stack);
     },
+  },
+
+  render() {
+    return <div class={bem()}>{this.slots()}</div>;
   },
 });
