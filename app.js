@@ -5,7 +5,7 @@ import { store } from './store/index';
 import http from './utils/request';
 import utils from './utils/util';
 import * as constData from './utils/data';
-import Dialog from './vant/dialog/dialog';
+import Dialog from '@vant/weapp/dialog/dialog';
 import { Promise } from 'es6-promise';
 App({
     onLaunch: function(option) {

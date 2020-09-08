@@ -35,7 +35,7 @@
 				<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
 				<view class="font-mini">订单列表</view>
 			</view>
-			<view class="width-25 padding-top-bottom-20 align-center">
+			<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center" data-url="/pages/interrogation/invite/index">
 				<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
 				<view class="font-mini">邀请医生</view>
 			</view>

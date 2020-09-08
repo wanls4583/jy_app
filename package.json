@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@vant/weapp": "^1.5.0",
     "es6-promise": "^4.2.8",
     "mobx-miniprogram": "^4.13.2",
     "mobx-miniprogram-bindings": "^1.2.1"

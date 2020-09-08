@@ -27,7 +27,7 @@ Page({
 
         } else {
             wx.navigateTo({
-                url: '/pages/qrcode-share/index'
+                url: '/pages/interrogation/qrcode-share/index'
             });
         }
         this.setData({
