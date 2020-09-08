@@ -33,7 +33,7 @@ Page({
                     title: '支付成功'
                 });
                 this.loadInfo();
-            }).then(() => {
+            }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
         });
