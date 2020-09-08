@@ -12,6 +12,9 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
     },

@@ -21,7 +21,7 @@
 		</view>
 		<view bindtap="onSubmit" class="button primary block margin-top-30">提现</view>
 		<view class="flex--center--center">
-			<view class="padding-30 primary-color">提现记录</view>
+			<view bindtap="onGoto" class="padding-30 primary-color" data-url="/pages/interrogation/withdraw-list/index">提现记录</view>
 		</view>
 	</view>
 </view>
