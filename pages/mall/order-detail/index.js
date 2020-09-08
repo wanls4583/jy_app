@@ -1,16 +1,44 @@
 Page({
     data: {
-        order: {}
+        order: null
     },
     onLoad(option) {
-        this.loadInfo(option.id);
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo']
+        });
+        this.storeBindings.updateStoreBindings();
+        this.orderId = option.id;
+        this.loadInfo();
     },
-    loadInfo(id) {
-        wx.showLoading({
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
+    //支付商城订单
+    onMallOrderPay(e) {
+        wx.jyApp.http({
+            url: '/wx/pay/submit',
+            method: 'post',
+            data: {
+                id: this.orderId
+            }
+        }).then((data) => {
+            wx.jyApp.utils.pay(data.params).then(() => {
+                wx.showToast({
+                    title: '支付成功'
+                });
+                this.loadInfo();
+            }).catch(() => {
+                wx.jyApp.toast('支付失败');
+            });
+        });
+    },
+    loadInfo() {
+        !this.loaded && wx.showLoading({
             title: '加载中...'
         });
         wx.jyApp.http({
-            url: `/order/info/${id}`
+            url: `/order/info/${this.orderId}`
         }).then((data) => {
             data.order._status = wx.jyApp.constData.mallOrderStatusMap[data.order.status];
             data.order.goods.map((_item) => {
@@ -20,16 +48,21 @@ Page({
             switch (data.order.status) {
                 case 0:
                 case 5:
-                case 6: data.order.statusColor = 'danger-color'; break;
+                case 6:
+                    data.order.statusColor = 'danger-color';
+                    break;
                 case 1:
                 case 7:
-                case 8: data.order.statusColor = 'success-color'; break;
+                case 8:
+                    data.order.statusColor = 'success-color';
+                    break;
             }
             this.setData({
                 order: data.order
             });
         }).finally(() => {
-            wx.hideLoading();
+            !this.loaded && wx.hideLoading();
+            this.loaded = true;
         });
     }
 })

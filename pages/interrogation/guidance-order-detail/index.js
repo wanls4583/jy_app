@@ -5,7 +5,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['selectAddress'],
+            fields: ['selectAddress', 'userInfo'],
             actions: ['updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
@@ -14,6 +14,9 @@ Page({
         }
         this.id = option.id;
         this.loadInfo();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     //选择支付地址
     onSelectAddress() {
@@ -37,13 +40,13 @@ Page({
                     title: '支付成功'
                 });
                 this.loadInfo();
-            }).then(() => {
+            }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
         });
     },
     loadInfo() {
-        wx.showLoading({
+        !this.loaded && wx.showLoading({
             title: '加载中...',
             mask: true
         });
@@ -81,7 +84,8 @@ Page({
                 order: data.detail
             });
         }).finally(() => {
-            wx.hideLoading();
+            !this.loaded && wx.hideLoading();
+            this.loaded = true;
         });
     },
     loadAddressList() {

@@ -16,12 +16,6 @@ Page({
         areaVisible: false
     },
     onLoad(option) {
-        this.storeBindings = wx.jyApp.createStoreBindings(this, {
-            store: wx.jyApp.store,
-            fields: ['selectAddress'],
-            actions: ['updateSelectAddress'],
-        });
-        this.storeBindings.updateStoreBindings();
         if (option && option.id) {
             wx.setNavigationBarTitle({
                 title: '编辑地址'
@@ -37,7 +31,6 @@ Page({
         });
     },
     onUnload() {
-        this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
     onInput(e) {
@@ -95,15 +88,12 @@ Page({
             method: 'post',
             data: this.data.address
         }).then(() => {
-            if (this.data.address.isDefault && !this.data.selectAddress) {
-                this.updateSelectAddress(this.data.address);
-            }
             wx.showToast({
                 title: '操作成功'
             });
             this.toastTimer = setTimeout(() => {
                 wx.jyApp.reloadAddressList = true;
-                    wx.navigateBack();
+                wx.navigateBack();
             }, 1500);
         });
     },
@@ -118,7 +108,7 @@ Page({
             this.setData({
                 address: data.userAddress
             });
-        }).finally(()=>{
+        }).finally(() => {
             wx.hideLoading();
         });
     }

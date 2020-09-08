@@ -11,11 +11,11 @@ Page({
             this.loadAddressList();
         }
     },
-    onHide() {
+    onUnload() {
         this.storeBindings.destroyStoreBindings();
         clearTimeout(this.toastTimer);
     },
-    onUnload() {
+    onHide() {
         clearTimeout(this.toastTimer);
     },
     onSelectAddress() {

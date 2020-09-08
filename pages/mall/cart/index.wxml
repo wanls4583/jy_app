@@ -34,6 +34,6 @@
     </view>
     <view class="footer padding-left-30 primary-color flex--center--between border-top">
         <text>￥{{cartTotalMoney}}</text>
-        <view class="button primary center height-100" bindtap="onSubmit">提交订单</view>
+        <view class="button primary center height-100 radius-0" bindtap="onSubmit">提交订单</view>
     </view>
 </view>

@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <view class="container">
-	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status===0}}">
+	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 		<text class="font-large danger-color">未支付</text>
 		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
-		<view class="button plain primary">立即支付</view>
+		<view class="button plain primary" bindtap="onMallOrderPay">立即支付</view>
 	</view>
 	<view class="flex--center--center height-150rpx white-background-color font-large {{order.statusColor}}" wx:else>{{order._status}}</view>
 	<view class="white-background-color padding-30 margin-top-20">

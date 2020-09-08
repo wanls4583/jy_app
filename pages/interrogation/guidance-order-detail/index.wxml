@@ -1,21 +1,21 @@
 <!--index.wxml-->
 <view class="container">
-	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0}}">
+	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 		<text class="font-large danger-color">未支付</text>
 		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
 		<view bindtap="onGuidanceOrderPay" class="button plain primary">立即支付</view>
 	</view>
-	<view class="flex--center--center padding-30 white-background-color" wx:else>
-		<view class="font-large {{statusColor}}">{{order._status}}</view>
+	<view class="flex--center--center height-150rpx white-background-color" wx:else>
+		<view class="font-large {{order.statusColor}}">{{order._status}}</view>
 	</view>
-	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.status==1}}">
+	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.contactName}}">
 		<view>
 			<text>{{order.contactName}}</text>
 			<text class="margin-left-30">{{order.contactPhone}}</text>
 		</view>
 		<view class="gray-color margin-top-20">{{order.address}}</view>
 	</view>
-	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30 margin-top-20" wx:if="{{order.status==0}}">
+	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30 margin-top-20" wx:elif="{{order.status==0}}">
 		<block wx:if="{{selectAddress}}">
 			<view style="max-width: 300px;">
 				<view class="margin-bottom-20">

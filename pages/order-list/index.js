@@ -63,51 +63,11 @@ Page({
     onMallOrderLoadMore() {
         this.loadMallOrderList();
     },
-    //支付商城订单
-    onMallOrderPay(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.http({
-            url: '/wx/pay/submit',
-            method: 'post',
-            data: {
-                id: id
-            }
-        }).then((data) => {
-            wx.jyApp.utils.pay(data.params).then(() => {
-                wx.showToast({
-                    title: '支付成功'
-                });
-                this.loadMallOrderList(true);
-            }).then(() => {
-                wx.jyApp.toast('支付失败');
-            });
-        });
-    },
     onInterrogationOrderRefresh() {
         this.loadInterrogationOrderList(true);
     },
     onInterrogationOrderLoadMore() {
         this.loadInterrogationOrderList();
-    },
-    //支付问诊单
-    onInterrogationPay(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.http({
-            url: '/consultorder/pay',
-            method: 'post',
-            data: {
-                id: id
-            }
-        }).then((data) => {
-            wx.jyApp.utils.pay(data.params).then(() => {
-                wx.showToast({
-                    title: '支付成功'
-                });
-                this.loadInterrogationOrderList(true);
-            }).then(() => {
-                wx.jyApp.toast('支付失败');
-            });
-        });
     },
     onApplyOrderRefresh() {
         this.loadApplyOrderList(true);
@@ -154,10 +114,14 @@ Page({
                 switch (item.status) {
                     case 0:
                     case 5:
-                    case 6: item.statusColor = 'danger-color'; break;
+                    case 6:
+                        item.statusColor = 'danger-color';
+                        break;
                     case 1:
                     case 7:
-                    case 8: item.statusColor = 'success-color'; break;
+                    case 8:
+                        item.statusColor = 'success-color';
+                        break;
                 }
             });
             this.setData({
@@ -204,9 +168,13 @@ Page({
                 switch (item.status) {
                     case 0:
                     case 6:
-                    case 7: item.statusColor = 'danger-color'; break;
+                    case 7:
+                        item.statusColor = 'danger-color';
+                        break;
                     case 1:
-                    case 3: item.statusColor = 'success-color'; break;
+                    case 3:
+                        item.statusColor = 'success-color';
+                        break;
                 }
             });
             this.setData({
@@ -258,10 +226,14 @@ Page({
                 switch (item.status) {
                     case 0:
                     case 5:
-                    case 6: item.statusColor = 'danger-color'; break;
+                    case 6:
+                        item.statusColor = 'danger-color';
+                        break;
                     case 1:
                     case 7:
-                    case 8: item.statusColor = 'success-color'; break;
+                    case 8:
+                        item.statusColor = 'success-color';
+                        break;
                 }
             });
             this.setData({
@@ -309,8 +281,12 @@ Page({
                     case 0:
                     case 1:
                     case 4:
-                    case 5: item.statusColor = 'danger-color'; break;
-                    case 2: item.statusColor = 'success-color'; break;
+                    case 5:
+                        item.statusColor = 'danger-color';
+                        break;
+                    case 2:
+                        item.statusColor = 'success-color';
+                        break;
                 }
             });
             this.setData({

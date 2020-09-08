@@ -1,7 +1,7 @@
 Page({
     data: {
         addressList: [],
-        checkedId: 1,
+        checkedId: 0,
         ifSelect: false
     },
     onLoad() {
@@ -21,17 +21,10 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
-        if(wx.jyApp.reloadAddressList) {
+        if (wx.jyApp.reloadAddressList) {
             this.loadList();
             delete wx.jyApp.reloadAddressList;
         }
-        wx.nextTick(() => {
-            if (this.data.selectAddress) {
-                this.setData({
-                    checkedId: this.data.selectAddress.id
-                });
-            }
-        });
     },
     onChange(e) {
         var address = e.currentTarget.dataset.address;
@@ -92,14 +85,21 @@ Page({
             this.setData({
                 addressList: data.list || []
             });
-            if (!this.selectAddress) {
+            if (!this.data.selectAddress) {
                 this.data.addressList.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
                     }
                 });
             }
-        }).finally(()=>{
+            wx.nextTick(() => {
+                if (this.data.selectAddress) {
+                    this.setData({
+                        checkedId: this.data.selectAddress.id
+                    });
+                }
+            });
+        }).finally(() => {
             wx.hideLoading();
         });
     }
