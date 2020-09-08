@@ -12,7 +12,6 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-        clearTimeout(this.toastTimer);
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
@@ -34,10 +33,10 @@ Page({
                 side: this.data.userInfo.role == 'DOCTOR' ? 'DOCTOR' : 'USER'
             }
         }).then(() => {
-            wx.showToast({ title: '反馈成功' });
-            this.toastTimer = setTimeout(() => {
-                wx.navigateBack();
-            }, 1500);
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.showToast({ title: '反馈成功' });
+            }, 500);
         }).finally(() => {
             wx.hideLoading();
         });

@@ -11,9 +11,6 @@ Page({
         this.doctorId = option.doctorId;
         this.getDoctorInfo();
     },
-    onUnload() {
-        clearTimeout(this.toastTimer);
-    },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
@@ -63,10 +60,10 @@ Page({
                 score: this.data.score
             }
         }).then(() => {
-            wx.showToast({ title: '提交成功' });
-            this.toastTimer = setTimeout(() => {
-                wx.navigateBack();
-            }, 1500);
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.showToast({ title: '提交成功' });
+            }, 500);
         }).finally(() => {
             wx.hideLoading();
         });

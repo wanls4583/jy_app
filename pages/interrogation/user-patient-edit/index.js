@@ -22,9 +22,6 @@ Page({
             this.loadInfo(option.id);
         }
     },
-    onUnload() {
-        clearTimeout(this.toastTimer);
-    },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
@@ -67,13 +64,13 @@ Page({
             method: 'post',
             data: this.data.patient
         }).then(() => {
-            wx.showToast({
-                title: '操作成功'
-            });
-            this.toastTimer = setTimeout(() => {
-                wx.jyApp.reloadPatientList = true;
-                wx.navigateBack();
-            }, 1500);
+            wx.jyApp.reloadPatientList = true;
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.showToast({
+                    title: '操作成功'
+                });
+            }, 500);
         });
     },
     loadInfo(id) {

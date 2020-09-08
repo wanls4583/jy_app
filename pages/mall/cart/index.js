@@ -13,10 +13,6 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-        clearTimeout(this.toastTimer);
-    },
-    onHide() {
-        clearTimeout(this.toastTimer);
     },
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
@@ -52,17 +48,19 @@ Page({
             var self = this;
             this.clearCart();
             wx.jyApp.utils.pay(data.params).then(() => {
-                wx.showToast({
-                    title: '支付成功'
-                });
-            }).catch(() => {
-                wx.jyApp.toast('支付失败');
-            }).finally(() => {
-                self.toastTimer = setTimeout(() => {
-                    wx.navigateTo({
-                        url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
+                setTimeout(() => {
+                    wx.showToast({
+                        title: '支付成功'
                     });
-                }, 1500);
+                }, 500);
+            }).catch(() => {
+                setTimeout(() => {
+                    wx.jyApp.toast('支付失败');
+                }, 500);
+            }).finally(() => {
+                wx.navigateTo({
+                    url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
+                });
             });
         });
     },

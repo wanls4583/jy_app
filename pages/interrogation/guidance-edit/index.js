@@ -84,6 +84,10 @@ Page({
             wx.jyApp.toast('营养指导不能为空');
             return;
         }
+        wx.showLoading({
+            title: '提交中...',
+            mask: true
+        });
         wx.jyApp.http({
             url: '/nutritionorder/save',
             method: 'post',
@@ -105,6 +109,15 @@ Page({
                     }
                 })
             }
-        })
+        }).then(() => {
+            setTimeout(() => {
+                wx.showToast({
+                    title: '提交成功'
+                });
+            }, 500);
+            wx.navigateBack();
+        }).finally(() => {
+            wx.hideLoading();
+        });
     }
 })

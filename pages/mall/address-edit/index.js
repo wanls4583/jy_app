@@ -30,9 +30,6 @@ Page({
             areaList: area
         });
     },
-    onUnload() {
-        clearTimeout(this.toastTimer);
-    },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
@@ -84,17 +81,17 @@ Page({
             return;
         }
         wx.jyApp.http({
-            url: `/user/address/${this.data.address.id?'update':'save'}`,
+            url: `/user/address/${this.data.address.id ? 'update' : 'save'}`,
             method: 'post',
             data: this.data.address
         }).then(() => {
-            wx.showToast({
-                title: '操作成功'
-            });
-            this.toastTimer = setTimeout(() => {
-                wx.jyApp.reloadAddressList = true;
-                wx.navigateBack();
-            }, 1500);
+            wx.jyApp.reloadAddressList = true;
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.showToast({
+                    title: '操作成功'
+                });
+            }, 500);
         });
     },
     loadInfo(id) {

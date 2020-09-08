@@ -25,7 +25,6 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-        clearTimeout(this.toastTimer);
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
@@ -60,6 +59,7 @@ Page({
         var second = 60;
         var self = this;
         _reduce();
+
         function _reduce() {
             if (second <= 0) {
                 self.setData({
@@ -86,14 +86,14 @@ Page({
                 smsCode: Number(this.data.smsCode)
             }
         }).then(() => {
-            wx.showToast({
-                title: '绑定成功'
-            });
-            this.toastTimer = setTimeout(() => {
-                this.data.userInfo.phone = this.data.phone;
-                this.updateUserInfo(Object.assign({}, this.data.userInfo));
-                wx.navigateBack();
-            }, 1500);
+            this.data.userInfo.phone = this.data.phone;
+            this.updateUserInfo(Object.assign({}, this.data.userInfo));
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.showToast({
+                    title: '绑定成功'
+                });
+            }, 500);
         });
     }
 })
