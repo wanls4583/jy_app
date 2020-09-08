@@ -100,7 +100,7 @@ Page({
         if (this.data.goods.type == 1) {
             gross = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
         } else {
-            gross = this.data.frequency * this.data.days;
+            gross = this.data.days;
         }
         this.setData({
             gross: gross,

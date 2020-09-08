@@ -59,24 +59,18 @@
 		<view class="flex padding-top-bottom-20">
 			<text>患者信息：</text>
 			<text>{{order.patientName}}</text>
-			<text class="margin-left-30">{{order._sex}}</text>
-			<text class="margin-left-30">{{order.age}}岁</text>
-			<text class="margin-left-30">{{order.height}}cm</text>
-			<text class="margin-left-30">{{order.weight}}kg</text>
+			<text>，{{order._sex}}</text>
+			<text>，{{order.age}}岁</text>
+			<text>，{{order.height}}cm</text>
+			<text>，{{order.weight}}kg</text>
 		</view>
 		<view class="padding-bottom-20">
 			<text>医生姓名：{{order.doctorName}}</text>
 		</view>
-		<view class="flex padding-bottom-20">
-			<text>创建时间：</text>
-			<text>{{order.orderTime}}</text>
-		</view>
 	</view>
-	<view class="padding-left-right-30 padding-top-bottom-20 margin-top-20 white-background-color">
-		<view>
-			营养诊断：
-			<text class="gray-color">{{order.diagnosis}}</text>
-		</view>
+	<view class="padding-left-right-30 padding-top-bottom-20 margin-top-20 flex white-background-color">
+		<text class="flex-shrink-0">营养诊断：</text>
+		<text class="gray-color">{{order.diagnosis}}</text>
 	</view>
 	<view class="padding-30 white-background-color margin-top-20">
 		<view class="flex--center--between">

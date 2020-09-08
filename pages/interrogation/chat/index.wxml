@@ -130,9 +130,9 @@
 									</view>
 									<view class="align-center padding-bottom-20">
 										<view
-											bindtap="onClickGuideOrderDetail"
+											bindtap="onGoto"
 											class="button small success"
-											data-url="/pages/interrogation/guidance-order-detail/index?id={{consultOrderId}}"
+											data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}"
 										>查看详情</view>
 									</view>
 								</view>
