@@ -6,7 +6,7 @@
 		</view>
 		<view class="flex padding-top-bottom-30">
 			<text style="width:100px">可提现金额</text>
-			<text class="primary-color">￥{{totalAmount||0}}</text>
+			<text class="primary-color">￥{{userInfo.balance||0}}</text>
 		</view>
 		<view class="padding-bottom-30 font-small gray-color">
 			<text>每月10号计算上月税后收益后，计入可提现金额</text>

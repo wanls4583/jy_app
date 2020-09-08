@@ -1,12 +1,12 @@
 Page({
     data: {
-        amount: '',
-        totalAmount: 0
+        amount: ''
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo'],
+            actions: ['updateUserInfo'],
         });
     },
     onUnload() {
@@ -20,7 +20,7 @@ Page({
     },
     onAll() {
         this.setData({
-            amount: this.data.totalAmount
+            amount: this.data.userInfo.balance
         });
     },
     onSubmit() {
@@ -35,6 +35,9 @@ Page({
                 amount: this.data.amount
             }
         }).then(() => {
+            var balance = this.data.userInfo.balance - this.data.amount;
+            this.data.userInfo.balance = balance.toFixed(2);
+            this.updateUserInfo(Object.assign({}, this.data.userInfo));
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({ title: '提现成功' });

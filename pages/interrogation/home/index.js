@@ -10,7 +10,8 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['userInfo']
+                fields: ['userInfo'],
+                actions: ['updateUserInfo'],
             });
             this.storeBindings.updateStoreBindings();
             if (this.data.userInfo.role == 'DOCTOR') {
@@ -46,6 +47,8 @@ Component({
                     this.setData({
                         doctor: data.doctor
                     });
+                    this.data.userInfo.balance = data.doctor.balance;
+                    this.updateUserInfo(Object.assign({}, this.data.userInfo));
                 }
             }).finally(() => {
                 wx.hideLoading();
