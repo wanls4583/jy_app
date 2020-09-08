@@ -15,6 +15,13 @@ Page({
         this.id = option.id;
         this.loadInfo();
     },
+    //选择支付地址
+    onSelectAddress() {
+        wx.jyApp.selectAddressFlag = true;
+        wx.navigateTo({
+            url: '/pages/mall/address-list/index'
+        });
+    },
     //支付营养指导单
     onGuidanceOrderPay() {
         wx.jyApp.http({
@@ -51,18 +58,24 @@ Page({
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                 item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 if (item.type == 1) {
+                    item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
                 } else {
                     item.usage = `${item.days}天，${item._frequency}，每次1份，配制${item.modulateDose}毫升，${item._giveWay}`;
+                    item._unit = '天';
                 }
             });
             switch (data.detail.status) {
                 case 0:
                 case 5:
-                case 6: data.detail.statusColor = 'danger-color'; break;
+                case 6:
+                    data.detail.statusColor = 'danger-color';
+                    break;
                 case 1:
                 case 7:
-                case 8: data.detail.statusColor = 'success-color'; break;
+                case 8:
+                    data.detail.statusColor = 'success-color';
+                    break;
             }
             this.setData({
                 order: data.detail
