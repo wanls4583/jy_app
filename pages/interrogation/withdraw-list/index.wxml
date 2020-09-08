@@ -1,0 +1,25 @@
+<!-- index.wxml -->
+<view class="container">
+	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
+				<view class="padding-top-bottom-20 border-bottom">
+					<view class="flex--center--between">
+						<view>{{item.nickname}}</view>
+						<view>{{item._status}}</view>
+						<view>{{item.amount}}</view>
+					</view>
+					<view class="margin-top-10 gray-color font-small">{{item.createTime}}元</view>
+				</view>
+			</view>
+		</view>
+		<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>
+		<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+			<van-empty description="暂无记录" />
+		</view>
+		<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+	</pull-scroll-view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancel" bind:confirm="onConfirmDate" type="year-month" value="{{date}}" />
+</van-popup>

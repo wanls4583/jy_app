@@ -1,6 +1,8 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/withdraw-list/index",
+        "pages/interrogation/withdraw/index",
         "pages/interrogation/income-list/index",
         "pages/interrogation/doctor-appraise/index",
         "pages/interrogation/appraise-list/index",

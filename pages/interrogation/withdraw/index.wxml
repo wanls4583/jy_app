@@ -1,0 +1,27 @@
+<view class="container">
+	<view class="padding-left-right-30 white-background-color">
+		<view class="flex padding-top-bottom-30 border-bottom">
+			<text style="width:100px">到账微信账号</text>
+			<text class="primary-color">{{userInfo.nickname}}</text>
+		</view>
+		<view class="flex padding-top-bottom-30">
+			<text style="width:100px">可提现金额</text>
+			<text class="primary-color">￥{{totalAmount||0}}</text>
+		</view>
+		<view class="padding-bottom-30 font-small gray-color">
+			<text>每月10号计算上月税后收益后，计入可提现金额</text>
+		</view>
+	</view>
+	<view class="padding-30 margin-top-20 white-background-color">
+		<view>提现金额</view>
+		<view class="padding-top-bottom-30 border-bottom flex--center--between">
+			<text class="font-large font-bold">￥</text>
+			<input bindinput="onInputNum" class="flex-grow-1 margin-left-right-30" data-prop="amount" type="text" value="{{amount}}" />
+			<text bindtap="onAll" class="primary-color padding-10">全部提现</text>
+		</view>
+		<view bindtap="onSubmit" class="button primary block margin-top-30">提现</view>
+		<view class="flex--center--center">
+			<view class="padding-30 primary-color">提现记录</view>
+		</view>
+	</view>
+</view>

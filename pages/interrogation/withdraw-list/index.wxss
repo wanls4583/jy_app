@@ -1,0 +1,11 @@
+.red-dot:before {
+    content: "";
+    display: inline-block;
+    width: 10rpx;
+    height: 10rpx;
+    margin-right: 10rpx;
+    border-radius: 50%;
+    background-color: red;
+    vertical-align: top;
+    margin-top: 14rpx;
+}
