@@ -1,0 +1,14 @@
+.red-dot {
+    position: absolute;
+    top: -14rpx;
+    right: -14rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    min-width: 20px;
+    line-height: 1em;
+    border-radius: 100px;
+    background: red;
+    color: #fff;
+}

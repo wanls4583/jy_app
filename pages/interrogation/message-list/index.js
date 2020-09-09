@@ -26,6 +26,17 @@ Page({
             data: {
                 id: id
             }
+        }).then(() => {
+            for (var i = 0; i < this.data.messageList.length; i++) {
+                var item = this.data.messageList[i];
+                item.notReadNum = 0;
+                if (this.data.messageList[i].id == id) {
+                    this.setData({
+                        [`messageList[${i}]`]: item
+                    });
+                    break;
+                }
+            }
         });
     },
     onRefresh() {

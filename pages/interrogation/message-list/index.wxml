@@ -10,7 +10,8 @@
 				wx:for="{{messageList}}"
 				wx:key="id"
 			>
-				<view class="width-80rpx height-80rpx gray-background-color radius-8rpx">
+				<view class="position-relative width-80rpx height-80rpx gray-background-color radius-8rpx">
+					<view class="red-dot" wx:if="{{item.notReadNum}}">{{item.notReadNum}}</view>
 					<image class="width-100 height-100 radius-8rpx" mode="aspectFill" src="{{item.wxAvatar}}" />
 				</view>
 				<view class="flex-grow-1 padding-bottom-20 margin-left-20 border-bottom">
