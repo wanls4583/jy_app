@@ -7,8 +7,6 @@ Page({
     },
     onLoad(option) {
         this.loadList();
-    },
-    onUnload() {
         this.readAll();
     },
     onClickMsg(e) {
@@ -48,6 +46,7 @@ Page({
                 totalPage: data.page.totalPage,
                 messageList: this.data.messageList.concat(data.page.list)
             });
+            this.readAll();
         }).finally(() => {
             this.setData({
                 stopRefresh: true
