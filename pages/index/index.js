@@ -64,6 +64,7 @@ Page({
     //获取医生信息
     getDoctorInfo() {
         return wx.jyApp.http({
+            hideTip: true,
             url: `/doctor/info/${this.data.userInfo.id}`
         }).then((data) => {
             if (data.doctor) {

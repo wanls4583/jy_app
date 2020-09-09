@@ -21,9 +21,11 @@ function request(obj) {
                     obj.success && obj.success(res.data);
                     resolve(res.data);
                 } else {
-                    setTimeout(() => { //延时提示，防止hideLoading干扰
-                        wx.jyApp.toast(res.data.msg);
-                    }, 300);
+                    if (!obj.hideTip) {
+                        setTimeout(() => { //延时提示，防止hideLoading干扰
+                            wx.jyApp.toast(res.data.msg);
+                        }, 300);
+                    }
                     reject(res.data);
                     if (res.data.code == 401) { //登录失效
                         wx.navigateTo({
