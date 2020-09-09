@@ -11,6 +11,10 @@ Page({
     },
     onShow() {
         if (this.data.userInfo.role == 'DOCTOR') {
+            wx.setNavigationBarColor({
+                frontColor: '#ffffff',
+                backgroundColor: '#2aafff'
+            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_users.png",
@@ -18,6 +22,10 @@ Page({
                 "text": "患者管理"
             });
         } else {
+            wx.setNavigationBarColor({
+                frontColor: '#000000',
+                backgroundColor: '#ffffff'
+            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_marks.png",

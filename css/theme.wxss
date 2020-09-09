@@ -127,9 +127,5 @@
 }
 
 .background-gradient {
-    background: linear-gradient(to right, rgb(42, 175, 255), #56CCF2);
-}
-
-.background-gradient-cool-blues {
-    background: linear-gradient(to left, #6dd5ed, #2193b0);
+    background: linear-gradient(to bottom, rgb(42, 175, 255), #56CCF2);
 }

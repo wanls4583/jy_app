@@ -118,6 +118,13 @@ function parseScene(scene) {
     return scene;
 }
 
+function openWeview(e) {
+    var url = e.currentTarget.dataset.url;
+    wx.navigateTo({
+        url: '/pages/web-view/index?url=' + url
+    });
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
@@ -129,5 +136,6 @@ module.exports = {
     setText: setText,
     pay: pay,
     parseScene: parseScene,
+    openWeview: openWeview,
     getUUID: getUUID
 }
