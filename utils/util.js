@@ -108,6 +108,16 @@ function pay(params) {
     });
 }
 
+function parseScene(scene) {
+    var arr = scene.split(',');
+    scene = {};
+    arr.map((item) => {
+        var tmp = item.split('=');
+        scene[tmp[0]] = tmp[1];
+    });
+    return scene;
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
@@ -118,5 +128,6 @@ module.exports = {
     onInputNum: onInputNum,
     setText: setText,
     pay: pay,
+    parseScene: parseScene,
     getUUID: getUUID
 }

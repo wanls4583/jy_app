@@ -1,21 +1,27 @@
 Page({
     data: {
-        barcode: ''
+        barcode: '',
+        tipVisible: false
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo'],
         });
         this.storeBindings.updateStoreBindings();
+        this.doctorId = option.doctorId;
         this.getQrCode();
+        if (!this.data.userInfo) {
+            this.setData({
+                tipVisible: true
+            });
+        }
     },
-    onUnload() {
-        this.storeBindings.destroyStoreBindings();
-    },
-    //分享
-    onShare() {
-
+    onShareAppMessage: function(res) {
+        return {
+            title: '医生邀请',
+            path: '/pages/interrogation/qrcode-share/index?doctorId=' + this.doctorId
+        }
     },
     //保存二维码
     onSave() {
@@ -26,7 +32,7 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: '/page/index/index',
-                scene: 'type=invite&doctorId=' + this.data.userInfo.id
+                scene: 'type=invite&doctorId=' + this.doctorId
             }
         }).then((data) => {
             this.setData({

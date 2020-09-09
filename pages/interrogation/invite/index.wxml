@@ -12,4 +12,15 @@
 		<view bindtap="onGoto" class="button primary plain" data-url="/pages/interrogation/invite-list/index">邀请记录</view>
 	</view>
 </view>
-<van-share-sheet bind:close="onShowShare" bind:select="onSelect" options="{{ options }}" show="{{ shareVisble }}" style="position:relative;z-index:101" />
+<van-action-sheet bind:cancel="onShowShare" bind:click-overlay="onShowShare" cancel-text="取消" show="{{shareVisble}}">
+	<view class="flex padding-30">
+		<button bindtap="onShowShare" class="flex--center--center flex-direction-column padding-30 clickable" open-type="share">
+			<image mode="aspectFit" src="/image/icon_share_wechat.png" style="width:48px;height:48px" />
+			<text class="font-small margin-top-10">微信</text>
+		</button>
+		<view bindtap="onQrcode" class="flex--center--center flex-direction-column padding-30 clickable">
+			<image mode="aspectFit" src="/image/icon_share_qrcode.png" style="width:48px;height:48px" />
+			<text class="font-small margin-top-10">二维码</text>
+		</view>
+	</view>
+</van-action-sheet>

@@ -16,7 +16,7 @@ function getUserInfo() {
 }
 
 //登录
-function login() {
+function login(param) {
     return new wx.jyApp.Promise((resolve, reject) => {
         wx.login({
             success: (res) => {
@@ -31,7 +31,8 @@ function login() {
             url: '/wx/login/auth',
             method: 'post',
             data: {
-                code: code
+                code: code,
+                ...param
             }
         }).then((data) => {
             wx.setStorageSync('token', data.token);

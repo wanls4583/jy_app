@@ -2,8 +2,9 @@
 	<view class="height-100vw padding-30">
 		<image class="width-100 height-100" mode="aspectFit" src="{{barcode}}" />
 	</view>
+	<view wx:if="{{tipVisible}}" class="align-center">长按进入小程序</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
-		<view bindtap="onShare" class="button primary">分享</view>
+		<button open-type='share' class="button primary">分享</button>
 		<view bindtap="onSave" class="button primary">保存</view>
 	</view>
 </view>

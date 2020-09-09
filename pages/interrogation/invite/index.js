@@ -16,20 +16,31 @@ Page({
         ],
         shareVisble: false
     },
-    onLoad() {},
+    onLoad() {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
+    onShareAppMessage: function(res) {
+        return {
+            title: '医生邀请',
+            path: '/pages/index/index?type=invite&doctorId=' + this.data.userInfo.id
+        }
+    },
     onShowShare() {
         this.setData({
             shareVisble: !this.data.shareVisble
         });
     },
-    onSelect(e) {
-        if (e.detail.index == 0) {
-
-        } else {
-            wx.navigateTo({
-                url: '/pages/interrogation/qrcode-share/index'
-            });
-        }
+    onQrcode(e) {
+        wx.navigateTo({
+            url: '/pages/interrogation/qrcode-share/index?doctorId=' + this.data.userInfo.id
+        });
         this.setData({
             shareVisble: false
         });
