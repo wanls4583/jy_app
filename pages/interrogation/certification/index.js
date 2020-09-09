@@ -385,7 +385,7 @@ Page({
         }).then(() => {
             wx.hideLoading();
             wx.removeStorageSync('approvInfo');
-            wx.switchTab({ url: '/pages/min/index' });
+            wx.switchTab({ url: '/pages/mine/index' });
             setTimeout(() => {
                 wx.showToast({ title: '提交成功' });
             }, 500);

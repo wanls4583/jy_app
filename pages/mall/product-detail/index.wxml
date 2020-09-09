@@ -18,10 +18,7 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
 			<view class="font-large font-bold danger-color">￥{{productInfo.price}}</view>
-			<view bindtap="onAddToCart" class="flex--center--center button primary small" style="border-radius:100px">
-				<van-icon name="plus" style="transform:translateY(2rpx)"/>
-				<text>购买</text>
-			</view>
+			<van-icon bindtap="onAddToCart" name="add" size="30" color="#2aafff" />
 		</view>
 	</view>
 	<view class="margin-top-20 padding-30 white-background-color">

@@ -19,12 +19,12 @@
 				</view>
 				<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
 					<view class="flex-direction-column flex--start--between height-100rpx">
-						<view class="flex--center--between width-100">
+						<view class="width-100">
 							<text>{{item.patientName}}</text>
-							<text>{{item._sex}}</text>
-							<text>{{item.age}}岁</text>
-							<text>{{item.height}}cm</text>
-							<text>{{item.weight}}kg</text>
+							<text>，{{item._sex}}</text>
+							<text>，{{item.age}}岁</text>
+							<text>，{{item.height}}cm</text>
+							<text>，{{item.weight}}kg</text>
 						</view>
 						<view>
 							<text class="font-small gray-color">{{item.joinTime}}</text>

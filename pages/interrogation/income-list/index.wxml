@@ -30,9 +30,9 @@
 				<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 					<view class="padding-top-bottom-20 border-bottom">
 						<view class="flex--center--between">
-							<view>{{item._type}}</view>
-							<view>{{item._status}}</view>
-							<view>{{item.incomeAmount}}元</view>
+							<view class="width-33">{{item._type}}</view>
+							<view class="width-33 align-center">{{item._status}}</view>
+							<view class="width-33 align-right">{{item.incomeAmount}}元</view>
 						</view>
 						<view class="margin-top-10 gray-color font-small">{{item.orderTime}}</view>
 					</view>

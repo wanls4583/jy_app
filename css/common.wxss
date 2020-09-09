@@ -259,7 +259,7 @@ checkbox {
 }
 
 .shadow {
-    box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 8px rgb(0, 0, 0, 0.1);
 }
 
 .tag {

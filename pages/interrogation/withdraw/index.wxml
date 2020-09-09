@@ -16,7 +16,7 @@
 		<view>提现金额</view>
 		<view class="padding-top-bottom-30 border-bottom flex--center--between">
 			<text class="font-large font-bold">￥</text>
-			<input bindinput="onInputNum" class="flex-grow-1 margin-left-right-30" data-prop="amount" type="text" value="{{amount}}" />
+			<input auto-focus="{{true}}" bindinput="onInputNum" class="flex-grow-1 margin-left-right-30" data-prop="amount" type="text" value="{{amount}}" />
 			<text bindtap="onAll" class="primary-color padding-10">全部提现</text>
 		</view>
 		<view bindtap="onSubmit" class="button primary block margin-top-30">提现</view>

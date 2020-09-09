@@ -74,7 +74,7 @@ Page({
             mask: true
         });
         wx.jyApp.http({
-            url: `/doctor/info/${this.id}`
+            url: `/doctor/info/${this.doctorId}`
         }).then((data) => {
             if (data.doctor) {
                 this.setData({

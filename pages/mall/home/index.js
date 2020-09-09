@@ -39,7 +39,7 @@ Component({
             });
         },
         loadDoctor() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/doctor/list',
                 data: {
                     page: 1,
@@ -52,7 +52,7 @@ Component({
             })
         },
         loadDepartmentList() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/department/list'
             }).then((data) => {
                 data.list.map((item, index) => {
@@ -75,7 +75,7 @@ Component({
             })
         },
         loadBaner() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/banner/list',
                 data: {
                     bannerCode: '0002'
@@ -87,7 +87,7 @@ Component({
             });
         },
         loadKepu() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/banner/list',
                 data: {
                     bannerCode: '0004'
@@ -106,6 +106,9 @@ Component({
         },
         onClickBanner(e) {
             var link = e.currentTarget.dataset.link;
+            if (link) {
+                wx.jyApp.utils.openWebview(link);
+            }
         },
         //查看更多
         onClickMore(e) {

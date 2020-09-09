@@ -1,4 +1,4 @@
 <view class="container">
-    <doctor-home wx:if="{{userInfo.role=='DOCTOR'}}"></doctor-home>
-    <user-home wx:else></user-home>
+    <doctor-home wx:if="{{userInfo.role=='DOCTOR'}}" refresh="{{refresh}}"></doctor-home>
+    <user-home wx:else refresh="{{refresh}}"></user-home>
 </view>

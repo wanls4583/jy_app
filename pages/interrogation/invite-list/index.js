@@ -4,7 +4,8 @@ Page({
         stopRefresh: false,
         totalCount: -1,
         inviteWayMap: {
-
+            1: '分享好友',
+            2: '二维码'
         }
     },
     onLoad() {
@@ -23,7 +24,7 @@ Page({
         }
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: '/doctorwithdraw/list'
+            url: '/doctor/invite/list'
         }).then((data) => {
             data.list.map((item) => {
                 item.inviteWay = this.data.inviteWayMap[item.inviteWay];

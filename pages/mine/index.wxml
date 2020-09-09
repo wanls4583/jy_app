@@ -1,17 +1,17 @@
 <view class="container">
 	<!-- 认证医生 -->
-	<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctor}}">
+	<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
 		<view class="flex--center--center">
 			<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
-				<image class="width-100 height-100" src="{{doctor.avatar}}" />
+				<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
 			</view>
 			<view class="flex--start--between flex-direction-column height-100rpx padding-top-bottom-10">
 				<view class="white-color">
-					<text class="font-bold">{{doctor.doctorName || '--'}}</text>
-					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
+					<text class="font-bold">{{doctorInfo.doctorName || '--'}}</text>
+					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || '--'}}</text>
 					<view class="tag success">已认证</view>
 				</view>
-				<text class="white-color font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.onlineDepartmentName || '--'}}</text>
+				<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
 			</view>
 		</view>
 		<button
@@ -112,7 +112,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view class="flex--center--between padding-top-bottom-30 border-bottom">
+			<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{settlementUrl}}">
 				<text>医生入驻</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />

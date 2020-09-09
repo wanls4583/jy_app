@@ -79,6 +79,9 @@ Component({
         },
         onClickBanner(e) {
             var link = e.currentTarget.dataset.link;
+            if (link) {
+                wx.jyApp.utils.openWebview(link);
+            }
         },
         //查看更多
         onClickMore(e) {

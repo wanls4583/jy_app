@@ -2,17 +2,16 @@ Page({
     data: {
         messageCount: 0,
         phone: '',
-        doctor: null
+        settlementUrl: ''
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo'],
+            fields: ['userInfo', 'doctorInfo'],
             actions: ['updateUserInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.getPhone();
-        this.getDoctorInfo();
     },
     onShow() {
         this.getMessageCount();
@@ -43,31 +42,12 @@ Page({
         }
 
     },
-    getDoctorInfo() {
-        wx.showLoading({
-            title: '加载中...',
-            mask: true
-        });
-        wx.jyApp.http({
-            url: '/doctor/approve/history'
-        }).then((data) => {
-            if (data.list) {
-                for (var i = 0; i < data.list.length; i++) {
-                    if (data.list[i].approveStatus == 2) {
-                        this.setData({
-                            doctor: data.list[i]
-                        });
-                        break;
-                    }
-                }
-            }
-        }).finally(() => {
-            wx.hideLoading();
-        });
-    },
     //页面跳转
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
+    },
+    onOpenWebview(e) {
+        wx.jyApp.utils.openWebview(e);
     },
     //切换账号
     onSitchRole() {
@@ -88,18 +68,12 @@ Page({
     },
     //获取客服电话
     getPhone() {
-        wx.jyApp.http({
-            url: '/sys/config/list',
-            data: {
-                configNames: 'servicePhone'
-            }
-        }).then((data) => {
-            if (data.list.length) {
-                this.setData({
-                    phone: data.list[0].servicePhone
-                });
-            }
-        })
+        wx.jyApp.utils.getConfig(['service_phone', 'settlement_url']).then((data) => {
+            this.setData({
+                phone: data.service_phone,
+                settlementUrl: data.settlement_url
+            });
+        });
     },
     //获取未读消息数量
     getMessageCount() {

@@ -24,7 +24,7 @@
 	</view>
 	<view>
 		<view class="flex--center--between height-120rpx padding-left-right-30">
-			<view class="font-title left-bar">营养套餐</view>
+			<view class="font-title">营养套餐</view>
 			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="2">
 				<text>全部</text>
 				<van-icon name="arrow" />
@@ -49,7 +49,7 @@
 	</view>
 	<view>
 		<view class="flex--center--between height-120rpx padding-left-right-30">
-			<view class="font-title left-bar">营养产品</view>
+			<view class="font-title">营养产品</view>
 			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="1">
 				<text>全部</text>
 				<van-icon name="arrow" />

@@ -105,6 +105,8 @@ Page({
             wx.navigateTo({
                 url: '/pages/mall/cart/index'
             });
+        } else {
+            wx.jyApp.toast('请先添加商品');
         }
     }
 })

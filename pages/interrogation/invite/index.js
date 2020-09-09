@@ -26,6 +26,9 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onShareAppMessage: function(res) {
         return {
             title: '医生邀请',

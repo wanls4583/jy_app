@@ -43,6 +43,14 @@
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 							<view class="button primary small">立即支付</view>
 						</view>
+						<view
+							bindtap="onGoto"
+							class="padding-top-bottom-20 border-top align-right"
+							data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
+							wx:if="{{order.status==3}}"
+						>
+							<view class="button primary warn">去评价</view>
+						</view>
 					</view>
 					<view
 						class="padding-30 gray-color align-center font-small"

@@ -1,4 +1,4 @@
-<view class="container">
+<view class="container white-background-color">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search bindtap="onGoto" data-url="/pages/mall/search/index" disabled="{{true}}" placeholder="请输入医生/产品" shape="round" />
 	</view>
@@ -92,7 +92,7 @@
 		<view class="font-title padding-top-bottom-30">健康科普</view>
 		<view
 			bindtap="onClickBanner"
-			class="padding-30 margin-bottom-30 radius-8px gray-background-color"
+			class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow"
 			data-link="{{item.linkUrl}}"
 			style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:33vw"
 			wx:for="{{kepuList}}"

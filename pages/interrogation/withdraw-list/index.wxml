@@ -5,9 +5,9 @@
 			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 				<view class="padding-top-bottom-20 border-bottom">
 					<view class="flex--center--between">
-						<view>提现到：{{item.nickname}}</view>
-						<view>{{item._status}}</view>
-						<view>{{item.amount}}元</view>
+						<view class="width-33">提现到：{{item.nickname}}</view>
+						<view class="width-33 align-center">{{item._status}}</view>
+						<view class="width-33 align-right">{{item.amount}}元</view>
 					</view>
 					<view class="margin-top-10 gray-color font-small">{{item.createTime}}</view>
 					<view class="margin-top-10 danger-color font-small" wx:if="{{item.status==3}}">失败原因：{{item.payMsg}}</view>
@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{totalCount>0}}">没有更多了</view>
-		<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+		<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalCount==0}}">
 			<van-empty description="暂无记录" />
 		</view>
 		<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>

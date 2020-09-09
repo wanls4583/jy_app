@@ -1,7 +1,5 @@
 Page({
-    data: {
-
-    },
+    data: {},
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
@@ -15,6 +13,13 @@ Page({
                 frontColor: '#ffffff',
                 backgroundColor: '#2aafff'
             });
+            wx.setBackgroundColor({
+                backgroundColor: '#2aafff',
+                backgroundColorTop: '#2aafff'
+            });
+            wx.setBackgroundTextStyle({
+                textStyle: 'light'
+            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_users.png",
@@ -25,6 +30,13 @@ Page({
             wx.setNavigationBarColor({
                 frontColor: '#000000',
                 backgroundColor: '#ffffff'
+            });
+            wx.setBackgroundColor({
+                backgroundColor: '#ffffff',
+                backgroundColorTop: '#ffffff'
+            });
+            wx.setBackgroundTextStyle({
+                textStyle: 'dark'
             });
             wx.setTabBarItem({
                 index: 1,

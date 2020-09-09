@@ -118,11 +118,28 @@ function parseScene(scene) {
     return scene;
 }
 
-function openWeview(e) {
+function openWebview(e) {
     var url = e.currentTarget.dataset.url;
     wx.navigateTo({
         url: '/pages/web-view/index?url=' + url
     });
+}
+
+function getConfig(names) {
+    return wx.jyApp.http({
+        url: '/sys/config/list',
+        data: {
+            configNames: names.join(',')
+        }
+    }).then((data) => {
+        var mapObj = {};
+        if (data.list.length) {
+            data.list.map((item) => {
+                Object.assign(mapObj, item || {});
+            })
+        }
+        return mapObj;
+    })
 }
 
 Date.prototype.formatTime = formatTime;
@@ -136,6 +153,7 @@ module.exports = {
     setText: setText,
     pay: pay,
     parseScene: parseScene,
-    openWeview: openWeview,
+    openWebview: openWebview,
+    getConfig: getConfig,
     getUUID: getUUID
 }

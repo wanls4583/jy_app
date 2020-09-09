@@ -6,8 +6,8 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo'],
-            actions: ['updateUserInfo'],
+            fields: ['userInfo', 'doctorInfo'],
+            actions: ['updateUserInfo', 'updateDoctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         if (option.type == 'invite' && option.doctorId) { //医生通过好友分享邀请
@@ -33,24 +33,42 @@ Page({
             inviteId: this.inviteId,
             inviteWay: this.inviteWay
         }).then(() => {
-            wx.jyApp.loginUtil.getUserInfo().then((data) => {
+            this.getUserInfo().then(() => {
+                wx.nextTick(() => {
+                    this.getDoctorInfo();
+                });
+            }).finally(() => {
                 wx.hideLoading();
-                if (!data.info.nickname) {
-                    data.info.nickname = 'wx-' + wx.jyApp.utils.getUUID(8);
-                    wx.jyApp.loginUtil.updateUserInfo({
-                        nickname: data.info.nickname
-                    });
-                }
-                var role = wx.getStorageSync('role');
-                if (role == 'DOCTOR') {
-                    data.info.role = 'DOCTOR';
-                } else if (role == 'USER') {
-                    data.info.role = 'USER';
-                    wx.setStorageSync('role', 'USER');
-                }
-                this.updateUserInfo(data.info);
                 wx.switchTab({ url: '/pages/tab-bar-first/index' });
             });
+        });
+    },
+    getUserInfo() {
+        return wx.jyApp.loginUtil.getUserInfo().then((data) => {
+            if (!data.info.nickname) {
+                data.info.nickname = 'wx-' + wx.jyApp.utils.getUUID(8);
+                wx.jyApp.loginUtil.updateUserInfo({
+                    nickname: data.info.nickname
+                });
+            }
+            var role = wx.getStorageSync('role');
+            if (role == 'DOCTOR') {
+                data.info.role = 'DOCTOR';
+            } else if (role == 'USER') {
+                data.info.role = 'USER';
+                wx.setStorageSync('role', 'USER');
+            }
+            this.updateUserInfo(data.info);
+        });
+    },
+    //获取医生信息
+    getDoctorInfo() {
+        return wx.jyApp.http({
+            url: `/doctor/info/${this.data.userInfo.id}`
+        }).then((data) => {
+            if (data.doctor) {
+                this.updateDoctorInfo(Object.assign({}, data.doctor));
+            }
         });
     },
 })
