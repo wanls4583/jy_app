@@ -106,7 +106,7 @@
 			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
 				<text>消息通知</text>
 				<view class="flex--center--center">
-					<text class="danger-color" wx:if="{{messageCount}}">{{messageCount}}条未读消息</text>
+					<text class="danger-color" wx:if="{{noticeCount}}">{{noticeCount}}条未读消息</text>
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</view>

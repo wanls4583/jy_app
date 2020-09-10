@@ -6,8 +6,16 @@ Page({
         totalPage: -1
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            actions: ['updateNoticeCount']
+        });
+        this.storeBindings.updateStoreBindings();
         this.loadList();
         this.readAll();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onClickMsg(e) {
         var index = e.currentTarget.dataset.index;
@@ -46,7 +54,6 @@ Page({
                 totalPage: data.page.totalPage,
                 messageList: this.data.messageList.concat(data.page.list)
             });
-            this.readAll();
         }).finally(() => {
             this.setData({
                 stopRefresh: true
@@ -60,6 +67,16 @@ Page({
         wx.jyApp.http({
             url: '/systemnotice/read/all',
             method: 'post'
+        }).then(() => {
+            this.getMessageCount();
+        });
+    },
+    //获取未读消息数量
+    getMessageCount() {
+        wx.jyApp.http({
+            url: '/systemnotice/totalNotRead'
+        }).then((data) => {
+            this.updateNoticeCount(data.totalNotRead || 0);
         });
     }
 })

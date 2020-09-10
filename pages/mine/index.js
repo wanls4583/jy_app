@@ -1,14 +1,13 @@
 Page({
     data: {
-        messageCount: 0,
         phone: '',
         settlementUrl: ''
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo'],
+            fields: ['userInfo', 'doctorInfo', 'noticeCount'],
+            actions: ['updateUserInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
         this.getPhone();
@@ -80,9 +79,7 @@ Page({
         wx.jyApp.http({
             url: '/systemnotice/totalNotRead'
         }).then((data) => {
-            this.setData({
-                messageCount: data.totalNotRead || 0
-            });
+            this.updateNoticeCount(data.totalNotRead || 0);
             clearTimeout(this.pollCountTimer);
             this.pollCountTimer = setTimeout(() => {
                 this.getMessageCount();

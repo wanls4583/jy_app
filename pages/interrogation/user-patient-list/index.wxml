@@ -7,7 +7,7 @@
                     <view wx:if="{{ifSelect}}" class="radio-wrap">
                         <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{selectId==item.id}}" />
                     </view>
-                    <view class="flex-grow-1 height-120rpx padding-left-right-30">
+                    <view class="flex-grow-1 flex--center--start height-120rpx padding-left-right-30">
                         <text>{{item.patientName}}</text>
                         <text>，{{item._sex}}</text>
                         <text>，{{item.age}}岁</text>

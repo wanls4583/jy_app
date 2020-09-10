@@ -40,9 +40,19 @@ Page({
             }
         }).then((data) => {
             delete wx.jyApp.illness;
-            wx.navigateTo({
-                url: '/pages/interrogation/chat/index?id=' + data.id
-            });
+            if (data.params) {
+                wx.jyApp.utils.pay(data.params).then(() => {
+                    wx.navigateTo({
+                        url: '/pages/interrogation/chat/index?id=' + data.id
+                    });
+                }).catch(() => {
+                    wx.jyApp.toast('支付失败');
+                });
+            } else {
+                wx.navigateTo({
+                    url: '/pages/interrogation/chat/index?id=' + data.id
+                });
+            }
         });
     },
     onChange(e) {
@@ -82,7 +92,7 @@ Page({
                 patientList: data.list || [],
                 selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
             });
-        }).finally(()=>{
+        }).finally(() => {
             wx.hideLoading();
         });
     }
