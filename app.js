@@ -76,6 +76,7 @@ App({
             wx.jyApp.loginUtil.getUserInfo().then((data) => {
                 if (data.info.role != 'DOCTOR' && data.info.switchStatus == 1) {
                     wx.setStorageSync('role', 'DOCTOR');
+                    wx.jyApp.store.userInfo.role = 'DOCTOR';
                     wx.jyApp.store.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
                 }
             });
