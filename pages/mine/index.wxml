@@ -1,5 +1,5 @@
 <view class="container">
-	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" refresher-background="#2aafff" refresher-default-style="white">
+	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<!-- 认证医生 -->
 		<view class="flex--center--between background-gradient padding-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
 			<view class="flex--center--center">
@@ -54,7 +54,12 @@
 				</view>
 				<text class="white-color">{{userInfo.nickname || '--'}}</text>
 			</view>
-			<button bindgetuserinfo="getWxUserInfo" class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0" hover-class="none" open-type="getUserInfo">
+			<button
+				bindgetuserinfo="getWxUserInfo"
+				class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0"
+				hover-class="none"
+				open-type="getUserInfo"
+			>
 				<text>个人资料</text>
 				<van-icon color="#fff" name="arrow" />
 			</button>
@@ -86,7 +91,7 @@
 			</block>
 		</view>
 		<view class="margin-top-20 white-background-color">
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.switchStatus==1}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">

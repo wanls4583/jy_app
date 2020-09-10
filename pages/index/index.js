@@ -54,7 +54,9 @@ Page({
                 data.info.role = 'DOCTOR';
             } else if (role == 'USER') {
                 data.info.role = 'USER';
-                wx.setStorageSync('role', 'USER');
+            }
+            if (!role && data.info.switchStatus == 1) {
+                data.info.role = 'DOCTOR';
             }
             this.updateUserInfo(data.info);
             return data;

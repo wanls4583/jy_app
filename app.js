@@ -34,6 +34,7 @@ App({
     onShow() {
         this.setGlobalData();
         this.updateCheck();
+        this.getSwitchRoleStatus();
     },
     setGlobalData() {
         var systemInfo = wx.getSystemInfoSync();
@@ -68,6 +69,17 @@ App({
                 content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~'
             })
         });
+    },
+    //获取切换角色状态开关(后台打开开关后，用户再次进入小程序时自动切换到医生状态)
+    getSwitchRoleStatus() {
+        if (wx.getStorageSync('token') && !wx.getStorageSync('role') && wx.jyApp.store.userInfo && wx.jyApp.store.userInfo.role != 'DOCTOR') {
+            wx.jyApp.loginUtil.getUserInfo().then((data) => {
+                if (data.info.role != 'DOCTOR' && data.info.switchStatus == 1) {
+                    wx.setStorageSync('role', 'DOCTOR');
+                    wx.jyApp.store.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
+                }
+            });
+        }
     },
     globalData: {
         userInfo: null

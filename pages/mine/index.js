@@ -121,7 +121,6 @@ Page({
                 data.info.role = 'DOCTOR';
             } else if (role == 'USER') {
                 data.info.role = 'USER';
-                wx.setStorageSync('role', 'USER');
             }
             this.updateUserInfo(data.info);
             return data;
