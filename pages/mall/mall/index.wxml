@@ -10,7 +10,7 @@
 					circular="{{true}}"
 					class="overflow-hidden height-50vw radius-8px shadow"
 					duration="{{500}}"
-					interval="{{500000}}"
+					interval="{{5000}}"
 					style="transform:translateY(0);"
 				>
 					<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">

@@ -119,7 +119,10 @@ function parseScene(scene) {
 }
 
 function openWebview(e) {
-    var url = e.currentTarget.dataset.url;
+    var url = e;
+    if (typeof e == 'object') {
+        url = e.currentTarget.dataset.url;
+    }
     wx.navigateTo({
         url: '/pages/web-view/index?url=' + url
     });
