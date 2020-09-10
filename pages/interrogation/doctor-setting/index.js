@@ -12,11 +12,14 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['doctorInfo']
         });
         this.storeBindings.updateStoreBindings();
-        this.getDoctorInfo();
         this.setData({
+            consultOrderPrice: this.data.doctorInfo.consultOrderPrice,
+            nutritionOrderPrice: this.data.doctorInfo.nutritionOrderPrice,
+            consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
+            status: this.data.doctorInfo.status,
             statusList: [{
                 label: '上线',
                 value: 1
@@ -84,34 +87,6 @@ Page({
     onCancel() {
         this.setData({
             statusVisible: false
-        });
-    },
-    getDoctorInfo() {
-        wx.showLoading({
-            title: '加载中',
-            mask: true
-        });
-        wx.jyApp.http({
-            url: '/doctor/info/' + this.data.userInfo.id
-        }).then((data) => {
-            this.setData({
-                consultOrderPrice: data.doctor.consultOrderPrice,
-                nutritionOrderPrice: data.doctor.nutritionOrderPrice,
-                editConsultOrderPrice: data.doctor.consultOrderPrice,
-                editNutritionOrderPrice: data.doctor.nutritionOrderPrice,
-                consultOrderSwitch: data.doctor.consultOrderSwitch,
-                status: data.doctor.status
-            });
-            this.data.statusList.map((item, index) => {
-                if (item.value == data.doctor.status) {
-                    this.setData({
-                        statusList: this.data.statusList,
-                        statusDefault: index
-                    });
-                }
-            });
-        }).finally(()=>{
-            wx.hideLoading();
         });
     },
     submit() {

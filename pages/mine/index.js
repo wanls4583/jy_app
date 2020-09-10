@@ -37,6 +37,14 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
+    //跳转前检查收益开关
+    onCheckGoto(e) {
+        if (!this.data.doctorInfo.incomeSwitch) {
+            wx.jyApp.toast('该功能已关闭，请联系管理员！');
+            return;
+        }
+        this.onGoto(e);
+    },
     onOpenWebview(e) {
         wx.jyApp.utils.openWebview(e);
     },
