@@ -6,6 +6,14 @@ Component({
             type: String,
             value: ''
         },
+        refresherBackground: {
+            type: String,
+            value: ''
+        },
+        refresherDefaultStyle: {
+            type: String,
+            value: 'black'
+        },
         scrollTop: {
             type: Number,
             value: 0,

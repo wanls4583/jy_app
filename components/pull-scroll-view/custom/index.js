@@ -14,7 +14,7 @@ Component({
         scrollTop: {
             type: Number,
             value: 0,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
                 this.properties.scrollTop = newVal + 1;
                 if (!this.hasAttached) {
                     return;
@@ -28,7 +28,7 @@ Component({
         scrollToTop: {
             type: Boolean,
             value: false,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.scrollToTop = false;
                 this.toTop();
@@ -37,7 +37,7 @@ Component({
         stopRefresh: {
             type: Boolean,
             value: false,
-            observer: function (newVal, oldVal) {
+            observer: function(newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.stopRefresh = false;
                 this.setData({
@@ -64,26 +64,13 @@ Component({
         upperThreshold: {
             type: String,
             value: '100px',
-        },
-        topHeight: {
-            type: Number,
-            value: 60,
-            observer: function (newVal, oldVal) {
-                if (this.properties.fullScreen) {
-                    newVal += this.data.statusBarHeight;
-                }
-                this.properties.topHeight = newVal;
-                this.setData({
-                    _topHeight: newVal,
-                });
-                this.toTop();
-            }
         }
     },
     data: {
         statusBarHeight: 0,
         _scrollTop: 0,
         _topHeight: 0,
+        topHeight: 60,
         animation: true,
         finished: false,
         minHeight: 0,
@@ -96,7 +83,7 @@ Component({
             });
         }
     },
-    attached: function (option) {
+    attached: function(option) {
         wx.nextTick(() => {
             this._attached();
         });
@@ -104,8 +91,8 @@ Component({
     methods: {
         _attached() {
             var systemInfo = wx.getSystemInfoSync();
-            if (this.properties.topHeight == 60 && this.properties.fullScreen) {
-                this.properties.topHeight += systemInfo.statusBarHeight;
+            if (this.properties.fullScreen) {
+                this.data.topHeight += systemInfo.statusBarHeight;
             }
             this.setData({
                 statusBarHeight: systemInfo.statusBarHeight
@@ -113,10 +100,10 @@ Component({
             this.getRect().then((res) => {
                 this.setData({
                     minHeight: res.height,
-                    _topHeight: this.properties.topHeight
+                    _topHeight: this.data.topHeight
                 }, () => {
                     this.setData({
-                        _scrollTop: this.properties.scrollTop ? this.properties.scrollTop : this.properties.topHeight
+                        _scrollTop: this.properties.scrollTop ? this.properties.scrollTop : this.data.topHeight
                     });
                 });
             });
@@ -141,11 +128,12 @@ Component({
                 return;
             }
             _computeRect.bind(this)();
+
             function _computeRect() {
                 return this.getRect().then((res) => {
                     this.touching = false;
                     if (!res) {
-                        wx.nextTick(()=>{
+                        wx.nextTick(() => {
                             _computeRect.bind(this)();
                         })
                         return;
@@ -163,7 +151,7 @@ Component({
             clearTimeout(this.scrollTimer);
             this.scrollTimer = setTimeout(() => {
                 this.setData({
-                    _scrollTop: this.data._scrollTop == this.properties.topHeight ? this.properties.topHeight + 1 : this.properties.topHeight
+                    _scrollTop: this.data._scrollTop == this.data.topHeight ? this.data.topHeight + 1 : this.data.topHeight
                 });
             }, 50);
         },

@@ -9,6 +9,14 @@ Component({
             type: String,
             value: ''
         },
+        refresherBackground: {
+            type: String,
+            value: ''
+        },
+        refresherDefaultStyle: {
+            type: String,
+            value: 'black'
+        },
         //全屏时适配顶部状态栏
         fullScreen: {
             type: Boolean,
@@ -33,10 +41,6 @@ Component({
         upperThreshold: {
             type: String,
             value: '100px',
-        },
-        topHeight: {
-            type: Number,
-            value: 60
         }
     },
     data: {
@@ -47,14 +51,14 @@ Component({
             this._attached();
         }
     },
-    attached: function (option) {
+    attached: function(option) {
         this._attached();
     },
     methods: {
         _attached() {
             var self = this;
             wx.getSystemInfo({
-                success: function (res) {
+                success: function(res) {
                     self.setData({
                         enableDefault: self._compareVersion(res.SDKVersion, '2.10.1') >= 0
                     });

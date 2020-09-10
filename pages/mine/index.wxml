@@ -1,5 +1,5 @@
 <view class="container">
-	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
+	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" refresher-background="#2aafff" refresher-default-style="white">
 		<!-- 认证医生 -->
 		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
 			<view class="flex--center--center">
@@ -63,25 +63,25 @@
 			<block wx:if="{{userInfo.role=='USER'}}">
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
-					<view class="font-mini">订单列表</view>
+					<view class="font-small">订单列表</view>
 				</view>
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
 					<image mode="aspectFit" src="/image/icon_wenzhen.png" style="width:60rpx;height:60rpx;" />
-					<view class="font-mini">问诊患者</view>
+					<view class="font-small">问诊患者</view>
 				</view>
 			</block>
 			<block wx:if="{{userInfo.role=='DOCTOR'}}">
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
-					<view class="font-mini">订单列表</view>
+					<view class="font-small">订单列表</view>
 				</view>
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/income-list/index">
 					<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
-					<view class="font-mini">查看收益</view>
+					<view class="font-small">查看收益</view>
 				</view>
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/withdraw/index">
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
-					<view class="font-mini">提现</view>
+					<view class="font-small">提现</view>
 				</view>
 			</block>
 		</view>
