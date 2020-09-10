@@ -130,7 +130,7 @@ Page({
                     delete self.taskMap[item.id];
                     if (data.url) {
                         self.data.avatarUrl = data.url;
-                        self.updateUserInfo(Object.assign({}, this.data.userInfo));
+                        self.updateUserInfo(Object.assign({}, self.data.userInfo));
                         self._updateUserInfo();
                         self.data.progressMap[item.id] = 101;
                     } else {

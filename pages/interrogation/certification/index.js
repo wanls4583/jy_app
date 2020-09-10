@@ -136,7 +136,7 @@ Page({
                     }
                 });
                 if (files) {
-                    if (self.taskMap[self.data.avatar.id]) { //删除正在上传的头像
+                    if (self.data.avatar && self.taskMap[self.data.avatar.id]) { //删除正在上传的头像
                         self.taskMap[self.data.avatar.id].abort();
                         delete self.taskMap[self.data.avatar.id];
                     }
