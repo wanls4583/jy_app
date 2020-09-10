@@ -12,12 +12,14 @@ Page({
         this.storeBindings.updateStoreBindings();
         this.getPhone();
     },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     onShow() {
         this.getMessageCount();
     },
-    onUnload() {
+    onHide() {
         clearTimeout(this.pollCountTimer);
-        this.storeBindings.destroyStoreBindings();
     },
     getUserInfo(e) {
         var userInfo = e.detail.userInfo;
