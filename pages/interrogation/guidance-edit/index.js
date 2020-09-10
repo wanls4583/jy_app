@@ -110,11 +110,6 @@ Page({
                 })
             }
         }).then(() => {
-            setTimeout(() => {
-                wx.showToast({
-                    title: '提交成功'
-                });
-            }, 500);
             wx.navigateBack();
         }).finally(() => {
             wx.hideLoading();
