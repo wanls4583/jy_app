@@ -129,7 +129,7 @@ Page({
                     var data = JSON.parse(res.data);
                     delete self.taskMap[item.id];
                     if (data.url) {
-                        self.data.avatarUrl = data.url;
+                        self.data.userInfo.avatarUrl = data.url;
                         self.updateUserInfo(Object.assign({}, self.data.userInfo));
                         self._updateUserInfo();
                         self.data.progressMap[item.id] = 101;

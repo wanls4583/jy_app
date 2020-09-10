@@ -21,7 +21,7 @@ Page({
     },
     getUserInfo(e) {
         var userInfo = e.detail.userInfo;
-        if (userInfo && userInfo.avatarUrl != this.data.userInfo.avatarUrl) {
+        if (userInfo && userInfo.avatarUrl && !this.data.userInfo.avatarUrl) {
             userInfo.sex = userInfo.gender == 1 ? 1 : 0;
             userInfo.nickname = userInfo.nickName;
             wx.showLoading({
