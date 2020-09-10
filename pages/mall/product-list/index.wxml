@@ -9,7 +9,7 @@
     <view class="height-100" style="padding-top:108px">
         <swiper class="width-100 height-100" current="{{active}}" bindchange="onChangeSwiper">
             <swiper-item>
-                <pull-scroll-view bindscroll='onTaocanScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{taocanData.stopRefresh}}'>
+                <pull-scroll-view bindscroll='onTaocanScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='300px' stop-refresh='{{taocanData.stopRefresh}}'>
                     <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=taocanData.lastPage}}" style="min-height:{{taocanData.nowPage<taocanData.totalPage ? wrapHeight : 0}}px">
                         <block wx:if='{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}'>
                             <view wx:for="{{taocanData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">
@@ -32,7 +32,7 @@
                 </pull-scroll-view>
             </swiper-item>
             <swiper-item>
-                <pull-scroll-view bindscroll='onProductScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='3000px' stop-refresh='{{productData.stopRefresh}}'>
+                <pull-scroll-view bindscroll='onProductScroll' bindrefresh='onRefresh' bindscrolltolower='onLoadMore' lower-threshold='300px' stop-refresh='{{productData.stopRefresh}}'>
                     <view wx:for="{{pageArr}}" wx:for-item="page" wx:key="index" wx:if="{{page<=productData.lastPage}}" style="min-height:{{productData.nowPage<productData.totalPage ? wrapHeight : 0}}px">
                         <block wx:if='{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}'>
                             <view wx:for="{{productData.pageList[page]}}" wx:for-item="product" wx:key="id" class="product flex--center--start padding-30 white-background-color border-bottom" data-id="{{product.id}}" bindtap="onclickProdcut">

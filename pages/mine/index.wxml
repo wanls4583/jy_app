@@ -1,140 +1,142 @@
 <view class="container">
-	<!-- 认证医生 -->
-	<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
-		<view class="flex--center--center">
-			<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
-				<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
-			</view>
-			<view class="flex--start--between flex-direction-column height-100rpx padding-top-bottom-10">
-				<view class="white-color">
-					<text class="font-bold">{{doctorInfo.doctorName || '--'}}</text>
-					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || '--'}}</text>
-					<view class="tag success">已认证</view>
-				</view>
-				<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
-			</view>
-		</view>
-		<button
-			bindtap="onGoto"
-			class="flex--center--center white-color padding-30 padding-right-0"
-			data-url="/pages/interrogation/certification/index"
-			hover-class="none"
-		>
-			<text>编辑资料</text>
-			<van-icon color="#fff" name="arrow" />
-		</button>
-	</view>
-	<!-- 未认证医生 -->
-	<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:elif="{{userInfo.role=='DOCTOR'}}">
-		<view class="flex--center--center">
-			<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
-				<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
-			</view>
+	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
+		<!-- 认证医生 -->
+		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
 			<view class="flex--center--center">
+				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+					<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
+				</view>
+				<view class="flex--start--between flex-direction-column height-100rpx padding-top-bottom-10">
+					<view class="white-color">
+						<text class="font-bold">{{doctorInfo.doctorName || '--'}}</text>
+						<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || '--'}}</text>
+						<view class="tag success">已认证</view>
+					</view>
+					<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
+				</view>
+			</view>
+			<button
+				bindtap="onGoto"
+				class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0"
+				data-url="/pages/interrogation/certification/index"
+				hover-class="none"
+			>
+				<text>编辑资料</text>
+				<van-icon color="#fff" name="arrow" />
+			</button>
+		</view>
+		<!-- 未认证医生 -->
+		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:elif="{{userInfo.role=='DOCTOR'}}">
+			<view class="flex--center--center">
+				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
+				</view>
+				<view class="flex--center--center">
+					<text class="white-color">{{userInfo.nickname || '--'}}</text>
+					<view class="tag warn">未认证</view>
+				</view>
+			</view>
+			<button
+				bindtap="onGoto"
+				class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0"
+				data-url="/pages/interrogation/certification/index"
+				hover-class="none"
+			>
+				<text>资质认证</text>
+				<van-icon color="#fff" name="arrow" />
+			</button>
+		</view>
+		<!-- 患者 -->
+		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:else>
+			<view class="flex--center--center">
+				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
+				</view>
 				<text class="white-color">{{userInfo.nickname || '--'}}</text>
-				<view class="tag warn">未认证</view>
 			</view>
+			<button bindgetuserinfo="getWxUserInfo" class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0" hover-class="none" open-type="getUserInfo">
+				<text>个人资料</text>
+				<van-icon color="#fff" name="arrow" />
+			</button>
 		</view>
-		<button
-			bindtap="onGoto"
-			class="flex--center--center white-color padding-30 padding-right-0"
-			data-url="/pages/interrogation/certification/index"
-			hover-class="none"
-		>
-			<text>资质认证</text>
-			<van-icon color="#fff" name="arrow" />
-		</button>
-	</view>
-	<!-- 患者 -->
-	<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:else>
-		<view class="flex--center--center">
-			<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
-				<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
-			</view>
-			<text class="white-color">{{userInfo.nickname || '--'}}</text>
+		<view class="flex white-background-color">
+			<block wx:if="{{userInfo.role=='USER'}}">
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
+					<view class="font-mini">订单列表</view>
+				</view>
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
+					<image mode="aspectFit" src="/image/icon_wenzhen.png" style="width:60rpx;height:60rpx;" />
+					<view class="font-mini">问诊患者</view>
+				</view>
+			</block>
+			<block wx:if="{{userInfo.role=='DOCTOR'}}">
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
+					<view class="font-mini">订单列表</view>
+				</view>
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/income-list/index">
+					<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
+					<view class="font-mini">查看收益</view>
+				</view>
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/withdraw/index">
+					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
+					<view class="font-mini">提现</view>
+				</view>
+			</block>
 		</view>
-		<button bindgetuserinfo="getUserInfo" class="flex--center--center white-color padding-30 padding-right-0" hover-class="none" open-type="getUserInfo">
-			<text>个人资料</text>
-			<van-icon color="#fff" name="arrow" />
-		</button>
-	</view>
-	<view class="flex white-background-color">
-		<block wx:if="{{userInfo.role=='USER'}}">
-			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
-				<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
-				<view class="font-mini">订单列表</view>
+		<view class="margin-top-20 white-background-color">
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
+					<text>切换账号</text>
+					<view class="flex--center--center">
+						<text class="primary-color">{{userInfo.role=='DOCTOR'?'切换为患者账号':'切换为医生账号'}}</text>
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
 			</view>
-			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
-				<image mode="aspectFit" src="/image/icon_wenzhen.png" style="width:60rpx;height:60rpx;" />
-				<view class="font-mini">问诊患者</view>
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/feedback/index">
+					<text>功能反馈</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
 			</view>
-		</block>
-		<block wx:if="{{userInfo.role=='DOCTOR'}}">
-			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
-				<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
-				<view class="font-mini">订单列表</view>
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
+					<text>消息通知</text>
+					<view class="flex--center--center">
+						<text class="danger-color" wx:if="{{noticeCount}}">{{noticeCount}}条未读消息</text>
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
 			</view>
-			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/income-list/index">
-				<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
-				<view class="font-mini">查看收益</view>
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{settlementUrl}}">
+					<text>医生入驻</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
 			</view>
-			<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/withdraw/index">
-				<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
-				<view class="font-mini">提现</view>
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
+					<text>客服</text>
+					<view class="flex--center--center">
+						<text class="primary-color">{{phone}}</text>
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
 			</view>
-		</block>
-	</view>
-	<view class="margin-top-20 white-background-color">
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
-				<text>切换账号</text>
-				<view class="flex--center--center">
-					<text class="primary-color">{{userInfo.role=='DOCTOR'?'切换为患者账号':'切换为医生账号'}}</text>
-					<van-icon color="#ccc" name="arrow" />
+			<view class="padding-left-right-30 clickable">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/setting/index">
+					<text>设置</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
 				</view>
 			</view>
 		</view>
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/feedback/index">
-				<text>功能反馈</text>
-				<view class="flex--center--center">
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</view>
-		</view>
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
-				<text>消息通知</text>
-				<view class="flex--center--center">
-					<text class="danger-color" wx:if="{{noticeCount}}">{{noticeCount}}条未读消息</text>
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</view>
-		</view>
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{settlementUrl}}">
-				<text>医生入驻</text>
-				<view class="flex--center--center">
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</view>
-		</view>
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
-				<text>客服</text>
-				<view class="flex--center--center">
-					<text class="primary-color">{{phone}}</text>
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</view>
-		</view>
-		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/setting/index">
-				<text>设置</text>
-				<view class="flex--center--center">
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</view>
-		</view>
-	</view>
+	</pull-scroll-view>
 </view>

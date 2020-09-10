@@ -1,70 +1,76 @@
 <view class="container white-background-color">
-	<view class="white-background-color">
-		<view class="padding-30 padding-top-0 background-gradient">
-			<view class="flex--center--start">
-				<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
-					<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
-				</view>
-				<view class="flex-grow-1 flex--start--between flex-direction-column height-100rpx white-color padding-top-bottom-10">
-					<view class="white-color">
-						<text class="font-bold">{{doctorInfo.doctorName || userInfo.nickname}}</text>
-						<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || ''}}</text>
+	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
+		<view class="white-background-color">
+			<view class="padding-30 padding-top-0 background-gradient">
+				<view class="flex--center--start">
+					<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
+						<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
 					</view>
-					<text class="font-small" decode="{{true}}">{{doctorInfo.workHospitalName || ''}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
-				</view>
-			</view>
-			<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
-				<view>
-					<view class="white-color">待接诊</view>
-					<view class="align-center font-large">{{doctorInfo.consultNum.waitingNum}}</view>
-				</view>
-				<view class="white-color">|</view>
-				<view>
-					<view class="white-color">问诊中</view>
-					<view class="align-center font-large">{{doctorInfo.consultNum.talkingNum}}</view>
-				</view>
-				<view class="white-color">|</view>
-				<view>
-					<view class="white-color">已服务</view>
-					<view class="align-center font-large">{{doctorInfo.consultNum.completeNum}}</view>
-				</view>
-			</view>
-		</view>
-		<view class="flex flex-wrap-wrap padding-top-bottom-20">
-			<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
-				<view class="font-mini">订单列表</view>
-			</view>
-			<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
-				<view class="font-mini">邀请医生</view>
-			</view>
-			<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/qrcode-share/index?type=card&doctorId={{userInfo.id}}">
-				<image class="width-80rpx height-80rpx" src="/image/icon_qrcode.png" />
-				<view class="font-mini">二维码名片</view>
-			</view>
-			<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctorInfo-setting/index">
-				<image class="width-80rpx height-80rpx" src="/image/icon_setting.png" />
-				<view class="font-mini">服务设置</view>
-			</view>
-		</view>
-		<view class="position-relative padding-30 white-background-color" style="height:40vw;" wx:if="{{banner.length}}">
-			<swiper
-				autoplay="{{true}}"
-				circular="{{true}}"
-				class="overflow-hidden height-100 radius-8px"
-				duration="{{500}}"
-				interval="{{500000}}"
-				style="transform:translateY(0);"
-			>
-				<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
-					<view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
-						<view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
-							<text>{{item.bannerName}}</text>
+					<view class="flex-grow-1 flex--start--between flex-direction-column height-100rpx white-color padding-top-bottom-10">
+						<view class="white-color">
+							<text class="font-bold">{{doctorInfo.doctorName || userInfo.nickname}}</text>
+							<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || ''}}</text>
 						</view>
+						<text class="font-small" decode="{{true}}">{{doctorInfo.workHospitalName || ''}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
 					</view>
-				</swiper-item>
-			</swiper>
+				</view>
+				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
+					<view>
+						<view class="white-color">待接诊</view>
+						<view class="align-center font-large">{{doctorInfo.consultNum.waitingNum}}</view>
+					</view>
+					<view class="white-color">|</view>
+					<view>
+						<view class="white-color">问诊中</view>
+						<view class="align-center font-large">{{doctorInfo.consultNum.talkingNum}}</view>
+					</view>
+					<view class="white-color">|</view>
+					<view>
+						<view class="white-color">已服务</view>
+						<view class="align-center font-large">{{doctorInfo.consultNum.completeNum}}</view>
+					</view>
+				</view>
+			</view>
+			<view class="flex flex-wrap-wrap padding-top-bottom-20">
+				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
+					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
+					<view class="font-mini">订单列表</view>
+				</view>
+				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
+					<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
+					<view class="font-mini">邀请医生</view>
+				</view>
+				<view
+					bindtap="onGoto"
+					class="width-25 padding-top-bottom-20 align-center clickable"
+					data-url="/pages/interrogation/qrcode-share/index?type=card&doctorId={{userInfo.id}}"
+				>
+					<image class="width-80rpx height-80rpx" src="/image/icon_qrcode.png" />
+					<view class="font-mini">二维码名片</view>
+				</view>
+				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
+					<image class="width-80rpx height-80rpx" src="/image/icon_setting.png" />
+					<view class="font-mini">服务设置</view>
+				</view>
+			</view>
+			<view class="position-relative padding-30 white-background-color" style="height:40vw;" wx:if="{{banner.length}}">
+				<swiper
+					autoplay="{{true}}"
+					circular="{{true}}"
+					class="overflow-hidden height-100 radius-8px"
+					duration="{{500}}"
+					interval="{{500000}}"
+					style="transform:translateY(0);"
+				>
+					<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
+						<view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
+							<view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
+								<text>{{item.bannerName}}</text>
+							</view>
+						</view>
+					</swiper-item>
+				</swiper>
+			</view>
 		</view>
-	</view>
+	</pull-scroll-view>
 </view>

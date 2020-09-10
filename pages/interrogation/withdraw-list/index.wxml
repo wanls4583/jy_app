@@ -1,6 +1,6 @@
 <!-- index.wxml -->
 <view class="container">
-	<pull-scroll-view bindrefresh="onRefresh" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+	<pull-scroll-view bindrefresh="onRefresh" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
 		<view class="white-background-color">
 			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 				<view class="padding-top-bottom-20 border-bottom">

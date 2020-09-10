@@ -65,7 +65,7 @@ Page({
     getDoctorInfo() {
         return wx.jyApp.http({
             hideTip: true,
-            url: `/doctor/info/${this.data.userInfo.id}`
+            url: `/doctor/info/${this.data.userInfo.doctorId}`
         }).then((data) => {
             if (data.doctor) {
                 this.updateDoctorInfo(Object.assign({}, data.doctor));

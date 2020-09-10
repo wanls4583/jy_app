@@ -9,7 +9,8 @@ Component({
         taocanList: [],
         departmentList: [],
         doctorList: [],
-        kepuList: []
+        kepuList: [],
+        stopRefresh: false
     },
     lifetimes: {
         attached() {
@@ -33,9 +34,34 @@ Component({
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
         },
-        bannerChang(e) {
-            this.setData({
-                currentBannerIndex: e.detail.current
+        onRefresh(e) {
+            wx.jyApp.Promise.all([
+                this.loadDoctor(),
+                this.loadDepartmentList(),
+                this.loadBaner(),
+                this.loadKepu()
+            ]).finally(() => {
+                this.setData({
+                    stopRefresh: true
+                });
+            });
+        },
+        onClickDoctor(e) {
+            var id = e.currentTarget.dataset.id;
+            wx.navigateTo({
+                url: '/pages/interrogation/doctor-detail/index?id=' + id
+            });
+        },
+        onClickBanner(e) {
+            var link = e.currentTarget.dataset.link;
+            if (link) {
+                wx.jyApp.utils.openWebview(link);
+            }
+        },
+        //查看更多
+        onClickMore(e) {
+            wx.navigateTo({
+                url: '/pages/mall/search-doctor/index'
             });
         },
         loadDoctor() {
@@ -98,23 +124,5 @@ Component({
                 });
             });
         },
-        onClickDoctor(e) {
-            var id = e.currentTarget.dataset.id;
-            wx.navigateTo({
-                url: '/pages/interrogation/doctor-detail/index?id=' + id
-            });
-        },
-        onClickBanner(e) {
-            var link = e.currentTarget.dataset.link;
-            if (link) {
-                wx.jyApp.utils.openWebview(link);
-            }
-        },
-        //查看更多
-        onClickMore(e) {
-            wx.navigateTo({
-                url: '/pages/mall/search-doctor/index'
-            });
-        }
     }
 })

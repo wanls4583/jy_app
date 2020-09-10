@@ -25,7 +25,7 @@
 		</view>
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:124px">
-		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="3000px" stop-refresh="{{stopRefresh}}">
+		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
 			<view class="white-background-color">
 				<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 					<view class="padding-top-bottom-20 border-bottom">

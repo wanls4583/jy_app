@@ -3,14 +3,15 @@ Component({
         styleIsolation: 'shared'
     },
     data: {
-        banner: []
+        banner: [],
+        stopRefresh: false
     },
     lifetimes: {
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
                 fields: ['userInfo', 'doctorInfo'],
-                actions: ['updateUserInfo'],
+                actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();
             if (this.data.userInfo.role == 'DOCTOR') {
@@ -28,8 +29,34 @@ Component({
                 url: url
             });
         },
+        onRefresh(e) {
+            wx.jyApp.Promise.all([
+                this.getDoctorInfo(),
+                this.loadBaner
+            ]).finally(() => {
+                this.setData({
+                    stopRefresh: true
+                });
+            });
+        },
+        onClickBanner(e) {
+            var link = e.currentTarget.dataset.link;
+            if (link) {
+                wx.jyApp.utils.openWebview(link);
+            }
+        },
+        //获取医生信息
+        getDoctorInfo() {
+            return wx.jyApp.http({
+                url: `/doctor/info/${this.data.userInfo.doctorId}`
+            }).then((data) => {
+                if (data.doctor) {
+                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                }
+            });
+        },
         loadBaner() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/banner/list',
                 data: {
                     bannerCode: '0003'
@@ -40,11 +67,5 @@ Component({
                 });
             });
         },
-        onClickBanner(e) {
-            var link = e.currentTarget.dataset.link;
-            if (link) {
-                wx.jyApp.utils.openWebview(link);
-            }
-        }
     }
 })

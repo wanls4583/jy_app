@@ -4,9 +4,9 @@ Component({
     },
     data: {
         banner: [],
-        currentBannerIndex: 0,
         productList: [],
-        taocanList: []
+        taocanList: [],
+        stopRefresh: false
     },
     lifetimes: {
         attached() {
@@ -20,54 +20,13 @@ Component({
                 url: '/pages/mall/search/index'
             });
         },
-        bannerChang(e) {
-            this.setData({
-                currentBannerIndex: e.detail.current
-            });
-        },
-        loadProduct() {
-            wx.jyApp.http({
-                url: '/goods/list',
-                data: {
-                    page: 1,
-                    limit: 6,
-                    type: 2
-                }
-            }).then((data) => {
-                data.page.list.map((item) => {
-                    item._goodsName = item.goodsName;
-                    item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
-                });
+        onRefresh(e) {
+            wx.jyApp.Promise.all([
+                this.loadProduct(),
+                this.loadBaner(),
+            ]).finally(() => {
                 this.setData({
-                    taocanList: data.page.list
-                });
-            });
-            wx.jyApp.http({
-                url: '/goods/list',
-                data: {
-                    page: 1,
-                    limit: 6,
-                    type: 1
-                }
-            }).then((data) => {
-                data.page.list.map((item) => {
-                    item._goodsName = item.goodsName;
-                    item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
-                });
-                this.setData({
-                    productList: data.page.list
-                });
-            });
-        },
-        loadBaner() {
-            wx.jyApp.http({
-                url: '/banner/list',
-                data: {
-                    bannerCode: '0001'
-                }
-            }).then((data) => {
-                this.setData({
-                    banner: data.list
+                    stopRefresh: true
                 });
             });
         },
@@ -89,6 +48,53 @@ Component({
             wx.navigateTo({
                 url: `/pages/mall/product-list/index?type=${type}`
             });
-        }
+        },
+        loadProduct() {
+            var rq1 = wx.jyApp.http({
+                url: '/goods/list',
+                data: {
+                    page: 1,
+                    limit: 6,
+                    type: 2
+                }
+            }).then((data) => {
+                data.page.list.map((item) => {
+                    item._goodsName = item.goodsName;
+                    item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
+                });
+                this.setData({
+                    taocanList: data.page.list
+                });
+            });
+            var rq2 = wx.jyApp.http({
+                url: '/goods/list',
+                data: {
+                    page: 1,
+                    limit: 6,
+                    type: 1
+                }
+            }).then((data) => {
+                data.page.list.map((item) => {
+                    item._goodsName = item.goodsName;
+                    item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
+                });
+                this.setData({
+                    productList: data.page.list
+                });
+            });
+            return Promise.all([rq1, rq2]);
+        },
+        loadBaner() {
+            return wx.jyApp.http({
+                url: '/banner/list',
+                data: {
+                    bannerCode: '0001'
+                }
+            }).then((data) => {
+                this.setData({
+                    banner: data.list
+                });
+            });
+        },
     }
 })
