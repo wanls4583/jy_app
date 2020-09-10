@@ -18,9 +18,9 @@
             <view class="position-absolute top-0 right-0 flex--center--center clickable z-index-100" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPic">
                 <van-icon name="cross" size="15px" color="#ee0a24" />
             </view>
-            <view wx:if="{{processMap[item]<100}}" class="position-absolute top-0 right-0 bottom-0 left-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
-                <text wx:if="{{processMap[item]<0}}" class="danger-color">失败</text>
-                <text wx:else>{{processMap[item]}}</text>
+            <view wx:if="{{progressMap[item]<=100}}" class="position-absolute top-0 right-0 bottom-0 left-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
+                <text wx:if="{{progressMap[item]<0}}" class="danger-color">失败</text>
+                <text wx:else>{{progressMap[item]}}</text>
             </view>
         </view>
         <view wx:if="{{picList.length<9}}" class="item flex--center--center width-150rpx height-150rpx gray-background-color border-style-none clickable gray-color" bindtap="chooseImage">

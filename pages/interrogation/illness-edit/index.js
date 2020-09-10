@@ -3,7 +3,7 @@ Page({
         picList: [],
         picUrls: [],
         diseaseDetail: '',
-        processMap: {},
+        progressMap: {},
         pciMap: {}
     },
     onLoad(option) {
@@ -38,6 +38,7 @@ Page({
         var self = this;
         wx.chooseImage({
             sizeType: ['compressed'],
+            count: 9 - self.data.picList.length,
             success(res) {
                 var files = [];
                 res.tempFiles.map((item) => {
@@ -55,7 +56,7 @@ Page({
                 });
                 files.map((item) => {
                     self.taskMap[item] = wx.uploadFile({
-                        url: 'http://dev.juyuanyingyang.com/ihospital/app/api/oss/upload?token=' + wx.getStorageSync('token'),
+                        url: 'https://dev.juyuanyingyang.com/ihospital/app/api/oss/upload?token=' + wx.getStorageSync('token'),
                         filePath: item,
                         name: 'file',
                         header: {
@@ -68,18 +69,25 @@ Page({
                             if (data.url) {
                                 self.data.picUrls.push(data.url);
                                 self.data.pciMap[item] = data.url;
+                                self.data.progressMap[item] = 101;
                             } else {
-                                self.data.processMap[item] = -1
-                                self.setData({
-                                    processMap: self.data.processMap
-                                });
+                                self.data.progressMap[item] = -1
                             }
+                            self.setData({
+                                progressMap: self.data.progressMap
+                            });
+                        },
+                        fail() {
+                            wx.jyApp.toast('上传失败');
                         }
                     });
                     self.taskMap[item].onProgressUpdate((data) => {
-                        self.data.processMap[item] = data.progress
+                        if(data.progress == 100) {
+                            data.progress = 99.99;
+                        }
+                        self.data.progressMap[item] = data.progress
                         self.setData({
-                            processMap: self.data.processMap
+                            progressMap: self.data.progressMap
                         });
                     });
                 });
