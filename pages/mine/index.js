@@ -86,15 +86,12 @@ Page({
         } else {
             wx.navigateTo({ url: '/pages/user/index' });
         }
-
     },
     //重新登录
     reLogin() {
         return wx.jyApp.loginUtil.login().then(() => {
-            return this.getUserInfo().then(() => {
-                wx.nextTick(() => {
-                    this.getDoctorInfo();
-                });
+            return this.getUserInfo().then((data) => {
+                return this.getDoctorInfo(data.info.doctorId);
             });
         });
     },
@@ -127,13 +124,17 @@ Page({
                 wx.setStorageSync('role', 'USER');
             }
             this.updateUserInfo(data.info);
+            return data;
         });
     },
     //获取医生信息
-    getDoctorInfo() {
+    getDoctorInfo(doctorId) {
+        if (!doctorId) {
+            return Promise.resolve();
+        }
         return wx.jyApp.http({
             hideTip: true,
-            url: `/doctor/info/${this.data.userInfo.doctorId}`
+            url: `/doctor/info/${doctorId}`
         }).then((data) => {
             if (data.doctor) {
                 this.updateDoctorInfo(Object.assign({}, data.doctor));

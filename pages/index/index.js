@@ -33,10 +33,8 @@ Page({
             inviteId: this.inviteId,
             inviteWay: this.inviteWay
         }).then(() => {
-            this.getUserInfo().then(() => {
-                wx.nextTick(() => {
-                    this.getDoctorInfo();
-                });
+            this.getUserInfo().then((data) => {
+                this.getDoctorInfo(data.info.doctorId);
             }).finally(() => {
                 wx.hideLoading();
                 wx.switchTab({ url: '/pages/tab-bar-first/index' });
@@ -59,13 +57,17 @@ Page({
                 wx.setStorageSync('role', 'USER');
             }
             this.updateUserInfo(data.info);
+            return data;
         });
     },
     //获取医生信息
-    getDoctorInfo() {
+    getDoctorInfo(doctorId) {
+        if (!doctorId) {
+            return Promise.resolve();
+        }
         return wx.jyApp.http({
             hideTip: true,
-            url: `/doctor/info/${this.data.userInfo.doctorId}`
+            url: `/doctor/info/${doctorId}`
         }).then((data) => {
             if (data.doctor) {
                 this.updateDoctorInfo(Object.assign({}, data.doctor));

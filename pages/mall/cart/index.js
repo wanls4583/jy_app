@@ -31,7 +31,7 @@ Page({
         }
         var goods = this.data.cart.map((item) => {
             return {
-                amount: item.product.price,
+                amount: item.totalAmount,
                 goodsId: item.product.id,
                 num: item.num
             }

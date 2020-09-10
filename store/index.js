@@ -23,8 +23,9 @@ export const store = observable({
         });
         if (temp.length) {
             temp[0].num++;
+            temp[0].totalAmount = Number((temp[0].product.price * temp[0].num).toFixed(2));
         } else {
-            product.firstPic = product.goodsPic.split(',')[0];
+            product.firstPic = product.goodsPic && product.goodsPic.split(',')[0];
             this.cart.push({
                 product: product,
                 num: 1
@@ -38,6 +39,7 @@ export const store = observable({
         });
         if (temp.length) {
             temp[0].num++;
+            temp[0].totalAmount = Number((temp[0].product.price * temp[0].num).toFixed(2));
         }
         this.cart = this.cart.concat([]);
     }),
@@ -45,6 +47,7 @@ export const store = observable({
         for (var i = 0; i < this.cart.length; i++) {
             if (this.cart[i].product.id == id) {
                 this.cart[i].num--;
+                this.cart[i].totalAmount = Number((this.cart[i].product.price * this.cart[i].num).toFixed(2));
                 if (this.cart[i].num <= 0) {
                     this.cart.splice(i, 1);
                 }

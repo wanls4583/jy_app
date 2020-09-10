@@ -27,7 +27,7 @@
                 <view>{{item.product.goodsName}}</view>
                 <view class="flex--center--between margin-top-20 width-100">
                     <text class="gray-color">x{{item.num}}</text>
-                    <text>￥{{item.product.price}}</text>
+                    <text class="danger-color">￥{{item.totalAmount}}</text>
                 </view>
             </view>
         </view>
