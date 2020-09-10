@@ -1,7 +1,7 @@
 <view class="container">
 	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" refresher-background="#2aafff" refresher-default-style="white">
 		<!-- 认证医生 -->
-		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
+		<view class="flex--center--between background-gradient padding-30" style="padding-bottom:60rpx" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo}}">
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
@@ -26,7 +26,7 @@
 			</button>
 		</view>
 		<!-- 未认证医生 -->
-		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:elif="{{userInfo.role=='DOCTOR'}}">
+		<view class="flex--center--between background-gradient padding-30" style="padding-bottom:60rpx" wx:elif="{{userInfo.role=='DOCTOR'}}">
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -47,7 +47,7 @@
 			</button>
 		</view>
 		<!-- 患者 -->
-		<view class="flex--center--between background-gradient padding-left-right-30" style="padding-bottom:60rpx" wx:else>
+		<view class="flex--center--between background-gradient padding-30" style="padding-bottom:60rpx" wx:else>
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />

@@ -1,7 +1,7 @@
 <view class="container white-background-color">
 	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" refresher-background="#2aafff" refresher-default-style="white">
 		<view class="white-background-color">
-			<view class="padding-30 padding-top-0 background-gradient">
+			<view class="padding-30 background-gradient">
 				<view class="flex--center--start">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
