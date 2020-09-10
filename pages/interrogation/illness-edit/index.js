@@ -21,8 +21,8 @@ Page({
         });
     },
     onNext() {
-        if (!this.data.diseaseDetail) {
-            wx.jyApp.toast('请输入病情描述');
+        if (this.data.diseaseDetail.length < 10) {
+            wx.jyApp.toast('病情描述不能少于10个字');
             return;
         }
         wx.jyApp.illness = {

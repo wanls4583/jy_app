@@ -61,7 +61,6 @@
 								<icon bindtap="onResend" class="send-status" data-id="{{item.id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
 							</view>
 							<view class="position-relative flex-shrink-1" wx:elif="{{item.type==2}}">
-								<view>{{item.sendStatus}}</view>
 								<image class="flex radius-8rpx" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
 								<image
 									binderror="onImgLoadError"
