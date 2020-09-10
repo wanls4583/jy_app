@@ -45,17 +45,17 @@ Page({
                 goods: goods
             }
         }).then((data) => {
-            var self = this;
-            this.clearCart();
             wx.jyApp.utils.pay(data.params).then(() => {
                 setTimeout(() => {
                     wx.showToast({
                         title: '支付成功'
                     });
+                    this.clearCart();
                 }, 500);
             }).catch(() => {
                 setTimeout(() => {
                     wx.jyApp.toast('支付失败');
+                    this.clearCart();
                 }, 500);
             }).finally(() => {
                 wx.navigateTo({
