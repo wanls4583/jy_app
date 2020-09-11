@@ -264,7 +264,7 @@ Page({
             this.setData({
                 'page': this.data.page + 1,
                 'totalPage': data.page.totalPage,
-                'doctorList': this.data.doctorList.concat(data.page.list)
+                'doctorList': this.data.doctorList.concat(data.page.list || [])
             });
         }).finally(() => {
             this.loading = false;

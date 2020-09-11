@@ -92,11 +92,12 @@ Page({
                 this.data.productData.loading = false;
             }
         }).then((data) => {
+            data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
             });
             this.setData({
-                [`productData.list`]: this.data.productData.list.concat(data.page.list || []),
+                [`productData.list`]: this.data.productData.list.concat(data.page.list),
                 [`productData.page`]: this.data.productData.page + 1,
                 [`productData.totalPage`]: data.page.totalPage
             });
@@ -129,11 +130,12 @@ Page({
                 this.data.taocanData.loading = false;
             }
         }).then((data) => {
+            data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
             });
             this.setData({
-                [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list || []),
+                [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),
                 [`taocanData.page`]: this.data.taocanData.page + 1,
                 [`taocanData.totalPage`]: data.page.totalPage
             });
