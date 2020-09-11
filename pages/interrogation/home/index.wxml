@@ -36,24 +36,24 @@
 					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
 					<view class="font-mini">订单列表</view>
 				</view>
-				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
+				<view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
 					<view class="font-mini">邀请医生</view>
 				</view>
 				<view
-					bindtap="onGoto"
+					bindtap="onCheckGoto"
 					class="width-25 padding-top-bottom-20 align-center clickable"
-					data-url="/pages/interrogation/qrcode-share/index?type=card&doctorId={{userInfo.id}}"
+					data-url="/pages/interrogation/qrcode-share/index?type=card&doctorId={{userInfo.doctorId}}"
 				>
 					<image class="width-80rpx height-80rpx" src="/image/icon_qrcode.png" />
 					<view class="font-mini">二维码名片</view>
 				</view>
-				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
+				<view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_setting.png" />
 					<view class="font-mini">服务设置</view>
 				</view>
 			</view>
-			<view class="position-relative padding-30 white-background-color" style="height:40vw;" wx:if="{{banner.length}}">
+			<view class="position-relative padding-30 white-background-color" style="height:33vw;" wx:if="{{banner.length}}">
 				<swiper
 					autoplay="{{true}}"
 					circular="{{true}}"

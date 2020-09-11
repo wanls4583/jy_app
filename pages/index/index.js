@@ -18,8 +18,11 @@ Page({
             if (param.type == 'invite' && param.doctorId) { //医生通过二维码分享邀请
                 this.inviteId = param.doctorId;
                 this.inviteWay = 2;
+            } else if (param.type == 'cart' && param.doctorId) {
+                this.gotDoctorId = param.doctorId;
             }
         }
+        this.getPhone();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -37,7 +40,13 @@ Page({
                 this.getDoctorInfo(data.info.doctorId);
             }).finally(() => {
                 wx.hideLoading();
-                wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                if (this.gotDoctorId) {
+                    wx.navigateTo({
+                        url: '/pages/interrogation/doctor-detail/index?id=' + this.getDoctorInfo
+                    });
+                } else {
+                    wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                }
             });
         });
     },
@@ -76,4 +85,9 @@ Page({
             }
         });
     },
+    getPhone() {
+        wx.jyApp.utils.getConfig(['service_phone']).then((data) => {
+            wx.jyApp.configData.phone = data.service_phone;
+        });
+    }
 })

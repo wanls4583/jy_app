@@ -7,11 +7,20 @@ Component({
         stopRefresh: false,
         totalPage: -1,
         totalCount: 0,
-        page: 1
+        page: 1,
+        doctorDisabled: false
     },
     lifetimes: {
         attached(option) {
+            this.storeBindings = wx.jyApp.createStoreBindings(this, {
+                store: wx.jyApp.store,
+                fields: ['doctorInfo'],
+            });
+            this.storeBindings.updateStoreBindings();
             this.loadList(true);
+        },
+        detached() {
+            this.storeBindings.destroyStoreBindings();
         }
     },
     pageLifetimes: {
@@ -38,10 +47,23 @@ Component({
             });
         },
         loadList(refresh) {
+            if (!wx.jyApp.utils.checkDoctor({ hideTip: true })) { //医生状态异常
+                this.setData({
+                    stopRefresh: true,
+                    page: 1,
+                    totalPage: -1,
+                    patientList: [],
+                    doctorDisabled: true
+                });
+                return;
+            }
+            this.setData({
+                doctorDisabled: false
+            });
             if (refresh) {
                 this.setData({
                     page: 1,
-                    totalPage: -1,
+                    totalPage: 0,
                     patientList: []
                 });
                 this.request && this.request.requestTask.abort();
@@ -52,13 +74,14 @@ Component({
             this.request = wx.jyApp.http({
                 url: '/doctor/patients',
                 data: {
+                    page: this.data.page,
+                    limit: 20,
                     patientName: this.patientName || ''
                 }
             });
             this.request.then((data) => {
                 data.page.list.map((item) => {
                     item._sex = item.sex == 1 ? '男' : '女';
-                    // item.joinTime = new Date(item.joinTime).formatTime();
                 });
                 this.data.patientList = this.data.patientList.concat(data.page.list);
                 this.setData({

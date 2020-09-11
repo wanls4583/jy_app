@@ -11,6 +11,9 @@ function getUserInfo() {
     return wx.jyApp.http({
         url: '/wx/user/info'
     }).then((data) => {
+        if (data && data.info) {
+            data.info.originRole = data.info.role;
+        }
         return data;
     });
 }

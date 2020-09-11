@@ -91,7 +91,7 @@
 			</block>
 		</view>
 		<view class="margin-top-20 white-background-color">
-			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.role=='DOCTOR'||userInfo.switchStatus==1}}">
+			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
@@ -145,3 +145,4 @@
 		</view>
 	</pull-scroll-view>
 </view>
+<van-dialog id="van-dialog" />

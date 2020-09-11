@@ -37,13 +37,16 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
-    //跳转前检查收益开关
+    //跳转前检查医生状态
     onCheckGoto(e) {
-        if (!this.data.doctorInfo.incomeSwitch) {
-            wx.jyApp.toast('该功能已关闭，请联系管理员！');
-            return;
+        if (wx.jyApp.utils.checkDoctor()) {
+            if (this.data.doctorInfo.incomeSwitch != 1) {
+                wx.jyApp.toast('该功能已关闭，请联系管理员！');
+                pass = false;
+            } else {
+                this.onGoto(e);
+            }
         }
-        this.onGoto(e);
     },
     onOpenWebview(e) {
         wx.jyApp.utils.openWebview(e);
@@ -72,6 +75,7 @@ Page({
                 phone: data.service_phone,
                 settlementUrl: data.settlement_url
             });
+            wx.jyApp.configData.phone = data.service_phone;
         });
     },
     getWxUserInfo(e) {

@@ -41,7 +41,7 @@
 					<text class="font-small">￥{{doctor.consultOrderPrice}}/24小时</text>
 				</view>
 			</view>
-			<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}">去咨询</view>
+			<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}">去咨询</view>
 		</view>
 	</view>
 	<view class="padding-30">
@@ -62,3 +62,4 @@
 		</view>
 	</view>
 </view>
+<van-dialog id="van-dialog" />

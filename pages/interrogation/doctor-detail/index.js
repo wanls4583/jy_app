@@ -15,6 +15,20 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
+    onConsult(e) {
+        if (this.doctor.status != 1) {
+            wx.jyApp.dialog.confirm({
+                message: '该医生已下线，你可以找其他医生进行问诊咨询',
+                confirmButtonText: '找其他医生'
+            }).then(() => {
+                wx.navigateTo({
+                    url: '/pages/mall/search-doctor/index'
+                });
+            });
+        } else {
+            wx.jyApp.utils.navigateTo(e);
+        }
+    },
     getDoctorInfo() {
         wx.jyApp.http({
             url: '/doctor/info/' + this.data.doctorId

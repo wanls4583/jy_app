@@ -15,7 +15,7 @@
 		</view>
 		<view class="gray-color margin-top-20">{{order.address}}</view>
 	</view>
-	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30 margin-top-20" wx:elif="{{order.status==0}}">
+	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30 margin-top-20" wx:elif="{{order.status==0&&order.userId==userInfo.id}}">
 		<block wx:if="{{selectAddress}}">
 			<view style="max-width: 300px;">
 				<view class="margin-bottom-20">

@@ -43,7 +43,7 @@ Page({
     },
     onQrcode(e) {
         wx.navigateTo({
-            url: '/pages/interrogation/qrcode-share/index?type=invite&doctorId=' + this.data.userInfo.id
+            url: '/pages/interrogation/qrcode-share/index?type=invite&doctorId=' + this.data.userInfo.doctorId
         });
         this.setData({
             shareVisble: false

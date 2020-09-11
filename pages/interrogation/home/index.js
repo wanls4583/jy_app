@@ -29,6 +29,12 @@ Component({
                 url: url
             });
         },
+        //跳转前检查医生状态
+        onCheckGoto(e) {
+            if (wx.jyApp.utils.checkDoctor()) {
+                this.onGoto(e);
+            }
+        },
         onRefresh(e) {
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),

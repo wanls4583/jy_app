@@ -5,11 +5,6 @@ Page({
         type: ''
     },
     onLoad(option) {
-        this.storeBindings = wx.jyApp.createStoreBindings(this, {
-            store: wx.jyApp.store,
-            fields: ['userInfo'],
-        });
-        this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId;
         this.type = option.type;
         this.getQrCode();
