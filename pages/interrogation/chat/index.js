@@ -93,14 +93,14 @@ Page({
         });
         wx.hideLoading();
     },
-    foucus: function(e) {
+    foucus: function (e) {
         this.setData({
             inputBottom: e.detail.height,
             inputFoucus: true,
             panelVisible: false
         });
     },
-    blur: function(e) {
+    blur: function (e) {
         this.setData({
             inputBottom: 0,
             inputFoucus: false
@@ -392,7 +392,7 @@ Page({
         return new Promise((resolve) => {
             var query = wx.createSelectorQuery()
             query.select('#page-id-' + pageId).boundingClientRect()
-            query.exec(function(rect) {
+            query.exec(function (rect) {
                 self.gettingPageHeight[pageId] = false;
                 console.log(pageId, rect[0])
                 if (rect && rect[0]) {
@@ -611,16 +611,18 @@ Page({
                     this.scrollToBottom();
                 });
             }
-            if (!ifPre) {
-                this.setData({
-                    lastestId: list[list.length - 1].id,
-                });
-            }
-            if (ifPre || !this.data.earlistId && list.length) {
-                this.setData({
-                    earlistId: list[0].id,
-                    totalPage: data.page.totalPage
-                });
+            if (list.length) {
+                if (!ifPre) {
+                    this.setData({
+                        lastestId: list[list.length - 1].id,
+                    });
+                }
+                if (ifPre || !this.data.earlistId && list.length) {
+                    this.setData({
+                        earlistId: list[0].id,
+                        totalPage: data.page.totalPage
+                    });
+                }
             }
         }).catch((err) => {
             console.log(err);
