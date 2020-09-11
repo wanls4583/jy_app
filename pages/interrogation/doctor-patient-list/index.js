@@ -43,7 +43,7 @@ Component({
             });
         },
         onGoto(e) {
-            wx.jyApp.navigateTo(e);
+            wx.jyApp.utils.navigateTo(e);
         },
         onGotoSearch() {
             if (this.data.totalPage <= 0) {
