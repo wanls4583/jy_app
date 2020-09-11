@@ -115,3 +115,9 @@
 		</pull-scroll-view>
 	</view>
 </view>
+<view class="position-fixed bottom-0 width-100 padding-30" wx:if="{{tipVisible}}">
+	<view class="flex--center--between radius-100px padding-20" style="background:rgba(0,0,0,0.5)">
+		<text class="font-small white-color">点击“我的->切换账号”可切换为医生账号</text>
+		<view bindtap="onClickHideTip" class="button small primary radius-100px">我知道了</view>
+	</view>
+</view>

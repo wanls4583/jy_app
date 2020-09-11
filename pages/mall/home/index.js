@@ -10,7 +10,8 @@ Component({
         departmentList: [],
         doctorList: [],
         kepuList: [],
-        stopRefresh: false
+        stopRefresh: false,
+        tipVisible: false
     },
     lifetimes: {
         attached() {
@@ -24,6 +25,12 @@ Component({
                 this.loadKepu();
                 this.loadDoctor();
                 this.loadDepartmentList();
+            }
+            if(this.data.userInfo.role == 'USER' && !wx.getStorageSync('switch_role_tip')) {
+                this.setData({
+                    tipVisible: true
+                });
+                wx.setStorageSync('switch_role_tip', 1);
             }
         },
         detached() {
@@ -44,6 +51,11 @@ Component({
                 this.setData({
                     stopRefresh: true
                 });
+            });
+        },
+        onClickHideTip() {
+            this.setData({
+                tipVisible: false
             });
         },
         onClickDoctor(e) {
