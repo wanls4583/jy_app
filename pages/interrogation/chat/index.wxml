@@ -35,7 +35,7 @@
 						<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'}}">
 							<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
 								<view>请对本次图文问诊进行评价吧</view>
-								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{talker.id}}">去评价</view>
+								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{consultOrder.doctorId}}">去评价</view>
 							</view>
 						</view>
 						<!-- 系统消息 -->

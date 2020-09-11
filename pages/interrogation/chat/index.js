@@ -5,6 +5,7 @@ Page({
         patient: {},
         currentUser: {},
         talker: {},
+        consultOrder: {},
         chatList: [], //聊天内容
         inputBottom: 0,
         inputFoucus: false,
@@ -86,6 +87,7 @@ Page({
             talker: data.talker,
             patient: data.patient,
             status: data.chatRoom.status,
+            consultOrder: data.chatRoom.consultOrder,
             consultOrderId: data.chatRoom.consultOrderId
         });
         wx.setNavigationBarTitle({
