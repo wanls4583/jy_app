@@ -146,10 +146,10 @@ function getConfig(names) {
 }
 
 //使用医生功能时，检查医生状态
-function checkDoctor(option = {}) {
+function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus: true }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
-    if (!doctorInfo) {
+    if (!doctorInfo && option.checkApprove) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您未通过资质认证，认证后可使用该功能',
             confirmButtonText: '立即认证',
@@ -161,7 +161,8 @@ function checkDoctor(option = {}) {
             });
         });
         pass = false;
-    } else if (doctorInfo.status == 3) {
+    }
+    if (doctorInfo && doctorInfo.status == 3 && option.checkStatus) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您的医生资质已被禁用，请联系客服人员解决',
             confirmButtonText: '联系客服',
