@@ -30,7 +30,7 @@
 					<view bindtap="onGoto" class="button primary margin-top-30" data-url="/pages/interrogation/certification/index">去认证</view>
 				</view>
 			</view>
-			<view class="padding-30" wx:if="{{!doctorInfo}}">
+			<view class="padding-30" wx:elif="{{doctorInfo.status==3}}">
 				<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
 					<view class="warn-color">您的医生资质已被禁用，请联系客服人员解决</view>
 					<view bindtap="onClickPhone" class="button primary margin-top-30">联系客服</view>
