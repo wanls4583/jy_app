@@ -7,8 +7,7 @@ Component({
         stopRefresh: false,
         totalPage: -1,
         totalCount: 0,
-        page: 1,
-        doctorDisabled: false
+        page: 1
     },
     lifetimes: {
         attached(option) {
@@ -38,6 +37,14 @@ Component({
         onClickPatient(e) {
             var id = e.currentTarget.dataset.id;
         },
+        onClickPhone() {
+            wx.makePhoneCall({
+                phoneNumber: wx.jyApp.configData.phone
+            });
+        },
+        onGoto(e) {
+            wx.jyApp.navigateTo(e);
+        },
         onGotoSearch() {
             if (this.data.totalPage <= 0) {
                 return;
@@ -52,8 +59,7 @@ Component({
                     stopRefresh: true,
                     page: 1,
                     totalPage: -1,
-                    patientList: [],
-                    doctorDisabled: true
+                    patientList: []
                 });
                 return;
             }
