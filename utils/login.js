@@ -18,6 +18,17 @@ function getUserInfo() {
     });
 }
 
+function getDoctorInfo(doctorId) {
+    if (!doctorId) {
+        return Promise.reject();
+    }
+    return wx.jyApp.http({
+        url: `/doctor/info/${doctorId}`
+    }).then((data) => {
+        return data;
+    });
+}
+
 //登录
 function login(param) {
     return new wx.jyApp.Promise((resolve, reject) => {
@@ -52,5 +63,6 @@ function login(param) {
 module.exports = {
     login: login,
     updateUserInfo: updateUserInfo,
+    getDoctorInfo: getDoctorInfo,
     getUserInfo: getUserInfo
 }

@@ -53,9 +53,7 @@ Component({
         },
         //获取医生信息
         getDoctorInfo() {
-            return wx.jyApp.http({
-                url: `/doctor/info/${this.data.userInfo.doctorId}`
-            }).then((data) => {
+            return wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.doctorId).then((data) => {
                 if (data.doctor) {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 }

@@ -37,12 +37,14 @@ Page({
             inviteWay: this.inviteWay
         }).then(() => {
             this.getUserInfo().then((data) => {
-                this.getDoctorInfo(data.info.doctorId);
+                data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                });
             }).finally(() => {
                 wx.hideLoading();
                 if (this.gotDoctorId) {
                     wx.navigateTo({
-                        url: '/pages/interrogation/doctor-detail/index?id=' + this.getDoctorInfo
+                        url: '/pages/interrogation/doctor-detail/index?id=' + this.gotDoctorId
                     });
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
@@ -69,20 +71,6 @@ Page({
             }
             this.updateUserInfo(data.info);
             return data;
-        });
-    },
-    //获取医生信息
-    getDoctorInfo(doctorId) {
-        if (!doctorId) {
-            return Promise.resolve();
-        }
-        return wx.jyApp.http({
-            hideTip: true,
-            url: `/doctor/info/${doctorId}`
-        }).then((data) => {
-            if (data.doctor) {
-                this.updateDoctorInfo(Object.assign({}, data.doctor));
-            }
         });
     },
     getPhone() {

@@ -73,9 +73,7 @@ Page({
             title: '加载中...',
             mask: true
         });
-        wx.jyApp.http({
-            url: `/doctor/info/${this.doctorId}`
-        }).then((data) => {
+        wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
             if (data.doctor) {
                 this.setData({
                     doctor: data.doctor

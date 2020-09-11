@@ -31,11 +31,15 @@ App({
         //   index: 2,
         //   text: '1'
         // });
+        this.firstLoad = true;
     },
     onShow() {
         this.setGlobalData();
         this.updateCheck();
-        this.getSwitchRoleStatus();
+        if (!this.firstLoad) {
+            this.checkStatus();
+        }
+        this.firstLoad = false;
     },
     setGlobalData() {
         var systemInfo = wx.getSystemInfoSync();
@@ -71,15 +75,26 @@ App({
             })
         });
     },
-    //获取切换角色状态开关(后台打开开关后，用户再次进入小程序时自动切换到医生状态)
-    getSwitchRoleStatus() {
-        if (wx.getStorageSync('token') && !wx.getStorageSync('role') && wx.jyApp.store.userInfo && wx.jyApp.store.userInfo.role != 'DOCTOR') {
+    //检测状态
+    checkStatus() {
+        if (wx.getStorageSync('token')) {
+            //检查用户状态
             wx.jyApp.loginUtil.getUserInfo().then((data) => {
-                if (data.info.role != 'DOCTOR' && data.info.switchStatus == 1) {
+                if (!wx.getStorageSync('role') && data.info.role == 'USER' && data.info.switchStatus == 1) {
                     wx.setStorageSync('role', 'DOCTOR');
                     data.info.role = 'DOCTOR';
                     wx.jyApp.store.updateUserInfo(data.info);
                 }
+                //检查医生状态
+                if (data.info.doctorId) {
+                    wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                        wx.jyApp.store.updateDoctorInfo(data.doctor);
+                    });
+                }
+            });
+        } else {
+            wx.navigateTo({
+                url: '/pages/index/index'
             });
         }
     },

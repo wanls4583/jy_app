@@ -30,9 +30,7 @@ Page({
         }
     },
     getDoctorInfo() {
-        wx.jyApp.http({
-            url: '/doctor/info/' + this.data.doctorId
-        }).then((data) => {
+        wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorId).then((data) => {
             this.setData({
                 doctor: data.doctor
             });

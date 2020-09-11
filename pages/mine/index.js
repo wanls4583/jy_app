@@ -8,7 +8,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo', 'noticeCount'],
-            actions: ['updateUserInfo', 'updateNoticeCount'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
         this.getConfig();
@@ -42,7 +42,6 @@ Page({
         if (wx.jyApp.utils.checkDoctor()) {
             if (this.data.doctorInfo.incomeSwitch != 1) {
                 wx.jyApp.toast('该功能已关闭，请联系管理员！');
-                pass = false;
             } else {
                 this.onGoto(e);
             }
@@ -103,7 +102,9 @@ Page({
     reLogin() {
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
-                return this.getDoctorInfo(data.info.doctorId);
+                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                });
             });
         });
     },
@@ -136,20 +137,6 @@ Page({
             }
             this.updateUserInfo(data.info);
             return data;
-        });
-    },
-    //获取医生信息
-    getDoctorInfo(doctorId) {
-        if (!doctorId) {
-            return Promise.resolve();
-        }
-        return wx.jyApp.http({
-            hideTip: true,
-            url: `/doctor/info/${doctorId}`
-        }).then((data) => {
-            if (data.doctor) {
-                this.updateDoctorInfo(Object.assign({}, data.doctor));
-            }
         });
     },
 })
