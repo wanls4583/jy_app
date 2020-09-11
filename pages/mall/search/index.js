@@ -1,6 +1,5 @@
 Page({
     data: {
-        unitChange: wx.jyApp.constData.unitChange,
         searchText: '',
         goodsName: '',
         doctorData: {
@@ -43,7 +42,7 @@ Page({
         });
     },
     onLoadMore(e) {
-        var type = e.currentTarget.type;
+        var type = e.currentTarget.dataset.type;
         if (type == 1) {
             this.loadToacan();
         } else if (type == 2) {
@@ -95,6 +94,8 @@ Page({
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
+                item._unit = wx.jyApp.constData.unitChange[item.unit];
+                item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
             });
             this.setData({
                 [`productData.list`]: this.data.productData.list.concat(data.page.list),
@@ -133,6 +134,7 @@ Page({
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
+                item._unit = '天';
             });
             this.setData({
                 [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),

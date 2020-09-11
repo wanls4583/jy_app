@@ -1,6 +1,5 @@
 Page({
     data: {
-        unitChange: wx.jyApp.constData.unitChange,
         searchText: '',
         goodsName: '',
         active: 0,
@@ -163,6 +162,7 @@ Page({
             }).then((data) => {
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
+                    item._unit = '天';
                 });
                 this.setData({
                     [`taocanData.pageList[${page}]`]: data.page.list || [],
@@ -213,6 +213,8 @@ Page({
             }).then((data) => {
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
+                    item._unit = wx.jyApp.constData.unitChange[item.unit];
+                    item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
                 });
                 this.setData({
                     [`productData.pageList[${page}]`]: data.page.list || [],

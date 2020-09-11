@@ -20,7 +20,6 @@ App({
         wx.jyApp.constData = constData;
         wx.jyApp.utils = utils;
         wx.jyApp.Promise = Promise;
-        wx.jyApp.configData = {};
         wx.jyApp.toast = (msg) => {
             wx.showToast({
                 title: msg,

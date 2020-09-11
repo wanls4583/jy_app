@@ -4,6 +4,8 @@ function updateUserInfo(userInfo) {
         url: '/wx/user/update',
         method: 'post',
         data: userInfo
+    }).then(() => {
+        wx.setStorageSync('hasPopUserAuth', 1);
     });
 }
 

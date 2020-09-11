@@ -1,12 +1,17 @@
 Page({
-    data: {},
+    data: {
+        totalMoney: 0
+    },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['cart', 'cartTotalMoney', 'cartNum', 'selectAddress'],
-            actions: ['addCart', 'addCartNum', 'reduceCartNum', 'clearCart', 'updateSelectAddress'],
+            fields: ['cart', 'cartTotalMoney', 'cartNum', 'defaultAddress', 'selectAddress', 'configData'],
+            actions: ['addCart', 'clearCart', 'updateDefaultAddress', 'updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
+        this.setData({
+            totalMoney: (this.data.cartTotalMoney + Number(this.data.configData.deliveryCost || 0)).toFixed(2)
+        });
         if (!this.data.selectAddress) {
             this.loadAddressList();
         }
@@ -41,24 +46,24 @@ Page({
             method: 'post',
             data: {
                 addressId: this.data.selectAddress.id,
-                totalAmount: this.data.cartTotalMoney,
+                totalAmount: this.data.totalMoney,
                 goods: goods
             }
         }).then((data) => {
+            this.clearCart();
+            this.updateSelectAddress(null);
             wx.jyApp.utils.pay(data.params).then(() => {
                 setTimeout(() => {
                     wx.showToast({
                         title: '支付成功'
                     });
-                    this.clearCart();
                 }, 500);
             }).catch(() => {
                 setTimeout(() => {
                     wx.jyApp.toast('支付失败');
-                    this.clearCart();
                 }, 500);
             }).finally(() => {
-                wx.navigateTo({
+                wx.redirectTo({
                     url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                 });
             });
@@ -72,6 +77,7 @@ Page({
                 data.list.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
+                        this.updateDefaultAddress(item);
                     }
                 });
             }

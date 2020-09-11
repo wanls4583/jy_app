@@ -5,8 +5,8 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['selectAddress', 'userInfo'],
-            actions: ['updateSelectAddress'],
+            fields: ['defaultAddress', 'selectAddress', 'userInfo'],
+            actions: ['updateDefaultAddress', 'updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
         if (!this.data.selectAddress) {
@@ -96,6 +96,7 @@ Page({
                 data.list.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
+                        this.updateDefaultAddress(item);
                     }
                 });
             }

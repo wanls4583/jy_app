@@ -149,7 +149,7 @@ function getConfig(names) {
 function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus: true }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
-    if (!doctorInfo && option.checkApprove) {
+    if ((!doctorInfo || doctorInfo.authStatus != 1) && option.checkApprove) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您未通过资质认证，认证后可使用该功能',
             confirmButtonText: '立即认证',
@@ -169,7 +169,7 @@ function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus:
             showCancelButton: !option.hideCancelButton
         }).then(() => {
             wx.makePhoneCall({
-                phoneNumber: wx.jyApp.configData.phone
+                phoneNumber: wx.jyApp.store.configData.service_phone
             });
         });
         pass = false;

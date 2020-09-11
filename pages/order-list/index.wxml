@@ -144,8 +144,8 @@
 							</view>
 						</view>
 						<view class="flex--center--between padding-top-bottom-20">
-							<view>配送金额￥{{order.deliveryCost}}</view>
-							<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
+							<view>配送金额：￥{{order.deliveryCost}}</view>
+							<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 							<view class="button primary small">立即支付</view>
@@ -186,8 +186,8 @@
 								</view>
 							</view>
 							<view class="flex--center--between padding-bottom-20">
-								<view>配送金额￥{{order.deliveryCost}}</view>
-								<view class="primary-color">订单金额￥{{order.totalAmount}}</view>
+								<view>配送金额：￥{{order.deliveryCost}}</view>
+								<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 							</view>
 							<view class="border-top align-right padding-top-bottom-20" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 								<view class="primary button small">立即支付</view>

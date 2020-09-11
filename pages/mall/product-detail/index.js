@@ -4,19 +4,18 @@ Page({
         banner: [],
         desImgList: [],
         currentBannerIndex: 0,
-        minOrderMoney: 0,
-        deliveryMoney: 0,
         cartVisible: false,
         productInfo: {},
         bTop: 28,
-        bHeight: 32
+        bHeight: 32,
+        needMoney: 0
     },
     onLoad(option) {
         this.data.id = option.id;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['cart', 'cartTotalMoney', 'cartNum'],
-            actions: ['addCart', 'addCartNum', 'reduceCartNum', 'clearCart'],
+            fields: ['cart', 'cartTotalMoney', 'cartNum', 'configData'],
+            actions: ['addCart', 'updateCartNum', 'clearCart'],
         });
         this.storeBindings.updateStoreBindings();
         this.setBackButtonRect();
@@ -54,17 +53,13 @@ Page({
     onAddToCart(e) {
         this.addCart(this.data.productInfo);
     },
-    onAddNum(e) {
+    onCartNumChange(e) {
         var id = e.currentTarget.dataset.id;
-        this.addCartNum(id);
-    },
-    onReduceNum(e) {
-        var id = e.currentTarget.dataset.id;
-        this.reduceCartNum(id);
-        if (!this.data.cart.length) {
+        this.updateCartNum(id, e.detail);
+        if (wx.jyApp.store.cartNum <= 0) {
             this.setData({
                 cartVisible: false
-            });
+            })
         }
     },
     onClearCart() {
@@ -77,6 +72,7 @@ Page({
         wx.jyApp.http({
             url: `/goods/info/${this.data.id}`
         }).then((data) => {
+            data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '天';
             this.setData({
                 productInfo: data.info,
                 banner: data.info.goodsPic.split(','),
@@ -102,9 +98,11 @@ Page({
     },
     onPay() {
         if (this.data.cart.length) {
-            wx.navigateTo({
-                url: '/pages/mall/cart/index'
-            });
+            if (this.data.needMoney <= 0) {
+                wx.navigateTo({
+                    url: '/pages/mall/cart/index'
+                });
+            }
         } else {
             wx.jyApp.toast('请先添加商品');
         }

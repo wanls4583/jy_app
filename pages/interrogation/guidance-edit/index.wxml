@@ -33,7 +33,7 @@
                 </view>
             </view>
             <view class="margin-top-20 primary-color align-right">
-                <text>订单金额</text>
+                <text>订单金额：</text>
                 <text>￥{{totalAmount}}</text>
             </view>
         </view>

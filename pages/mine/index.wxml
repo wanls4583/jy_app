@@ -59,10 +59,15 @@
 				class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0"
 				hover-class="none"
 				open-type="getUserInfo"
+				wx:if="{{userInfoButtonVisible}}"
 			>
 				<text>个人资料</text>
 				<van-icon color="#fff" name="arrow" />
 			</button>
+			<view bindtap="onGotoUser" class="flex-shrink-0 flex--center--center white-color padding-30 padding-right-0" wx:else>
+				<text>个人资料</text>
+				<van-icon color="#fff" name="arrow" />
+			</view>
 		</view>
 		<view class="flex white-background-color">
 			<block wx:if="{{userInfo.role=='USER'}}">
@@ -118,7 +123,7 @@
 				</view>
 			</view>
 			<view class="padding-left-right-30 clickable">
-				<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{settlementUrl}}">
+				<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{configData.settlement_url}}">
 					<text>医生入驻</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
@@ -129,7 +134,7 @@
 				<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>客服</text>
 					<view class="flex--center--center">
-						<text class="primary-color">{{phone}}</text>
+						<text class="primary-color">{{configData.service_phone}}</text>
 						<van-icon color="#ccc" name="arrow" />
 					</view>
 				</view>

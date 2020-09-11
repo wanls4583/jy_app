@@ -2,22 +2,27 @@ Page({
     data: {
         phone: '',
         settlementUrl: '',
-        stopRefresh: false
+        stopRefresh: false,
+        userInfoButtonVisible: true
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'doctorInfo', 'noticeCount'],
+            fields: ['userInfo', 'doctorInfo', 'noticeCount', 'configData'],
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
-        this.getConfig();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
         this.getMessageCount();
+        if (wx.getStorageSync('hasPopUserAuth') == 1) {
+            this.setData({
+                userInfoButtonVisible: false
+            });
+        }
     },
     onHide() {
         clearTimeout(this.pollCountTimer);
@@ -25,7 +30,6 @@ Page({
     onRefresh() {
         wx.jyApp.Promise.all([
             this.reLogin(),
-            this.getConfig(),
             this.getMessageCount()
         ]).finally(() => {
             this.setData({
@@ -36,6 +40,12 @@ Page({
     //页面跳转
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
+    },
+    onGotoUser() {
+        wx.navigateTo({
+            url: '/pages/user/index'
+        });
+
     },
     //跳转前检查医生状态
     onCheckGoto(e) {
@@ -67,19 +77,9 @@ Page({
             phoneNumber: this.data.phone
         })
     },
-    //获取客服电话
-    getConfig() {
-        return wx.jyApp.utils.getConfig(['service_phone', 'settlement_url']).then((data) => {
-            this.setData({
-                phone: data.service_phone,
-                settlementUrl: data.settlement_url
-            });
-            wx.jyApp.configData.phone = data.service_phone;
-        });
-    },
     getWxUserInfo(e) {
         var userInfo = e.detail.userInfo;
-        if (userInfo && userInfo.avatarUrl && !this.data.userInfo.avatarUrl) {
+        if (userInfo && !this.data.userInfo.avatarUrl) {
             userInfo.sex = userInfo.gender == 1 ? 1 : 0;
             userInfo.nickname = userInfo.nickName;
             wx.showLoading({

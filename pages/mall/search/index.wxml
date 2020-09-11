@@ -55,12 +55,14 @@
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-30 width-100">
 							<text class="gray-color">一天{{product.frequency}}次</text>
-							<text class="danger-color">￥{{product.price}}</text>
+							<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
-			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="1" wx:if="{{taocanData.totalPage>=taocanData.page}}">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30">
+				<view bindtap="onLoadMore" class="button text primary" data-type="1" wx:if="{{taocanData.totalPage>=taocanData.page}}">查看更多</view>
+			</view>
 		</view>
 		<view class="padding-30 border-top" wx:if="{{productData.list.length}}">
 			<view class="font-bold">营养产品</view>
@@ -77,13 +79,15 @@
 					<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-30 width-100">
-							<text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
-							<text class="danger-color">￥{{product.price}}</text>
+							<text class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</text>
+							<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
 						</view>
 					</view>
 				</view>
 			</view>
-			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="2" wx:if="{{productData.totalPage>=productData.page}}">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30">
+				<view bindtap="onLoadMore" class="button text primary" data-type="2" wx:if="{{productData.totalPage>=productData.page}}">查看更多</view>
+			</view>
 		</view>
 	</view>
 </view>

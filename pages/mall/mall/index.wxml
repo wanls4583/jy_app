@@ -1,6 +1,6 @@
 <view class="container white-background-color">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入产品" shape="round" />
+		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
@@ -26,7 +26,7 @@
 				<view class="flex--center--between height-120rpx padding-left-right-30">
 					<view class="font-title">营养套餐</view>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="2">
-						<text>全部</text>
+						<text>查看更多</text>
 						<van-icon name="arrow" />
 					</view>
 				</view>
@@ -51,7 +51,7 @@
 				<view class="flex--center--between height-120rpx padding-left-right-30">
 					<view class="font-title">营养产品</view>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="1">
-						<text>全部</text>
+						<text>查看更多</text>
 						<van-icon name="arrow" />
 					</view>
 				</view>

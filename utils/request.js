@@ -29,7 +29,7 @@ function request(obj) {
                     reject(res.data);
                     if (res.data.code == 401) { //登录失效
                         wx.navigateTo({
-                            url: 'pages/index/index'
+                            url: '/pages/index/index'
                         });
                     }
                 }

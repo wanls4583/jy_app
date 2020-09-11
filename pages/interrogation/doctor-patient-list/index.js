@@ -39,7 +39,7 @@ Component({
         },
         onClickPhone() {
             wx.makePhoneCall({
-                phoneNumber: wx.jyApp.configData.phone
+                phoneNumber: wx.jyApp.store.configData.service_phone
             });
         },
         onGoto(e) {
@@ -54,7 +54,7 @@ Component({
             });
         },
         loadList(refresh) {
-            if (!this.data.doctorInfo || this.data.doctorInfo.status == 3) { //医生状态异常
+            if (!this.data.doctorInfo || !this.data.doctorInfo.authStatus != 1 || this.data.doctorInfo.status == 3) { //医生状态异常
                 this.setData({
                     stopRefresh: true,
                     page: 1,
@@ -63,9 +63,6 @@ Component({
                 });
                 return;
             }
-            this.setData({
-                doctorDisabled: false
-            });
             if (refresh) {
                 this.setData({
                     page: 1,

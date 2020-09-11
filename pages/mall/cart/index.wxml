@@ -1,39 +1,52 @@
 <!--index.wxml-->
 <view class="container">
-    <view class="flex--center--between white-background-color padding-30" bindtap="onSelectAddress">
-        <block wx:if="{{selectAddress}}">
-            <view style="max-width: 300px;">
-                <view class="margin-bottom-20">
-                    <text>{{selectAddress.contactName}}</text>
-                    <text class="margin-left-30">{{selectAddress.phone}}</text>
-                </view>
-                <view>{{selectAddress.provinceCity}}{{selectAddress.address}}</view>
-            </view>
-            <van-icon name="arrow" color="#ccc" />
-        </block>
-        <block wx:else>
-            <text>收货地址</text>
-            <view class="flex--center--center gray-color">
-                <text>编辑地址</text>
-                <van-icon name="arrow" color="#999" />
-            </view>
-        </block>
-    </view>
-    <view class="margin-top-20 padding-30 padding-top-20 white-background-color">
-        <view>共{{cart.length}}份商品</view>
-        <view wx:for="{{cart}}" wx:key="index" class="flex--center--start margin-top-20">
-            <view class="width-100rpx height-100rpx" style="background:url({{item.product.firstPic}}) no-repeat center;background-size:cover"></view>
-            <view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-                <view>{{item.product.goodsName}}</view>
-                <view class="flex--center--between margin-top-20 width-100">
-                    <text class="gray-color">x{{item.num}}</text>
-                    <text class="danger-color">￥{{item.totalAmount}}</text>
-                </view>
-            </view>
-        </view>
-    </view>
-    <view class="footer padding-left-30 primary-color flex--center--between border-top">
-        <text>￥{{cartTotalMoney}}</text>
-        <view class="button primary center height-100 radius-0" bindtap="onSubmit">提交订单</view>
-    </view>
+	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
+		<block wx:if="{{selectAddress}}">
+			<view style="max-width: 300px;">
+				<view class="margin-bottom-20">
+					<text>{{selectAddress.contactName}}</text>
+					<text class="margin-left-30">{{selectAddress.phone}}</text>
+				</view>
+				<view>{{selectAddress.provinceCity}}{{selectAddress.address}}</view>
+			</view>
+			<van-icon color="#ccc" name="arrow" />
+		</block>
+		<block wx:elif="{{defaultAddress}}">
+			<view style="max-width: 300px;">
+				<view class="margin-bottom-20">
+					<text>{{defaultAddress.contactName}}</text>
+					<text class="margin-left-30">{{defaultAddress.phone}}</text>
+				</view>
+				<view>{{defaultAddress.provinceCity}}{{defaultAddress.address}}</view>
+			</view>
+			<van-icon color="#ccc" name="arrow" />
+		</block>
+		<block wx:else>
+			<text>收货地址</text>
+			<view class="flex--center--center gray-color">
+				<text>编辑地址</text>
+				<van-icon color="#999" name="arrow" />
+			</view>
+		</block>
+	</view>
+	<view class="margin-top-20 padding-left-right-30 white-background-color">
+		<view class="padding-top-20">共{{cart.length}}份商品</view>
+		<view class="flex--center--start padding-top-bottom-30 border-bottom" wx:for="{{cart}}" wx:key="index">
+			<view class="width-150rpx height-150rpx" style="background:url({{item.product.firstPic}}) no-repeat center;background-size:cover"></view>
+			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+				<view>{{item.product.goodsName}}</view>
+				<view class="flex--center--between margin-top-20 width-100">
+					<text class="gray-color">x{{item.num}}</text>
+					<text class="danger-color">￥{{item.product.price}}/{{item.product._unit}}</text>
+				</view>
+			</view>
+		</view>
+		<view class="padding-top-bottom-20">配送金额：￥{{configData.deliveryCost}}</view>
+	</view>
+	<view class="footer flex--center--between border-top">
+		<view class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
+			<text class="primary-color">合计：￥{{totalMoney}}</text>
+		</view>
+		<view bindtap="onSubmit" class="button primary center height-100 radius-0">提交订单</view>
+	</view>
 </view>

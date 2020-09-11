@@ -24,7 +24,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-30" wx:if="{{!doctorInfo}}">
+			<view class="padding-30" wx:if="{{!doctorInfo||doctorInfo.authStatus!=1}}">
 				<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
 					<view class="warn-color">您未通过资质认证，认证后可使用该功能</view>
 					<view bindtap="onGoto" class="button primary margin-top-30" data-url="/pages/interrogation/certification/index">去认证</view>

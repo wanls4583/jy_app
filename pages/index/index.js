@@ -22,7 +22,7 @@ Page({
                 this.gotDoctorId = param.doctorId;
             }
         }
-        this.getPhone();
+        this.getConfig();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -73,9 +73,18 @@ Page({
             return data;
         });
     },
-    getPhone() {
-        wx.jyApp.utils.getConfig(['service_phone']).then((data) => {
-            wx.jyApp.configData.phone = data.service_phone;
+    getConfig() {
+        wx.jyApp.utils.getConfig([
+            'service_phone',
+            'settlement_url',
+            'certification_url',
+            'service_agreement_url',
+            'privacy_agreement_url',
+            'about_url',
+            'minOrderMoney',
+            'deliveryCost'
+        ]).then((data) => {
+            wx.jyApp.store.updateConfigData(data);
         });
     }
 })

@@ -25,7 +25,7 @@
 					stop-refresh="{{taocanData.stopRefresh}}"
 				>
 					<view
-						style="min-height:{{taocanData.nowPage<taocanData.totalPage ? wrapHeight : 0}}px"
+						style="min-height:{{page<taocanData.totalPage ? wrapHeight : 0}}px"
 						wx:for="{{pageArr}}"
 						wx:for-item="page"
 						wx:if="{{page<=taocanData.lastPage}}"
@@ -47,14 +47,14 @@
 										<text class="gray-color">一天{{product.frequency}}次</text>
 									</view>
 									<view class="flex--center--between width-100">
-										<text class="danger-color">￥{{product.price}}/天</text>
+										<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
 										<view catchtap="onAddTaocan" class="button primary small" data-item="{{product}}">添加该套餐</view>
 									</view>
 								</view>
 							</view>
 						</block>
 					</view>
-					<view class="padding-30 gray-color align-center font-small" wx:if="{{taocanData.totalPage>0&&taocanData.nowPage>=taocanData.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{taocanData.totalPage>0&&taocanData.lastPage>=taocanData.totalPage}}">没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{taocanData.totalPage==0}}">
 						<van-empty description="未查询到相关商品，请重新搜索" />
 					</view>
@@ -70,7 +70,7 @@
 					stop-refresh="{{productData.stopRefresh}}"
 				>
 					<view
-						style="min-height:{{productData.nowPage<productData.totalPage ? wrapHeight : 0}}px"
+						style="min-height:{{page<productData.totalPage ? wrapHeight : 0}}px"
 						wx:for="{{pageArr}}"
 						wx:for-item="page"
 						wx:if="{{page<=productData.lastPage}}"
@@ -89,17 +89,17 @@
 								<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 									<view>{{product.goodsName}}</view>
 									<view class="flex--center--between width-100">
-										<text class="gray-color">{{product.standardNum}}{{unitChange[product.standardUnit]}}/{{unitChange[product.useUnit]}}</text>
+										<text class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</text>
 									</view>
 									<view class="flex--center--between width-100">
-										<text class="danger-color">￥{{product.price}}</text>
+										<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
 										<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}">添加该产品</view>
 									</view>
 								</view>
 							</view>
 						</block>
 					</view>
-					<view class="padding-30 gray-color align-center font-small" wx:if="{{productData.totalPage>0&&productData.nowPage>=productData.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{productData.totalPage>0&&productData.lastPage>=productData.totalPage}}">没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{productData.totalPage==0}}">
 						<van-empty description="未查询到相关商品，请重新搜索" />
 					</view>

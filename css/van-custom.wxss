@@ -54,11 +54,11 @@ page .van-picker__confirm {
     color: rgb(42, 175, 255)
 }
 
-.icon-index--van-icon__info.van-info {
+/* .icon-index--van-icon__info.van-info {
     height: 16px;
     line-height: 1em;
     padding-bottom: 2px;
-}
+} */
 
 page .van-empty__description {
     font-size: 24rpx;
