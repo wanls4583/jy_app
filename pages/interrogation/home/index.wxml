@@ -1,5 +1,5 @@
 <view class="container white-background-color">
-	<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" refresher-background="#2aafff" refresher-default-style="white">
+	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<view class="white-background-color">
 			<view class="padding-30 background-gradient">
 				<view class="flex--center--start">
@@ -11,7 +11,11 @@
 							<text class="font-bold">{{doctorInfo.doctorName || userInfo.nickname}}</text>
 							<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || ''}}</text>
 						</view>
-						<text class="font-small" decode="{{true}}">{{doctorInfo.workHospitalName || ''}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
+						<text
+							class="font-small"
+							decode="{{true}}"
+							wx:if="{{doctorInfo.workHospitalName||doctorInfo.onlineDepartmentName}}"
+						>{{doctorInfo.workHospitalName || ''}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || ''}}</text>
 					</view>
 				</view>
 				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
