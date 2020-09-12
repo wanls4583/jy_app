@@ -72,7 +72,7 @@ Page({
                     url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                 });
             });
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
     },
@@ -80,13 +80,18 @@ Page({
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
-            if (!this.selectAddress) {
+            data.list = data.list || [];
+            if (!this.data.selectAddress) {
                 data.list.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
                         this.updateDefaultAddress(item);
                     }
                 });
+            }
+            if (!wx.jyApp.store.defaultAddress && data.list.length) {
+                this.updateSelectAddress(data.list[0]);
+                this.updateDefaultAddress(data.list[0]);
             }
         });
     }

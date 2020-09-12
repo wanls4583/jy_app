@@ -45,7 +45,7 @@ Page({
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
     },
@@ -63,13 +63,14 @@ Page({
             data.detail.goods.map((item) => {
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
+                item._unit = wx.jyApp.constData.giveWayMap[item.giveWay];
                 item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 if (item.type == 1) {
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
                 } else {
                     item.usage = `${item.days}天，${item._frequency}，每次1份，配制${item.modulateDose}毫升，${item._giveWay}`;
-                    item._unit = '天';
+                    item._unit = '份';
                 }
             });
             switch (data.detail.status) {
@@ -96,13 +97,18 @@ Page({
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
-            if (!this.selectAddress) {
+            data.list = data.list || [];
+            if (!this.data.selectAddress) {
                 data.list.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
                         this.updateDefaultAddress(item);
                     }
                 });
+            }
+            if (!wx.jyApp.store.defaultAddress && data.list.length) {
+                this.updateSelectAddress(data.list[0]);
+                this.updateDefaultAddress(data.list[0]);
             }
         });
     }
