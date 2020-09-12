@@ -121,7 +121,7 @@ Page({
         if (this.data.goods.type == 1) {
             this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
         } else {
-            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次1份，配制${this.data.modulateDose}毫升，${this.data._giveWay}`;
+            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，配制${this.data.modulateDose}毫升，${this.data._giveWay}`;
         }
         wx.navigateBack();
     }

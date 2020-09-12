@@ -47,7 +47,7 @@ Page({
             data.order._status = wx.jyApp.constData.mallOrderStatusMap[data.order.status];
             data.order.goods.map((_item) => {
                 _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
-                _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
+                _item._unit = _item.type == 2 ? '天' : wx.jyApp.constData.unitChange[_item.unit];
             });
             switch (data.order.status) {
                 case 0:

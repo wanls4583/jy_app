@@ -20,7 +20,7 @@
                     <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between width-100">
-                            <text class="gray-color">x{{product.gross}}{{unitChange[product.useUnit]||'份'}}</text>
+                            <text class="gray-color">x{{product.gross}}{{unitChange[product.useUnit]||'天'}}</text>
                             <text class="danger-color">￥{{product.price}}</text>
                         </view>
                     </view>
@@ -32,9 +32,15 @@
                     <view class="button primary small margin-left-30" data-item="{{product}}" bindtap="onEdit">修改</view>
                 </view>
             </view>
-            <view class="margin-top-20 primary-color align-right">
-                <text>订单金额：</text>
-                <text>￥{{totalAmount}}</text>
+            <view class="flex--center--between margin-top-20">
+                <view>
+                    <text>配送金额：</text>
+                    <text>￥{{configData.deliveryCost}}</text>
+                </view>
+                <view class="primary-color">
+                    <text>订单金额：</text>
+                    <text>￥{{totalAmount}}</text>
+                </view>
             </view>
         </view>
     </view>

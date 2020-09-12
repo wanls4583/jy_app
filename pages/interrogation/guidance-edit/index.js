@@ -5,7 +5,15 @@ Page({
         totalAmount: 0
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.consultOrderId = option.id;
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onShow() {
         if (wx.jyApp.diagnosisTemplate) { //选择了模板
@@ -84,6 +92,7 @@ Page({
             wx.jyApp.toast('营养指导不能为空');
             return;
         }
+        var totalAmount = Number(this.data.totalAmount) + (Number(this.data.configData.deliveryCost) || 0);
         wx.showLoading({
             title: '提交中...',
             mask: true
@@ -94,7 +103,7 @@ Page({
             data: {
                 consultOrderId: this.consultOrderId,
                 diagnosis: this.data.diagnosis,
-                totalAmount: this.data.totalAmount,
+                totalAmount: totalAmount.toFixed(2),
                 goods: this.data.goodsList.map((item) => {
                     return {
                         amount: (item.price * item.gross).toFixed(2),
