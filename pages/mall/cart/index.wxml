@@ -36,8 +36,8 @@
 			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 				<view>{{item.product.goodsName}}</view>
 				<view class="flex--center--between margin-top-20 width-100">
-					<text class="gray-color">x{{item.num}}</text>
-					<text class="danger-color">￥{{item.product.price}}/{{item.product._unit}}</text>
+					<text class="gray-color">x{{item.num}}{{item.product._unit}}</text>
+					<text class="danger-color">￥{{item.totalAmount}}</text>
 				</view>
 			</view>
 		</view>
