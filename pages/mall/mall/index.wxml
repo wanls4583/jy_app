@@ -8,7 +8,7 @@
 				<swiper
 					autoplay="{{true}}"
 					circular="{{true}}"
-					class="overflow-hidden radius-8px shadow"
+					class="overflow-hidden radius-8px shadow-bold"
 					duration="{{500}}"
 					interval="{{5000}}"
 					style="height:330rpx;transform:translateY(0);"
@@ -24,7 +24,7 @@
 			</view>
 			<view>
 				<view class="flex--center--between height-120rpx padding-left-right-30">
-					<view class="font-title">营养套餐</view>
+					<view class="font-title text-shadow">营养套餐</view>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="2">
 						<text>查看更多</text>
 						<van-icon name="arrow" />
@@ -49,7 +49,7 @@
 			</view>
 			<view>
 				<view class="flex--center--between height-120rpx padding-left-right-30">
-					<view class="font-title">营养产品</view>
+					<view class="font-title text-shadow">营养产品</view>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="1">
 						<text>查看更多</text>
 						<van-icon name="arrow" />
@@ -64,7 +64,7 @@
 						wx:for="{{productList}}"
 						wx:key="id"
 					>
-						<image class="width-100 border" mode="aspectFill" src="{{item.goodsPic}}" style="height:270rpx" />
+						<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:270rpx" />
 						<view class="padding-20 padding-top-10">
 							<view class="ellipse">{{item._goodsName}}</view>
 							<view class="margin-top-10 danger-color">{{item.price}}元/{{item._useUnit}}</view>

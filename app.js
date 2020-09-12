@@ -26,6 +26,12 @@ App({
                 icon: 'none'
             });
         }
+        wx.jyApp.showLoading = (title, mask)=>{
+            wx.showLoading({
+                title: title,
+                mask: Boolean(mask)
+            });
+        }
         // wx.setTabBarBadge({
         //   index: 2,
         //   text: '1'

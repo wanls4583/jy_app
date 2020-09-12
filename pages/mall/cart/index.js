@@ -18,6 +18,7 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+        this.updateSelectAddress(null);
     },
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
@@ -41,6 +42,7 @@ Page({
                 num: item.num
             }
         });
+        wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/order/save',
             method: 'post',
@@ -50,7 +52,7 @@ Page({
                 goods: goods
             }
         }).then((data) => {
-            this.clearCart();
+            wx.hideLoading();
             this.updateSelectAddress(null);
             wx.jyApp.utils.pay(data.params).then(() => {
                 setTimeout(() => {
@@ -63,10 +65,15 @@ Page({
                     wx.jyApp.toast('支付失败');
                 }, 500);
             }).finally(() => {
+                setTimeout(() => {
+                    this.clearCart();
+                }, 500);
                 wx.redirectTo({
                     url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                 });
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     loadAddressList() {

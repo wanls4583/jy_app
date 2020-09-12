@@ -270,6 +270,7 @@ Page({
     },
     //申请开指导
     onApply() {
+        wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/apply/save',
             method: 'post',
@@ -277,6 +278,7 @@ Page({
                 id: this.data.consultOrderId
             }
         }).then((data) => {
+            wx.hideLoading();
             this.setData({
                 actionVisible: false
             });
@@ -290,6 +292,8 @@ Page({
             } else {
                 wx.jyApp.toast('申请成功');
             }
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     //图片加载完成

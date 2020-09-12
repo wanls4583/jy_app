@@ -8,7 +8,7 @@
 				<swiper
 					autoplay="{{true}}"
 					circular="{{true}}"
-					class="overflow-hidden radius-8px shadow"
+					class="overflow-hidden radius-8px shadow-bold"
 					duration="{{500}}"
 					interval="{{5000}}"
 					style="height:330rpx;transform:translateY(0);"
@@ -46,11 +46,11 @@
 				</view>
 			</view>
 			<view class="white-background-color">
-				<view class="font-title padding-30">营养中心</view>
+				<view class="font-title padding-30 text-shadow">营养中心</view>
 				<view class="flex flex-wrap-wrap">
 					<view
 						bindtap="onGoto"
-						class="margin-left-30 margin-bottom-30 padding-20 radius-8px"
+						class="margin-left-30 margin-bottom-30 padding-20 radius-8px shadow clickable"
 						data-id="{{item.id}}"
 						data-url="/pages/mall/search-doctor/index?departmentName={{item.departmentName}}"
 						style="width:330rpx;{{item.background}}"
@@ -64,7 +64,7 @@
 			</view>
 			<view class="white-background-color padding-30">
 				<view class="flex--center--between">
-					<text class="font-title">推荐医生</text>
+					<text class="font-title text-shadow">推荐医生</text>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
 						<text>全部</text>
 						<van-icon name="arrow" />
@@ -89,10 +89,10 @@
 				</view>
 			</view>
 			<view class="overflow-hidden white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
-				<view class="font-title padding-top-bottom-30">健康科普</view>
+				<view class="font-title padding-top-bottom-30 text-shadow">健康科普</view>
 				<view
 					bindtap="onClickBanner"
-					class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow"
+					class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow-bold"
 					data-link="{{item.linkUrl}}"
 					style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:33vw"
 					wx:for="{{kepuList}}"

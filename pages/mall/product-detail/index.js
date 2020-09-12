@@ -18,8 +18,12 @@ Page({
             actions: ['addCart', 'updateCartNum', 'clearCart'],
         });
         this.storeBindings.updateStoreBindings();
+        this.data.configData.minOrderMoney = Number(this.data.configData.minOrderMoney) || 0;
         this.setBackButtonRect();
         this.loadInfo();
+        this.setData({
+            needMoney: this.data.configData.minOrderMoney || 0
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -52,15 +56,21 @@ Page({
     },
     onAddToCart(e) {
         this.addCart(this.data.productInfo);
+        this.setData({
+            needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
+        });
     },
     onCartNumChange(e) {
         var id = e.currentTarget.dataset.id;
         this.updateCartNum(id, e.detail);
         if (wx.jyApp.store.cartNum <= 0) {
             this.setData({
-                cartVisible: false
-            })
+                cartVisible: false,
+            });
         }
+        this.setData({
+            needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
+        });
     },
     onClearCart() {
         this.clearCart();

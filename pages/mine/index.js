@@ -18,7 +18,7 @@ Page({
     },
     onShow() {
         this.getMessageCount();
-        if (wx.getStorageSync('hasPopUserAuth') == 1) {
+        if (wx.getStorageSync('hasPopUserAuth') == 1 || this.data.userInfo.avatarUrl || this.data.userInfo.phone) {
             this.setData({
                 userInfoButtonVisible: false
             });

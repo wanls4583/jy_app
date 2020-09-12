@@ -16,6 +16,7 @@ Page({
     },
     //支付商城订单
     onMallOrderPay(e) {
+        wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/wx/pay/submit',
             method: 'post',
@@ -23,6 +24,7 @@ Page({
                 id: this.orderId
             }
         }).then((data) => {
+            wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 wx.showToast({
                     title: '支付成功'
@@ -31,6 +33,8 @@ Page({
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     loadInfo() {
@@ -61,7 +65,7 @@ Page({
                 order: data.order
             });
         }).finally(() => {
-            !this.loaded && wx.hideLoading();
+            wx.hideLoading();
             this.loaded = true;
         });
     }

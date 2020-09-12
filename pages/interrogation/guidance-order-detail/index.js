@@ -27,6 +27,7 @@ Page({
     },
     //支付营养指导单
     onGuidanceOrderPay() {
+        wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/wx/pay/nutrition/submit',
             method: 'post',
@@ -35,6 +36,7 @@ Page({
                 orderId: this.id
             }
         }).then((data) => {
+            wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 wx.showToast({
                     title: '支付成功'
@@ -43,6 +45,8 @@ Page({
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     loadInfo() {
@@ -84,7 +88,7 @@ Page({
                 order: data.detail
             });
         }).finally(() => {
-            !this.loaded && wx.hideLoading();
+            wx.hideLoading();
             this.loaded = true;
         });
     },
