@@ -16,7 +16,10 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onConsult(e) {
-        if (this.doctor.status != 1) {
+        if(!this.data.doctor.id) {
+            return;
+        }
+        if (this.data.doctor.status != 1) {
             wx.jyApp.dialog.confirm({
                 message: '该医生已下线，你可以找其他医生进行问诊咨询',
                 confirmButtonText: '找其他医生'
