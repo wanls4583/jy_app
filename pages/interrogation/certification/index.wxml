@@ -23,7 +23,7 @@
             <van-field label="身份证" placeholder="请输入本人身份证号" value="{{idNumber}}" data-prop="idNumber" bind:input="onInput"></van-field>
             <van-field value="{{provinceCity}}" label="所在地区" placeholder="请输入所在地区" readonly bindtap="onShowArea" />
             <view class="padding-30 border-bottom">
-                <view>您适合下面那些营养中心（可多选）</view>
+                <view>您适合下面哪些营养中心（可多选）</view>
                 <view class="flex flex-wrap-wrap">
                     <view wx:for="{{departmentList}}" wx:key="index" class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickDepartment">{{item.departmentName}}</view>
                 </view>
@@ -41,6 +41,7 @@
         </van-collapse-item>
         <van-collapse-item title="执业信息" name="3">
             <van-field label="执业医院" placeholder="请输入执业证上的医院名称" value="{{workHospitalName}}" data-prop="workHospitalName" bind:input="onInput"></van-field>
+            <view class="margin-top-30 margin-left-30 color-666">执业证书图片</view>
             <view wx:if="{{!jobCertificateUrl.length}}" class="padding-30 white-background-color flex--center--between" bindtap="onChoosePracticeImage">
                 <view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
                     <text style="font-size:100rpx;margin-top:-30rpx">+</text>
@@ -51,7 +52,7 @@
                 </view>
             </view>
             <view wx:else class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color">
-                <view wx:for="{{jobCertificateUrl}}" wx:key="item" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
+                <view wx:for="{{jobCertificateUrl}}" wx:key="index" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
                     <image class="width-100 height-100" mode="aspectFill" src="{{item.path}}"></image>
                     <view wx:if="{{progressMap[item.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
                         <text wx:if="{{progressMap[item.id]<0}}" class="danger-color">失败</text>
@@ -72,6 +73,7 @@
                     <van-icon name="arrow" color="#ccc" />
                 </view>
             </van-field>
+            <view class="margin-top-30 margin-left-30 color-666">职称证书图片</view>
             <view wx:if="{{!jobTitleCertificateUrl.length}}" class="padding-30 white-background-color flex--center--between" bindtap="onChoosePositionImage">
                 <view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
                     <text style="font-size:100rpx;margin-top:-30rpx">+</text>
@@ -82,7 +84,7 @@
                 </view>
             </view>
             <view wx:else class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color">
-                <view wx:for="{{jobTitleCertificateUrl}}" wx:key="item" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
+                <view wx:for="{{jobTitleCertificateUrl}}" wx:key="index" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
                     <image class="width-100 height-100" mode="aspectFill" src="{{item.path}}"></image>
                     <view wx:if="{{progressMap[item.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
                         <text wx:if="{{progressMap[item.id]<0}}" class="danger-color">失败</text>
@@ -92,7 +94,7 @@
                         <van-icon name="cross" size="15px" color="#ee0a24" />
                     </view>
                 </view>
-                <view wx:if="{{jobTitleCertificateUrl.length<5}}" class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color" bindtap="onChoosePracticeImage">
+                <view wx:if="{{jobTitleCertificateUrl.length<5}}" class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color" bindtap="onChoosePositionImage">
                     <text style="font-size:100rpx;margin-top:-30rpx">+</text>
                 </view>
             </view>

@@ -94,18 +94,19 @@ Page({
         });
     },
     loadAddressList() {
+        if(this.data.selectAddress) {
+            return;
+        }
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
             data.list = data.list || [];
-            if (!this.data.selectAddress) {
-                data.list.map((item) => {
-                    if (item.isDefault) {
-                        this.updateSelectAddress(item);
-                        this.updateDefaultAddress(item);
-                    }
-                });
-            }
+            data.list.map((item) => {
+                if (item.isDefault) {
+                    this.updateSelectAddress(item);
+                    this.updateDefaultAddress(item);
+                }
+            });
             if (!wx.jyApp.store.defaultAddress && data.list.length) {
                 this.updateSelectAddress(data.list[0]);
                 this.updateDefaultAddress(data.list[0]);

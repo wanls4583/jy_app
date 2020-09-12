@@ -338,6 +338,10 @@ Page({
             wx.jyApp.toast('身份证不能为空');
             return;
         }
+        if (!this.data.provinceCity) {
+            wx.jyApp.toast('请选择地区');
+            return;
+        }
         if (!this.data.onlineDepartmentName.length) {
             wx.jyApp.toast('请选择营养中心');
             return;
@@ -397,7 +401,7 @@ Page({
         });
     },
     saveLoaclInfo() {
-        if (this.data.approveStatus != 1) {
+        if (!this.data.approveStatus) {
             var data = this.getData();
             data.approveStatus = this.data.approveStatus;
             data.approveMsg = this.data.approveMsg;

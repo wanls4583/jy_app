@@ -1,7 +1,6 @@
 Page({
     data: {
         addressList: [],
-        checkedId: 0,
         ifSelect: false
     },
     onLoad() {
@@ -28,9 +27,6 @@ Page({
     },
     onChange(e) {
         var address = e.currentTarget.dataset.address;
-        this.setData({
-            checkedId: address.id
-        });
         if (this.data.ifSelect) {
             this.updateSelectAddress(address);
             wx.navigateBack();
@@ -92,13 +88,6 @@ Page({
                     }
                 });
             }
-            wx.nextTick(() => {
-                if (this.data.selectAddress) {
-                    this.setData({
-                        checkedId: this.data.selectAddress.id
-                    });
-                }
-            });
         }).finally(() => {
             wx.hideLoading();
         });

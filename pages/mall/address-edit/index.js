@@ -16,6 +16,11 @@ Page({
         areaVisible: false
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            actions: ['updateDefaultAddress', 'updateSelectAddress'],
+        });
+        this.storeBindings.updateStoreBindings();
         if (option && option.id) {
             wx.setNavigationBarTitle({
                 title: '编辑地址'
@@ -29,6 +34,9 @@ Page({
         this.setData({
             areaList: area
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
@@ -84,8 +92,13 @@ Page({
             url: `/user/address/${this.data.address.id ? 'update' : 'save'}`,
             method: 'post',
             data: this.data.address
-        }).then(() => {
+        }).then((data) => {
             wx.jyApp.reloadAddressList = true;
+            if (this.data.address.isDefault) {
+                this.data.address.id = this.data.address.id || data.id;
+                this.updateDefaultAddress(this.data.address);
+                this.updateSelectAddress(this.data.address);
+            }
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({

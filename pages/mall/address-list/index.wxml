@@ -1,11 +1,11 @@
 <!--index.wxml-->
 <view class="container">
     <radio-group>
-        <view wx:for="{{addressList}}" wx:key="id" class="position-relative white-background-color border-bottom {{ifSelect ? 'padding-left-30' : ''}}">
+        <view wx:for="{{addressList}}" wx:key="index" class="position-relative white-background-color border-bottom {{ifSelect ? 'padding-left-30' : ''}}">
             <van-swipe-cell right-width="{{150}}">
                 <view class="flex--center--between" data-address="{{item}}" bindtap="onChange">
                     <view wx:if="{{ifSelect}}" class="radio-wrap">
-                        <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{checkedId==item.id}}" />
+                        <radio value="{{item.id}}" color="rgb(42, 175, 255)" checked="{{selectAddress.id==item.id}}" />
                     </view>
                     <view class="flex-grow-1 flex flex-direction-column padding-left-30 padding-top-bottom-20">
                         <view class="flex--center--between">
