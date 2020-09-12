@@ -1,120 +1,168 @@
 <!-- index.wxml -->
 <view class="container padding-bottom-footer">
-    <view wx:if="{{approveStatus==-1}}" class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color">本页所有项都为必填项，请输入完整信息</view>
-    <view wx:if="{{approveStatus==1}}" class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color">资质认证审核中，请耐心等待</view>
-    <view wx:if="{{approveStatus==2}}" class="padding-top-bottom-20 padding-left-right-30 success-background-color font-small white-color">资质认证审核通过</view>
-    <view wx:if="{{approveStatus==3}}" class="padding-top-bottom-20 padding-left-right-30 danger-background-color font-small white-color">资质认证审核不通过，原因如下：{{approveMsg}}</view>
-    <van-collapse value="{{activeNames}}" bind:change="onCollapseChange">
-        <van-collapse-item title="基本信息" name="1">
-            <van-field label="姓名" placeholder="请输入本人真实姓名" value="{{doctorName}}" data-prop="doctorName" bind:input="onInput"></van-field>
-            <van-field label="个人头像" placeholder="{{avatar?'':'请输入本人身份证号'}}" readonly bindtap="chooseAvater">
-                <view slot="right-icon" class="flex--center--center">
-                    <view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
-                        <image class="width-100 height-100" mode="aspectFill" src="{{avatar.path}}"></image>
-                        <view wx:if="{{progressMap[avatar.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color font-small" style="background:rgba(0,0,0,0.5)">
-                            <text wx:if="{{progressMap[avatar.id]<0}}" class="danger-color">失败</text>
-                            <text wx:else>{{progressMap[avatar.id]}}%</text>
-                        </view>
-                    </view>
-                    <van-icon name="arrow" color="#ccc" />
-                </view>
-            </van-field>
-            <van-field label="手机号" placeholder="请输入本人手机号" value="{{phone}}" data-prop="phone" bind:input="onInput"></van-field>
-            <van-field label="身份证" placeholder="请输入本人身份证号" value="{{idNumber}}" data-prop="idNumber" bind:input="onInput"></van-field>
-            <van-field value="{{provinceCity}}" label="所在地区" placeholder="请输入所在地区" readonly bindtap="onShowArea" />
-            <view class="padding-30 border-bottom">
-                <view>您适合下面哪些营养中心（可多选）</view>
-                <view class="flex flex-wrap-wrap">
-                    <view wx:for="{{departmentList}}" wx:key="index" class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}" style="border-radius:100px" data-index="{{index}}" bindtap="onClickDepartment">{{item.departmentName}}</view>
-                </view>
-            </view>
-            <van-field label="擅长" placeholder="请选择擅长疾病或领域" value="{{goodAtDomain}}" readonly bindtap="onShowDisease">
-                <view slot="right-icon" class="flex--center--center">
-                    <van-icon name="arrow" color="#ccc" />
-                </view>
-            </van-field>
-            <van-field label="个人简介" placeholder="请输入个人简介" type="textarea" autosize border="{{false}}" value="{{introduce}}" data-prop="introduce" bind:input="onInput"></van-field>
-        </van-collapse-item>
-        <van-collapse-item title="科室信息" name="2">
-            <van-field label="就职科室" placeholder="请输入所就职医院的科室" value="{{workDepartmentName}}" data-prop="workDepartmentName" bind:input="onInput"></van-field>
-            <van-field label="执业科室" placeholder="请输入执业证上的科室" value="{{jobDepartmentName}}" data-prop="jobDepartmentName" bind:input="onInput"></van-field>
-        </van-collapse-item>
-        <van-collapse-item title="执业信息" name="3">
-            <van-field label="执业医院" placeholder="请输入执业证上的医院名称" value="{{workHospitalName}}" data-prop="workHospitalName" bind:input="onInput"></van-field>
-            <view class="margin-top-30 margin-left-30 color-666">执业证书图片</view>
-            <view wx:if="{{!jobCertificateUrl.length}}" class="padding-30 white-background-color flex--center--between" bindtap="onChoosePracticeImage">
-                <view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
-                    <text style="font-size:100rpx;margin-top:-30rpx">+</text>
-                </view>
-                <view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
-                    <view class="font-small">请上传执业证个人信息页、国徽页、照片页或变更注册页（最多5张）</view>
-                    <view class="gray-color font-small">请上传完整、清晰的彩色照片或扫描件</view>
-                </view>
-            </view>
-            <view wx:else class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color">
-                <view wx:for="{{jobCertificateUrl}}" wx:key="index" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
-                    <image class="width-100 height-100" mode="aspectFill" src="{{item.path}}"></image>
-                    <view wx:if="{{progressMap[item.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
-                        <text wx:if="{{progressMap[item.id]<0}}" class="danger-color">失败</text>
-                        <text wx:else>{{progressMap[item.id]}}%</text>
-                    </view>
-                    <view class="position-absolute top-0 right-0 flex--center--center clickable" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPracticePic">
-                        <van-icon name="cross" size="15px" color="#ee0a24" />
-                    </view>
-                </view>
-                <view wx:if="{{jobCertificateUrl.length<5}}" class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color" bindtap="onChoosePracticeImage">
-                    <text style="font-size:100rpx;margin-top:-30rpx">+</text>
-                </view>
-            </view>
-        </van-collapse-item>
-        <van-collapse-item title="职称信息" name="4">
-            <van-field label="职称" placeholder="请输入职称证上的职称" value="{{jobTitle}}" readonly bindtap="onShowPosition">
-                <view slot="right-icon" class="flex--center--center">
-                    <van-icon name="arrow" color="#ccc" />
-                </view>
-            </van-field>
-            <view class="margin-top-30 margin-left-30 color-666">职称证书图片</view>
-            <view wx:if="{{!jobTitleCertificateUrl.length}}" class="padding-30 white-background-color flex--center--between" bindtap="onChoosePositionImage">
-                <view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
-                    <text style="font-size:100rpx;margin-top:-30rpx">+</text>
-                </view>
-                <view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
-                    <view class="font-small">请上传职称证书或可以证明该职称的有效证件（最多5张）</view>
-                    <view class="gray-color font-small">请上传完整、清晰的彩色照片或扫描件</view>
-                </view>
-            </view>
-            <view wx:else class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color">
-                <view wx:for="{{jobTitleCertificateUrl}}" wx:key="index" class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color">
-                    <image class="width-100 height-100" mode="aspectFill" src="{{item.path}}"></image>
-                    <view wx:if="{{progressMap[item.id]<=100}}" class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color" style="background:rgba(0,0,0,0.5)">
-                        <text wx:if="{{progressMap[item.id]<0}}" class="danger-color">失败</text>
-                        <text wx:else>{{progressMap[item.id]}}%</text>
-                    </view>
-                    <view class="position-absolute top-0 right-0 flex--center--center clickable" style="background:rgba(0,0,0,0.5);padding:2px" data-index="{{index}}" bindtap="delPositionPic">
-                        <van-icon name="cross" size="15px" color="#ee0a24" />
-                    </view>
-                </view>
-                <view wx:if="{{jobTitleCertificateUrl.length<5}}" class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color" bindtap="onChoosePositionImage">
-                    <text style="font-size:100rpx;margin-top:-30rpx">+</text>
-                </view>
-            </view>
-        </van-collapse-item>
-    </van-collapse>
-    <view class="position-fixed bottom-0 z-index-100 width-100 padding-30">
-        <view class="button primary block" bindtap="onSave">提交审核</view>
-    </view>
-    <van-popup show="{{diseaseVisible}}" position="bottom" bind:click-overlay="onShowDisease">
-        <checkbox-group bindchange="onDiseaseChange" class="padding-left-right-20" style="max-height:100vw;overflow:auto;">
-            <label wx:for="{{diseaseList}}" wx:key="index" class="flex--center--between padding-top-bottom-20 border-bottom">
-                <view>{{item}}</view>
-                <checkbox value="{{item}}" checked="{{item==checkedDisease}}" />
-            </label>
-        </checkbox-group>
-    </van-popup>
-    <van-popup show="{{positionVisible}}" position="bottom" bind:click-overlay="onShowPosition">
-        <van-picker show-toolbar="{{true}}" columns="{{positionList}}" bind:confirm="onConfirmPosition" bind:cancel="onShowPosition"></van-picker>
-    </van-popup>
-    <van-popup show="{{areaVisible}}" position="bottom">
-        <van-area id="area" area-list="{{areaList}}" columns-num="{{2}}" value="{{cityCode}}" bind:confirm="onConfirmArea" bind:cancel="onCancelArea" />
-    </van-popup>
+	<view class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{approveStatus==-1}}">本页所有项都为必填项，请输入完整信息</view>
+	<view class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{approveStatus==1}}">资质认证审核中，请耐心等待</view>
+	<view class="padding-top-bottom-20 padding-left-right-30 success-background-color font-small white-color" wx:if="{{approveStatus==2}}">资质认证审核通过</view>
+	<view
+		class="padding-top-bottom-20 padding-left-right-30 danger-background-color font-small white-color"
+		wx:if="{{approveStatus==3}}"
+	>资质认证审核不通过，原因如下：{{approveMsg}}</view>
+	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
+		<van-collapse-item name="1" title="基本信息">
+			<van-field bind:input="onInput" data-prop="doctorName" label="姓名" placeholder="请输入本人真实姓名" value="{{doctorName}}"></van-field>
+			<van-field bindtap="chooseAvater" label="个人头像" placeholder="{{avatar?'':'请输入本人身份证号'}}" readonly>
+				<view class="flex--center--center" slot="right-icon">
+					<view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
+						<image class="width-100 height-100" mode="aspectFill" src="{{avatar.path}}" />
+						<view
+							class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color font-small"
+							style="background:rgba(0,0,0,0.5)"
+							wx:if="{{progressMap[avatar.id]<=100}}"
+						>
+							<text class="danger-color" wx:if="{{progressMap[avatar.id]<0}}">失败</text>
+							<text wx:else>{{progressMap[avatar.id]}}%</text>
+						</view>
+					</view>
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</van-field>
+			<van-field bind:input="onInput" data-prop="phone" label="手机号" placeholder="请输入本人手机号" value="{{phone}}"></van-field>
+			<van-field bind:input="onInput" data-prop="idNumber" label="身份证" placeholder="请输入本人身份证号" value="{{idNumber}}"></van-field>
+			<van-field bindtap="onShowArea" label="所在地区" placeholder="请输入所在地区" readonly value="{{provinceCity}}" />
+			<view class="padding-30 border-bottom">
+				<view>您适合下面哪些营养中心（可多选）</view>
+				<view class="flex flex-wrap-wrap">
+					<view
+						bindtap="onClickDepartment"
+						class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+						data-index="{{index}}"
+						style="border-radius:100px"
+						wx:for="{{departmentList}}"
+						wx:key="index"
+					>{{item.departmentName}}</view>
+				</view>
+			</view>
+			<van-field bindtap="onShowDisease" label="擅长" placeholder="请选择擅长疾病或领域" readonly value="{{goodAtDomain}}">
+				<view class="flex--center--center" slot="right-icon">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</van-field>
+			<van-field autosize bind:input="onInput" border="{{false}}" data-prop="introduce" label="个人简介" placeholder="请输入个人简介" type="textarea" value="{{introduce}}"></van-field>
+		</van-collapse-item>
+		<van-collapse-item name="2" title="科室信息">
+			<van-field bind:input="onInput" data-prop="workDepartmentName" label="就职科室" placeholder="请输入所就职医院的科室" value="{{workDepartmentName}}"></van-field>
+			<van-field bind:input="onInput" data-prop="jobDepartmentName" label="执业科室" placeholder="请输入执业证上的科室" value="{{jobDepartmentName}}"></van-field>
+		</van-collapse-item>
+		<van-collapse-item name="3" title="执业信息">
+			<van-field bind:input="onInput" data-prop="workHospitalName" label="执业医院" placeholder="请输入执业证上的医院名称" value="{{workHospitalName}}"></van-field>
+			<view class="margin-top-30 margin-left-30 color-666">执业证书图片</view>
+			<view bindtap="onChoosePracticeImage" class="padding-30 white-background-color flex--center--between" wx:if="{{!jobCertificateUrl.length}}">
+				<view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
+					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
+				</view>
+				<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
+					<view class="font-small">请上传执业证个人信息页、国徽页、照片页或变更注册页（最多5张）</view>
+					<view class="gray-color font-small">请上传完整、清晰的彩色照片或扫描件</view>
+				</view>
+			</view>
+			<view class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color" wx:else>
+				<view
+					class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color"
+					wx:for="{{jobCertificateUrl}}"
+					wx:key="index"
+				>
+					<image class="width-100 height-100" mode="aspectFill" src="{{item.path}}" />
+					<view
+						class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color"
+						style="background:rgba(0,0,0,0.5)"
+						wx:if="{{progressMap[item.id]<=100}}"
+					>
+						<text class="danger-color" wx:if="{{progressMap[item.id]<0}}">失败</text>
+						<text wx:else>{{progressMap[item.id]}}%</text>
+					</view>
+					<view
+						bindtap="delPracticePic"
+						class="position-absolute top-0 right-0 flex--center--center clickable"
+						data-index="{{index}}"
+						style="background:rgba(0,0,0,0.5);padding:2px"
+					>
+						<van-icon color="#ee0a24" name="cross" size="15px" />
+					</view>
+				</view>
+				<view
+					bindtap="onChoosePracticeImage"
+					class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color"
+					wx:if="{{jobCertificateUrl.length<5}}"
+				>
+					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
+				</view>
+			</view>
+		</van-collapse-item>
+		<van-collapse-item name="4" title="职称信息">
+			<van-field bindtap="onShowPosition" label="职称" placeholder="请输入职称证上的职称" readonly value="{{jobTitle}}">
+				<view class="flex--center--center" slot="right-icon">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</van-field>
+			<view class="margin-top-30 margin-left-30 color-666">职称证书图片</view>
+			<view bindtap="onChoosePositionImage" class="padding-30 white-background-color flex--center--between" wx:if="{{!jobTitleCertificateUrl.length}}">
+				<view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">
+					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
+				</view>
+				<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
+					<view class="font-small">请上传职称证书或可以证明该职称的有效证件（最多5张）</view>
+					<view class="gray-color font-small">请上传完整、清晰的彩色照片或扫描件</view>
+				</view>
+			</view>
+			<view class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color" wx:else>
+				<view
+					class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color"
+					wx:for="{{jobTitleCertificateUrl}}"
+					wx:key="index"
+				>
+					<image class="width-100 height-100" mode="aspectFill" src="{{item.path}}" />
+					<view
+						class="position-absolute top-0 bottom-0 left-0 right-0 flex--center--center white-color"
+						style="background:rgba(0,0,0,0.5)"
+						wx:if="{{progressMap[item.id]<=100}}"
+					>
+						<text class="danger-color" wx:if="{{progressMap[item.id]<0}}">失败</text>
+						<text wx:else>{{progressMap[item.id]}}%</text>
+					</view>
+					<view
+						bindtap="delPositionPic"
+						class="position-absolute top-0 right-0 flex--center--center clickable"
+						data-index="{{index}}"
+						style="background:rgba(0,0,0,0.5);padding:2px"
+					>
+						<van-icon color="#ee0a24" name="cross" size="15px" />
+					</view>
+				</view>
+				<view
+					bindtap="onChoosePositionImage"
+					class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color"
+					wx:if="{{jobTitleCertificateUrl.length<5}}"
+				>
+					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
+				</view>
+			</view>
+		</van-collapse-item>
+	</van-collapse>
+	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30">
+		<view bindtap="onSave" class="button primary block">提交审核</view>
+	</view>
+	<van-popup bind:click-overlay="onShowDisease" position="bottom" show="{{diseaseVisible}}">
+		<checkbox-group bindchange="onDiseaseChange" class="padding-left-right-20" style="max-height:100vw;overflow:auto;">
+			<label class="flex--center--between padding-top-bottom-20 border-bottom" wx:for="{{diseaseList}}" wx:key="index">
+				<view>{{item.name}}</view>
+				<checkbox checked="{{item.checked}}" value="{{item.name}}" />
+			</label>
+		</checkbox-group>
+	</van-popup>
+	<van-popup bind:click-overlay="onShowPosition" position="bottom" show="{{positionVisible}}">
+		<van-picker bind:cancel="onShowPosition" bind:confirm="onConfirmPosition" columns="{{positionList}}" show-toolbar="{{true}}"></van-picker>
+	</van-popup>
+	<van-popup position="bottom" show="{{areaVisible}}">
+		<van-area area-list="{{areaList}}" bind:cancel="onCancelArea" bind:confirm="onConfirmArea" columns-num="{{2}}" id="area" value="{{cityCode}}" />
+	</van-popup>
 </view>

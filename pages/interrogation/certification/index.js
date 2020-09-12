@@ -31,7 +31,6 @@ Page({
     },
     onLoad(option) {
         this.loadDepartmentList();
-        this.loadDiseaseList();
         this.setData({
             areaList: area
         });
@@ -41,6 +40,16 @@ Page({
         this.pciMap = {};
         this.taskMap = {};
         this.loadLoaclInfo();
+        var diseaseList = wx.jyApp.store.configData.goodAtDomain.split('#');
+        diseaseList.map((item) => {
+            this.data.diseaseList.push({
+                name: item,
+                checked: false
+            });
+        });
+        this.setData({
+            diseaseList: this.data.diseaseList
+        });
     },
     onHide() {
         this.saveLoaclInfo();
@@ -287,21 +296,6 @@ Page({
             });
         })
     },
-    //获取擅长列表
-    loadDiseaseList() {
-        wx.jyApp.http({
-            url: '/sys/config/list',
-            data: {
-                configNames: 'goodAtDomain'
-            }
-        }).then((data) => {
-            if (data.list.length) {
-                this.setData({
-                    diseaseList: data.list[0].goodAtDomain.split('#')
-                });
-            }
-        })
-    },
     getData() {
         return {
             avatar: this.avatar[0],
@@ -322,6 +316,10 @@ Page({
         }
     },
     onSave() {
+        if (this.data.approveStatus == 1) {
+            wx.jyApp.toast('审核中不能对资料信息进行修改');
+            return;
+        }
         if (!this.data.doctorName) {
             wx.jyApp.toast('姓名不能为空');
             return;
@@ -357,13 +355,22 @@ Page({
         if (!this.data.workDepartmentName) {
             wx.jyApp.toast('就职科室不能为空');
             return;
+        } else if (this.data.workDepartmentName.length > 20) {
+            wx.jyApp.toast('就职科室不能超过20个字');
+            return;
         }
         if (!this.data.jobDepartmentName) {
             wx.jyApp.toast('执业科室不能为空');
             return;
+        } else if (this.data.workDepartmentName.length > 20) {
+            wx.jyApp.toast('执业科室不能超过20个字');
+            return;
         }
         if (!this.data.workHospitalName) {
             wx.jyApp.toast('执业医院不能为空');
+            return;
+        } else if (this.data.workDepartmentName.length > 20) {
+            wx.jyApp.toast('执业医院不能超过20个字');
             return;
         }
         if (!this.data.jobCertificateUrl.length) {
@@ -438,6 +445,7 @@ Page({
                 [key]: data[key]
             });
         }
+        var diseaseList = this.data.goodAtDomain.split('、');
         this.avatar = data.avatar && [data.avatar] || [];
         this.jobCertificateUrl = data.jobCertificateUrl && data.jobCertificateUrl.split(',') || [];
         this.jobTitleCertificateUrl = data.jobTitleCertificateUrl && data.jobTitleCertificateUrl.split(',') || [];
@@ -466,6 +474,12 @@ Page({
                 var id = wx.jyApp.utils.getUUID();
                 this.pciMap[id] = item;
                 return { path: item, id: id }
+            }),
+            diseaseList: this.data.diseaseList.map((item) => {
+                return {
+                    name: item.name,
+                    checked: diseaseList.indexOf(item.name) > -1
+                }
             })
         })
     }

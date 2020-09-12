@@ -82,7 +82,8 @@ Page({
             'privacy_agreement_url',
             'about_url',
             'minOrderMoney',
-            'deliveryCost'
+            'deliveryCost',
+            'goodAtDomain'
         ]).then((data) => {
             wx.jyApp.store.updateConfigData(data);
         });
