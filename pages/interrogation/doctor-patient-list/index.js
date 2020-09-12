@@ -54,7 +54,7 @@ Component({
             });
         },
         loadList(refresh) {
-            if (!this.data.doctorInfo || !this.data.doctorInfo.authStatus != 1 || this.data.doctorInfo.status == 3) { //医生状态异常
+            if (!this.data.doctorInfo || this.data.doctorInfo.authStatus != 1 || this.data.doctorInfo.status == 3) { //医生状态异常
                 this.setData({
                     stopRefresh: true,
                     page: 1,
@@ -66,7 +66,7 @@ Component({
             if (refresh) {
                 this.setData({
                     page: 1,
-                    totalPage: 0,
+                    totalPage: -1,
                     patientList: []
                 });
                 this.request && this.request.requestTask.abort();
@@ -83,6 +83,7 @@ Component({
                 }
             });
             this.request.then((data) => {
+                data.page.list = data.page.list || [];
                 data.page.list.map((item) => {
                     item._sex = item.sex == 1 ? '男' : '女';
                 });
