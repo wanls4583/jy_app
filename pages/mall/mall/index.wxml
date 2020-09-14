@@ -42,7 +42,7 @@
 						<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:330rpx" />
 						<view class="padding-20 padding-top-10">
 							<view class="ellipse">{{item._goodsName}}</view>
-							<view class="margin-top-10 danger-color">{{item.price}}元/天</view>
+							<view class="margin-top-10 danger-color">{{item.price}}元/份</view>
 						</view>
 					</view>
 				</view>

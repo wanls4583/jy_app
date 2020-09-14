@@ -26,7 +26,7 @@ export const store = observable({
             temp[0].totalAmount = Number((temp[0].product.price * temp[0].num).toFixed(2));
         } else {
             product.firstPic = product.goodsPic && product.goodsPic.split(',')[0];
-            product._unit = product.type == 1 ? wx.jyApp.constData.unitChange[product.unit] : '天';
+            product._unit = product.type == 1 ? wx.jyApp.constData.unitChange[product.unit] : '份';
             product._standardUnit = wx.jyApp.constData.unitChange[product.standardUnit];
             this.cart.push({
                 product: product,

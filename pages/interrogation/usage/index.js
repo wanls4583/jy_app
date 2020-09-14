@@ -21,7 +21,7 @@ Page({
         var giveWayMap = wx.jyApp.constData.giveWayMap;
         var giveWayList = [];
         var goods = wx.jyApp.usageGoods;
-        goods._unit = goods.type == 1 ? wx.jyApp.constData.unitChange[goods.unit] : '天';
+        goods._unit = goods.type == 1 ? wx.jyApp.constData.unitChange[goods.unit] : '份';
         for (var key in giveWayMap) {
             giveWayList.push({
                 label: giveWayMap[key],
@@ -102,7 +102,7 @@ Page({
         if (this.data.goods.type == 1) {
             gross = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
         } else {
-            gross = this.data.days;
+            gross = this.data.days * this.data.frequency;
         }
         this.setData({
             gross: gross,

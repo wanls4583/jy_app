@@ -134,7 +134,7 @@ Page({
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
-                item._unit = '天';
+                item._unit = '份';
             });
             this.setData({
                 [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),

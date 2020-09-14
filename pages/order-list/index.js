@@ -109,7 +109,7 @@ Page({
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
-                    _item._unit = _item.type == 2 ? '天' : wx.jyApp.constData.unitChange[_item.unit];
+                    _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
                 });
                 switch (item.status) {
                     case 0:
@@ -221,7 +221,7 @@ Page({
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
-                    _item._unit = _item.type == 2 ? '天' : wx.jyApp.constData.unitChange[_item.unit];
+                    _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
                 });
                 switch (item.status) {
                     case 0:

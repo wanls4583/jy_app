@@ -162,7 +162,7 @@ Page({
             }).then((data) => {
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
-                    item._unit = '天';
+                    item._unit = '份';
                 });
                 this.setData({
                     [`taocanData.pageList[${page}]`]: data.page.list || [],

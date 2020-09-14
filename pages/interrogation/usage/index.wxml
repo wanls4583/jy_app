@@ -8,7 +8,7 @@
 		</view>
 	</view>
 	<view class="margin-top-20 white-background-color">
-		<van-field bind:input="onInputNum" data-prop="perUseNum" label="每次用量" title-width="4.5em" type="number" value="{{perUseNum}}">
+		<van-field bind:input="onInputNum" data-prop="perUseNum" disabled="{{item.type==2}}" label="每次用量" title-width="4.5em" type="number" value="{{perUseNum}}">
 			<view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
 			<view slot="right-icon" wx:else>份</view>
 		</van-field>

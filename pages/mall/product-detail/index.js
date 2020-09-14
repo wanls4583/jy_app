@@ -82,7 +82,7 @@ Page({
         wx.jyApp.http({
             url: `/goods/info/${this.data.id}`
         }).then((data) => {
-            data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '天';
+            data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '份';
             this.setData({
                 productInfo: data.info,
                 banner: data.info.goodsPic.split(','),

@@ -17,7 +17,7 @@
                             <text class="gray-color">一天{{product.frequency}}次</text>
                         </view>
                         <view class="flex--center--between margin-top-20 width-100">
-                            <text>￥{{product.price}}/天</text>
+                            <text>￥{{product.price}}/份</text>
                             <view class="button primary small" catchtap="onAddTaocan">添加该套餐</view>
                         </view>
                     </view>
