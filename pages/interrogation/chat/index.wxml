@@ -9,7 +9,7 @@
 	<view
 		bindtap="onClickChatBlock"
 		class="position-fixed width-100"
-		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px"
+		style="padding:0 10px;top:50px;bottom:{{status==1?(panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight):0}}px"
 	>
 		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-y="{{true}}">
 			<view class="flex--center--center" wx:if="{{totalPage>1}}">
@@ -35,7 +35,11 @@
 						<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'}}">
 							<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
 								<view>请对本次图文问诊进行评价吧</view>
-								<view bindtap="onGoto" class="button small primary margin-top-20" data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{consultOrder.doctorId}}">去评价</view>
+								<view
+									bindtap="onGoto"
+									class="button small primary margin-top-20"
+									data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{consultOrder.doctorId}}"
+								>去评价</view>
 							</view>
 						</view>
 						<!-- 系统消息 -->
@@ -128,11 +132,7 @@
 										<text>{{patient.weight}}kg</text>
 									</view>
 									<view class="align-center padding-bottom-20">
-										<view
-											bindtap="onGoto"
-											class="button small success"
-											data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}"
-										>查看详情</view>
+										<view bindtap="onGoto" class="button small success" data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}">查看详情</view>
 									</view>
 								</view>
 							</view>
@@ -146,7 +146,11 @@
 			<view id="{{bottomId}}"></view>
 		</scroll-view>
 	</view>
-	<view class="position-fixed width-100 border-top border-color-ddd" style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;">
+	<view
+		class="position-fixed width-100 border-top border-color-ddd"
+		style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;"
+		wx:if="{{status==1}}"
+	>
 		<view class="flex--center--between height-60px padding-left-20">
 			<input
 				adjust-position="{{false}}"
@@ -157,7 +161,6 @@
 				class="flex-grow-1 height-80rpx padding-0 padding-left-20 radius-8rpx white-background-color"
 				confirm-hold="{{true}}"
 				confirm-type="send"
-				disabled="{{status!=1}}"
 				focus="{{inputFoucus}}"
 				type="text"
 				value="{{inputValue}}"
