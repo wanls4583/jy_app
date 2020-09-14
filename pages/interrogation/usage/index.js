@@ -32,7 +32,6 @@ Page({
             frequencyArray: wx.jyApp.constData.frequencyArray,
             goods: goods,
             perUseNum: goods.perUseNum || 1,
-            gross: goods.gross || 1,
             days: goods.days || 1,
             modulateDose: goods.modulateDose || 0,
             giveWay: goods.giveWay || giveWayList[0].value,
@@ -40,9 +39,9 @@ Page({
             _giveWay: giveWayMap[goods.giveWay] || giveWayList[0].label,
             frequency: goods.frequency || 1,
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
-            frequencyDefault: goods.frequency - 1 || 0,
-            totalAmount: goods.totalAmount || goods.price
+            frequencyDefault: goods.frequency - 1 || 0
         });
+        this.caculateGross();
         giveWayList.map((item, index) => {
             if (this.data.giveWay == item.value) {
                 this.setData({
