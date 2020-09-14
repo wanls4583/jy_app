@@ -29,7 +29,7 @@
 	<view class="position-absolute top-0 width-100 bottom-0 z-index-100 gray-background-color" style="top:54px" wx:if="{{searchTipVisible}}">
 		<view class="white-background-color overflow-hidden">
 			<view class="padding-30 font-title">按疾病找医生</view>
-			<view class="flex">
+			<view class="flex flex-wrap-wrap">
 				<view
 					bindtap="onClickTxt"
 					class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable"
@@ -40,7 +40,7 @@
 				>{{item}}</view>
 			</view>
 			<view class="padding-30 font-title">按营养中心找医生</view>
-			<view class="flex">
+			<view class="flex flex-wrap-wrap">
 				<view
 					bindtap="onClickTxt"
 					class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable"
