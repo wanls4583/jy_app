@@ -84,6 +84,23 @@ Page({
             url: '/pages/interrogation/user-patient-edit/index?id=' + id
         });
     },
+    onDelete(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.showLoading('删除中...', true);
+        wx.jyApp.http({
+            url: '/patientdocument/delete',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).then(() => {
+            wx.hideLoading();
+            wx.jyApp.toast('删除成功');
+            this.loadList();
+        }).catch(() => {
+            wx.hideLoading();
+        });
+    },
     onAdd(e) {
         wx.navigateTo({
             url: '/pages/interrogation/user-patient-edit/index'

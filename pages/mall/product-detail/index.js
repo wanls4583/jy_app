@@ -85,8 +85,8 @@ Page({
             data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '份';
             this.setData({
                 productInfo: data.info,
-                banner: data.info.goodsPic.split(','),
-                desImgList: data.info.goodsPicDetails.split(','),
+                banner: data.info.goodsPic && data.info.goodsPic.split(',') || [],
+                desImgList: data.info.goodsPicDetails && data.info.goodsPicDetails.split(',') || [],
             });
         });
     },

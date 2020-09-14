@@ -7,7 +7,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
         if (option.type == 'invite' && option.doctorId) { //医生通过好友分享邀请
@@ -42,6 +42,7 @@ Page({
                 });
             }).finally(() => {
                 wx.hideLoading();
+                this.getMessageCount();
                 if (this.gotDoctorId) {
                     wx.navigateTo({
                         url: '/pages/interrogation/doctor-detail/index?id=' + this.gotDoctorId
@@ -87,5 +88,28 @@ Page({
         ]).then((data) => {
             wx.jyApp.store.updateConfigData(data);
         });
+    },
+    getMessageCount() {
+        return wx.jyApp.http({
+            url: '/systemnotice/totalNotRead'
+        }).then((data) => {
+            this.updateNoticeCount(data.totalNotRead || 0);
+            if (data.msgTotalNotRead) {
+                wx.setTabBarBadge({
+                    index: 2,
+                    text: String(data.msgTotalNotRead),
+                    fail() { }
+                });
+            } else {
+                wx.removeTabBarBadge({
+                    index: 2,
+                    fail() { }
+                });
+            }
+            clearTimeout(this.pollCountTimer);
+            this.pollCountTimer = setTimeout(() => {
+                this.getMessageCount();
+            }, 5000);
+        })
     }
 })

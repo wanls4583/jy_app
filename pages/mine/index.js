@@ -114,10 +114,6 @@ Page({
             url: '/systemnotice/totalNotRead'
         }).then((data) => {
             this.updateNoticeCount(data.totalNotRead || 0);
-            clearTimeout(this.pollCountTimer);
-            this.pollCountTimer = setTimeout(() => {
-                this.getMessageCount();
-            }, 15000);
         })
     },
     //获取用户后台信息

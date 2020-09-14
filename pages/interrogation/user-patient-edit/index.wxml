@@ -1,9 +1,9 @@
 <!-- index.wxml -->
 <view class="container">
     <van-cell-group>
-        <van-field value="{{patient.patientName}}" label="姓名" placeholder="姓名" data-prop="patientName" bind:input="onInput" />
+        <van-field value="{{patient.patientName}}" label="患者姓名" placeholder="请填写真是姓名" data-prop="patientName" bind:input="onInput" />
         <van-field value="{{patient._sex}}" label="性别" placeholder="性别" readonly bindtap="onShowSex" />
-        <van-field value="{{patient.birthday}}" label="生日" placeholder="生日" readonly bindtap="onShowBirthday" />
+        <van-field value="{{patient.birthday}}" label="出生日期" placeholder="出生日期" readonly bindtap="onShowBirthday" />
         <van-field value="{{patient.height}}" label="身高" placeholder="身高" data-prop="height" bind:input="onInput">
             <view slot="right-icon">cm</view>
         </van-field>
