@@ -106,10 +106,11 @@ Page({
                     fail() { }
                 });
             }
+        }).finally(() => {
             clearTimeout(this.pollCountTimer);
             this.pollCountTimer = setTimeout(() => {
                 this.getMessageCount();
             }, 5000);
-        })
+        });
     }
 })
