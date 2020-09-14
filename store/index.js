@@ -53,11 +53,7 @@ export const store = observable({
     clearCart: action(function () {
         this.cart = [];
     }),
-    defaultAddress: null,
     selectAddress: null,
-    updateDefaultAddress: action(function (address) {
-        this.defaultAddress = address;
-    }),
     updateSelectAddress: action(function (address) {
         this.selectAddress = address;
     }),

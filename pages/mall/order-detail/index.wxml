@@ -1,11 +1,14 @@
 <!--index.wxml-->
 <view class="container">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0}}">
-		<text class="font-large danger-color">未支付</text>
+		<text class="font-large danger-color font-bold">未支付</text>
 		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
-		<view class="button plain primary" bindtap="onMallOrderPay">立即支付</view>
+		<view bindtap="onMallOrderPay" class="button plain primary">立即支付</view>
 	</view>
-	<view class="flex--center--center height-150rpx white-background-color font-large {{order.statusColor}}" wx:else>{{order._status}}</view>
+	<view class="flex--center--center flex-direction-column height-33vw white-background-color" wx:else>
+		<text class="font-large font-bold {{order.statusColor}}">{{order._status}}</text>
+		<view class="gray-color margin-top-30" wx:if="{{order.status==4}}">超过15分钟未支付，订单自动失效</view>
+	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>
 			<text>{{order.contactName}}</text>
@@ -24,11 +27,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="flex--center--end">
-			<view class="gray-color">
-				<texx>共</texx>
-				<text class="color-333">{{order.totalNum}}</text>件商品
-			</view>
+		<view class="flex--center--between">
+			<texx>配送金额：{{order.deliveryCost}}</texx>
 			<view class="primary-color margin-left-30">订单金额：￥{{order.totalAmount}}</view>
 		</view>
 	</view>

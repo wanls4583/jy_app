@@ -93,6 +93,10 @@ Component({
             return wx.jyApp.http({
                 url: '/department/list'
             }).then((data) => {
+                data.list = data.list || [];
+                data.list = data.list.filter((item) => {
+                    return item.status == 1;
+                });
                 data.list.map((item, index) => {
                     var _index = index % 3;
                     switch (_index) {
@@ -108,7 +112,7 @@ Component({
                     }
                 });
                 this.setData({
-                    departmentList: data.list
+                    departmentList: data.list.slice(0, 6)
                 });
             })
         },

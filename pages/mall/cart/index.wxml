@@ -11,16 +11,6 @@
 			</view>
 			<van-icon color="#ccc" name="arrow" />
 		</block>
-		<block wx:elif="{{defaultAddress}}">
-			<view style="max-width: 300px;">
-				<view class="margin-bottom-20">
-					<text>{{defaultAddress.contactName}}</text>
-					<text class="margin-left-30">{{defaultAddress.phone}}</text>
-				</view>
-				<view>{{defaultAddress.provinceCity}}{{defaultAddress.address}}</view>
-			</view>
-			<van-icon color="#ccc" name="arrow" />
-		</block>
 		<block wx:else>
 			<text>收货地址</text>
 			<view class="flex--center--center gray-color">

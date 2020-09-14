@@ -184,12 +184,19 @@ Page({
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
+            data.list = data.list || [];
             var arr = data.list.filter((item) => {
                 return item.isDefault == 1;
             });
-            arr.length && this.setData({
-                address: arr[0].provinceCity + arr[0].address
-            });
+            if (arr.length) {
+                this.setData({
+                    address: arr[0].provinceCity + arr[0].address
+                });
+            } else if (data.list.length) {
+                this.setData({
+                    address: data.list[0].provinceCity + data.list[0].address
+                });
+            }
         });
     },
     _updateUserInfo() {

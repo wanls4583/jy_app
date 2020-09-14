@@ -30,7 +30,13 @@
 		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
 			<van-icon class="{{cartNum?'primary-color':'gray-color'}} margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" />
 			<text class="primary-color" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
-			<text class="margin-left-20 gray-color" wx:if="{{!cartNum}}">{{configData.deliveryCost?'配送费：￥'+configData.deliveryCost:'免费配送'}}</text>
+			<view class="margin-left-20 gray-color" wx:if="{{!cartNum}}">
+				<view wx:if="{{configData.deliveryCost}}">
+					<text>配送费：</text>
+					<text class="danger-color">￥{{configData.deliveryCost}}</text>
+				</view>
+				<view wx:else>免费配送</view>
+			</view>
 		</view>
 		<view bindtap="onPay" class="height-100 button primary center radius-0 {{!cartNum||needMoney>0 ? 'disabled' : ''}}">
 			<text decode="{{true}}" wx:if="{{cartNum&&needMoney>0}}">差&nbsp;￥{{needMoney}}&nbsp;起送</text>

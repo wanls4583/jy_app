@@ -22,7 +22,7 @@ Page({
         this.setBackButtonRect();
         this.loadInfo();
         this.setData({
-            needMoney: this.data.configData.minOrderMoney || 0
+            needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
         });
     },
     onUnload() {

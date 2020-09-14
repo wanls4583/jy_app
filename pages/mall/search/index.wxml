@@ -4,7 +4,7 @@
 			bind:change="onChangeText"
 			bind:search="onSearch"
 			focus="{{true}}"
-			placeholder="{{doctorVisible?'请输入医生/产品':'请输入产品'}}"
+			placeholder="{{doctorVisible?'请输入医生/产品':'请输入名称搜索'}}"
 			shape="round"
 			value="{{searchText}}"
 		/>

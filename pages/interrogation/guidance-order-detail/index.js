@@ -5,8 +5,8 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['defaultAddress', 'selectAddress', 'userInfo'],
-            actions: ['updateDefaultAddress', 'updateSelectAddress'],
+            fields: ['selectAddress', 'userInfo'],
+            actions: ['updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
         if (!this.data.selectAddress) {
@@ -36,6 +36,7 @@ Page({
                 orderId: this.id
             }
         }).then((data) => {
+            this.updateSelectAddress(null);
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 wx.showToast({
@@ -94,9 +95,6 @@ Page({
         });
     },
     loadAddressList() {
-        if(this.data.selectAddress) {
-            return;
-        }
         wx.jyApp.http({
             url: '/user/address/list'
         }).then((data) => {
@@ -104,12 +102,10 @@ Page({
             data.list.map((item) => {
                 if (item.isDefault) {
                     this.updateSelectAddress(item);
-                    this.updateDefaultAddress(item);
                 }
             });
-            if (!wx.jyApp.store.defaultAddress && data.list.length) {
+            if (!wx.jyApp.store.selectAddress && data.list.length) {
                 this.updateSelectAddress(data.list[0]);
-                this.updateDefaultAddress(data.list[0]);
             }
         });
     }
