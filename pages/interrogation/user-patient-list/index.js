@@ -5,6 +5,11 @@ Page({
         ifSelect: false
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData']
+        });
+        this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId;
         this.setData({
             ifSelect: wx.jyApp.selectPatientFlag || false
@@ -12,11 +17,17 @@ Page({
         wx.jyApp.selectPatientFlag = false;
         this.loadList();
     },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     onShow() {
         if (wx.jyApp.reloadPatientList) {
             this.loadList();
             delete wx.jyApp.reloadPatientList;
         }
+    },
+    onOpenWebview(e) {
+        wx.jyApp.utils.openWebview(e);
     },
     selectPatient(e) {
         var id = e.currentTarget.dataset.id;
@@ -40,27 +51,23 @@ Page({
             }
         }).then((data) => {
             delete wx.jyApp.illness;
-            if (data.params) {
-                wx.jyApp.utils.pay(data.params).then(() => {
-                    wx.navigateBack({
-                        delta: 2,
-                        success: function() {
-                            wx.navigateTo({
-                                url: '/pages/interrogation/chat/index?id=' + data.id
-                            });
-                        }
-                    });
-                }).catch(() => {
-                    wx.jyApp.toast('支付失败');
-                });
-            } else if (data.id) {
-                wx.navigateBack({
-                    delta: 2,
-                    success: function() {
-                        wx.navigateTo({
-                            url: '/pages/interrogation/chat/index?id=' + data.id
-                        });
-                    }
+            // if (data.params) {
+            //     wx.jyApp.utils.pay(data.params).then(() => {
+            //         wx.navigateBack({
+            //             delta: 2,
+            //             success: function () {
+            //                 wx.navigateTo({
+            //                     url: '/pages/interrogation/chat/index?id=' + data.id
+            //                 });
+            //             }
+            //         });
+            //     }).catch(() => {
+            //         wx.jyApp.toast('支付失败');
+            //     });
+            // }
+            if (data.id) {
+                wx.navigateTo({
+                    url: '/pages/interrogation/interrogation-pay/index?id=' + data.id
                 });
             }
         });

@@ -9,13 +9,14 @@
 			value="{{searchText}}"
 		/>
 	</view>
+	<view
+		class="padding-30 gray-color align-center font-small"
+		style="margin-top:54px"
+		wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}"
+	>
+		<van-empty description="未查询到相关{{doctorVisible?'结果':'产品'}}，请重新搜索" />
+	</view>
 	<view class="white-background-color" style="margin-top:54px">
-		<view
-			class="padding-30 gray-color align-center font-small"
-			wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}"
-		>
-			<van-empty description="未查询到相关{{doctorVisible?'医生/产品':'产品'}}，请重新搜索" />
-		</view>
 		<view class="padding-30" wx:if="{{doctorVisible&&doctorData.list.length}}">
 			<view class="font-bold">医生</view>
 			<view>

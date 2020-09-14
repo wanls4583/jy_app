@@ -1,6 +1,6 @@
 <view class="container white-background-color">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGoto" data-url="/pages/mall/search/index" disabled="{{true}}" placeholder="请输入医生/产品" shape="round" />
+		<van-search bindtap="onGoto" data-url="/pages/mall/search/index?showDoctor=1" disabled="{{true}}" placeholder="请输入医生/产品" shape="round" />
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">

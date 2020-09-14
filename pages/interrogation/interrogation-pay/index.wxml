@@ -1,0 +1,27 @@
+<view class="container">
+	<view class="padding-left-right-30 white-background-color">
+		<view class="flex padding-top-bottom-20 border-bottom">
+			<text class="flex-shrink-0">商品名称：</text>
+			<text>{{order.goodsName}}</text>
+		</view>
+		<view class="flex padding-top-bottom-20 border-bottom">
+			<text class="flex-shrink-0">订单日期：</text>
+			<text>{{order.orderTime}}</text>
+		</view>
+		<view class="flex padding-top-bottom-20 border-bottom">
+			<text class="flex-shrink-0">订单编号：</text>
+			<text>{{order.orderNo}}</text>
+		</view>
+		<view class="flex padding-top-bottom-20">
+			<text class="flex-shrink-0">订单金额：</text>
+			<text class="primary-color">￥{{order.orderAmount}}</text>
+		</view>
+	</view>
+	<view class="position-fixed bottom-0 width-100 flex--center--between white-background-color">
+		<view class="flex-grow-1 padding-left-30">
+			<text>实际支付：</text>
+			<text class="primary-color">￥{{order.orderAmount}}</text>
+		</view>
+		<view bindtap="onSubmit" class="button primary radius-0">立即支付</view>
+	</view>
+</view>

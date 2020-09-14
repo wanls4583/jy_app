@@ -31,10 +31,10 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
-                wx.showToast({
-                    title: '支付成功'
-                });
                 this.loadInfo();
+                wx.navigateTo({
+                    url: '/pages/interrogation/chat/index?id=' + this.id
+                });
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });

@@ -12,7 +12,8 @@ Page({
             height: '',
             weight: ''
         },
-        minDate: new Date(1900, 0, 1),
+        minDate: new Date(1900, 0, 1).getTime(),
+        maxDate: new Date().getTime(),
         sexVisible: false,
         birthDayVisible: false,
         birthday: new Date().getTime()
@@ -20,6 +21,13 @@ Page({
     onLoad(option) {
         if (option.id) {
             this.loadInfo(option.id);
+            wx.setNavigationBarTitle({
+                title: '编辑患者'
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '添加患者'
+            });
         }
     },
     onInput(e) {

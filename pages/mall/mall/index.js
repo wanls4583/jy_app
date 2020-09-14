@@ -77,6 +77,7 @@ Component({
                 data.page.list.map((item) => {
                     item._goodsName = item.goodsName;
                     item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
+                    item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
                     productList: data.page.list

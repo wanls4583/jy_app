@@ -5,26 +5,23 @@ Page({
         doctorData: {
             list: [],
             page: 1,
-            limit: 3,
             totalPage: -1
         },
         taocanData: {
             list: [],
             page: 1,
-            limit: 3,
             totalPage: -1
         },
         productData: {
             list: [],
             page: 1,
-            limit: 3,
             totalPage: -1
         },
         doctorVisible: false,
         searched: false
     },
     onLoad(option) {
-        if(option && option.showDoctor) {
+        if (option && option.showDoctor) {
             this.setData({
                 doctorVisible: true
             });
@@ -58,7 +55,7 @@ Page({
         });
     },
     search() {
-        Promise.all([this.loadDoctor(true),this.loadProduct(true), this.loadToacan(true)]).then(()=>{
+        Promise.all([this.loadDoctor(true), this.loadProduct(true), this.loadToacan(true)]).then(() => {
             this.setData({
                 searched: true
             });
@@ -73,7 +70,6 @@ Page({
                 productData: {
                     list: [],
                     page: 1,
-                    limit: 3,
                     totalPage: -1
                 }
             });
@@ -83,7 +79,7 @@ Page({
             url: '/goods/list',
             data: {
                 page: this.data.productData.page,
-                limit: this.data.productData.limit,
+                limit: this.data.productData.page == 1 ? 3 : 6,
                 type: 1,
                 goodsName: this.data.goodsName
             },
@@ -113,7 +109,6 @@ Page({
                 taocanData: {
                     list: [],
                     page: 1,
-                    limit: 3,
                     totalPage: -1
                 }
             });
@@ -123,7 +118,7 @@ Page({
             url: '/goods/list',
             data: {
                 page: this.data.taocanData.page,
-                limit: this.data.taocanData.limit,
+                limit: this.data.taocanData.page == 1 ? 3 : 6,
                 type: 2,
                 goodsName: this.data.goodsName
             },
@@ -152,7 +147,6 @@ Page({
                 doctorData: {
                     list: [],
                     page: 1,
-                    limit: 3,
                     totalPage: -1
                 }
             });
@@ -162,9 +156,8 @@ Page({
             url: '/doctor/list',
             data: {
                 page: this.data.doctorData.page,
-                limit: this.data.doctorData.limit,
-                type: 2,
-                goodsName: this.data.goodsName
+                limit: this.data.doctorData.page == 1 ? 3 : 6,
+                complexName: this.data.goodsName
             },
             complete: () => {
                 this.data.doctorData.loading = false;

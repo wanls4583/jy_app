@@ -87,7 +87,7 @@ Page({
             talker: data.talker,
             patient: data.patient,
             status: data.chatRoom.status,
-            consultOrder: data.chatRoom.consultOrder,
+            consultOrder: data.consultOrder,
             consultOrderId: data.chatRoom.consultOrderId
         });
         wx.setNavigationBarTitle({

@@ -38,7 +38,7 @@
 								<view
 									bindtap="onGoto"
 									class="button small primary margin-top-20"
-									data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId=${{consultOrder.doctorId}}"
+									data-url="/pages/interrogation/doctor-appraise/index?id={{consultOrderId}}&doctorId={{consultOrder.doctorId}}"
 								>去评价</view>
 							</view>
 						</view>
@@ -53,7 +53,15 @@
 							wx:else
 						>
 							<view class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==talker.id}}">
-								<image class="width-100 height-100 radius-8rpx" mode="scaleToFill" src="{{talker.avatarUrl}}" />
+								<image
+									bindtap="onGoto"
+									class="width-100 height-100 radius-8rpx"
+									data-url="/pages/interrogation/doctor-detail/index?id={{consultOrder.doctorId}}"
+									mode="scaleToFill"
+									src="{{talker.avatarUrl}}"
+									wx:if="{{talker.role=='DOCTOR'}}"
+								/>
+								<image class="width-100 height-100 radius-8rpx" mode="scaleToFill" src="{{talker.avatarUrl}}" wx:else />
 							</view>
 							<view
 								class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color white-color"
@@ -137,7 +145,15 @@
 								</view>
 							</view>
 							<view class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==currentUser.id}}">
-								<image class="width-100 height-100 radius-8rpx" mode="scaleToFill" src="{{currentUser.avatarUrl}}" />
+								<image
+									bindtap="onGoto"
+									class="width-100 height-100 radius-8rpx"
+									data-url="/pages/interrogation/doctor-detail/index?id={{consultOrder.doctorId}}"
+									mode="scaleToFill"
+									src="{{currentUser.avatarUrl}}"
+									wx:if="{{currentUser.role=='DOCTOR'}}"
+								/>
+								<image class="width-100 height-100 radius-8rpx" mode="scaleToFill" src="{{currentUser.avatarUrl}}" wx:else />
 							</view>
 						</view>
 					</view>
@@ -162,6 +178,7 @@
 				confirm-hold="{{true}}"
 				confirm-type="send"
 				focus="{{inputFoucus}}"
+				maxlength="{{650}}"
 				type="text"
 				value="{{inputValue}}"
 			/>

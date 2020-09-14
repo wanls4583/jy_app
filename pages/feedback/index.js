@@ -20,6 +20,14 @@ Page({
         });
     },
     onSubmit() {
+        if(!this.data.content.length) {
+            wx.jyApp.toast('请输入反馈内容');
+            return;
+        }
+        if (!/1\d{10}/.test(this.data.phone)) {
+            wx.jyApp.toast('手机号输入错误');
+            return;
+        }
         wx.showLoading({
             title: '提交中...',
             mask: true

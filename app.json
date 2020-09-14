@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/interrogation/interrogation-pay/index",
         "pages/interrogation/qrcode-share/index",
         "pages/interrogation/invite/index",
         "pages/interrogation/withdraw-list/index",
@@ -92,7 +93,8 @@
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
-        "list": [{
+        "list": [
+            {
                 "pagePath": "pages/tab-bar-first/index",
                 "iconPath": "image/icon_home.png",
                 "selectedIconPath": "image/icon_home_active.png",

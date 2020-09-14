@@ -31,7 +31,7 @@ Page({
         }
         wx.jyApp.selectPatientFlag = true;
         wx.navigateTo({
-            url: '/pages/interrogation/user-patient-list/index?doctorId=' + this.doctorId
+            url: '/pages/interrogation/user-patient-list/index?selectPatient=1&doctorId=' + this.doctorId
         });
     },
     chooseImage() {

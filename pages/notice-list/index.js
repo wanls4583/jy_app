@@ -21,7 +21,9 @@ Page({
         var index = e.currentTarget.dataset.index;
         var item = this.data.messageList[index];
         if (item.linkUrl) {
-
+            wx.navigateTo({
+                url: '/pages/web-view/index?url=' + item.linkUrl
+            });
         }
     },
     onRefresh() {

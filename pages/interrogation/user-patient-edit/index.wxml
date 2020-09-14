@@ -18,6 +18,6 @@
         <van-picker show-toolbar="{{true}}" default-index="{{patient._sex=='男'?1:0}}" columns="{{['女','男']}}" bind:confirm="onConfirmSex" bind:cancel="onCancel"></van-picker>
     </van-popup>
     <van-popup show="{{birthDayVisible}}" position="bottom">
-        <van-datetime-picker type="date" value="{{birthday}}" bind:confirm="onConfirmBirthday" bind:cancel="onCancel" min-date="{{minDate}}" />
+        <van-datetime-picker type="date" value="{{birthday}}" bind:confirm="onConfirmBirthday" bind:cancel="onCancel" min-date="{{minDate}}" max-date="{{maxDate}}" />
     </van-popup>
 </view>
