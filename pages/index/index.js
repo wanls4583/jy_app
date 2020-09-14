@@ -91,7 +91,8 @@ Page({
     },
     getMessageCount() {
         return wx.jyApp.http({
-            url: '/systemnotice/totalNotRead'
+            url: '/systemnotice/totalNotRead',
+            hideTip: true
         }).then((data) => {
             this.updateNoticeCount(data.totalNotRead || 0);
             if (data.msgTotalNotRead) {

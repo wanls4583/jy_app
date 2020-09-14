@@ -42,9 +42,11 @@ function request(obj) {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
                     reject(res);
-                    setTimeout(() => { //延时提示，防止hideLoading干扰
-                        wx.jyApp.toast('服务器错误');
-                    }, 300);
+                    if (!obj.hideTip) {
+                        setTimeout(() => { //延时提示，防止hideLoading干扰
+                            wx.jyApp.toast('服务器错误');
+                        }, 300);
+                    }
                 }
                 obj.complete && obj.complete(res);
             }
