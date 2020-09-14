@@ -42,15 +42,7 @@ Page({
                 goodsList: this.data.goodsList
             });
             delete wx.jyApp.usageGoods;
-
-            var totalAmount = 0;
-            this.data.goodsList.map((item) => {
-                totalAmount += item.price * item.gross;
-            });
-            totalAmount = totalAmount.toFixed(2);
-            this.setData({
-                totalAmount: totalAmount
-            });
+            this.caculateTotalAmount();
         }
     },
     onInput(e) {
@@ -71,9 +63,14 @@ Page({
     },
     onDelete(e) {
         var index = e.currentTarget.dataset.index;
-        this.data.goodsList.splice(index, 1);
-        this.setData({
-            goodsList: this.data.goodsList
+        wx.jyApp.dialog.confirm({
+            message: '确认删除？'
+        }).then(() => {
+            this.data.goodsList.splice(index, 1);
+            this.setData({
+                goodsList: this.data.goodsList
+            });
+            this.caculateTotalAmount();
         });
     },
     onEdit(e) {
@@ -122,6 +119,17 @@ Page({
             wx.navigateBack();
         }).finally(() => {
             wx.hideLoading();
+        });
+    },
+    //计算总金额
+    caculateTotalAmount() {
+        var totalAmount = 0;
+        this.data.goodsList.map((item) => {
+            totalAmount += item.price * item.gross;
+        });
+        totalAmount = totalAmount.toFixed(2);
+        this.setData({
+            totalAmount: totalAmount
         });
     }
 })

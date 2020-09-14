@@ -14,10 +14,10 @@
 					<view class="red-dot" wx:if="{{item.notReadNum}}">{{item.notReadNum}}</view>
 					<image class="width-100 height-100 radius-8rpx" mode="aspectFill" src="{{item.wxAvatar}}" />
 				</view>
-				<view class="flex-grow-1 padding-bottom-20 margin-left-20 border-bottom">
-					<view class="flex--start--center flex-direction-column height-80rpx">
+				<view class="flex-grow-1 padding-bottom-20 margin-left-20 border-bottom" style="overflow:hidden">
+					<view class="height-80rpx" style="line-height:40rpx;">
 						<view>{{item.wxNickname}}</view>
-						<view class="gray-color font-small">{{item.lastMessage}}</view>
+						<view class="gray-color font-small ellipse">{{item.lastMessage}}{{item.lastMessage}}</view>
 					</view>
 				</view>
 			</view>

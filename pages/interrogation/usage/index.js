@@ -36,6 +36,7 @@ Page({
             days: goods.days || 1,
             modulateDose: goods.modulateDose || 0,
             giveWay: goods.giveWay || giveWayList[0].value,
+            remark: goods.remark,
             _giveWay: giveWayMap[goods.giveWay] || giveWayList[0].label,
             frequency: goods.frequency || 1,
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
@@ -118,6 +119,7 @@ Page({
         this.data.goods.gross = this.data.gross;
         this.data.goods.modulateDose = this.data.modulateDose;
         this.data.goods.remark = this.data.remark;
+        this.data.goods.totalAmount = this.data.totalAmount;
         if (this.data.goods.type == 1) {
             this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
         } else {

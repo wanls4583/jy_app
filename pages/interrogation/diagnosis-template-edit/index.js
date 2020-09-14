@@ -10,6 +10,13 @@ Page({
                 id: option.id
             });
             this.loadInfo();
+            wx.setNavigationBarTitle({
+                title: '修改模板'
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '新增模板'
+            });
         }
     },
     loadInfo() {

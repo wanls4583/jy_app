@@ -48,3 +48,4 @@
         <view class="button primary block" bindtap="onSave">保存</view>
     </view>
 </view>
+<van-dialog id="van-dialog" />
