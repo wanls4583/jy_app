@@ -43,13 +43,15 @@
 						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 							<view class="button primary small">立即支付</view>
 						</view>
-						<view
-							bindtap="onGoto"
-							class="padding-top-bottom-20 border-top align-right"
-							data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
-							wx:if="{{order.status==3&&order.userId==userInfo.id}}"
-						>
-							<view class="button primary warn small">去评价</view>
+						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==3&&order.userId==userInfo.id}}">
+							<view
+								catchtap="onGoto"
+								class="button primary warn small"
+								data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
+							>去评价</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==1&&order.doctorId==userInfo.id}}">
+							<view catchtap="onGoto" class="button primary warn small" data-url="/pages/interrogation/chat/index?id={{order.id}}">立即接诊</view>
 						</view>
 					</view>
 					<view
@@ -92,6 +94,9 @@
 							<text>，{{order.patient.age}}岁</text>
 							<text>，{{order.patient.height}}cm</text>
 							<text>，{{order.patient.weight}}kg</text>
+						</view>
+						<view class="padding-top-bottom-20 border-top align-right" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
+							<view catchtap="onGoto" class="button primary warn small" data-url="/pages/interrogation/guidance-edit/index?id={{order.id}}">开营养指导</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}">没有更多了</view>

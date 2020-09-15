@@ -116,6 +116,9 @@ Page({
                 })
             }
         }).then(() => {
+            setTimeout(() => {
+                wx.jyApp.toast('提交成功');
+            }, 500);
             wx.navigateBack();
         }).finally(() => {
             wx.hideLoading();

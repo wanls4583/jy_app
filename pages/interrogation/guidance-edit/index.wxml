@@ -20,8 +20,8 @@
                     <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
                         <view>{{product.goodsName}}</view>
                         <view class="flex--center--between width-100">
-                            <text class="gray-color">x{{product.gross}}{{unitChange[product.useUnit]||'份'}}</text>
-                            <text class="danger-color">￥{{product.price}}</text>
+                            <text class="gray-color">x{{product.gross}}{{product._unit}}</text>
+                            <text class="danger-color">￥{{product.totalAmount}}</text>
                         </view>
                     </view>
                 </view>

@@ -59,7 +59,6 @@ Page({
             url: '/nutritionorder/info/' + this.id
         }).then((data) => {
             data.detail._sex = data.detail.sex == 1 ? '男' : '女';
-            data.detail.age = new Date().getFullYear() - Date.prototype.parseDate(data.detail.birthday).getFullYear();
             data.detail._status = wx.jyApp.constData.mallOrderStatusMap[data.detail.status];
             data.detail.goods.map((item) => {
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
