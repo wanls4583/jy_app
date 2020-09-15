@@ -6,7 +6,7 @@
 				<view class="padding-top-bottom-20 border-bottom">
 					<view class="flex--center--between">
 						<view class="{{item.readable!=1?'red-dot':''}}">
-							<text class="{{item.linkUrl?'primary-color':''}}">{{item.title}}</text>
+							<text class="{{item.linkUrl?'primary-color':''}}">{{item.title||''}}</text>
 						</view>
 						<text class="font-small gray-color">{{item.sendTime}}</text>
 					</view>
