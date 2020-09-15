@@ -59,9 +59,11 @@ Page({
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
+        var type = e.currentTarget.dataset.type;
         var title = e.currentTarget.dataset.title;
         wx.jyApp.utils.setText({
             title: title,
+            type: type || 'text',
             defaultValue: this.data[prop],
             complete: (value) => {
                 this.setData({

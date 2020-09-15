@@ -36,7 +36,7 @@
 				</view>
 			</view>
 			<view class="flex flex-wrap-wrap padding-top-bottom-20">
-				<view bindtap="onGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
 					<view class="font-mini">订单列表</view>
 				</view>

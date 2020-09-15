@@ -12,7 +12,11 @@ Page({
         });
     },
     onInput(e) {
-        wx.jyApp.utils.onInput(e, this);
+        if (this.type == 'number') {
+            wx.jyApp.utils.onInputNum(e, this);
+        } else {
+            wx.jyApp.utils.onInput(e, this);
+        }
     },
     onSave(e) {
         wx.jyApp.inputParam.complete(this.data.value);

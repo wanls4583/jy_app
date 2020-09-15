@@ -53,6 +53,7 @@
 				border="{{false}}"
 				data-prop="introduce"
 				data-title="个人简介"
+				data-type="textarea"
 				label="个人简介"
 				placeholder="请输入个人简介"
 				readonly

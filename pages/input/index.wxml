@@ -3,5 +3,14 @@
 		<view bindtap="onCancel" class="button text padding-30">取消</view>
 		<view bindtap="onSave" class="button primary small {{value===''?'disabled':''}}">完成</view>
 	</view>
-	<van-field bind:input="onInput" data-prop="value" focus="{{true}}" type="{{type}}" value="{{value}}"></van-field>
+	<textarea
+		bind:input="onInput"
+		class="width-100 white-background-color padding-30"
+		data-prop="value"
+		focus="{{true}}"
+		maxlength="{{-1}}"
+		value="{{value}}"
+		wx:if="{{type=='textarea'}}"
+	></textarea>
+	<van-field bind:input="onInput" data-prop="value" focus="{{true}}" type="{{type}}" value="{{value}}" wx:else></van-field>
 </view>

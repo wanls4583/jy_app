@@ -2,7 +2,7 @@ Page({
     data: {
         consultOrderPrice: 0,
         nutritionOrderPrice: 0,
-        consultOrderSwitch: false,
+        consultOrderSwitch: 0,
         status: '',
         statusVisible: false,
         statusList: [],
@@ -12,7 +12,8 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['doctorInfo']
+            fields: ['doctorInfo'],
+            actions: ['updateDoctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
@@ -39,7 +40,7 @@ Page({
     },
     onSwitchChange(e) {
         this.setData({
-            consultOrderSwitch: !this.data.consultOrderSwitch
+            consultOrderSwitch: this.data.consultOrderSwitch == 1 ? 0 : 1
         });
         this.submit();
     },
@@ -100,7 +101,11 @@ Page({
                 status: this.data.status
             }
         }).then(() => {
-
+            this.data.doctorInfo.consultOrderPrice = Number(this.data.consultOrderPrice) || 0
+            this.data.doctorInfo.nutritionOrderPrice = Number(this.data.nutritionOrderPrice) || 0
+            this.data.doctorInfo.consultOrderSwitch = this.data.consultOrderSwitch
+            this.data.doctorInfo.status = this.data.status
+            this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo))
         });
     }
 })
