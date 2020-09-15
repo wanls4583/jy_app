@@ -62,7 +62,7 @@
         "doctor-home": "/pages/interrogation/home/index",
         "user-mall": "/pages/mall/mall/index",
         "patient-manage": "/pages/interrogation/doctor-patient-list/index",
-        "navigationBar": "/components/navigationBar/index",
+        "navigation-bar": "/components/navigationBar/index",
         "pull-scroll-view": "/components/pull-scroll-view/index",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",

@@ -292,7 +292,7 @@ Page({
             } else {
                 wx.jyApp.toast('申请成功');
             }
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
     },
@@ -539,6 +539,7 @@ Page({
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
                     item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[item.orderApplyVO.status];
+                    item.orderApplyVO.status = item.orderApplyVO.status;
                 }
                 if (item.type == 5 && item.nutritionOrderChatVO) {
                     item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[item.nutritionOrderChatVO.status];
@@ -566,6 +567,7 @@ Page({
                     if (obj.type == 4) {
                         _item.orderApplyVO = _item.orderApplyVO || {};
                         _item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[obj.status];
+                        _item.orderApplyVO.status = obj.status;
                     }
                     if (obj.type == 5) {
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
@@ -580,6 +582,8 @@ Page({
             if (ifPre || !this.data.pages.length) { //上翻记录
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);
+                this.data.pageMap[pageId] = list;
+                this.caculateSendTime();
                 this.setData({
                     pages: this.data.pages,
                     [`pageMap[${pageId}]`]: list
@@ -601,21 +605,26 @@ Page({
                     var pageId = list[index].id;
                     lastPageList = lastPageList.concat(list.slice(0, index));
                     this.data.pages.push(pageId);
+                    this.data.pageMap[pageId] = list.slice(index);
+                    this.caculateSendTime();
                     this.setData({
                         paegs: this.data.pages,
                         [`pageMap[${pageId}]`]: list.slice(index)
                     }, () => {
                         this.getPageHeight(pageId);
+                        this.scrollToBottom();
                     });
                 } else {
                     lastPageList = lastPageList.concat(list);
+                    this.data.pageMap[lastPageId] = lastPageList;
+                    this.caculateSendTime();
+                    this.setData({
+                        [`pageMap[${lastPageId}]`]: lastPageList
+                    }, () => {
+                        this.getPageHeight(lastPageId);
+                        this.scrollToBottom();
+                    });
                 }
-                this.setData({
-                    [`pageMap[${lastPageId}]`]: lastPageList
-                }, () => {
-                    this.getPageHeight(lastPageId);
-                    this.scrollToBottom();
-                });
             }
             if (list.length) {
                 if (!ifPre) {
@@ -647,6 +656,30 @@ Page({
             }
         });
         return this.request;
+    },
+    //计算发送时间的显示
+    caculateSendTime() {
+        var lastTime = new Date().getTime();
+        var pages = this.data.pages.concat([]);
+        var fifteen = 15 * 60 * 1000;
+        var today = new Date();
+        today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
+        pages.reverse();
+        pages.map((item) => {
+            var list = this.data.pageMap[item];
+            list = list.concat([]);
+            list.reverse();
+            list.map((item) => {
+                if (lastTime - item.sendTime > fifteen) {
+                    if (item.sendTime > today) {
+                        item.timeStr = new Date(item.sendTime).formatTime('hh:mm');
+                    } else {
+                        item.timeStr = new Date(item.sendTime).formatTime('yyyy-MM-dd hh:mm');
+                    }
+                    lastTime = item.sendTime;
+                }
+            });
+        });
     },
     stopPoll() {
         this.pollStoped = true;

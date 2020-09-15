@@ -18,17 +18,39 @@ Page({
         searched: false
     },
     onLoad(option) {
-        if(option && option.showDoctor) {
+        if (option && option.showDoctor) {
             this.setData({
                 doctorVisible: true
             });
         }
     },
-    onAddTaocan() {
-
+    onAddTaocan(e) {
+        var item = Object.assign({}, e.currentTarget.dataset.item);
+        item.type = 2;
+        var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
+            return _item.id == item.id && _item.type == item.type
+        });
+        if (!arr.lenght) {
+            wx.jyApp.diagnosisGoods.push(item);
+            wx.jyApp.usageGoods = item;
+            wx.redirectTo({
+                url: '/pages/interrogation/usage/index'
+            });
+        }
     },
-    onAddProduct() {
-
+    onAddProduct(e) {
+        var item = Object.assign({}, e.currentTarget.dataset.item);
+        item.type = 1;
+        var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
+            return _item.id == item.id && _item.type == item.type
+        });
+        if (!arr.lenght) {
+            wx.jyApp.diagnosisGoods.push(item);
+            wx.jyApp.usageGoods = item;
+            wx.redirectTo({
+                url: '/pages/interrogation/usage/index'
+            });
+        }
     },
     onSearch() {
         this.setData({
@@ -58,7 +80,7 @@ Page({
         });
     },
     search() {
-        Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(()=>{
+        Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(() => {
             this.setData({
                 searched: true
             });
@@ -93,6 +115,8 @@ Page({
         }).then((data) => {
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
+                item._unit = wx.jyApp.constData.unitChange[item.unit];
+                item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
             });
             this.setData({
                 [`productData.list`]: this.data.productData.list.concat(data.page.list || []),
@@ -130,6 +154,7 @@ Page({
         }).then((data) => {
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
+                item._unit = '份';
             });
             this.setData({
                 [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list || []),

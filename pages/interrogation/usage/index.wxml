@@ -1,4 +1,5 @@
-<view class="container padding-bottom-footer">
+<navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
+<view class="padding-bottom-footer">
 	<view class="flex--center--between padding-30 white-background-color">
 		<view class="width-150rpx height-150rpx border" style="background:url({{goods.goodsPic}}) no-repeat center;background-size:cover"></view>
 		<view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
@@ -15,7 +16,8 @@
 		<van-field bind:input="onInputNum" data-prop="modulateDose" label="配制用量" title-width="4.5em" type="number" value="{{modulateDose}}" wx:if="{{goods.type==2}}">
 			<view slot="right-icon">毫升</view>
 		</van-field>
-		<van-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}"></van-field>
+		<van-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}" wx:if="{{goods.type==1}}"></van-field>
+		<van-field disabled label="频率" title-width="4.5em" value="{{_frequency}}" wx:else></van-field>
 		<van-cell>
 			<view class="flex--center--between">
 				<text>天数</text>
@@ -47,3 +49,4 @@
 		></van-picker>
 	</van-popup>
 </view>
+<van-dialog id="van-dialog" />

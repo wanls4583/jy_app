@@ -11,7 +11,7 @@
 		class="position-fixed width-100"
 		style="padding:0 10px;top:50px;bottom:{{status==1?(panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight):0}}px"
 	>
-		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-y="{{true}}">
+		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-with-animation="{{false}}" scroll-y="{{true}}">
 			<view class="flex--center--center" wx:if="{{totalPage>1}}">
 				<view class="flex--center--center" style="height:{{loadButtonHeight}}px;" wx:if="{{loading}}">
 					<van-loading size="20" type="spinner" />
@@ -26,6 +26,7 @@
 			<view id="{{'page-id-' + page}}" style="min-height:{{pageHeightMap[page]}}px" wx:for="{{pages}}" wx:for-item="page" wx:key="index">
 				<block wx:if="{{index>=nowPageIndex-1&&index<=nowPageIndex+1}}">
 					<view class="position-relative" wx:for="{{pageMap[page]}}" wx:key="id">
+						<view class="flex--center--center padding-top-bottom-20 gray-color font-small" wx:if="{{item.timeStr}}">{{item.timeStr}}</view>
 						<!-- 开始或结束消息 -->
 						<view class="flex--center--between padding-top-bottom-20" id="{{item.domId}}" wx:if="{{item.type==-1||item.type==-2}}">
 							<view class="flex-grow-1 border-bottom border-color-ddd"></view>
@@ -204,7 +205,8 @@
 	<van-action-sheet actions="{{actions}}" bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">
 			<text class="font-title">申请营养指导</text>
-			<text class="primary-color font-small margin-top-10">首次免诊金</text>
+			<text class="primary-color font-small margin-top-10" wx:if="{{!consultOrder.applyCount}}">首次免诊金</text>
+			<text class="primary-color font-small margin-top-10" wx:else>￥{{talker.nutritionOrderPrice}}/次</text>
 		</view>
 	</van-action-sheet>
 </view>

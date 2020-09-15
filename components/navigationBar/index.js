@@ -1,8 +1,13 @@
 const app = getApp();
 Component({
-  externalClasses: ['external-classes'],
+  options: {
+    styleIsolation: 'apply-shared'
+  },
   properties: {
-    // 这里定义属性，属性值可以在组件使用时指定
+    autoBack: {
+      type: Boolean,
+      value: true,
+    },
     back: { //是否显示返回
       type: Boolean,
       value: true,
@@ -13,11 +18,11 @@ Component({
     },
     background: { //导航栏背景色
       type: String,
-      value: '#fa9144'
+      value: '#fff'
     },
     color: {
       type: String,
-      value: '#fff'
+      value: 'black'
     },
     title: { //导航栏标题
       type: String,
@@ -29,73 +34,47 @@ Component({
     },
     fontSize: {
       type: String,
-      value: ''
+      value: '28rpx'
     }
   },
   data: {
     showBack: true,
-    systemInfo: app.globalData.systemInfo,
     navHeight: 0,
-    menuRect: {left: 0},
-    defaultFontSize: '',
-    canSharedPath: ['pages/detail/index']
+    systemInfo: null,
+    menuRect: { left: 0 },
   },
   lifetimes: {
     attached() {
-      //检测首页是否在当前页面栈中
-      let pages = getCurrentPages();
-      let showHomeButton = false;
-      if (pages.length < 2) {
-        this.setData({
-          showBack: this.data.canSharedPath.indexOf(pages[pages.length - 1].route) > -1 ? true : false,
-          defaultFontSize: '48rpx'
-        })
-      } else {
-        this.setData({
-          defaultFontSize: '30rpx'
-        })
-      }
-      app.getDeviceInfo((deviceInfo)=>{
-          this.setData({
-            navHeight: deviceInfo.navHeight,
-            menuRect: deviceInfo.menuRect
-          });
-      });
+      this._attached();
     }
   },
-  attached: function(option) {
-    //检测首页是否在当前页面栈中
-    let pages = getCurrentPages();
-    let showHomeButton = false;
-    if (pages.length < 2) {
-      this.setData({
-        showBack: this.data.canSharedPath.indexOf(pages[pages.length - 1].route) > -1 ? true : false,
-        defaultFontSize: '48rpx'
-      })
-    } else {
-      this.setData({
-        defaultFontSize: '30rpx'
-      })
-    }
-    app.getDeviceInfo((deviceInfo)=>{
-      this.setData({
-        navHeight: deviceInfo.navHeight,
-        menuRect: deviceInfo.menuRect
-      });
-  });
+  attached: function () {
+    this._attached();
   },
   methods: {
+    _attached() {
+      var pages = getCurrentPages();
+      var systemInfo = wx.getSystemInfoSync();
+      var bRect = wx.getMenuButtonBoundingClientRect() || {};
+      bRect.top = bRect && bRect.top || 28;
+      bRect.right = bRect && bRect.right || systemInfo.screenWidth - 10;
+      bRect.right = bRect && bRect.left || systemInfo.screenWidth - 90;
+      bRect.height = bRect && bRect.height || 32;
+      bRect.width = bRect && bRect.width || 87;
+      this.setData({
+        systemInfo: systemInfo,
+        showBack: pages.length > 1,
+        menuRect: bRect,
+        navHeight: (bRect.top - systemInfo.statusBarHeight) * 2 + bRect.height
+      });
+    },
     back() {
-      let pages = getCurrentPages();
-      if (pages.length == 1 && this.data.canSharedPath.indexOf(pages[pages.length - 1].route) > -1) {
-        wx.reLaunch({
-          url: '/pages/index/index'
-        })
-      } else {
+      if (this.properties.autoBack) {
         wx.navigateBack({
           delta: 1
         });
       }
+      this.triggerEvent('back');
     }
   }
 })

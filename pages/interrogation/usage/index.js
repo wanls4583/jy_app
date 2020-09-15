@@ -11,7 +11,7 @@ Page({
         giveWay: '',
         totalAmount: 0,
         gross: 1,
-        days: 1,
+        days: 7,
         modulateDose: 0,
         perUseNum: 1,
         frequencyDefault: 0,
@@ -29,10 +29,10 @@ Page({
             });
         }
         this.setData({
-            frequencyArray: wx.jyApp.constData.frequencyArray,
+            frequencyArray: wx.jyApp.constData.frequencyArray.slice(0, 6),
             goods: goods,
             perUseNum: goods.perUseNum || 1,
-            days: goods.days || 1,
+            days: goods.days || 7,
             modulateDose: goods.modulateDose || 0,
             giveWay: goods.giveWay || giveWayList[0].value,
             remark: goods.remark,
@@ -125,6 +125,21 @@ Page({
         } else {
             this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，配制${this.data.modulateDose}毫升，${this.data._giveWay}`;
         }
-        wx.navigateBack();
+        var pages = getCurrentPages();
+        wx.navigateBack({
+            delta: pages[pages.length - 1].route == 'pages/interrogation/search/index' ? 2 : 1
+        });
+    },
+    onBack() {
+        if (!this.saved) {
+            wx.jyApp.dialog.confirm({
+                message: '当前数据未保存，是否离开？'
+            }).then(() => {
+                var pages = getCurrentPages();
+                wx.navigateBack({
+                    delta: pages[pages.length - 1].route == 'pages/interrogation/search/index' ? 2 : 1
+                });
+            });
+        }
     }
 })

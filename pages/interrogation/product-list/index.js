@@ -76,7 +76,7 @@ Page({
     },
     onGotoSearch() {
         wx.navigateTo({
-            url: '/pages/mall/interrogation/index'
+            url: '/pages/interrogation/search/index'
         });
     },
     onChangeText(e) {

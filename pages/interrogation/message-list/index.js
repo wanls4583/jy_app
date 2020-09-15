@@ -13,6 +13,7 @@ Page({
         if (this.data.totalPage > -1) {
             this.checkList(true);
         }
+        this.getMessageCount();
     },
     onClickMsg(e) {
         var id = e.currentTarget.dataset.id;
@@ -92,6 +93,26 @@ Page({
         }).then((data) => {
             if (data.page.totalCount != this.data.totalCount) {
                 this.loadList(true);
+            }
+        });
+    },
+    //未读消息总数量
+    getMessageCount() {
+        return wx.jyApp.http({
+            url: '/systemnotice/totalNotRead',
+            hideTip: true
+        }).then((data) => {
+            if (data.msgTotalNotRead) {
+                wx.setTabBarBadge({
+                    index: 2,
+                    text: String(data.msgTotalNotRead),
+                    fail() { }
+                });
+            } else {
+                wx.removeTabBarBadge({
+                    index: 2,
+                    fail() { }
+                });
             }
         });
     }

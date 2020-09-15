@@ -89,39 +89,42 @@ Page({
             wx.jyApp.toast('营养指导不能为空');
             return;
         }
-        var totalAmount = Number(this.data.totalAmount) + (Number(this.data.configData.deliveryCost) || 0);
-        wx.showLoading({
-            title: '提交中...',
-            mask: true
-        });
-        wx.jyApp.http({
-            url: '/nutritionorder/save',
-            method: 'post',
-            data: {
-                consultOrderId: this.consultOrderId,
-                diagnosis: this.data.diagnosis,
-                totalAmount: totalAmount.toFixed(2),
-                goods: this.data.goodsList.map((item) => {
-                    return {
-                        amount: (item.price * item.gross).toFixed(2),
-                        days: item.days,
-                        frequency: item.frequency,
-                        giveWay: item.giveWay,
-                        goodsId: item.id,
-                        modulateDose: item.modulateDose,
-                        num: item.gross,
-                        perUseNum: item.perUseNum,
-                        remark: item.remark
-                    }
-                })
-            }
+        wx.jyApp.dialog.confirm({
+            message: '保存后将发送该营养指导给患者，是否确定保存？'
         }).then(() => {
-            setTimeout(() => {
-                wx.jyApp.toast('提交成功');
-            }, 500);
-            wx.navigateBack();
-        }).finally(() => {
-            wx.hideLoading();
+            wx.showLoading({
+                title: '提交中...',
+                mask: true
+            });
+            wx.jyApp.http({
+                url: '/nutritionorder/save',
+                method: 'post',
+                data: {
+                    consultOrderId: this.consultOrderId,
+                    diagnosis: this.data.diagnosis,
+                    totalAmount: this.data.totalAmount,
+                    goods: this.data.goodsList.map((item) => {
+                        return {
+                            amount: (item.price * item.gross).toFixed(2),
+                            days: item.days,
+                            frequency: item.frequency,
+                            giveWay: item.giveWay,
+                            goodsId: item.id,
+                            modulateDose: item.modulateDose,
+                            num: item.gross,
+                            perUseNum: item.perUseNum,
+                            remark: item.remark
+                        }
+                    })
+                }
+            }).then(() => {
+                setTimeout(() => {
+                    wx.jyApp.toast('提交成功');
+                }, 500);
+                wx.navigateBack();
+            }).finally(() => {
+                wx.hideLoading();
+            });
         });
     },
     //计算总金额
@@ -130,6 +133,7 @@ Page({
         this.data.goodsList.map((item) => {
             totalAmount += item.price * item.gross;
         });
+        totalAmount += (Number(this.data.configData.deliveryCost) || 0);
         totalAmount = totalAmount.toFixed(2);
         this.setData({
             totalAmount: totalAmount
