@@ -59,8 +59,15 @@ Page({
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;
-        this.setData({
-            [prop]: e.detail
+        var title = e.currentTarget.dataset.title;
+        wx.jyApp.utils.setText({
+            title: title,
+            defaultValue: this.data[prop],
+            complete: (value) => {
+                this.setData({
+                    [prop]: value
+                });
+            }
         });
     },
     onCollapseChange(event) {

@@ -291,6 +291,11 @@ Page({
                 });
             } else {
                 wx.jyApp.toast('申请成功');
+                this.getNewHistory();
+                this.data.consultOrder.applyCount = 1;
+                this.setData({
+                    'consultOrder.applyCount': 1
+                });
             }
         }).catch(() => {
             wx.hideLoading();
