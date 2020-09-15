@@ -328,7 +328,7 @@ Page({
             wx.jyApp.toast('个人头像不能为空');
             return;
         }
-        if (!/1\d{10}/.test(this.data.phone)) {
+        if (!/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('手机号输入错误');
             return;
         }

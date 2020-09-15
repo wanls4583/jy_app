@@ -17,8 +17,8 @@
 		<van-empty description="未查询到相关{{doctorVisible?'结果':'产品'}}，请重新搜索" />
 	</view>
 	<view class="white-background-color" style="margin-top:54px">
-		<view class="padding-30" wx:if="{{doctorVisible&&doctorData.list.length}}">
-			<view class="font-bold">医生</view>
+		<view class="padding-left-right-30" wx:if="{{doctorVisible&&doctorData.list.length}}">
+			<view class="font-bold padding-top-30">医生</view>
 			<view>
 				<view class="flex--start--between padding-top-bottom-30 border-bottom" wx:for="{{doctorData.list}}" wx:key="id">
 					<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
@@ -38,10 +38,12 @@
 					</view>
 				</view>
 			</view>
-			<view bindtap="onLoadMore" class="padding-top-bottom-30 primary-color align-center" data-type="3" wx:if="{{doctorData.totalPage>=doctorData.page}}">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{doctorData.totalPage>=doctorData.page}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="3">查看更多</view>
+			</view>
 		</view>
-		<view class="padding-30 border-top" wx:if="{{taocanData.list.length}}">
-			<view class="font-bold">营养套餐</view>
+		<view class="padding-left-right-30 border-top" wx:if="{{taocanData.list.length}}">
+			<view class="font-bold padding-top-30">营养套餐</view>
 			<view>
 				<view
 					bindtap="onclickProdcut"
@@ -61,12 +63,12 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center padding-top-bottom-30">
-				<view bindtap="onLoadMore" class="button text primary" data-type="1" wx:if="{{taocanData.totalPage>=taocanData.page}}">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{taocanData.totalPage>=taocanData.page}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
 			</view>
 		</view>
-		<view class="padding-30 border-top" wx:if="{{productData.list.length}}">
-			<view class="font-bold">营养产品</view>
+		<view class="padding-left-right-30 border-top" wx:if="{{productData.list.length}}">
+			<view class="font-bold padding-top-30">营养产品</view>
 			<view>
 				<view
 					bindtap="onclickProdcut"
@@ -86,8 +88,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center padding-top-bottom-30">
-				<view bindtap="onLoadMore" class="button text primary" data-type="2" wx:if="{{productData.totalPage>=productData.page}}">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{productData.totalPage>=productData.page}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
 			</view>
 		</view>
 	</view>

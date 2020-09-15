@@ -8,7 +8,8 @@ Page({
         productInfo: {},
         bTop: 28,
         bHeight: 32,
-        needMoney: 0
+        needMoney: 0,
+        num: 0
     },
     onLoad(option) {
         this.data.id = option.id;
@@ -59,6 +60,7 @@ Page({
         this.setData({
             needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
         });
+        this.getProductNum();
     },
     onCartNumChange(e) {
         var id = e.currentTarget.dataset.id;
@@ -71,6 +73,7 @@ Page({
         this.setData({
             needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
         });
+        this.getProductNum();
     },
     onClearCart() {
         this.clearCart();
@@ -116,5 +119,19 @@ Page({
         } else {
             wx.jyApp.toast('请先添加商品');
         }
+    },
+    //获取商品购买数量
+    getProductNum() {
+        wx.nextTick(() => {
+            var num = 0;
+            this.data.cart.map((item) => {
+                if (item.product.id == this.data.productInfo.id) {
+                    num = item.num;
+                }
+            });
+            this.setData({
+                num: num
+            });
+        });
     }
 })

@@ -1,16 +1,20 @@
-.num {
-    margin: 0 10rpx;
-    min-width: 20px;
+.plus_minus .van-stepper__plus, .plus_minus .van-stepper__minus {
+    border-radius: 50% !important;
+    background-color: #2aafff !important;
 }
 
+.plus_minus input {
+    background-color: transparent !important;
+}
 
-.del {
-    position: absolute;
-    top: 0;
-    left: 5px;
-    width: 10px;
-    overflow: hidden;
-    text-align: center;
-    font-weight: bold;
-    line-height: 16px;
+.plus_minus .van-stepper__plus:before, .plus_minus .van-stepper__minus:before {
+    background-color: #fff !important;
+    height: 2px !important;
+    width: 12px !important;
+}
+
+.plus_minus .van-stepper__plus:after {
+    background-color: #fff !important;
+    width: 2px !important;
+    height: 12px !important;
 }

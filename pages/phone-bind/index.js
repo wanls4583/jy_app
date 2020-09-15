@@ -39,7 +39,7 @@ Page({
         if (this.data.sendTxt != '发送验证码') {
             return;
         }
-        if (!/1\d{10}/.test(this.data.phone)) {
+        if (!/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('请输入正确的手机号');
             return;
         }

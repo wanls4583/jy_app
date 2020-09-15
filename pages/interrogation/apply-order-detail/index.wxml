@@ -14,7 +14,7 @@
 			<text class="flex-shrink-0">商品信息：</text>
 			<view class="flex-grow-1 flex--center--between">
 				<text>{{order.goodsName}}</text>
-				<text class="flex-shrink-0 danger-color">￥{{order.orderAmount||order.price||0}}</text>
+				<text class="flex-shrink-0">￥{{order.orderAmount||order.price||0}}</text>
 			</view>
 		</view>
 		<view class="flex padding-bottom-20">

@@ -35,7 +35,13 @@ Component({
             this.loadList();
         },
         onClickPatient(e) {
-            var id = e.currentTarget.dataset.id;
+            var roomId = e.currentTarget.dataset.roomid;
+            if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
+                return;
+            }
+            wx.navigateTo({
+                url: '/pages/interrogation/chat/index?roomId=' + roomId
+            });
         },
         onClickPhone() {
             wx.makePhoneCall({

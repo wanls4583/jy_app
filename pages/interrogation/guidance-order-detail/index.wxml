@@ -48,7 +48,7 @@
 					<view>{{product.goodsName}}</view>
 					<view class="flex--center--between margin-top-20 width-100">
 						<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-						<text class="danger-color">￥{{product.price}}</text>
+						<text>￥{{product.price}}</text>
 					</view>
 				</view>
 			</view>

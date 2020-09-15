@@ -69,7 +69,7 @@
 				<van-icon color="#fff" name="arrow" />
 			</view>
 		</view>
-		<view class="flex white-background-color">
+		<view class="flex--center--around white-background-color">
 			<block wx:if="{{userInfo.role=='USER'}}">
 				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />

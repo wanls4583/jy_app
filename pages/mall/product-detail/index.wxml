@@ -18,7 +18,29 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
 			<view class="font-large font-bold danger-color">￥{{productInfo.price}}/{{productInfo._unit}}</view>
-			<van-icon bindtap="onAddToCart" color="#2aafff" name="add" size="30" />
+			<view class="flex--center--between radius-100px" style="height:30px">
+				<view
+					bindtap="onAddToCart"
+					class="flex--center--center height-100 padding-left-right-10 radius-100px primary-background-color white-color"
+					wx:if="{{!num}}"
+				>
+					<van-icon color="#ffffff" name="add-o" size="20" />
+					<text class="margin-left-10">添加购物车</text>
+				</view>
+				<block wx:else>
+					<van-stepper
+						bind:change="onCartNumChange"
+						class="plus_minus"
+						data-id="{{item.product.id}}"
+						integer
+						min="{{0}}"
+						value="{{item.num}}"
+						wx:for="{{cart}}"
+						wx:if="{{item.product.id==productInfo.id}}"
+						wx:key="index"
+					/>
+				</block>
+			</view>
 		</view>
 	</view>
 	<view class="margin-top-20 padding-30 white-background-color">
@@ -28,7 +50,8 @@
 	</view>
 	<view class="footer flex--center--between">
 		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
-			<van-icon class="{{cartNum?'primary-color':'gray-color'}} margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" />
+			<van-icon class="primary-color margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" wx:if="{{cartNum}}" />
+			<van-icon class="gray-color margin-right-30" name="shopping-cart-o" size="20px" wx:else />
 			<text class="primary-color" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
 			<view class="margin-left-20 gray-color" wx:if="{{!cartNum}}">
 				<view wx:if="{{configData.deliveryCost}}">

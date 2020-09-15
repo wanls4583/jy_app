@@ -81,6 +81,54 @@ Page({
     onGuidanceOrderLoadMore() {
         this.loadGuidanceOrderList();
     },
+    //支付问诊单
+    onInterrogationPay(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.showLoading('支付中...', true);
+        wx.jyApp.http({
+            url: '/consultorder/pay',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).then((data) => {
+            wx.hideLoading();
+            wx.jyApp.utils.pay(data.params).then(() => {
+                this.loadInterrogationOrderList(true);
+                wx.navigateTo({
+                    url: '/pages/interrogation/chat/index?id=' + id
+                });
+            }).catch(() => {
+                wx.jyApp.toast('支付失败');
+            });
+        }).catch(() => {
+            wx.hideLoading();
+        });
+    },
+    //支付商城订单
+    onMallOrderPay(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.showLoading('支付中...', true);
+        wx.jyApp.http({
+            url: '/wx/pay/submit',
+            method: 'post',
+            data: {
+                id: id
+            }
+        }).then((data) => {
+            wx.hideLoading();
+            wx.jyApp.utils.pay(data.params).then(() => {
+                this.loadMallOrderList(true);
+                wx.navigateTo({
+                    url: '/pages/mall/order-detail/index?id=' + id
+                });
+            }).catch(() => {
+                wx.jyApp.toast('支付失败');
+            });
+        }).catch(() => {
+            wx.hideLoading();
+        });
+    },
     loadMallOrderList(refresh) {
         if (refresh) {
             this.setData({

@@ -11,7 +11,7 @@
 					class="overflow-hidden radius-8px shadow-bold"
 					duration="{{500}}"
 					interval="{{5000}}"
-					style="height:330rpx;transform:translateY(0);"
+					style="height:33vw;transform:translateY(0);"
 				>
 					<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 						<view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
@@ -22,7 +22,7 @@
 					</swiper-item>
 				</swiper>
 			</view>
-			<view class="flex--center--between padding-30 white-background-color">
+			<view class="flex--center--between white-background-color" style="padding:30rpx 54rpx">
 				<view bindtap="onGoto" class="flex-direction-column flex--center--between clickable" data-url="/pages/interrogation/illness-edit/index">
 					<view class="width-80rpx height-80rpx">
 						<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
@@ -45,8 +45,8 @@
 					<text class="font-small gray-color margin-top-10">快速送货上门</text>
 				</view>
 			</view>
-			<view class="white-background-color">
-				<view class="font-title padding-30 text-shadow">营养中心</view>
+			<view class="white-background-color" wx:if="{{departmentList.length}}">
+				<view class="font-large padding-30 text-shadow">营养中心</view>
 				<view class="flex flex-wrap-wrap">
 					<view
 						bindtap="onGoto"
@@ -62,9 +62,9 @@
 					</view>
 				</view>
 			</view>
-			<view class="white-background-color padding-30">
+			<view class="white-background-color padding-30" wx:if="{{doctorList.length}}">
 				<view class="flex--center--between">
-					<text class="font-title text-shadow">推荐医生</text>
+					<text class="font-large text-shadow">推荐医生</text>
 					<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
 						<text>全部</text>
 						<van-icon name="arrow" />
@@ -89,12 +89,12 @@
 				</view>
 			</view>
 			<view class="overflow-hidden white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
-				<view class="font-title padding-top-bottom-30 text-shadow">健康科普</view>
+				<view class="font-large padding-top-bottom-30 text-shadow">健康科普</view>
 				<view
 					bindtap="onClickBanner"
 					class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow-bold"
 					data-link="{{item.linkUrl}}"
-					style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:33vw"
+					style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:330rpx"
 					wx:for="{{kepuList}}"
 					wx:key="id"
 				>

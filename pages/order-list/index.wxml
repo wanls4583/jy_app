@@ -24,7 +24,7 @@
 						<view bindtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
 							<view class="flex--center--between padding-top-bottom-20">
 								<text>商品信息：{{order.goodsName}}</text>
-								<text class="margin-left-30 danger-color">￥{{order.orderAmount}}</text>
+								<text class="margin-left-30">￥{{order.orderAmount}}</text>
 							</view>
 							<view class="flex padding-bottom-20">
 								<text>患者信息：</text>
@@ -34,9 +34,9 @@
 								<text>，{{order.patient.height}}cm</text>
 								<text>，{{order.patient.weight}}kg</text>
 							</view>
-							<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
-								<view class="button primary small">立即支付</view>
-							</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
+							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==3&&order.userId==userInfo.id}}">
 							<view
@@ -74,7 +74,7 @@
 						<view bindtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?id={{order.id}}">
 							<view class="flex--center--between padding-top-bottom-20">
 								<text>商品信息：{{order.goodsName}}</text>
-								<text class="danger-color">￥{{order.price}}</text>
+								<text class>￥{{order.price}}</text>
 							</view>
 							<view class="flex padding-bottom-20">
 								<text>患者信息：</text>
@@ -127,7 +127,7 @@
 										<view>{{product.goodsName}}</view>
 										<view class="flex--center--between width-100">
 											<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-											<text class="danger-color">￥{{product.price}}</text>
+											<text class>￥{{product.price}}</text>
 										</view>
 									</view>
 								</view>
@@ -164,7 +164,7 @@
 											<view>{{product.goodsName}}</view>
 											<view class="flex--center--between width-100">
 												<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-												<text class="danger-color">￥{{product.price}}</text>
+												<text class>￥{{product.price}}</text>
 											</view>
 										</view>
 									</view>
@@ -173,9 +173,9 @@
 									<view>配送金额：￥{{order.deliveryCost}}</view>
 									<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 								</view>
-								<view class="border-top flex--center--end padding-top-bottom-20" wx:if="{{order.status==0}}">
-									<view class="primary button small">立即支付</view>
-								</view>
+							</view>
+							<view class="border-top flex--center--end padding-top-bottom-20" wx:if="{{order.status==0}}">
+								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{order.id}}">立即支付</view>
 							</view>
 						</view>
 					</view>

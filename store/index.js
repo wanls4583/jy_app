@@ -21,6 +21,7 @@ export const store = observable({
         var temp = this.cart.filter((item) => {
             return item.product.id == product.id;
         });
+        product = Object.assign({}, product || {});
         if (temp.length) {
             temp[0].num++;
             temp[0].totalAmount = Number((temp[0].product.price * temp[0].num).toFixed(2));

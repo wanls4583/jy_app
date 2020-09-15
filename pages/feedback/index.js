@@ -24,7 +24,7 @@ Page({
             wx.jyApp.toast('请输入反馈内容');
             return;
         }
-        if (!/1\d{10}/.test(this.data.phone)) {
+        if (!/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('手机号输入错误');
             return;
         }
