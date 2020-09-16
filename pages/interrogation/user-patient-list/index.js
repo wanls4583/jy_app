@@ -51,20 +51,6 @@ Page({
             }
         }).then((data) => {
             delete wx.jyApp.illness;
-            // if (data.params) {
-            //     wx.jyApp.utils.pay(data.params).then(() => {
-            //         wx.navigateBack({
-            //             delta: 2,
-            //             success: function () {
-            //                 wx.navigateTo({
-            //                     url: '/pages/interrogation/chat/index?id=' + data.id
-            //                 });
-            //             }
-            //         });
-            //     }).catch(() => {
-            //         wx.jyApp.toast('支付失败');
-            //     });
-            // }
             if (data.id) {
                 wx.navigateTo({
                     url: '/pages/interrogation/interrogation-pay/index?id=' + data.id

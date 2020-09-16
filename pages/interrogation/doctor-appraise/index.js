@@ -1,7 +1,7 @@
 Page({
     data: {
         content: '',
-        score: 5,
+        score: 0,
         anonymous: 0,
         doctor: {},
         result: '非常满意'
@@ -42,6 +42,10 @@ Page({
         });
     },
     onSubmit() {
+        if (!this.data.score) {
+            wx.jyApp.toast('请选择评级');
+            return;
+        }
         if (this.data.content.length < 5) {
             wx.jyApp.toast('评价内容不能少于5个字');
             return;

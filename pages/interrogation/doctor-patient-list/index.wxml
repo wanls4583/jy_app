@@ -3,9 +3,15 @@
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入患者姓名" shape="round" />
 	</view>
-	<view class="height-100 white-background-color" style="padding-top:54px">
+	<view class="height-100" style="padding-top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
-			<view bindtap="onClickPatient" class="flex--start--between padding-left-right-30 padding-top-20 clickable" data-roomid="{{item.roomId}}" wx:for="{{patientList}}" wx:key="id">
+			<view
+				bindtap="onClickPatient"
+				class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
+				data-roomid="{{item.roomId}}"
+				wx:for="{{patientList}}"
+				wx:key="id"
+			>
 				<view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
 					<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
 				</view>

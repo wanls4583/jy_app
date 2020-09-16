@@ -21,6 +21,7 @@ Page({
         })
     },
     onSubmit() {
+        var self = this;
         wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/consultorder/pay',
@@ -31,25 +32,20 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
+                wx.jyApp.payInterrogationResult = {
+                    id: self.id,
+                    result: 'success'
+                }
                 wx.navigateBack({
-                    delta: 3,
-                    success: () => {
-                        wx.navigateTo({
-                            url: '/pages/interrogation/chat/index?id=' + this.id
-                        });
-                    }
+                    delta: 3
                 });
             }).catch(() => {
-                setTimeout(() => {
-                    wx.jyApp.toast('支付失败');
-                }, 500);
+                wx.jyApp.payInterrogationResult = {
+                    id: self.id,
+                    result: 'fail'
+                }
                 wx.navigateBack({
-                    delta: 3,
-                    success: () => {
-                        wx.navigateTo({
-                            url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + this.id
-                        });
-                    }
+                    delta: 3
                 });
             });
         }).catch(() => {

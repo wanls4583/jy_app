@@ -78,7 +78,8 @@ Page({
     onClearCart() {
         this.clearCart();
         this.setData({
-            cartVisible: false
+            cartVisible: false,
+            num: 0
         });
     },
     loadInfo() {

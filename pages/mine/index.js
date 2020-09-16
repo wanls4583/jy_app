@@ -1,6 +1,5 @@
 Page({
     data: {
-        phone: '',
         settlementUrl: '',
         stopRefresh: false,
         userInfoButtonVisible: true
@@ -49,8 +48,9 @@ Page({
     },
     //跳转前检查医生状态
     onCheckGoto(e) {
+        var incomeSwitch = e.currentTarget.dataset.incomewitch;
         if (wx.jyApp.utils.checkDoctor()) {
-            if (this.data.doctorInfo.incomeSwitch != 1) {
+            if (incomeSwitch && this.data.doctorInfo.incomeSwitch != 1) {
                 wx.jyApp.toast('该功能已关闭，请联系管理员！');
             } else {
                 this.onGoto(e);
@@ -74,7 +74,10 @@ Page({
     //拨打电话
     onClickPhone() {
         wx.makePhoneCall({
-            phoneNumber: this.data.phone
+            phoneNumber: this.data.configData.service_phone,
+            complete: (msg) => {
+                console.log(msg);
+            }
         })
     },
     getWxUserInfo(e) {

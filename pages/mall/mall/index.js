@@ -12,6 +12,9 @@ Component({
         attached() {
             this.loadProduct();
             this.loadBaner();
+            this.setData({
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120
+            });
         }
     },
     methods: {

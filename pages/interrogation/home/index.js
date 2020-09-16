@@ -17,6 +17,9 @@ Component({
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
             }
+            this.setData({
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120
+            });
         },
         detached() {
             this.storeBindings.destroyStoreBindings();

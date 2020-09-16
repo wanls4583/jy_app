@@ -1,6 +1,6 @@
 <view class="container white-background-color">
 	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
-		<view class="white-background-color">
+		<view style="min-height:{{minContentHeight}}px">
 			<view class="padding-30 background-gradient">
 				<view class="flex--center--start">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
@@ -74,6 +74,17 @@
 						</view>
 					</swiper-item>
 				</swiper>
+			</view>
+		</view>
+		<view class="flex--center--center flex-direction-column padding-left-right-30 white-background-color" style="height:120px">
+			<view class="flex--center--center">
+				<image src="/image/logo.png" style="width:40rpx;height:40rpx;" />
+				<text class="margin-left-20 font-title">钜元营养</text>
+			</view>
+			<view class="flex--center--between width-100 margin-top-20">
+				<view class="flex-grow-1 border-bottom border-color-ddd"></view>
+				<text class="margin-left-right-30 gray-color font-small" decode="{{true}}">健康营养&nbsp;&nbsp;严格审核&nbsp;&nbsp;专业安全</text>
+				<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 			</view>
 		</view>
 	</pull-scroll-view>

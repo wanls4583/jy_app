@@ -32,6 +32,9 @@ Component({
                 });
                 wx.setStorageSync('switch_role_tip', 1);
             }
+            this.setData({
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120
+            });
         },
         detached() {
             this.storeBindings.destroyStoreBindings();

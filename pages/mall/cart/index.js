@@ -52,7 +52,6 @@ Page({
             }
         }).then((data) => {
             wx.hideLoading();
-            this.updateSelectAddress(null);
             wx.jyApp.utils.pay(data.params).then(() => {
                 setTimeout(() => {
                     wx.showToast({
@@ -66,6 +65,7 @@ Page({
             }).finally(() => {
                 setTimeout(() => {
                     this.clearCart();
+                    this.updateSelectAddress(null);
                 }, 500);
                 wx.redirectTo({
                     url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id

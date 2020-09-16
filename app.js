@@ -32,10 +32,6 @@ App({
                 mask: Boolean(mask)
             });
         }
-        // wx.setTabBarBadge({
-        //   index: 2,
-        //   text: '1'
-        // });
         this.firstLoad = true;
     },
     onShow() {
@@ -88,8 +84,8 @@ App({
                 if (!wx.getStorageSync('role') && data.info.role == 'USER' && data.info.switchStatus == 1) {
                     wx.setStorageSync('role', 'DOCTOR');
                     data.info.role = 'DOCTOR';
-                    wx.jyApp.store.updateUserInfo(data.info);
                 }
+                wx.jyApp.store.updateUserInfo(data.info);
                 //检查医生状态
                 if (data.info.doctorId) {
                     wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {

@@ -12,11 +12,28 @@ Page({
         this.getDoctorInfo();
         this.getAppraiseList();
     },
+    onShow() {
+        if (wx.jyApp.payInterrogationResult) { //问诊支付结果
+            if (wx.jyApp.payInterrogationResult.result == 'fail') {
+                wx.jyApp.toast('支付失败');
+                setTimeout(() => {
+                    wx.navigateTo({
+                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.payInterrogationResult.id
+                    });
+                }, 1500)
+            } else {
+                wx.navigateTo({
+                    url: '/pages/interrogation/chat/index?id=' + wx.jyApp.payInterrogationResult.id
+                });
+            }
+            delete wx.jyApp.payInterrogationResult
+        }
+    },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
     onConsult(e) {
-        if(!this.data.doctor.id) {
+        if (!this.data.doctor.id) {
             return;
         }
         if (this.data.doctor.status != 1) {

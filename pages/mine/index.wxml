@@ -85,11 +85,11 @@
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">我的订单</view>
 				</view>
-				<view bindtap="onCheckGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/income-list/index">
+				<view bindtap="onCheckGoto" class="padding-30 align-center clickable" data-incomewitch="{{true}}" data-url="/pages/interrogation/income-list/index">
 					<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">查看收益</view>
 				</view>
-				<view bindtap="onCheckGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/withdraw/index">
+				<view bindtap="onCheckGoto" class="padding-30 align-center clickable" data-incomewitch="{{true}}" data-url="/pages/interrogation/withdraw/index">
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">提现</view>
 				</view>

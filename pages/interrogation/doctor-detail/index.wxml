@@ -52,7 +52,7 @@
 		<view class="padding-top-bottom-30 border-bottom" wx:for="{{appraiseList}}" wx:key="index">
 			<view class="flex">
 				<text class="margin-right-20">{{item.userNickname}}</text>
-				<van-rate color="rgb(255, 210, 30)" size="{{14}}" value="{{item.score}}" void-color="#f1f1f1" void-icon="star" />
+				<van-rate color="rgb(255, 210, 30)" readonly size="{{14}}" value="{{item.score}}" void-color="#f1f1f1" void-icon="star" />
 			</view>
 			<view class="margin-top-10 color-666">{{item.content}}</view>
 			<view class="margin-top-10 flex--center--between gray-color font-small">
