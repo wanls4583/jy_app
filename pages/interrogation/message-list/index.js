@@ -93,7 +93,8 @@ Page({
             data: {
                 page: 1,
                 limit: 1
-            }
+            },
+            hideTip: true
         }).then((data) => {
             if (data.page.totalCount != this.data.totalCount) {
                 this.loadList(true);
