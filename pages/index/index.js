@@ -90,6 +90,14 @@ Page({
         });
     },
     getMessageCount() {
+        var pages = getCurrentPages();
+        if (pages.length > 1) {
+            clearTimeout(wx.jyApp.pollCountTimer);
+            wx.jyApp.pollCountTimer = setTimeout(() => {
+                this.getMessageCount();
+            }, 5000);
+            return Promise.resolve();
+        }
         return wx.jyApp.http({
             url: '/systemnotice/totalNotRead',
             hideTip: true
