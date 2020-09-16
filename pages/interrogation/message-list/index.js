@@ -7,11 +7,13 @@ Page({
         totalCount: 0
     },
     onLoad(option) {
-        this.loadList(true);
+        this.loadList(true).then(()=>{
+            this.checkList();
+        });
     },
     onShow() {
         if (this.data.totalPage > -1) {
-            this.checkList(true);
+            this.checkList();
         }
         this.getMessageCount();
     },
@@ -67,7 +69,8 @@ Page({
                 page: this.data.page,
                 limit: 20
             }
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,
@@ -81,6 +84,7 @@ Page({
             this.loading = false;
             this.request = null;
         });
+        return this.request;
     },
     //检查是否有新消息
     checkList() {

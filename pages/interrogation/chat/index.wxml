@@ -9,7 +9,7 @@
 	<view
 		bindtap="onClickChatBlock"
 		class="position-fixed width-100"
-		style="padding:0 10px;top:50px;bottom:{{status==1?(panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight):0}}px"
+		style="padding:0 10px;top:50px;bottom:{{(status==1||currentUser.role!='DOCTOR')?(panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight):0}}px"
 	>
 		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-with-animation="{{false}}" scroll-y="{{true}}">
 			<view class="flex--center--center" wx:if="{{totalPage>1}}">
@@ -201,6 +201,13 @@
 				<view class="font-small">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
 			</view>
 		</view>
+	</view>
+	<view class="flex--center--between padding-left-right-30 height-60px" wx:elif="{{currentUser.role!='DOCTOR'}}">
+		<view class="flex--center--center">
+			<text>图文问诊</text>
+			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}</text>
+		</view>
+		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}">去咨询</view>
 	</view>
 	<van-action-sheet actions="{{actions}}" bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">
