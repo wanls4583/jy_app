@@ -84,7 +84,9 @@ Page({
             'about_url',
             'minOrderMoney',
             'deliveryCost',
-            'goodAtDomain'
+            'goodAtDomain',
+            'informed_consent_url',
+            'activity_rule_url',
         ]).then((data) => {
             wx.jyApp.store.updateConfigData(data);
         });
