@@ -108,8 +108,8 @@ Page({
                 });
             }
         }).finally(() => {
-            clearTimeout(this.pollCountTimer);
-            this.pollCountTimer = setTimeout(() => {
+            clearTimeout(wx.jyApp.pollCountTimer);
+            wx.jyApp.pollCountTimer = setTimeout(() => {
                 this.getMessageCount();
             }, 5000);
         });

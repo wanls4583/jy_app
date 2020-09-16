@@ -80,7 +80,7 @@
 								<text>{{item.doctorName}}</text>
 								<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
 							</view>
-							<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}&nbsp;&nbsp;{{item.onlineDepartmentName}}</text>
+							<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}</text>
 							<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
 							<view class="flex margin-top-10">
 								<text decode="{{true}}">图文问诊&nbsp;</text>

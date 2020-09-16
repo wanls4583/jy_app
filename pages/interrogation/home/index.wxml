@@ -15,7 +15,7 @@
 							class="font-small"
 							decode="{{true}}"
 							wx:if="{{doctorInfo.workHospitalName||doctorInfo.onlineDepartmentName}}"
-						>{{doctorInfo.workHospitalName || ''}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || ''}}</text>
+						>{{doctorInfo.workHospitalName || ''}}</text>
 					</view>
 				</view>
 				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">

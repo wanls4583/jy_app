@@ -45,7 +45,7 @@
 								data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
 							>去评价</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&order.doctorId==userInfo.id}}">
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&order.doctorId==userInfo.doctorId}}">
 							<view catchtap="onGoto" class="button primary small" data-url="/pages/interrogation/chat/index?id={{order.id}}">立即接诊</view>
 						</view>
 					</view>

@@ -94,6 +94,13 @@ Page({
             if (data.page.totalCount != this.data.totalCount) {
                 this.loadList(true);
             }
+        }).finally(() => {
+            setTimeout(() => {
+                var pages = getCurrentPages();
+                if (pages.length == 1 && pages[0].route == 'pages/interrogation/message-list/index') {
+                    this.checkList();
+                }
+            }, 5000);
         });
     },
     //未读消息总数量

@@ -29,7 +29,10 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
-    onShareAppMessage: function(res) {
+    onOpenWebview(e) {
+        wx.jyApp.utils.openWebview(e);
+    },
+    onShareAppMessage: function (res) {
         return {
             title: '医生邀请',
             path: '/pages/index/index?type=invite&doctorId=' + this.data.userInfo.id,

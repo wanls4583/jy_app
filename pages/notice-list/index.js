@@ -70,15 +70,7 @@ Page({
             url: '/systemnotice/read/all',
             method: 'post'
         }).then(() => {
-            this.getMessageCount();
-        });
-    },
-    //获取未读消息数量
-    getMessageCount() {
-        wx.jyApp.http({
-            url: '/systemnotice/totalNotRead'
-        }).then((data) => {
-            this.updateNoticeCount(data.totalNotRead || 0);
+            this.updateNoticeCount(0);
         });
     }
 })

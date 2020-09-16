@@ -417,7 +417,7 @@ Page({
         });
     },
     saveLoaclInfo() {
-        if (!this.data.approveStatus) {
+        if (this.data.approveStatus < 0) {
             var data = this.getData();
             data.approveStatus = this.data.approveStatus;
             data.approveMsg = this.data.approveMsg;

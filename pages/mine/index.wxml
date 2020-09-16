@@ -12,7 +12,7 @@
 						<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || '--'}}</text>
 						<view class="tag success">已认证</view>
 					</view>
-					<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}&nbsp;&nbsp;{{doctorInfo.onlineDepartmentName || '--'}}</text>
+					<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}</text>
 				</view>
 			</view>
 			<button
