@@ -202,7 +202,10 @@
 			</view>
 		</view>
 	</view>
-	<view class="flex--center--between padding-left-right-30 height-60px" wx:elif="{{currentUser.role!='DOCTOR'}}">
+	<view
+		class="position-fixed bottom-0 flex--center--between width-100 height-60px padding-left-right-30 border-top border-color-ddd white-background-color"
+		wx:elif="{{currentUser.role!='DOCTOR'}}"
+	>
 		<view class="flex--center--center">
 			<text>图文问诊</text>
 			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}</text>
