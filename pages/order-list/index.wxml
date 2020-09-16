@@ -38,7 +38,7 @@
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}">立即支付</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==3&&order.userId==userInfo.id}}">
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{!order.isAppraise&&order.status==3&&order.userId==userInfo.id}}">
 							<view
 								catchtap="onGoto"
 								class="button primary warn small"

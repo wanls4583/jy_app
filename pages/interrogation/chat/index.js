@@ -55,6 +55,10 @@ Page({
                     id: option.id
                 }
             }).then((data) => {
+                var pages = getCurrentPages();
+                if (pages[pages.length - 2].route == 'pages/order-list/index') {
+                    wx.jyApp.hasRecievedId = option.id; //已接诊
+                }
                 this.initRoom(data);
                 this.getNewHistory();
             });
@@ -131,7 +135,6 @@ Page({
     },
     //发文字消息
     onSend() {
-        this.request && this.request.requestTask.abort();
         this.getNewHistory().then(() => {
             var inputValue = this.data.inputValue;
             var id = Utils.getUUID();
@@ -519,6 +522,7 @@ Page({
                 loading: true
             });
         }
+        this.request && this.request.requestTask.abort();
         this.request = wx.jyApp.http({
             url: '/chat/history/poll',
             method: 'get',

@@ -44,6 +44,31 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onShow() {
+        if (wx.jyApp.hasAppraiseId) { //已经评价
+            this.data.interrogationOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasAppraiseId) {
+                    item.isAppraise = true;
+                    this.setData({
+                        [`interrogationOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            delete wx.jyApp.hasAppraiseId;
+        }
+        if (wx.jyApp.hasRecievedId) { //已经接诊
+            this.data.interrogationOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasRecievedId) {
+                    item.status = 5;
+                    item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                    this.setData({
+                        [`interrogationOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            delete wx.jyApp.hasRecievedId;
+        }
+    },
     onChangeTab(e) {
         this.setData({
             active: e.detail.index

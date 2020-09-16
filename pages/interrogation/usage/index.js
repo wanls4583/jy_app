@@ -127,7 +127,7 @@ Page({
         }
         var pages = getCurrentPages();
         wx.navigateBack({
-            delta: pages[pages.length - 1].route == 'pages/interrogation/search/index' ? 2 : 1
+            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 2 : 1
         });
     },
     onBack() {
@@ -137,7 +137,7 @@ Page({
             }).then(() => {
                 var pages = getCurrentPages();
                 wx.navigateBack({
-                    delta: pages[pages.length - 1].route == 'pages/interrogation/search/index' ? 2 : 1
+                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 2 : 1
                 });
             });
         }

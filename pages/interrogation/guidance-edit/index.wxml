@@ -1,51 +1,58 @@
 <!--index.wxml-->
 <view class="container padding-bottom-footer">
-    <view class="padding-30 white-background-color">
-        <view class="flex--center--between">
-            <text>营养诊断</text>
-            <text class="primary-color clickable" bindtap="onClickTemplate">诊断模板</text>
-        </view>
-        <textarea class="height-50vw margin-top-20" value="{{diagnosis}}" adjust-position="{{false}}" placeholder="请输入营养诊断信息" bindinput="onInput"></textarea>
-    </view>
-    <view class="padding-30 margin-top-20 white-background-color">
-        <view class="flex--center--between">
-            <text>营养指导</text>
-            <text class="primary-color clickable" bindtap="onAddGoods">添加营养指导</text>
-        </view>
-        <view wx:if="{{!goodsList.length}}" class="margin-top-20 gray-color font-small">请点击“添加营养指导”增加套餐或产品</view>
-        <view wx:else class="margin-top-20">
-            <view wx:for="{{goodsList}}" wx:for-item="product" wx:key="id" class="product padding-bottom-30 margin-bottom-30 border-bottom">
-                <view class="flex--center--start">
-                    <view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
-                    <view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-                        <view>{{product.goodsName}}</view>
-                        <view class="flex--center--between width-100">
-                            <text class="gray-color">x{{product.gross}}{{product._unit}}</text>
-                            <text class="danger-color">￥{{product.totalAmount}}</text>
-                        </view>
-                    </view>
-                </view>
-                <view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
-                <view class="margin-top-10 gray-color font-small">备注：{{product.remark}}</view>
-                <view class="flex--center--end padding-top-30">
-                    <view class="button plain danger small" data-index="{{index}}" bindtap="onDelete">删除</view>
-                    <view class="button primary small margin-left-30" data-item="{{product}}" bindtap="onEdit">修改</view>
-                </view>
-            </view>
-            <view class="flex--center--between margin-top-20">
-                <view>
-                    <text>配送金额：</text>
-                    <text>￥{{configData.deliveryCost}}</text>
-                </view>
-                <view class="primary-color">
-                    <text>订单金额：</text>
-                    <text>￥{{totalAmount}}</text>
-                </view>
-            </view>
-        </view>
-    </view>
-    <view class="position-fixed bottom-0 width-100 padding-30">
-        <view class="button primary block" bindtap="onSave">保存</view>
-    </view>
+	<view class="padding-30 white-background-color">
+		<view class="flex--center--between">
+			<text>营养诊断</text>
+			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
+		</view>
+		<textarea
+			adjust-position="{{false}}"
+			bindinput="onInput"
+			class="height-50vw margin-top-20"
+			maxlength="{{1000}}"
+			placeholder="请输入营养诊断信息"
+			value="{{diagnosis}}"
+		></textarea>
+	</view>
+	<view class="padding-30 margin-top-20 white-background-color">
+		<view class="flex--center--between">
+			<text>营养指导</text>
+			<text bindtap="onAddGoods" class="primary-color clickable">添加营养指导</text>
+		</view>
+		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养指导”增加套餐或产品</view>
+		<view class="margin-top-20" wx:else>
+			<view class="product padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
+				<view class="flex--center--start">
+					<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+					<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
+						<view>{{product.goodsName}}</view>
+						<view class="flex--center--between width-100">
+							<text class="gray-color">x{{product.gross}}{{product._unit}}</text>
+							<text class="danger-color">￥{{product.totalAmount}}</text>
+						</view>
+					</view>
+				</view>
+				<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
+				<view class="margin-top-10 gray-color font-small">备注：{{product.remark}}</view>
+				<view class="flex--center--end padding-top-30">
+					<view bindtap="onDelete" class="button plain danger small" data-index="{{index}}">删除</view>
+					<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{product}}">修改</view>
+				</view>
+			</view>
+			<view class="flex--center--between margin-top-20">
+				<view>
+					<text>配送金额：</text>
+					<text>￥{{configData.deliveryCost}}</text>
+				</view>
+				<view class="primary-color">
+					<text>订单金额：</text>
+					<text>￥{{totalAmount}}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="position-fixed bottom-0 width-100 padding-30">
+		<view bindtap="onSave" class="button primary block">保存</view>
+	</view>
 </view>
 <van-dialog id="van-dialog" />

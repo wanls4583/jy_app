@@ -71,7 +71,7 @@ Page({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
             method: 'post',
             data: this.data.patient
-        }).then(() => {
+        }).then((data) => {
             wx.jyApp.reloadPatientList = true;
             wx.navigateBack();
             setTimeout(() => {

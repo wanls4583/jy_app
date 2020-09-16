@@ -28,10 +28,10 @@ Page({
             value: 2
         }, {
             label: '价格从高到低',
-            value: 3
+            value: 4
         }, {
             label: '价格从低到高',
-            value: 4
+            value: 3
         }],
         priceList: [{
             label: '1-30',

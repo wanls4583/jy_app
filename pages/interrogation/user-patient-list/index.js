@@ -22,7 +22,14 @@ Page({
     },
     onShow() {
         if (wx.jyApp.reloadPatientList) {
-            this.loadList();
+            this.loadList().then(() => {
+                if (wx.jyApp.selectPatientId) {
+                    this.setData({
+                        selectId: wx.jyApp.selectPatientId
+                    });
+                    delete wx.jyApp.reloadPatientList;
+                }
+            });
             delete wx.jyApp.reloadPatientList;
         }
     },
