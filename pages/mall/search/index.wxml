@@ -20,7 +20,13 @@
 		<view class="padding-left-right-30" wx:if="{{doctorVisible&&doctorData.list.length}}">
 			<view class="font-bold padding-top-30">医生</view>
 			<view>
-				<view class="flex--start--between padding-top-bottom-30 border-bottom" wx:for="{{doctorData.list}}" wx:key="id">
+				<view
+					bindtap="onClickDoctor"
+					class="flex--start--between padding-top-bottom-30 border-bottom"
+					data-id="{{item.id}}"
+					wx:for="{{doctorData.list}}"
+					wx:key="id"
+				>
 					<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
 						<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
 					</view>

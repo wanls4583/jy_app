@@ -9,6 +9,7 @@ Page({
     onLoad(option) {
         this.doctorId = option.doctorId || '';
         this.taskMap = {}
+        this.getDoctorInfo();
     },
     onUnload() {
         for (var key in this.taskMap) {
@@ -27,11 +28,31 @@ Page({
         }
         wx.jyApp.illness = {
             diseaseDetail: this.data.diseaseDetail,
-            picUrls: this.data.picUrls
+            picUrls: this.data.picUrls,
+            doctorId: this.doctorId,
+            doctorName: this.data.doctor.doctorName,
+            consultOrderPrice: this.data.doctor.consultOrderPrice
         }
         wx.jyApp.selectPatientFlag = true;
         wx.navigateTo({
-            url: '/pages/interrogation/user-patient-list/index?selectPatient=1&doctorId=' + this.doctorId
+            url: '/pages/interrogation/user-patient-list/index?selectPatient=1'
+        });
+    },
+    getDoctorInfo() {
+        wx.jyApp.showLoading('加载中...', true);
+        wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
+            wx.hideLoading();
+            this.setData({
+                doctor: data.doctor
+            });
+            if (this.data.doctor.consultOrderSwitch != 1 || this.data.doctor.authStatus != 1 || this.data.doctor.status != 1) {
+                wx.navigateBack();
+                setTimeout(() => {
+                    wx.jyApp.toast('医生已下线');
+                }, 500);
+            }
+        }).catch(() => {
+            wx.hideLoading();
         });
     },
     chooseImage() {
@@ -82,7 +103,7 @@ Page({
                         }
                     });
                     self.taskMap[item].onProgressUpdate((data) => {
-                        if(data.progress == 100) {
+                        if (data.progress == 100) {
                             data.progress = 99.99;
                         }
                         self.data.progressMap[item] = data.progress

@@ -3,37 +3,28 @@ Page({
         order: {}
     },
     onLoad(option) {
-        this.id = option.id;
-        this.loadInfo();
-    },
-    loadInfo() {
-        wx.showLoading({
-            title: '加载中'
+        this.setData({
+            goodsName: wx.jyApp.illness.doctorName + '-' + '图文问诊',
+            consultOrderPrice: wx.jyApp.illness.consultOrderPrice,
+            orderTime: new Date().formatTime('yyyy-MM-dd')
         });
-        wx.jyApp.http({
-            url: '/consultorder/info/' + this.id
-        }).then((data) => {
-            this.setData({
-                order: data.consultOrder || {}
-            });
-        }).finally(() => {
-            wx.hideLoading();
-        })
     },
     onSubmit() {
-        var self = this;
         wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
-            url: '/consultorder/pay',
+            url: '/consultorder/save',
             method: 'post',
             data: {
-                id: this.id
+                "diseaseDetail": wx.jyApp.illness.diseaseDetail,
+                "doctorId": wx.jyApp.illness.doctorId,
+                "patientId": wx.jyApp.illness.patientId,
+                "picUrls": wx.jyApp.illness.picUrls.join(',')
             }
         }).then((data) => {
-            wx.hideLoading();
+            delete wx.jyApp.illness;
             wx.jyApp.utils.pay(data.params).then(() => {
                 wx.jyApp.payInterrogationResult = {
-                    id: self.id,
+                    id: data.id,
                     result: 'success'
                 }
                 wx.navigateBack({
@@ -41,14 +32,14 @@ Page({
                 });
             }).catch(() => {
                 wx.jyApp.payInterrogationResult = {
-                    id: self.id,
+                    id: data.id,
                     result: 'fail'
                 }
                 wx.navigateBack({
                     delta: 3
                 });
             });
-        }).catch(() => {
+        }).finally(() => {
             wx.hideLoading();
         });
     }

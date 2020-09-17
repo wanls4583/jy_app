@@ -10,7 +10,6 @@ Page({
             fields: ['configData']
         });
         this.storeBindings.updateStoreBindings();
-        this.doctorId = option.doctorId;
         this.setData({
             ifSelect: wx.jyApp.selectPatientFlag || false
         });
@@ -47,22 +46,9 @@ Page({
             wx.jyApp.toast('请选择患者');
             return;
         }
-        wx.jyApp.http({
-            url: '/consultorder/save',
-            method: 'post',
-            data: {
-                "diseaseDetail": wx.jyApp.illness.diseaseDetail,
-                "doctorId": this.doctorId,
-                "patientId": this.data.selectId,
-                "picUrls": wx.jyApp.illness.picUrls.join(',')
-            }
-        }).then((data) => {
-            delete wx.jyApp.illness;
-            if (data.id) {
-                wx.navigateTo({
-                    url: '/pages/interrogation/interrogation-pay/index?id=' + data.id
-                });
-            }
+        wx.jyApp.illness.patientId = this.data.selectId;
+        wx.navigateTo({
+            url: '/pages/interrogation/interrogation-pay/index'
         });
     },
     onChange(e) {
