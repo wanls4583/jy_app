@@ -537,6 +537,20 @@ Page({
         });
         this.request.then((data) => {
             var list = data.page.list;
+            list.reverse();
+            if (list.length) {
+                if (!ifPre) {
+                    this.setData({
+                        lastestId: list[list.length - 1].id,
+                    });
+                }
+                if (ifPre || !this.data.earlistId && list.length) {
+                    this.setData({
+                        earlistId: list[0].id,
+                        totalPage: data.page.totalPage
+                    });
+                }
+            }
             //去除本地已发送的消息
             list = list.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
@@ -544,7 +558,6 @@ Page({
             if (!list.length) {
                 return;
             }
-            list.reverse();
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
                 if (item.type == 4 && item.orderApplyVO) {
@@ -633,19 +646,6 @@ Page({
                     }, () => {
                         this.getPageHeight(lastPageId);
                         this.scrollToBottom();
-                    });
-                }
-            }
-            if (list.length) {
-                if (!ifPre) {
-                    this.setData({
-                        lastestId: list[list.length - 1].id,
-                    });
-                }
-                if (ifPre || !this.data.earlistId && list.length) {
-                    this.setData({
-                        earlistId: list[0].id,
-                        totalPage: data.page.totalPage
                     });
                 }
             }
