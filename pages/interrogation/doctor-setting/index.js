@@ -17,8 +17,8 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            consultOrderPrice: this.data.doctorInfo.consultOrderPrice,
-            nutritionOrderPrice: this.data.doctorInfo.nutritionOrderPrice,
+            consultOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.consultOrderPrice || 0,
+            nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.nutritionOrderPrice || 0,
             consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
             status: this.data.doctorInfo.status,
             statusList: [{
@@ -45,13 +45,18 @@ Page({
         this.submit();
     },
     onClickTextPrice() {
+        if (this.data.doctorInfo.incomeSwitch != 1) {
+            return;
+        }
         wx.jyApp.utils.setText({
             title: '图文问诊每次金额',
             defaultValue: this.data.consultOrderPrice,
             type: 'number',
             complete: (value) => {
                 if (value < 1 || value > 1000) {
-                    wx.jyApp.toast('图文问诊金额需在1-1000范围内');
+                    setTimeout(() => {
+                        wx.jyApp.toast('图文问诊金额需在1-1000范围内');
+                    }, 500);
                     return;
                 }
                 this.setData({
@@ -62,13 +67,18 @@ Page({
         });
     },
     onClickGuidePrice() {
+        if (this.data.doctorInfo.incomeSwitch != 1) {
+            return;
+        }
         wx.jyApp.utils.setText({
             title: '营养指导诊金',
             defaultValue: this.data.nutritionOrderPrice,
             type: 'number',
             complete: (value) => {
                 if (value < 1 || value > 1000) {
-                    wx.jyApp.toast('营养指导诊金额需在0-100范围内');
+                    setTimeout(() => {
+                        wx.jyApp.toast('营养指导诊金额需在0-100范围内');
+                    }, 500);
                     return;
                 }
                 this.setData({
@@ -103,14 +113,16 @@ Page({
             url: '/doctor/config',
             method: 'post',
             data: {
-                consultOrderPrice: Number(this.data.consultOrderPrice) || 0,
-                nutritionOrderPrice: Number(this.data.nutritionOrderPrice) || 0,
+                consultOrderPrice: this.data.doctorInfo.incomeSwitch == 1 ? (Number(this.data.consultOrderPrice) || 0) : this.data.doctorInfo.consultOrderPrice,
+                nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 ? (Number(this.data.nutritionOrderPrice) || 0) : this.data.doctorInfo.nutritionOrderPrice,
                 consultOrderSwitch: this.data.consultOrderSwitch,
                 status: this.data.status
             }
         }).then(() => {
-            this.data.doctorInfo.consultOrderPrice = Number(this.data.consultOrderPrice) || 0
-            this.data.doctorInfo.nutritionOrderPrice = Number(this.data.nutritionOrderPrice) || 0
+            if (this.data.doctorInfo.incomeSwitch == 1) {
+                this.data.doctorInfo.consultOrderPrice = Number(this.data.consultOrderPrice) || 0
+                this.data.doctorInfo.nutritionOrderPrice = Number(this.data.nutritionOrderPrice) || 0
+            }
             this.data.doctorInfo.consultOrderSwitch = this.data.consultOrderSwitch
             this.data.doctorInfo.status = this.data.status
             this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo))
