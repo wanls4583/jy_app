@@ -65,7 +65,7 @@ Page({
                 order: data.order
             });
         }).finally(() => {
-            wx.hideLoading();
+            !this.loaded && wx.hideLoading();
             this.loaded = true;
         });
     }

@@ -42,7 +42,7 @@ Page({
                 wx.showToast({
                     title: '支付成功'
                 });
-                this.loadInfo();
+                this.loadInfo().then();
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
@@ -89,7 +89,7 @@ Page({
                 order: data.detail
             });
         }).finally(() => {
-            wx.hideLoading();
+            !this.loaded && wx.hideLoading();
             this.loaded = true;
         });
     },

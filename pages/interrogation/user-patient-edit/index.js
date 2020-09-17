@@ -73,6 +73,7 @@ Page({
             data: this.data.patient
         }).then((data) => {
             wx.jyApp.reloadPatientList = true;
+            wx.jyApp.selectPatientId = data.id;
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({
