@@ -125,7 +125,7 @@
 										<text>{{patient.height}}cm，</text>
 										<text>{{patient.weight}}kg</text>
 									</view>
-									<view class="align-center padding-bottom-20" wx:if="{{currentUser.role=='DOCTOR'&&item.orderApplyVO.status==1}}">
+									<view class="align-center padding-bottom-20" wx:if="{{currentUser.role=='DOCTOR'&&item.orderApplyVO.status==1&&status==1}}">
 										<view bindtap="onGoto" class="button small primary" data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}">开营养指导</view>
 									</view>
 								</view>
