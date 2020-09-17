@@ -39,6 +39,9 @@ Page({
         });
     },
     getDoctorInfo() {
+        if(!this.doctorId) {
+            return;
+        }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
             wx.hideLoading();
