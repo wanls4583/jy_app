@@ -278,6 +278,7 @@ checkbox {
     color: #fff;
     margin-left: 10rpx;
     border-radius: 8rpx;
+    box-shadow: 0 0 4rpx rgba(0, 0, 0, 0.2);
 }
 
 .tag.success {

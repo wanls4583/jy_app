@@ -23,26 +23,18 @@ Page({
         if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
             return;
         }
+        for (var i = 0; i < this.data.messageList.length; i++) {
+            var item = this.data.messageList[i];
+            if (item.id == id) {
+                item.notReadNum = 0;
+                this.setData({
+                    [`messageList[${i}]`]: item
+                });
+                break;
+            }
+        }
         wx.navigateTo({
             url: '/pages/interrogation/chat/index?roomId=' + roomId
-        });
-        wx.jyApp.http({
-            url: '/chat/resetNotReadNum',
-            method: 'post',
-            data: {
-                id: id
-            }
-        }).then(() => {
-            for (var i = 0; i < this.data.messageList.length; i++) {
-                var item = this.data.messageList[i];
-                if (item.id == id) {
-                    item.notReadNum = 0;
-                    this.setData({
-                        [`messageList[${i}]`]: item
-                    });
-                    break;
-                }
-            }
         });
     },
     onRefresh() {

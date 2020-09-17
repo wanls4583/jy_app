@@ -94,6 +94,7 @@ Page({
             consultOrder: data.consultOrder,
             consultOrderId: data.chatRoom.consultOrderId
         });
+        this.resetUnread();
         wx.setNavigationBarTitle({
             title: data.talker.nickname
         });
@@ -694,5 +695,15 @@ Page({
         this.pollStoped = true;
         clearTimeout(this.pollTimer);
         this.request && this.request.requestTask.abort();
+    },
+    //重置房间消息未读消息数
+    resetUnread() {
+        wx.jyApp.http({
+            url: '/chat/resetNotReadNum',
+            method: 'post',
+            data: {
+                roomId: this.data.roomId
+            }
+        });
     }
 })
