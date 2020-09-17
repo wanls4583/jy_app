@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="position-fixed top-0 width-100">
+	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search bind:change="onChangeText" bind:search="onSearch" focus="{{true}}" placeholder="请输入产品" shape="round" value="{{searchText}}" />
 	</view>
 	<view class="white-background-color" style="margin-top:54px">
@@ -13,7 +13,7 @@
 					bindtap="onclickProdcut"
 					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
 					data-id="{{product.id}}"
-					wx:for="{{taocanData.list}}"
+					wx:for="{{taocanData.renderList}}"
 					wx:for-item="product"
 					wx:key="id"
 				>
@@ -30,8 +30,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-top-bottom-30 align-center" wx:if="{{productData.totalPage>=productData.page}}">
-				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
+			<view class="padding-top-bottom-30 align-center" wx:if="{{taocanData.renderList.length<taocanData.totalCount}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
 			</view>
 		</view>
 		<view class="padding-left-right-30 border-top" wx:if="{{productData.list.length}}">
@@ -41,7 +41,7 @@
 					bindtap="onclickProdcut"
 					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
 					data-id="{{product.id}}"
-					wx:for="{{productData.list}}"
+					wx:for="{{productData.renderList}}"
 					wx:for-item="product"
 					wx:key="id"
 				>
@@ -58,8 +58,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-top-bottom-30 align-center" wx:if="{{productData.totalPage>=productData.page}}">
-				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
+			<view class="padding-top-bottom-30 align-center" wx:if="{{productData.renderList.length<productData.totalCount}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
 			</view>
 		</view>
 	</view>

@@ -9,7 +9,7 @@
 	>资质认证审核不通过，原因如下：{{approveMsg}}</view>
 	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
 		<van-collapse-item name="1" title="基本信息">
-			<van-field bindtap="onInput" data-prop="doctorName" data-title="姓名" label="姓名" placeholder="请输入本人真实姓名" readonly value="{{doctorName}}"></van-field>
+			<readonly-field bindtap="onInput" data-prop="doctorName" data-title="姓名" label="姓名" placeholder="请输入本人真实姓名" readonly value="{{doctorName}}"></readonly-field>
 			<van-field bindtap="chooseAvater" label="个人头像" placeholder="{{avatar?'':'请输入本人身份证号'}}" readonly>
 				<view class="flex--center--center" slot="right-icon">
 					<view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
@@ -26,9 +26,9 @@
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</van-field>
-			<van-field bindtap="onInput" data-prop="phone" data-title="手机号" label="手机号" placeholder="请输入本人手机号" readonly value="{{phone}}"></van-field>
-			<van-field bindtap="onInput" data-prop="idNumber" data-title="身份证" label="身份证" placeholder="请输入本人身份证号" readonly value="{{idNumber}}"></van-field>
-			<van-field bindtap="onShowArea" label="所在地区" placeholder="请输入所在地区" readonly value="{{provinceCity}}" />
+			<readonly-field bindtap="onInput" data-prop="phone" data-title="手机号" label="手机号" placeholder="请输入本人手机号" readonly value="{{phone}}"></readonly-field>
+			<readonly-field bindtap="onInput" data-prop="idNumber" data-title="身份证" label="身份证" placeholder="请输入本人身份证号" readonly value="{{idNumber}}"></readonly-field>
+			<readonly-field bindtap="onShowArea" label="所在地区" placeholder="请输入所在地区" readonly value="{{provinceCity}}" />
 			<view class="padding-30 border-bottom">
 				<view>您适合下面哪些营养中心（可多选）</view>
 				<view class="flex flex-wrap-wrap">
@@ -47,7 +47,7 @@
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</van-field>
-			<van-field
+			<readonly-field
 				autosize
 				bindtap="onInput"
 				border="{{false}}"
@@ -59,14 +59,38 @@
 				readonly
 				type="textarea"
 				value="{{introduce}}"
-			></van-field>
+			></readonly-field>
 		</van-collapse-item>
 		<van-collapse-item name="2" title="科室信息">
-			<van-field bindtap="onInput" data-prop="workDepartmentName" data-title="就职科室" label="就职科室" placeholder="请输入所就职医院的科室" readonly value="{{workDepartmentName}}"></van-field>
-			<van-field bindtap="onInput" data-prop="jobDepartmentName" data-title="执业科室" label="执业科室" placeholder="请输入执业证上的科室" readonly value="{{jobDepartmentName}}"></van-field>
+			<readonly-field
+				bindtap="onInput"
+				data-prop="workDepartmentName"
+				data-title="就职科室"
+				label="就职科室"
+				placeholder="请输入所就职医院的科室"
+				readonly
+				value="{{workDepartmentName}}"
+			></readonly-field>
+			<readonly-field
+				bindtap="onInput"
+				data-prop="jobDepartmentName"
+				data-title="执业科室"
+				label="执业科室"
+				placeholder="请输入执业证上的科室"
+				readonly
+				value="{{jobDepartmentName}}"
+			></readonly-field>
 		</van-collapse-item>
 		<van-collapse-item name="3" title="执业信息">
-			<van-field bindtap="onInput" data-prop="workHospitalName" data-title="执业医院" label="执业医院" placeholder="请输入执业证上的医院名称" readonly value="{{workHospitalName}}"></van-field>
+			<readonly-field
+				bindtap="onInput"
+				data-prop="workHospitalName"
+				data-title="执业医院"
+				label="执业医院"
+				placeholder="请输入执业证上的医院名称"
+				readonly
+				value="{{workHospitalName}}"
+			></readonly-field>
 			<view class="margin-top-30 margin-left-30 color-666">执业证书图片</view>
 			<view bindtap="onChoosePracticeImage" class="padding-30 white-background-color flex--center--between" wx:if="{{!jobCertificateUrl.length}}">
 				<view class="flex--center--center flex-shrink-0 width-150rpx height-150rpx margin-right-30 gray-background-color clickable gray-color">

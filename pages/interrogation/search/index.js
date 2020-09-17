@@ -5,14 +5,18 @@ Page({
         goodsName: '',
         taocanData: {
             list: [],
+            renderList: [],
             page: 1,
             limit: 6,
+            totalCount: 0,
             totalPage: -1
         },
         productData: {
             list: [],
+            renderList: [],
             page: 1,
             limit: 6,
+            totalCount: 0,
             totalPage: -1
         },
         searched: false
@@ -64,13 +68,23 @@ Page({
         });
     },
     onLoadMore(e) {
-        var type = e.currentTarget.type;
-        if (type == 1) {
-            this.loadToacan();
-        } else if (type == 2) {
-            this.loadProduct();
-        } else if (type == 3) {
-            this.loadDoctor();
+        var type = e.currentTarget.dataset.type;
+        if (type == 2) {
+            this.loadToacan().finally(() => {
+                if (this.data.taocanData.renderList.length < this.data.taocanData.list.length) {
+                    this.setData({
+                        'taocanData.renderList': this.data.taocanData.list.slice(0, this.data.taocanData.renderList.length + 6)
+                    });
+                }
+            });
+        } else if (type == 1) {
+            this.loadProduct().finally(() => {
+                if (this.data.productData.renderList.length < this.data.productData.list.length) {
+                    this.setData({
+                        'productData.renderList': this.data.productData.list.slice(0, this.data.productData.renderList.length + 6)
+                    });
+                }
+            });
         }
     },
     onclickProdcut(e) {
@@ -80,15 +94,20 @@ Page({
         });
     },
     search() {
+        wx.jyApp.showLoading('搜索中...', true);
         Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(() => {
             this.setData({
-                searched: true
+                searched: true,
+                'taocanData.renderList': this.data.taocanData.list.slice(0, 3),
+                'productData.renderList': this.data.productData.list.slice(0, 3),
             });
+        }).finally(() => {
+            wx.hideLoading();
         });
     },
     loadProduct(refresh) {
         if (this.data.productData.loading || !refresh && this.data.productData.page > this.data.productData.totalPage) {
-            return;
+            return Promise.reject();
         }
         if (refresh) {
             this.setData({
@@ -96,6 +115,7 @@ Page({
                     list: [],
                     page: 1,
                     limit: 6,
+                    totalCount: 0,
                     totalPage: -1
                 }
             });
@@ -114,24 +134,22 @@ Page({
             }
         }).then((data) => {
             data.page.list = data.page.list || [];
-            if (refresh) {
-                data.page.list = data.page.list.slice(0, 3);
-            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = wx.jyApp.constData.unitChange[item.unit];
                 item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
             });
             this.setData({
-                [`productData.list`]: this.data.taocanData.page > 1 ? this.data.productData.list.concat(data.page.list) : data.page.list,
-                [`productData.page`]: (!refresh || data.page.list.length < 3) ? this.data.productData.page + 1 : 1,
+                [`productData.list`]: this.data.productData.list.concat(data.page.list),
+                [`productData.page`]: this.data.productData.page + 1,
+                [`productData.totalCount`]: data.page.totalCount,
                 [`productData.totalPage`]: data.page.totalPage
             });
         });
     },
     loadToacan(refresh) {
         if (this.data.taocanData.loading || !refresh && this.data.taocanData.page > this.data.taocanData.totalPage) {
-            return;
+            return Promise.reject();
         }
         if (refresh) {
             this.setData({
@@ -139,6 +157,7 @@ Page({
                     list: [],
                     page: 1,
                     limit: 6,
+                    totalCount: 0,
                     totalPage: -1
                 }
             });
@@ -157,16 +176,14 @@ Page({
             }
         }).then((data) => {
             data.page.list = data.page.list || [];
-            if (refresh) {
-                data.page.list = data.page.list.slice(0, 3);
-            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = '份';
             });
             this.setData({
-                [`taocanData.list`]: this.data.taocanData.page > 1 ? this.data.taocanData.list.concat(data.page.list) : data.page.list,
-                [`taocanData.page`]: (!refresh || data.page.list.length < 3) ? this.data.taocanData.page + 1 : 1,
+                [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),
+                [`taocanData.page`]: this.data.taocanData.page + 1,
+                [`taocanData.totalCount`]: data.page.totalCount,
                 [`taocanData.totalPage`]: data.page.totalPage
             });
         });

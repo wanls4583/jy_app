@@ -24,7 +24,7 @@
 					bindtap="onClickDoctor"
 					class="flex--start--between padding-top-bottom-30 border-bottom"
 					data-id="{{item.id}}"
-					wx:for="{{doctorData.list}}"
+					wx:for="{{doctorData.renderList}}"
 					wx:key="id"
 				>
 					<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
@@ -44,7 +44,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center padding-top-bottom-30" wx:if="{{doctorData.totalPage>=doctorData.page}}">
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{doctorData.renderList.length<doctorData.totalCount}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="3">查看更多</view>
 			</view>
 		</view>
@@ -55,7 +55,7 @@
 					bindtap="onclickProdcut"
 					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
 					data-id="{{product.id}}"
-					wx:for="{{taocanData.list}}"
+					wx:for="{{taocanData.renderList}}"
 					wx:for-item="product"
 					wx:key="id"
 				>
@@ -69,8 +69,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center padding-top-bottom-30" wx:if="{{taocanData.totalPage>=taocanData.page}}">
-				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{taocanData.renderList.length<taocanData.totalCount}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
 			</view>
 		</view>
 		<view class="padding-left-right-30 border-top" wx:if="{{productData.list.length}}">
@@ -80,7 +80,7 @@
 					bindtap="onclickProdcut"
 					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
 					data-id="{{product.id}}"
-					wx:for="{{productData.list}}"
+					wx:for="{{productData.renderList}}"
 					wx:for-item="product"
 					wx:key="id"
 				>
@@ -94,8 +94,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center padding-top-bottom-30" wx:if="{{productData.totalPage>=productData.page}}">
-				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
+			<view class="flex--center--center padding-top-bottom-30" wx:if="{{productData.renderList.length<productData.totalCount}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
 			</view>
 		</view>
 	</view>

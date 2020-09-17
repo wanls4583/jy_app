@@ -20,11 +20,11 @@ Page({
         });
     },
     onSubmit() {
-        if(!this.data.content.length) {
+        if (!this.data.content.length) {
             wx.jyApp.toast('请输入反馈内容');
             return;
         }
-        if (!/^1\d{10}$/.test(this.data.phone)) {
+        if (this.data.phone.length && !/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('手机号输入错误');
             return;
         }
