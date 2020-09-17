@@ -79,7 +79,7 @@ Page({
             url: '/goods/list',
             data: {
                 page: this.data.productData.page,
-                limit: this.data.productData.page == 1 ? 3 : 6,
+                limit: 6,
                 type: 1,
                 goodsName: this.data.goodsName
             },
@@ -88,14 +88,17 @@ Page({
             }
         }).then((data) => {
             data.page.list = data.page.list || [];
+            if (refresh) {
+                data.page.list = data.page.list.slice(0, 3);
+            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = wx.jyApp.constData.unitChange[item.unit];
                 item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
             });
             this.setData({
-                [`productData.list`]: this.data.productData.list.concat(data.page.list),
-                [`productData.page`]: this.data.productData.page + 1,
+                [`productData.list`]: this.data.productData.page > 1 ? this.data.productData.list.concat(data.page.list) : data.page.list,
+                [`productData.page`]: !refresh ? this.data.productData.page + 1 : 1,
                 [`productData.totalPage`]: data.page.totalPage
             });
         });
@@ -118,7 +121,7 @@ Page({
             url: '/goods/list',
             data: {
                 page: this.data.taocanData.page,
-                limit: this.data.taocanData.page == 1 ? 3 : 6,
+                limit: 6,
                 type: 2,
                 goodsName: this.data.goodsName
             },
@@ -127,13 +130,16 @@ Page({
             }
         }).then((data) => {
             data.page.list = data.page.list || [];
+            if (refresh) {
+                data.page.list = data.page.list.slice(0, 3);
+            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = '份';
             });
             this.setData({
-                [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),
-                [`taocanData.page`]: this.data.taocanData.page + 1,
+                [`taocanData.list`]: this.data.taocanData.page > 1 ? this.data.taocanData.list.concat(data.page.list) : data.page.list,
+                [`taocanData.page`]: !refresh ? this.data.taocanData.page + 1 : 1,
                 [`taocanData.totalPage`]: data.page.totalPage
             });
         });
@@ -156,16 +162,20 @@ Page({
             url: '/doctor/list',
             data: {
                 page: this.data.doctorData.page,
-                limit: this.data.doctorData.page == 1 ? 3 : 6,
+                limit: 6,
                 complexName: this.data.goodsName
             },
             complete: () => {
                 this.data.doctorData.loading = false;
             }
         }).then((data) => {
+            data.page.list = data.page.list || [];
+            if (refresh) {
+                data.page.list = data.page.list.slice(0, 3);
+            }
             this.setData({
-                [`doctorData.list`]: this.data.doctorData.list.concat(data.page.list || []),
-                [`doctorData.page`]: this.data.doctorData.page + 1,
+                [`doctorData.list`]: this.data.doctorData.page > 1 ? this.data.doctorData.list.concat(data.page.list) : data.page.list,
+                [`doctorData.page`]: !refresh ? this.data.doctorData.page + 1 : 1,
                 [`doctorData.totalPage`]: data.page.totalPage
             });
         });

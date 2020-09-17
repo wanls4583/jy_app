@@ -5,7 +5,7 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['doctorInfo'],
+            fields: ['doctorInfo', 'userInfo'],
             actions: ['updateDoctorInfo'],
         });
     },
@@ -38,7 +38,9 @@ Page({
             var balance = this.data.doctorInfo.balance - this.data.amount;
             this.data.doctorInfo.balance = balance.toFixed(2);
             this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo));
-            wx.navigateBack();
+            wx.navigateTo({
+                url: '/pages/interrogation/withdraw-list/index'
+            });
             setTimeout(() => {
                 wx.showToast({ title: '提现成功' });
             }, 500);

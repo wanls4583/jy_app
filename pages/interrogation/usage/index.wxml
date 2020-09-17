@@ -16,8 +16,8 @@
 		<van-field bind:input="onInputNum" data-prop="modulateDose" label="配制用量" title-width="4.5em" type="number" value="{{modulateDose}}" wx:if="{{goods.type==2}}">
 			<view slot="right-icon">毫升</view>
 		</van-field>
-		<van-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}" wx:if="{{goods.type==1}}"></van-field>
-		<van-field disabled label="频率" title-width="4.5em" value="{{_frequency}}" wx:else></van-field>
+		<readonly-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}" wx:if="{{goods.type==1}}"></readonly-field>
+		<readonly-field disabled label="频率" title-width="4.5em" value="{{_frequency}}" wx:else></readonly-field>
 		<van-cell>
 			<view class="flex--center--between">
 				<text>天数</text>
@@ -25,7 +25,7 @@
 				<text>天</text>
 			</view>
 		</van-cell>
-		<van-field bindtap="onShowGiveWay" label="给予方式" readonly title-width="4.5em" value="{{_giveWay}}"></van-field>
+		<readonly-field bindtap="onShowGiveWay" label="给予方式" readonly title-width="4.5em" value="{{_giveWay}}"></readonly-field>
 		<van-field bind:input="onInput" data-prop="remark" label="备注" title-width="4.5em" value="{{remark}}"></van-field>
 		<view class="flex--center--between padding-30">
 			<view>总量：{{gross}}{{goods._unit}}</view>

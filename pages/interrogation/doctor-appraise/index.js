@@ -4,7 +4,7 @@ Page({
         score: 0,
         anonymous: 0,
         doctor: {},
-        result: '非常满意'
+        result: ''
     },
     onLoad(option) {
         this.id = option.id;

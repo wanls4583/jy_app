@@ -9,7 +9,7 @@
 					<text class="font-bold">{{doctor.doctorName || '--'}}</text>
 					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
 				</view>
-				<text class="margin-top-10 font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.onlineDepartmentName || '--'}}</text>
+				<text class="margin-top-10 font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}</text>
 				<view class="margin-top-10 font-small">擅长：{{doctor.goodAtDomain || ''}}</view>
 			</view>
 		</view>
@@ -41,7 +41,13 @@
 					<text class="font-small">￥{{doctor.consultOrderPrice}}/24小时</text>
 				</view>
 			</view>
-			<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}">去咨询</view>
+			<view
+				bindtap="onConsult"
+				class="button primary small"
+				data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}"
+				wx:if="{{doctor.consultOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}"
+			>去咨询</view>
+			<view class="button primary small disabled" wx:else>未开通</view>
 		</view>
 	</view>
 	<view class="padding-30">

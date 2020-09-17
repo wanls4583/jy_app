@@ -49,6 +49,7 @@ Page({
             this.data.interrogationOrder.orderList.map((item, index) => {
                 if (item.id == wx.jyApp.hasAppraiseId) {
                     item.isAppraise = true;
+                    this.setStatusColor(item, 'interrogation');
                     this.setData({
                         [`interrogationOrder.orderList[${index}]`]: item
                     });
@@ -184,18 +185,7 @@ Page({
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                     _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
                 });
-                switch (item.status) {
-                    case 0:
-                    case 5:
-                    case 6:
-                        item.statusColor = 'danger-color';
-                        break;
-                    case 1:
-                    case 7:
-                    case 8:
-                        item.statusColor = 'success-color';
-                        break;
-                }
+                this.setStatusColor(item, 'mall');
             });
             this.setData({
                 'mallOrder.page': this.data.mallOrder.page + 1,
@@ -238,17 +228,7 @@ Page({
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
-                switch (item.status) {
-                    case 0:
-                    case 6:
-                    case 7:
-                        item.statusColor = 'danger-color';
-                        break;
-                    case 1:
-                    case 3:
-                        item.statusColor = 'success-color';
-                        break;
-                }
+                this.setStatusColor(item, 'interrogation')
             });
             this.setData({
                 'interrogationOrder.page': this.data.interrogationOrder.page + 1,
@@ -296,18 +276,7 @@ Page({
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                     _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
                 });
-                switch (item.status) {
-                    case 0:
-                    case 5:
-                    case 6:
-                        item.statusColor = 'danger-color';
-                        break;
-                    case 1:
-                    case 7:
-                    case 8:
-                        item.statusColor = 'success-color';
-                        break;
-                }
+                this.setStatusColor(item, 'mall');
             });
             this.setData({
                 'guidanceOrder.page': this.data.guidanceOrder.page + 1,
@@ -350,17 +319,7 @@ Page({
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
-                switch (item.status) {
-                    case 0:
-                    case 1:
-                    case 4:
-                    case 5:
-                        item.statusColor = 'danger-color';
-                        break;
-                    case 2:
-                        item.statusColor = 'success-color';
-                        break;
-                }
+                this.setStatusColor(item, 'apply');
             });
             this.setData({
                 'applyOrder.page': this.data.applyOrder.page + 1,
@@ -375,5 +334,45 @@ Page({
             });
         });
         return this.applyRequest;
+    },
+    setStatusColor(order, type) {
+        if (type == 'interrogation') {
+            switch (order.status) {
+                case 0:
+                case 6:
+                case 7:
+                    order.statusColor = 'danger-color';
+                    break;
+                case 1:
+                case 3:
+                    order.statusColor = 'success-color';
+                    break;
+            }
+        } else if (type == 'apply') {
+            switch (order.status) {
+                case 0:
+                case 1:
+                case 4:
+                case 5:
+                    order.statusColor = 'danger-color';
+                    break;
+                case 2:
+                    order.statusColor = 'success-color';
+                    break;
+            }
+        } else if (type == 'mall') {
+            switch (order.status) {
+                case 0:
+                case 5:
+                case 6:
+                    order.statusColor = 'danger-color';
+                    break;
+                case 1:
+                case 7:
+                case 8:
+                    order.statusColor = 'success-color';
+                    break;
+            }
+        }
     }
 })

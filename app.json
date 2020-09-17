@@ -64,6 +64,7 @@
         "patient-manage": "/pages/interrogation/doctor-patient-list/index",
         "navigation-bar": "/components/navigationBar/index",
         "pull-scroll-view": "/components/pull-scroll-view/index",
+        "readonly-field": "/components/readonly-field/index",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-search": "@vant/weapp/search/index",

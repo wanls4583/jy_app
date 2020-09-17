@@ -6,13 +6,13 @@ Page({
         taocanData: {
             list: [],
             page: 1,
-            limit: 3,
+            limit: 6,
             totalPage: -1
         },
         productData: {
             list: [],
             page: 1,
-            limit: 3,
+            limit: 6,
             totalPage: -1
         },
         searched: false
@@ -95,7 +95,7 @@ Page({
                 productData: {
                     list: [],
                     page: 1,
-                    limit: 3,
+                    limit: 6,
                     totalPage: -1
                 }
             });
@@ -113,14 +113,18 @@ Page({
                 this.data.productData.loading = false;
             }
         }).then((data) => {
+            data.page.list = data.page.list || [];
+            if (refresh) {
+                data.page.list = data.page.list.slice(0, 3);
+            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = wx.jyApp.constData.unitChange[item.unit];
                 item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
             });
             this.setData({
-                [`productData.list`]: this.data.productData.list.concat(data.page.list || []),
-                [`productData.page`]: this.data.productData.page + 1,
+                [`productData.list`]: this.data.taocanData.page > 1 ? this.data.productData.list.concat(data.page.list) : data.page.list,
+                [`productData.page`]: !refresh ? this.data.productData.page + 1 : 1,
                 [`productData.totalPage`]: data.page.totalPage
             });
         });
@@ -134,7 +138,7 @@ Page({
                 taocanData: {
                     list: [],
                     page: 1,
-                    limit: 3,
+                    limit: 6,
                     totalPage: -1
                 }
             });
@@ -152,13 +156,17 @@ Page({
                 this.data.taocanData.loading = false;
             }
         }).then((data) => {
+            data.page.list = data.page.list || [];
+            if (refresh) {
+                data.page.list = data.page.list.slice(0, 3);
+            }
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = '份';
             });
             this.setData({
-                [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list || []),
-                [`taocanData.page`]: this.data.taocanData.page + 1,
+                [`taocanData.list`]: this.data.taocanData.page > 1 ? this.data.taocanData.list.concat(data.page.list) : data.page.list,
+                [`taocanData.page`]: !refresh ? this.data.taocanData.page + 1 : 1,
                 [`taocanData.totalPage`]: data.page.totalPage
             });
         });

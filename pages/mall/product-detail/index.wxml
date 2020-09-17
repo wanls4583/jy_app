@@ -55,7 +55,7 @@
 			<text class="primary-color" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
 			<view class="gray-color" wx:if="{{!cartNum}}">
 				<view wx:if="{{configData.deliveryCost}}">
-					<text>配送费：</text>
+					<text>配送费:</text>
 					<text class="danger-color">￥{{configData.deliveryCost}}</text>
 				</view>
 				<view wx:else>免费配送</view>

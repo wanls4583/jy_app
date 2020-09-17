@@ -7,7 +7,7 @@ Page({
         totalCount: 0
     },
     onLoad(option) {
-        this.loadList(true).then(()=>{
+        this.loadList(true).then(() => {
             this.checkList();
         });
     },
@@ -26,24 +26,24 @@ Page({
         wx.navigateTo({
             url: '/pages/interrogation/chat/index?roomId=' + roomId
         });
-        wx.jyApp.http({
-            url: '/chat/resetNotReadNum',
-            method: 'post',
-            data: {
-                id: id
-            }
-        }).then(() => {
-            for (var i = 0; i < this.data.messageList.length; i++) {
-                var item = this.data.messageList[i];
+        // wx.jyApp.http({
+        //     url: '/chat/resetNotReadNum',
+        //     method: 'post',
+        //     data: {
+        //         id: id
+        //     }
+        // }).then(() => {
+        for (var i = 0; i < this.data.messageList.length; i++) {
+            var item = this.data.messageList[i];
+            if (item.id == id) {
                 item.notReadNum = 0;
-                if (this.data.messageList[i].id == id) {
-                    this.setData({
-                        [`messageList[${i}]`]: item
-                    });
-                    break;
-                }
+                this.setData({
+                    [`messageList[${i}]`]: item
+                });
+                break;
             }
-        });
+        }
+        // });
     },
     onRefresh() {
         this.loadList(true);

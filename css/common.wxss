@@ -42,15 +42,15 @@ checkbox {
 }
 
 .border {
-    border: 1rpx solid #eee;
+    border: 1rpx solid #ebedf0;
 }
 
 .border-top {
-    border-top: 1rpx solid #eee;
+    border-top: 1rpx solid #ebedf0;
 }
 
 .border-bottom {
-    border-bottom: 1rpx solid #eee;
+    border-bottom: 1rpx solid #ebedf0;
 }
 
 .border-style-none {

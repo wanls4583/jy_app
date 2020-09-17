@@ -34,7 +34,7 @@
 	</view>
 	<view class="footer flex--center--between border-top">
 		<view class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
-			<text class="primary-color">合计：￥{{totalMoney}}</text>
+			<text class="primary-color">合计:￥{{totalMoney}}</text>
 		</view>
 		<view bindtap="onSubmit" class="button primary center height-100 radius-0">提交订单</view>
 	</view>

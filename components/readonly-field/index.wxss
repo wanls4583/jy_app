@@ -1,0 +1,39 @@
+.navigation_bar {
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    width: 100%;
+    color: #fff;
+    box-sizing: content-box;
+}
+
+.navigation_bar .title_w {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    padding-right: 100px;
+}
+
+.navigation_bar .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.navigation_bar .icon_back {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+}
+
+.navigation_bar_holder {
+    background-color: transparent;
+}
