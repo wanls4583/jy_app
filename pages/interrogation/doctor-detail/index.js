@@ -49,6 +49,12 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         }
     },
+    onClickImg(e) {
+        var src = e.currentTarget.dataset.src;
+        wx.previewImage({
+            urls: [src]
+        });
+    },
     getDoctorInfo() {
         wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorId).then((data) => {
             this.setData({

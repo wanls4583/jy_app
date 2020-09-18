@@ -109,6 +109,12 @@ Page({
         });
         wx.hideLoading();
     },
+    onClickAvatar(e) {
+        var src = e.currentTarget.dataset.src;
+        wx.previewImage({
+            urls: [src]
+        });
+    },
     foucus: function (e) {
         this.setData({
             inputBottom: e.detail.height,

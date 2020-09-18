@@ -251,6 +251,17 @@ Page({
             delete this.taskMap[item.id];
         }
     },
+    onClickImg(e) {
+        var src = e.currentTarget.dataset.src;
+        var urls = e.currentTarget.dataset.urls;
+        urls = urls.map((item) => {
+            return item.path;
+        });
+        wx.previewImage({
+            current: src,
+            urls: urls
+        });
+    },
     uploadImages(files, picUrls) {
         var self = this;
         self.taskMap = self.taskMap || {};

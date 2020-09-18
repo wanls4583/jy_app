@@ -103,7 +103,10 @@
 			</view>
 			<view class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color" wx:else>
 				<view
+					bindtap="onClickImg"
 					class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color"
+					data-src="{{item.path}}"
+					data-urls="{{jobCertificateUrl}}"
 					wx:for="{{jobCertificateUrl}}"
 					wx:key="index"
 				>
@@ -117,7 +120,7 @@
 						<text wx:else>{{progressMap[item.id]}}%</text>
 					</view>
 					<view
-						bindtap="delPracticePic"
+						catchtap="delPracticePic"
 						class="position-absolute top-0 right-0 flex--center--center clickable"
 						data-index="{{index}}"
 						style="background:rgba(0,0,0,0.5);padding:2px"
@@ -152,7 +155,10 @@
 			</view>
 			<view class="flex flex-wrap-wrap overflow-hidden padding-top-30 white-background-color" wx:else>
 				<view
+					bindtap="onClickImg"
 					class="item position-relative border width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color"
+					data-src="{{item.path}}"
+					data-urls="{{jobTitleCertificateUrl}}"
 					wx:for="{{jobTitleCertificateUrl}}"
 					wx:key="index"
 				>
@@ -166,7 +172,7 @@
 						<text wx:else>{{progressMap[item.id]}}%</text>
 					</view>
 					<view
-						bindtap="delPositionPic"
+						catchtap="delPositionPic"
 						class="position-absolute top-0 right-0 flex--center--center clickable"
 						data-index="{{index}}"
 						style="background:rgba(0,0,0,0.5);padding:2px"
