@@ -1,5 +1,6 @@
 //app.js
-var loginUtil = require('./utils/login.js');
+import loginUtil from './utils/login.js';
+import log from './utils/log.js';
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 import { store } from './store/index';
 import http from './utils/request';
@@ -15,6 +16,7 @@ App({
         wx.jyApp.createStoreBindings = createStoreBindings;
         wx.jyApp.store = store;
         wx.jyApp.http = http;
+        wx.jyApp.log = log;
         wx.jyApp.loginUtil = loginUtil;
         wx.jyApp.dialog = Dialog;
         wx.jyApp.constData = constData;
@@ -26,7 +28,7 @@ App({
                 icon: 'none'
             });
         }
-        wx.jyApp.showLoading = (title, mask)=>{
+        wx.jyApp.showLoading = (title, mask) => {
             wx.showLoading({
                 title: title,
                 mask: Boolean(mask)

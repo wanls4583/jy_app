@@ -15,13 +15,15 @@ Page({
             this.inviteWay = 1;
         } else if (option.scene) {
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
+            console.log(param);
             if (param.type == 'invite' && param.doctorId) { //医生通过二维码分享邀请
                 this.inviteId = param.doctorId;
                 this.inviteWay = 2;
-            } else if (param.type == 'cart' && param.doctorId) {
-                this.gotDoctorId = param.doctorId;
+            } else if (param.type == 'card' && param.doctorId) {
+                this.doctorId = param.doctorId;
             }
         }
+        this.firstLoad = true;
         this.getConfig();
     },
     onUnload() {
@@ -43,13 +45,14 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 this.getMessageCount();
-                if (this.gotDoctorId) {
+                if (this.doctorId && this.firstLoad) {
                     wx.navigateTo({
-                        url: '/pages/interrogation/doctor-detail/index?id=' + this.gotDoctorId
+                        url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                     });
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
                 }
+                this.firstLoad = false;
             });
         });
     },
