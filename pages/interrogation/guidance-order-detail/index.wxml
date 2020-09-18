@@ -5,9 +5,9 @@
 		<text class="gray-color">超过3天未支付，订单自动失效</text>
 		<view bindtap="onGuidanceOrderPay" class="button plain primary">立即支付</view>
 	</view>
-	<view class="flex--center--center flex-direction-column height-33vw white-background-color" wx:else>
+	<view class="flex--center--center flex-direction-column height-150rpx white-background-color" wx:else>
 		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
-		<view class="gray-color margin-top-30" wx:if="{{order.status==4}}">超过三天未支付，订单自动失效</view>
+		<view class="gray-color margin-top-10" wx:if="{{order.status==4}}">超过三天未支付，订单自动失效</view>
 	</view>
 	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.contactName}}">
 		<view>

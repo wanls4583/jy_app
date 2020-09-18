@@ -48,16 +48,20 @@ Page({
         if (this.doctorId) {
             return wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
                 wx.hideLoading();
-                this.setData({
-                    doctor: data.doctor
-                });
                 if (this.data.doctor.consultOrderSwitch != 1 || this.data.doctor.authStatus != 1 || this.data.doctor.status != 1) {
                     this.stopNext = true;
                     wx.navigateBack();
                     setTimeout(() => {
                         wx.jyApp.toast('医生已下线');
                     }, 500);
+                    return;
                 }
+                if (data.doctor.incomewitch != 1) {
+                    data.doctor.consultOrderPrice = 0;
+                }
+                this.setData({
+                    doctor: data.doctor
+                });
             }).catch(() => {
                 wx.hideLoading();
             });

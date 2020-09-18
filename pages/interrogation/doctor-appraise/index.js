@@ -64,10 +64,7 @@ Page({
                 score: this.data.score
             }
         }).then(() => {
-            var pages = getCurrentPages();
-            if (pages[pages.length - 2].route == 'pages/order-list/index') {
-                wx.jyApp.hasAppraiseId = this.id;
-            }
+            wx.jyApp.hasAppraiseId = this.id;
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({ title: '提交成功' });

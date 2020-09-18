@@ -37,7 +37,7 @@
 							<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 							<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 						</view>
-						<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'}}">
+						<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'&&!consultOrder.isAppraise}}">
 							<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
 								<view>请对本次图文问诊进行评价吧</view>
 								<view

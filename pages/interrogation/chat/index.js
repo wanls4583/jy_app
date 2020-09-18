@@ -76,6 +76,15 @@ Page({
         if (this.data.roomId) {
             this.getNewHistory();
         }
+        if (wx.jyApp.hasAppraiseId) { //已经评价
+            if (wx.jyApp.hasAppraiseId == this.data.consultOrderId) {
+                this.data.consultOrder.isAppraise = true;
+                this.setData({
+                    consultOrder: this.data.consultOrder
+                });
+            }
+            delete wx.jyApp.hasAppraiseId;
+        }
     },
     onHide() {
         this.stopPoll();

@@ -22,7 +22,25 @@ Page({
             }
         }).then((data) => {
             delete wx.jyApp.illness;
-            wx.jyApp.utils.pay(data.params).then(() => {
+            if (data.params) {
+                wx.jyApp.utils.pay(data.params).then(() => {
+                    wx.jyApp.payInterrogationResult = {
+                        id: data.id,
+                        result: 'success'
+                    }
+                    wx.navigateBack({
+                        delta: 3
+                    });
+                }).catch(() => {
+                    wx.jyApp.payInterrogationResult = {
+                        id: data.id,
+                        result: 'fail'
+                    }
+                    wx.navigateBack({
+                        delta: 3
+                    });
+                });
+            } else {
                 wx.jyApp.payInterrogationResult = {
                     id: data.id,
                     result: 'success'
@@ -30,15 +48,7 @@ Page({
                 wx.navigateBack({
                     delta: 3
                 });
-            }).catch(() => {
-                wx.jyApp.payInterrogationResult = {
-                    id: data.id,
-                    result: 'fail'
-                }
-                wx.navigateBack({
-                    delta: 3
-                });
-            });
+            }
         }).finally(() => {
             wx.hideLoading();
         });

@@ -5,9 +5,9 @@
 		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
 		<view bindtap="onInterrogationPay" class="button plain primary">立即支付</view>
 	</view>
-	<view class="flex--center--center flex-direction-column height-33vw white-background-color" wx:else>
+	<view class="flex--center--center flex-direction-column height-150rpx white-background-color" wx:else>
 		<text class="font-large font-bold {{order.statusColor}}">{{order._status}}</text>
-		<view class="gray-color margin-top-30" wx:if="{{order.status==4}}">超过15分钟未支付，订单自动失效</view>
+		<view class="gray-color margin-top-10" wx:if="{{order.status==4}}">超过15分钟未支付，订单自动失效</view>
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
 		<view class="flex padding-top-bottom-20">
