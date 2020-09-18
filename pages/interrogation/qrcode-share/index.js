@@ -112,6 +112,7 @@ Page({
                 scene: `type=${this.type}&doctorId=${this.doctorId}&userId=${this.userId}`
             }
         }).then((data) => {
+            data.barcode = encodeURIComponent(data.barcode);
             this.setData({
                 barcode: data.barcode
             });
