@@ -127,7 +127,7 @@ Page({
         }
         var pages = getCurrentPages();
         wx.navigateBack({
-            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 2 : 1
+            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : 2
         });
     },
     onBack() {
@@ -135,10 +135,7 @@ Page({
             wx.jyApp.dialog.confirm({
                 message: '当前数据未保存，是否离开？'
             }).then(() => {
-                var pages = getCurrentPages();
-                wx.navigateBack({
-                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 2 : 1
-                });
+                wx.navigateBack();
             });
         }
     }
