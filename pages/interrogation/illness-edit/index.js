@@ -4,12 +4,12 @@ Page({
         picUrls: [],
         diseaseDetail: '',
         progressMap: {},
-        pciMap: {}
+        pciMap: {},
+        doctor: null
     },
     onLoad(option) {
         this.doctorId = option.doctorId || '';
         this.taskMap = {}
-        this.getDoctorInfo();
     },
     onUnload() {
         for (var key in this.taskMap) {
@@ -26,37 +26,65 @@ Page({
             wx.jyApp.toast('病情描述不能少于10个字');
             return;
         }
-        wx.jyApp.illness = {
-            diseaseDetail: this.data.diseaseDetail,
-            picUrls: this.data.picUrls,
-            doctorId: this.doctorId,
-            doctorName: this.data.doctor.doctorName,
-            consultOrderPrice: this.data.doctor.consultOrderPrice
-        }
-        wx.jyApp.selectPatientFlag = true;
-        wx.navigateTo({
-            url: '/pages/interrogation/user-patient-list/index?selectPatient=1'
+        this.getDoctorInfo().then(() => {
+            if (!this.stopNext) {
+                wx.jyApp.illness = {
+                    diseaseDetail: this.data.diseaseDetail,
+                    picUrls: this.data.picUrls,
+                    doctorId: this.doctorId,
+                    doctorName: this.data.doctor.doctorName,
+                    consultOrderPrice: this.data.doctor.consultOrderPrice
+                }
+                wx.jyApp.selectPatientFlag = true;
+                wx.navigateTo({
+                    url: '/pages/interrogation/user-patient-list/index?selectPatient=1'
+                });
+            }
         });
+
     },
     getDoctorInfo() {
-        if(!this.doctorId) {
-            return;
-        }
         wx.jyApp.showLoading('加载中...', true);
-        wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
-            wx.hideLoading();
-            this.setData({
-                doctor: data.doctor
+        if (this.doctorId) {
+            return wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
+                wx.hideLoading();
+                this.setData({
+                    doctor: data.doctor
+                });
+                if (this.data.doctor.consultOrderSwitch != 1 || this.data.doctor.authStatus != 1 || this.data.doctor.status != 1) {
+                    this.stopNext = true;
+                    wx.navigateBack();
+                    setTimeout(() => {
+                        wx.jyApp.toast('医生已下线');
+                    }, 500);
+                }
+            }).catch(() => {
+                wx.hideLoading();
             });
-            if (this.data.doctor.consultOrderSwitch != 1 || this.data.doctor.authStatus != 1 || this.data.doctor.status != 1) {
-                wx.navigateBack();
-                setTimeout(() => {
-                    wx.jyApp.toast('医生已下线');
-                }, 500);
-            }
-        }).catch(() => {
-            wx.hideLoading();
-        });
+        } else {
+            return wx.jyApp.http({
+                url: '/doctor/recommend',
+                data: {
+                    diseaseDetail: this.data.diseaseDetail
+                }
+            }).then((data) => {
+                wx.hideLoading();
+                if (data.doctor) {
+                    this.doctorId = data.id;
+                    this.setData({
+                        doctor: data.doctor
+                    });
+                } else {
+                    this.stopNext = true;
+                    wx.navigateBack();
+                    setTimeout(() => {
+                        wx.jyApp.toast('暂无合适的医生');
+                    }, 500);
+                }
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        }
     },
     chooseImage() {
         var self = this;

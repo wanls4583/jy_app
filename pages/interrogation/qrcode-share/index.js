@@ -6,6 +6,7 @@ Page({
     },
     onLoad(option) {
         this.doctorId = option.doctorId;
+        this.userId = option.userId;
         this.type = option.type;
         this.getQrCode();
         this.setData({
@@ -101,7 +102,7 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: '/page/index/index',
-                scene: `type=${this.type}&doctorId=${this.doctorId}`
+                scene: `type=${this.type}&doctorId=${this.doctorId}&userId=${this.userId}`
             }
         }).then((data) => {
             this.setData({

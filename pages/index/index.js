@@ -10,14 +10,14 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
-        if (option.type == 'invite' && option.doctorId) { //医生通过好友分享邀请
-            this.inviteId = option.doctorId;
+        if (option.type == 'invite' && option.userId) { //医生通过好友分享邀请
+            this.inviteId = option.userId;
             this.inviteWay = 1;
         } else if (option.scene) {
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
-            if (param.type == 'invite' && param.doctorId) { //医生通过二维码分享邀请
-                this.inviteId = param.doctorId;
+            if (param.type == 'invite' && param.userId) { //医生通过二维码分享邀请
+                this.inviteId = param.userId;
                 this.inviteWay = 2;
             } else if (param.type == 'card' && param.doctorId) {
                 this.doctorId = param.doctorId;
@@ -45,9 +45,9 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 this.getMessageCount();
-                if (this.doctorId && this.firstLoad) {
+                if (this.userId && this.firstLoad) {
                     wx.navigateTo({
-                        url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
+                        url: '/pages/interrogation/doctor-detail/index?id=' + this.userId
                     });
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });

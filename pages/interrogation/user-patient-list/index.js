@@ -90,7 +90,7 @@ Page({
             title: '加载中',
             mask: true
         });
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: '/patientdocument/list',
             data: {
                 page: 1,

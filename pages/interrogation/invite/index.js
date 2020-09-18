@@ -35,7 +35,7 @@ Page({
     onShareAppMessage: function (res) {
         return {
             title: '医生邀请',
-            path: '/pages/index/index?type=invite&doctorId=' + this.data.userInfo.id,
+            path: '/pages/index/index?type=invite&userId=' + this.data.userInfo.id,
             imageUrl: '/image/logo.png'
         }
     },
@@ -46,7 +46,7 @@ Page({
     },
     onQrcode(e) {
         wx.navigateTo({
-            url: '/pages/interrogation/qrcode-share/index?type=invite&doctorId=' + this.data.userInfo.doctorId
+            url: '/pages/interrogation/qrcode-share/index?type=invite&userId=' + this.data.userInfo.id
         });
         this.setData({
             shareVisble: false
