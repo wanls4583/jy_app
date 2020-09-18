@@ -95,7 +95,7 @@ Page({
     },
     search() {
         wx.jyApp.showLoading('搜索中...', true);
-        Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(() => {
+        wx.jyApp.Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(() => {
             this.setData({
                 searched: true,
                 'taocanData.renderList': this.data.taocanData.list.slice(0, 3),
@@ -107,7 +107,7 @@ Page({
     },
     loadProduct(refresh) {
         if (this.data.productData.loading || !refresh && this.data.productData.page > this.data.productData.totalPage) {
-            return Promise.reject();
+            return wx.jyApp.Promise.reject();
         }
         if (refresh) {
             this.setData({
@@ -149,7 +149,7 @@ Page({
     },
     loadToacan(refresh) {
         if (this.data.taocanData.loading || !refresh && this.data.taocanData.page > this.data.taocanData.totalPage) {
-            return Promise.reject();
+            return wx.jyApp.Promise.reject();
         }
         if (refresh) {
             this.setData({

@@ -45,7 +45,7 @@
 					bindtap="onClickTxt"
 					class="padding-left-right-30 margin-left-30 margin-bottom-30 gray-background-color font-small clickable"
 					data-txt="{{item.departmentName}}"
-					style="border-radius:100px;line-height:70rpx"
+					style="border-radius:100px;line-height:60rpx"
 					wx:for="{{departmentList}}"
 					wx:key="index"
 				>{{item.departmentName}}</view>
