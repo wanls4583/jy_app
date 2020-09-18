@@ -36,14 +36,18 @@ Page({
                 orderId: this.id
             }
         }).then((data) => {
-            this.updateSelectAddress(null);
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 wx.showToast({
                     title: '支付成功'
                 });
-                this.loadInfo().then();
+                this.loadInfo().then(() => {
+                    this.updateSelectAddress(null);
+                });
             }).catch(() => {
+                this.loadInfo().then(() => {
+                    this.updateSelectAddress(null);
+                });
                 wx.jyApp.toast('支付失败');
             });
         }).catch(() => {
@@ -58,7 +62,7 @@ Page({
             title: '加载中...',
             mask: true
         });
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: '/nutritionorder/info/' + this.id
         }).then((data) => {
             data.detail._sex = data.detail.sex == 1 ? '男' : '女';
