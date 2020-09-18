@@ -17,6 +17,7 @@ Page({
         }
     },
     onUnload() {
+        this.updateSelectAddress(null);
         this.storeBindings.destroyStoreBindings();
     },
     onSelectAddress() {
