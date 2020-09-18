@@ -17,7 +17,14 @@
 		<view class="gray-color margin-top-20">{{order.address}}</view>
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color overflow-hidden">
-		<view class="flex--center--start padding-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+		<view
+			bindtap="onGoto"
+			class="flex--center--start padding-bottom-30"
+			data-url="/pages/mall/product-detail/index?id={{product.id}}"
+			wx:for="{{order.goods}}"
+			wx:for-item="product"
+			wx:key="id"
+		>
 			<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{product.goodsPic}}" />
 			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 				<view>{{product.goodsName}}</view>

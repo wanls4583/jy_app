@@ -33,9 +33,12 @@ Page({
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
+    },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     loadInfo() {
         !this.loaded && wx.showLoading({

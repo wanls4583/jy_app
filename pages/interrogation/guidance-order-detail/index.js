@@ -50,6 +50,9 @@ Page({
             wx.hideLoading();
         });
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     loadInfo() {
         !this.loaded && wx.showLoading({
             title: '加载中...',

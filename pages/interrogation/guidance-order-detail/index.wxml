@@ -42,7 +42,7 @@
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
 		<view class="padding-top-20">营养指导：</view>
 		<view class="border-bottom padding-top-bottom-20" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-			<view bindtap="onclickProdcut" class="product flex--center--start white-background-color" data-id="{{product.id}}">
+			<view bindtap="onGoto" data-url="/pages/mall/product-detail/index?id={{product.goodsId}}" class="product flex--center--start white-background-color" data-id="{{product.id}}">
 				<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
 				<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 					<view>{{product.goodsName}}</view>

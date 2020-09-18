@@ -38,8 +38,17 @@ Page({
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
+        });
+    },
+    //点击图片放大
+    onClickImg(e) {
+        var src = e.currentTarget.dataset.src;
+        var picUrls = e.currentTarget.dataset.picUrls;
+        wx.previewImage({
+            current: src,
+            urls: picUrls
         });
     },
     loadInfo() {
