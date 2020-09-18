@@ -90,6 +90,7 @@ Page({
             'goodAtDomain',
             'informed_consent_url',
             'activity_rule_url',
+            'h5_code_share_url',
         ]).then((data) => {
             wx.jyApp.store.updateConfigData(data);
         });

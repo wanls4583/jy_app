@@ -1,10 +1,14 @@
 Page({
     data: {
         barcode: '',
-        shareUrl: '',
         type: ''
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId;
         this.userId = option.userId;
         this.type = option.type;
@@ -13,6 +17,9 @@ Page({
             type: this.type
         });
     },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     //分享
     onShare() {
         wx.jyApp.dialog.confirm({
@@ -20,7 +27,7 @@ Page({
             confirmButtonText: '复制链接'
         }).then(() => {
             wx.setClipboardData({
-                data: this.data.shareUrl + '?url=' + this.data.barcode,
+                data: this.data.configData.h5_code_share_url + '?url=' + this.data.barcode,
                 success(res) {
                     wx.showToast({
                         title: '复制成功'
@@ -108,21 +115,6 @@ Page({
             this.setData({
                 barcode: data.barcode
             });
-            this.getShareUrl();
         });
-    },
-    getShareUrl() {
-        wx.jyApp.http({
-            url: '/sys/config/list',
-            data: {
-                configNames: 'h5_code_share_url'
-            }
-        }).then((data) => {
-            if (data.list.length) {
-                this.setData({
-                    shareUrl: data.list[0].h5_code_share_url
-                });
-            }
-        })
     }
 })
