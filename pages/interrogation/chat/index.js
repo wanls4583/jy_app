@@ -34,11 +34,11 @@ Page({
     },
     onLoad(option) {
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
-        try {
-            this.setData({
-                bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
-            });
-        } catch (e) { }
+        // try {
+        //     this.setData({
+        //         bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
+        //     });
+        // } catch (e) { }
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
