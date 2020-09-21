@@ -4,17 +4,16 @@
 		<view class="white-background-color">
 			<view class="padding-left-right-30">
 				<view class="padding-top-bottom-20 border-bottom flex--center--between">
-					<view class="font-bold">姓名</view>
-					<view class="font-bold">邀请方式</view>
+					<view class="font-bold width-33 align-center">时间</view>
+					<view class="font-bold width-33 align-center">姓名</view>
+					<view class="font-bold width-33 align-center">邀请方式</view>
 				</view>
 			</view>
 			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 				<view class="padding-top-bottom-20 border-bottom flex--start--between">
-					<view>
-						<view>{{item.doctorName}}</view>
-						<view class="gray-color font-small">{{item.inviteDate}}</view>
-					</view>
-					<view>{{item.inviteWay}}</view>
+					<view class="width-33 align-center">{{item.inviteDate}}</view>
+					<view class="width-33 align-center">{{item.doctorName}}</view>
+					<view class="width-33 align-center">{{item.inviteWay}}</view>
 				</view>
 			</view>
 		</view>
