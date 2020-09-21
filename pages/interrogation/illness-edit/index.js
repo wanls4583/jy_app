@@ -120,7 +120,12 @@ Page({
                             'Content-Type': 'multipart/form-data'
                         },
                         success(res) {
-                            var data = JSON.parse(res.data);
+                            var data = {};
+                            try {
+                                data = JSON.parse(res.data);
+                            } catch (e) {
+                                wx.jyApp.log.info('上传失败', res.data);
+                            }
                             delete self.taskMap[item];
                             if (data.url) {
                                 self.data.picUrls.push(data.url);

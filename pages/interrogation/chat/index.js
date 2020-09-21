@@ -34,9 +34,11 @@ Page({
     },
     onLoad(option) {
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
-        this.setData({
-            bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
-        });
+        try {
+            this.setData({
+                bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
+            });
+        } catch (e) { }
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
@@ -470,7 +472,7 @@ Page({
                     try {
                         data = JSON.parse(res.data);
                     } catch (e) {
-                        data = {};
+                        wx.jyApp.log.info('上传失败', res.data);
                     }
                     delete self.taskMap[item.domId];
                     if (data.url) {

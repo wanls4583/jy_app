@@ -15,12 +15,12 @@ Page({
     onShow() {
         if (wx.jyApp.payInterrogationResult) { //问诊支付结果
             if (wx.jyApp.payInterrogationResult.result == 'fail') {
-                wx.jyApp.toast('支付失败');
                 setTimeout(() => {
-                    wx.navigateTo({
-                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.payInterrogationResult.id
-                    });
-                }, 1500)
+                    wx.jyApp.toast('支付失败');
+                }, 500);
+                wx.navigateTo({
+                    url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.payInterrogationResult.id
+                });
             } else {
                 wx.navigateTo({
                     url: '/pages/interrogation/chat/index?id=' + wx.jyApp.payInterrogationResult.id

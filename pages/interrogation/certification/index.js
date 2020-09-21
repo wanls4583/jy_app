@@ -26,7 +26,7 @@ Page({
         positionList: ['营养师', '主任医师', '副主任医师', '主治医师', '医师'],
         areaList: [],
         progressMap: {},
-        approveStatus: -1,
+        approveStatus: 0,
         approveMsg: ''
     },
     onLoad(option) {
@@ -61,6 +61,9 @@ Page({
         var prop = e.currentTarget.dataset.prop;
         var type = e.currentTarget.dataset.type;
         var title = e.currentTarget.dataset.title;
+        if (!this.checkEdit()) {
+            return;
+        }
         wx.jyApp.utils.setText({
             title: title,
             type: type || 'text',
@@ -78,6 +81,9 @@ Page({
         });
     },
     onShowArea() {
+        if (!this.checkEdit()) {
+            return;
+        }
         this.setData({
             areaVisible: !this.data.areaVisible
         });
@@ -107,6 +113,9 @@ Page({
         });
     },
     onClickDepartment(e) {
+        if (!this.checkEdit()) {
+            return;
+        }
         var index = e.currentTarget.dataset.index;
         var department = this.data.departmentList[index];
         department.selected = !department.selected;
@@ -128,16 +137,25 @@ Page({
         });
     },
     onShowDisease() {
+        if (!this.checkEdit()) {
+            return;
+        }
         this.setData({
             diseaseVisible: !this.data.diseaseVisible
         });
     },
     onShowPosition() {
+        if (!this.checkEdit()) {
+            return;
+        }
         this.setData({
             positionVisible: !this.data.positionVisible
         });
     },
     chooseAvater() {
+        if (!this.checkEdit()) {
+            return;
+        }
         var self = this;
         wx.chooseImage({
             sizeType: ['compressed'],
@@ -145,14 +163,14 @@ Page({
             success(res) {
                 var files = [];
                 res.tempFiles.map((item) => {
-                    if (item.size < 1024 * 1024) {
-                        files.push({
-                            path: item.path,
-                            id: wx.jyApp.utils.getUUID()
-                        });
-                    } else {
-                        wx.jyApp.toast('部分文件大于1M，已取消');
-                    }
+                    // if (item.size < 1024 * 1024) {
+                    files.push({
+                        path: item.path,
+                        id: wx.jyApp.utils.getUUID()
+                    });
+                    // } else {
+                    //     wx.jyApp.toast('部分文件大于1M，已取消');
+                    // }
                 });
                 if (files) {
                     if (self.data.avatar && self.taskMap[self.data.avatar.id]) { //删除正在上传的头像
@@ -170,6 +188,9 @@ Page({
     },
     //选择执业证书图片
     onChoosePracticeImage() {
+        if (!this.checkEdit()) {
+            return;
+        }
         var self = this;
         wx.chooseImage({
             sizeType: ['compressed'],
@@ -278,7 +299,12 @@ Page({
                     'Content-Type': 'multipart/form-data'
                 },
                 success(res) {
-                    var data = JSON.parse(res.data);
+                    var data = {};
+                    try {
+                        data = JSON.parse(res.data);
+                    } catch (e) {
+                        wx.jyApp.log.info('上传失败', res.data);
+                    }
                     delete self.taskMap[item.id];
                     if (data.url) {
                         picUrls.push(data.url);
@@ -457,6 +483,10 @@ Page({
             if (data.list) {
                 data = data.list[0];
                 this.setInfo(data);
+            } else {
+                this.setData({
+                    approveStatus: -1
+                });
             }
         }).finally(() => {
             wx.hideLoading();
@@ -505,5 +535,11 @@ Page({
                 }
             })
         })
+    },
+    checkEdit() {
+        if (this.data.approveStatus == 1) {
+            return false;
+        }
+        return true;
     }
 })
