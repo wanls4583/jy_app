@@ -20,6 +20,9 @@ Page({
             wx.setBackgroundTextStyle({
                 textStyle: 'light'
             });
+            wx.setNavigationBarTitle({
+                title: ''
+            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_users.png",
@@ -37,6 +40,9 @@ Page({
             });
             wx.setBackgroundTextStyle({
                 textStyle: 'dark'
+            });
+            wx.setNavigationBarTitle({
+                title: '首页'
             });
             wx.setTabBarItem({
                 index: 1,

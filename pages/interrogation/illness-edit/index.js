@@ -56,7 +56,7 @@ Page({
                     }, 500);
                     return;
                 }
-                if (data.doctor.incomewitch != 1) {
+                if (data.doctor.incomeSwitch != 1) {
                     data.doctor.consultOrderPrice = 0;
                 }
                 this.setData({

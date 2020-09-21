@@ -35,7 +35,7 @@
 				<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
 				<view class="margin-top-10 gray-color font-small">备注：{{product.remark}}</view>
 				<view class="flex--center--end padding-top-30">
-					<view bindtap="onDelete" class="button plain danger small" data-index="{{index}}">删除</view>
+					<view bindtap="onDelete" class="button plain disabled small" style="border-color:#999" data-index="{{index}}">删除</view>
 					<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{product}}">修改</view>
 				</view>
 			</view>

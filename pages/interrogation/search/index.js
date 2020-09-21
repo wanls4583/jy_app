@@ -90,7 +90,7 @@ Page({
     onclickProdcut(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/mall/product-detail/index?id=' + id
+            url: '/pages/mall/product-detail/index?readonly=1&id=' + id
         });
     },
     search() {

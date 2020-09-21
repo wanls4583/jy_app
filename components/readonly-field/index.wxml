@@ -1,6 +1,6 @@
 <view class="padding-left-right-30 white-background-color">
 	<view class="flex--center--start padding-top-bottom-30 border-bottom">
-		<view class="flex-shrink-0" style="width:6.2em;margin-right:12px;color:#646566">{{label}}</view>
+		<view class="flex-shrink-0" style="width:{{titleWidth}};margin-right:12px;color:#646566">{{label}}</view>
 		<view style="color:#646566" wx:if="{{value!==''}}">{{value}}</view>
 		<view class="gray-color" wx:else>{{placeholder}}</view>
 	</view>

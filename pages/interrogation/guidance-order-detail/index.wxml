@@ -53,7 +53,7 @@
 				</view>
 			</view>
 			<view class="padding-top-20 gray-color font-small">{{product.usage}}</view>
-			<view class="padding-top-bottom-20 border-bottom gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+			<view class="padding-top-bottom-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
 		</view>
 		<view class="flex--center--between padding-top-bottom-20">
 			<text>配送金额：￥{{order.deliveryCost}}</text>

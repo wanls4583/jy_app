@@ -53,9 +53,9 @@ Page({
             defaultValue: this.data.consultOrderPrice,
             type: 'number',
             complete: (value) => {
-                if (value < 1 || value > 1000) {
+                if (value < 0 || value > 1000) {
                     setTimeout(() => {
-                        wx.jyApp.toast('图文问诊金额需在1-1000范围内');
+                        wx.jyApp.toast('图文问诊金额需在0-1000范围内');
                     }, 500);
                     return;
                 }
@@ -75,7 +75,7 @@ Page({
             defaultValue: this.data.nutritionOrderPrice,
             type: 'number',
             complete: (value) => {
-                if (value < 1 || value > 1000) {
+                if (value < 0 || value > 1000) {
                     setTimeout(() => {
                         wx.jyApp.toast('营养指导诊金额需在0-100范围内');
                     }, 500);

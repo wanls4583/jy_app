@@ -9,7 +9,8 @@ Page({
         bTop: 28,
         bHeight: 32,
         needMoney: 0,
-        num: 0
+        num: 0,
+        readonly: false
     },
     onLoad(option) {
         this.data.id = option.id;
@@ -23,6 +24,7 @@ Page({
         this.setBackButtonRect();
         this.loadInfo();
         this.setData({
+            readonly: option.readonly || false,
             needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
         });
     },

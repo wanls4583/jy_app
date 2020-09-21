@@ -1,7 +1,7 @@
 <view class="container white-background-color">
 	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<view style="min-height:{{minContentHeight}}px">
-			<view class="padding-30 background-gradient">
+			<view class="padding-30 padding-top-0" style="background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 				<view class="flex--center--start">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
@@ -18,20 +18,20 @@
 						>{{doctorInfo.workHospitalName || ''}}</text>
 					</view>
 				</view>
-				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
+				<view class="flex--center--around margin-top-30" wx:if="{{doctorInfo.consultNum}}">
 					<view>
 						<view class="white-color">待接诊</view>
-						<view class="align-center font-large">{{doctorInfo.consultNum.waitingNum}}</view>
+						<view class="align-center font-large warn-color">{{doctorInfo.consultNum.waitingNum}}</view>
 					</view>
 					<view class="white-color">|</view>
 					<view>
 						<view class="white-color">问诊中</view>
-						<view class="align-center font-large">{{doctorInfo.consultNum.talkingNum}}</view>
+						<view class="align-center font-large warn-color">{{doctorInfo.consultNum.talkingNum}}</view>
 					</view>
 					<view class="white-color">|</view>
 					<view>
 						<view class="white-color">已服务</view>
-						<view class="align-center font-large">{{doctorInfo.consultNum.completeNum}}</view>
+						<view class="align-center font-large warn-color">{{doctorInfo.consultNum.completeNum}}</view>
 					</view>
 				</view>
 			</view>

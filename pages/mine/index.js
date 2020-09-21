@@ -48,7 +48,7 @@ Page({
     },
     //跳转前检查医生状态
     onCheckGoto(e) {
-        var incomeSwitch = e.currentTarget.dataset.incomewitch;
+        var incomeSwitch = e.currentTarget.dataset.incomeSwitch;
         if (wx.jyApp.utils.checkDoctor()) {
             if (incomeSwitch && this.data.doctorInfo.incomeSwitch != 1) {
                 wx.jyApp.toast('该功能已关闭，请联系管理员！');

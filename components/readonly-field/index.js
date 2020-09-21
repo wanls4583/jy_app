@@ -15,6 +15,10 @@ Component({
       type: String,
       value: ''
     },
+    titleWidth: {
+      type: String,
+      value: '6.2em'
+    }
   },
   data: {
   },

@@ -9,15 +9,14 @@
 		</view>
 	</view>
 	<view class="margin-top-20 white-background-color">
-		<van-field bind:input="onInputNum" data-prop="perUseNum" disabled="{{goods.type==2}}" label="每次用量" title-width="4.5em" type="number" value="{{perUseNum}}">
+		<van-field bind:input="onInputNum" data-prop="perUseNum" label="每次用量" readonly="{{goods.type==2}}" title-width="4.5em" type="number" value="{{perUseNum}}">
 			<view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
 			<view slot="right-icon" wx:else>份</view>
 		</van-field>
 		<van-field bind:input="onInputNum" data-prop="modulateDose" label="配制用量" title-width="4.5em" type="number" value="{{modulateDose}}" wx:if="{{goods.type==2}}">
 			<view slot="right-icon">毫升</view>
 		</van-field>
-		<readonly-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}" wx:if="{{goods.type==1}}"></readonly-field>
-		<readonly-field disabled label="频率" title-width="4.5em" value="{{_frequency}}" wx:else></readonly-field>
+		<readonly-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}"></readonly-field>
 		<van-cell>
 			<view class="flex--center--between">
 				<text>天数</text>

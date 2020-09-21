@@ -59,7 +59,7 @@ Page({
         this.setData({
             areaList: area,
             searchText: option.departmentName || '',
-            searchTipVisible: !option.departmentName
+            searchTipVisible: !option.departmentName && !option.all
         });
         this.complexName = option.departmentName || ''
         this.loadList();

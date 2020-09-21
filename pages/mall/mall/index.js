@@ -6,14 +6,15 @@ Component({
         banner: [],
         productList: [],
         taocanList: [],
-        stopRefresh: false
+        stopRefresh: false,
+        minContentHeight: 0
     },
     lifetimes: {
         attached() {
             this.loadProduct();
             this.loadBaner();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 120
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120 - 54
             });
         }
     },

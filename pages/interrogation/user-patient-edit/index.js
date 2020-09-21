@@ -31,10 +31,10 @@ Page({
         }
     },
     onInput(e) {
-        var prop = e.currentTarget.dataset.prop;
-        this.setData({
-            [`patient.${prop}`]: e.detail
-        });
+        wx.jyApp.utils.onInput(e, this);
+    },
+    onInputNum(e) {
+        wx.jyApp.utils.onInputNum(e, this);
     },
     onShowBirthday() {
         this.setData({

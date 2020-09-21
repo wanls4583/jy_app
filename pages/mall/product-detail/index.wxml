@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container" style="padding-bottom:50px">
+<view class="container" style="padding-bottom:{{!readonly?50:0}}px">
 	<view bindtap="onBack" class="position-fixed z-index-100" style="top:{{bTop}}px;left:0;padding-left:20px;">
 		<view class="flex--center--center radius-50 clickable" style="width:{{bHeight}}px;height:{{bHeight}}px;background:rgba(0,0,0,0.5)">
 			<van-icon color="#fff" name="arrow-left" size="20px" />
@@ -18,7 +18,7 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
 			<view class="font-large font-bold danger-color">￥{{productInfo.price}}/{{productInfo._unit}}</view>
-			<view class="flex--center--between radius-100px" style="height:30px">
+			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view
 					bindtap="onAddToCart"
 					class="flex--center--center height-100 padding-left-right-10 radius-100px primary-background-color white-color"
@@ -48,7 +48,7 @@
 		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description||''}}</view>
 		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
 	</view>
-	<view class="footer flex--center--between">
+	<view class="footer flex--center--between" wx:if="{{!readonly}}">
 		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
 			<van-icon class="primary-color margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" wx:if="{{cartNum}}" />
 			<van-icon class="gray-color margin-right-30" name="shopping-cart-o" size="20px" wx:else />

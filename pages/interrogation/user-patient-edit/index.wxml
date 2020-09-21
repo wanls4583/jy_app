@@ -1,23 +1,23 @@
 <!-- index.wxml -->
 <view class="container">
-    <van-cell-group>
-        <van-field value="{{patient.patientName}}" label="患者姓名" placeholder="请填写真实姓名" data-prop="patientName" bind:input="onInput" />
-        <readonly-field value="{{patient._sex}}" label="性别" placeholder="性别" readonly bindtap="onShowSex" />
-        <readonly-field value="{{patient.birthday}}" label="出生日期" placeholder="出生日期" readonly bindtap="onShowBirthday" />
-        <van-field value="{{patient.height}}" label="身高" placeholder="身高" data-prop="height" bind:input="onInput">
-            <view slot="right-icon">cm</view>
-        </van-field>
-        <van-field value="{{patient.weight}}" label="体重" placeholder="体重" data-prop="weight" bind:input="onInput">
-            <view slot="right-icon">kg</view>
-        </van-field>
-    </van-cell-group>
-    <view class="padding-left-right-30 margin-top-bottom-30">
-        <view class="button primary block" bindtap="onSave">保存</view>
-    </view>
-    <van-popup show="{{sexVisible}}" position="bottom">
-        <van-picker show-toolbar="{{true}}" default-index="{{patient._sex=='男'?1:0}}" columns="{{['女','男']}}" bind:confirm="onConfirmSex" bind:cancel="onCancel"></van-picker>
-    </van-popup>
-    <van-popup show="{{birthDayVisible}}" position="bottom">
-        <van-datetime-picker type="date" value="{{birthday}}" bind:confirm="onConfirmBirthday" bind:cancel="onCancel" min-date="{{minDate}}" max-date="{{maxDate}}" />
-    </van-popup>
+	<van-cell-group>
+		<van-field bind:input="onInput" data-prop="patientName" label="患者姓名" placeholder="请填写真实姓名" value="{{patient.patientName}}" />
+		<readonly-field bindtap="onShowSex" label="性别" placeholder="性别" readonly value="{{patient._sex}}" />
+		<readonly-field bindtap="onShowBirthday" label="出生日期" placeholder="出生日期" readonly value="{{patient.birthday}}" />
+		<van-field bind:input="onInputNum" data-prop="patient.height" label="身高" placeholder="身高" value="{{patient.height}}">
+			<view slot="right-icon">cm</view>
+		</van-field>
+		<van-field bind:input="onInputNum" data-prop="patient.weight" label="体重" placeholder="体重" value="{{patient.weight}}">
+			<view slot="right-icon">kg</view>
+		</van-field>
+	</van-cell-group>
+	<view class="padding-left-right-30 margin-top-bottom-30">
+		<view bindtap="onSave" class="button primary block">保存</view>
+	</view>
+	<van-popup position="bottom" show="{{sexVisible}}">
+		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmSex" columns="{{['女','男']}}" default-index="{{patient._sex=='男'?1:0}}" show-toolbar="{{true}}"></van-picker>
+	</van-popup>
+	<van-popup position="bottom" show="{{birthDayVisible}}">
+		<van-datetime-picker bind:cancel="onCancel" bind:confirm="onConfirmBirthday" max-date="{{maxDate}}" min-date="{{minDate}}" type="date" value="{{birthday}}" />
+	</van-popup>
 </view>

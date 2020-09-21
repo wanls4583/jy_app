@@ -23,6 +23,9 @@ Page({
         if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
             return;
         }
+        wx.navigateTo({
+            url: '/pages/interrogation/chat/index?roomId=' + roomId
+        });
         for (var i = 0; i < this.data.messageList.length; i++) {
             var item = this.data.messageList[i];
             if (item.id == id) {
@@ -33,9 +36,6 @@ Page({
                 break;
             }
         }
-        wx.navigateTo({
-            url: '/pages/interrogation/chat/index?roomId=' + roomId
-        });
     },
     onRefresh() {
         this.loadList(true);

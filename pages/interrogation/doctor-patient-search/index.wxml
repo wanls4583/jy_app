@@ -1,19 +1,17 @@
 <!-- index.wxml -->
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search
-			bind:change="onInput"
-			bind:search="onSearch"
-			data-prop="searchText"
-			focus="{{focus}}"
-			placeholder="请输入患者姓名"
-			shape="round"
-			value="{{searchText}}"
-		/>
+		<van-search bind:change="onInput" bind:search="onSearch" data-prop="searchText" focus="{{focus}}" placeholder="请输入患者姓名" shape="round" value="{{searchText}}" />
 	</view>
-	<view class="height-100 padding-left-right-30 white-background-color" style="padding-top:54px">
+	<view class="height-100" style="padding-top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
-			<view bindtap="onClickPatient" class="flex--start--between padding-top-20" data-id="{{item.id}}" wx:for="{{patientList}}" wx:key="id">
+			<view
+				bindtap="onClickPatient"
+				class="flex--start--between padding-top-20 padding-left-right-30 white-background-color clickable"
+				data-roomid="{{item.roomId}}"
+				wx:for="{{patientList}}"
+				wx:key="id"
+			>
 				<view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
 					<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
 				</view>

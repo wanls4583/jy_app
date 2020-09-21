@@ -33,7 +33,10 @@ Page({
         loading: true, //上翻页加载中状态
     },
     onLoad(option) {
-        this.maxImgWidth = 550 / wx.getSystemInfoSync().devicePixelRatio;
+        this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
+        this.setData({
+            bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
+        });
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {

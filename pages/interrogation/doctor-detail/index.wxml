@@ -16,7 +16,8 @@
 		<view class="flex--center--around margin-top-30">
 			<view>
 				<view class="white-color">好评率</view>
-				<view class="align-center font-large">{{doctor.goodAppraiseRate}}%</view>
+				<view class="align-center font-large" wx:if="{{doctor.goodAppraiseRate}}">{{doctor.goodAppraiseRate}}%</view>
+				<view class="align-center font-large" wx:else>--</view>
 			</view>
 			<view class="white-color">|</view>
 			<view>
@@ -26,7 +27,8 @@
 			<view class="white-color">|</view>
 			<view>
 				<view class="white-color">平均响应</view>
-				<view class="align-center font-large">{{doctor.avgResponseTime}}分</view>
+				<view class="align-center font-large" wx:if="{{doctor.avgResponseTime}}">{{doctor.avgResponseTime}}分</view>
+				<view class="align-center font-large" wx:else>--</view>
 			</view>
 		</view>
 	</view>

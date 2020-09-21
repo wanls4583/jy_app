@@ -130,7 +130,7 @@ Page({
             return new Promise((resolve) => {
                 var query = wx.createSelectorQuery()
                 query.select('.product').boundingClientRect()
-                query.exec(function(rect) {
+                query.exec(function (rect) {
                     if (rect && rect[0]) {
                         self.itemHeight = rect[0].height;
                         if (!self.data.wrapHeight) {
@@ -154,7 +154,7 @@ Page({
     onclickProdcut(e) {
         var id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/pages/mall/product-detail/index?id=' + id
+            url: '/pages/mall/product-detail/index?readonly=1&id=' + id
         });
     },
     loadList(refresh, active) {

@@ -11,7 +11,8 @@ Component({
         doctorList: [],
         kepuList: [],
         stopRefresh: false,
-        tipVisible: false
+        tipVisible: false,
+        minContentHeight: 0
     },
     lifetimes: {
         attached() {
@@ -33,7 +34,7 @@ Component({
                 wx.setStorageSync('switch_role_tip', 1);
             }
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 120
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120 - 54
             });
         },
         detached() {
@@ -76,7 +77,7 @@ Component({
         //查看更多
         onClickMore(e) {
             wx.navigateTo({
-                url: '/pages/mall/search-doctor/index'
+                url: '/pages/mall/search-doctor/index?all=1'
             });
         },
         loadDoctor() {

@@ -1,10 +1,10 @@
 <!-- index.wxml -->
 <view class="container">
 	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
-		<view class="padding-left-right-30 white-background-color">
+		<view class="white-background-color">
 			<view
 				bindtap="onClickMsg"
-				class="flex--start--between padding-top-20 clickable"
+				class="flex--start--between padding-top-20 padding-left-right-30 clickable"
 				data-id="{{item.id}}"
 				data-roomid="{{item.roomId}}"
 				wx:for="{{messageList}}"
