@@ -99,11 +99,11 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (self.data.picList.length < 9 && self.data.picList.indexOf(item.path) == -1) {
-                        if (item.size < 1024 * 1024 * 3) {
+                        if (item.size < 1024 * 1024) {
                             files.push(item.path);
                             self.data.picList.push(item.path);
                         } else {
-                            wx.jyApp.toast('部分文件大于3M，已取消');
+                            wx.jyApp.toast('部分文件大于1M，已取消');
                         }
                     }
                 });

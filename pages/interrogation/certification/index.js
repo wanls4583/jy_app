@@ -144,13 +144,13 @@ Page({
             success(res) {
                 var files = [];
                 res.tempFiles.map((item) => {
-                    if (item.size < 1024 * 1024 * 3) {
+                    if (item.size < 1024 * 1024) {
                         files.push({
                             path: item.path,
                             id: wx.jyApp.utils.getUUID()
                         });
                     } else {
-                        wx.jyApp.toast('部分文件大于3M，已取消');
+                        wx.jyApp.toast('部分文件大于1M，已取消');
                     }
                 });
                 if (files) {
@@ -176,13 +176,13 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 1024 * 3) {
+                        if (item.size < 1024 * 1024) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
                         } else {
-                            wx.jyApp.toast('部分文件大于3M，已取消');
+                            wx.jyApp.toast('部分文件大于1M，已取消');
                         }
                     }
                 });
@@ -218,13 +218,13 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobTitleCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 1024 * 3) {
+                        if (item.size < 1024 * 1024) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
                         } else {
-                            wx.jyApp.toast('部分文件大于3M，已取消');
+                            wx.jyApp.toast('部分文件大于1M，已取消');
                         }
                     }
                 });
