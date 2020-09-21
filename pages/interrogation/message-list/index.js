@@ -63,6 +63,17 @@ Page({
             }
         });
         this.request.then((data) => {
+            var today = new Date();
+            today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
+            data.page.list = data.page.list || [];
+            data.page.list.map((item) => {
+                item.updateTime = item.updateTime * 1000;
+                if (item.updateTime > today) {
+                    item.updateTime = new Date(item.updateTime).formatTime('hh:mm');
+                } else {
+                    item.updateTime = new Date(item.updateTime).formatTime('yyyy-MM-dd hh:mm');
+                }
+            });
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,
