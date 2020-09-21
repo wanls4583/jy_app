@@ -28,7 +28,7 @@
 	</view>
 	<view class="position-absolute top-0 width-100 bottom-0 z-index-100 gray-background-color" style="top:54px" wx:if="{{searchTipVisible}}">
 		<view class="white-background-color overflow-hidden">
-			<view class="padding-30 font-title">按疾病找医生</view>
+			<view class="padding-30">按疾病找医生</view>
 			<view class="flex flex-wrap-wrap">
 				<view
 					bindtap="onClickTxt"
@@ -39,7 +39,7 @@
 					wx:key="index"
 				>{{item}}</view>
 			</view>
-			<view class="padding-30 font-title">按营养中心找医生</view>
+			<view class="padding-30">按营养中心找医生</view>
 			<view class="flex flex-wrap-wrap">
 				<view
 					bindtap="onClickTxt"
@@ -105,7 +105,7 @@
 		/>
 	</van-popup>
 	<van-popup bind:click-overlay="onCancelScreen" custom-style="top:108px" position="top" show="{{screenVisible}}" z-index="{{0}}">
-		<view class="padding-30 font-title">医生职称</view>
+		<view class="padding-30">医生职称</view>
 		<view class="flex flex-wrap-wrap">
 			<view
 				bindtap="onClickPosition"
@@ -116,7 +116,7 @@
 				wx:key="index"
 			>{{item}}</view>
 		</view>
-		<view class="padding-30 font-title">价格区间</view>
+		<view class="padding-30">价格区间</view>
 		<view class="flex flex-wrap-wrap">
 			<view
 				bindtap="onClickPrice"

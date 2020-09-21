@@ -34,7 +34,7 @@ Page({
             value: 3
         }],
         priceList: [{
-            label: '1-30',
+            label: '0-30',
             value: 1
         }, {
             label: '30-50',
