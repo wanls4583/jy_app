@@ -15,7 +15,7 @@ Page({
         wx.jyApp.inputParam = null;
     },
     onInput(e) {
-        if (this.type == 'number') {
+        if (this.data.type == 'number') {
             wx.jyApp.utils.onInputNum(e, this);
         } else {
             wx.jyApp.utils.onInput(e, this);

@@ -1,7 +1,7 @@
 <view class="container white-background-color">
 	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<view style="min-height:{{minContentHeight}}px">
-			<view class="padding-30 padding-top-0" style="background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
+			<view class="padding-30 padding-top-0" style="padding-left:60rpx;padding-right:60rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 				<view class="flex--center--start">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
@@ -11,14 +11,10 @@
 							<text class="font-bold">{{doctorInfo.doctorName || userInfo.nickname}}</text>
 							<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || ''}}</text>
 						</view>
-						<text
-							class="font-small"
-							decode="{{true}}"
-							wx:if="{{doctorInfo.workHospitalName||doctorInfo.onlineDepartmentName}}"
-						>{{doctorInfo.workHospitalName || ''}}</text>
+						<text class="font-small" decode="{{true}}" wx:if="{{doctorInfo.workHospitalName||doctorInfo.onlineDepartmentName}}">{{doctorInfo.workHospitalName || ''}}</text>
 					</view>
 				</view>
-				<view class="flex--center--around margin-top-30" wx:if="{{doctorInfo.consultNum}}">
+				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
 					<view>
 						<view class="white-color">待接诊</view>
 						<view class="align-center font-large warn-color">{{doctorInfo.consultNum.waitingNum}}</view>
@@ -35,24 +31,24 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex flex--center--around padding-top-bottom-20">
-				<view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
+			<view class="flex flex--center--between padding-top-bottom-20" style="padding-left:60rpx;padding-right:60rpx">
+				<view bindtap="onCheckGoto" class="padding-top-bottom-20 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
 					<view class="font-mini">订单列表</view>
 				</view>
-				<!-- <view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
+				<!-- <view bindtap="onCheckGoto" class="padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/invite/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
 					<view class="font-mini">邀请医生</view>
-				</view> -->
+				</view>-->
 				<view
 					bindtap="onCheckGoto"
-					class="width-25 padding-top-bottom-20 align-center clickable"
+					class="padding-top-bottom-20 align-center clickable"
 					data-url="/pages/interrogation/qrcode-share/index?type=card&doctorId={{userInfo.doctorId}}"
 				>
 					<image class="width-80rpx height-80rpx" src="/image/icon_qrcode.png" />
 					<view class="font-mini">二维码名片</view>
 				</view>
-				<view bindtap="onCheckGoto" class="width-25 padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
+				<view bindtap="onCheckGoto" class="padding-top-bottom-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
 					<image class="width-80rpx height-80rpx" src="/image/icon_setting.png" />
 					<view class="font-mini">服务设置</view>
 				</view>

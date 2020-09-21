@@ -140,6 +140,7 @@ Page({
     chooseAvater() {
         var self = this;
         wx.chooseImage({
+            sizeType: ['compressed'],
             count: 1,
             success(res) {
                 var files = [];
@@ -171,6 +172,7 @@ Page({
     onChoosePracticeImage() {
         var self = this;
         wx.chooseImage({
+            sizeType: ['compressed'],
             count: 5 - self.data.jobCertificateUrl.length,
             success(res) {
                 var files = [];
@@ -213,6 +215,7 @@ Page({
     onChoosePositionImage() {
         var self = this;
         wx.chooseImage({
+            sizeType: ['compressed'],
             count: 5 - self.data.jobTitleCertificateUrl.length,
             success(res) {
                 var files = [];

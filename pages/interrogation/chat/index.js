@@ -185,6 +185,7 @@ Page({
         var self = this;
         this.onShowPanel();
         wx.chooseImage({
+            sizeType: ['compressed'],
             success(res) {
                 var uploadingChats = [];
                 if (res.errMsg == 'chooseImage:ok') {

@@ -87,6 +87,7 @@ Page({
     chooseAvater() {
         var self = this;
         wx.chooseImage({
+            sizeType: ['compressed'],
             count: 1,
             success(res) {
                 var files = [];

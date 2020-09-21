@@ -27,7 +27,7 @@ Page({
             confirmButtonText: '复制链接'
         }).then(() => {
             wx.setClipboardData({
-                data: this.data.configData.h5_code_share_url + '?url=' + this.data.barcode,
+                data: this.data.configData.h5_code_share_url + '?url=' + encodeURIComponent(this.data.barcode),
                 success(res) {
                     wx.showToast({
                         title: '复制成功'
@@ -112,7 +112,6 @@ Page({
                 scene: `type=${this.type}&doctorId=${this.doctorId}&userId=${this.userId}`
             }
         }).then((data) => {
-            data.barcode = encodeURIComponent(data.barcode);
             this.setData({
                 barcode: data.barcode
             });
