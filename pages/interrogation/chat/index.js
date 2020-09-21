@@ -137,9 +137,6 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onShowPanel() {
-        if (this.data.status != 1) {
-            return;
-        }
         this.setData({
             panelVisible: !this.data.panelVisible
         });

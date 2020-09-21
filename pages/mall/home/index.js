@@ -21,6 +21,9 @@ Component({
                 fields: ['userInfo']
             });
             this.storeBindings.updateStoreBindings();
+            this.setData({
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 120 - 54
+            });
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
                 this.loadKepu();
@@ -33,9 +36,6 @@ Component({
                 });
                 wx.setStorageSync('switch_role_tip', 1);
             }
-            this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 120 - 54
-            });
         },
         detached() {
             this.storeBindings.destroyStoreBindings();

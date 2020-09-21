@@ -122,7 +122,7 @@
 							</view>
 							<view class="white-background-color border-top">
 								<view class="flex--center--start padding-top-bottom-30 border-bottom" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-									<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+									<image class="width-150rpx height-150rpx border" mode="aspectFit" src="{{product.goodsPic}}" />
 									<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 										<view>{{product.goodsName}}</view>
 										<view class="flex--center--between width-100">
@@ -159,7 +159,7 @@
 							<view bindtap="onGoto" data-url="/pages/mall/order-detail/index?id={{order.id}}">
 								<view class="padding-top-30 white-background-color">
 									<view class="flex--center--start padding-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-										<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{product.goodsPic}}" />
+										<image class="width-150rpx height-150rpx border" mode="aspectFill" src="{{product.goodsPic}}" />
 										<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 											<view>{{product.goodsName}}</view>
 											<view class="flex--center--between width-100">

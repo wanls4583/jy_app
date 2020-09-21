@@ -2,11 +2,11 @@
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search bind:change="onChangeText" bind:search="onSearch" focus="{{true}}" placeholder="请输入产品" shape="round" value="{{searchText}}" />
 	</view>
-	<view class="white-background-color" style="margin-top:54px">
+	<view style="margin-top:54px">
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
 			<van-empty description="未查询到相关商品，请重新搜索" />
 		</view>
-		<view class="padding-left-right-30 border-top" wx:if="{{taocanData.list.length}}">
+		<view class="padding-left-right-30 border-top white-background-color" wx:if="{{taocanData.list.length}}">
 			<view class="font-bold padding-top-30">营养套餐</view>
 			<view>
 				<view
@@ -17,7 +17,7 @@
 					wx:for-item="product"
 					wx:key="id"
 				>
-					<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+					<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
 					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-20 width-100">
@@ -34,7 +34,7 @@
 				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
 			</view>
 		</view>
-		<view class="padding-left-right-30 border-top" wx:if="{{productData.list.length}}">
+		<view class="padding-left-right-30 border-top white-background-color" wx:if="{{productData.list.length}}">
 			<view class="font-bold padding-top-30">营养产品</view>
 			<view>
 				<view
@@ -45,7 +45,7 @@
 					wx:for-item="product"
 					wx:key="id"
 				>
-					<view class="width-150rpx height-150rpx" style="background:url({{product.goodsPic}}) no-repeat center;background-size:cover"></view>
+					<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
 					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-20 width-100">

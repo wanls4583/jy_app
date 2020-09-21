@@ -14,12 +14,12 @@ Component({
                 actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();
-            if (this.data.userInfo.role == 'DOCTOR') {
-                this.loadBaner();
-            }
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 120
             });
+            if (this.data.userInfo.role == 'DOCTOR') {
+                this.loadBaner();
+            }
         },
         detached() {
             this.storeBindings.destroyStoreBindings();

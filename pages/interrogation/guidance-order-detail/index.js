@@ -77,7 +77,7 @@ Page({
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
                 } else {
-                    item.usage = `${item.days}天，${item._frequency}，每次1份，配制${item.modulateDose}毫升，${item._giveWay}`;
+                    item.usage = `${item.days}天，${item._frequency}，每次1份，${this.data.modulateDose ? '配制' + this.data.modulateDose + '毫升，' : ''}${item._giveWay}`;
                     item._unit = '份';
                 }
             });

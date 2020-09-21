@@ -25,7 +25,7 @@
 			wx:for-item="product"
 			wx:key="id"
 		>
-			<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{product.goodsPic}}" />
+			<image class="width-150rpx height-150rpx border" mode="aspectFill" src="{{product.goodsPic}}" />
 			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
 				<view>{{product.goodsName}}</view>
 				<view class="flex--center--between width-100">

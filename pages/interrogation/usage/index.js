@@ -110,6 +110,10 @@ Page({
         });
     },
     onSave() {
+        if (!Number(this.data.perUseNum)) {
+            wx.jyApp.toast('请输入每次用量');
+            return;
+        }
         this.saved = true;
         this.data.goods.frequency = this.data.frequency;
         this.data.goods.giveWay = this.data.giveWay;
@@ -119,15 +123,14 @@ Page({
         this.data.goods.modulateDose = this.data.modulateDose;
         this.data.goods.remark = this.data.remark;
         this.data.goods.totalAmount = this.data.totalAmount;
-        this.data.goods._unit = this.data._unit;
         if (this.data.goods.type == 1) {
             this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
         } else {
-            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，配制${this.data.modulateDose}毫升，${this.data._giveWay}`;
+            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，${this.data.modulateDose ? '配制' + this.data.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
         }
         var pages = getCurrentPages();
         wx.navigateBack({
-            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : 2
+            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
         });
     },
     onBack() {
