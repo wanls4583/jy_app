@@ -25,7 +25,8 @@ Page({
         this.loading = true;
         this.request = wx.jyApp.http({
             url: '/doctor/invite/list'
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             data.list.map((item) => {
                 item.inviteWay = this.data.inviteWayMap[item.inviteWay];
                 item.inviteDate = item.inviteDate && item.inviteDate.slice(0, 10) || '';

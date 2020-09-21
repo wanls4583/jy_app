@@ -50,7 +50,8 @@ Page({
                 page: this.data.page,
                 limit: 20
             }
-        }).then((data) => {
+        })
+        this.request.then((data) => {
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,

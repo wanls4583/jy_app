@@ -35,7 +35,8 @@ Page({
                 page: this.data.page,
                 limit: 20
             }
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             data.page.list.map((item) => {
                 if (item.type == 1) {
                     item._type = '图文问诊';

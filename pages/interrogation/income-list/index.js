@@ -64,7 +64,8 @@ Page({
                 limit: 20,
                 yearMonth: this.yearMonth || ''
             }
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             data.page.list.map((item) => {
                 item._type = '问诊服务';
                 item._status = this.data.statusMap[item.status];

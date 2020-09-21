@@ -26,7 +26,8 @@ Page({
         this.loading = true;
         this.request = wx.jyApp.http({
             url: '/doctorwithdraw/list'
-        }).then((data) => {
+        });
+        this.request.then((data) => {
             data.list.map((item) => {
                 item._status = this.data.statusMap[item.status];
             });
