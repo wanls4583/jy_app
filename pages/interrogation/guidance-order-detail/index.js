@@ -44,6 +44,7 @@ Page({
                 this.loadInfo().then(() => {
                     this.updateSelectAddress(null);
                 });
+                wx.jyApp.hasPayId = this.id;
             }).catch(() => {
                 this.loadInfo().then(() => {
                     this.updateSelectAddress(null);

@@ -69,6 +69,18 @@ Page({
             });
             delete wx.jyApp.hasRecievedId;
         }
+        if (wx.jyApp.hasPayId) { //已经评价
+            this.data.guidanceOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasPayId) {
+                    item.isAppraise = true;
+                    this.setStatusColor(item, 'mall');
+                    this.setData({
+                        [`guidanceOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            delete wx.jyApp.hasPayId;
+        }
     },
     onChangeTab(e) {
         this.setData({

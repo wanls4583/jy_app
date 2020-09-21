@@ -63,14 +63,12 @@ Page({
                     wx.jyApp.hasRecievedId = option.id; //已接诊
                 }
                 this.initRoom(data);
-                this.getNewHistory();
             });
         } else if (option.roomId) {
             return wx.jyApp.http({
                 url: '/chat/room/info/' + option.roomId
             }).then((data) => {
                 this.initRoom(data);
-                this.getNewHistory();
             });
         }
     },
@@ -106,7 +104,9 @@ Page({
             consultOrder: data.consultOrder,
             consultOrderId: data.chatRoom.consultOrderId
         });
-        this.resetUnread();
+        this.resetUnread().finally(() => {
+            this.getNewHistory();
+        });
         wx.setNavigationBarTitle({
             title: data.talker.nickname
         });
@@ -716,7 +716,7 @@ Page({
     },
     //重置房间消息未读消息数
     resetUnread() {
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: '/chat/resetNotReadNum',
             method: 'post',
             data: {
