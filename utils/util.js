@@ -124,6 +124,7 @@ function openWebview(e) {
     if (typeof e == 'object') {
         url = e.currentTarget.dataset.url;
     }
+    url = encodeURIComponent(url);
     wx.navigateTo({
         url: '/pages/web-view/index?url=' + url
     });
