@@ -109,7 +109,7 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: '/page/index/index',
-                scene: `type=${this.type}&doctorId=${this.doctorId}&userId=${this.userId}`
+                scene: `type=${this.type}&doctorId=${this.doctorId||''}&userId=${this.userId||''}`
             }
         }).then((data) => {
             this.setData({
