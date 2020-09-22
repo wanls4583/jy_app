@@ -541,8 +541,11 @@ Page({
                 loading: true
             });
         }
+        this.earlistId = this.data.earlistId;
+        this.lastestId = this.data.lastestId;
         this.request && this.request.requestTask.abort();
         this.request = wx.jyApp.http({
+            hideTip: this.data.pages.length > 0,
             url: '/chat/history/poll',
             method: 'get',
             data: {
@@ -554,6 +557,10 @@ Page({
             }
         });
         this.request.then((data) => {
+            //防止某些机型不支持abort而拉取重复记录的问题
+            if (this.data.earlistId != this.earlistId || this.data.lastestId != this.lastestId) {
+                return;
+            }
             var list = data.page.list;
             list.reverse();
             if (list.length) {
