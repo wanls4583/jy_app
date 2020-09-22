@@ -27,6 +27,10 @@ Page({
     },
     //支付营养指导单
     onGuidanceOrderPay() {
+        if (!this.data.contactName && !this.data.selectAddress.id) {
+            wx.jyApp.toast('请先选择收货地址');
+            return;
+        }
         wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/wx/pay/nutrition/submit',

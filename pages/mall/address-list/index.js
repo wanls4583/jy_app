@@ -81,12 +81,15 @@ Page({
             this.setData({
                 addressList: data.list || []
             });
-            if (!this.data.selectAddress) {
+            if (!wx.jyApp.store.selectAddress) {
                 this.data.addressList.map((item) => {
                     if (item.isDefault) {
                         this.updateSelectAddress(item);
                     }
                 });
+            }
+            if (!wx.jyApp.store.selectAddress && this.data.addressList.length) {
+                this.updateSelectAddress(this.data.addressList[0]);
             }
         }).finally(() => {
             wx.hideLoading();
