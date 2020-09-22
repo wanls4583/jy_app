@@ -121,6 +121,7 @@ Page({
     checkMsg() {
         if (this.msgCount != wx.jyApp.store.msgCount && this.data.totalPage > -1) {
             this.loadList(true);
+            this.msgCount = wx.jyApp.store.msgCount;
         }
         clearTimeout(this.checkTimer);
         this.checkTimer = setTimeout(() => {

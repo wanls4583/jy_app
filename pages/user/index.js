@@ -26,6 +26,8 @@ Page({
         })
         this.taskMap = {};
         this.pciMap = {};
+    },
+    onShow() {
         if (this.data.userInfo.phone) {
             this.setData({
                 starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
