@@ -38,6 +38,13 @@ Page({
             delete wx.jyApp.payInterrogationResult
         }
     },
+    onShareAppMessage: function (res) {
+        return {
+            title: this.data.doctor.doctorName || '医生',
+            path: '/pages/index/index?type=card&doctorId=' + this.data.doctorId,
+            imageUrl: this.data.doctor.avatar || '/image/logo.png'
+        }
+    },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
