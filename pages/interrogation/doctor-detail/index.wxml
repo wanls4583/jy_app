@@ -88,7 +88,7 @@
 		<view class="color-666">{{doctor.workHospitalName}}</view>
 	</view>
 	<view class="padding-30 padding-top-0">
-		<view class style="min-width:160rpx">科室：</view>
+		<view class style="min-width:160rpx">职称：</view>
 		<view class="color-666">{{doctor.jobTitle}}</view>
 	</view>
 	<view class="padding-30 padding-top-0">
