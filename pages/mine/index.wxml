@@ -51,7 +51,7 @@
 		<!-- 患者 -->
 		<view class="flex--center--between background-gradient padding-30 padding-top-0" style="padding-bottom:60rpx" wx:else>
 			<view class="flex--center--center">
-				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+				<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 gray-background-color border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
 				</view>
 				<text class="white-color">{{userInfo.nickname || '--'}}</text>
