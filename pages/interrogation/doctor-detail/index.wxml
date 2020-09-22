@@ -43,12 +43,12 @@
 					<text class="font-small">￥{{doctor.consultOrderPrice}}/24小时</text>
 				</view>
 			</view>
-			<view
-				bindtap="onConsult"
-				class="button primary small"
-				data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}"
-				wx:if="{{doctor.consultOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}"
-			>去咨询</view>
+			<block wx:if="{{doctor.consultOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
+				<button bindgetphonenumber="getPhoneNumber" class="button primary small" hover-class="none" open-type="getPhoneNumber" wx:if="{{!userInfo.phone}}">
+					<text>去咨询</text>
+				</button>
+				<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}" wx:else>去咨询</view>
+			</block>
 			<view class="button primary small disabled" wx:else>未开通</view>
 		</view>
 	</view>

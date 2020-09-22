@@ -6,11 +6,20 @@ Page({
         appraiseList: []
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+            actions: ['updateUserInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.setData({
             doctorId: option.id
         });
         this.getDoctorInfo();
         this.getAppraiseList();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onShow() {
         if (wx.jyApp.payInterrogationResult) { //问诊支付结果
@@ -81,5 +90,29 @@ Page({
                 appraiseList: data.page.list
             });
         });
+    },
+    getPhoneNumber(e) {
+        if (e.detail.iv && e.detail.encryptedData) {
+            wx.showLoading({
+                title: '获取中...',
+                mask: true
+            });
+            wx.jyApp.http({
+                url: '/wx/user/authorize/phone',
+                method: 'post',
+                data: {
+                    iv: e.detail.iv,
+                    encryptedData: e.detail.encryptedData
+                }
+            }).then((data) => {
+                this.data.userInfo.phone = data.phone;
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
+            }).finally(() => {
+                wx.hideLoading();
+                wx.navigateTo({
+                    url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
+                });
+            });
+        }
     }
 })
