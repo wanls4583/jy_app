@@ -16,19 +16,19 @@
 		<view class="flex--center--around margin-top-30">
 			<view>
 				<view class="white-color">好评率</view>
-				<view class="align-center font-large warn-color" wx:if="{{doctor.goodAppraiseRate}}">{{doctor.goodAppraiseRate}}%</view>
-				<view class="align-center font-large warn-color" wx:else>--</view>
+				<view class="align-center font-large warn-color text-shadow" wx:if="{{doctor.goodAppraiseRate}}">{{doctor.goodAppraiseRate}}%</view>
+				<view class="align-center font-large warn-color text-shadow" wx:else>--</view>
 			</view>
 			<view class="white-color">|</view>
 			<view>
 				<view class="white-color">接诊人数</view>
-				<view class="align-center font-large warn-color">{{doctor.totalAnswerNum}}</view>
+				<view class="align-center font-large warn-color text-shadow">{{doctor.totalAnswerNum}}</view>
 			</view>
 			<view class="white-color">|</view>
 			<view>
 				<view class="white-color">平均响应</view>
-				<view class="align-center font-large warn-color" wx:if="{{doctor.avgResponseTime}}">{{doctor.avgResponseTime}}分</view>
-				<view class="align-center font-large warn-color" wx:else>--</view>
+				<view class="align-center font-large warn-color text-shadow" wx:if="{{doctor.avgResponseTime}}">{{doctor.avgResponseTime}}分</view>
+				<view class="align-center font-large warn-color text-shadow" wx:else>--</view>
 			</view>
 		</view>
 	</view>
