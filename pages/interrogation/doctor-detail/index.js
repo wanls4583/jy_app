@@ -3,7 +3,8 @@ Page({
         doctorId: '',
         doctor: {},
         appraiseNum: 0,
-        appraiseList: []
+        appraiseList: [],
+        detailVisble: false
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -69,6 +70,12 @@ Page({
         var src = e.currentTarget.dataset.src;
         wx.previewImage({
             urls: [src]
+        });
+    },
+    //查看详情
+    onShowDetail() {
+        this.setData({
+            detailVisble: !this.data.detailVisble
         });
     },
     getDoctorInfo() {

@@ -1,16 +1,27 @@
 <view class="container white-background-color">
 	<view class="padding-30" style="background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
-		<view class="flex--center--start">
-			<view class="width-100rpx height-100rpx margin-30 margin-left-0 radius-50 border border-color-white overflow-hidden">
+		<view class="position-relative">
+			<view
+				class="position-absolute width-100rpx height-100rpx radius-50 border border-color-white overflow-hidden"
+				style="left:0;top:50%;transform:translateY(-50%)"
+			>
 				<image bindtap="onClickImg" class="width-100 height-100" data-src="{{doctor.avatar}}" src="{{doctor.avatar}}" />
 			</view>
-			<view class="flex-grow-1 flex--start--between flex-direction-column white-color">
-				<view class="white-color">
+			<view class="white-color" style="margin-left:130rpx;margin-right:180rpx">
+				<view class="white-color ellipse">
 					<text class="font-bold">{{doctor.doctorName || '--'}}</text>
-					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
+					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
 				</view>
-				<text class="margin-top-10 font-small" decode="{{true}}">{{doctor.workHospitalName || '--'}}</text>
-				<view class="margin-top-10 font-small">擅长：{{doctor.goodAtDomain || ''}}</view>
+				<view class="margin-top-10 font-small ellipse">擅长：{{doctor.goodAtDomain || ''}}</view>
+				<view class="margin-top-10 font-small ellipse">简介：{{doctor.introduce || ''}}</view>
+			</view>
+			<view
+				bindtap="onShowDetail"
+				class="position-absolute right-0 flex--center--center padding-10 clickable white-color"
+				style="top:50%;transform:translateY(-50%)"
+			>
+				<text>查看详情</text>
+				<van-icon color="#fff" name="arrow" />
 			</view>
 		</view>
 		<view class="flex--center--around margin-top-30">
@@ -71,3 +82,21 @@
 	</view>
 </view>
 <van-dialog id="van-dialog" />
+<van-popup bind:close="onShowDetail" closeable position="bottom" show="{{detailVisble}}">
+	<view class="padding-30">
+		<view class style="min-width:160rpx">执业医院：</view>
+		<view class="color-666">{{doctor.workHospitalName}}</view>
+	</view>
+	<view class="padding-30 padding-top-0">
+		<view class style="min-width:160rpx">科室：</view>
+		<view class="color-666">{{doctor.jobTitle}}</view>
+	</view>
+	<view class="padding-30 padding-top-0">
+		<view class style="min-width:160rpx">擅长：</view>
+		<view class="color-666">{{doctor.goodAtDomain}}</view>
+	</view>
+	<view class="padding-30 padding-top-0">
+		<view class style="min-width:160rpx">简介：</view>
+		<view class="color-666">{{doctor.introduce}}</view>
+	</view>
+</van-popup>
