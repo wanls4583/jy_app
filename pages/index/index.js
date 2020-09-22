@@ -7,12 +7,14 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
         if (option.type == 'invite' && option.userId) { //医生通过好友分享邀请
             this.inviteId = option.userId;
             this.inviteWay = 1;
+        } else if (option.type == 'product' && option.productId) { //医生通过好友分享邀请
+            this.productId = option.productId;
         } else if (option.scene) {
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
@@ -49,6 +51,10 @@ Page({
                 if (this.doctorId && this.firstLoad) {
                     wx.navigateTo({
                         url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
+                    });
+                } if (this.productId && this.firstLoad) {
+                    wx.navigateTo({
+                        url: '/pages/mall/product-detail/index?id=' + this.productId
                     });
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
@@ -110,16 +116,17 @@ Page({
             hideTip: true
         }).then((data) => {
             this.updateNoticeCount(data.totalNotRead || 0);
+            this.updateMsgCount(data.msgTotalNotRead || 0);
             if (data.msgTotalNotRead) {
                 wx.setTabBarBadge({
                     index: 2,
                     text: String(data.msgTotalNotRead),
-                    fail() {}
+                    fail() { }
                 });
             } else {
                 wx.removeTabBarBadge({
                     index: 2,
-                    fail() {}
+                    fail() { }
                 });
             }
         }).finally(() => {

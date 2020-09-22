@@ -70,6 +70,10 @@ export const store = observable({
     updateNoticeCount: action(function (noticeCount) {
         this.noticeCount = noticeCount;
     }),
+    msgCount: 0,
+    updateMsgCount: action(function (msgCount) {
+        this.msgCount = msgCount;
+    }),
     configData: {},
     updateConfigData: action(function (configData) {
         this.configData = configData;

@@ -7,15 +7,18 @@ Page({
         totalCount: 0
     },
     onLoad(option) {
-        this.loadList(true).then(() => {
-            this.checkList();
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['noticeCount', 'msgCount'],
+            actions: ['updateNoticeCount', 'updateMsgCount'],
         });
+        this.storeBindings.updateStoreBindings();
+        this.loadList(true);
     },
     onShow() {
-        if (this.data.totalPage > -1) {
-            this.checkList();
-        }
-        this.getMessageCount();
+        this.getMessageCount().then(() => {
+            this.checkMsg();
+        });
     },
     onClickMsg(e) {
         var id = e.currentTarget.dataset.id;
@@ -89,28 +92,6 @@ Page({
         });
         return this.request;
     },
-    //检查是否有新消息
-    checkList() {
-        wx.jyApp.http({
-            url: '/chat/list',
-            data: {
-                page: 1,
-                limit: 1
-            },
-            hideTip: true
-        }).then((data) => {
-            if (data.page.totalCount != this.data.totalCount) {
-                this.loadList(true);
-            }
-        }).finally(() => {
-            setTimeout(() => {
-                var pages = getCurrentPages();
-                if (pages.length == 1 && pages[0].route == 'pages/interrogation/message-list/index') {
-                    this.checkList();
-                }
-            }, 5000);
-        });
-    },
     //未读消息总数量
     getMessageCount() {
         return wx.jyApp.http({
@@ -129,6 +110,21 @@ Page({
                     fail() { }
                 });
             }
+            if (data.msgTotalNotRead != this.msgCount && this.data.totalPage > -1) {
+                this.loadList(true);
+            }
+            this.updateNoticeCount(data.totalNotRead || 0);
+            this.updateMsgCount(data.msgTotalNotRead || 0);
+            this.msgCount = (data.msgTotalNotRead || 0);
         });
+    },
+    checkMsg() {
+        if (this.msgCount != wx.jyApp.store.msgCount && this.data.totalPage > -1) {
+            this.loadList(true);
+        }
+        clearTimeout(this.checkTimer);
+        this.checkTimer = setTimeout(() => {
+            this.checkMsg();
+        }, 1000);
     }
 })

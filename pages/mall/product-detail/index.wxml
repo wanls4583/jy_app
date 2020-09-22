@@ -54,9 +54,9 @@
 			<van-icon class="gray-color margin-right-30" name="shopping-cart-o" size="20px" wx:else />
 			<text class="primary-color" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
 			<view class="gray-color" wx:if="{{!cartNum}}">
-				<view wx:if="{{configData.deliveryCost}}">
+				<view wx:if="{{configData.deliveryCost>0}}">
 					<text>配送费:</text>
-					<text class="danger-color">￥{{configData.deliveryCost}}</text>
+					<text class="danger-color font-bold">￥{{configData.deliveryCost}}</text>
 				</view>
 				<view wx:else>免费配送</view>
 			</view>
@@ -72,7 +72,7 @@
 		<view class="flex--center--end">
 			<view bindtap="onClearCart" class="flex--center--center gray-color padding-left-right-30 padding-top-bottom-20">
 				<text>清空购物车</text>
-				<van-icon name="delete" size="20"/>
+				<van-icon name="delete" size="20" />
 			</view>
 		</view>
 		<view class="flex--center--between border-bottom padding-30" wx:for="{{cart}}" wx:key="index">
