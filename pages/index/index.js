@@ -19,6 +19,7 @@ Page({
             if (param.type == 'invite' && param.userId) { //医生通过二维码分享邀请
                 this.inviteId = param.userId;
                 this.inviteWay = 2;
+                this.doctorId = param.doctorId;
             } else if (param.type == 'card' && param.doctorId) {
                 this.doctorId = param.doctorId;
             }
@@ -45,9 +46,9 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 this.getMessageCount();
-                if (this.userId && this.firstLoad) {
+                if (this.doctorId && this.firstLoad) {
                     wx.navigateTo({
-                        url: '/pages/interrogation/doctor-detail/index?id=' + this.userId
+                        url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                     });
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
@@ -113,12 +114,12 @@ Page({
                 wx.setTabBarBadge({
                     index: 2,
                     text: String(data.msgTotalNotRead),
-                    fail() { }
+                    fail() {}
                 });
             } else {
                 wx.removeTabBarBadge({
                     index: 2,
-                    fail() { }
+                    fail() {}
                 });
             }
         }).finally(() => {
