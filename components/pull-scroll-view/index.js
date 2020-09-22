@@ -1,10 +1,6 @@
 const app = getApp();
 Component({
     properties: {
-        externalClasses: {
-            type: String,
-            value: ''
-        },
         style: {
             type: String,
             value: ''
@@ -21,10 +17,6 @@ Component({
         fullScreen: {
             type: Boolean,
             value: false
-        },
-        scrollTop: {
-            type: Number,
-            value: 0
         },
         scrollToTop: {
             type: Boolean,

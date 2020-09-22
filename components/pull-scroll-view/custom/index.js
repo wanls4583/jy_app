@@ -1,6 +1,5 @@
 const app = getApp();
 Component({
-    externalClasses: ['external-classes'],
     properties: {
         style: {
             type: String,
@@ -11,24 +10,10 @@ Component({
             type: Boolean,
             value: false
         },
-        scrollTop: {
-            type: Number,
-            value: 0,
-            observer: function(newVal, oldVal) {
-                this.properties.scrollTop = newVal + 1;
-                if (!this.hasAttached) {
-                    return;
-                }
-                //使下次相同的scrollTop能触发observer
-                this.setData({
-                    _scrollTop: newVal
-                });
-            }
-        },
         scrollToTop: {
             type: Boolean,
             value: false,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.scrollToTop = false;
                 this.toTop();
@@ -37,7 +22,7 @@ Component({
         stopRefresh: {
             type: Boolean,
             value: false,
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 //使下次能再触发observer
                 this.properties.stopRefresh = false;
                 this.setData({
@@ -83,7 +68,7 @@ Component({
             });
         }
     },
-    attached: function(option) {
+    attached: function (option) {
         wx.nextTick(() => {
             this._attached();
         });
@@ -103,7 +88,7 @@ Component({
                     _topHeight: this.data.topHeight
                 }, () => {
                     this.setData({
-                        _scrollTop: this.properties.scrollTop ? this.properties.scrollTop : this.data.topHeight
+                        _scrollTop: this.data.topHeight
                     });
                 });
             });

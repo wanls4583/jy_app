@@ -31,6 +31,9 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onShow() {
+        this.getProductNum();
+    },
     setBackButtonRect() {
         var bRect = wx.getMenuButtonBoundingClientRect();
         var bTop = bRect && bRect.top || 28;
