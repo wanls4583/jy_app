@@ -120,6 +120,10 @@ Page({
                     url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
                 });
             });
+        } else {
+            wx.navigateTo({
+                url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
+            });
         }
     }
 })
