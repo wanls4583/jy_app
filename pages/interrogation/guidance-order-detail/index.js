@@ -27,7 +27,7 @@ Page({
     },
     //支付营养指导单
     onGuidanceOrderPay() {
-        if (!this.data.contactName && !this.data.selectAddress.id) {
+        if (!this.data.contactName && !this.data.selectAddress) {
             wx.jyApp.toast('请先选择收货地址');
             return;
         }

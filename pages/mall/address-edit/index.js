@@ -18,6 +18,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
+            fields: ['selectAddress'],
             actions: ['updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
@@ -96,6 +97,8 @@ Page({
             wx.jyApp.reloadAddressList = true;
             if (this.data.address.isDefault) {
                 this.data.address.id = this.data.address.id || data.id;
+                this.updateSelectAddress(this.data.address);
+            } else if (this.data.selectAddress && this.data.selectAddress.id == this.data.address.id) {
                 this.updateSelectAddress(this.data.address);
             }
             wx.navigateBack();

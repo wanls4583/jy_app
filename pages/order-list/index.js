@@ -69,10 +69,10 @@ Page({
             });
             delete wx.jyApp.hasRecievedId;
         }
-        if (wx.jyApp.hasPayId) { //已经评价
+        if (wx.jyApp.hasPayId) { //已支付
             this.data.guidanceOrder.orderList.map((item, index) => {
                 if (item.id == wx.jyApp.hasPayId) {
-                    item.isAppraise = true;
+                    item.status = 1;
                     this.setStatusColor(item, 'mall');
                     this.setData({
                         [`guidanceOrder.orderList[${index}]`]: item
