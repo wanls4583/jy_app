@@ -59,10 +59,10 @@ page .van-empty__description {
 }
 
 page .van-popup__close-icon {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 page .van-popup__close-icon--top-right {
-    top: 30rpx;
-    right: 30rpx;
+    top: 28rpx;
+    right: 28rpx;
 }
