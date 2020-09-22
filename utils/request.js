@@ -23,7 +23,7 @@ function request(obj) {
                 } else {
                     if (!obj.hideTip) {
                         setTimeout(() => { //延时提示，防止hideLoading干扰
-                            wx.jyApp.toast(res.data.msg);
+                            res.data.msg && wx.jyApp.toast(res.data.msg);
                         }, 300);
                     }
                     reject(res.data);

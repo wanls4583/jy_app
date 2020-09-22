@@ -4,10 +4,10 @@
 		<view class="white-background-color">
 			<view class="padding-left-right-30 clickable" data-index="{{index}}" wx:for="{{dataList}}" wx:key="id">
 				<view class="padding-top-bottom-20 border-bottom">
-					<view class="flex--center--between">
-						<view class="width-33">提现到：{{item.nickname}}</view>
-						<view class="width-33 align-center">{{item._status}}</view>
-						<view class="width-33 align-right">{{item.amount}}元</view>
+					<view class="overflow-hidden">
+						<view class="ellipse" style="float:left;width:50%;">提现到:{{item.nickname}}</view>
+						<view class="padding-left-20" style="float:left;width:25%">{{item._status}}</view>
+						<view class="align-right" style="float:left;width:25%">{{item.amount}}元</view>
 					</view>
 					<view class="margin-top-10 gray-color font-small">{{item.createTime}}</view>
 					<view class="margin-top-10 danger-color font-small" wx:if="{{item.status==3}}">失败原因：{{item.payMsg}}</view>

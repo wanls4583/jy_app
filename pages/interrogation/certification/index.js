@@ -480,7 +480,7 @@ Page({
         wx.jyApp.http({
             url: '/doctor/approve/history'
         }).then((data) => {
-            if (data.list) {
+            if (data.list && data.list.length) {
                 data = data.list[0];
                 this.setInfo(data);
             } else {
