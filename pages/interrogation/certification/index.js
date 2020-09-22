@@ -188,9 +188,6 @@ Page({
     },
     //选择执业证书图片
     onChoosePracticeImage() {
-        if (!this.checkEdit()) {
-            return;
-        }
         var self = this;
         wx.chooseImage({
             sizeType: ['compressed'],

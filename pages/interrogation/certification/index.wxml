@@ -124,6 +124,7 @@
 						class="position-absolute top-0 right-0 flex--center--center clickable"
 						data-index="{{index}}"
 						style="background:rgba(0,0,0,0.5);padding:2px"
+						wx:if="{{approveStatus!=1}}"
 					>
 						<van-icon color="#ee0a24" name="cross" size="15px" />
 					</view>
@@ -131,7 +132,7 @@
 				<view
 					bindtap="onChoosePracticeImage"
 					class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color"
-					wx:if="{{jobCertificateUrl.length<5}}"
+					wx:if="{{jobCertificateUrl.length<5&&approveStatus!=1}}"
 				>
 					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
 				</view>
@@ -176,6 +177,7 @@
 						class="position-absolute top-0 right-0 flex--center--center clickable"
 						data-index="{{index}}"
 						style="background:rgba(0,0,0,0.5);padding:2px"
+						wx:if="{{approveStatus!=1}}"
 					>
 						<van-icon color="#ee0a24" name="cross" size="15px" />
 					</view>
@@ -183,7 +185,7 @@
 				<view
 					bindtap="onChoosePositionImage"
 					class="item flex--center--center width-150rpx height-150rpx margin-left-30 margin-bottom-30 gray-background-color border-style-none clickable gray-color"
-					wx:if="{{jobTitleCertificateUrl.length<5}}"
+					wx:if="{{jobTitleCertificateUrl.length<5&&approveStatus!=1}}"
 				>
 					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
 				</view>
