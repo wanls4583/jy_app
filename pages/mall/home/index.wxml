@@ -9,7 +9,7 @@
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px shadow-bold"
+						class="overflow-hidden radius-8px shadow"
 						duration="{{500}}"
 						interval="{{5000}}"
 						style="height:33vw;transform:translateY(0);"
@@ -47,7 +47,7 @@
 					</view>
 				</view>
 				<view class="white-background-color" wx:if="{{departmentList.length}}">
-					<view class="font-large padding-30 text-shadow">营养中心</view>
+					<view class="font-large padding-30">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onGoto"
@@ -65,7 +65,7 @@
 				</view>
 				<view class="white-background-color padding-30" wx:if="{{doctorList.length}}">
 					<view class="flex--center--between">
-						<text class="font-large text-shadow">推荐医生</text>
+						<text class="font-large">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
 							<text>全部</text>
 							<van-icon name="arrow" />
@@ -90,16 +90,16 @@
 					</view>
 				</view>
 				<view class="overflow-hidden white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
-					<view class="font-large padding-top-bottom-30 text-shadow">健康科普</view>
+					<view class="font-large padding-top-bottom-30">健康科普</view>
 					<view
 						bindtap="onClickBanner"
-						class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow-bold"
+						class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow"
 						data-link="{{item.linkUrl}}"
 						style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:330rpx"
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
-						<view class="font-title white-color" style="text-shadow:1px 1px 4px #000">{{item.title||''}}</view>
+						<view class="font-large font-bold">{{item.title||''}}</view>
 					</view>
 				</view>
 			</view>

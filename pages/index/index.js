@@ -18,12 +18,12 @@ Page({
         } else if (option.scene) {
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
-            if (param.type == 'invite' && param.userId) { //医生通过二维码分享邀请
-                this.inviteId = param.userId;
+            if (param.type == 'invite' && param.uId) { //医生通过二维码分享邀请
+                this.inviteId = param.uId;
                 this.inviteWay = 2;
-                this.doctorId = param.doctorId;
-            } else if (param.type == 'card' && param.doctorId) {
-                this.doctorId = param.doctorId;
+                this.doctorId = param.dId;
+            } else if (param.type == 'card' && param.dId) {
+                this.doctorId = param.dId;
             }
         }
         this.firstLoad = true;

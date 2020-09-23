@@ -9,7 +9,7 @@
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px shadow-bold"
+						class="overflow-hidden radius-8px shadow"
 						duration="{{500}}"
 						interval="{{5000}}"
 						style="height:33vw;transform:translateY(0);"
@@ -25,7 +25,7 @@
 				</view>
 				<view wx:if="{{taocanList.length}}">
 					<view class="flex--center--between height-120rpx padding-left-right-30">
-						<view class="font-large text-shadow">营养套餐</view>
+						<view class="font-large">营养套餐</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="2">
 							<text>查看更多</text>
 							<van-icon name="arrow" />
@@ -50,7 +50,7 @@
 				</view>
 				<view wx:if="{{productList.length}}">
 					<view class="flex--center--between height-120rpx padding-left-right-30">
-						<view class="font-large text-shadow">营养产品</view>
+						<view class="font-large">营养产品</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable" data-type="1">
 							<text>查看更多</text>
 							<van-icon name="arrow" />
