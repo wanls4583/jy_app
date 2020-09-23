@@ -16,8 +16,8 @@
 					>
 						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 							<view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
-								<view class="banner-bottom position-absolute left-0 bottom-0 width-100 white-color align-right">
-									<text>{{item.title||''}}</text>
+								<view class="banner-bottom position-absolute left-0 bottom-0 width-100 align-right">
+									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
 								</view>
 							</view>
 						</swiper-item>
@@ -99,7 +99,7 @@
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
-						<view class="font-large font-bold">{{item.title||''}}</view>
+						<view class="font-large font-bold" style="color:{{item.titleColor}}">{{item.title||''}}</view>
 					</view>
 				</view>
 			</view>

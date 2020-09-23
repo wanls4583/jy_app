@@ -108,7 +108,7 @@ Page({
         wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
-                page: '/page/index/index',
+                page: 'pages/index/index',
                 scene: `type=${this.type}&dId=${this.doctorId||''}&uId=${this.userId||''}`
             }
         }).then((data) => {
