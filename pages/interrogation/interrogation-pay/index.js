@@ -22,6 +22,11 @@ Page({
             }
         }).then((data) => {
             delete wx.jyApp.illness;
+            var pages = getCurrentPages();
+            var delta = 3;
+            if (pages[pages.length - 4] == 'pages/interrogation/chat/index') {
+                delta = 4;
+            }
             if (data.params) {
                 wx.jyApp.utils.pay(data.params).then(() => {
                     wx.jyApp.payInterrogationResult = {
@@ -29,7 +34,7 @@ Page({
                         result: 'success'
                     }
                     wx.navigateBack({
-                        delta: 3
+                        delta: delta
                     });
                 }).catch(() => {
                     wx.jyApp.payInterrogationResult = {
@@ -37,7 +42,7 @@ Page({
                         result: 'fail'
                     }
                     wx.navigateBack({
-                        delta: 3
+                        delta: delta
                     });
                 });
             } else {
@@ -46,7 +51,7 @@ Page({
                     result: 'success'
                 }
                 wx.navigateBack({
-                    delta: 3
+                    delta: delta
                 });
             }
         }).finally(() => {
