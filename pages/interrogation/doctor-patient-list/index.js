@@ -24,7 +24,9 @@ Component({
     },
     pageLifetimes: {
         show() {
-            this.checkList();
+            if (this.loaded) {
+                this.checkList();
+            }
         }
     },
     methods: {
@@ -104,6 +106,7 @@ Component({
                 console.log(err);
             }).finally(() => {
                 this.loading = false;
+                this.loaded = true;
                 this.request = null;
                 this.setData({
                     stopRefresh: true

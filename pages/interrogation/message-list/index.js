@@ -13,7 +13,6 @@ Page({
             actions: ['updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
-        this.loadList(true);
     },
     onShow() {
         this.getMessageCount().then(() => {
@@ -110,7 +109,7 @@ Page({
                     fail() { }
                 });
             }
-            if (data.msgTotalNotRead != this.msgCount && this.data.totalPage > -1) {
+            if (data.msgTotalNotRead != this.msgCount) {
                 this.loadList(true);
             }
             this.updateNoticeCount(data.totalNotRead || 0);
@@ -119,7 +118,7 @@ Page({
         });
     },
     checkMsg() {
-        if (this.msgCount != wx.jyApp.store.msgCount && this.data.totalPage > -1) {
+        if (this.msgCount != wx.jyApp.store.msgCount) {
             this.loadList(true);
             this.msgCount = wx.jyApp.store.msgCount;
         }
