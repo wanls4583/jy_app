@@ -97,6 +97,8 @@
 	</view>
 	<view class="padding-30 padding-top-0">
 		<view class="font-bold" style="min-width:160rpx">简介：</view>
-		<view class="margin-top-10 color-666">{{doctor.introduce}}</view>
+		<view class="margin-top-10 color-666">
+			<text>{{doctor.introduce}}</text>
+		</view>
 	</view>
 </van-popup>
