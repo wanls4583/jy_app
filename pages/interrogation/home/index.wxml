@@ -59,6 +59,9 @@
 					circular="{{true}}"
 					class="overflow-hidden height-100 radius-8px border"
 					duration="{{500}}"
+					indicator-active-color="#ffffff"
+					indicator-color="rgba(255,255,255,.5)"
+					indicator-dots="{{true}}"
 					interval="{{5000}}"
 					style="transform:translateY(0);"
 				>
