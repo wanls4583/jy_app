@@ -42,7 +42,7 @@ Page({
                 textStyle: 'dark'
             });
             wx.setNavigationBarTitle({
-                title: '首页'
+                title: '钜元云营养'
             });
             wx.setTabBarItem({
                 index: 1,
