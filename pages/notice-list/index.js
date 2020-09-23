@@ -18,13 +18,7 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onClickMsg(e) {
-        var index = e.currentTarget.dataset.index;
-        var item = this.data.messageList[index];
-        if (item.linkUrl) {
-            wx.navigateTo({
-                url: '/pages/web-view/index?url=' + item.linkUrl
-            });
-        }
+        wx.jyApp.utils.openWebview(e);
     },
     onRefresh() {
         this.loadList(true);
