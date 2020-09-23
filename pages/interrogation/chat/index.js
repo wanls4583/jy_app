@@ -2,43 +2,9 @@ import Utils from '../../../utils/util.js';
 
 Page({
     data: {
-        patient: {},
-        currentUser: {},
-        talker: {},
-        consultOrder: {},
-        chatList: [], //聊天内容
-        inputBottom: 0,
-        inputFoucus: false,
-        panelVisible: false,
-        inputValue: '',
-        domId: '',
-        inputHeight: 60,
-        panelHeight: 115,
-        actionVisible: false,
-        roomId: '',
-        consultOrderId: '',
-        earlistId: '',
-        lastestId: '',
-        sendedIds: [],
-        totalPage: 0,
-        applyOrderMap: {},
-        status: 0, //1:聊天未关闭，0:聊天已关闭
-        limit: 20,
-        pages: [],
-        pageMap: {},
-        pageHeightMap: {},
-        bottomId: '',
-        nowPageIndex: 0,
-        loadButtonHeight: 45, //加载更多按钮的高度
-        loading: true, //上翻页加载中状态
     },
     onLoad(option) {
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
-        // try {
-        //     this.setData({
-        //         bottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
-        //     });
-        // } catch (e) { }
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
@@ -48,34 +14,19 @@ Page({
                 }
             });
         }
-        wx.showLoading({
-            title: '加载中...',
-            mask: true
-        });
-        if (option.id) {
-            return wx.jyApp.http({
-                url: '/chat/init',
-                method: 'post',
-                data: {
-                    id: option.id
-                }
-            }).then((data) => {
-                if (wx.jyApp.toRecieve) {
-                    wx.jyApp.hasRecievedId = option.id; //已接诊
-                }
-                this.initRoom(data);
-            }).finally(()=>{
-                delete wx.jyApp.toRecieve;
-            });
-        } else if (option.roomId) {
-            return wx.jyApp.http({
-                url: '/chat/room/info/' + option.roomId
-            }).then((data) => {
-                this.initRoom(data);
-            });
-        }
+        this.init(option);
     },
     onShow() {
+        if (wx.jyApp.payInterrogationResult) {
+            if (wx.jyApp.payInterrogationResult.result == 'success') {
+                this.init({
+                    id: wx.jyApp.payInterrogationResult.id
+                });
+                return;
+            } else {
+                wx.jyApp.toast('支付失败');
+            }
+        }
         this.pollStoped = false;
         if (this.data.roomId) {
             this.getNewHistory();
@@ -95,6 +46,65 @@ Page({
     },
     onUnload() {
         this.stopPoll();
+    },
+    init(option) {
+        this.setData({
+            patient: {},
+            currentUser: {},
+            talker: {},
+            consultOrder: {},
+            chatList: [], //聊天内容
+            inputBottom: 0,
+            inputFoucus: false,
+            panelVisible: false,
+            inputValue: '',
+            domId: '',
+            inputHeight: 60,
+            panelHeight: 115,
+            actionVisible: false,
+            roomId: '',
+            consultOrderId: '',
+            earlistId: '',
+            lastestId: '',
+            sendedIds: [],
+            totalPage: 0,
+            applyOrderMap: {},
+            status: 0, //1:聊天未关闭，0:聊天已关闭
+            limit: 20,
+            pages: [],
+            pageMap: {},
+            pageHeightMap: {},
+            bottomId: '',
+            nowPageIndex: 0,
+            loadButtonHeight: 45, //加载更多按钮的高度
+            loading: true, //上翻页加载中状态
+        });
+        wx.showLoading({
+            title: '加载中...',
+            mask: true
+        });
+        if (option.id) {
+            return wx.jyApp.http({
+                url: '/chat/init',
+                method: 'post',
+                data: {
+                    id: option.id
+                }
+            }).then((data) => {
+                if (wx.jyApp.toRecieve) {
+                    wx.jyApp.hasRecievedId = option.id; //已接诊
+                }
+                this.initRoom(data);
+            }).finally(() => {
+                delete wx.jyApp.toRecieve;
+            });
+        } else if (option.roomId) {
+            return wx.jyApp.http({
+                url: '/chat/room/info/' + option.roomId
+            }).then((data) => {
+                this.initRoom(data);
+            });
+        }
     },
     initRoom(data) {
         data.patient._sex = data.patient.sex == 1 ? '男' : '女';
