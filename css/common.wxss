@@ -260,11 +260,7 @@ checkbox {
 }
 
 .shadow {
-    box-shadow: 2px 2px 30rpx rgb(0, 0, 0, 0.2);
-}
-
-.shadow-bold {
-    box-shadow: 2px 2px 30rpx rgb(0, 0, 0, 0.4);
+    box-shadow: 2px 2px 20rpx rgb(0, 0, 0, 0.2);
 }
 
 .text-shadow {
@@ -301,4 +297,5 @@ checkbox {
 .banner-bottom {
     padding: 100rpx 30rpx 20rpx;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    color: #fff;
 }

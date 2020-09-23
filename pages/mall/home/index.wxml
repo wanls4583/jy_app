@@ -1,6 +1,12 @@
 <view class="container white-background-color">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGoto" data-url="/pages/mall/search/index?showDoctor=1" disabled="{{true}}" placeholder="请输入医生/产品" shape="round" />
+		<van-search
+			bindtap="onGoto"
+			data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
+			disabled="{{true}}"
+			placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品"
+			shape="round"
+		/>
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
@@ -9,7 +15,7 @@
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px shadow"
+						class="overflow-hidden radius-8px border"
 						duration="{{500}}"
 						interval="{{5000}}"
 						style="height:33vw;transform:translateY(0);"
@@ -23,15 +29,20 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--between white-background-color" style="padding:30rpx 54rpx">
+				<view class="flex--center--around white-background-color" style="padding:30rpx">
 					<view bindtap="onGoto" class="flex-direction-column flex--center--between clickable" data-url="/pages/interrogation/illness-edit/index">
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
 						</view>
-						<text class="font-title margin-top-20">快速问诊</text>
-						<text class="font-small gray-color margin-top-10">智能匹配医生</text>
+						<text class="font-title margin-top-20">{{configData.showDoctor==1?'快速问诊':'营养咨询'}}</text>
+						<text class="font-small gray-color margin-top-10">智能匹配{{configData.showDoctor==1?'医生':'营养师'}}</text>
 					</view>
-					<view bindtap="onGoto" class="flex-direction-column flex--center--between clickable" data-url="/pages/mall/search-doctor/index">
+					<view
+						bindtap="onGoto"
+						class="flex-direction-column flex--center--between clickable"
+						data-url="/pages/mall/search-doctor/index"
+						wx:if="{{configData.showDoctor==1}}"
+					>
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_doctor.png" />
 						</view>
@@ -46,7 +57,7 @@
 						<text class="font-small gray-color margin-top-10">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color" wx:if="{{departmentList.length}}">
+				<view class="white-background-color" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
 					<view class="font-large padding-30">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
@@ -63,7 +74,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="white-background-color padding-30" wx:if="{{doctorList.length}}">
+				<view class="white-background-color padding-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
 					<view class="flex--center--between">
 						<text class="font-large">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
@@ -93,7 +104,7 @@
 					<view class="font-large padding-top-bottom-30">健康科普</view>
 					<view
 						bindtap="onClickBanner"
-						class="padding-30 margin-bottom-30 radius-8px gray-background-color shadow"
+						class="padding-30 margin-bottom-30 radius-8px gray-background-color border"
 						data-link="{{item.linkUrl}}"
 						style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:330rpx"
 						wx:for="{{kepuList}}"

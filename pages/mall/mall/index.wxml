@@ -9,7 +9,7 @@
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px shadow"
+						class="overflow-hidden radius-8px border"
 						duration="{{500}}"
 						interval="{{5000}}"
 						style="height:33vw;transform:translateY(0);"
@@ -34,7 +34,7 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden shadow"
+							class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden border"
 							data-id="{{item.id}}"
 							style="width:330rpx;"
 							wx:for="{{taocanList}}"
@@ -43,7 +43,7 @@
 							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:330rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="ellipse">{{item._goodsName}}</view>
-								<view class="margin-top-10 danger-color">{{item.price}}元/份</view>
+								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/份</view>
 							</view>
 						</view>
 					</view>
@@ -59,7 +59,7 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden shadow"
+							class="flex flex-direction-column margin-left-30 margin-bottom-30 radius-8px overflow-hidden border"
 							data-id="{{item.id}}"
 							style="width:330rpx;"
 							wx:for="{{productList}}"
@@ -68,7 +68,7 @@
 							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:270rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="ellipse">{{item._goodsName}}</view>
-								<view class="margin-top-10 danger-color">{{item.price}}元/{{item._useUnit}}</view>
+								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/{{item._useUnit}}</view>
 							</view>
 						</view>
 					</view>
