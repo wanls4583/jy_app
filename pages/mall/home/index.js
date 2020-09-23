@@ -105,13 +105,13 @@ Component({
                     var _index = index % 3;
                     switch (_index) {
                         case 0:
-                            item.background = 'background: linear-gradient(to right, rgb(33, 147, 176), rgb(109, 213, 237));';
+                            item.background = 'background:url(https://dev.juyuanyingyang.com/ihospital/static/image/home_bg_1.jpg) no-repeat center;background-size:cover;';
                             break;
                         case 1:
-                            item.background = 'background: linear-gradient(to right, rgb(0, 131, 176), rgb(0, 180, 219));';
+                            item.background = 'background:url(https://dev.juyuanyingyang.com/ihospital/static/image/home_bg_2.jpg) no-repeat center;background-size:cover;';
                             break;
                         case 2:
-                            item.background = 'background: linear-gradient(to right, rgb(41, 128, 185), rgb(109, 213, 250));';
+                            item.background = 'background:url(https://dev.juyuanyingyang.com/ihospital/static/image/home_bg_3.jpg) no-repeat center;background-size:cover;';
                             break;
                     }
                 });
