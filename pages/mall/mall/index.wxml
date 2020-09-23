@@ -9,7 +9,7 @@
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px border"
+						class="overflow-hidden radius-8px"
 						duration="{{500}}"
 						indicator-active-color="#ffffff"
 						indicator-color="rgba(255,255,255,.5)"

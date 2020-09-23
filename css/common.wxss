@@ -46,6 +46,10 @@ checkbox {
     border: 1rpx solid #ebedf0;
 }
 
+.border-light {
+    border: 1rpx solid #f6f6f6;
+}
+
 .border-top {
     border-top: 1rpx solid #ebedf0;
 }
@@ -257,10 +261,6 @@ checkbox {
     width: 6rpx;
     border-radius: 4rpx;
     background-color: rgb(42, 175, 255);
-}
-
-.shadow {
-    box-shadow: 2px 2px 20rpx rgb(0, 0, 0, 0.2);
 }
 
 .text-shadow {
