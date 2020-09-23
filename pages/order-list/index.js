@@ -73,6 +73,7 @@ Page({
             this.data.guidanceOrder.orderList.map((item, index) => {
                 if (item.id == wx.jyApp.hasPayId) {
                     item.status = 1;
+                    item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                     this.setStatusColor(item, 'mall');
                     this.setData({
                         [`guidanceOrder.orderList[${index}]`]: item
