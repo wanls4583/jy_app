@@ -296,6 +296,6 @@ checkbox {
 
 .banner-bottom {
     padding: 100rpx 30rpx 20rpx;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+    /* background: linear-gradient(transparent, rgba(0, 0, 0, 0.2)); */
     color: #fff;
 }
