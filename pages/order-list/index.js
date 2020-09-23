@@ -69,9 +69,9 @@ Page({
             });
             delete wx.jyApp.hasRecievedId;
         }
-        if (wx.jyApp.hasPayId) { //已支付
+        if (wx.jyApp.hasPayGuidanceId) { //已支付
             this.data.guidanceOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasPayId) {
+                if (item.id == wx.jyApp.hasPayGuidanceId) {
                     item.status = 1;
                     item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                     this.setStatusColor(item, 'mall');
@@ -80,7 +80,7 @@ Page({
                     });
                 }
             });
-            delete wx.jyApp.hasPayId;
+            delete wx.jyApp.hasPayGuidanceId;
         }
     },
     onChangeTab(e) {
@@ -89,6 +89,11 @@ Page({
         });
     },
     onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
+    //立即接诊
+    onRecieve(e) {
+        wx.jyApp.toRecieve = true;
         wx.jyApp.utils.navigateTo(e);
     },
     onChangeSwiper(e) {

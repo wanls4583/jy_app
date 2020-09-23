@@ -60,11 +60,12 @@ Page({
                     id: option.id
                 }
             }).then((data) => {
-                var pages = getCurrentPages();
-                if (pages[pages.length - 2].route == 'pages/order-list/index') {
+                if (wx.jyApp.toRecieve) {
                     wx.jyApp.hasRecievedId = option.id; //已接诊
                 }
                 this.initRoom(data);
+            }).finally(()=>{
+                delete wx.jyApp.toRecieve;
             });
         } else if (option.roomId) {
             return wx.jyApp.http({
