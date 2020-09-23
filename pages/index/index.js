@@ -17,6 +17,7 @@ Page({
             this.productId = option.productId;
         } else if (option.scene) {
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
+            console.log(option.scene);
             console.log(param);
             if (param.type == 'invite' && param.uId) { //医生通过二维码分享邀请
                 this.inviteId = param.uId;
