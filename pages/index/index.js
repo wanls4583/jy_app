@@ -99,6 +99,7 @@ Page({
             'informed_consent_url',
             'activity_rule_url',
             'h5_code_share_url',
+            'consult_shop_url',
             'showDoctor',
         ]).then((data) => {
             wx.jyApp.store.updateConfigData(data);

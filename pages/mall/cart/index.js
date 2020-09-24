@@ -20,6 +20,9 @@ Page({
         this.updateSelectAddress(null);
         this.storeBindings.destroyStoreBindings();
     },
+    onOpenWebView(e) {
+        wx.jyApp.utils.openWebview(e);
+    },
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
         wx.navigateTo({

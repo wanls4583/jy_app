@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container padding-bottom-footer">
 	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
 		<block wx:if="{{selectAddress}}">
 			<view style="max-width: 300px;">
@@ -31,6 +31,10 @@
 			</view>
 		</view>
 		<view class="padding-top-bottom-20">配送金额：￥{{configData.deliveryCost}}</view>
+	</view>
+	<view class="flex--center--center padding-top-30 font-small">
+		<text class="gray-color">我已阅读并同意</text>
+		<view bindtap="onOpenWebView" class="button text primary small" data-url="{{configData.consult_shop_url}}">《营养咨询协议》和《购物注意事项》</view>
 	</view>
 	<view class="footer flex--center--between border-top">
 		<view class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
