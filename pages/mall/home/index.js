@@ -41,6 +41,11 @@ Component({
             this.storeBindings.destroyStoreBindings();
         }
     },
+    pageLifetimes: {
+        show() {
+            this.getConfig();
+        }
+    },
     methods: {
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
@@ -50,7 +55,8 @@ Component({
                 this.loadDoctor(),
                 this.loadDepartmentList(),
                 this.loadBaner(),
-                this.loadKepu()
+                this.loadKepu(),
+                this.getConfig()
             ]).finally(() => {
                 this.setData({
                     stopRefresh: true
@@ -144,5 +150,13 @@ Component({
                 });
             });
         },
+        getConfig() {
+            wx.jyApp.utils.getConfig([
+                'showDoctor',
+            ]).then((data) => {
+                this.data.configData.showDoctor = data.showDoctor;
+                wx.jyApp.store.updateConfigData(Object.assign({}, this.data.configData));
+            });
+        }
     }
 })

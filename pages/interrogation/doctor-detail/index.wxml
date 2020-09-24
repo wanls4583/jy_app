@@ -12,8 +12,8 @@
 					<text class="font-bold">{{doctor.doctorName || '--'}}</text>
 					<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.workHospitalName || '--'}}&nbsp;&nbsp;{{doctor.jobTitle || '--'}}</text>
 				</view>
-				<view class="margin-top-10 font-small ellipse">擅长：{{doctor.goodAtDomain || ''}}</view>
 				<view class="margin-top-10 font-small ellipse">简介：{{doctor.introduce || ''}}</view>
+				<view class="margin-top-10 font-small ellipse">擅长：{{doctor.goodAtDomain || ''}}</view>
 			</view>
 			<view
 				bindtap="onShowDetail"
@@ -85,20 +85,18 @@
 <van-popup bind:close="onShowDetail" closeable position="bottom" show="{{detailVisble}}">
 	<view class="padding-30">
 		<view class="font-bold" style="min-width:160rpx">执业医院：</view>
-		<view class="margin-top-10 color-666">{{doctor.workHospitalName}}</view>
-	</view>
-	<view class="padding-30 padding-top-0">
-		<view class="font-bold" style="min-width:160rpx">职称：</view>
-		<view class="margin-top-10 color-666">{{doctor.jobTitle}}</view>
-	</view>
-	<view class="padding-30 padding-top-0">
-		<view class="font-bold" style="min-width:160rpx">擅长：</view>
-		<view class="margin-top-10 color-666">{{doctor.goodAtDomain}}</view>
+		<view class="margin-top-10 color-666">
+			<text decode="{{true}}">{{doctor.workHospitalName}}&nbsp;&nbsp;{{doctor.jobTitle}}</text>
+		</view>
 	</view>
 	<view class="padding-30 padding-top-0">
 		<view class="font-bold" style="min-width:160rpx">简介：</view>
 		<view class="margin-top-10 color-666">
 			<text>{{doctor.introduce}}</text>
 		</view>
+	</view>
+	<view class="padding-30 padding-top-0">
+		<view class="font-bold" style="min-width:160rpx">擅长：</view>
+		<view class="margin-top-10 color-666">{{doctor.goodAtDomain}}</view>
 	</view>
 </van-popup>
