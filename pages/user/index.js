@@ -27,18 +27,8 @@ Page({
         this.taskMap = {};
         this.pciMap = {};
     },
-    onShow() {
-        if (this.data.userInfo.phone) {
-            this.setData({
-                starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
-            });
-        }
-    },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-    },
-    onGotao(e) {
-        wx.jyApp.utils.navigateTo(e);
     },
     onShow() {
         this.getDefaultAdderss();
@@ -46,6 +36,14 @@ Page({
             this._updateUserInfo();
             this.needUpdate = false;
         }
+        if (this.data.userInfo.phone) {
+            this.setData({
+                starPhone: this.data.userInfo.phone.slice(0, 3) + '****' + this.data.userInfo.phone.slice(-4)
+            });
+        }
+    },
+    onGotao(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     onShowNickname() {
         wx.jyApp.utils.setText({
