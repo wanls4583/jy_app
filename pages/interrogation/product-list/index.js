@@ -164,10 +164,11 @@ Page({
                 return;
             }
             this.data.taocanData.loading = true;
+            var page = refresh ? 1 : this.data.taocanData.page;
             wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: refresh ? 1 : this.data.taocanData.page,
+                    page: page,
                     limit: this.data.limit,
                     type: 2,
                     goodsName: this.data.goodsName
@@ -214,10 +215,11 @@ Page({
                 return;
             }
             this.data.productData.loading = true;
+            var page = refresh ? 1 : this.data.productData.page;
             wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: refresh ? 1 : this.data.productData.page,
+                    page: page,
                     limit: this.data.limit,
                     type: 1,
                     goodsName: this.data.goodsName
