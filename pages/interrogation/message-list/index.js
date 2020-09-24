@@ -16,7 +16,9 @@ Page({
     },
     onShow() {
         this.getMessageCount().then(() => {
-            this.checkMsg();
+            if (!this.checkMsgCount()) {
+                this.checkMsgLength();
+            }
         });
     },
     onClickMsg(e) {
@@ -47,11 +49,6 @@ Page({
     },
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                page: 1,
-                totalPage: -1,
-                messageList: []
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -65,6 +62,13 @@ Page({
             }
         });
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    totalPage: -1,
+                    messageList: []
+                });
+            }
             var today = new Date();
             today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
             data.page.list = data.page.list || [];
@@ -117,14 +121,32 @@ Page({
             this.msgCount = (data.msgTotalNotRead || 0);
         });
     },
-    checkMsg() {
+    //检查未读消息是否有变化
+    checkMsgCount() {
+        var loaded = false;
         if (this.msgCount != wx.jyApp.store.msgCount) {
             this.loadList(true);
             this.msgCount = wx.jyApp.store.msgCount;
+            loaded = true;
         }
         clearTimeout(this.checkTimer);
         this.checkTimer = setTimeout(() => {
-            this.checkMsg();
+            this.checkMsgCount();
         }, 1000);
+        return loaded;
+    },
+    //检查列表是否有新增
+    checkMsgLength() {
+        return wx.jyApp.http({
+            url: '/chat/list',
+            data: {
+                page: 1,
+                limit: 1
+            }
+        }).then((data) => {
+            if (data.page.totalCount != this.data.totalCount) {
+                this.loadList(true);
+            }
+        })
     }
 })
