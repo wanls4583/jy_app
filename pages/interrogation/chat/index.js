@@ -22,11 +22,12 @@ Page({
                 this.init({
                     id: wx.jyApp.payInterrogationResult.id
                 });
+                delete wx.jyApp.payInterrogationResult;
                 return;
             } else {
                 wx.jyApp.toast('支付失败');
+                delete wx.jyApp.payInterrogationResult;
             }
-            delete wx.jyApp.payInterrogationResult;
         }
         this.pollStoped = false;
         if (this.data.roomId) {
