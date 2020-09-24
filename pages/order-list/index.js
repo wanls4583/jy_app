@@ -175,15 +175,6 @@ Page({
     },
     loadMallOrderList(refresh) {
         if (refresh) {
-            this.setData({
-                mallOrder: {
-                    orderList: [],
-                    page: 1,
-                    limit: 10,
-                    totalPage: -1,
-                    stopRefresh: false,
-                }
-            });
             this.mallRequest && this.mallRequest.requestTask.abort();
         } else if (this.data.mallOrder.loading || this.data.mallOrder.totalPage > -1 && this.data.mallOrder.page > this.data.mallOrder.totalPage) {
             return;
@@ -192,11 +183,22 @@ Page({
         this.mallRequest = wx.jyApp.http({
             url: '/order/list',
             data: {
-                page: this.data.mallOrder.page,
+                page: refresh ? 1 : this.data.mallOrder.page,
                 limit: this.data.mallOrder.limit
             }
         });
         this.mallRequest.then((data) => {
+            if (refresh) {
+                this.setData({
+                    mallOrder: {
+                        orderList: [],
+                        page: 1,
+                        limit: 10,
+                        totalPage: -1,
+                        stopRefresh: false,
+                    }
+                });
+            }
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.goods.map((_item) => {
@@ -221,15 +223,6 @@ Page({
     },
     loadInterrogationOrderList(refresh) {
         if (refresh) {
-            this.setData({
-                interrogationOrder: {
-                    orderList: [],
-                    page: 1,
-                    limit: 10,
-                    totalPage: -1,
-                    stopRefresh: false,
-                }
-            });
             this.interrogationRequest && this.interrogationRequest.requestTask.abort();
         } else if (this.data.interrogationOrder.loading || this.data.interrogationOrder.totalPage > -1 && this.data.interrogationOrder.page > this.data.interrogationOrder.totalPage) {
             return;
@@ -238,11 +231,22 @@ Page({
         this.interrogationRequest = wx.jyApp.http({
             url: '/consultorder/list',
             data: {
-                page: this.data.interrogationOrder.page,
+                page: refresh ? 1 : this.data.interrogationOrder.page,
                 limit: this.data.interrogationOrder.limit
             }
         });
         this.interrogationRequest.then((data) => {
+            if (refresh) {
+                this.setData({
+                    interrogationOrder: {
+                        orderList: [],
+                        page: 1,
+                        limit: 10,
+                        totalPage: -1,
+                        stopRefresh: false,
+                    }
+                });
+            }
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
@@ -264,15 +268,6 @@ Page({
     },
     loadGuidanceOrderList(refresh) {
         if (refresh) {
-            this.setData({
-                guidanceOrder: {
-                    orderList: [],
-                    page: 1,
-                    limit: 10,
-                    totalPage: -1,
-                    stopRefresh: false,
-                }
-            });
             this.guidanceRequest && this.guidanceRequest.requestTask.abort();
         } else if (this.data.guidanceOrder.loading || this.data.guidanceOrder.totalPage > -1 && this.data.guidanceOrder.page > this.data.guidanceOrder.totalPage) {
             return;
@@ -281,11 +276,22 @@ Page({
         this.guidanceRequest = wx.jyApp.http({
             url: '/nutritionorder/list',
             data: {
-                page: this.data.guidanceOrder.page,
+                page: refresh ? 1 : this.data.guidanceOrder.page,
                 limit: this.data.guidanceOrder.limit
             }
         });
         this.guidanceRequest.then((data) => {
+            if (refresh) {
+                this.setData({
+                    guidanceOrder: {
+                        orderList: [],
+                        page: 1,
+                        limit: 10,
+                        totalPage: -1,
+                        stopRefresh: false,
+                    }
+                });
+            }
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item._sex = item.sex == 1 ? '男' : '女';
@@ -312,15 +318,6 @@ Page({
     },
     loadApplyOrderList(refresh) {
         if (refresh) {
-            this.setData({
-                applyOrder: {
-                    orderList: [],
-                    page: 1,
-                    limit: 10,
-                    totalPage: -1,
-                    stopRefresh: false,
-                }
-            });
             this.applyRequest && this.applyRequest.requestTask.abort();
         } else if (this.data.applyOrder.loading || this.data.applyOrder.totalPage > -1 && this.data.applyOrder.page > this.data.applyOrder.totalPage) {
             return;
@@ -329,11 +326,22 @@ Page({
         this.applyRequest = wx.jyApp.http({
             url: '/apply/list',
             data: {
-                page: this.data.applyOrder.page,
+                page: refresh ? 1 : this.data.applyOrder.page,
                 limit: this.data.applyOrder.limit
             }
         });
         this.applyRequest.then((data) => {
+            if (refresh) {
+                this.setData({
+                    applyOrder: {
+                        orderList: [],
+                        page: 1,
+                        limit: 10,
+                        totalPage: -1,
+                        stopRefresh: false,
+                    }
+                });
+            }
             data.page.list.map((item) => {
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';

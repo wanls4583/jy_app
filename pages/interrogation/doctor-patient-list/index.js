@@ -72,11 +72,6 @@ Component({
                 return;
             }
             if (refresh) {
-                this.setData({
-                    page: 1,
-                    totalPage: -1,
-                    patientList: []
-                });
                 this.request && this.request.requestTask.abort();
             } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
                 return;
@@ -85,12 +80,19 @@ Component({
             this.request = wx.jyApp.http({
                 url: '/doctor/patients',
                 data: {
-                    page: this.data.page,
+                    page: refresh ? 1 : this.data.page,
                     limit: 20,
                     patientName: this.patientName || ''
                 }
             });
             this.request.then((data) => {
+                if (refresh) {
+                    this.setData({
+                        page: 1,
+                        totalPage: -1,
+                        patientList: []
+                    });
+                }
                 data.page.list = data.page.list || [];
                 data.page.list.map((item) => {
                     item._sex = item.sex == 1 ? '男' : '女';

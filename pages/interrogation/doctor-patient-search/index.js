@@ -34,11 +34,6 @@ Page({
     },
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                page: 1,
-                totalPage: -1,
-                patientList: []
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -48,11 +43,18 @@ Page({
             url: '/doctor/patients',
             data: {
                 patientName: this.patientName || '',
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: 20
             }
         });
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    totalPage: -1,
+                    patientList: []
+                });
+            }
             data.page.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
             });

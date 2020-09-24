@@ -28,11 +28,6 @@ Page({
     },
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                page: 1,
-                totalPage: -1,
-                messageList: []
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -41,11 +36,18 @@ Page({
         this.request = wx.jyApp.http({
             url: '/systemnotice/list',
             data: {
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: 20
             }
         })
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    totalPage: -1,
+                    messageList: []
+                });
+            }
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,

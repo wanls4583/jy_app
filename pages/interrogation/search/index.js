@@ -109,22 +109,11 @@ Page({
         if (this.data.productData.loading || !refresh && this.data.productData.page > this.data.productData.totalPage) {
             return wx.jyApp.Promise.reject();
         }
-        if (refresh) {
-            this.setData({
-                productData: {
-                    list: [],
-                    page: 1,
-                    limit: 6,
-                    totalCount: 0,
-                    totalPage: -1
-                }
-            });
-        }
         this.data.productData.loading = true;
         return wx.jyApp.http({
             url: '/goods/list',
             data: {
-                page: this.data.productData.page,
+                page: refresh ? 1 : this.data.productData.page,
                 limit: this.data.productData.limit,
                 type: 1,
                 goodsName: this.data.goodsName
@@ -133,6 +122,17 @@ Page({
                 this.data.productData.loading = false;
             }
         }).then((data) => {
+            if (refresh) {
+                this.setData({
+                    productData: {
+                        list: [],
+                        page: 1,
+                        limit: 6,
+                        totalCount: 0,
+                        totalPage: -1
+                    }
+                });
+            }
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
@@ -151,22 +151,11 @@ Page({
         if (this.data.taocanData.loading || !refresh && this.data.taocanData.page > this.data.taocanData.totalPage) {
             return wx.jyApp.Promise.reject();
         }
-        if (refresh) {
-            this.setData({
-                taocanData: {
-                    list: [],
-                    page: 1,
-                    limit: 6,
-                    totalCount: 0,
-                    totalPage: -1
-                }
-            });
-        }
         this.data.taocanData.loading = true;
         return wx.jyApp.http({
             url: '/goods/list',
             data: {
-                page: this.data.taocanData.page,
+                page: refresh ? 1 : this.data.taocanData.page,
                 limit: this.data.taocanData.limit,
                 type: 2,
                 goodsName: this.data.goodsName
@@ -175,6 +164,17 @@ Page({
                 this.data.taocanData.loading = false;
             }
         }).then((data) => {
+            if (refresh) {
+                this.setData({
+                    taocanData: {
+                        list: [],
+                        page: 1,
+                        limit: 6,
+                        totalCount: 0,
+                        totalPage: -1
+                    }
+                });
+            }
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];

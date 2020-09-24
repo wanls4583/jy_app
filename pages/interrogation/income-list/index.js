@@ -47,11 +47,6 @@ Page({
     },
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                page: 1,
-                totalPage: -1,
-                dataList: []
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -60,12 +55,19 @@ Page({
         this.request = wx.jyApp.http({
             url: '/doctorincome/list',
             data: {
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: 20,
                 yearMonth: this.yearMonth || ''
             }
         });
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    totalPage: -1,
+                    dataList: []
+                });
+            }
             data.page.list.map((item) => {
                 item._type = '问诊服务';
                 item._status = this.data.statusMap[item.status];

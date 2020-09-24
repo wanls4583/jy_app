@@ -18,11 +18,6 @@ Page({
     },
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                page: 1,
-                totalPage: -1,
-                list: []
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -32,11 +27,18 @@ Page({
             url: '/doctorappraise/list',
             data: {
                 doctorId: this.doctorId,
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: 20
             }
         });
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    page: 1,
+                    totalPage: -1,
+                    list: []
+                });
+            }
             data.page.list.map((item) => {
                 if (item.type == 1) {
                     item._type = '图文问诊';

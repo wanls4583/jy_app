@@ -236,13 +236,6 @@ Page({
     //加载医生列表
     loadList(refresh) {
         if (refresh) {
-            this.setData({
-                doctorList: [],
-                page: 1,
-                limit: 10,
-                totalPage: -1,
-                stopRefresh: false,
-            });
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
@@ -251,7 +244,7 @@ Page({
         this.request = wx.jyApp.http({
             url: '/doctor/list',
             data: {
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: this.data.limit,
                 complexName: this.complexName || '',
                 orderBy: this.data.orderBy,
@@ -261,6 +254,15 @@ Page({
             }
         });
         this.request.then((data) => {
+            if (refresh) {
+                this.setData({
+                    doctorList: [],
+                    page: 1,
+                    limit: 10,
+                    totalPage: -1,
+                    stopRefresh: false,
+                });
+            }
             this.setData({
                 'page': this.data.page + 1,
                 'totalPage': data.page.totalPage,

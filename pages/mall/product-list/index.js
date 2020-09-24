@@ -102,7 +102,7 @@ Page({
             return new Promise((resolve) => {
                 var query = wx.createSelectorQuery()
                 query.select('.product').boundingClientRect()
-                query.exec(function(rect) {
+                query.exec(function (rect) {
                     if (rect && rect[0]) {
                         self.itemHeight = rect[0].height;
                         if (!self.data.wrapHeight) {
@@ -135,23 +135,11 @@ Page({
             if (this.data.taocanData.loading || !refresh && this.data.taocanData.totalPage > -1 && this.data.taocanData.page > this.data.taocanData.totalPage) {
                 return;
             }
-            if (refresh) {
-                this.setData({
-                    taocanData: {
-                        page: 1,
-                        nowPage: 1,
-                        lastPage: 1,
-                        totalPage: -1,
-                        pageList: {}
-                    }
-                });
-            }
             this.data.taocanData.loading = true;
-            page = this.data.taocanData.page;
             wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: page,
+                    page: refresh ? 1 : this.data.taocanData.page,
                     limit: this.data.limit,
                     type: 2,
                     goodsName: this.data.goodsName
@@ -160,6 +148,17 @@ Page({
                     this.data.taocanData.loading = false;
                 }
             }).then((data) => {
+                if (refresh) {
+                    this.setData({
+                        taocanData: {
+                            page: 1,
+                            nowPage: 1,
+                            lastPage: 1,
+                            totalPage: -1,
+                            pageList: {}
+                        }
+                    });
+                }
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = '份';
@@ -186,23 +185,11 @@ Page({
             if (this.data.productData.loading || !refresh && this.data.productData.totalPage > -1 && this.data.productData.page > this.data.productData.totalPage) {
                 return;
             }
-            if (refresh) {
-                this.setData({
-                    productData: {
-                        page: 1,
-                        nowPage: 1,
-                        lastPage: 1,
-                        totalPage: -1,
-                        pageList: {}
-                    }
-                });
-            }
             this.data.productData.loading = true;
-            page = this.data.productData.page;
             wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: page,
+                    page: refresh ? 1 : this.data.productData.page,
                     limit: this.data.limit,
                     type: 1,
                     goodsName: this.data.goodsName
@@ -211,6 +198,17 @@ Page({
                     this.data.productData.loading = false;
                 }
             }).then((data) => {
+                if (refresh) {
+                    this.setData({
+                        productData: {
+                            page: 1,
+                            nowPage: 1,
+                            lastPage: 1,
+                            totalPage: -1,
+                            pageList: {}
+                        }
+                    });
+                }
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = wx.jyApp.constData.unitChange[item.unit];

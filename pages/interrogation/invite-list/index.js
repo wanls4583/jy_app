@@ -12,17 +12,14 @@ Page({
         this.loadList();
     },
     onRefresh() {
-        this.loadList(true);
+        this.loadList();
     },
-    loadList(refresh) {
-        if (refresh) {
-            this.setData({
-                totalCount: -1,
-                dataList: []
-            });
-            this.request && this.request.requestTask.abort();
-        }
-        this.loading = true;
+    loadList() {
+        this.setData({
+            totalCount: -1,
+            dataList: []
+        });
+        this.request && this.request.requestTask.abort();
         this.request = wx.jyApp.http({
             url: '/doctor/invite/list'
         });
@@ -39,7 +36,6 @@ Page({
             this.setData({
                 stopRefresh: true
             });
-            this.loading = false;
             this.request = null;
         });
     }

@@ -101,22 +101,11 @@ Page({
         if (this.data.productData.loading || !refresh && this.data.productData.page > this.data.productData.totalPage) {
             return wx.jyApp.Promise.reject();
         }
-        if (refresh) {
-            this.setData({
-                productData: {
-                    list: [],
-                    renderList: [],
-                    page: 1,
-                    totalPage: -1,
-                    totalCount: 0
-                }
-            });
-        }
         this.data.productData.loading = true;
         return wx.jyApp.http({
             url: '/goods/list',
             data: {
-                page: this.data.productData.page,
+                page: refresh ? 1 : this.data.productData.page,
                 limit: 10,
                 type: 1,
                 goodsName: this.data.goodsName
@@ -125,6 +114,17 @@ Page({
                 this.data.productData.loading = false;
             }
         }).then((data) => {
+            if (refresh) {
+                this.setData({
+                    productData: {
+                        list: [],
+                        renderList: [],
+                        page: 1,
+                        totalPage: -1,
+                        totalCount: 0
+                    }
+                });
+            }
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
@@ -143,22 +143,11 @@ Page({
         if (this.data.taocanData.loading || !refresh && this.data.taocanData.page > this.data.taocanData.totalPage) {
             return wx.jyApp.Promise.reject();
         }
-        if (refresh) {
-            this.setData({
-                taocanData: {
-                    list: [],
-                    renderList: [],
-                    page: 1,
-                    totalPage: -1,
-                    totalCount: 0
-                }
-            });
-        }
         this.data.taocanData.loading = true;
         return wx.jyApp.http({
             url: '/goods/list',
             data: {
-                page: this.data.taocanData.page,
+                page: refresh ? 1 : this.data.taocanData.page,
                 limit: 10,
                 type: 2,
                 goodsName: this.data.goodsName
@@ -167,6 +156,17 @@ Page({
                 this.data.taocanData.loading = false;
             }
         }).then((data) => {
+            if (refresh) {
+                this.setData({
+                    taocanData: {
+                        list: [],
+                        renderList: [],
+                        page: 1,
+                        totalPage: -1,
+                        totalCount: 0
+                    }
+                });
+            }
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
@@ -184,22 +184,11 @@ Page({
         if (this.data.doctorData.loading || !refresh && this.data.doctorData.page > this.data.doctorData.totalPage) {
             return wx.jyApp.Promise.reject();
         }
-        if (refresh) {
-            this.setData({
-                doctorData: {
-                    list: [],
-                    renderList: [],
-                    page: 1,
-                    totalPage: -1,
-                    totalCount: 0
-                }
-            });
-        }
         this.data.doctorData.loading = true;
         return wx.jyApp.http({
             url: '/doctor/list',
             data: {
-                page: this.data.doctorData.page,
+                page: refresh ? 1 : this.data.doctorData.page,
                 limit: 10,
                 complexName: this.data.goodsName
             },
@@ -207,6 +196,17 @@ Page({
                 this.data.doctorData.loading = false;
             }
         }).then((data) => {
+            if (refresh) {
+                this.setData({
+                    doctorData: {
+                        list: [],
+                        renderList: [],
+                        page: 1,
+                        totalPage: -1,
+                        totalCount: 0
+                    }
+                });
+            }
             data.page.list = data.page.list || [];
             this.setData({
                 [`doctorData.list`]: this.data.doctorData.list.concat(data.page.list),
