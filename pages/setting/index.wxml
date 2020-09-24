@@ -1,13 +1,13 @@
 <view class="container">
 	<view class="white-background-color">
-		<view class="padding-left-right-30 clickable">
+		<!-- <view class="padding-left-right-30 clickable">
 			<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{configData.certification_url}}">
 				<text>资质证书</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="padding-left-right-30 clickable">
 			<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{configData.service_agreement_url}}">
 				<text>服务条款</text>
