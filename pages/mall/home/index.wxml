@@ -103,17 +103,17 @@
 						</view>
 					</view>
 				</view>
-				<view class="overflow-hidden white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
+				<view class="white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
 					<view class="font-large padding-top-bottom-30">健康科普</view>
 					<view
 						bindtap="onClickBanner"
-						class="padding-30 margin-bottom-30 radius-8px gray-background-color"
+						class="position-relative margin-bottom-30 radius-8px overflow-hidden gray-background-color"
 						data-link="{{item.linkUrl}}"
-						style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:330rpx"
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
-						<view class="font-large font-bold" style="color:{{item.titleColor}}">{{item.title||''}}</view>
+						<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;"></view>
+						<view class="position-absolute font-large font-bold" style="top:30rpx;left:30rpx;right:30rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
 					</view>
 				</view>
 			</view>

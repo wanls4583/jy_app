@@ -62,6 +62,7 @@ Page({
                 if (item.id == wx.jyApp.hasRecievedId) {
                     item.status = 5;
                     item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                    this.setStatusColor(item, 'interrogation');
                     this.setData({
                         [`interrogationOrder.orderList[${index}]`]: item
                     });
