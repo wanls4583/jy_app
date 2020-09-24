@@ -26,6 +26,7 @@ Page({
             } else {
                 wx.jyApp.toast('支付失败');
             }
+            delete wx.jyApp.payInterrogationResult;
         }
         this.pollStoped = false;
         if (this.data.roomId) {
