@@ -57,7 +57,7 @@ Page({
         this.request = wx.jyApp.http({
             url: '/chat/list',
             data: {
-                page: this.data.page,
+                page: refresh ? 1 : this.data.page,
                 limit: 20
             }
         });
