@@ -14,7 +14,7 @@
 			</view>
 		</swiper-item>
 	</swiper>
-	<view class="padding-30 white-background-color">
+	<view class="padding-20 white-background-color">
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
 			<view class="font-large font-bold danger-color">￥{{productInfo.price}}/{{productInfo._unit}}</view>
@@ -43,7 +43,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="margin-top-20 padding-30 white-background-color">
+	<view class="margin-top-20 padding-20 white-background-color">
 		<view class="font-title font-bold">商品信息</view>
 		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description||''}}</view>
 		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
