@@ -54,5 +54,12 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-    }
+    },
+    onShareAppMessage: function (res) {
+        return {
+            title: '钜元云营养',
+            path: '/pages/index/index',
+            imageUrl: '/image/logo.png'
+        }
+    },
 })

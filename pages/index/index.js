@@ -4,29 +4,14 @@ Page({
         messageCount: 0
     },
     onLoad(option) {
+        console.log(option);
+        this.option = option;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
-        if (option.type == 'invite' && option.userId) { //医生通过好友分享邀请
-            this.inviteId = option.userId;
-            this.inviteWay = 1;
-        } else if (option.type == 'product' && option.productId) { //医生通过好友分享邀请
-            this.productId = option.productId;
-        } else if (option.scene) {
-            var param = wx.jyApp.utils.parseScene(option.scene) || {};
-            console.log(option.scene);
-            console.log(param);
-            if (param.type == 'invite' && param.uId) { //医生通过二维码分享邀请
-                this.inviteId = param.uId;
-                this.inviteWay = 2;
-                this.doctorId = param.dId;
-            } else if (param.type == 'card' && param.dId) {
-                this.doctorId = param.dId;
-            }
-        }
         this.firstLoad = true;
         this.getConfig();
     },
@@ -48,8 +33,13 @@ Page({
                 });
             }).finally(() => {
                 wx.hideLoading();
+                this.firstLoad && this.checkOption(this.option);
                 this.getMessageCount();
-                if (this.doctorId && this.firstLoad) {
+                if (this.firstLoad && this.url) {
+                    wx.navigateTo({
+                        url: this.url
+                    });
+                } else if (this.doctorId && this.firstLoad) {
                     wx.navigateTo({
                         url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                     });
@@ -63,6 +53,29 @@ Page({
                 this.firstLoad = false;
             });
         });
+    },
+    //检查启动参数
+    checkOption(option) {
+        console.log('检查启动参数');
+        //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
+        if (option.type == -1 && option.url) { //有page直接跳转
+            this.url = decodeURIComponent(option.url);
+        } else if (option.type == 1 && option.uId) { //医生通过好友分享邀请
+            this.inviteId = option.uId;
+            this.inviteWay = 1;
+        } else if (option.type == 2 && option.dId) { //医生主页
+            this.doctorId = option.dId;
+        } else if (option.type == 3 && option.pId) { //产品主页
+            this.productId = option.pId;
+        } else if (option.scene) { //扫二维码进入
+            var param = wx.jyApp.utils.parseScene(option.scene) || {};
+            console.log(param);
+            if (param.type == 1 && param.uId) { //医生通过二维码或名片分享邀请
+                this.inviteId = param.uId;
+                this.inviteWay = 2;
+                this.doctorId = param.dId;
+            }
+        }
     },
     getUserInfo() {
         return wx.jyApp.loginUtil.getUserInfo().then((data) => {

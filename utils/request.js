@@ -1,4 +1,4 @@
-const host = require('../config/index.js').httpHost;
+const httpHost = require('../config/index.js').httpHost;
 
 function request(obj) {
     var header = obj.header || {};
@@ -12,7 +12,7 @@ function request(obj) {
         obj.data = obj.data || {};
         obj.data.ts = Date.now();
         requestTask = wx.request({
-            url: host + obj.url,
+            url: httpHost + obj.url,
             method: obj.method || 'get',
             header: header,
             data: obj.data,
@@ -27,8 +27,8 @@ function request(obj) {
                         }, 300);
                     }
                     reject(res.data);
-                    if (res.data.code == 401) { //登录失效
-                        wx.navigateTo({
+                    if (res.data.code == 401 || !wx.jyApp.store.userInfo) { //未登陆
+                        wx.reLaunch({
                             url: '/pages/index/index'
                         });
                     }

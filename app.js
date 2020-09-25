@@ -8,10 +8,12 @@ import utils from './utils/util';
 import * as constData from './utils/data';
 import Dialog from '@vant/weapp/dialog/dialog';
 import { Promise } from 'es6-promise';
+import config from './config/index';
 App({
     onLaunch: function (option) {
         console.log(option);
         wx.jyApp = {};
+        wx.jyApp.httpHost = config.httpHost;
         wx.jyApp.app = this;
         wx.jyApp.createStoreBindings = createStoreBindings;
         wx.jyApp.store = store;

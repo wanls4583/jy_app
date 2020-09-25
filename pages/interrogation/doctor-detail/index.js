@@ -42,7 +42,7 @@ Page({
     onShareAppMessage: function (res) {
         return {
             title: this.data.doctor.doctorName || '医生',
-            path: '/pages/index/index?type=card&doctorId=' + this.data.doctorId,
+            path: '/pages/index/index?type=2&dId=' + this.data.doctorId,
             imageUrl: this.data.doctor.avatar || '/image/logo.png'
         }
     },

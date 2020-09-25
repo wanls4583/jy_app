@@ -470,7 +470,7 @@ Page({
         self.taskMap = self.taskMap || {};
         uploadingChats.map((item) => {
             self.taskMap[item.domId] = wx.uploadFile({
-                url: 'https://dev.juyuanyingyang.com/ihospital/app/api/oss/upload?token=' + wx.getStorageSync('token'),
+                url: `${wx.jyApp.httpHost}/oss/upload?token=` + wx.getStorageSync('token'),
                 filePath: item.txt,
                 name: 'file',
                 header: {
