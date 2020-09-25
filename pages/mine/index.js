@@ -90,9 +90,8 @@ Page({
                 mask: true
             });
             wx.jyApp.loginUtil.updateUserInfo(userInfo).then(() => {
-                return wx.jyApp.loginUtil.getUserInfo().then((data) => {
-                    this.updateUserInfo(data.info);
-                });
+                Object.assign(this.data.userInfo, userInfo);
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
                 wx.hideLoading();
                 wx.navigateTo({ url: '/pages/user/index' });
