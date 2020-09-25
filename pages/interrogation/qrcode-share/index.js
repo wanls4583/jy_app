@@ -109,7 +109,8 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                scene: `type=${this.type}&dId=${this.doctorId||''}&uId=${this.userId||''}`
+                source: 'CARD',
+                scene: `type=${this.type},dId=${this.doctorId||''},uId=${this.userId||''}`
             }
         }).then((data) => {
             this.setData({

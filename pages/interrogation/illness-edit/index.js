@@ -112,7 +112,7 @@ Page({
                 });
                 files.map((item) => {
                     self.taskMap[item] = wx.uploadFile({
-                        url: 'https://dev.juyuanyingyang.com/ihospital/app/api/oss/upload?token=' + wx.getStorageSync('token'),
+                        url: `${wx.jyApp.httpHost}/oss/upload?token=` + wx.getStorageSync('token'),
                         filePath: item,
                         name: 'file',
                         header: {

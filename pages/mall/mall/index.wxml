@@ -5,21 +5,21 @@
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative padding-30" wx:if="{{banner.length}}">
+				<view class="position-relative padding-top-bottom-30" wx:if="{{banner.length}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
-						class="overflow-hidden radius-8px"
 						duration="{{500}}"
 						indicator-active-color="#ffffff"
 						indicator-color="rgba(255,255,255,.5)"
 						indicator-dots="{{true}}"
 						interval="{{5000}}"
-						style="height:33vw;transform:translateY(0);"
+						style="height:230rpx;transform:translateY(0);"
 					>
 						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
-							<view class="position-relative height-100" style="background:url({{item.picUrl}}) no-repeat center;background-size:cover">
-								<view class="banner-bottom position-absolute left-0 bottom-0 width-100 align-right">
+							<view class="position-relative height-100 padding-left-right-30">
+								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" />
+								<view class="position-absolute bottom-0 align-right padding-30" style="left:30rpx;right:30rpx">
 									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
 								</view>
 							</view>

@@ -37,7 +37,7 @@ Page({
     onShareAppMessage: function (res) {
         return {
             title: this.data.productInfo.goodsName || '商品',
-            path: '/pages/index/index?type=product&productId=' + this.data.id,
+            path: '/pages/index/index?type=3&pId=' + this.data.id,
             imageUrl: this.data.banner[0] || '/image/logo.png'
         }
     },
