@@ -143,7 +143,8 @@ Page({
                     page: page,
                     limit: this.data.limit,
                     type: 2,
-                    goodsName: this.data.goodsName
+                    goodsName: this.data.goodsName,
+                    side: 'USER'
                 },
                 complete: () => {
                     this.data.taocanData.loading = false;
@@ -194,7 +195,8 @@ Page({
                     page: page,
                     limit: this.data.limit,
                     type: 1,
-                    goodsName: this.data.goodsName
+                    goodsName: this.data.goodsName,
+                    side: 'USER'
                 },
                 complete: () => {
                     this.data.productData.loading = false;

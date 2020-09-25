@@ -59,7 +59,8 @@ Component({
                 data: {
                     page: 1,
                     limit: 6,
-                    type: 2
+                    type: 2,
+                    side: 'USER'
                 }
             }).then((data) => {
                 data.page.list.map((item) => {
@@ -75,7 +76,8 @@ Component({
                 data: {
                     page: 1,
                     limit: 6,
-                    type: 1
+                    type: 1,
+                    side: 'USER'
                 }
             }).then((data) => {
                 data.page.list.map((item) => {
