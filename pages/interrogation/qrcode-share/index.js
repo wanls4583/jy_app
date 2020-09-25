@@ -9,8 +9,8 @@ Page({
             fields: ['configData'],
         });
         this.storeBindings.updateStoreBindings();
-        this.doctorId = option.doctorId;
-        this.userId = option.userId;
+        this.dId = option.dId;
+        this.uId = option.uId;
         this.type = option.type;
         this.getQrCode();
         this.setData({
@@ -110,7 +110,7 @@ Page({
             data: {
                 page: 'pages/index/index',
                 source: 'CARD',
-                scene: `type=${this.type},dId=${this.doctorId||''},uId=${this.userId||''}`
+                scene: `type=${this.type},dId=${this.dId||''},uId=${this.uId||''}`
             }
         }).then((data) => {
             this.setData({
