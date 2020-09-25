@@ -110,7 +110,7 @@ function pay(params) {
 
 function parseScene(scene) {
     scene = decodeURIComponent(scene);
-    var arr = scene.split('&');
+    var arr = scene.split(',');
     scene = {};
     arr.map((item) => {
         var tmp = item.split('=');

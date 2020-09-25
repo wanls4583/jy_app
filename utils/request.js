@@ -32,7 +32,7 @@ function request(obj) {
                             url: '/pages/index/index'
                         });
                     }
-                    wx.jyApp.log.info('服务器错误：', obj.url, res.data);
+                    wx.jyApp.log.info('服务器错误：', obj.url, obj.data, res.data);
                 }
             },
             fail: (err) => {

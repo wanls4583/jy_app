@@ -12,8 +12,9 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
-        this.firstLoad = true;
         this.getConfig();
+        this.checkOption(this.option);
+        this.firstLoad = true;
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -33,9 +34,8 @@ Page({
                 });
             }).finally(() => {
                 wx.hideLoading();
-                this.firstLoad && this.checkOption(this.option);
                 this.getMessageCount();
-                if (this.firstLoad && this.url) {
+                if (this.url && this.firstLoad) {
                     wx.navigateTo({
                         url: this.url
                     });
