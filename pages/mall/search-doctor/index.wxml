@@ -68,7 +68,7 @@
 						<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
 						<view class="flex margin-top-10">
 							<text decode="{{true}}">图文问诊&nbsp;</text>
-							<text class="danger-color">￥{{item.consultOrderPrice}}</text>
+							<text class="danger-color font-bold">￥{{item.consultOrderPrice}}</text>
 						</view>
 					</view>
 				</view>

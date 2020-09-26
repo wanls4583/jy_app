@@ -47,7 +47,7 @@
 										<text class="gray-color">一天{{product.frequency}}次</text>
 									</view>
 									<view class="flex--center--between width-100">
-										<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
+										<text class="danger-color font-bold">￥{{product.price}}/{{product._unit}}</text>
 										<view catchtap="onAddTaocan" class="button primary small" data-item="{{product}}">添加该套餐</view>
 									</view>
 								</view>
@@ -92,7 +92,7 @@
 										<text class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</text>
 									</view>
 									<view class="flex--center--between width-100">
-										<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
+										<text class="danger-color font-bold">￥{{product.price}}/{{product._unit}}</text>
 										<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}">添加该产品</view>
 									</view>
 								</view>

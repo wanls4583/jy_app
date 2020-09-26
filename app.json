@@ -87,6 +87,7 @@
         "van-rate": "@vant/weapp/rate/index",
         "van-steps": "@vant/weapp/steps/index",
         "van-share-sheet": "@vant/weapp/share-sheet/index",
+        "van-image": "@vant/weapp/image/index",
         "van-stepper": "@vant/weapp/stepper/index"
     },
     "tabBar": {

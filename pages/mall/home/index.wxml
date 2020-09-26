@@ -120,7 +120,7 @@
 			<view class="flex--center--center flex-direction-column padding-left-right-30 white-background-color" style="height:120px">
 				<view class="flex--center--center">
 					<image src="/image/logo.png" style="width:40rpx;height:40rpx;" />
-					<text class="margin-left-20 font-title">钜元营养</text>
+					<text class="font-title" style="margin-left:2px">钜元营养</text>
 				</view>
 				<view class="flex--center--between width-100 margin-top-20">
 					<view class="flex-grow-1 border-bottom border-color-ddd"></view>

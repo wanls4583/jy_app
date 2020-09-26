@@ -12,7 +12,7 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
-        this.getConfig();
+        wx.jyApp.utils.getAllConfig();
         this.checkOption(this.option);
         this.firstLoad = true;
     },
@@ -96,26 +96,6 @@ Page({
             }
             this.updateUserInfo(data.info);
             return data;
-        });
-    },
-    getConfig() {
-        wx.jyApp.utils.getConfig([
-            'service_phone',
-            'settlement_url',
-            'certification_url',
-            'service_agreement_url',
-            'privacy_agreement_url',
-            'about_url',
-            'minOrderMoney',
-            'deliveryCost',
-            'goodAtDomain',
-            'informed_consent_url',
-            'activity_rule_url',
-            'h5_code_share_url',
-            'consult_shop_url',
-            'showDoctor',
-        ]).then((data) => {
-            wx.jyApp.store.updateConfigData(data);
         });
     },
     getMessageCount() {

@@ -149,6 +149,27 @@ function getConfig(names) {
     })
 }
 
+function getAllConfig() {
+    return getConfig([
+        'service_phone',
+        'settlement_url',
+        'certification_url',
+        'service_agreement_url',
+        'privacy_agreement_url',
+        'about_url',
+        'minOrderMoney',
+        'deliveryCost',
+        'goodAtDomain',
+        'informed_consent_url',
+        'activity_rule_url',
+        'h5_code_share_url',
+        'consult_shop_url',
+        'showDoctor',
+    ]).then((data) => {
+        wx.jyApp.store.updateConfigData(data);
+    });
+}
+
 //使用医生功能时，检查医生状态
 function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus: true }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
@@ -194,6 +215,7 @@ module.exports = {
     parseScene: parseScene,
     openWebview: openWebview,
     getConfig: getConfig,
+    getAllConfig: getAllConfig,
     checkDoctor: checkDoctor,
     getUUID: getUUID
 }

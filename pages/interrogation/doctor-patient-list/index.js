@@ -13,7 +13,7 @@ Component({
         attached(option) {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['doctorInfo'],
+                fields: ['doctorInfo', 'userInfo'],
             });
             this.storeBindings.updateStoreBindings();
             this.loadList(true);

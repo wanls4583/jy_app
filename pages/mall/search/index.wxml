@@ -39,7 +39,7 @@
 						<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
 						<view class="flex margin-top-10">
 							<text decode="{{true}}">图文问诊&nbsp;</text>
-							<text class="danger-color">￥{{item.consultOrderPrice}}</text>
+							<text class="danger-color font-bold">￥{{item.consultOrderPrice}}</text>
 						</view>
 					</view>
 				</view>
@@ -64,7 +64,7 @@
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-30 width-100">
 							<text class="gray-color">一天{{product.frequency}}次</text>
-							<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
+							<text class="danger-color font-bold">￥{{product.price}}/{{product._unit}}</text>
 						</view>
 					</view>
 				</view>
@@ -89,7 +89,7 @@
 						<view>{{product.goodsName}}</view>
 						<view class="flex--center--between margin-top-30 width-100">
 							<text class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</text>
-							<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
+							<text class="danger-color font-bold">￥{{product.price}}/{{product._unit}}</text>
 						</view>
 					</view>
 				</view>

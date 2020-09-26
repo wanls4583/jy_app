@@ -109,12 +109,16 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                source: 'CARD',
-                scene: `type=${this.type},dId=${this.dId||''},uId=${this.uId||''}`
+                source: this.dId ? 'CARD' : 'INVITE',
+                scene: `type=${this.type},dId=${this.dId || ''},uId=${this.uId || ''}`
             }
         }).then((data) => {
             this.setData({
                 barcode: data.barcode
+            });
+        }).catch(() => {
+            this.setData({
+                barcode: 'https://juyuanyingyang.com'
             });
         });
     }

@@ -30,7 +30,7 @@ Component({
                 this.loadDoctor();
                 this.loadDepartmentList();
             }
-            if ((this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.switchStatus == 1) && !wx.getStorageSync('switch_role_tip')) {
+            if (this.data.userInfo.role == 'USER'  && (this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.switchStatus == 1) && !wx.getStorageSync('switch_role_tip')) {
                 this.setData({
                     tipVisible: true
                 });
@@ -43,7 +43,7 @@ Component({
     },
     pageLifetimes: {
         show() {
-            this.getConfig();
+            wx.jyApp.utils.getAllConfig();
         }
     },
     methods: {
@@ -56,7 +56,7 @@ Component({
                 this.loadDepartmentList(),
                 this.loadBaner(),
                 this.loadKepu(),
-                this.getConfig()
+                wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
                     stopRefresh: true
@@ -148,14 +148,6 @@ Component({
                 this.setData({
                     kepuList: data.list
                 });
-            });
-        },
-        getConfig() {
-            wx.jyApp.utils.getConfig([
-                'showDoctor',
-            ]).then((data) => {
-                this.data.configData.showDoctor = data.showDoctor;
-                wx.jyApp.store.updateConfigData(Object.assign({}, this.data.configData));
             });
         }
     }

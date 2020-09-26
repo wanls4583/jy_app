@@ -213,6 +213,7 @@ Page({
         wx.jyApp.loginUtil.updateUserInfo(this.data.userInfo).then(() => {
             wx.hideLoading();
             wx.jyApp.toast('更新成功');
+            wx.setStorageSync('hasPopUserAuth', 1);
         }).catch(() => {
             wx.hideLoading();
         });
