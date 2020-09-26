@@ -80,7 +80,7 @@
 				<view class="white-background-color padding-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
 					<view class="flex--center--between">
 						<text class="font-large">推荐医生</text>
-						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small gray-color line-height-1em clickable">
+						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 							<text>全部</text>
 							<van-icon name="arrow" />
 						</view>

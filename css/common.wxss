@@ -47,7 +47,7 @@ checkbox {
 }
 
 .border-light {
-    border: 1rpx solid #f6f6f6;
+    border: 1rpx solid #f1f1f1;
 }
 
 .border-top {
