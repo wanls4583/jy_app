@@ -1,27 +1,25 @@
 <import src="/template/goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 width-100">
-		<van-search
-			bind:change="onChangeText"
-			bind:search="onSearch"
-			bindtap="onGotoSearch"
-			disabled="{{true}}"
-			placeholder="请输入产品"
-			shape="round"
-			value="{{searchText}}"
-		/>
-		<van-tabs active="{{active}}" bind:change="onChangeTab">
+		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入产品" shape="round" />
+		<van-tabs active="{{active}}" bind:change="onChangeTab" wx:if="{{taocanVisible&&productVisible}}">
 			<van-tab title="营养套餐"></van-tab>
 			<van-tab title="营养产品"></van-tab>
 		</van-tabs>
 	</view>
-	<view class="height-100" style="padding-top:98px">
-		<swiper bindchange="onChangeSwiper" class="width-100 height-100 border-top" current="{{active}}">
-			<swiper-item>
+	<view class="height-100" style="padding-top:{{taocanVisible&&productVisible?98:54}}px">
+		<swiper
+			bindchange="onChangeSwiper"
+			class="width-100 height-100 border-top"
+			current="{{taocanVisible&&productVisible?active:0}}"
+			wx:if="{{taocanVisible||productVisible}}"
+		>
+			<swiper-item wx:if="{{taocanVisible}}">
 				<pull-scroll-view
 					bindrefresh="onRefresh"
 					bindscroll="onTaocanScroll"
 					bindscrolltolower="onLoadMore"
+					date-type="2"
 					lower-threshold="300px"
 					stop-refresh="{{taocanData.stopRefresh}}"
 				>
@@ -44,11 +42,12 @@
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
 			</swiper-item>
-			<swiper-item>
+			<swiper-item wx:if="{{productVisible}}">
 				<pull-scroll-view
 					bindrefresh="onRefresh"
 					bindscroll="onProductScroll"
 					bindscrolltolower="onLoadMore"
+					date-type="1"
 					lower-threshold="300px"
 					stop-refresh="{{productData.stopRefresh}}"
 				>
@@ -72,5 +71,10 @@
 				</pull-scroll-view>
 			</swiper-item>
 		</swiper>
+		<pull-scroll-view bindrefresh="onRefreshAll" stop-refresh="{{stopRefresh}}" wx:else>
+			<view class="padding-30 gray-color align-center font-small">
+				<van-empty description="未查询到相关商品，请重新搜索" />
+			</view>
+		</pull-scroll-view>
 	</view>
 </view>

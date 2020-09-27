@@ -10,7 +10,7 @@ Page({
         _giveWay: '',
         giveWay: '',
         totalAmount: 0,
-        gross: 1,
+        count: 1,
         days: 7,
         modulateDose: 0,
         perUseNum: 1,
@@ -98,15 +98,15 @@ Page({
         });
     },
     caculateGross() {
-        var gross = 0;
+        var count = 0;
         if (this.data.goods.type == 1) {
-            gross = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
+            count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
         } else {
-            gross = this.data.days * this.data.frequency;
+            count = this.data.days * this.data.frequency;
         }
         this.setData({
-            gross: gross,
-            totalAmount: (gross * this.data.goods.price).toFixed(2)
+            count: count,
+            totalAmount: (count * this.data.goods.price).toFixed(2)
         });
     },
     onSave() {
@@ -119,7 +119,7 @@ Page({
         this.data.goods.giveWay = this.data.giveWay;
         this.data.goods.days = this.data.days;
         this.data.goods.perUseNum = this.data.perUseNum;
-        this.data.goods.gross = this.data.gross;
+        this.data.goods.count = this.data.count;
         this.data.goods.modulateDose = this.data.modulateDose;
         this.data.goods.remark = this.data.remark;
         this.data.goods.totalAmount = this.data.totalAmount;

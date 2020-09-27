@@ -33,7 +33,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--around white-background-color" style="padding:30rpx">
+				<view class="flex--center--around white-background-color padding-left-right-30">
 					<view bindtap="onGoto" class="flex-direction-column flex--center--between width-33 clickable" data-url="/pages/interrogation/illness-edit/index">
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
@@ -61,8 +61,8 @@
 						<text class="font-small gray-color margin-top-10">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
-					<view class="font-large padding-30">营养中心</view>
+				<view class="white-background-color padding-top-30" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
+					<view class="font-large padding-30 padding-top-0">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onGoto"
@@ -79,7 +79,7 @@
 					</view>
 				</view>
 				<view class="white-background-color padding-left-right-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
-					<view class="flex--center--between padding-top-30">
+					<view class="flex--center--between">
 						<text class="font-large">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 							<text>全部</text>
@@ -91,7 +91,7 @@
 					</view>
 				</view>
 				<view class="white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
-					<view class="font-large padding-top-bottom-30">健康科普</view>
+					<view class="font-large padding-bottom-30">健康科普</view>
 					<view
 						bindtap="onClickBanner"
 						class="position-relative margin-bottom-30 radius-8px overflow-hidden gray-background-color"

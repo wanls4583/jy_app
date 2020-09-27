@@ -1,7 +1,5 @@
 Page({
     data: {
-        searchText: '',
-        goodsName: '',
         active: 0,
         taocanData: {
             stopRefresh: false,
@@ -21,7 +19,10 @@ Page({
         },
         limit: 10,
         pageArr: [],
-        wrapHeight: 0
+        wrapHeight: 0,
+        productVisible: false,
+        taocanVisible: false,
+        stopRefresh: false
     },
     onLoad(option) {
         if (option && option.type == 1) {
@@ -36,8 +37,17 @@ Page({
         this.setData({
             pageArr: tmp,
         });
-        this.loadList(false, 0);
-        this.loadList(false, 1);
+        wx.jyApp.showLoading('加载中...', true);
+        wx.jyApp.Promise.all([
+            this.loadList(false, 2),
+            this.loadList(false, 1)
+        ]).finally(() => {
+            this.setData({
+                productVisible: this.data.productData.totalPage > 0,
+                taocanVisible: this.data.taocanData.totalPage > 0
+            });
+            wx.hideLoading();
+        });
     },
     onAddTaocan(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
@@ -67,21 +77,9 @@ Page({
             });
         }
     },
-    onSearch() {
-        this.setData({
-            goodsName: this.data.searchText
-        });
-        this.loadList(true, 0);
-        this.loadList(true, 1);
-    },
     onGotoSearch() {
         wx.navigateTo({
             url: '/pages/interrogation/search/index'
-        });
-    },
-    onChangeText(e) {
-        this.setData({
-            searchText: e.detail
         });
     },
     onChangeTab(e) {
@@ -95,18 +93,18 @@ Page({
         });
     },
     onTaocanScroll(e) {
-        this.computeScroll(e);
+        this.computeScroll(e, 2);
     },
     onProductScroll(e) {
-        this.computeScroll(e);
+        this.computeScroll(e, 1);
     },
     //计算当前渲染的页码，每次渲染三页
-    computeScroll(e) {
+    computeScroll(e, type) {
         var self = this;
         var scrollTop = e.detail.scrollTop;
         var nowPageKey = '';
         var data = null;
-        if (this.data.active == 0) {
+        if (type == 2) {
             data = this.data.taocanData;
             nowPageKey = 'taocanData.nowPage';
         } else {
@@ -129,7 +127,7 @@ Page({
             }
             return new Promise((resolve) => {
                 var query = wx.createSelectorQuery()
-                query.select('.product').boundingClientRect()
+                query.select('.product-item').boundingClientRect()
                 query.exec(function (rect) {
                     if (rect && rect[0]) {
                         self.itemHeight = rect[0].height;
@@ -145,11 +143,27 @@ Page({
             });
         }
     },
-    onRefresh() {
-        this.loadList(true, this.data.active);
+    onRefresh(e) {
+        var type = e.currentTarget.dataset.type;
+        this.loadList(true, type);
     },
-    onLoadMore() {
-        this.loadList(false, this.data.active);
+    //刷新全部
+    onRefreshAll() {
+        wx.jyApp.Promise.all([
+            this.loadList(false, 2),
+            this.loadList(false, 1)
+        ]).finally(() => {
+            this.setData({
+                productVisible: this.data.productData.totalPage > 0,
+                taocanVisible: this.data.taocanData.totalPage > 0,
+                stopRefresh: true
+            });
+            wx.hideLoading();
+        });
+    },
+    onLoadMore(e) {
+        var type = e.currentTarget.dataset.type;
+        this.loadList(false, type);
     },
     onclickProdcut(e) {
         var id = e.currentTarget.dataset.id;
@@ -157,27 +171,27 @@ Page({
             url: '/pages/mall/product-detail/index?readonly=1&id=' + id
         });
     },
-    loadList(refresh, active) {
+    loadList(refresh, type) {
         var page = 0;
-        if (active == 0) {
+        if (type == 2) {
             if (this.data.taocanData.loading || !refresh && this.data.taocanData.totalPage > -1 && this.data.taocanData.page > this.data.taocanData.totalPage) {
-                return;
+                return wx.jyApp.Promise.reject();
             }
             this.data.taocanData.loading = true;
             var page = refresh ? 1 : this.data.taocanData.page;
-            wx.jyApp.http({
+            this.request2 = wx.jyApp.http({
                 url: '/goods/list',
                 data: {
                     page: page,
                     limit: this.data.limit,
                     type: 2,
-                    goodsName: this.data.goodsName,
                     side: 'DOCTOR'
                 },
                 complete: () => {
                     this.data.taocanData.loading = false;
                 }
-            }).then((data) => {
+            })
+            this.request2.then((data) => {
                 if (refresh) {
                     this.setData({
                         taocanData: {
@@ -199,37 +213,31 @@ Page({
                     [`taocanData.lastPage`]: page,
                     [`taocanData.totalPage`]: data.page.totalPage
                 });
-                if (refresh) {
-                    this.setData({
-                        [`taocanData.stopRefresh`]: true
-                    });
-                }
             }).finally(() => {
-                if (refresh) {
-                    this.setData({
-                        [`taocanData.stopRefresh`]: true
-                    });
-                }
+                this.setData({
+                    [`taocanData.stopRefresh`]: true
+                });
             });
+            return this.request2;
         } else {
             if (this.data.productData.loading || !refresh && this.data.productData.totalPage > -1 && this.data.productData.page > this.data.productData.totalPage) {
-                return;
+                return wx.jyApp.Promise.reject();
             }
             this.data.productData.loading = true;
             var page = refresh ? 1 : this.data.productData.page;
-            wx.jyApp.http({
+            this.request1 = wx.jyApp.http({
                 url: '/goods/list',
                 data: {
                     page: page,
                     limit: this.data.limit,
                     type: 1,
-                    goodsName: this.data.goodsName,
                     side: 'DOCTOR'
                 },
                 complete: () => {
                     this.data.productData.loading = false;
                 }
-            }).then((data) => {
+            });
+            this.request1.then((data) => {
                 if (refresh) {
                     this.setData({
                         productData: {
@@ -252,18 +260,12 @@ Page({
                     [`productData.lastPage`]: page,
                     [`productData.totalPage`]: data.page.totalPage
                 });
-                if (refresh) {
-                    this.setData({
-                        [`productData.stopRefresh`]: true
-                    });
-                }
             }).finally(() => {
-                if (refresh) {
-                    this.setData({
-                        [`productData.stopRefresh`]: true
-                    });
-                }
+                this.setData({
+                    [`productData.stopRefresh`]: true
+                });
             });
+            return this.request1;
         }
     }
 })

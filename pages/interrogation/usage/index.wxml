@@ -27,7 +27,7 @@
 		<readonly-field bindtap="onShowGiveWay" label="给予方式" readonly title-width="4.5em" value="{{_giveWay}}"></readonly-field>
 		<van-field bind:input="onInput" data-prop="remark" label="备注" title-width="4.5em" value="{{remark}}"></van-field>
 		<view class="flex--center--between padding-30">
-			<view>总量：{{gross}}{{goods._unit}}</view>
+			<view>总量：{{count}}{{goods._unit}}</view>
 			<view class="primary-color">金额：￥{{totalAmount}}</view>
 		</view>
 	</view>

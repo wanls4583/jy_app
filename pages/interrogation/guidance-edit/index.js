@@ -105,13 +105,13 @@ Page({
                     totalAmount: this.data.totalAmount,
                     goods: this.data.goodsList.map((item) => {
                         return {
-                            amount: (item.price * item.gross).toFixed(2),
+                            amount: (item.price * item.count).toFixed(2),
                             days: item.days,
                             frequency: item.frequency,
                             giveWay: item.giveWay,
                             goodsId: item.id,
                             modulateDose: item.modulateDose,
-                            num: item.gross,
+                            num: item.count,
                             perUseNum: item.perUseNum,
                             remark: item.remark
                         }
@@ -131,7 +131,7 @@ Page({
     caculateTotalAmount() {
         var totalAmount = 0;
         this.data.goodsList.map((item) => {
-            totalAmount += item.price * item.gross;
+            totalAmount += item.price * item.count;
         });
         totalAmount += (Number(this.data.configData.deliveryCost) || 0);
         totalAmount = totalAmount.toFixed(2);

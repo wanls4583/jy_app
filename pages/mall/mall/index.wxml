@@ -27,7 +27,7 @@
 					</swiper>
 				</view>
 				<view wx:if="{{taocanList.length}}">
-					<view class="flex--center--between height-120rpx padding-left-right-30">
+					<view class="flex--center--between padding-30 padding-top-0">
 						<view class="font-large">营养套餐</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="2">
 							<text>查看更多</text>
@@ -52,7 +52,7 @@
 					</view>
 				</view>
 				<view wx:if="{{productList.length}}">
-					<view class="flex--center--between height-120rpx padding-left-right-30">
+					<view class="flex--center--between padding-30 padding-top-0">
 						<view class="font-large">营养产品</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="1">
 							<text>查看更多</text>
