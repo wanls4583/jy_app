@@ -101,7 +101,7 @@ Page({
             }
             return new Promise((resolve) => {
                 var query = wx.createSelectorQuery()
-                query.select('.product').boundingClientRect()
+                query.select('.product-item').boundingClientRect()
                 query.exec(function (rect) {
                     if (rect && rect[0]) {
                         self.itemHeight = rect[0].height;

@@ -303,3 +303,15 @@ checkbox {
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
     color: #fff;
 }
+
+.doctor-item:last-of-type .border-bottom {
+	border-style: none;
+}
+
+.product-item:last-of-type .border-bottom {
+	border-style: none;
+}
+
+.order-goods-item:last-child .border-bottom{
+    border-style: none;
+}

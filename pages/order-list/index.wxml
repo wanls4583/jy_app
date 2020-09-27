@@ -1,3 +1,4 @@
+<import src="/template/goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
@@ -117,22 +118,13 @@
 								<text>，{{order.height}}cm</text>
 								<text>，{{order.weight}}kg</text>
 							</view>
-							<view class="padding-bottom-20">
+							<view>
 								<text>医生姓名：{{order.doctorName}}</text>
 							</view>
-							<view class="white-background-color border-top">
-								<view class="flex--center--start padding-top-bottom-30 border-bottom" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-									<image class="width-150rpx height-150rpx border" mode="aspectFit" src="{{product.goodsPic}}" />
-									<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-										<view>{{product.goodsName}}</view>
-										<view class="flex--center--between width-100">
-											<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-											<text class>￥{{product.price}}</text>
-										</view>
-									</view>
-								</view>
+							<view>
+								<template data="{{goods:item}}" is="order-goods-item" wx:for="{{order.goods}}" wx:key="id"></template>
 							</view>
-							<view class="flex--center--between padding-top-bottom-20">
+							<view class="flex--center--between padding-top-bottom-20 border-top">
 								<view>配送金额：￥{{order.deliveryCost}}</view>
 								<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 							</view>
@@ -157,24 +149,15 @@
 								<view class="font-small {{order.statusColor}}">{{order._status}}</view>
 							</view>
 							<view bindtap="onGoto" data-url="/pages/mall/order-detail/index?id={{order.id}}">
-								<view class="padding-top-30 white-background-color">
-									<view class="flex--center--start padding-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-										<image class="width-150rpx height-150rpx border" mode="aspectFill" src="{{product.goodsPic}}" />
-										<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-											<view>{{product.goodsName}}</view>
-											<view class="flex--center--between width-100">
-												<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-												<text class>￥{{product.price}}</text>
-											</view>
-										</view>
-									</view>
+								<view>
+									<template data="{{goods:item}}" is="order-goods-item" wx:for="{{order.goods}}" wx:key="id"></template>
 								</view>
-								<view class="flex--center--between padding-bottom-20">
+								<view class="flex--center--between padding-top-bottom-20 border-top">
 									<view>配送金额：￥{{order.deliveryCost}}</view>
 									<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 								</view>
 							</view>
-							<view class="border-top flex--center--end padding-top-bottom-20" wx:if="{{order.status==0}}">
+							<view class="flex--center--end padding-top-bottom-20 border-top" wx:if="{{order.status==0}}">
 								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{order.id}}">立即支付</view>
 							</view>
 						</view>

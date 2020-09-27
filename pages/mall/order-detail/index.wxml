@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<import src="/template/goods-item.wxml" />
 <view class="container">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0}}">
 		<text class="font-large danger-color font-bold">未支付</text>
@@ -16,25 +16,11 @@
 		</view>
 		<view class="gray-color margin-top-20">{{order.address}}</view>
 	</view>
-	<view class="padding-30 margin-top-20 white-background-color overflow-hidden">
-		<view
-			bindtap="onGoto"
-			class="flex--center--start padding-bottom-30"
-			data-url="/pages/mall/product-detail/index?id={{product.id}}"
-			wx:for="{{order.goods}}"
-			wx:for-item="product"
-			wx:key="id"
-		>
-			<image class="width-150rpx height-150rpx border" mode="aspectFill" src="{{product.goodsPic}}" />
-			<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-				<view>{{product.goodsName}}</view>
-				<view class="flex--center--between width-100">
-					<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-					<text>￥{{product.price}}</text>
-				</view>
-			</view>
+	<view class="padding-left-right-30 margin-top-20 white-background-color overflow-hidden">
+		<view bindtap="onGoto" class="{{order.goods.length-1==index?'last-item':''}}" data-url="/pages/mall/product-detail/index?id={{product.id}}" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+			<template data="{{goods:product}}" is="order-goods-item"></template>
 		</view>
-		<view class="flex--center--between">
+		<view class="flex--center--between padding-top-bottom-20 border-top">
 			<texx>配送金额：{{order.deliveryCost}}</texx>
 			<view class="primary-color margin-left-30">订单金额：￥{{order.totalAmount}}</view>
 		</view>

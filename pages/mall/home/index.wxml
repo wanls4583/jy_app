@@ -1,3 +1,4 @@
+<import src="/template/doctor-item.wxml" />
 <view class="container white-background-color">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search
@@ -77,30 +78,16 @@
 						</view>
 					</view>
 				</view>
-				<view class="white-background-color padding-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
-					<view class="flex--center--between">
+				<view class="white-background-color padding-left-right-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
+					<view class="flex--center--between padding-top-30">
 						<text class="font-large">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 							<text>全部</text>
 							<van-icon name="arrow" />
 						</view>
 					</view>
-					<view bindtap="onClickDoctor" class="flex--start--between padding-top-bottom-30 border-bottom" data-id="{{item.id}}" wx:for="{{doctorList}}" wx:key="id">
-						<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
-							<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
-						</view>
-						<view class="flex-grow-1 padding-left-30">
-							<view>
-								<text>{{item.doctorName}}</text>
-								<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.jobTitle}}</text>
-							</view>
-							<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{item.workHospitalName}}</text>
-							<view class="margin-top-10 gray-color font-small">擅长：{{item.goodAtDomain}}</view>
-							<view class="flex margin-top-10">
-								<text decode="{{true}}">图文问诊&nbsp;</text>
-								<text class="danger-color">￥{{item.consultOrderPrice}}</text>
-							</view>
-						</view>
+					<view>
+						<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 					</view>
 				</view>
 				<view class="white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">

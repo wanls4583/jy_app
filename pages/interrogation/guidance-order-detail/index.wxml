@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<import src="/template/goods-item.wxml" />
 <view class="container">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 		<text class="font-large danger-color font-bold">未支付</text>
@@ -41,21 +41,14 @@
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
 		<view class="padding-top-20">营养指导：</view>
-		<view class="border-bottom padding-top-bottom-30" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-			<view bindtap="onGoto" data-url="/pages/mall/product-detail/index?id={{product.goodsId}}" class="product flex--center--start white-background-color" data-id="{{product.id}}">
-				<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
-				<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-					<view>{{product.goodsName}}</view>
-					<view class="flex--center--between margin-top-20 width-100">
-						<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-						<text>￥{{product.price}}</text>
-					</view>
-				</view>
+		<view class="border-bottom" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+			<view bindtap="onGoto" class="{{order.goods.length-1==index?'last-item':''}}" data-url="/pages/mall/product-detail/index?id={{product.goodsId}}">
+				<template data="{{goods:product}}" is="order-goods-item"></template>
 			</view>
-			<view class="padding-top-20 gray-color font-small">{{product.usage}}</view>
-			<view class="padding-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+			<view class="gray-color font-small">{{product.usage}}</view>
+			<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
 		</view>
-		<view class="flex--center--between padding-top-bottom-20">
+		<view class="flex--center--between padding-top-bottom-20 margin-top-20">
 			<text>配送金额：￥{{order.deliveryCost}}</text>
 			<text class="primary-color">订单金额：￥{{order.totalAmount}}</text>
 		</view>
