@@ -124,11 +124,17 @@ function openWebview(e) {
     if (typeof e == 'object') {
         url = e.currentTarget.dataset.url;
     }
-    if(url) {
+    if (url) {
         url = encodeURIComponent(url);
-        wx.navigateTo({
-            url: '/pages/web-view/index?url=' + url
-        });
+        if (url.indexOf('/pages/') == 0) { //小程序内地址
+            wx.navigateTo({
+                url: url
+            });
+        } else {
+            wx.navigateTo({
+                url: '/pages/web-view/index?url=' + url
+            });
+        }
     }
 }
 
