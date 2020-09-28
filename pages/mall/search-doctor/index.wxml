@@ -6,6 +6,7 @@
 			bind:change="onChangeText"
 			bind:focus="onFocus"
 			bind:search="onSearch"
+			class="top-search"
 			focus="{{searchTipVisible}}"
 			placeholder="请输入医生/疾病/营养中心"
 			shape="round"
@@ -13,7 +14,7 @@
 			value="{{searchText}}"
 		/>
 	</view>
-	<view class="position-fixed z-index-100 width-100 flex--center--around white-background-color" style="top:54px;height:54px;">
+	<view class="position-fixed z-index-100 width-100 flex--center--around white-background-color" style="top:44px;height:54px;">
 		<view bindtap="onShowOrderBy" class="flex--center--center height-100">
 			<text decode="{{true}}">{{_orderBy}}&nbsp;</text>
 			<van-icon name="arrow-down" />

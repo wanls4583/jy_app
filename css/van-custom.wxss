@@ -66,3 +66,7 @@ page .van-popup__close-icon--top-right {
     top: 28rpx;
     right: 28rpx;
 }
+
+.top-search .van-search {
+    padding-top: 0 !important;
+}

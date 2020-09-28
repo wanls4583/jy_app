@@ -1,3 +1,3 @@
 module.exports = {
-    httpHost: 'https://juyuanyingyang.com/ihospital/app/api'
+    httpHost: 'https://dev.juyuanyingyang.com/ihospital/app/api'
 }

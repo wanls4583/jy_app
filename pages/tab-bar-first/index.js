@@ -31,15 +31,15 @@ Page({
             });
         } else {
             wx.setNavigationBarColor({
-                frontColor: '#000000',
-                backgroundColor: '#ffffff'
+                frontColor: '#ffffff',
+                backgroundColor: '#2aafff'
             });
             wx.setBackgroundColor({
-                backgroundColor: '#ffffff',
-                backgroundColorTop: '#ffffff'
+                backgroundColor: '#2aafff',
+                backgroundColorTop: '#2aafff'
             });
             wx.setBackgroundTextStyle({
-                textStyle: 'dark'
+                textStyle: 'light'
             });
             wx.setNavigationBarTitle({
                 title: '钜元云营养'

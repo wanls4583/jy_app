@@ -1,9 +1,9 @@
 <import src="/template/doctor-goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bind:change="onChangeText" bind:search="onSearch" focus="{{true}}" placeholder="请输入产品" shape="round" value="{{searchText}}" />
+		<van-search bind:change="onChangeText" bind:search="onSearch" class="top-search" focus="{{true}}" placeholder="请输入产品" shape="round" value="{{searchText}}" />
 	</view>
-	<view style="margin-top:54px">
+	<view style="margin-top:44px">
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
 			<van-empty description="未查询到相关商品，请重新搜索" />
 		</view>

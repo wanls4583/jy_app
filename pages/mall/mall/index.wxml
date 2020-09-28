@@ -1,9 +1,9 @@
 <import src="/template/footer.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
+		<van-search bindtap="onGotoSearch" class="top-search" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
 	</view>
-	<view class="position-absolute bottom-0 width-100" style="top:54px">
+	<view class="position-absolute bottom-0 width-100" style="top:44px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
 				<view class="position-relative padding-top-bottom-20" wx:if="{{banner.length}}">

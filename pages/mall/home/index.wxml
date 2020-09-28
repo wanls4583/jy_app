@@ -3,17 +3,20 @@
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search
+			background="transparent"
 			bindtap="onGoto"
+			class="top-search"
 			data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
 			disabled="{{true}}"
 			placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品"
 			shape="round"
 		/>
 	</view>
-	<view class="position-absolute bottom-0 width-100" style="top:54px">
+	<view class="position-absolute top-0 width-100 background-gradient" style="height:120px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
+	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:44px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative padding-top-bottom-20" wx:if="{{banner.length}}">
+				<view class="position-relative margin-bottom-20" wx:if="{{banner.length}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"

@@ -1,3 +1,6 @@
 .product-item:last-of-type .border-bottom {
 	border-bottom-style: solid;
 }
+.top-search .van-search {
+    padding: 0 20rpx !important;
+}
