@@ -12,7 +12,7 @@
 	</view>
 </template>
 <template name="_order-goods-item">
-	<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{goods.goodsPic}}" />
+	<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{goods.firstPic||goods.goodsPic}}" />
 	<view class="flex-grow-1 margin-left-30 padding-top-bottom-30 border-bottom">
 		<view class="flex-direction-column flex--start--between height-150rpx">
 			<view>{{goods.goodsName}}</view>
