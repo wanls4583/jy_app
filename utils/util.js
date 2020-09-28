@@ -125,12 +125,12 @@ function openWebview(e) {
         url = e.currentTarget.dataset.url;
     }
     if (url) {
-        url = encodeURIComponent(url);
         if (url.indexOf('/pages/') == 0) { //小程序内地址
             wx.navigateTo({
                 url: url
             });
         } else {
+            url = encodeURIComponent(url);
             wx.navigateTo({
                 url: '/pages/web-view/index?url=' + url
             });
