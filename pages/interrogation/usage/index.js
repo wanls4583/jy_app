@@ -21,7 +21,7 @@ Page({
         var giveWayMap = wx.jyApp.constData.giveWayMap;
         var giveWayList = [];
         var goods = wx.jyApp.usageGoods;
-        goods._unit = goods.type == 1 ? wx.jyApp.constData.unitChange[goods.unit] : '份';
+        goods.hideBtn = true;
         for (var key in giveWayMap) {
             giveWayList.push({
                 label: giveWayMap[key],
@@ -57,6 +57,9 @@ Page({
         if (!this.saved) {
             wx.jyApp.usageGoods = undefined;
         }
+    },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);

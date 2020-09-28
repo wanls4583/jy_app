@@ -4,47 +4,45 @@ import { observable, action } from 'mobx-miniprogram'
 export const store = observable({
     cart: [],
     get cartNum() {
-        var num = 0;
+        var count = 0;
         this.cart.map((item) => {
-            num += item.num;
+            count += item.count;
         });
-        return num;
+        return count;
     },
     get cartTotalMoney() {
         var money = 0;
         this.cart.map((item) => {
-            money += item.product.price * item.num;
+            money += item.totalAmount;
         });
         return Number(money.toFixed(2));
     },
     addCart: action(function (product) {
         var temp = this.cart.filter((item) => {
-            return item.product.id == product.id;
+            return item.id == product.id;
         });
         product = Object.assign({}, product || {});
         if (temp.length) {
-            temp[0].num++;
-            temp[0].totalAmount = Number((temp[0].product.price * temp[0].num).toFixed(2));
+            temp[0].count++;
+            temp[0].totalAmount = Number((temp[0].price * temp[0].count).toFixed(2));
         } else {
             product.firstPic = product.goodsPic && product.goodsPic.split(',')[0];
             product._unit = product.type == 1 ? wx.jyApp.constData.unitChange[product.unit] : '份';
             product._standardUnit = wx.jyApp.constData.unitChange[product.standardUnit];
-            this.cart.push({
-                product: product,
-                num: 1,
-                totalAmount: product.price
-            });
+            product.totalAmount = product.price;
+            product.count = 1;
+            this.cart.push(product);
         }
         this.cart = this.cart.concat([]);
     }),
-    updateCartNum: action(function (id, num) {
+    updateCartNum: action(function (id, count) {
         for (var i = 0; i < this.cart.length; i++) {
-            if (this.cart[i].product.id == id) {
-                if (num <= 0) {
+            if (this.cart[i].id == id) {
+                if (count <= 0) {
                     this.cart.splice(i, 1);
                 } else {
-                    this.cart[i].totalAmount = Number((this.cart[i].product.price * num).toFixed(2));
-                    this.cart[i].num = num;
+                    this.cart[i].count = count;
+                    this.cart[i].totalAmount = Number((this.cart[i].price * count).toFixed(2));
                 }
                 break;
             }

@@ -1,16 +1,13 @@
+<import src="/template/doctor-goods-item.wxml" />
 <navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
 <view class="padding-bottom-footer">
-	<view class="flex--center--between padding-30 white-background-color">
-		<view class="width-150rpx height-150rpx border" style="background:url({{goods.goodsPic}}) no-repeat center;background-size:cover"></view>
-		<view class="height-150rpx flex-grow-1 flex--start--between flex-direction-column margin-left-20">
-			<view>{{goods.goodsName}}</view>
-			<view class="gray-color" wx:if="{{goods.type==1}}">{{goods.standardNum}}{{unitChange[goods.standardUnit]}}/{{unitChange[goods.useUnit]}}</view>
-			<view class="danger-color">￥{{goods.price}}/{{goods._unit}}</view>
-		</view>
+	<view class="padding-left-right-30 white-background-color">
+		<template data="{{product:goods}}" is="doctor-product-item" wx:if="{{goods.type==1}}"></template>
+		<template data="{{taocan:goods}}" is="doctor-taocan-item" wx:else></template>
 	</view>
 	<view class="margin-top-20 white-background-color">
 		<van-field bind:input="onInputNum" data-prop="perUseNum" label="每次用量" readonly="{{goods.type==2}}" title-width="4.5em" type="number" value="{{perUseNum}}">
-			<view slot="right-icon" wx:if="{{goods.type==1}}">{{unitChange[goods.standardUnit]}}</view>
+			<view slot="right-icon" wx:if="{{goods.type==1}}">{{goods._standardUnit}}</view>
 			<view slot="right-icon" wx:else>份</view>
 		</van-field>
 		<van-field bind:input="onInputNum" data-prop="modulateDose" label="配制用量" title-width="4.5em" type="number" value="{{modulateDose}}" wx:if="{{goods.type==2}}">

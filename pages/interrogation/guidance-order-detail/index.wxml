@@ -41,14 +41,14 @@
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
 		<view class="padding-top-20">营养指导：</view>
-		<view class="border-bottom" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
-			<view bindtap="onGoto" class="{{order.goods.length-1==index?'last-item':''}}" data-url="/pages/mall/product-detail/index?id={{product.goodsId}}">
+		<view class="border-bottom padding-bottom-20" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+			<view>
 				<template data="{{goods:product}}" is="order-goods-item"></template>
 			</view>
 			<view class="gray-color font-small">{{product.usage}}</view>
 			<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
 		</view>
-		<view class="flex--center--between padding-top-bottom-20 margin-top-20">
+		<view class="flex--center--between padding-top-bottom-20">
 			<text>配送金额：￥{{order.deliveryCost}}</text>
 			<text class="primary-color">订单金额：￥{{order.totalAmount}}</text>
 		</view>

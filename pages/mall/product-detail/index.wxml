@@ -22,7 +22,7 @@
 				<view
 					bindtap="onAddToCart"
 					class="flex--center--center height-100 padding-left-right-10 radius-100px primary-background-color white-color"
-					wx:if="{{!num}}"
+					wx:if="{{!count}}"
 				>
 					<van-icon color="#ffffff" name="add-o" size="20" />
 					<text class="margin-left-10">添加购物车</text>
@@ -31,12 +31,12 @@
 					<van-stepper
 						bind:change="onCartNumChange"
 						class="plus_minus"
-						data-id="{{item.product.id}}"
+						data-id="{{item.id}}"
 						integer
 						min="{{0}}"
-						value="{{item.num}}"
+						value="{{item.count}}"
 						wx:for="{{cart}}"
-						wx:if="{{item.product.id==productInfo.id}}"
+						wx:if="{{item.id==productInfo.id}}"
 						wx:key="index"
 					/>
 				</block>
@@ -76,10 +76,10 @@
 			</view>
 		</view>
 		<view class="flex--center--between border-bottom padding-30" wx:for="{{cart}}" wx:key="index">
-			<view>{{item.product.goodsName}}</view>
-			<view class="flex-shrink-0 primary-color">￥{{item.product.price}}</view>
+			<view>{{item.goodsName}}</view>
+			<view class="flex-shrink-0 primary-color">￥{{item.price}}</view>
 			<view class="flex--center--center flex-shrink-0 position-relative margin-left-20">
-				<van-stepper bind:change="onCartNumChange" data-id="{{item.product.id}}" integer min="{{0}}" value="{{item.num}}" />
+				<van-stepper bind:change="onCartNumChange" data-id="{{item.id}}" integer min="{{0}}" value="{{item.count}}" />
 			</view>
 		</view>
 	</van-popup>

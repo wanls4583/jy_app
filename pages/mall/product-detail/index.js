@@ -9,7 +9,7 @@ Page({
         bTop: 28,
         bHeight: 32,
         needMoney: 0,
-        num: 0,
+        count: 0,
         readonly: false
     },
     onLoad(option) {
@@ -91,7 +91,7 @@ Page({
         this.clearCart();
         this.setData({
             cartVisible: false,
-            num: 0
+            count: 0
         });
     },
     loadInfo() {
@@ -136,14 +136,14 @@ Page({
     //获取商品购买数量
     getProductNum() {
         wx.nextTick(() => {
-            var num = 0;
+            var count = 0;
             this.data.cart.map((item) => {
-                if (item.product.id == this.data.productInfo.id) {
-                    num = item.num;
+                if (item.id == this.data.productInfo.id) {
+                    count = item.count;
                 }
             });
             this.setData({
-                num: num
+                count: count
             });
         });
     }

@@ -41,8 +41,8 @@ Page({
         var goods = this.data.cart.map((item) => {
             return {
                 amount: item.totalAmount,
-                goodsId: item.product.id,
-                num: item.num
+                goodsId: item.id,
+                num: item.count
             }
         });
         wx.jyApp.showLoading('支付中...', true);

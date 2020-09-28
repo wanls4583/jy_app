@@ -72,11 +72,8 @@ Page({
             });
         }
     },
-    onclickProdcut(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/mall/product-detail/index?id=' + id
-        });
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     onClickDoctor(e) {
         var id = e.currentTarget.dataset.id;

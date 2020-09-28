@@ -1,4 +1,4 @@
-<!--index.wxml-->
+<import src="/template/goods-item.wxml" />
 <view class="container padding-bottom-footer">
 	<view class="padding-30 white-background-color">
 		<view class="flex--center--between">
@@ -21,19 +21,12 @@
 		</view>
 		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养指导”增加套餐或产品</view>
 		<view class="margin-top-20" wx:else>
-			<view class="product padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
-				<view class="flex--center--start">
-					<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
-					<view class="flex-direction-column flex-grow-1 flex--start--between height-150rpx padding-left-30">
-						<view>{{product.goodsName}}</view>
-						<view class="flex--center--between width-100">
-							<text class="gray-color">x{{product.count}}{{product._unit}}</text>
-							<text class="danger-color">￥{{product.totalAmount}}</text>
-						</view>
-					</view>
+			<view class="padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
+				<view>
+					<template data="{{goods:product}}" is="order-goods-item"></template>
 				</view>
-				<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
-				<view class="margin-top-10 gray-color font-small">备注：{{product.remark}}</view>
+				<view class="gray-color font-small">{{product.usage}}</view>
+				<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
 				<view class="flex--center--end padding-top-30">
 					<view bindtap="onDelete" class="button plain primary small" data-index="{{index}}">删除</view>
 					<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{product}}">修改</view>

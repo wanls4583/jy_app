@@ -45,6 +45,9 @@ Page({
             this.caculateTotalAmount();
         }
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onInput(e) {
         this.setData({
             diagnosis: e.detail.value

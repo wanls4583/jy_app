@@ -87,11 +87,8 @@ Page({
             });
         }
     },
-    onclickProdcut(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/mall/product-detail/index?readonly=1&id=' + id
-        });
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     search() {
         wx.jyApp.showLoading('搜索中...', true);

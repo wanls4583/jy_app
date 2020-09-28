@@ -1,3 +1,4 @@
+<import src="/template/doctor-goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search bind:change="onChangeText" bind:search="onSearch" focus="{{true}}" placeholder="请输入产品" shape="round" value="{{searchText}}" />
@@ -6,57 +7,19 @@
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
 			<van-empty description="未查询到相关商品，请重新搜索" />
 		</view>
-		<view class="padding-left-right-30 border-top white-background-color" wx:if="{{taocanData.list.length}}">
-			<view class="font-bold padding-top-30">营养套餐</view>
+		<view class="padding-left-right-30 white-background-color" wx:if="{{taocanData.list.length}}">
+			<view class="font-bold padding-top-30 border-top">营养套餐</view>
 			<view>
-				<view
-					bindtap="onclickProdcut"
-					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
-					data-id="{{product.id}}"
-					wx:for="{{taocanData.renderList}}"
-					wx:for-item="product"
-					wx:key="id"
-				>
-					<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
-					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-						<view>{{product.goodsName}}</view>
-						<view class="flex--center--between margin-top-20 width-100">
-							<text class="gray-color">一天{{product.frequency}}次</text>
-						</view>
-						<view class="flex--center--between margin-top-20 width-100">
-							<text class="danger-color">￥{{product.price}}/{{product._unit}}</text>
-							<view catchtap="onAddTaocan" class="button primary small" data-item="{{product}}">添加该套餐</view>
-						</view>
-					</view>
-				</view>
+				<template data="{{taocan:item}}" is="doctor-taocan-item" wx:for="{{taocanData.renderList}}" wx:key="id"></template>
 			</view>
 			<view class="padding-top-bottom-30 align-center" wx:if="{{taocanData.renderList.length<taocanData.totalCount}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
 			</view>
 		</view>
-		<view class="padding-left-right-30 border-top white-background-color" wx:if="{{productData.list.length}}">
-			<view class="font-bold padding-top-30">营养产品</view>
+		<view class="padding-left-right-30 white-background-color" wx:if="{{productData.list.length}}">
+			<view class="font-bold padding-top-30 border-top">营养产品</view>
 			<view>
-				<view
-					bindtap="onclickProdcut"
-					class="product flex--center--start padding-top-bottom-30 white-background-color border-bottom"
-					data-id="{{product.id}}"
-					wx:for="{{productData.renderList}}"
-					wx:for-item="product"
-					wx:key="id"
-				>
-					<image class="width-150rpx height-150rpx border" src="{{product.goodsPic}}" mode="aspectFit" />
-					<view class="flex-direction-column flex-grow-1 flex--start--between padding-left-30">
-						<view>{{product.goodsName}}</view>
-						<view class="flex--center--between margin-top-20 width-100">
-							<text class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</text>
-						</view>
-						<view class="flex--center--between margin-top-20 width-100">
-							<text class="danger-color">￥{{product.price}}</text>
-							<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}">添加该产品</view>
-						</view>
-					</view>
-				</view>
+				<template data="{{product:item}}" is="doctor-product-item" wx:for="{{productData.renderList}}" wx:key="id"></template>
 			</view>
 			<view class="padding-top-bottom-30 align-center" wx:if="{{productData.renderList.length<productData.totalCount}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>

@@ -137,11 +137,8 @@ Page({
         var type = e.currentTarget.dataset.type;
         this.loadList(false, type);
     },
-    onclickProdcut(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/pages/mall/product-detail/index?id=' + id
-        });
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     loadList(refresh, type) {
         var page = 0;
