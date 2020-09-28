@@ -14,7 +14,7 @@ Component({
             this.loadProduct();
             this.loadBaner();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 120 - 54
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 54
             });
         }
     },

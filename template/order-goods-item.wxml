@@ -1,0 +1,25 @@
+<template name="order-goods-item">
+	<view class="order-goods-item flex--center--start white-background-color" wx:if="{{isOrderList}}">
+		<template data="{{goods:goods}}" is="_order-goods-item"></template>
+	</view>
+	<view
+		bindtap="onGoto"
+		class="order-goods-item flex--center--start white-background-color"
+		data-url="/pages/mall/product-detail/index?id={{goods.goodsId||goods.id}}"
+		wx:else
+	>
+		<template data="{{goods:goods}}" is="_order-goods-item"></template>
+	</view>
+</template>
+<template name="_order-goods-item">
+	<image class="width-150rpx height-150rpx" mode="aspectFill" src="{{goods.goodsPic}}" />
+	<view class="flex-grow-1 margin-left-30 padding-top-bottom-30 border-bottom">
+		<view class="flex-direction-column flex--start--between height-150rpx">
+			<view>{{goods.goodsName}}</view>
+			<view class="flex--center--between width-100">
+				<text class="gray-color">x{{goods.count||goods.num}}{{goods._unit}}</text>
+				<text class>￥{{goods.totalAmount||goods.price}}</text>
+			</view>
+		</view>
+	</view>
+</template>

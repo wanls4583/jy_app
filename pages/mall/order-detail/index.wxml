@@ -1,4 +1,4 @@
-<import src="/template/goods-item.wxml" />
+<import src="/template/order-goods-item.wxml" />
 <view class="container">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0}}">
 		<text class="font-large danger-color font-bold">未支付</text>

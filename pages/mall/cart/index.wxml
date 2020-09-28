@@ -1,4 +1,4 @@
-<import src="/template/goods-item.wxml" />
+<import src="/template/order-goods-item.wxml" />
 <view class="container padding-bottom-footer">
 	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
 		<block wx:if="{{selectAddress}}">

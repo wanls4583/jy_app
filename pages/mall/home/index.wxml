@@ -1,5 +1,6 @@
 <import src="/template/doctor-item.wxml" />
-<view class="container white-background-color">
+<import src="/template/footer.wxml" />
+<view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search
 			bindtap="onGoto"
@@ -12,7 +13,7 @@
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative padding-top-bottom-30 white-background-color" wx:if="{{banner.length}}">
+				<view class="position-relative padding-top-bottom-20" wx:if="{{banner.length}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
@@ -21,10 +22,10 @@
 						indicator-color="rgba(255,255,255,.5)"
 						indicator-dots="{{true}}"
 						interval="{{5000}}"
-						style="height:230rpx;transform:translateY(0);"
+						style="height:236rpx;transform:translateY(0);"
 					>
 						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
-							<view class="position-relative height-100 padding-left-right-30">
+							<view class="position-relative height-100 padding-left-right-20">
 								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" />
 								<view class="position-absolute bottom-0 align-right padding-30" style="left:30rpx;right:30rpx">
 									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
@@ -33,7 +34,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--around white-background-color padding-left-right-30">
+				<view class="flex--center--between white-background-color padding-30 margin-20 margin-top-0 radius-8px">
 					<view bindtap="onGoto" class="flex-direction-column flex--center--between width-33 clickable" data-url="/pages/interrogation/illness-edit/index">
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
@@ -61,24 +62,24 @@
 						<text class="font-small gray-color margin-top-10">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color padding-top-30" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
-					<view class="font-large padding-30 padding-top-0">营养中心</view>
+				<view class="white-background-color margin-20 margin-top-0 radius-8px" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
+					<view class="font-large padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onGoto"
-							class="margin-left-30 margin-bottom-30 padding-20 radius-8px clickable"
+							class="margin-left-20 margin-bottom-20 padding-20 radius-8px clickable"
 							data-id="{{item.id}}"
 							data-url="/pages/mall/search-doctor/index?departmentName={{item.departmentName}}"
-							style="width:330rpx;{{item.background}}"
+							style="width:325rpx;{{item.background}}"
 							wx:for="{{departmentList}}"
 							wx:key="id"
 						>
-							<view>{{item.departmentName}}</view>
-							<view class="margin-top-10 font-small">{{item.introduce}}</view>
+							<view class="ellipse">{{item.departmentName}}</view>
+							<view class="margin-top-10 font-small color-666 ellipse">{{item.introduce}}</view>
 						</view>
 					</view>
 				</view>
-				<view class="white-background-color padding-left-right-30" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
+				<view class="white-background-color padding-20 padding-bottom-0 margin-20 margin-top-0 radius-8px" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
 					<view class="flex--center--between">
 						<text class="font-large">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
@@ -90,31 +91,21 @@
 						<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 					</view>
 				</view>
-				<view class="white-background-color padding-left-right-30" wx:if="{{kepuList.length}}">
-					<view class="font-large padding-bottom-30">健康科普</view>
+				<view class="white-background-color padding-20 padding-bottom-0 margin-left-right-20 radius-8px overflow-hidden" wx:if="{{kepuList.length}}">
+					<view class="font-large padding-bottom-20">健康科普</view>
 					<view
 						bindtap="onClickBanner"
-						class="position-relative margin-bottom-30 radius-8px overflow-hidden gray-background-color"
+						class="position-relative margin-bottom-20 radius-8px overflow-hidden gray-background-color"
 						data-link="{{item.linkUrl}}"
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
 						<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;"></view>
-						<view class="position-absolute font-large font-bold" style="top:30rpx;left:30rpx;right:30rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
+						<view class="position-absolute font-large font-bold" style="top:20rpx;left:20rpx;right:20rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center flex-direction-column padding-left-right-30 white-background-color" style="height:120px">
-				<view class="flex--center--center">
-					<image src="/image/logo.png" style="width:40rpx;height:40rpx;" />
-					<text class="font-title" style="margin-left:2px">钜元营养</text>
-				</view>
-				<view class="flex--center--between width-100 margin-top-20">
-					<view class="flex-grow-1 border-bottom border-color-ddd"></view>
-					<text class="margin-left-right-30 gray-color font-small" decode="{{true}}">健康营养&nbsp;&nbsp;严格审核&nbsp;&nbsp;专业安全</text>
-					<view class="flex-grow-1 border-bottom border-color-ddd"></view>
-				</view>
-			</view>
+			<template is="footer"></template>
 		</pull-scroll-view>
 	</view>
 </view>

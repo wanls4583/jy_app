@@ -1,4 +1,4 @@
-<import src="/template/goods-item.wxml" />
+<import src="/template/order-goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">

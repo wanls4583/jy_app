@@ -1,11 +1,12 @@
-<view class="container" style="background-color:#f6f6f6">
+<import src="/template/footer.wxml" />
+<view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGotoSearch" class="search" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
+		<van-search bindtap="onGotoSearch" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative padding-top-bottom-30" wx:if="{{banner.length}}">
+				<view class="position-relative padding-top-bottom-20" wx:if="{{banner.length}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
@@ -14,10 +15,10 @@
 						indicator-color="rgba(255,255,255,.5)"
 						indicator-dots="{{true}}"
 						interval="{{5000}}"
-						style="height:230rpx;transform:translateY(0);"
+						style="height:236rpx;transform:translateY(0);"
 					>
 						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
-							<view class="position-relative height-100 padding-left-right-30">
+							<view class="position-relative height-100 padding-left-right-20">
 								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" />
 								<view class="position-absolute bottom-0 align-right padding-30" style="left:30rpx;right:30rpx">
 									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
@@ -27,7 +28,7 @@
 					</swiper>
 				</view>
 				<view wx:if="{{taocanList.length}}">
-					<view class="flex--center--between padding-30 padding-top-0">
+					<view class="flex--center--between padding-20 padding-top-0">
 						<view class="font-large">营养套餐</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="2">
 							<text>查看更多</text>
@@ -39,11 +40,11 @@
 							bindtap="onclickProdcut"
 							class="flex flex-direction-column white-background-color margin-left-30 margin-bottom-30 radius-8px overflow-hidden"
 							data-id="{{item.id}}"
-							style="width:330rpx;"
+							style="width:345rpx;"
 							wx:for="{{taocanList}}"
 							wx:key="id"
 						>
-							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:330rpx" />
+							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:345rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
 								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/份</view>
@@ -52,7 +53,7 @@
 					</view>
 				</view>
 				<view wx:if="{{productList.length}}">
-					<view class="flex--center--between padding-30 padding-top-0">
+					<view class="flex--center--between padding-20 padding-top-0">
 						<view class="font-large">营养产品</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="1">
 							<text>查看更多</text>
@@ -62,13 +63,13 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column white-background-color margin-left-30 margin-bottom-30 radius-8px overflow-hidden"
+							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden"
 							data-id="{{item.id}}"
-							style="width:330rpx;"
+							style="width:345rpx;"
 							wx:for="{{productList}}"
 							wx:key="id"
 						>
-							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:270rpx" />
+							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:345rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
 								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/{{item._useUnit}}</view>
@@ -77,17 +78,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--center flex-direction-column padding-left-right-30" style="height:120px">
-				<view class="flex--center--center">
-					<image src="/image/logo.png" style="width:40rpx;height:40rpx;" />
-					<text class="font-title" style="margin-left:2px">钜元营养</text>
-				</view>
-				<view class="flex--center--between width-100 margin-top-20">
-					<view class="flex-grow-1 border-bottom border-color-ddd"></view>
-					<text class="margin-left-right-30 gray-color font-small" decode="{{true}}">健康营养&nbsp;&nbsp;严格审核&nbsp;&nbsp;专业安全</text>
-					<view class="flex-grow-1 border-bottom border-color-ddd"></view>
-				</view>
-			</view>
+			<template is="footer"></template>
 		</pull-scroll-view>
 	</view>
 </view>

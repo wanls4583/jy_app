@@ -1,4 +1,4 @@
-<import src="/template/goods-item.wxml" />
+<import src="/template/order-goods-item.wxml" />
 <view class="container padding-bottom-footer">
 	<view class="padding-30 white-background-color">
 		<view class="flex--center--between">

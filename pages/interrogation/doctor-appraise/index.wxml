@@ -6,7 +6,7 @@
 	</view>
 	<view class="flex--center--start padding-left-30 padding-bottom-30 white-background-color">
 		<text>总体评分：</text>
-		<van-rate bind:change="onChange" color="rgb(255, 210, 30)" size="{{25}}" value="{{score}}" void-color="#f1f1f1" void-icon="star" />
+		<van-rate bind:change="onChange" color="rgb(255, 210, 30)" size="{{25}}" value="{{score}}" void-color="#f6f6f6" void-icon="star" />
 		<text class="margin-left-20 font-small">{{result}}</text>
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color">
