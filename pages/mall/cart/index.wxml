@@ -1,5 +1,5 @@
 <import src="/template/order-goods-item.wxml" />
-<view class="container padding-bottom-footer">
+<view class="container padding-bottom-footer" wx:if="{{cart.length}}">
 	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
 		<block wx:if="{{selectAddress}}">
 			<view style="max-width: 300px;">
@@ -35,4 +35,7 @@
 		</view>
 		<view bindtap="onSubmit" class="button primary center height-100 radius-0">提交订单</view>
 	</view>
+</view>
+<view class="container flex--center--center" wx:else>
+	<van-empty class="custom-image" description="购物车为空" image="https://img.yzcdn.cn/vant/custom-empty-image.png" />
 </view>

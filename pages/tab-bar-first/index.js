@@ -9,20 +9,6 @@ Page({
     },
     onShow() {
         if (this.data.userInfo.role == 'DOCTOR') {
-            wx.setNavigationBarColor({
-                frontColor: '#ffffff',
-                backgroundColor: '#2aafff'
-            });
-            wx.setBackgroundColor({
-                backgroundColor: '#2aafff',
-                backgroundColorTop: '#2aafff'
-            });
-            wx.setBackgroundTextStyle({
-                textStyle: 'light'
-            });
-            wx.setNavigationBarTitle({
-                title: ''
-            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_users.png",
@@ -30,20 +16,6 @@ Page({
                 "text": "患者管理"
             });
         } else {
-            wx.setNavigationBarColor({
-                frontColor: '#ffffff',
-                backgroundColor: '#2aafff'
-            });
-            wx.setBackgroundColor({
-                backgroundColor: '#2aafff',
-                backgroundColorTop: '#2aafff'
-            });
-            wx.setBackgroundTextStyle({
-                textStyle: 'light'
-            });
-            wx.setNavigationBarTitle({
-                title: '钜元云营养'
-            });
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_marks.png",

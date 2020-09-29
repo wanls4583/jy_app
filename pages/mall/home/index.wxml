@@ -1,22 +1,37 @@
 <import src="/template/doctor-item.wxml" />
 <import src="/template/footer.wxml" />
 <view class="container">
-	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search
-			background="transparent"
-			bindtap="onGoto"
-			class="top-search"
-			data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
-			disabled="{{true}}"
-			placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品"
-			shape="round"
-		/>
-	</view>
-	<view class="position-absolute top-0 width-100 background-gradient" style="height:120px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
-	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:44px">
-		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
-			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative margin-bottom-20" wx:if="{{banner.length}}">
+	<navigation-bar background="#2aafff" holder="{{true}}" safe="{{true}}">
+		<view class="position-relative width-100 height-100">
+			<view
+				bindtap="onGoto"
+				class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center"
+				data-type="1"
+				data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
+				hidden="{{searchOpacity<1}}"
+				style="padding:0 {{menuRect.marginRight}}px"
+			>
+				<view class="flex--center--center width-100 white-background-color radius-100px" style="height:{{menuRect.height}}px">
+					<van-icon color="#666" name="search" size="16"></van-icon>
+					<text class="margin-left-10 gray-color">请输入{{configData.showDoctor==1?'医生/':''}}产品</text>
+				</view>
+			</view>
+		</view>
+		<view class="position-absolute top-0 left-0 width-100 height-100 flex--center--center font-large font-bold">钜元云营养</view>
+	</navigation-bar>
+	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscroll="onScroll" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
+			<view class="position-relative padding-top-10" style="min-height:{{minContentHeight}}px">
+				<view class="position-absolute top-0 width-100 background-gradient" style="z-index:-1;height:120px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
+				<view
+					bindtap="onSearch"
+					data-type="2"
+					data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
+					style="opacity:{{1-searchOpacity}};padding:0 {{menuRect.marginRight}}px"
+				>
+					<template is="search"></template>
+				</view>
+				<view class="margin-top-20" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
@@ -37,7 +52,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--between white-background-color padding-30 margin-20 margin-top-0 radius-8px">
+				<view class="flex--center--between white-background-color padding-30 margin-20 margin-bottom-0 radius-8px">
 					<view bindtap="onGoto" class="flex-direction-column flex--center--between width-33 clickable" data-url="/pages/interrogation/illness-edit/index">
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
@@ -65,8 +80,8 @@
 						<text class="font-small gray-color margin-top-10">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color margin-20 margin-top-0 radius-8px" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
-					<view class="font-large padding-20">营养中心</view>
+				<view class="white-background-color margin-20 margin-bottom-0 radius-8px" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
+					<view class="font-large font-bold padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onGoto"
@@ -82,9 +97,12 @@
 						</view>
 					</view>
 				</view>
-				<view class="white-background-color padding-20 padding-bottom-0 margin-20 margin-top-0 radius-8px" wx:if="{{doctorList.length&&configData.showDoctor==1}}">
+				<view
+					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px"
+					wx:if="{{doctorList.length&&configData.showDoctor==1}}"
+				>
 					<view class="flex--center--between">
-						<text class="font-large">推荐医生</text>
+						<text class="font-large font-bold">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 							<text>全部</text>
 							<van-icon name="arrow" />
@@ -94,8 +112,11 @@
 						<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 					</view>
 				</view>
-				<view class="white-background-color padding-20 padding-bottom-0 margin-left-right-20 radius-8px overflow-hidden" wx:if="{{kepuList.length}}">
-					<view class="font-large padding-bottom-20">健康科普</view>
+				<view
+					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px overflow-hidden"
+					wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}"
+				>
+					<view class="font-large font-bold padding-bottom-20">健康科普</view>
 					<view
 						bindtap="onClickBanner"
 						class="position-relative margin-bottom-20 radius-8px overflow-hidden gray-background-color"
@@ -118,3 +139,6 @@
 		<view bindtap="onClickHideTip" class="button small primary radius-100px">我知道了</view>
 	</view>
 </view>
+<template name="search">
+	<van-search background="transparent" class="nav-search width-100" disabled="{{true}}" placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品" shape="round" />
+</template>

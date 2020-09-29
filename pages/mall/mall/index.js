@@ -7,22 +7,29 @@ Component({
         productList: [],
         taocanList: [],
         stopRefresh: false,
-        minContentHeight: 0
+        minContentHeight: 0,
+        menuRect: wx.jyApp.utils.getMenuRect()
     },
     lifetimes: {
         attached() {
+            this.storeBindings = wx.jyApp.createStoreBindings(this, {
+                store: wx.jyApp.store,
+                fields: ['configData', 'cartNum']
+            });
+            this.storeBindings.updateStoreBindings();
             this.loadProduct();
             this.loadBaner();
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 54
             });
+        },
+        detached() {
+            this.storeBindings.destroyStoreBindings();
         }
     },
     methods: {
-        onGotoSearch() {
-            wx.navigateTo({
-                url: '/pages/mall/search/index'
-            });
+        onGoto(e) {
+            wx.jyApp.utils.navigateTo(e);
         },
         onRefresh(e) {
             wx.jyApp.Promise.all([

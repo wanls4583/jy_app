@@ -35,6 +35,10 @@ Component({
     fontSize: {
       type: String,
       value: '28rpx'
+    },
+    safe: {
+      type: Boolean,
+      value: false,
     }
   },
   data: {
@@ -54,18 +58,15 @@ Component({
   methods: {
     _attached() {
       var pages = getCurrentPages();
+      var bRect = wx.jyApp.utils.getMenuRect();
       var systemInfo = wx.getSystemInfoSync();
-      var bRect = wx.getMenuButtonBoundingClientRect() || {};
-      bRect.top = bRect && bRect.top || 28;
-      bRect.right = bRect && bRect.right || systemInfo.screenWidth - 10;
-      bRect.right = bRect && bRect.left || systemInfo.screenWidth - 90;
-      bRect.height = bRect && bRect.height || 32;
-      bRect.width = bRect && bRect.width || 87;
+      var showBack = pages.length > 1;
       this.setData({
         systemInfo: systemInfo,
-        showBack: pages.length > 1,
+        showBack: showBack,
         menuRect: bRect,
-        navHeight: (bRect.top - systemInfo.statusBarHeight) * 2 + bRect.height
+        paddingLeft: this.properties.back && showBack ? 40 : 0,
+        paddingRight: this.properties.safe ? (systemInfo.screenWidth - bRect.left) : (this.properties.back && showBack ? 40 : 0)
       });
     },
     back() {

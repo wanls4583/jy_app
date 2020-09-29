@@ -52,7 +52,7 @@
 		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
 			<van-icon class="primary-color margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" wx:if="{{cartNum}}" />
 			<van-icon class="gray-color margin-right-30" name="shopping-cart-o" size="20px" wx:else />
-			<text class="primary-color" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
+			<text class="primary-color font-bold" wx:if="{{cartNum}}">￥{{cartTotalMoney}}</text>
 			<view class="gray-color" wx:if="{{!cartNum}}">
 				<view wx:if="{{configData.deliveryCost>0}}">
 					<text>配送费:</text>

@@ -4,13 +4,14 @@ Component({
     },
     data: {
         banner: [],
-        stopRefresh: false
+        stopRefresh: false,
+        systemInfo: wx.getSystemInfoSync()
     },
     lifetimes: {
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['userInfo', 'doctorInfo'],
+                fields: ['userInfo', 'doctorInfo', 'configData'],
                 actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();

@@ -12,7 +12,9 @@ Component({
         kepuList: [],
         stopRefresh: false,
         tipVisible: false,
-        minContentHeight: 0
+        searchOpacity: 0,
+        minContentHeight: 0,
+        menuRect: wx.jyApp.utils.getMenuRect()
     },
     lifetimes: {
         attached() {
@@ -22,7 +24,7 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 54
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
@@ -30,7 +32,7 @@ Component({
                 this.loadDoctor();
                 this.loadDepartmentList();
             }
-            if (this.data.userInfo.role == 'USER'  && (this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.switchStatus == 1) && !wx.getStorageSync('switch_role_tip')) {
+            if (this.data.userInfo.role == 'USER' && (this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.switchStatus == 1) && !wx.getStorageSync('switch_role_tip')) {
                 this.setData({
                     tipVisible: true
                 });
@@ -47,8 +49,22 @@ Component({
         }
     },
     methods: {
+        onScroll(e) {
+            var scrollTop = e.detail.scrollTop;
+            var opacity = scrollTop / 40;
+            opacity = opacity > 1 ? 1 : opacity;
+            this.setData({
+                searchOpacity: opacity
+            });
+        },
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
+        },
+        onSearch(e) {
+            var type = e.currentTarget.dataset.type;
+            if (type == 1 && this.data.searchOpacity > 0.5 || type == 2 && 1 - this.data.searchOpacity > 0.5) {
+                wx.jyApp.utils.navigateTo(e);
+            }
         },
         onRefresh(e) {
             wx.jyApp.Promise.all([

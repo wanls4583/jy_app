@@ -1,4 +1,4 @@
 {
-    "navigationBarTitleText": "首页",
-    "backgroundColorBottom": "#ffffff"
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "white"
 }

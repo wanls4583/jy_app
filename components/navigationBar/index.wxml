@@ -1,9 +1,0 @@
-<view class="navigation_bar external-classes" style="height:{{navHeight}}px;padding-top:{{systemInfo.statusBarHeight}}px;background:{{background}};">
-	<view class="title_w" style="padding:0 40px">
-		<view class="title" style="font-size:{{fontSize}};color:{{color}}">{{title}}</view>
-		<view bindtap="back" class="icon_back" wx:if="{{back && showBack}}">
-			<van-icon name="arrow-left" color="#333" size="30" />
-		</view>
-	</view>
-</view>
-<view class="navigation_bar_holder" style="height:{{navHeight+systemInfo.statusBarHeight}}px" wx:if="{{holder}}"></view>

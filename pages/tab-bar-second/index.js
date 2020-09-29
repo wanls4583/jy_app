@@ -14,9 +14,17 @@ Page({
             wx.setNavigationBarTitle({
                 title: '患者管理'
             });
+            wx.setNavigationBarColor({
+                frontColor: '#000000',
+                backgroundColor: '#ffffff'
+            });
         } else {
             wx.setNavigationBarTitle({
                 title: '商城'
+            });
+            wx.setNavigationBarColor({
+                frontColor: '#ffffff',
+                backgroundColor: '#2aafff'
             });
         }
     },

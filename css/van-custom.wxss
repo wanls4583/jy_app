@@ -70,3 +70,11 @@ page .van-popup__close-icon--top-right {
 .top-search .van-search {
     padding-top: 0 !important;
 }
+
+.nav-search .van-search {
+    padding: 0 !important;
+}
+
+.nav-search .van-search__content {
+    background: #ffffff !important;
+}

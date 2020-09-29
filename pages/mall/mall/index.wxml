@@ -1,12 +1,27 @@
 <import src="/template/footer.wxml" />
 <view class="container">
-	<view class="position-fixed top-0 z-index-100 width-100">
-		<van-search bindtap="onGotoSearch" class="top-search" disabled="{{true}}" placeholder="请输入名称搜索" shape="round" />
-	</view>
-	<view class="position-absolute bottom-0 width-100" style="top:44px">
-		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
+	<navigation-bar background="#2aafff" holder="{{true}}" safe="{{true}}">
+		<view class="position-relative width-100 height-100">
+			<view class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center" style="padding:0 {{menuRect.marginRight}}px">
+				<van-icon bindtap="onGoto" color="#fff" data-url="/pages/mall/cart/index" info="{{cartNum}}" name="cart-o" size="25" wx:if="{{cartNum}}"></van-icon>
+				<van-icon bindtap="onGoto" color="#fff" data-url="/pages/mall/cart/index" name="cart-o" size="25" wx:else></van-icon>
+				<view
+					bindtap="onGoto"
+					class="flex-grow-1 flex--center--center margin-left-20 white-background-color radius-100px"
+					data-url="/pages/mall/search/index"
+					style="height:{{menuRect.height}}px"
+				>
+					<van-icon color="#666" name="search" size="16"></van-icon>
+					<text class="margin-left-10 gray-color">请输入名称搜索</text>
+				</view>
+			</view>
+		</view>
+	</navigation-bar>
+	<view class="position-absolute bottom-0 width-100" style="top:{{menuRect.outerNavHeight}}px">
+		<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 			<view style="min-height:{{minContentHeight}}px">
-				<view class="position-relative padding-top-bottom-20" wx:if="{{banner.length}}">
+				<view class="position-absolute top-0 width-100 background-gradient" style="z-index:-1;height:86px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
+				<view class="position-relative padding-top-20" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">
 					<swiper
 						autoplay="{{true}}"
 						circular="{{true}}"
@@ -28,8 +43,8 @@
 					</swiper>
 				</view>
 				<view wx:if="{{taocanList.length}}">
-					<view class="flex--center--between padding-20 padding-top-0">
-						<view class="font-large">营养套餐</view>
+					<view class="flex--center--between padding-left-right-20">
+						<view class="padding-top-bottom-30 font-large font-bold">营养套餐</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="2">
 							<text>查看更多</text>
 							<van-icon name="arrow" />
@@ -53,8 +68,8 @@
 					</view>
 				</view>
 				<view wx:if="{{productList.length}}">
-					<view class="flex--center--between padding-20 padding-top-0">
-						<view class="font-large">营养产品</view>
+					<view class="flex--center--between padding-left-right-20">
+						<view class="padding-top-bottom-30 font-large font-bold">营养产品</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="1">
 							<text>查看更多</text>
 							<van-icon name="arrow" />

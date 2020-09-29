@@ -1,0 +1,10 @@
+<view class="navigation_bar" style="height:{{menuRect.navHeight}}px;padding-top:{{systemInfo.statusBarHeight}}px;background:{{background}};">
+	<view class="title_w" style="padding-left:{{paddingLeft}}px;padding-right:{{paddingRight}}px;line-height:{{menuRect.navHeight}}px">
+		<view class="title" style="font-size:{{fontSize}};color:{{color}}" wx:if="{{title}}">{{title}}</view>
+		<slot></slot>
+		<view bindtap="back" class="icon_back" wx:if="{{back&&showBack}}">
+			<van-icon color="#333" name="arrow-left" size="30" />
+		</view>
+	</view>
+</view>
+<view class="navigation_bar_holder" style="height:{{menuRect.outerNavHeight}}px" wx:if="{{holder}}"></view>

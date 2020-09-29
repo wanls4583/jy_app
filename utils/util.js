@@ -27,11 +27,6 @@ function parseDate(str, split) {
     return new Date(Number(arr[0]), Number(arr[1]), Number(arr[2]));
 }
 
-const formatNumber = n => {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
-
 function getUUID(len) {
     len = len || 16;
     var str = '';
@@ -171,6 +166,7 @@ function getAllConfig() {
         'h5_code_share_url',
         'consult_shop_url',
         'showDoctor',
+        'hideAllBanner',
     ]).then((data) => {
         wx.jyApp.store.updateConfigData(data);
     });
@@ -208,6 +204,20 @@ function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus:
     return pass;
 }
 
+function getMenuRect() {
+    var systemInfo = wx.getSystemInfoSync();
+    var bRect = wx.getMenuButtonBoundingClientRect() || {};
+    bRect.top = bRect && bRect.top || 28;
+    bRect.right = bRect && bRect.right || systemInfo.screenWidth - 10;
+    bRect.left = bRect && bRect.left || systemInfo.screenWidth - 97;
+    bRect.height = bRect && bRect.height || 32;
+    bRect.width = bRect && bRect.width || 87;
+    bRect.navHeight = (bRect.top - systemInfo.statusBarHeight) * 2 + bRect.height;
+    bRect.outerNavHeight = bRect.navHeight + systemInfo.statusBarHeight;
+    bRect.marginRight = systemInfo.screenWidth - bRect.right;
+    return bRect;
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 
@@ -223,5 +233,6 @@ module.exports = {
     getConfig: getConfig,
     getAllConfig: getAllConfig,
     checkDoctor: checkDoctor,
+    getMenuRect: getMenuRect,
     getUUID: getUUID
 }

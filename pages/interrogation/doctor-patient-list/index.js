@@ -7,7 +7,8 @@ Component({
         stopRefresh: false,
         totalPage: -1,
         totalCount: 0,
-        page: 1
+        page: 1,
+        menuRect: wx.jyApp.utils.getMenuRect()
     },
     lifetimes: {
         attached(option) {
@@ -54,9 +55,6 @@ Component({
             wx.jyApp.utils.navigateTo(e);
         },
         onGotoSearch() {
-            if (this.data.totalPage <= 0) {
-                return;
-            }
             wx.navigateTo({
                 url: '/pages/interrogation/doctor-patient-search/index'
             });

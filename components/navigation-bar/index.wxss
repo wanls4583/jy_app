@@ -8,12 +8,9 @@
 }
 
 .navigation_bar .title_w {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     height: 100%;
-    padding-right: 100px;
+    text-align: center;
 }
 
 .navigation_bar .title {

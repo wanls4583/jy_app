@@ -1,6 +1,0 @@
-.top-search .van-search__content {
-    background: #ffffff !important;
-}
-.top-search .van-search {
-    padding: 0 20rpx !important;
-}
