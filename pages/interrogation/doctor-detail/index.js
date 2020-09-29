@@ -9,7 +9,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo'],
+            fields: ['userInfo', 'configData'],
             actions: ['updateUserInfo'],
         });
         this.storeBindings.updateStoreBindings();
@@ -23,6 +23,11 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
+        if (wx.jyApp.store.configData.showDoctor == 1) {
+            wx.setNavigationBarTitle({
+                title: '医生详情'
+            });
+        }
         if (wx.jyApp.payInterrogationResult) { //问诊支付结果
             if (wx.jyApp.payInterrogationResult.result == 'fail') {
                 setTimeout(() => {

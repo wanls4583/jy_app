@@ -1,4 +1,4 @@
-<view class="container white-background-color">
+<view class="container white-background-color" wx:if="{{configData.showDoctor==1}}">
 	<view class="padding-30" style="background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 		<view class="position-relative">
 			<view
