@@ -1,11 +1,7 @@
 <view class="container">
 	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<!-- 认证医生 -->
-		<view
-			class="flex--center--between background-gradient padding-30 padding-top-0"
-			style="padding-bottom:60rpx"
-			wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo.authStatus==1}}"
-		>
+		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo.authStatus==1}}">
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
@@ -29,7 +25,7 @@
 			</view>
 		</view>
 		<!-- 未认证医生 -->
-		<view class="flex--center--between background-gradient padding-30 padding-top-0" style="padding-bottom:60rpx" wx:elif="{{userInfo.role=='DOCTOR'}}">
+		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:elif="{{userInfo.role=='DOCTOR'}}">
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -49,7 +45,7 @@
 			</view>
 		</view>
 		<!-- 患者 -->
-		<view class="flex--center--between background-gradient padding-30 padding-top-0" style="padding-bottom:60rpx" wx:else>
+		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:else>
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 gray-background-color border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -71,39 +67,39 @@
 				<van-icon color="#fff" name="arrow" />
 			</view>
 		</view>
-		<view class="flex--center--around white-background-color">
+		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden">
 			<block wx:if="{{userInfo.role=='USER'}}">
-				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/order-list/index">
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">我的订单</view>
 				</view>
-				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
+				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
 					<image mode="aspectFit" src="/image/icon_wenzhen.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">问诊患者</view>
 				</view>
 			</block>
 			<block wx:if="{{userInfo.role=='DOCTOR'}}">
-				<view bindtap="onCheckGoto" class="width-33 padding-30 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/order-list/index">
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">我的订单</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="width-33 padding-30 align-center clickable"
+					class="width-33 padding-20 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/income-list/index"
 				>
 					<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">查看收益</view>
 				</view>
-				<view bindtap="onCheckGoto" class="width-33 padding-30 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
+				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
 					<view class="font-small">提现</view>
 				</view>
 			</block>
 		</view>
-		<view class="margin-top-20 white-background-color">
-			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1}}">
+		<view class="margin-20 white-background-color radius-8px overflow-hidden">
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
@@ -112,7 +108,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-20 clickable">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/feedback/index">
 					<text>功能反馈</text>
 					<view class="flex--center--center">
@@ -120,7 +116,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-20 clickable">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
 					<text>消息通知</text>
 					<view class="flex--center--center">
@@ -129,7 +125,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-20 clickable">
 				<view
 					bindtap="onOpenWebview"
 					class="flex--center--between padding-top-bottom-30 border-bottom"
@@ -142,7 +138,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-20 clickable">
 				<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>联系客服</text>
 					<view class="flex--center--center">
@@ -151,7 +147,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable">
+			<view class="padding-left-right-20 clickable">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/setting/index">
 					<text>设置</text>
 					<view class="flex--center--center">
