@@ -67,7 +67,7 @@
 				<van-icon color="#fff" name="arrow" />
 			</view>
 		</view>
-		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden">
+		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
 			<block wx:if="{{userInfo.role=='USER'}}">
 				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
@@ -98,7 +98,7 @@
 				</view>
 			</block>
 		</view>
-		<view class="margin-20 white-background-color radius-8px overflow-hidden">
+		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
 			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>

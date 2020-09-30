@@ -34,7 +34,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex flex--center--between white-background-color margin-20 radius-8px overflow-hidden">
+			<view class="flex flex--center--between white-background-color margin-20 radius-8px overflow-hidden shadow">
 				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx" src="/image/icon_order.png" />
 					<view class="font-small">订单列表</view>
