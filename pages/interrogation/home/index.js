@@ -28,7 +28,6 @@ Component({
     },
     pageLifetimes: {
         show() {
-            wx.jyApp.utils.getAllConfig();
         }
     },
     methods: {
@@ -47,7 +46,8 @@ Component({
         onRefresh(e) {
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),
-                this.loadBaner
+                this.loadBaner,
+                wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
                     stopRefresh: true

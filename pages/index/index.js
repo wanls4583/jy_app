@@ -12,7 +12,6 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
-        wx.jyApp.utils.getAllConfig();
         this.checkOption(this.option);
         this.firstLoad = true;
     },

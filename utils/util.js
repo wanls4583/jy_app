@@ -167,6 +167,7 @@ function getAllConfig() {
         'consult_shop_url',
         'showDoctor',
         'hideAllBanner',
+        'showInvite',
     ]).then((data) => {
         wx.jyApp.store.updateConfigData(data);
     });

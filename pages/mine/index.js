@@ -29,7 +29,8 @@ Page({
     onRefresh() {
         wx.jyApp.Promise.all([
             this.reLogin(),
-            this.getMessageCount()
+            this.getMessageCount(),
+            wx.jyApp.utils.getAllConfig()
         ]).finally(() => {
             this.setData({
                 stopRefresh: true
@@ -44,7 +45,6 @@ Page({
         wx.navigateTo({
             url: '/pages/user/index'
         });
-
     },
     //跳转前检查医生状态
     onCheckGoto(e) {

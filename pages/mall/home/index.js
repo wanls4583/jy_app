@@ -45,7 +45,6 @@ Component({
     },
     pageLifetimes: {
         show() {
-            wx.jyApp.utils.getAllConfig();
             if (wx.jyApp.payInterrogationResult) { //问诊支付结果
                 if (wx.jyApp.payInterrogationResult.result == 'fail') {
                     setTimeout(() => {

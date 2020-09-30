@@ -45,6 +45,7 @@ App({
             this.checkStatus();
         }
         this.firstLoad = false;
+        wx.jyApp.utils.getAllConfig();
     },
     setGlobalData() {
         var systemInfo = wx.getSystemInfoSync();

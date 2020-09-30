@@ -39,10 +39,10 @@
 					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
 					<view class="font-small">订单列表</view>
 				</view>
-				<!-- <view bindtap="onCheckGoto" class="align-center clickable" data-url="/pages/interrogation/invite/index">
+				<view bindtap="onCheckGoto" class="align-center clickable" data-url="/pages/interrogation/invite/index" wx:if="{{configData.showInvite==1}}">
 					<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
 					<view class="font-small">邀请医生</view>
-				</view>-->
+				</view>
 				<view
 					bindtap="onCheckGoto"
 					class="align-center clickable"
