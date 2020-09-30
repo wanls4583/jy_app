@@ -53,7 +53,7 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden"
+							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden shadow"
 							data-id="{{item.id}}"
 							style="width:345rpx;"
 							wx:for="{{taocanList}}"
@@ -82,7 +82,7 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden"
+							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden shadow"
 							data-id="{{item.id}}"
 							style="width:345rpx;"
 							wx:for="{{productList}}"

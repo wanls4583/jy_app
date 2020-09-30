@@ -44,7 +44,7 @@
 					>
 						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 							<view class="position-relative height-100 padding-left-right-20">
-								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" />
+								<image class="width-100 height-100 radius-8px shadow" mode="aspectFill" src="{{item.picUrl}}" />
 								<view class="position-absolute bottom-0 align-right padding-30" style="left:30rpx;right:30rpx">
 									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
 								</view>
@@ -52,7 +52,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--between white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden">
+				<view class="flex--center--between white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
 					<view
 						bindtap="onGoto"
 						class="flex-direction-column flex--center--between width-33 padding-30 clickable"
@@ -90,7 +90,7 @@
 						<text class="font-small gray-color margin-top-10">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color margin-20 margin-bottom-0 radius-8px" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
+				<view class="white-background-color margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
 					<view class="font-large font-bold padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
@@ -108,7 +108,7 @@
 					</view>
 				</view>
 				<view
-					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px"
+					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px shadow"
 					wx:if="{{doctorList.length&&configData.showDoctor==1}}"
 				>
 					<view class="flex--center--between">
@@ -123,7 +123,7 @@
 					</view>
 				</view>
 				<view
-					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px overflow-hidden"
+					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px overflow-hidden shadow"
 					wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}"
 				>
 					<view class="font-large font-bold padding-bottom-20">健康科普</view>

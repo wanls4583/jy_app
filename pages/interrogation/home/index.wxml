@@ -70,7 +70,7 @@
 					indicator-color="rgba(255,255,255,.5)"
 					indicator-dots="{{true}}"
 					interval="{{5000}}"
-					style="height:230rpx;transform:translateY(0);"
+					style="height:236rpx;transform:translateY(0);"
 				>
 					<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 						<view class="position-relative height-100 padding-left-right-20">
