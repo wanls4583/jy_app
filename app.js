@@ -52,7 +52,8 @@ App({
     },
     //版本检测
     updateCheck() {
-        const updateManager = wx.getUpdateManager();
+        var updateManager = wx.getUpdateManager();
+        var self = this;
 
         updateManager.onCheckForUpdate(function (res) {
             // 请求完新版本信息的回调
@@ -60,16 +61,27 @@ App({
         });
 
         updateManager.onUpdateReady(function () {
-            wx.showModal({
-                title: '更新提示',
-                content: '新版本已经准备好，是否重启应用？',
-                success(res) {
-                    if (res.confirm) {
-                        // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-                        updateManager.applyUpdate()
-                    }
+            _showTip();
+            function _showTip() {
+                var pages = getCurrentPages();
+                if (pages[pages.length - 1].route != 'pages/index/index') {
+                    wx.showModal({
+                        title: '更新提示',
+                        content: '新版本已经准备好，是否重启应用？',
+                        success(res) {
+                            if (res.confirm) {
+                                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                                updateManager.applyUpdate()
+                            }
+                        }
+                    });
+                } else {
+                    clearTimeout(self.updateTipTimer);
+                    self.updateTipTimer = setTimeout(() => {
+                        _showTip();
+                    }, 1000);
                 }
-            })
+            }
         });
 
         updateManager.onUpdateFailed(function () {
