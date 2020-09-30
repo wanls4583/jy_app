@@ -95,6 +95,7 @@ Page({
         });
     },
     loadInfo() {
+        wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/goods/info/${this.data.id}`
         }).then((data) => {
@@ -104,6 +105,7 @@ Page({
                 banner: data.info.goodsPic && data.info.goodsPic.split(',') || [],
                 desImgList: data.info.goodsPicDetails && data.info.goodsPicDetails.split(',') || [],
             });
+            wx.hideLoading();
         });
     },
     //点击商品图片放大
