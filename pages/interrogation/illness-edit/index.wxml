@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<view class="container">
+<view class="container" wx:if="{{configData.showDoctor==1}}">
 	<view class="padding-30 border-bottom border-top height-50vw white-background-color">
 		<textarea bindinput="onInput" class="height-100 width-100" maxlength="{{500}}" placeholder="为了更好的得到医生的帮助，请详细描述您的病情（至少10个字）" value="{{diseaseDetail}}" />
 	</view>

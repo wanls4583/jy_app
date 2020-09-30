@@ -1,5 +1,5 @@
 <import src="/template/doctor-item.wxml" />
-<view class="container">
+<view class="container" wx:if="{{configData.showDoctor==1}}">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search
 			bind:cancel="onCancel"

@@ -8,10 +8,16 @@ Page({
         doctor: null
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId || '';
         this.taskMap = {}
     },
     onUnload() {
+        this.storeBindings.destroyStoreBindings();
         for (var key in this.taskMap) {
             this.taskMap[key].abort();
         }

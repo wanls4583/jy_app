@@ -5,7 +5,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo', 'configData']
         });
         this.storeBindings.updateStoreBindings();
         this.type = option.type;

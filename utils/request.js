@@ -7,6 +7,17 @@ function request(obj) {
     }
     header['token'] = wx.getStorageSync('token');
     header['role'] = wx.getStorageSync('role');
+    var userInfo = wx.jyApp.store.userInfo;
+    if (userInfo) {
+        userInfo = {
+            id: userInfo.id,
+            doctorId: userInfo.doctorId,
+            nickname: userInfo.nickname,
+            role: userInfo.role,
+        }
+    } else {
+        userInfo = {}
+    }
     var requestTask = null;
     var promise = new wx.jyApp.Promise((resolve, reject) => {
         obj.data = obj.data || {};
@@ -32,7 +43,8 @@ function request(obj) {
                             url: '/pages/index/index'
                         });
                     }
-                    wx.jyApp.log.info('服务器错误：', obj.url, obj.data, res.data);
+
+                    wx.jyApp.log.info('服务器错误：', obj.url, obj.data, userInfo, res.data);
                 }
             },
             fail: (err) => {
@@ -48,7 +60,7 @@ function request(obj) {
                             wx.jyApp.toast('服务器错误');
                         }, 300);
                     }
-                    wx.jyApp.log.info('网络错误：', obj.url, res.statusCode);
+                    wx.jyApp.log.info('网络错误：', obj.url, obj.data, userInfo, res.statusCode);
                 }
                 obj.complete && obj.complete(res);
             }

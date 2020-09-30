@@ -53,12 +53,17 @@
 					</swiper>
 				</view>
 				<view class="flex--center--between white-background-color padding-30 margin-20 margin-bottom-0 radius-8px">
-					<view bindtap="onGoto" class="flex-direction-column flex--center--between width-33 clickable" data-url="/pages/interrogation/illness-edit/index">
+					<view
+						bindtap="onGoto"
+						class="flex-direction-column flex--center--between width-33 clickable"
+						data-url="/pages/interrogation/illness-edit/index"
+						wx:if="{{configData.showDoctor==1}}"
+					>
 						<view class="width-80rpx height-80rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
 						</view>
-						<text class="font-title margin-top-10">{{configData.showDoctor==1?'快速问诊':'营养咨询'}}</text>
-						<text class="font-small gray-color margin-top-10">智能匹配{{configData.showDoctor==1?'医生':'营养师'}}</text>
+						<text class="font-title margin-top-10">快速问诊</text>
+						<text class="font-small gray-color margin-top-10">智能匹配医生</text>
 					</view>
 					<view
 						bindtap="onGoto"

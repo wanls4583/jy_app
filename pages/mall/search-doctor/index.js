@@ -52,6 +52,11 @@ Page({
         screenVisible: false
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.jobTitle = ''; //职称搜索条件
         this.price = ''; //价格搜索条件
         this.loadDiseaseList();
@@ -63,6 +68,9 @@ Page({
         });
         this.complexName = option.departmentName || ''
         this.loadList();
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onShow() {
 

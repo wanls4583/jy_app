@@ -1,5 +1,5 @@
 <import src="/template/order-goods-item.wxml" />
-<view class="container">
+<view class="container" wx:if="{{configData.showDoctor==1}}">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 		<text class="font-large danger-color font-bold">未支付</text>
 		<text class="gray-color">超过3天未支付，订单自动失效</text>
