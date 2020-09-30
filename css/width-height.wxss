@@ -30,6 +30,10 @@
     width: 50vh;
 }
 
+.width-60rpx {
+    width: 60rpx;
+}
+
 .width-100 {
     width: 100%;
 }
@@ -88,6 +92,10 @@
 
 .height-50rpx {
     height: 50rpx;
+}
+
+.height-60rpx {
+    height: 60rpx;
 }
 
 .height-33vw {

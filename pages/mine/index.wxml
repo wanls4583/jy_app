@@ -70,17 +70,17 @@
 		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden">
 			<block wx:if="{{userInfo.role=='USER'}}">
 				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/order-list/index">
-					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
+					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
 				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
-					<image mode="aspectFit" src="/image/icon_wenzhen.png" style="width:60rpx;height:60rpx;" />
+					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_wenzhen.png" />
 					<view class="font-small">问诊患者</view>
 				</view>
 			</block>
 			<block wx:if="{{userInfo.role=='DOCTOR'}}">
 				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/order-list/index">
-					<image mode="aspectFit" src="/image/icon_order.png" style="width:60rpx;height:60rpx;" />
+					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
 				<view
@@ -89,11 +89,11 @@
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/income-list/index"
 				>
-					<image mode="aspectFit" src="/image/icon_trend.png" style="width:60rpx;height:60rpx;" />
+					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_trend.png" />
 					<view class="font-small">查看收益</view>
 				</view>
 				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
-					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:60rpx;height:60rpx;" />
+					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_withdrawal.png" />
 					<view class="font-small">提现</view>
 				</view>
 			</block>
@@ -148,7 +148,7 @@
 				</view>
 			</view>
 			<view class="padding-left-right-20 clickable">
-				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/setting/index">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/setting/index">
 					<text>设置</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />

@@ -34,25 +34,30 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex flex--center--between white-background-color padding-30 margin-20 radius-8px">
-				<view bindtap="onCheckGoto" class="align-center clickable" data-url="/pages/order-list/index">
-					<image class="width-80rpx height-80rpx" src="/image/icon_order.png" />
+			<view class="flex flex--center--between white-background-color margin-20 radius-8px overflow-hidden">
+				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/order-list/index">
+					<image class="width-60rpx height-60rpx" src="/image/icon_order.png" />
 					<view class="font-small">订单列表</view>
 				</view>
-				<view bindtap="onCheckGoto" class="align-center clickable" data-url="/pages/interrogation/invite/index" wx:if="{{configData.showInvite==1}}">
-					<image class="width-80rpx height-80rpx" src="/image/icon_doctor.png" />
+				<view
+					bindtap="onCheckGoto"
+					class="width-33 padding-20 align-center clickable"
+					data-url="/pages/interrogation/invite/index"
+					wx:if="{{configData.showInvite==1}}"
+				>
+					<image class="width-60rpx height-60rpx" src="/image/icon_doctor.png" />
 					<view class="font-small">邀请医生</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="align-center clickable"
+					class="width-33 padding-20 align-center clickable"
 					data-url="/pages/interrogation/qrcode-share/index?type=1&dId={{userInfo.doctorId}}&uId={{userInfo.id}}"
 				>
-					<image class="width-80rpx height-80rpx" src="/image/icon_qrcode.png" />
+					<image class="width-60rpx height-60rpx" src="/image/icon_qrcode.png" />
 					<view class="font-small">二维码名片</view>
 				</view>
-				<view bindtap="onCheckGoto" class="align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
-					<image class="width-80rpx height-80rpx" src="/image/icon_setting.png" />
+				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/interrogation/doctor-setting/index">
+					<image class="width-60rpx height-60rpx" src="/image/icon_setting.png" />
 					<view class="font-small">服务设置</view>
 				</view>
 			</view>
