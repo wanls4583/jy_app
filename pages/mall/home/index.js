@@ -24,7 +24,7 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
-                minContentHeight: 5000//wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();

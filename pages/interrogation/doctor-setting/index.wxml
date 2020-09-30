@@ -4,7 +4,7 @@
 			<text>图文问诊</text>
 			<switch bindchange="onSwitchChange" checked="{{consultOrderSwitch==1}}" color="rgb(42, 175, 255)" />
 		</view>
-		<view bindtap="onClickTextPrice" class="flex--center--between padding-top-bottom-30 border-bottom">
+		<view bindtap="onClickTextPrice" class="flex--center--between padding-top-bottom-30">
 			<text>图文问诊每次金额</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">{{consultOrderPrice}}</text>
@@ -13,7 +13,7 @@
 		</view>
 	</view>
 	<view bindtap="onClickGuidePrice" class="padding-left-right-30 white-background-color margin-top-20">
-		<view class="flex--center--between padding-top-bottom-30 border-bottom">
+		<view class="flex--center--between padding-top-bottom-30">
 			<text>营养指导诊金</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">{{nutritionOrderPrice}}</text>
@@ -22,7 +22,7 @@
 		</view>
 	</view>
 	<view bindtap="onClickStatus" class="padding-left-right-30 white-background-color margin-top-20">
-		<view class="flex--center--between padding-top-bottom-30 border-bottom">
+		<view class="flex--center--between padding-top-bottom-30">
 			<text>医生服务状态</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">
