@@ -12,7 +12,7 @@ Component({
         kepuList: [],
         stopRefresh: false,
         tipVisible: false,
-        searchOpacity: 0,
+        scrollTop: 0,
         minContentHeight: 0,
         menuRect: wx.jyApp.utils.getMenuRect()
     },
@@ -24,7 +24,7 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
+                minContentHeight: 5000//wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
@@ -65,20 +65,15 @@ Component({
     methods: {
         onScroll(e) {
             var scrollTop = e.detail.scrollTop;
-            var opacity = scrollTop / 40;
-            opacity = opacity > 1 ? 1 : opacity;
             this.setData({
-                searchOpacity: opacity
+                scrollTop: scrollTop
             });
         },
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
         },
         onSearch(e) {
-            var type = e.currentTarget.dataset.type;
-            if (type == 1 && this.data.searchOpacity > 0.5 || type == 2 && 1 - this.data.searchOpacity > 0.5) {
-                wx.jyApp.utils.navigateTo(e);
-            }
+            wx.jyApp.utils.navigateTo(e);
         },
         onRefresh(e) {
             wx.jyApp.Promise.all([

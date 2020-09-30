@@ -8,8 +8,8 @@
 				class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center"
 				data-type="1"
 				data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
-				hidden="{{searchOpacity<1}}"
 				style="padding:0 {{menuRect.marginRight}}px"
+				wx:if="{{scrollTop>44}}"
 			>
 				<view class="flex--center--center width-100 white-background-color radius-100px" style="height:{{menuRect.height}}px">
 					<van-icon color="#666" name="search" size="16"></van-icon>
@@ -27,7 +27,7 @@
 					bindtap="onSearch"
 					data-type="2"
 					data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
-					style="opacity:{{1-searchOpacity}};padding:0 {{menuRect.marginRight}}px"
+					style="padding:0 {{menuRect.marginRight}}px"
 				>
 					<template is="search"></template>
 				</view>
