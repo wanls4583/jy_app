@@ -72,6 +72,7 @@ Component({
             }).then((data) => {
                 data.page.list.map((item) => {
                     item._goodsName = item.goodsName;
+                    item._unit = '份';
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
@@ -89,7 +90,7 @@ Component({
             }).then((data) => {
                 data.page.list.map((item) => {
                     item._goodsName = item.goodsName;
-                    item._useUnit = wx.jyApp.constData.unitChange[item.useUnit];
+                    item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({

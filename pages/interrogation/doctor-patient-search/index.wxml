@@ -4,7 +4,7 @@
 		<van-search
 			bind:change="onInput"
 			bind:search="onSearch"
-			class="top-search"
+			class="padding-top-0"
 			data-prop="searchText"
 			focus="{{focus}}"
 			placeholder="请输入患者姓名"

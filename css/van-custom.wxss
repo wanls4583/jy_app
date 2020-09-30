@@ -67,8 +67,12 @@ page .van-popup__close-icon--top-right {
     right: 28rpx;
 }
 
-.top-search .van-search {
+.padding-top-0 .van-search {
     padding-top: 0 !important;
+}
+
+.padding-bottom-0 .van-search {
+    padding-bottom: 0 !important;
 }
 
 .nav-search .van-search {

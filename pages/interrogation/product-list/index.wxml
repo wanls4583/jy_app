@@ -1,7 +1,13 @@
 <import src="/template/doctor-goods-item.wxml" />
 <view class="container">
 	<view class="position-fixed top-0 width-100">
-		<van-search bindtap="onGotoSearch" class="top-search" disabled="{{true}}" placeholder="请输入产品" shape="round" />
+		<van-search
+			bindtap="onGotoSearch"
+			class="padding-top-0 {{taocanVisible&&productVisible?'padding-bottom-0':''}}"
+			disabled="{{true}}"
+			placeholder="请输入产品"
+			shape="round"
+		/>
 		<van-tabs active="{{active}}" bind:change="onChangeTab" wx:if="{{taocanVisible&&productVisible}}">
 			<van-tab title="营养套餐"></van-tab>
 			<van-tab title="营养产品"></van-tab>
@@ -71,7 +77,7 @@
 				</pull-scroll-view>
 			</swiper-item>
 		</swiper>
-		<pull-scroll-view bindrefresh="onRefreshAll" stop-refresh="{{stopRefresh}}" wx:else>
+		<pull-scroll-view bindrefresh="onRefreshAll" stop-refresh="{{stopRefresh}}" wx:elif="{{taocanData.totalPage==0&&productData.totalPage==0}}">
 			<view class="padding-30 gray-color align-center font-small">
 				<van-empty description="未查询到相关商品，请重新搜索" />
 			</view>

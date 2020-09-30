@@ -6,7 +6,7 @@
 			bind:change="onChangeText"
 			bind:focus="onFocus"
 			bind:search="onSearch"
-			class="top-search"
+			class="padding-top-0"
 			focus="{{searchTipVisible}}"
 			placeholder="请输入医生/疾病/营养中心"
 			shape="round"

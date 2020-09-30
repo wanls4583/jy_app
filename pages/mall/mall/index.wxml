@@ -53,7 +53,7 @@
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onclickProdcut"
-							class="flex flex-direction-column white-background-color margin-left-30 margin-bottom-30 radius-8px overflow-hidden"
+							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden"
 							data-id="{{item.id}}"
 							style="width:345rpx;"
 							wx:for="{{taocanList}}"
@@ -62,7 +62,11 @@
 							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:345rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
-								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/份</view>
+								<view class="flex--center--start margin-top-10 danger-color font-bold">
+									<text class="font-small" style="margin-top:4rpx">￥</text>
+									<text class="font-title">{{item.price}}</text>
+									<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{item._unit}}</text>
+								</view>
 							</view>
 						</view>
 					</view>
@@ -87,7 +91,11 @@
 							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:345rpx" />
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
-								<view class="margin-top-10 danger-color font-bold">{{item.price}}元/{{item._useUnit}}</view>
+								<view class="flex--center--start margin-top-10 danger-color font-bold">
+									<text class="font-small" style="margin-top:4rpx">￥</text>
+									<text class="font-title">{{item.price}}</text>
+									<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{item._unit}}</text>
+								</view>
 							</view>
 						</view>
 					</view>

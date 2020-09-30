@@ -3,7 +3,7 @@
 		<view class="title" style="font-size:{{fontSize}};color:{{color}}" wx:if="{{title}}">{{title}}</view>
 		<slot></slot>
 		<view bindtap="back" class="icon_back" wx:if="{{back&&showBack}}">
-			<van-icon color="#333" name="arrow-left" size="30" />
+			<van-icon color="#333" name="arrow-left" size="25" />
 		</view>
 	</view>
 </view>

@@ -17,7 +17,11 @@
 	<view class="padding-20 white-background-color">
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20">
-			<view class="font-large font-bold danger-color">￥{{productInfo.price}}/{{productInfo._unit}}</view>
+			<view class="flex--center--start danger-color font-bold">
+				<text style="margin-top:4rpx">￥</text>
+				<text class="font-large">{{productInfo.price}}</text>
+				<text decode="{{true}}" style="margin-top:4rpx">/{{productInfo._unit}}</text>
+			</view>
 			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view
 					bindtap="onAddToCart"

@@ -13,14 +13,16 @@ Page({
                 index: 1,
                 "iconPath": "image/icon_users.png",
                 "selectedIconPath": "image/icon_users_active.png",
-                "text": "患者管理"
+                "text": "患者管理",
+                fail: () => { }
             });
         } else {
             wx.setTabBarItem({
                 index: 1,
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城"
+                "text": "商城",
+                fail: () => { }
             });
         }
     },

@@ -26,6 +26,11 @@ Component({
             this.storeBindings.destroyStoreBindings();
         }
     },
+    pageLifetimes: {
+        show() {
+            wx.jyApp.utils.getAllConfig();
+        }
+    },
     methods: {
         onGoto(e) {
             var url = e.currentTarget.dataset.url;

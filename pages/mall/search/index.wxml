@@ -5,7 +5,7 @@
 		<van-search
 			bind:change="onChangeText"
 			bind:search="onSearch"
-			class="top-search"
+			class="padding-top-0"
 			focus="{{true}}"
 			placeholder="{{doctorVisible?'请输入医生/产品':'请输入名称搜索'}}"
 			shape="round"
