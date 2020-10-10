@@ -69,7 +69,14 @@ Page({
                 });
             }
             data.page.list.map((item) => {
-                item._type = '问诊服务';
+                switch (item.type) {
+                    case 1:
+                    case 2:
+                    case 3:
+                        item._type = '问诊服务'; break;
+                    case 4:
+                        item._type = '首诊服务'; break;
+                }
                 item._status = this.data.statusMap[item.status];
             });
             this.setData({
