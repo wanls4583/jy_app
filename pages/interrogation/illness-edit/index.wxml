@@ -40,7 +40,7 @@
 			<text style="font-size:100rpx;margin-top:-20rpx">+</text>
 		</view>
 	</view>
-	<view class="position-fixed bottom-0 width-100 padding-30">
+	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
 		<view bindtap="onNext" class="button primary block">下一步</view>
 	</view>
 </view>

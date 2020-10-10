@@ -14,7 +14,7 @@
     <block wx:else>
         <van-empty description="暂无模板" />
     </block>
-    <view class="position-fixed bottom-0 width-100 padding-30">
+    <view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
         <view class="button primary block" bindtap="onAdd">添加模板</view>
     </view>
     <van-dialog id="van-dialog" />

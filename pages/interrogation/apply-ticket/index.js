@@ -37,8 +37,8 @@ Page({
             wx.jyApp.toast('请输入发票抬头');
             return;
         }
-        if (!this.data.mailAddress) {
-            wx.jyApp.toast('请输入邮箱地址');
+        if (!wx.jyApp.utils.emailReg.test(this.data.mailAddress)) {
+            wx.jyApp.toast('请输入正确的邮箱地址');
             return;
         }
         if (this.data.ticketType == 2 && !this.data.taxNumber) {

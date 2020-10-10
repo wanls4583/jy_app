@@ -6,7 +6,7 @@
 	<view class="margin-top-20 white-background-color">
 		<view class="padding-left-right-30">
 			<view class="flex--center--between border-bottom" style="height:100rpx">
-				<view class="label-color" style="width:6.2em">开票类型</view>
+				<view class="label-color" style="width:6.2em;margin-right:12px">开票类型</view>
 				<view class="flex-grow-1 flex--center--start">
 					<label bindtap="onChange" class="flex--center--center" data-tickettype="1">
 						<radio checked="{{ticketType==1}}" color="rgb(42, 175, 255)" />
@@ -28,7 +28,7 @@
 		<van-field bindinput="onInput" data-prop="phone" label="企业电话" placeholder="请输入企业电话（选填）" value="{{phone}}" wx:if="{{ticketType==2}}"></van-field>
 		<van-field bindinput="onInput" data-prop="address" label="企业地址" placeholder="请输入企业地址（选填）" value="{{address}}" wx:if="{{ticketType==2}}"></van-field>
 	</view>
-	<view class="position-fixed bottom-0 width-100 padding-30">
+	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
 		<view bindtap="onSubmit" class="button primary block">提交</view>
 	</view>
 </view>

@@ -7,7 +7,7 @@
 	<view class="padding-30 border white-background-color">
 		<input bindinput="onInput" data-prop="phone" placeholder="请留下手机号码，方便我们联系您" type="number" value="{{phone}}" />
 	</view>
-	<view class="position-fixed bottom-0 width-100 padding-30">
+	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
 		<view bindtap="onSubmit" class="button primary block">提交</view>
 	</view>
 </view>

@@ -122,11 +122,12 @@
 						<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 					</view>
 				</view>
-				<view
-					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px overflow-hidden shadow"
-					wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}"
-				>
-					<view class="font-large font-bold padding-bottom-20">健康科普</view>
+				<view class="margin-20 margin-top-30 margin-bottom-0 radius-8px overflow-hidden" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
+					<view class="flex--center--center padding-bottom-30">
+						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
+						<image class="flex-shrink-0 width-100 margin-left-right-10" mode="widthFix" src="/image/kepu.png" style="width:180rpx" />
+						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
+					</view>
 					<view
 						bindtap="onClickBanner"
 						class="position-relative margin-bottom-20 radius-8px overflow-hidden gray-background-color"

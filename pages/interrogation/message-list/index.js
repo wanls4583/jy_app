@@ -73,7 +73,7 @@ Page({
             today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
-                item.updateTime = item.updateTime * 1000;
+                // item.updateTime = item.updateTime * 1000;
                 if (item.updateTime > today) {
                     item.updateTime = new Date(item.updateTime).formatTime('hh:mm');
                 } else {

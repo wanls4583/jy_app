@@ -44,7 +44,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="position-fixed bottom-0 width-100 padding-30">
+	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
 		<view bindtap="onSave" class="button primary block">保存</view>
 	</view>
 </view>

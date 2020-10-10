@@ -20,7 +20,7 @@
 		</view>
 		<radio checked="{{true}}"></radio>
 	</view>
-	<view class="position-fixed bottom-0 width-100 flex--center--between white-background-color">
+	<view class="position-fixed bottom-0 width-100 z-index-100 flex--center--between white-background-color">
 		<view class="flex-grow-1 padding-left-30">
 			<text>实际支付：</text>
 			<text class="primary-color">￥{{consultOrderPrice}}</text>
