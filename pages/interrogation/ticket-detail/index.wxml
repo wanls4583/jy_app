@@ -1,0 +1,29 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<readonly-field label="订单编号" value="{{ticket.orderNo}}"></readonly-field>
+		<readonly-field font-color="#ee0a24" label="开票金额" value="{{'￥'+ticket.ticketMoney}}"></readonly-field>
+	</view>
+	<view class="padding-left-right-30 margin-top-20 white-background-color">
+		<view class="flex--center--center border-bottom" style="height:100rpx">
+			<label class="flex--center--center">
+				<radio checked="{{ticket.ticketType==1}}" color="rgb(42, 175, 255)" />
+				<text>个人/非企业</text>
+			</label>
+			<label class="flex--center--center margin-left-30">
+				<radio checked="{{ticket.ticketType==2}}" color="rgb(42, 175, 255)" />
+				<text>企业</text>
+			</label>
+		</view>
+		<readonly-field label="发票内容" value="{{ticket.ticketContent}}"></readonly-field>
+		<van-field label="发票抬头" placeholder="请输入发票抬头" value="{{ticket.title}}"></van-field>
+		<van-field label="识别号" placeholder="纳税人识别号或统一信用代码" value="{{ticket.taxNumber}}" wx:if="{{ticket.ticketType==2}}"></van-field>
+		<van-field label="邮箱地址" placeholder="用于接受电子发票" value="{{ticket.mailAddress}}"></van-field>
+		<van-field label="开户银行" placeholder="请输入开户银行名称（选填）" value="{{ticket.bankName}}" wx:if="{{ticket.ticketType==2}}"></van-field>
+		<van-field label="银行账号" placeholder="请输入银行账号（选填）" value="{{ticket.bankCardNumber}}" wx:if="{{ticket.ticketType==2}}"></van-field>
+		<van-field label="企业电话" placeholder="请输入企业电话（选填）" value="{{ticket.phone}}" wx:if="{{ticket.ticketType==2}}"></van-field>
+		<van-field label="企业地址" placeholder="请输入企业地址（选填）" value="{{ticket.address}}" wx:if="{{ticket.ticketType==2}}"></van-field>
+	</view>
+	<view class="position-fixed bottom-0 width-100 padding-30" wx:if="{{ticket.ticketStatus==1}}">
+		<view bindtap="onSubmit" class="button primary block">查看发票</view>
+	</view>
+</view>

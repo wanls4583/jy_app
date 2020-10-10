@@ -48,6 +48,8 @@
         "pages/interrogation/guidance-edit/index",
         "pages/interrogation/user-patient-list/index",
         "pages/interrogation/doctor-detail/index",
+        "pages/interrogation/apply-ticket/index",
+        "pages/interrogation/ticket-detail/index",
         "pages/mall/search-doctor/index"
     ],
     "window": {

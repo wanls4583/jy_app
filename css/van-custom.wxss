@@ -82,3 +82,7 @@ page .van-popup__close-icon--top-right {
 .nav-search .van-search__content {
     background: #ffffff !important;
 }
+
+van-field:last-child van-cell:after {
+    border-style: none;
+}

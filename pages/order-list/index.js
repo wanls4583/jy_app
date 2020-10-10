@@ -33,7 +33,7 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo', 'configData']
         });
         this.storeBindings.updateStoreBindings();
         this.loadMallOrderList();
@@ -82,6 +82,41 @@ Page({
                 }
             });
             delete wx.jyApp.hasPayGuidanceId;
+        }
+        if (wx.jyApp.hasTicketId) { //已申请发票
+            this.data.interrogationOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasTicketId) {
+                    item.ticketStatus = 1;
+                    this.setData({
+                        [`interrogationOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            this.data.applyOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasTicketId) {
+                    item.ticketStatus = 1;
+                    this.setData({
+                        [`applyOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            this.data.guidanceOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasTicketId) {
+                    item.ticketStatus = 1;
+                    this.setData({
+                        [`guidanceOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            this.data.mallOrder.orderList.map((item, index) => {
+                if (item.id == wx.jyApp.hasTicketId) {
+                    item.ticketStatus = 1;
+                    this.setData({
+                        [`mallOrder.orderList[${index}]`]: item
+                    });
+                }
+            });
+            delete wx.jyApp.hasTicketId;
         }
     },
     onChangeTab(e) {
@@ -200,7 +235,11 @@ Page({
                     }
                 });
             }
+            var todayBegin = Date.prototype.getTodayBegin();
+            var aDay = 24 * 60 * 60 * 1000;
             data.page.list.map((item) => {
+                item.ticketMoney = Number((item.totalAmount - item.deliveryCost).toFixed(2));
+                item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
@@ -248,7 +287,10 @@ Page({
                     }
                 });
             }
+            var todayBegin = Date.prototype.getTodayBegin();
+            var aDay = 24 * 60 * 60 * 1000;
             data.page.list.map((item) => {
+                item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'interrogation')
@@ -293,7 +335,11 @@ Page({
                     }
                 });
             }
+            var todayBegin = Date.prototype.getTodayBegin();
+            var aDay = 24 * 60 * 60 * 1000;
             data.page.list.map((item) => {
+                item.ticketMoney = Number((item.totalAmount - item.deliveryCost).toFixed(2));
+                item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
@@ -343,7 +389,10 @@ Page({
                     }
                 });
             }
+            var todayBegin = Date.prototype.getTodayBegin();
+            var aDay = 24 * 60 * 60 * 1000;
             data.page.list.map((item) => {
+                item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'apply');

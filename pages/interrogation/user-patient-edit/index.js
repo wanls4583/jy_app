@@ -54,7 +54,7 @@ Page({
         });
     },
     onConfirmBirthday(e) {
-        var birthday = wx.jyApp.utils.formatTime(e.detail, 'yyyy-MM-dd');
+        var birthday = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
             'patient.birthday': birthday,
             birthDayVisible: false

@@ -18,6 +18,10 @@ Component({
     titleWidth: {
       type: String,
       value: '6.2em'
+    },
+    fontColor: {
+      type: String,
+      value: '#333'
     }
   },
   data: {

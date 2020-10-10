@@ -22,9 +22,29 @@ function formatTime(date, format = 'yyyy-MM-dd hh:mm:ss') {
     return format;
 }
 
-function parseDate(str, split) {
-    var arr = str.split(split || '-');
-    return new Date(Number(arr[0]), Number(arr[1]), Number(arr[2]));
+function parseDate(str) {
+    var reg = /\d{4}-\d{1,2}-\d{1,2}/.exec(str);
+    if (reg) {
+        var arr = reg[0].split('-');
+        return new Date(Number(arr[0]), Number(arr[1]), Number(arr[2]));
+    }
+}
+
+function parseDateTime(str) {
+    var dateReg = /\d{4}-\d{1,2}-\d{1,2}/.exec(str);
+    var timeReg = /\d{1,2}:\d{1,2}:\d{1,2}/.exec(str);
+    if (dateReg && timeReg) {
+        var arr1 = dateReg[0].split('-');
+        var arr2 = timeReg[0].split(':');
+        return new Date(Number(arr1[0]), Number(arr1[1]), Number(arr1[2]), Number(arr2[0]), Number(arr2[1]), Number(arr2[2]));
+    } else if (dateReg) {
+        return parseDate(str);
+    }
+}
+
+function getTodayBegin() {
+    var date = new Date();
+    return date - date.getHours() * 60 * 60 * 1000 - date.getMinutes() * 60 * 1000 - date.getSeconds() * 1000 - date.getMilliseconds();
 }
 
 function getUUID(len) {
@@ -168,6 +188,7 @@ function getAllConfig() {
         'showDoctor',
         'hideAllBanner',
         'showInvite',
+        'allowApplyTicketDays',
     ]).then((data) => {
         wx.jyApp.store.updateConfigData(data);
     });
@@ -221,9 +242,10 @@ function getMenuRect() {
 
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
+Date.prototype.parseDateTime = parseDateTime;
+Date.prototype.getTodayBegin = getTodayBegin;
 
 module.exports = {
-    formatTime: formatTime,
     navigateTo: navigateTo,
     onInput: onInput,
     onInputNum: onInputNum,

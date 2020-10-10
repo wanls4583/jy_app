@@ -19,25 +19,6 @@ export const unitChange = {
   FEN: '份',
   BAO: '包'
 }
-
-export function formatTime(millisecond, formatStr) {
-  formatStr = formatStr || 'yyyy-MM-dd hh:mm:ss';
-  var date = new Date(millisecond);
-  var year = date.getFullYear();
-  var month = date.getMonth() + 1;
-  var day = date.getDate();
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  var second = date.getSeconds();
-  formatStr = formatStr.replace(/yyyy/i, year);
-  formatStr = formatStr.replace('MM', ('0' + month).slice(-2));
-  formatStr = formatStr.replace(/dd/i, ('0' + day).slice(-2));
-  formatStr = formatStr.replace(/hh/i, ('0' + hour).slice(-2));
-  formatStr = formatStr.replace('mm', ('0' + minute).slice(-2));
-  formatStr = formatStr.replace(/ss/i, ('0' + second).slice(-2));
-  return formatStr;
-}
-
 export const frequencyArray = [];
 for (var i = 0; i < 50; i++) {
   switch (i) {

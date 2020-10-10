@@ -1,0 +1,34 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<readonly-field label="订单编号" value="{{orderNo}}"></readonly-field>
+		<readonly-field font-color="#ee0a24" label="开票金额" value="{{'￥'+ticketMoney}}"></readonly-field>
+	</view>
+	<view class="margin-top-20 white-background-color">
+		<view class="padding-left-right-30">
+			<view class="flex--center--between border-bottom" style="height:100rpx">
+				<view class="label-color" style="width:6.2em">开票类型</view>
+				<view class="flex-grow-1 flex--center--start">
+					<label bindtap="onChange" class="flex--center--center" data-tickettype="1">
+						<radio checked="{{ticketType==1}}" color="rgb(42, 175, 255)" />
+						<text>个人/非企业</text>
+					</label>
+					<label bindtap="onChange" class="flex--center--center margin-left-30" data-tickettype="2">
+						<radio checked="{{ticketType==2}}" color="rgb(42, 175, 255)" />
+						<text>企业</text>
+					</label>
+				</view>
+			</view>
+		</view>
+		<readonly-field label="发票内容" value="{{ticketContent}}"></readonly-field>
+		<van-field bindinput="onInput" data-prop="title" label="发票抬头" placeholder="请输入发票抬头" value="{{title}}"></van-field>
+		<van-field bindinput="onInput" data-prop="taxNumber" label="识别号" placeholder="纳税人识别号或统一信用代码" value="{{taxNumber}}" wx:if="{{ticketType==2}}"></van-field>
+		<van-field bindinput="onInput" data-prop="mailAddress" label="邮箱地址" placeholder="用于接受电子发票" value="{{mailAddress}}"></van-field>
+		<van-field bindinput="onInput" data-prop="bankName" label="开户银行" placeholder="请输入开户银行名称（选填）" value="{{bankName}}" wx:if="{{ticketType==2}}"></van-field>
+		<van-field bindinput="onInput" data-prop="bankCardNumber" label="银行账号" placeholder="请输入银行账号（选填）" value="{{bankCardNumber}}" wx:if="{{ticketType==2}}"></van-field>
+		<van-field bindinput="onInput" data-prop="phone" label="企业电话" placeholder="请输入企业电话（选填）" value="{{phone}}" wx:if="{{ticketType==2}}"></van-field>
+		<van-field bindinput="onInput" data-prop="address" label="企业地址" placeholder="请输入企业地址（选填）" value="{{address}}" wx:if="{{ticketType==2}}"></van-field>
+	</view>
+	<view class="position-fixed bottom-0 width-100 padding-30">
+		<view bindtap="onSubmit" class="button primary block">提交</view>
+	</view>
+</view>
