@@ -48,6 +48,7 @@ Page({
             url: `/order/info/${this.orderId}`
         }).then((data) => {
             data.order._status = wx.jyApp.constData.mallOrderStatusMap[data.order.status];
+            data.order.orderTime = new Date(data.order.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
             data.order.goods.map((_item) => {
                 _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                 _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
