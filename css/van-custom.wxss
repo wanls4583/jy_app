@@ -93,5 +93,5 @@ van-field:last-child van-cell:after {
 }
 
 .custom-image .van-empty {
-    padding: 124rpx 30rpx;
+    padding: 50vw 30rpx 0 30rpx;
 }

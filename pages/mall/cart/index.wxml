@@ -12,6 +12,6 @@
 		<view bindtap="onPay" class="button primary center height-100 radius-0">去结算</view>
 	</view>
 </view>
-<view class="container flex--center--center" wx:else>
+<view class="container" wx:else>
 	<empty class="custom-image" description="购物车为空" />
 </view>
