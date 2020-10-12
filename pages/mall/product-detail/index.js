@@ -128,7 +128,7 @@ Page({
         if (this.data.cart.length) {
             if (this.data.needMoney <= 0) {
                 wx.navigateTo({
-                    url: '/pages/mall/cart/index'
+                    url: '/pages/mall/confirm-order/index'
                 });
             }
         } else {

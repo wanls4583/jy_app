@@ -1,0 +1,1 @@
+<van-empty class="custom-image" description="{{description}}" image="https://img.yzcdn.cn/vant/custom-empty-image.png" />

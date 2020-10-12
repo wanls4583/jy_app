@@ -41,7 +41,7 @@
 			</view>
 			<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0}}">没有更多了</view>
 			<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
-				<van-empty description="未查询到相关患者，请重新搜索" />
+				<empty description="未查询到相关患者，请重新搜索" />
 			</view>
 		</pull-scroll-view>
 	</view>

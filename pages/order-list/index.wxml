@@ -69,7 +69,7 @@
 						wx:if="{{interrogationOrder.totalPage>0&&interrogationOrder.page>interrogationOrder.totalPage}}"
 					>没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{interrogationOrder.totalPage==0}}">
-						<van-empty description="暂无订单" />
+						<empty description="暂无订单" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -123,7 +123,7 @@
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{applyOrder.totalPage>0&&applyOrder.page>applyOrder.totalPage}}">没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{applyOrder.totalPage==0}}">
-						<van-empty description="暂无订单" />
+						<empty description="暂无订单" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -181,7 +181,7 @@
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{guidanceOrder.totalPage==0}}">
-						<van-empty description="暂无订单" />
+						<empty description="暂无订单" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -225,7 +225,7 @@
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{mallOrder.totalPage>0&&mallOrder.page>mallOrder.totalPage}}">没有更多了</view>
 					<view class="padding-30 gray-color align-center font-small" wx:elif="{{mallOrder.totalPage==0}}">
-						<van-empty description="暂无订单" />
+						<empty description="暂无订单" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>

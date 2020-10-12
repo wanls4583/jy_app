@@ -69,30 +69,30 @@
 		</view>
 		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
 			<block wx:if="{{userInfo.role=='USER'}}">
-				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onGoto" class="padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
-				<view bindtap="onGoto" class="padding-20 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
+				<view bindtap="onGoto" class="padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_wenzhen.png" />
 					<view class="font-small">问诊患者</view>
 				</view>
 			</block>
 			<block wx:if="{{userInfo.role=='DOCTOR'}}">
-				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onCheckGoto" class="width-33 padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="width-33 padding-20 align-center clickable"
+					class="width-33 padding-20 padding-top-bottom-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/income-list/index"
 				>
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_trend.png" />
 					<view class="font-small">查看收益</view>
 				</view>
-				<view bindtap="onCheckGoto" class="width-33 padding-20 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
+				<view bindtap="onCheckGoto" class="width-33 padding-20 padding-top-bottom-30 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_withdrawal.png" />
 					<view class="font-small">提现</view>
 				</view>

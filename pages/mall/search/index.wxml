@@ -17,7 +17,7 @@
 		style="margin-top:54px"
 		wx:if="{{searched&&(!doctorVisible||!doctorData.totalPage)&&!productData.totalPage&&!taocanData.totalPage}}"
 	>
-		<van-empty description="未查询到相关{{doctorVisible?'结果':'产品'}}，请重新搜索" />
+		<empty description="未查询到相关{{doctorVisible?'结果':'产品'}}，请重新搜索" />
 	</view>
 	<view class="white-background-color" style="margin-top:44px">
 		<view class="padding-left-right-30" wx:if="{{doctorVisible&&doctorData.list.length}}">

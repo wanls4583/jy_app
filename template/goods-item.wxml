@@ -1,5 +1,5 @@
 <template name="taocan-item">
-	<view bindtap="onGoto" class="product-item flex--center--start white-background-color" data-url="/pages/mall/product-detail/index?id={{product.id}}">
+	<view bindtap="onGoto" class="product-item flex--center--start white-background-color" data-url="/pages/mall/product-detail/index?id={{taocan.id}}">
 		<image class="flex-shrink-0 width-150rpx height-150rpx" mode="aspectFit" src="{{taocan.goodsPic}}" />
 		<view class="flex-grow-1 padding-top-bottom-30 margin-left-30 border-bottom overflow-hidden">
 			<view class="flex-direction-column flex--start--between height-150rpx">
@@ -7,9 +7,9 @@
 				<view class="gray-color">一天{{taocan.frequency}}次</view>
 				<view wx:if="{{taocan.isOrder}}">￥{{taocan.price}}</view>
 				<view class="flex--center--start danger-color font-bold" wx:else>
-					<text class="font-small" style="margin-top:4rpx">￥</text>
-					<text class="font-title">{{taocan.price}}</text>
-					<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{taocan._unit}}</text>
+					<text class="font-small" style="margin-top:6rpx">￥</text>
+					<text class="font-large">{{taocan.price}}</text>
+					<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{taocan._unit}}</text>
 				</view>
 			</view>
 		</view>
@@ -24,9 +24,9 @@
 				<view class="gray-color">{{product.standardNum}}{{product._standardUnit}}/{{product._unit}}</view>
 				<view wx:if="{{product.isOrder}}">￥{{product.price}}</view>
 				<view class="flex--center--start danger-color font-bold" wx:else>
-					<text class="font-small" style="margin-top:4rpx">￥</text>
-					<text class="font-title">{{product.price}}</text>
-					<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{product._unit}}</text>
+					<text class="font-small" style="margin-top:6rpx">￥</text>
+					<text class="font-large">{{product.price}}</text>
+					<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{product._unit}}</text>
 				</view>
 			</view>
 		</view>

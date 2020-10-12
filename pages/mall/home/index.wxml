@@ -17,7 +17,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="position-absolute top-0 left-0 width-100 height-100 flex--center--center font-large font-bold">钜元云营养</view>
+		<view class="position-absolute top-0 left-0 width-100 height-100 flex--center--center font-title font-bold">钜元云营养</view>
 	</navigation-bar>
 	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
 		<pull-scroll-view bindrefresh="onRefresh" bindscroll="onScroll" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
@@ -29,7 +29,13 @@
 					data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
 					style="padding:0 {{menuRect.marginRight}}px"
 				>
-					<template is="search"></template>
+					<van-search
+						background="transparent"
+						class="nav-search width-100"
+						disabled="{{true}}"
+						placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品"
+						shape="round"
+					/>
 				</view>
 				<view class="margin-top-20" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">
 					<swiper
@@ -91,7 +97,7 @@
 					</view>
 				</view>
 				<view class="white-background-color margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
-					<view class="font-large font-bold padding-20">营养中心</view>
+					<view class="font-title font-bold padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
 							bindtap="onGoto"
@@ -112,7 +118,7 @@
 					wx:if="{{doctorList.length&&configData.showDoctor==1}}"
 				>
 					<view class="flex--center--between">
-						<text class="font-large font-bold">推荐医生</text>
+						<text class="font-title font-bold">推荐医生</text>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 							<text>全部</text>
 							<van-icon name="arrow" />
@@ -122,21 +128,23 @@
 						<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 					</view>
 				</view>
-				<view class="margin-20 margin-top-30 margin-bottom-0 radius-8px overflow-hidden" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
+				<view class="margin-20 margin-top-30 margin-bottom-0" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
 					<view class="flex--center--center padding-bottom-30">
 						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
-						<image class="flex-shrink-0 width-100 margin-left-right-10" mode="widthFix" src="/image/kepu.png" style="width:180rpx" />
+						<image class="flex-shrink-0 width-100 margin-left-right-10" mode="widthFix" src="/image/kepu.png" style="width:160rpx" />
 						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
 					</view>
 					<view
 						bindtap="onClickBanner"
-						class="position-relative margin-bottom-20 radius-8px overflow-hidden gray-background-color"
+						class="padding-20 margin-bottom-20 white-background-color radius-8px shadow"
 						data-link="{{item.linkUrl}}"
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
-						<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;"></view>
-						<view class="position-absolute font-large font-bold" style="top:20rpx;left:20rpx;right:20rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
+						<view class="position-relative radius-8px overflow-hidden">
+							<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;"></view>
+							<view class="position-absolute font-title font-bold" style="top:20rpx;left:20rpx;right:20rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -150,6 +158,3 @@
 		<view bindtap="onClickHideTip" class="button small primary radius-100px">我知道了</view>
 	</view>
 </view>
-<template name="search">
-	<van-search background="transparent" class="nav-search width-100" disabled="{{true}}" placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品" shape="round" />
-</template>

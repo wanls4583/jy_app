@@ -18,9 +18,9 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20" hidden="{{!productInfo.goodsName}}">
 			<view class="flex--center--start danger-color font-bold">
-				<text style="margin-top:4rpx">￥</text>
+				<text class="font-small" style="margin-top:6rpx">￥</text>
 				<text class="font-large">{{productInfo.price}}</text>
-				<text decode="{{true}}" style="margin-top:4rpx">/{{productInfo._unit}}</text>
+				<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{productInfo._unit}}</text>
 			</view>
 			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view

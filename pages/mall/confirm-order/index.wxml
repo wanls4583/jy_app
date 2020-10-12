@@ -1,0 +1,41 @@
+<import src="/template/order-goods-item.wxml" />
+<view class="container padding-bottom-footer" wx:if="{{cart.length}}">
+	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
+		<block wx:if="{{selectAddress}}">
+			<view style="max-width: 300px;">
+				<view class="margin-bottom-20">
+					<text>{{selectAddress.contactName}}</text>
+					<text class="margin-left-30">{{selectAddress.phone}}</text>
+				</view>
+				<view>{{selectAddress.provinceCity}}{{selectAddress.address}}</view>
+			</view>
+			<van-icon color="#ccc" name="arrow" />
+		</block>
+		<block wx:else>
+			<text>收货地址</text>
+			<view class="flex--center--center gray-color">
+				<text>编辑地址</text>
+				<van-icon color="#999" name="arrow" />
+			</view>
+		</block>
+	</view>
+	<view class="margin-top-20 padding-left-right-30 white-background-color">
+		<view>
+			<template data="{{goods:item}}" is="order-goods-item" wx:for="{{cart}}" wx:key="index"></template>
+		</view>
+		<view class="padding-top-bottom-20 border-top">配送金额：￥{{configData.deliveryCost}}</view>
+	</view>
+	<view class="flex--center--center padding-top-30 font-small">
+		<text class="gray-color">我已阅读并同意</text>
+		<view bindtap="onOpenWebView" class="button text primary small" data-url="{{configData.consult_shop_url}}">《营养咨询协议》和《购物注意事项》</view>
+	</view>
+	<view class="footer flex--center--between border-top">
+		<view class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
+			<text class="primary-color">合计:￥{{totalMoney}}</text>
+		</view>
+		<view bindtap="onSubmit" class="button primary center height-100 radius-0">提交订单</view>
+	</view>
+</view>
+<view class="container flex--center--center" wx:else>
+	<empty class="custom-image" description="购物车为空" />
+</view>

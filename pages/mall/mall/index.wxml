@@ -44,7 +44,7 @@
 				</view>
 				<view wx:if="{{taocanList.length}}">
 					<view class="flex--center--between padding-left-right-20">
-						<view class="padding-top-bottom-30 font-large font-bold">营养套餐</view>
+						<view class="padding-top-bottom-30 font-title font-bold">营养套餐</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="2">
 							<text>查看更多</text>
 							<van-icon name="arrow" />
@@ -63,9 +63,9 @@
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
 								<view class="flex--center--start margin-top-10 danger-color font-bold">
-									<text class="font-small" style="margin-top:4rpx">￥</text>
-									<text class="font-title">{{item.price}}</text>
-									<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{item._unit}}</text>
+									<text class="font-small" style="margin-top:6rpx">￥</text>
+									<text class="font-large">{{item.price}}</text>
+									<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{item._unit}}</text>
 								</view>
 							</view>
 						</view>
@@ -73,7 +73,7 @@
 				</view>
 				<view wx:if="{{productList.length}}">
 					<view class="flex--center--between padding-left-right-20">
-						<view class="padding-top-bottom-30 font-large font-bold">营养产品</view>
+						<view class="padding-top-bottom-30 font-title font-bold">营养产品</view>
 						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="1">
 							<text>查看更多</text>
 							<van-icon name="arrow" />
@@ -92,9 +92,9 @@
 							<view class="padding-20 padding-top-10">
 								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
 								<view class="flex--center--start margin-top-10 danger-color font-bold">
-									<text class="font-small" style="margin-top:4rpx">￥</text>
-									<text class="font-title">{{item.price}}</text>
-									<text class="font-small" decode="{{true}}" style="margin-top:4rpx">/{{item._unit}}</text>
+									<text class="font-small" style="margin-top:6rpx">￥</text>
+									<text class="font-large">{{item.price}}</text>
+									<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{item._unit}}</text>
 								</view>
 							</view>
 						</view>
