@@ -129,10 +129,8 @@
 					</view>
 				</view>
 				<view class="margin-20 margin-top-30 margin-bottom-0" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
-					<view class="flex--center--center padding-bottom-30">
-						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
-						<image class="flex-shrink-0 width-100 margin-left-right-10" mode="widthFix" src="/image/kepu.png" style="width:160rpx" />
-						<view class="border-bottom" style="width:100rpx;border-color:#ccc"></view>
+					<view class="padding-bottom-30">
+						<text class="margin-left-right-20 font-title font-bold">健康科普</text>
 					</view>
 					<view
 						bindtap="onClickBanner"
