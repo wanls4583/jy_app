@@ -91,3 +91,7 @@ van-field:last-child van-cell:after {
     width: 160rpx;
     height: 160rpx;
 }
+
+.custom-image .van-empty {
+    padding: 124rpx 30rpx;
+}
