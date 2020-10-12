@@ -28,9 +28,11 @@ Page({
         });
     },
     onPreview() {
+        wx.jyApp.showLoading('下载中...', true);
         wx.downloadFile({
             url: this.data.orderTicket.ticketUrl,
             success: function (res) {
+                wx.hideLoading();
                 const filePath = res.tempFilePath
                 wx.openDocument({
                     filePath: filePath,
@@ -43,6 +45,8 @@ Page({
                 })
             },
             fail: function (res) {
+                wx.hideLoading();
+                wx.jyApp.toast('下载失败');
                 wx.jyApp.log.info('下载发票原文件失败', res);
             }
         });
