@@ -38,7 +38,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.status==3||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.orderAmount>0&&order.status==3||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
@@ -50,7 +50,7 @@
 								catchtap="onGoto"
 								class="button primary primay small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
-								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.status==3}}"
+								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.orderAmount>0&&order.status==3}}"
 							>申请发票</view>
 							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 							<view
@@ -105,7 +105,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.status==2)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.price>0&&order.status==2)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
@@ -117,7 +117,7 @@
 								catchtap="onGoto"
 								class="button primary primary small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.price}}&orderNo={{order.orderNo}}&orderType=2"
-								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.status==2}}"
+								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.price>0&&order.status==2}}"
 							>申请发票</view>
 						</view>
 					</view>
@@ -161,7 +161,7 @@
 							</view>
 							<view
 								class="padding-top-bottom-20 border-top flex--center--end"
-								wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.status==8||order.status==0)&&userInfo.role=='USER'}}"
+								wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8||order.status==0)&&userInfo.role=='USER'}}"
 							>
 								<view
 									catchtap="onGoto"
@@ -173,7 +173,7 @@
 									catchtap="onGoto"
 									class="button primary primary small"
 									data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
-									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.status==8}}"
+									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8}}"
 								>申请发票</view>
 								<view class="button primary small" wx:if="{{order.status==0}}">立即支付</view>
 							</view>
@@ -205,7 +205,7 @@
 							</view>
 							<view
 								class="padding-top-bottom-20 border-top flex--center--end"
-								wx:if="{{order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.status==8||order.status==0}}"
+								wx:if="{{order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8||order.status==0}}"
 							>
 								<view
 									catchtap="onGoto"
@@ -217,7 +217,7 @@
 									catchtap="onGoto"
 									class="button primary primary small"
 									data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
-									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.status==8}}"
+									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8}}"
 								>申请发票</view>
 								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 							</view>

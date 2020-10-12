@@ -6,7 +6,7 @@
 	<view class="margin-top-20 white-background-color">
 		<view class="padding-left-right-30">
 			<view class="flex--center--between border-bottom" style="height:100rpx">
-				<view class="label-color" style="width:6.2em;margin-right:12px">开票类型</view>
+				<view class="label-color" style="width:6.2em;margin-right:12px">发票类型</view>
 				<view class="flex-grow-1 flex--center--start">
 					<label bindtap="onChange" class="flex--center--center" data-tickettype="1">
 						<radio checked="{{ticketType==1}}" color="rgb(42, 175, 255)" />
@@ -22,7 +22,7 @@
 		<readonly-field label="发票内容" value="{{ticketContent}}"></readonly-field>
 		<van-field bindinput="onInput" data-prop="title" label="发票抬头" placeholder="请输入发票抬头" value="{{title}}"></van-field>
 		<van-field bindinput="onInput" data-prop="taxNumber" label="识别号" placeholder="纳税人识别号或统一信用代码" value="{{taxNumber}}" wx:if="{{ticketType==2}}"></van-field>
-		<van-field bindinput="onInput" data-prop="mailAddress" label="邮箱地址" placeholder="用于接受电子发票" value="{{mailAddress}}"></van-field>
+		<van-field bindinput="onInput" data-prop="mailAddress" label="邮箱地址" placeholder="用于接收电子发票" value="{{mailAddress}}"></van-field>
 		<van-field bindinput="onInput" data-prop="bankName" label="开户银行" placeholder="请输入开户银行名称（选填）" value="{{bankName}}" wx:if="{{ticketType==2}}"></van-field>
 		<van-field bindinput="onInput" data-prop="bankCardNumber" label="银行账号" placeholder="请输入银行账号（选填）" value="{{bankCardNumber}}" wx:if="{{ticketType==2}}"></van-field>
 		<van-field bindinput="onInput" data-prop="phone" label="企业电话" placeholder="请输入企业电话（选填）" value="{{phone}}" wx:if="{{ticketType==2}}"></van-field>
