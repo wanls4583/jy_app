@@ -29,7 +29,7 @@ Page({
     },
     onPreview() {
         wx.downloadFile({
-            url: this.data.orderType.ticketUrl,
+            url: this.data.orderTicket.ticketUrl,
             success: function (res) {
                 const filePath = res.tempFilePath
                 wx.openDocument({
