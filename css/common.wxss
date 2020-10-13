@@ -324,3 +324,19 @@ checkbox {
 readonly-field:last-child .border-bottom {
     border-style: none;
 }
+
+.pre-vertical-line {
+    position: relative;
+    padding-left: 18rpx;
+    line-height: 1em;
+}
+
+.pre-vertical-line:before {
+    content: '';
+    position: absolute;
+    left: -4rpx;
+    top: 0;
+    bottom: 2rpx;
+    width: 8rpx;
+    background-color: #333;
+}

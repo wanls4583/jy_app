@@ -130,7 +130,7 @@
 				</view>
 				<view class="margin-20 margin-top-30 margin-bottom-0" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
 					<view class="padding-bottom-30">
-						<text class="margin-left-right-20 font-title font-bold">健康科普</text>
+						<view class="font-title font-bold pre-vertical-line">健康科普</view>
 					</view>
 					<view
 						bindtap="onClickBanner"
