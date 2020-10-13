@@ -334,8 +334,8 @@ readonly-field:last-child .border-bottom {
 .pre-vertical-line:before {
     content: '';
     position: absolute;
-    left: -4rpx;
-    top: 0;
+    left: 0;
+    top: -2rpx;
     bottom: 2rpx;
     width: 8rpx;
     background-color: #333;
