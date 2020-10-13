@@ -9,7 +9,7 @@
 		<view class="padding-left-right-30 position-relative">
 			<view class="position-absolute top-0 bottom-0 left-0 right-0 z-index-100"></view>
 			<view class="flex--center--between border-bottom" style="height:100rpx">
-				<view class="flex-shrink-0 label-color" style="width:6.2em;margin-right:12px">开票类型</view>
+				<view class="flex-shrink-0 label-color" style="width:6.2em;margin-right:12px">发票类型</view>
 				<view class="flex-grow-1 flex--center--start">
 					<label class="flex--center--center">
 						<radio checked="{{orderTicket.ticketType==1}}" color="rgb(42, 175, 255)" />
