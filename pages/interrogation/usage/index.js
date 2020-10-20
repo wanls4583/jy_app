@@ -10,7 +10,7 @@ Page({
         _giveWay: '',
         giveWay: '',
         totalAmount: 0,
-        count: 1,
+        count: '',
         days: 7,
         modulateDose: 0,
         perUseNum: 1,
@@ -33,6 +33,7 @@ Page({
             goods: goods,
             perUseNum: goods.perUseNum || 1,
             days: goods.days || 7,
+            count: goods.count || '',
             modulateDose: goods.modulateDose || 0,
             giveWay: goods.giveWay || giveWayList[0].value,
             remark: goods.remark,
@@ -41,7 +42,9 @@ Page({
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
             frequencyDefault: goods.frequency - 1 || 0
         });
-        this.caculateGross();
+        if(!this.data.count) {
+            this.caculateGross();
+        }
         giveWayList.map((item, index) => {
             if (this.data.giveWay == item.value) {
                 this.setData({
@@ -63,6 +66,29 @@ Page({
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
+    },
+    //手动改变总量
+    onCountChange(e) {
+        var days = 0;
+        var count = e.detail.value;
+        if (!Number(count) || Number(count) < 1) {
+            this.setData({
+                count: this.data.count
+            });
+            return;
+        }
+        if (this.data.goods.type == 1) {
+            days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
+        } else {
+            days = count / this.data.frequency;
+        }
+        this.setData({
+            count: count,
+            days: Number(days.toFixed(2))
+        });
+        this.setData({
+            totalAmount: (this.data.count * this.data.goods.price).toFixed(2)
+        });
     },
     //输入数字
     onInputNum(e) {
@@ -105,7 +131,7 @@ Page({
         if (this.data.goods.type == 1) {
             count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
         } else {
-            count = this.data.days * this.data.frequency;
+            count = Math.ceil(this.data.days * this.data.frequency);
         }
         this.setData({
             count: count,

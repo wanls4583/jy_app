@@ -19,7 +19,7 @@ Page({
                 type: this.orderType
             }
         }).then((data) => {
-            data.orderTicket.ticketContent = data.orderTicket.ticketType == 1 ? '明细' : (this.orderType <= 2 ? '服务费用' : '产品费用');
+            data.orderTicket.ticketContent = this.orderType <= 2 ? '服务费用' : '产品费用';
             this.setData({
                 orderTicket: data.orderTicket
             });

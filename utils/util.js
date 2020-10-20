@@ -105,7 +105,7 @@ function setText(inputParam) {
     });
 }
 
-function pay(params) {
+function pay(params, payCb) {
     return new wx.jyApp.Promise((resolve, reject) => {
         wx.requestPayment({
             timeStamp: params.timeStamp,
@@ -115,6 +115,7 @@ function pay(params) {
             paySign: params.paySign,
             success(res) {
                 resolve(res);
+                payCb && payCb();
             },
             fail(res) {
                 reject(res);
@@ -240,6 +241,26 @@ function getMenuRect() {
     return bRect;
 }
 
+//订阅消息
+function requestSubscribeMessage(tmplIds) {
+    if(!(tmplIds instanceof Array)) {
+        tmplIds = [tmplIds];
+    }
+    return new wx.jyApp.Promise((resolve, reject) => {
+        wx.requestSubscribeMessage({
+            tmplIds: tmplIds,
+            success(res) { 
+                resolve(res) 
+                console.log('订阅成功', res);
+            },
+            fail(err) { 
+                reject(err);
+                console.log('订阅失败', err);
+            }
+        });
+    });
+}
+
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 Date.prototype.parseDateTime = parseDateTime;
@@ -258,5 +279,6 @@ module.exports = {
     getAllConfig: getAllConfig,
     checkDoctor: checkDoctor,
     getMenuRect: getMenuRect,
+    requestSubscribeMessage: requestSubscribeMessage,
     getUUID: getUUID
 }

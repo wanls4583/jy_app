@@ -11,6 +11,12 @@ Page({
     },
     onSubmit() {
         wx.jyApp.showLoading('支付中...', true);
+        var subCb = null;
+        var subCalled = false;
+        wx.jyApp.utils.requestSubscribeMessage('7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY').finally(() => {
+            subCb && subCb();
+            subCalled = true;
+        });
         wx.jyApp.http({
             url: '/consultorder/save',
             method: 'post',
@@ -24,15 +30,21 @@ Page({
             delete wx.jyApp.illness;
             var delta = 3;
             if (data.params) {
-                wx.jyApp.utils.pay(data.params).then(() => {
+                wx.jyApp.utils.pay(data.params, () => {
+                    subCb = () => {
+                        wx.navigateBack({
+                            delta: delta
+                        });
+                    }
+                    if (subCalled) {
+                        subCb();
+                    }
+                }).then(() => {
                     wx.jyApp.payInterrogationResult = {
                         id: data.id,
                         result: 'success'
                     }
-                    wx.navigateBack({
-                        delta: delta
-                    });
-                }).catch(() => {
+                }).catch((err) => {
                     wx.jyApp.payInterrogationResult = {
                         id: data.id,
                         result: 'fail'
@@ -46,9 +58,14 @@ Page({
                     id: data.id,
                     result: 'success'
                 }
-                wx.navigateBack({
-                    delta: delta
-                });
+                subCb = () => {
+                    wx.navigateBack({
+                        delta: delta
+                    });
+                }
+                if (subCalled) {
+                    subCb();
+                }
             }
         }).finally(() => {
             wx.hideLoading();

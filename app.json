@@ -51,6 +51,7 @@
         "pages/interrogation/doctor-detail/index",
         "pages/interrogation/apply-ticket/index",
         "pages/interrogation/ticket-detail/index",
+        "pages/interrogation/interrogation-list/index",
         "pages/mall/search-doctor/index"
     ],
     "window": {

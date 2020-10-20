@@ -35,7 +35,7 @@
     "packNpmRelationList": []
   },
   "compileType": "miniprogram",
-  "libVersion": "2.12.2",
+  "libVersion": "2.13.1",
   "appid": "wx270627231aff4f2c",
   "projectname": "jy_app",
   "cloudfunctionTemplateRoot": "",
@@ -73,9 +73,9 @@
       "list": [
         {
           "id": 0,
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "type=1&uId=22",
+          "name": "pages/interrogation/interrogation-list/index",
+          "pathName": "pages/interrogation/interrogation-list/index",
+          "query": "type=5",
           "scene": null
         }
       ]

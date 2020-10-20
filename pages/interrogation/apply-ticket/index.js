@@ -20,14 +20,14 @@ Page({
             orderNo: option.orderNo,
             ticketMoney: option.ticketMoney,
             orderType: option.orderType,
-            ticketContent: '明细'
+            ticketContent: option.orderType <= 2 ? '服务费用' : '产品费用'
         });
     },
     onChange(e) {
         var ticketType = e.currentTarget.dataset.tickettype;
         this.setData({
             ticketType: ticketType,
-            ticketContent: ticketType == 1 ? '明细' : (this.data.orderType <= 2 ? '服务费用' : '产品费用')
+            ticketContent: this.data.orderType <= 2 ? '服务费用' : '产品费用'
         });
     },
     onInput(e) {

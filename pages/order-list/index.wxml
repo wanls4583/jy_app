@@ -38,21 +38,27 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.orderAmount>0&&order.status==3||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
-								class="button primary primay small"
+								class="margin-left-20 button primary primay small"
 								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=1"
 								wx:if="{{order.ticketStatus}}"
 							>发票详情</view>
 							<view
 								catchtap="onGoto"
-								class="button primary primay small"
+								class="margin-left-20 button primary primay small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
-								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.orderAmount>0&&order.status==3}}"
+								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
-							<view bindtap="onInterrogationPay" class="button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
+							<view
+								bindtap="onGoto"
+								class="margin-left-20 button primary small"
+								data-url="/pages/interrogation/illness-edit/index?doctorId={{order.doctorId}}"
+								wx:if="{{order.oneMoreVisible}}"
+							>再来一单</view>
+							<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 							<view
 								catchtap="onGoto"
 								class="margin-left-20 button primary warn small"
@@ -103,21 +109,18 @@
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
 							<view catchtap="onGoto" class="button primary small" data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}">开营养指导</view>
 						</view>
-						<view
-							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.price>0&&order.status==2)&&userInfo.role=='USER'}}"
-						>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{(order.ticketStatus||order.applyTicketVisible)&&userInfo.role=='USER'}}">
 							<view
 								catchtap="onGoto"
-								class="button primary primary small"
+								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=2"
 								wx:if="{{order.ticketStatus}}"
 							>发票详情</view>
 							<view
 								catchtap="onGoto"
-								class="button primary primary small"
+								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.price}}&orderNo={{order.orderNo}}&orderType=2"
-								wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.price>0&&order.status==2}}"
+								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
 						</view>
 					</view>
@@ -159,24 +162,25 @@
 								<view>配送金额：￥{{order.deliveryCost}}</view>
 								<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
 							</view>
+						</view>
+						<view
+							class="padding-top-bottom-20 border-top flex--center--end"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==0)&&userInfo.role=='USER'}}"
+						>
 							<view
-								class="padding-top-bottom-20 border-top flex--center--end"
-								wx:if="{{(order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8||order.status==0)&&userInfo.role=='USER'}}"
-							>
-								<view
-									catchtap="onGoto"
-									class="button primary primary small"
-									data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=3"
-									wx:if="{{order.ticketStatus}}"
-								>发票详情</view>
-								<view
-									catchtap="onGoto"
-									class="button primary primary small"
-									data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
-									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8}}"
-								>申请发票</view>
-								<view class="button primary small" wx:if="{{order.status==0}}">立即支付</view>
-							</view>
+								catchtap="onGoto"
+								class="margin-left-20 button primary primary small"
+								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=3"
+								wx:if="{{order.ticketStatus}}"
+							>发票详情</view>
+							<view
+								catchtap="onGoto"
+								class="margin-left-20 button primary primary small"
+								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
+								wx:elif="{{order.applyTicketVisible}}"
+							>申请发票</view>
+							<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
+							<view class="margin-left-20 button primary small" wx:if="{{order.status==0}}">立即支付</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
@@ -205,21 +209,22 @@
 							</view>
 							<view
 								class="padding-top-bottom-20 border-top flex--center--end"
-								wx:if="{{order.ticketStatus||order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8||order.status==0}}"
+								wx:if="{{order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==0}}"
 							>
 								<view
 									catchtap="onGoto"
-									class="button primary primary small"
+									class="margin-left-20 button primary primary small"
 									data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=4"
 									wx:if="{{order.ticketStatus}}"
 								>发票详情</view>
 								<view
 									catchtap="onGoto"
-									class="button primary primary small"
+									class="margin-left-20 button primary primary small"
 									data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
-									wx:elif="{{order.ticketDays<=configData.allowApplyTicketDays&&order.totalAmount>0&&order.status==8}}"
+									wx:elif="{{applyTicketVisible}}"
 								>申请发票</view>
-								<view bindtap="onMallOrderPay" class="primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
+								<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
+								<view bindtap="onMallOrderPay" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 							</view>
 						</view>
 					</view>

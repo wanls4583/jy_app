@@ -241,6 +241,8 @@ Page({
                 item.ticketMoney = Number((item.totalAmount - item.deliveryCost).toFixed(2));
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.totalAmount > 0 && item.status == 8 || false;
+                item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                     _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
@@ -292,6 +294,8 @@ Page({
             data.page.list.map((item) => {
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.orderAmount > 0 && item.status == 3 || false;
+                item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'interrogation')
             });
@@ -341,6 +345,8 @@ Page({
                 item.ticketMoney = Number((item.totalAmount - item.deliveryCost).toFixed(2));
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.totalAmount > 0 && item.status == 8 || false;
+                item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
                 item.goods.map((_item) => {
@@ -394,6 +400,7 @@ Page({
             data.page.list.map((item) => {
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
+                item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.price > 0 && item.status == 2 || false;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'apply');
             });
