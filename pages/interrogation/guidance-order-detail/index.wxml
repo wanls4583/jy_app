@@ -1,5 +1,5 @@
 <import src="/template/order-goods-item.wxml" />
-<view class="container" wx:if="{{configData.showDoctor==1}}">
+<view class="container padding-bottom-footer" wx:if="{{configData.showDoctor==1}}">
 	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
 		<text class="font-large danger-color font-bold">未支付</text>
 		<text class="gray-color">超过3天未支付，订单自动失效</text>
@@ -79,5 +79,32 @@
 			<text class="gray-color">下单时间</text>
 			<text class="gray-color">{{order.orderTime}}</text>
 		</view>
+	</view>
+	<view
+		class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
+		wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0)&&userInfo.role=='USER'}}"
+	>
+		<view
+			catchtap="onGoto"
+			class="margin-left-20 button primary primary small"
+			data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=3"
+			wx:if="{{order.ticketStatus}}"
+		>发票详情</view>
+		<view
+			catchtap="onGoto"
+			class="margin-left-20 button primary primary small"
+			data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
+			wx:elif="{{order.applyTicketVisible}}"
+		>申请发票</view>
+		<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
+		<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+		<view bindtap="onGuidanceOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
+		<view class="margin-left-20 button primary small" wx:if="{{order.status==0}}">立即支付</view>
+	</view>
+	<view
+		class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
+		wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}"
+	>
+		<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 	</view>
 </view>

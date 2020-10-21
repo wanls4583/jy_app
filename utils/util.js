@@ -243,22 +243,36 @@ function getMenuRect() {
 
 //订阅消息
 function requestSubscribeMessage(tmplIds) {
-    if(!(tmplIds instanceof Array)) {
+    if (!(tmplIds instanceof Array)) {
         tmplIds = [tmplIds];
     }
     return new wx.jyApp.Promise((resolve, reject) => {
         wx.requestSubscribeMessage({
             tmplIds: tmplIds,
-            success(res) { 
-                resolve(res) 
+            success(res) {
+                resolve(res)
                 console.log('订阅成功', res);
             },
-            fail(err) { 
+            fail(err) {
                 reject(err);
                 console.log('订阅失败', err);
             }
         });
     });
+}
+
+function getPages(route) {
+    var pages = getCurrentPages()
+    if (typeof route == 'number') {
+        return pages[route];
+    }
+    if (typeof route == 'string') {
+        for (var i = 0; i < pages.length; i++) {
+            if (pages[i].route == route) {
+                return pages[i];
+            }
+        }
+    }
 }
 
 Date.prototype.formatTime = formatTime;
@@ -280,5 +294,6 @@ module.exports = {
     checkDoctor: checkDoctor,
     getMenuRect: getMenuRect,
     requestSubscribeMessage: requestSubscribeMessage,
+    getPages: getPages,
     getUUID: getUUID
 }

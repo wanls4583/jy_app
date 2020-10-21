@@ -17,7 +17,14 @@
 		<view class="gray-color margin-top-20">{{order.address}}</view>
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color overflow-hidden">
-		<view bindtap="onGoto" class="{{order.goods.length-1==index?'last-item':''}}" data-url="/pages/mall/product-detail/index?id={{product.id}}" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
+		<view
+			bindtap="onGoto"
+			class="{{order.goods.length-1==index?'last-item':''}}"
+			data-url="/pages/mall/product-detail/index?id={{product.id}}"
+			wx:for="{{order.goods}}"
+			wx:for-item="product"
+			wx:key="id"
+		>
 			<template data="{{goods:product}}" is="order-goods-item"></template>
 		</view>
 		<view class="flex--center--between padding-top-bottom-20 border-top">
@@ -34,5 +41,26 @@
 			<text class="gray-color">下单时间</text>
 			<text class="gray-color">{{order.orderTime}}</text>
 		</view>
+	</view>
+	<view
+		class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
+		wx:if="{{order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0}}"
+	>
+		<view
+			catchtap="onGoto"
+			class="margin-left-20 button primary primary small"
+			data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=4"
+			wx:if="{{order.ticketStatus}}"
+		>发票详情</view>
+		<view
+			catchtap="onGoto"
+			class="margin-left-20 button primary primary small"
+			data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
+			wx:elif="{{applyTicketVisible}}"
+		>申请发票</view>
+		<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
+		<view bindtap="onDelMallOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+		<view bindtap="onMallOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
+		<view bindtap="onMallOrderPay" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 	</view>
 </view>

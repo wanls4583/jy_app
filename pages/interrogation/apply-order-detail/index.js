@@ -1,6 +1,7 @@
 Page({
     data: {
-        order: {}
+        order: {},
+        type: ''
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -8,16 +9,30 @@ Page({
             fields: ['userInfo', 'configData']
         });
         this.storeBindings.updateStoreBindings();
-        this.type = option.type;
         this.id = option.id;
+        this.setData({
+            type: option.type
+        });
         this.loadInfo();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onShow() {
+        if (wx.jyApp.hasRecievedId) { //已经接诊
+            if (this.data.order.id == wx.jyApp.hasRecievedId && this.data.type == 'interrogation') {
+                this.data.order.status = 5;
+                this.data.order._status = wx.jyApp.constData.interrogationOrderStatusMap[this.data.order.status];
+                this.setStatusColor(this.data.order);
+                this.setData({
+                    order: this.data.order
+                });
+            }
+        }
+    },
     //支付问诊单
     onInterrogationPay() {
-        if (this.type != 'interrogation') {
+        if (this.data.type != 'interrogation') {
             wx.jyApp.toast('申请订单不能再次支付');
             return;
         }
@@ -51,9 +66,82 @@ Page({
             urls: picUrls
         });
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e, this);
+    },
+    //删除问诊订单
+    onDelInterrogation(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/consultorder/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                        if (page) {
+                            page.data.interrogationOrder.orderList = page.data.interrogationOrder.orderList.filter((item) => {
+                                return item.id != id;
+                            });
+                            if (!page.data.interrogationOrder.orderList) {
+                                page.data.interrogationOrder.totalPage = 0;
+                            }
+                            page.setData({
+                                interrogationOrder: page.data.interrogationOrder
+                            });
+                        }
+                        wx.navigateBack();
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //删除申请订单
+    onDelApplyOrder(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/apply/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                        if (page) {
+                            page.data.applyOrder.orderList = page.data.applyOrder.orderList.filter((item) => {
+                                return item.id != id;
+                            });
+                            if (!page.data.applyOrder.orderList) {
+                                page.data.applyOrder.totalPage = 0;
+                            }
+                            page.setData({
+                                applyOrder: page.data.applyOrder
+                            });
+                        }
+                        wx.navigateBack();
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
     loadInfo() {
         var url = '/apply/info/';
-        if (this.type == 'interrogation') {
+        if (this.data.type == 'interrogation') {
             url = '/consultorder/info/';
         }
         if (!this.loaded) {
@@ -64,34 +152,23 @@ Page({
         wx.jyApp.http({
             url: url + this.id
         }).then((data) => {
+            var todayBegin = Date.prototype.getTodayBegin();
+            var aDay = 24 * 60 * 60 * 1000;
             var order = data.consultOrder || data.detail;
             order.patient._sex = order.patient.sex == 1 ? '男' : '女';
-            order._status = this.type == 'interrogation' ? wx.jyApp.constData.interrogationOrderStatusMap[order.status] : wx.jyApp.constData.applyOrderStatusMap[order.status];
             order.picUrls = order.picUrls && order.picUrls.split(',') || [];
-            if (this.type == 'interrogation') {
-                switch (order.status) {
-                    case 0:
-                    case 6:
-                    case 7:
-                        order.statusColor = 'danger-color';
-                        break;
-                    case 1:
-                    case 3:
-                        order.statusColor = 'success-color';
-                        break;
-                }
+            this.setStatusColor(order);
+            if (this.data.type == 'interrogation') {
+                order.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(order.orderTime)) / aDay);
+                order._status = wx.jyApp.constData.interrogationOrderStatusMap[order.status];
+                order.applyTicketVisible = order.ticketDays <= this.data.configData.allowApplyTicketDays && order.orderAmount > 0 && order.status == 3 || false;
+                order.oneMoreVisible = [3, 4, 7].indexOf(order.status) > -1;
+                order.delVisible = [0, 3, 4, 7].indexOf(order.status) > -1;
             } else {
-                switch (order.status) {
-                    case 0:
-                    case 1:
-                    case 4:
-                    case 5:
-                        order.statusColor = 'danger-color';
-                        break;
-                    case 2:
-                        order.statusColor = 'success-color';
-                        break;
-                }
+                order.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(order.orderTime)) / aDay);
+                order._status = wx.jyApp.constData.applyOrderStatusMap[order.status];
+                order.applyTicketVisible = order.ticketDays <= this.data.configData.allowApplyTicketDays && order.price > 0 && order.status == 2 || false;
+                order.delVisible = [2, 5].indexOf(order.status) > -1;
             }
             this.setData({
                 order: order
@@ -100,5 +177,32 @@ Page({
             wx.hideLoading();
             this.loaded = true;
         })
+    },
+    setStatusColor(order) {
+        if (this.data.type == 'interrogation') {
+            switch (order.status) {
+                case 0:
+                case 6:
+                case 7:
+                    order.statusColor = 'danger-color';
+                    break;
+                case 1:
+                case 3:
+                    order.statusColor = 'success-color';
+                    break;
+            }
+        } else {
+            switch (order.status) {
+                case 0:
+                case 1:
+                case 4:
+                case 5:
+                    order.statusColor = 'danger-color';
+                    break;
+                case 2:
+                    order.statusColor = 'success-color';
+                    break;
+            }
+        }
     }
 })
