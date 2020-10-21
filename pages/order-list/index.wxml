@@ -38,7 +38,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'||order.delVisible}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
@@ -67,8 +67,14 @@
 								wx:if="{{!order.isAppraise&&order.status==3}}"
 							>去评价</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&order.doctorId==userInfo.doctorId}}">
-							<view catchtap="onRecieve" class="button primary small" data-url="/pages/interrogation/chat/index?id={{order.id}}">立即接诊</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{(order.delVisible||order.status==1)&&userInfo.role=='DOCTOR'}}">
+							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+							<view
+								catchtap="onRecieve"
+								class="margin-left-20 button primary small"
+								data-url="/pages/interrogation/chat/index?id={{order.id}}"
+								wx:if="{{order.status==1}}"
+							>立即接诊</view>
 						</view>
 					</view>
 					<view
@@ -112,7 +118,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible)&&userInfo.role=='USER'||order.delVisible}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.delVisible)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
@@ -126,6 +132,9 @@
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.price}}&orderNo={{order.orderNo}}&orderType=2"
 								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
+							<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">
 							<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 						</view>
 					</view>
@@ -170,7 +179,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==1||order.status==0)&&userInfo.role=='USER'||order.delVisible}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0)&&userInfo.role=='USER'}}"
 						>
 							<view
 								catchtap="onGoto"
@@ -188,6 +197,9 @@
 							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 							<view bindtap="onGuidanceOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
 							<view class="margin-left-20 button primary small" wx:if="{{order.status==0}}">立即支付</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">
+							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
