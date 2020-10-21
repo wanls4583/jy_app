@@ -31,9 +31,11 @@ Page({
         active: 0
     },
     onLoad() {
+        wx.test = this;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'configData']
+            fields: ['userInfo', 'configData'],
+            actions: ['addCart', 'updateCartNum', 'clearCart']
         });
         this.storeBindings.updateStoreBindings();
         this.loadMallOrderList();
@@ -209,6 +211,234 @@ Page({
             wx.hideLoading();
         });
     },
+    onBuyAgain(e) {
+        var order = e.currentTarget.dataset.order;
+        var ids = [];
+        var countMap = {};
+        order.goods.map((item) => {
+            var id = item.goodsId || item.id;
+            if (ids.indexOf(id) == -1) {
+                ids.push(id);
+                countMap[id] = item.count;
+            }
+        });
+        wx.showLoading('加载中...', true);
+        wx.jyApp.http({
+            url: '/goods/infos',
+            data: {
+                ids: ids.join(',')
+            }
+        }).then((data) => {
+            data.infos.map((item) => {
+                this.addCart(item);
+                this.updateCartNum(item.id, countMap[item.id]);
+            });
+            if (data.infos.length < ids.length) {
+                setTimeout(() => {
+                    if (!data.infos.length) {
+                        wx.jyApp.toast('商品已经下线');
+                    } else {
+                        wx.jyApp.toast('部分商品已下线，请确认后再提交订单');
+                    }
+                }, 0);
+            }
+            if (data.infos.length) {
+                wx.navigateTo({
+                    url: '/pages/mall/cart/index'
+                });
+            }
+        }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    //删除问诊订单
+    onDelInterrogation(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/consultorder/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.interrogationOrder.orderList = this.data.interrogationOrder.orderList.filter((item) => {
+                            return item.id != id;
+                        });
+                        if (!this.data.interrogationOrder.orderList) {
+                            this.data.interrogationOrder.totalPage = 0;
+                        }
+                        this.setData({
+                            interrogationOrder: this.data.interrogationOrder
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //删除申请订单
+    onDelApplyOrder(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/apply/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.applyOrder.orderList = this.data.applyOrder.orderList.filter((item) => {
+                            return item.id != id;
+                        });
+                        if (!this.data.applyOrder.orderList) {
+                            this.data.applyOrder.totalPage = 0;
+                        }
+                        this.setData({
+                            applyOrder: this.data.applyOrder
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //删除指导订单
+    onDelGuidanceOrder(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/nutritionorder/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.guidanceOrder.orderList = this.data.guidanceOrder.orderList.filter((item) => {
+                            return item.id != id;
+                        });
+                        if (!this.data.guidanceOrder.orderList) {
+                            this.data.guidanceOrder.totalPage = 0;
+                        }
+                        this.setData({
+                            guidanceOrder: this.data.guidanceOrder
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //删除商城订单
+    onDelMallOrder(e) {
+        wx.showModal({
+            content: '确认删除此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('删除中...', true);
+                    wx.jyApp.http({
+                        url: '/order/delete',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.mallOrder.orderList = this.data.mallOrder.orderList.filter((item) => {
+                            return item.id != id;
+                        });
+                        if (!this.data.mallOrder.orderList) {
+                            this.data.mallOrder.totalPage = 0;
+                        }
+                        this.setData({
+                            mallOrder: this.data.mallOrder
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //指导订单退费
+    onGuidanceOrderReturn(e) {
+        wx.showModal({
+            content: '确认对此订单进行退费？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('退费中...', true);
+                    wx.jyApp.http({
+                        url: '/nutritionorder/refund',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.guidanceOrder.orderList.map((item, index) => {
+                            if (item.id == id) {
+                                item.status = 5;
+                                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                                this.setStatusColor(item, 'mall');
+                                this.setData({
+                                    [`guidanceOrder.orderList${index}`]: item
+                                });
+                            }
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
+    //商城订单退费
+    onMallOrderReturn(e) {
+        wx.showModal({
+            content: '确认对此订单进行退费？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('退费中...', true);
+                    wx.jyApp.http({
+                        url: '/order/refund',
+                        method: 'delete',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.mallOrder.orderList.map((item, index) => {
+                            if (item.id == id) {
+                                item.status = 5;
+                                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                                this.setStatusColor(item, 'mall');
+                                this.setData({
+                                    [`mallOrder.orderList[${index}]`]: item
+                                });
+                            }
+                        });
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
     loadMallOrderList(refresh) {
         if (refresh) {
             this.mallRequest && this.mallRequest.requestTask.abort();
@@ -243,6 +473,7 @@ Page({
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.totalAmount > 0 && item.status == 8 || false;
                 item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
+                item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                     _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
@@ -296,6 +527,7 @@ Page({
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.orderAmount > 0 && item.status == 3 || false;
                 item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
+                item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'interrogation')
             });
@@ -347,6 +579,7 @@ Page({
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.totalAmount > 0 && item.status == 8 || false;
                 item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
+                item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
                 item.goods.map((_item) => {
@@ -401,6 +634,7 @@ Page({
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.price > 0 && item.status == 2 || false;
+                item.delVisible = [2, 5].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 this.setStatusColor(item, 'apply');
             });

@@ -130,6 +130,11 @@ page button:not([size='mini']) {
     border-color: #ff976a;
 }
 
+.button.plain.gray {
+    color: #ccc;
+    border-color: #ccc;
+}
+
 .button.text {
     background-color: transparent;
     border-color: transparent;
@@ -150,4 +155,8 @@ page button:not([size='mini']) {
 
 .button.text.warn {
     color: #ff976a;
+}
+
+.button.text.gray {
+    color: #ccc;
 }
