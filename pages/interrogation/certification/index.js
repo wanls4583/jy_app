@@ -431,37 +431,28 @@ Page({
             wx.jyApp.toast('请上传职称证');
             return;
         }
-        wx.showLoading({
-            title: '提交中...',
-            mask: true
-        });
-        var subCb = null;
-        var subCalled = false;
-        wx.jyApp.utils.requestSubscribeMessage('7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY').finally(() => {
-            subCb && subCb();
-            subCalled = true;
-        });
-        wx.jyApp.http({
-            url: '/doctor/approve/submit',
-            method: 'post',
-            data: this.getData()
-        }).then(() => {
-            wx.hideLoading();
-            wx.removeStorageSync('approvInfo');
-            this.setData({
-                approveStatus: 1
+        wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.patientPayMsg).finally(() => {
+            wx.showLoading({
+                title: '提交中...',
+                mask: true
             });
-            subCb = () => {
+            wx.jyApp.http({
+                url: '/doctor/approve/submit',
+                method: 'post',
+                data: this.getData()
+            }).then(() => {
+                wx.hideLoading();
+                wx.removeStorageSync('approvInfo');
+                this.setData({
+                    approveStatus: 1
+                });
                 wx.switchTab({ url: '/pages/mine/index' });
                 setTimeout(() => {
                     wx.showToast({ title: '提交成功' });
                 }, 500);
-            }
-            if (subCalled) {
-                subCb();
-            }
-        }).catch(() => {
-            wx.hideLoading();
+            }).catch(() => {
+                wx.hideLoading();
+            });
         });
     },
     saveLoaclInfo() {

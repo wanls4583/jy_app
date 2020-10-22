@@ -10,65 +10,51 @@ Page({
         });
     },
     onSubmit() {
-        wx.jyApp.showLoading('支付中...', true);
-        var subCb = null;
-        var subCalled = false;
-        wx.jyApp.utils.requestSubscribeMessage('7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY').finally(() => {
-            subCb && subCb();
-            subCalled = true;
-        });
-        wx.jyApp.http({
-            url: '/consultorder/save',
-            method: 'post',
-            data: {
-                "diseaseDetail": wx.jyApp.illness.diseaseDetail,
-                "doctorId": wx.jyApp.illness.doctorId,
-                "patientId": wx.jyApp.illness.patientId,
-                "picUrls": wx.jyApp.illness.picUrls.join(',')
-            }
-        }).then((data) => {
-            delete wx.jyApp.illness;
-            var delta = 3;
-            if (data.params) {
-                wx.jyApp.utils.pay(data.params, () => {
-                    subCb = () => {
+        wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.doctorReciveMsg).finally(() => {
+            wx.jyApp.showLoading('支付中...', true);
+            wx.jyApp.http({
+                url: '/consultorder/save',
+                method: 'post',
+                data: {
+                    "diseaseDetail": wx.jyApp.illness.diseaseDetail,
+                    "doctorId": wx.jyApp.illness.doctorId,
+                    "patientId": wx.jyApp.illness.patientId,
+                    "picUrls": wx.jyApp.illness.picUrls.join(',')
+                }
+            }).then((data) => {
+                delete wx.jyApp.illness;
+                var delta = 3;
+                if (data.params) {
+                    wx.jyApp.utils.pay(data.params, () => {
                         wx.navigateBack({
                             delta: delta
                         });
-                    }
-                    if (subCalled) {
-                        subCb();
-                    }
-                }).then(() => {
+                    }).then(() => {
+                        wx.jyApp.payInterrogationResult = {
+                            id: data.id,
+                            result: 'success'
+                        }
+                    }).catch((err) => {
+                        wx.jyApp.payInterrogationResult = {
+                            id: data.id,
+                            result: 'fail'
+                        }
+                        wx.navigateBack({
+                            delta: delta
+                        });
+                    });
+                } else {
                     wx.jyApp.payInterrogationResult = {
                         id: data.id,
                         result: 'success'
                     }
-                }).catch((err) => {
-                    wx.jyApp.payInterrogationResult = {
-                        id: data.id,
-                        result: 'fail'
-                    }
-                    wx.navigateBack({
-                        delta: delta
-                    });
-                });
-            } else {
-                wx.jyApp.payInterrogationResult = {
-                    id: data.id,
-                    result: 'success'
-                }
-                subCb = () => {
                     wx.navigateBack({
                         delta: delta
                     });
                 }
-                if (subCalled) {
-                    subCb();
-                }
-            }
-        }).finally(() => {
-            wx.hideLoading();
+            }).finally(() => {
+                wx.hideLoading();
+            });
         });
     }
 })

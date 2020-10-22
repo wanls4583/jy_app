@@ -142,3 +142,7 @@ export const typeMap = {
   '2': '整取',
   '3': '套餐'
 }
+export const subIds = {
+  'patientPayMsg': '7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY',
+  'doctorReciveMsg': 'mr0I6bbT1vi27P_qSnOaalBaKepLb-aTRudnJx27Aok'
+}
