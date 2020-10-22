@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
-			<van-tab title="带接诊"></van-tab>
+			<van-tab title="待接诊"></van-tab>
 			<van-tab title="问诊中"></van-tab>
 			<van-tab title="已服务"></van-tab>
 		</van-tabs>
@@ -25,7 +25,7 @@
 						wx:key="id"
 					>
 						<view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
-							<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
+							<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
 						</view>
 						<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
 							<view class="flex-direction-column flex--start--between height-100rpx">
