@@ -41,10 +41,10 @@ Page({
                     title: '提示',
                     content: data.notice.content,
                     showCancel: false,
-                    confirmText: '同意',
+                    confirmText: '我知道了',
                     success(res) {
                         if (res.confirm) {
-                            this.noticeId = data.notice.id;
+                            this.read(data.notice.id);
                             this.submit();
                         }
                     }
@@ -57,10 +57,10 @@ Page({
     onSubmit() {
         this.checkAmount();
     },
-    //同意
-    read() {
+    //消息置为已读
+    read(noticeId) {
         wx.jyApp.http({
-            url: `/systemnotice/read/${this.noticeId}`,
+            url: `/systemnotice/read/${noticeId}`,
             method: 'post',
         });
     },
@@ -85,7 +85,6 @@ Page({
             setTimeout(() => {
                 wx.showToast({ title: '提现成功' });
             }, 500);
-            this.read();
         }).finally(() => {
             wx.hideLoading();
         });
