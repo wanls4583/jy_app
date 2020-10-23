@@ -12,7 +12,7 @@
                             <view>
                                 <text class="margin-right-30">{{item.contactName}}</text>
                                 <text>{{item.phone}}</text>
-                                <text wx:if="{{item.isDefault}}" class="white-color primary-background-color font-small" style="padding:1px 4px;margin-left:4px">默认</text>
+                                <text wx:if="{{item.isDefault}}" class="tag" style="padding:1px 4px;margin-left:4px">默认</text>
                             </view>
                         </view>
                         <view class="gray-color margin-top-20">{{item.provinceCity}}{{item.address}}</view>
