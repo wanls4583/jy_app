@@ -115,7 +115,7 @@ export const mallOrderStatusMap = {
   '6': '已退费',
   '7': '已发货',
   '8': '已完成',
-  '9': '已删除'
+  '9': '发货中'
 }
 //问诊订单
 export const interrogationOrderStatusMap = {

@@ -105,6 +105,7 @@ Page({
                 banner: data.info.goodsPic && data.info.goodsPic.split(',') || [],
                 desImgList: data.info.goodsPicDetails && data.info.goodsPicDetails.split(',') || [],
             });
+        }).finally(()=>{
             wx.hideLoading();
         });
     },

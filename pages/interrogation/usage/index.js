@@ -40,9 +40,10 @@ Page({
             _giveWay: giveWayMap[goods.giveWay] || giveWayList[0].label,
             frequency: goods.frequency || 1,
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
-            frequencyDefault: goods.frequency - 1 || 0
+            frequencyDefault: goods.frequency - 1 || 0,
+            totalAmount: goods.totalAmount || 0
         });
-        if(!this.data.count) {
+        if (!this.data.count) {
             this.caculateGross();
         }
         giveWayList.map((item, index) => {
@@ -67,16 +68,34 @@ Page({
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
     },
+    onCountPlus(e) {
+        var count = this.count || this.data.count;
+        var value = Math.floor(count + 1) || 1;
+        e.detail = {
+            value: value
+        };
+        this.onCountBlur(e);
+    },
+    onCountMinus(e) {
+        var count = this.count || this.data.count;
+        var value = Math.ceil(count - 1) || 1;
+        e.detail = {
+            value: value
+        };
+        this.onCountBlur(e);
+    },
     //手动改变总量
-    onCountChange(e) {
+    onCountBlur(e) {
         var days = 0;
         var count = e.detail.value;
+        this.count = count;
         if (!Number(count) || Number(count) < 1) {
             this.setData({
                 count: this.data.count
             });
             return;
         }
+        count = Math.ceil(count);
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
         } else {
@@ -89,6 +108,28 @@ Page({
         this.setData({
             totalAmount: (this.data.count * this.data.goods.price).toFixed(2)
         });
+    },
+    onDaysPlus(e) {
+        var days = this.days || this.data.days;
+        var value = Math.floor(days + 1) || 1;
+        e.detail = {
+            value: value
+        };
+        this.onDaysBlur(e);
+    },
+    onDaysMinus(e) {
+        var days = this.days || this.data.days;
+        var value = Math.ceil(days - 1) || 1;
+        e.detail = {
+            value: value
+        };
+        this.onDaysBlur(e);
+    },
+    onDaysBlur(e) {
+        this.setData({
+            days: e.detail.value
+        });
+        this.caculateGross();
     },
     //输入数字
     onInputNum(e) {

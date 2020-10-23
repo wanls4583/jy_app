@@ -1,13 +1,8 @@
 <!-- index.wxml -->
 <view class="container padding-bottom-footer" wx:if="{{configData.showDoctor==1}}">
-	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0&&order.userId==userInfo.id}}">
-		<text class="font-large danger-color font-bold">未支付</text>
-		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
-		<view bindtap="onInterrogationPay" class="button plain primary">立即支付</view>
-	</view>
-	<view class="flex--center--center flex-direction-column height-150rpx white-background-color" wx:else>
-		<text class="font-large font-bold {{order.statusColor}}">{{order._status}}</text>
-		<view class="gray-color margin-top-10" wx:if="{{order.status==4}}">超过15分钟未支付，订单自动失效</view>
+	<view class="flex--center--center flex-direction-column padding-30 white-background-color">
+		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
+		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过三天未支付，订单自动失效</view>
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
 		<view class="flex padding-top-bottom-20">
@@ -53,6 +48,12 @@
 			wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 		>
 			<view
+				bindtap="onGoto"
+				class="margin-left-20 button primary small"
+				data-url="/pages/interrogation/illness-edit/index?doctorId={{order.doctorId}}"
+				wx:if="{{order.oneMoreVisible}}"
+			>再来一单</view>
+			<view
 				catchtap="onGoto"
 				class="margin-left-20 button primary primay small"
 				data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=1"
@@ -64,12 +65,6 @@
 				data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
 				wx:elif="{{order.applyTicketVisible}}"
 			>申请发票</view>
-			<view
-				bindtap="onGoto"
-				class="margin-left-20 button primary small"
-				data-url="/pages/interrogation/illness-edit/index?doctorId={{order.doctorId}}"
-				wx:if="{{order.oneMoreVisible}}"
-			>再来一单</view>
 			<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 			<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 			<view

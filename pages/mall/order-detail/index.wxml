@@ -1,13 +1,8 @@
 <import src="/template/order-goods-item.wxml" />
 <view class="container">
-	<view class="flex--center--around flex-direction-column padding-30 height-50vw white-background-color" wx:if="{{order.status==0}}">
-		<text class="font-large danger-color font-bold">未支付</text>
-		<text class="gray-color">超过15分钟未支付，订单自动失效</text>
-		<view bindtap="onMallOrderPay" class="button plain primary">立即支付</view>
-	</view>
-	<view class="flex--center--center flex-direction-column height-150rpx white-background-color" wx:else>
-		<text class="font-large font-bold {{order.statusColor}}">{{order._status}}</text>
-		<view class="gray-color margin-top-10" wx:if="{{order.status==4}}">超过15分钟未支付，订单自动失效</view>
+	<view class="flex--center--center flex-direction-column padding-30 white-background-color">
+		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
+		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过三天未支付，订单自动失效</view>
 	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>
@@ -46,6 +41,7 @@
 		class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
 		wx:if="{{order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0}}"
 	>
+		<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 		<view
 			catchtap="onGoto"
 			class="margin-left-20 button primary primary small"
@@ -58,7 +54,6 @@
 			data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
 			wx:elif="{{applyTicketVisible}}"
 		>申请发票</view>
-		<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 		<view bindtap="onDelMallOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 		<view bindtap="onMallOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
 		<view bindtap="onMallOrderPay" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
