@@ -165,7 +165,7 @@ Page({
                                     item._status = wx.jyApp.constData.mallOrderStatusMap[5];
                                     page.setStatusColor(item, 'mall');
                                     page.setData({
-                                        [`guidanceOrder.orderList${index}`]: item
+                                        [`guidanceOrder.orderList[${index}]`]: item
                                     });
                                 }
                             });
