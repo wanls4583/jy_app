@@ -190,7 +190,7 @@ Page({
             data.detail._sex = data.detail.sex == 1 ? '男' : '女';
             data.detail._status = wx.jyApp.constData.mallOrderStatusMap[data.detail.status];
             data.detail.ticketMoney = Number((data.detail.totalAmount - data.detail.deliveryCost).toFixed(2));
-            data.detail.ticketDays = Math.ceil((todayBegin - data.detail.orderTime) / aDay);
+            data.detail.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(data.detail.orderTime)) / aDay);
             data.detail.applyTicketVisible = data.detail.ticketDays <= this.data.configData.allowApplyTicketDays && data.detail.totalAmount > 0 && data.detail.status == 8 || false;
             data.detail.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(data.detail.status) > -1;
             data.detail.delVisible = [0, 4, 6, 8].indexOf(data.detail.status) > -1;
