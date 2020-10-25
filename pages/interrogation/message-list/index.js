@@ -63,11 +63,9 @@ Page({
         });
         this.request.then((data) => {
             if (refresh) {
-                this.setData({
-                    page: 1,
-                    totalPage: -1,
-                    messageList: []
-                });
+                this.data.page = 1;
+                this.data.totalPage = -1;
+                this.data.messageList = [];
             }
             var today = new Date();
             today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
