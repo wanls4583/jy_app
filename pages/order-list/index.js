@@ -229,6 +229,7 @@ Page({
                 ids: ids.join(',')
             }
         }).then((data) => {
+            data.infos = data.infos || [];
             data.infos.map((item) => {
                 this.addCart(item);
                 this.updateCartNum(item.id, countMap[item.id]);
