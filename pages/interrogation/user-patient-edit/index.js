@@ -10,7 +10,9 @@ Page({
             sex: '',
             birthday: '',
             height: '',
-            weight: ''
+            weight: '',
+            BMI: '',
+            foodSensitive: ''
         },
         minDate: new Date(1900, 0, 1).getTime(),
         maxDate: new Date().getTime(),
@@ -35,6 +37,10 @@ Page({
     },
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
+        var BMI = (this.data.weight) / (this.data.height * this.data.height / 10000);
+        this.setData({
+            BMI: BMI && BMI.toFixed(2) || ''
+        });
     },
     onShowBirthday() {
         this.setData({
@@ -88,6 +94,8 @@ Page({
         }).then((data) => {
             var patient = data.patientDocument;
             patient._sex = patient.sex == 1 ? '男' : '女';
+            patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
+            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
             this.data.birthday = Date.prototype.parseDate(patient.birthday).getTime();
             this.setData({
                 patient: patient,

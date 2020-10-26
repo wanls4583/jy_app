@@ -13,6 +13,7 @@
 						<text>，{{item.age}}岁</text>
 						<text>，{{item.height}}cm</text>
 						<text>，{{item.weight}}kg</text>
+						<text>，{{item.BMI}}</text>
 					</view>
 				</view>
 				<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:150px">

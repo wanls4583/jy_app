@@ -56,6 +56,7 @@
 			<text>，{{order.age}}岁</text>
 			<text>，{{order.height}}cm</text>
 			<text>，{{order.weight}}kg</text>
+			<text>，{{order.BMI}}</text>
 		</view>
 		<view class="padding-bottom-20">
 			<text>医生姓名：{{order.doctorName}}</text>

@@ -100,6 +100,8 @@ Page({
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
+                item.BMI = (item.weight) / (item.height * item.height / 10000);
+                item.BMI = item.BMI && item.BMI.toFixed(2) || '';
             });
             this.setData({
                 patientList: data.list || [],

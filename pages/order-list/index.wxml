@@ -34,6 +34,7 @@
 								<text>，{{order.patient.age}}岁</text>
 								<text>，{{order.patient.height}}cm</text>
 								<text>，{{order.patient.weight}}kg</text>
+								<text>，{{order.patient.BMI}}</text>
 							</view>
 						</view>
 						<view
@@ -111,6 +112,7 @@
 								<text>，{{order.patient.age}}岁</text>
 								<text>，{{order.patient.height}}cm</text>
 								<text>，{{order.patient.weight}}kg</text>
+								<text>，{{order.patient.BMI}}</text>
 							</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
@@ -165,6 +167,7 @@
 								<text>，{{order.age}}岁</text>
 								<text>，{{order.height}}cm</text>
 								<text>，{{order.weight}}kg</text>
+								<text>，{{order.BMI}}</text>
 							</view>
 							<view>
 								<text>医生姓名：{{order.doctorName}}</text>

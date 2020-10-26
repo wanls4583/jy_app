@@ -20,6 +20,7 @@
 				<text>，{{order.patient.age}}岁</text>
 				<text>，{{order.patient.height}}cm</text>
 				<text>，{{order.patient.weight}}kg</text>
+				<text>，{{order.patient.BMI}}</text>
 			</view>
 		</view>
 		<view class="flex padding-bottom-20">

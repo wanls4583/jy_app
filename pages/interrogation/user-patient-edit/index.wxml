@@ -10,6 +10,16 @@
 		<van-field bind:input="onInputNum" data-prop="patient.weight" label="体重" placeholder="体重" value="{{patient.weight}}">
 			<view slot="right-icon">kg</view>
 		</van-field>
+		<readonly-field label="BMI" placeholder="BMI" readonly value="{{patient.BMI}}" />
+		<van-field
+			autosize="{{true}}"
+			bind:input="onInput"
+			data-prop="patient.foodSensitive"
+			label="食物过敏史"
+			maxlength="{{50}}"
+			placeholder="请填写食物过敏史"
+			value="{{patient.foodSensitive}}"
+		/>
 	</van-cell-group>
 	<view class="padding-left-right-30 margin-top-bottom-30">
 		<view bindtap="onSave" class="button primary block">保存</view>

@@ -167,6 +167,8 @@ Page({
             var aDay = 24 * 60 * 60 * 1000;
             var order = data.consultOrder || data.detail;
             order.patient._sex = order.patient.sex == 1 ? '男' : '女';
+            order.patient.BMI = (order.patient.weight) / (order.patient.height * order.patient.height / 10000);
+            order.patient.BMI = order.patient.BMI && order.patient.BMI.toFixed(2) || '';
             order.picUrls = order.picUrls && order.picUrls.split(',') || [];
             this.setStatusColor(order);
             if (this.data.type == 'interrogation') {
