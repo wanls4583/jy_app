@@ -68,34 +68,14 @@ Page({
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
     },
-    onCountPlus(e) {
-        var count = this.count || this.data.count;
-        var value = Math.floor(count + 1) || 1;
-        e.detail = {
-            value: value
-        };
-        this.onCountBlur(e);
-    },
-    onCountMinus(e) {
-        var count = this.count || this.data.count;
-        var value = Math.ceil(count - 1) || 1;
-        e.detail = {
-            value: value
-        };
-        this.onCountBlur(e);
-    },
-    //手动改变总量
-    onCountBlur(e) {
+    //手动改变总量(总量为整数)
+    onCountChang(e) {
         var days = 0;
-        var count = e.detail.value;
+        var count = e.detail;
         this.count = count;
-        if (!Number(count) || Number(count) < 1) {
-            this.setData({
-                count: this.data.count
-            });
+        if (count == this.data.count) {
             return;
         }
-        count = Math.ceil(count);
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
         } else {
@@ -111,25 +91,44 @@ Page({
     },
     onDaysPlus(e) {
         var days = this.days || this.data.days;
-        var value = Math.floor(days + 1) || 1;
+        if (!this.inputDays) {
+            days += 1;
+        }
         e.detail = {
-            value: value
+            value: Math.floor(days) || 1
         };
-        this.onDaysBlur(e);
+        this.days = 0;
+        setTimeout(() => {
+            this.onDaysBlur(e);
+        }, 0);
     },
     onDaysMinus(e) {
         var days = this.days || this.data.days;
-        var value = Math.ceil(days - 1) || 1;
+        if (!this.inputDays) {
+            days -= 1;
+        }
         e.detail = {
-            value: value
+            value: Math.ceil(days) || 1
         };
-        this.onDaysBlur(e);
+        this.days = 0;
+        setTimeout(() => {
+            this.onDaysBlur(e);
+        }, 0);
+    },
+    onDaysChange(e) {
+        this.days = e.detail;
+        this.inputDays = true;
     },
     onDaysBlur(e) {
+        if (e.detail.value == this.data.days) {
+            return;
+        }
+        this.days = e.detail.value;
         this.setData({
-            days: e.detail.value
+            days: Number(e.detail.value) || 1
         });
         this.caculateGross();
+        this.inputDays = false;
     },
     //输入数字
     onInputNum(e) {
@@ -170,9 +169,9 @@ Page({
     caculateGross() {
         var count = 0;
         if (this.data.goods.type == 1) {
-            count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum);
+            count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum) || 0;
         } else {
-            count = Math.ceil(this.data.days * this.data.frequency);
+            count = Math.ceil(this.data.days * this.data.frequency) || 0;
         }
         this.setData({
             count: count,

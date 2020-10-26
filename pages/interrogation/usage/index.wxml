@@ -17,7 +17,7 @@
 		<van-cell>
 			<view class="flex--center--between">
 				<text>天数</text>
-				<van-stepper bind:blur="onDaysBlur" bind:minus="onDaysMinus" bind:plus="onDaysPlus" data-prop="days" input-width="300rpx" min="{{0}}" value="{{days}}" />
+				<van-stepper bind:blur="onDaysBlur" bind:change="onDaysChange"  bind:minus="onDaysMinus" bind:plus="onDaysPlus" data-prop="days" input-width="300rpx" min="{{0}}" value="{{days}}" />
 				<text>天</text>
 			</view>
 		</van-cell>
@@ -25,12 +25,11 @@
 			<view class="flex--center--between">
 				<text>总量</text>
 				<van-stepper
-					bind:blur="onCountBlur"
-					bind:minus="onCountMinus"
-					bind:plus="onCountPlus"
+					bind:change="onCountChang"
 					data-prop="count"
+					integer="{{true}}"
 					input-width="300rpx"
-					min="{{0}}"
+					min="{{1}}"
 					value="{{count}}"
 				/>
 				<text>{{goods._unit}}</text>

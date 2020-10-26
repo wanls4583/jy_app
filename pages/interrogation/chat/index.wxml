@@ -119,8 +119,9 @@
 									<view>{{item.txt}}</view>
 									<view class="align-center">
 										<view
-											bindtap="onGoto"
+											bindtap="onGotoInterrogationDetail"
 											class="button small primary margin-top-30"
+											data-id="{{item.associateId}}"
 											data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{item.associateId}}"
 										>查看问诊单</view>
 									</view>
@@ -152,7 +153,12 @@
 										<text>{{patient.weight}}kg</text>
 									</view>
 									<view class="align-center padding-bottom-20">
-										<view bindtap="onGoto" class="button small success" data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}">查看详情</view>
+										<view
+											bindtap="onGotoGuidanceDetail"
+											class="button small success"
+											data-id="{{item.associateId}}"
+											data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}"
+										>查看详情</view>
 									</view>
 								</view>
 							</view>

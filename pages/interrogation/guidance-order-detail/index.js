@@ -178,6 +178,11 @@ Page({
         });
     },
     loadInfo() {
+        if (wx.jyApp.tempData.guidanceOrderData) {
+            _initData.bind(this)(wx.jyApp.tempData.guidanceOrderData);
+            delete wx.jyApp.tempData.guidanceOrderData;
+            return;
+        }
         !this.loaded && wx.showLoading({
             title: '加载中...',
             mask: true
@@ -185,6 +190,12 @@ Page({
         return wx.jyApp.http({
             url: '/nutritionorder/info/' + this.id
         }).then((data) => {
+            _initData.bind(this)(data);
+        }).finally((err) => {
+            !this.loaded && wx.hideLoading();
+            this.loaded = true;
+        });
+        function _initData(data) {
             var todayBegin = Date.prototype.getTodayBegin();
             var aDay = 24 * 60 * 60 * 1000;
             data.detail._sex = data.detail.sex == 1 ? '男' : '女';
@@ -211,10 +222,7 @@ Page({
             this.setData({
                 order: data.detail
             });
-        }).finally((err) => {
-            !this.loaded && wx.hideLoading();
-            this.loaded = true;
-        });
+        }
     },
     setStatusColor(order) {
         switch (order.status) {

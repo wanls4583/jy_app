@@ -140,6 +140,11 @@ Page({
         });
     },
     loadInfo() {
+        if (wx.jyApp.tempData.applyOrderData) {
+            _initData.bind(this)(wx.jyApp.tempData.applyOrderData);
+            delete wx.jyApp.tempData.applyOrderData;
+            return;
+        }
         var url = '/apply/info/';
         if (this.data.type == 'interrogation') {
             url = '/consultorder/info/';
@@ -152,6 +157,12 @@ Page({
         wx.jyApp.http({
             url: url + this.id
         }).then((data) => {
+            _initData.bind(this)(data);
+        }).finally(() => {
+            wx.hideLoading();
+            this.loaded = true;
+        });
+        function _initData(data) {
             var todayBegin = Date.prototype.getTodayBegin();
             var aDay = 24 * 60 * 60 * 1000;
             var order = data.consultOrder || data.detail;
@@ -173,10 +184,7 @@ Page({
             this.setData({
                 order: order
             });
-        }).finally(() => {
-            wx.hideLoading();
-            this.loaded = true;
-        })
+        }
     },
     setStatusColor(order) {
         if (this.data.type == 'interrogation') {

@@ -13,6 +13,7 @@ App({
     onLaunch: function (option) {
         console.log(option);
         wx.jyApp = {};
+        wx.jyApp.tempData = {}; //临时传输对象
         wx.jyApp.httpHost = config.httpHost;
         wx.jyApp.app = this;
         wx.jyApp.createStoreBindings = createStoreBindings;

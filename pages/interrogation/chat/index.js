@@ -743,5 +743,25 @@ Page({
                 roomId: this.data.roomId
             }
         });
-    }
+    },
+    //问诊单详情
+    onGotoInterrogationDetail(e) {
+        var id = e.currentTarget.dataset.id
+        wx.jyApp.http({
+            url: '/consultorder/info/' + id
+        }).then((data) => {
+            wx.jyApp.tempData.applyOrderData = data;
+            wx.jyApp.utils.navigateTo(e);
+        });
+    },
+    //营养指导详情
+    onGotoGuidanceDetail(e) {
+        var id = e.currentTarget.dataset.id
+        wx.jyApp.http({
+            url: '/nutritionorder/info/' + id
+        }).then((data) => {
+            wx.jyApp.tempData.guidanceOrderData = data;
+            wx.jyApp.utils.navigateTo(e);
+        });
+    },
 })
