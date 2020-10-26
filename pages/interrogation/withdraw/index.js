@@ -8,6 +8,7 @@ Page({
             fields: ['doctorInfo', 'userInfo'],
             actions: ['updateDoctorInfo'],
         });
+        this.checkAmount();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -25,14 +26,6 @@ Page({
     },
     //检查金额是否有变化
     checkAmount() {
-        if (!Number(this.data.amount)) {
-            wx.jyApp.toast('请输入提现金额');
-            return;
-        }
-        if (!this.data.amount > this.data.doctorInfo.balance) {
-            wx.jyApp.toast('提现金额不能大于' + this.data.doctorInfo.balance);
-            return;
-        }
         return wx.jyApp.http({
             url: '/systemnotice/settle'
         }).then((data) => {
@@ -41,21 +34,14 @@ Page({
                     title: '提示',
                     content: data.notice.content,
                     showCancel: false,
-                    confirmText: '我知道了',
-                    success(res) {
-                        if (res.confirm) {
-                            this.read(data.notice.id);
-                            this.submit();
-                        }
-                    }
+                    confirmText: '我知道了'
                 });
-            } else {
-                this.submit();
+                this.read(data.notice.id);
             }
         });
     },
     onSubmit() {
-        this.checkAmount();
+        this.submit();
     },
     //消息置为已读
     read(noticeId) {
