@@ -34,6 +34,7 @@
 							<text>，{{item.age}}岁</text>
 							<text>，{{item.height}}cm</text>
 							<text>，{{item.weight}}kg</text>
+							<text>，{{item.BMI}}</text>
 						</view>
 						<view>
 							<text class="font-small gray-color">{{item.joinTime}}</text>
