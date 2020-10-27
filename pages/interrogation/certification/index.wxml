@@ -10,7 +10,7 @@
 	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
 		<van-collapse-item name="1" title="基本信息">
 			<readonly-field bindtap="onInput" data-prop="doctorName" data-title="姓名" label="姓名" placeholder="请输入本人真实姓名" readonly value="{{doctorName}}"></readonly-field>
-			<van-field bindtap="chooseAvater" label="个人头像" placeholder="{{avatar?'':'请输入本人身份证号'}}" readonly>
+			<van-field bindtap="chooseAvater" label="个人头像" placeholder="{{avatar?'':'请上传个人头像'}}" readonly>
 				<view class="flex--center--center" slot="right-icon">
 					<view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
 						<image class="width-100 height-100" mode="aspectFill" src="{{avatar.path}}" />
