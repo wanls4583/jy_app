@@ -45,20 +45,20 @@ Component({
     },
     pageLifetimes: {
         show() {
-            if (wx.jyApp.payInterrogationResult) { //问诊支付结果
-                if (wx.jyApp.payInterrogationResult.result == 'fail') {
+            if (wx.jyApp.tempData.payInterrogationResult) { //问诊支付结果
+                if (wx.jyApp.tempData.payInterrogationResult.result == 'fail') {
                     setTimeout(() => {
                         wx.jyApp.toast('支付失败');
                     }, 500);
                     wx.navigateTo({
-                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.payInterrogationResult.id
+                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
                     });
                 } else {
                     wx.navigateTo({
-                        url: '/pages/interrogation/chat/index?id=' + wx.jyApp.payInterrogationResult.id
+                        url: '/pages/interrogation/chat/index?id=' + wx.jyApp.tempData.payInterrogationResult.id
                     });
                 }
-                delete wx.jyApp.payInterrogationResult
+                delete wx.jyApp.tempData.payInterrogationResult
             }
         }
     },

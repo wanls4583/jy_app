@@ -4,8 +4,8 @@ Page({
     },
     onLoad(option) {
         this.setData({
-            goodsName: wx.jyApp.illness.doctorName + '-' + '图文问诊',
-            consultOrderPrice: wx.jyApp.illness.consultOrderPrice,
+            goodsName: wx.jyApp.tempData.illness.doctorName + '-' + '图文问诊',
+            consultOrderPrice: wx.jyApp.tempData.illness.consultOrderPrice,
             orderTime: new Date().formatTime('yyyy-MM-dd')
         });
     },
@@ -16,13 +16,13 @@ Page({
                 url: '/consultorder/save',
                 method: 'post',
                 data: {
-                    "diseaseDetail": wx.jyApp.illness.diseaseDetail,
-                    "doctorId": wx.jyApp.illness.doctorId,
-                    "patientId": wx.jyApp.illness.patientId,
-                    "picUrls": wx.jyApp.illness.picUrls.join(',')
+                    "diseaseDetail": wx.jyApp.tempData.illness.diseaseDetail,
+                    "doctorId": wx.jyApp.tempData.illness.doctorId,
+                    "patientId": wx.jyApp.tempData.illness.patientId,
+                    "picUrls": wx.jyApp.tempData.illness.picUrls.join(',')
                 }
             }).then((data) => {
-                delete wx.jyApp.illness;
+                delete wx.jyApp.tempData.illness;
                 var delta = 3;
                 if (data.params) {
                     wx.jyApp.utils.pay(data.params, () => {
@@ -30,12 +30,12 @@ Page({
                             delta: delta
                         });
                     }).then(() => {
-                        wx.jyApp.payInterrogationResult = {
+                        wx.jyApp.tempData.payInterrogationResult = {
                             id: data.id,
                             result: 'success'
                         }
                     }).catch((err) => {
-                        wx.jyApp.payInterrogationResult = {
+                        wx.jyApp.tempData.payInterrogationResult = {
                             id: data.id,
                             result: 'fail'
                         }
@@ -44,7 +44,7 @@ Page({
                         });
                     });
                 } else {
-                    wx.jyApp.payInterrogationResult = {
+                    wx.jyApp.tempData.payInterrogationResult = {
                         id: data.id,
                         result: 'success'
                     }

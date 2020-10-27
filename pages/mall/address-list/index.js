@@ -19,12 +19,6 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
-    onShow() {
-        if (wx.jyApp.reloadAddressList) {
-            this.loadList();
-            delete wx.jyApp.reloadAddressList;
-        }
-    },
     onChange(e) {
         var address = e.currentTarget.dataset.address;
         if (this.data.ifSelect) {

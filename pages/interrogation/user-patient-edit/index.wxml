@@ -12,13 +12,14 @@
 		</van-field>
 		<readonly-field label="BMI" placeholder="BMI" readonly value="{{patient.BMI}}" />
 		<van-field
-			autosize="{{true}}"
+			autosize
 			bind:input="onInput"
 			data-prop="patient.foodSensitive"
 			label="食物过敏史"
 			maxlength="{{50}}"
 			placeholder="请填写食物过敏史"
 			value="{{patient.foodSensitive}}"
+			type="textarea"
 		/>
 	</van-cell-group>
 	<view class="padding-left-right-30 margin-top-bottom-30">

@@ -18,6 +18,11 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
+    onShow() {
+        if (this.loaded) {
+            this.loadInfo();
+        }
+    },
     //选择支付地址
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
@@ -48,7 +53,10 @@ Page({
                 this.loadInfo().then(() => {
                     this.updateSelectAddress(null);
                 });
-                wx.jyApp.hasPayGuidanceId = this.id;
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) {
+                    page.updateGuidanceStatus(this.id, 1);
+                }
             }).catch(() => {
                 this.loadInfo().then(() => {
                     this.updateSelectAddress(null);
@@ -119,15 +127,7 @@ Page({
                     }).then(() => {
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.data.guidanceOrder.orderList = page.data.guidanceOrder.orderList.filter((item) => {
-                                return item.id != id;
-                            });
-                            if (!page.data.guidanceOrder.orderList) {
-                                page.data.guidanceOrder.totalPage = 0;
-                            }
-                            page.setData({
-                                guidanceOrder: page.data.guidanceOrder
-                            });
+                            page.deleteGuidanceItem(id);
                         }
                         wx.navigateBack();
                     }).finally(() => {
@@ -155,20 +155,12 @@ Page({
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         this.data.order.status = 5;
                         this.data.order._status = wx.jyApp.constData.mallOrderStatusMap[5];
+                        this.setStatusColor(this.data.order);
                         this.setData({
                             order: this.data.order
                         });
                         if (page) {
-                            page.data.guidanceOrder.orderList.map((item, index) => {
-                                if (item.id == id) {
-                                    item.status = 5;
-                                    item._status = wx.jyApp.constData.mallOrderStatusMap[5];
-                                    page.setStatusColor(item, 'mall');
-                                    page.setData({
-                                        [`guidanceOrder.orderList[${index}]`]: item
-                                    });
-                                }
-                            });
+                            page.updateGuidanceStatus(id, 5);
                         }
                     }).finally(() => {
                         wx.hideLoading();

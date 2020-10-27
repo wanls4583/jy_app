@@ -12,7 +12,6 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.loadList();
-        this.readAll();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -53,6 +52,7 @@ Page({
                 totalPage: data.page.totalPage,
                 messageList: this.data.messageList.concat(data.page.list)
             });
+            this.readAll();
         }).finally(() => {
             this.setData({
                 stopRefresh: true

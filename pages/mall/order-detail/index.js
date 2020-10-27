@@ -31,6 +31,10 @@ Page({
                     title: '支付成功'
                 });
                 this.loadInfo();
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) {
+                    page.updateMallStatus(this.orderId, 1);
+                }
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
@@ -98,15 +102,7 @@ Page({
                     }).then(() => {
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.data.mallOrder.orderList = page.data.mallOrder.orderList.filter((item) => {
-                                return item.id != id;
-                            });
-                            if (!page.data.mallOrder.orderList) {
-                                page.data.mallOrder.totalPage = 0;
-                            }
-                            page.setData({
-                                mallOrder: page.data.mallOrder
-                            });
+                            page.deleteMallItem(id);
                         }
                         wx.navigateBack();
                     }).finally(() => {
@@ -131,23 +127,15 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         this.data.order.status = 5;
                         this.data.order._status = wx.jyApp.constData.mallOrderStatusMap[5];
+                        this.setStatusColor(this.data.order);
                         this.setData({
                             order: this.data.order
                         });
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.data.mallOrder.orderList.map((item, index) => {
-                                if (item.id == id) {
-                                    item.status = 5;
-                                    item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
-                                    page.setStatusColor(item, 'mall');
-                                    page.setData({
-                                        [`mallOrder.orderList[${index}]`]: item
-                                    });
-                                }
-                            });
+                            page.updateMallStatus(id, 5);
                         }
                     }).finally(() => {
                         wx.hideLoading();

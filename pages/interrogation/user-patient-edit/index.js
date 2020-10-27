@@ -37,9 +37,9 @@ Page({
     },
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
-        var BMI = (this.data.weight) / (this.data.height * this.data.height / 10000);
+        var BMI = (this.data.patient.weight) / (this.data.patient.height * this.data.patient.height / 10000);
         this.setData({
-            BMI: BMI && BMI.toFixed(2) || ''
+            'patient.BMI': BMI && BMI.toFixed(2) || ''
         });
     },
     onShowBirthday() {
@@ -78,8 +78,14 @@ Page({
             method: 'post',
             data: this.data.patient
         }).then((data) => {
-            wx.jyApp.reloadPatientList = true;
-            wx.jyApp.selectPatientId = data.id;
+            var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
+            if(page) {
+                page.loadList().then(()=>{
+                    page.setData({
+                        selectId: this.data.patient.id || data.id
+                    });
+                });
+            }
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({

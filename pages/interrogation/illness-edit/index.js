@@ -34,7 +34,7 @@ Page({
         }
         this.getDoctorInfo().then(() => {
             if (!this.stopNext) {
-                wx.jyApp.illness = {
+                wx.jyApp.tempData.illness = {
                     diseaseDetail: this.data.diseaseDetail,
                     picUrls: this.data.picUrls,
                     doctorId: this.doctorId,

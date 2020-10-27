@@ -20,7 +20,7 @@ Page({
     onLoad() {
         var giveWayMap = wx.jyApp.constData.giveWayMap;
         var giveWayList = [];
-        var goods = wx.jyApp.usageGoods;
+        var goods = wx.jyApp.tempData.usageGoods;
         goods.hideBtn = true;
         for (var key in giveWayMap) {
             giveWayList.push({
@@ -59,7 +59,7 @@ Page({
     },
     onUnload() {
         if (!this.saved) {
-            wx.jyApp.usageGoods = undefined;
+            wx.jyApp.tempData.usageGoods = undefined;
         }
     },
     onGoto(e) {

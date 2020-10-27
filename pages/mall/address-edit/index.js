@@ -94,7 +94,10 @@ Page({
             method: 'post',
             data: this.data.address
         }).then((data) => {
-            wx.jyApp.reloadAddressList = true;
+            var page = wx.jyApp.utils.getPages('pages/mall/address-list/index');
+            if(page) {
+                page.loadList();
+            }
             if (this.data.address.isDefault) {
                 this.data.address.id = this.data.address.id || data.id;
                 this.updateSelectAddress(this.data.address);

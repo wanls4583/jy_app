@@ -66,7 +66,11 @@ Page({
                 address: this.data.address,
             }
         }).then(() => {
-            wx.jyApp.hasTicketId = this.data.orderId;
+            var id = this.data.orderId;
+            var page = wx.jyApp.utils.getPages('pages/order-list/index');
+            if (page) { //更新列表发票状态
+                page.updateTicketStatus(id, 1);
+            }
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({ title: '提交成功' });

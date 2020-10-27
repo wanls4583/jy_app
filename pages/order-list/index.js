@@ -46,81 +46,6 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
-    onShow() {
-        if (wx.jyApp.hasAppraiseId) { //已经评价
-            this.data.interrogationOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasAppraiseId) {
-                    item.isAppraise = true;
-                    this.setStatusColor(item, 'interrogation');
-                    this.setData({
-                        [`interrogationOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            delete wx.jyApp.hasAppraiseId;
-        }
-        if (wx.jyApp.hasRecievedId) { //已经接诊
-            this.data.interrogationOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasRecievedId) {
-                    item.status = 5;
-                    item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
-                    this.setStatusColor(item, 'interrogation');
-                    this.setData({
-                        [`interrogationOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            delete wx.jyApp.hasRecievedId;
-        }
-        if (wx.jyApp.hasPayGuidanceId) { //已支付
-            this.data.guidanceOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasPayGuidanceId) {
-                    item.status = 1;
-                    item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
-                    this.setStatusColor(item, 'mall');
-                    this.setData({
-                        [`guidanceOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            delete wx.jyApp.hasPayGuidanceId;
-        }
-        if (wx.jyApp.hasTicketId) { //已申请发票
-            this.data.interrogationOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasTicketId) {
-                    item.ticketStatus = 1;
-                    this.setData({
-                        [`interrogationOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            this.data.applyOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasTicketId) {
-                    item.ticketStatus = 1;
-                    this.setData({
-                        [`applyOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            this.data.guidanceOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasTicketId) {
-                    item.ticketStatus = 1;
-                    this.setData({
-                        [`guidanceOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            this.data.mallOrder.orderList.map((item, index) => {
-                if (item.id == wx.jyApp.hasTicketId) {
-                    item.ticketStatus = 1;
-                    this.setData({
-                        [`mallOrder.orderList[${index}]`]: item
-                    });
-                }
-            });
-            delete wx.jyApp.hasTicketId;
-        }
-    },
     onChangeTab(e) {
         this.setData({
             active: e.detail.index
@@ -131,7 +56,7 @@ Page({
     },
     //立即接诊
     onRecieve(e) {
-        wx.jyApp.toRecieve = true;
+        wx.jyApp.tempData.toRecieve = true;
         wx.jyApp.utils.navigateTo(e);
     },
     onChangeSwiper(e) {
@@ -200,7 +125,7 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
-                this.loadMallOrderList(true);
+                this.updateMallStatus(id, 1);
                 wx.navigateTo({
                     url: '/pages/mall/order-detail/index?id=' + id
                 });
@@ -267,15 +192,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.interrogationOrder.orderList = this.data.interrogationOrder.orderList.filter((item) => {
-                            return item.id != id;
-                        });
-                        if (!this.data.interrogationOrder.orderList) {
-                            this.data.interrogationOrder.totalPage = 0;
-                        }
-                        this.setData({
-                            interrogationOrder: this.data.interrogationOrder
-                        });
+                        this.deleteInterrogationItem(id);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -298,15 +215,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.applyOrder.orderList = this.data.applyOrder.orderList.filter((item) => {
-                            return item.id != id;
-                        });
-                        if (!this.data.applyOrder.orderList) {
-                            this.data.applyOrder.totalPage = 0;
-                        }
-                        this.setData({
-                            applyOrder: this.data.applyOrder
-                        });
+                        this.deleteApplyItem(id);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -329,15 +238,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.guidanceOrder.orderList = this.data.guidanceOrder.orderList.filter((item) => {
-                            return item.id != id;
-                        });
-                        if (!this.data.guidanceOrder.orderList) {
-                            this.data.guidanceOrder.totalPage = 0;
-                        }
-                        this.setData({
-                            guidanceOrder: this.data.guidanceOrder
-                        });
+                        this.deleteGuidanceItem(id);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -360,15 +261,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.mallOrder.orderList = this.data.mallOrder.orderList.filter((item) => {
-                            return item.id != id;
-                        });
-                        if (!this.data.mallOrder.orderList) {
-                            this.data.mallOrder.totalPage = 0;
-                        }
-                        this.setData({
-                            mallOrder: this.data.mallOrder
-                        });
+                        this.deleteMallItem(id);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -391,16 +284,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.guidanceOrder.orderList.map((item, index) => {
-                            if (item.id == id) {
-                                item.status = 5;
-                                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
-                                this.setStatusColor(item, 'mall');
-                                this.setData({
-                                    [`guidanceOrder.orderList[${index}]`]: item
-                                });
-                            }
-                        });
+                        this.updateGuidanceStatus(id, 5);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -423,16 +307,7 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        this.data.mallOrder.orderList.map((item, index) => {
-                            if (item.id == id) {
-                                item.status = 5;
-                                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
-                                this.setStatusColor(item, 'mall');
-                                this.setData({
-                                    [`mallOrder.orderList[${index}]`]: item
-                                });
-                            }
-                        });
+                        this.updateMallStatus(id, 5);
                     }).finally(() => {
                         wx.hideLoading();
                     });
@@ -659,6 +534,7 @@ Page({
         });
         return this.applyRequest;
     },
+    //设置状态文字的颜色
     setStatusColor(order, type) {
         if (type == 'interrogation') {
             switch (order.status) {
@@ -698,5 +574,152 @@ Page({
                     break;
             }
         }
+    },
+    //供其他页面更新列表发票状态
+    updateTicketStatus(id, status) {
+        this.data.interrogationOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.ticketStatus = status;
+                this.setData({
+                    [`interrogationOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+        this.data.applyOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.ticketStatus = status;
+                this.setData({
+                    [`applyOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+        this.data.guidanceOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.ticketStatus = status;
+                this.setData({
+                    [`guidanceOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+        this.data.mallOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.ticketStatus = status;
+                this.setData({
+                    [`mallOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新评论状态为已评论
+    updateAppraise(id) {
+        this.data.interrogationOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.isAppraise = true;
+                this.setStatusColor(item, 'interrogation');
+                this.setData({
+                    [`interrogationOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新接诊状态为已接诊
+    updateRecieve(id) {
+        this.data.interrogationOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.status = 5;
+                item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                this.setStatusColor(item, 'interrogation');
+                this.setData({
+                    [`interrogationOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新商城订单状态
+    updateApplyStatus(id, status) {
+        this.data.applyOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.status = status;
+                item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
+                this.setStatusColor(item, 'apply');
+                this.setData({
+                    [`applyOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新指导订单状态
+    updateGuidanceStatus(id, status) {
+        this.data.guidanceOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.status = status;
+                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                this.setStatusColor(item, 'mall');
+                this.setData({
+                    [`guidanceOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新商城订单状态
+    updateMallStatus(id, status) {
+        this.data.mallOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.status = status;
+                item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
+                this.setStatusColor(item, 'mall');
+                this.setData({
+                    [`mallOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面删除问诊订单item
+    deleteInterrogationItem(id) {
+        this.data.interrogationOrder.orderList = this.data.interrogationOrder.orderList.filter((item) => {
+            return item.id != id;
+        });
+        if (!this.data.interrogationOrder.orderList) {
+            this.data.interrogationOrder.totalPage = 0;
+        }
+        this.setData({
+            interrogationOrder: this.data.interrogationOrder
+        });
+    },
+    //供其他页面删除申请订单item
+    deleteApplyItem(id) {
+        this.data.applyOrder.orderList = this.data.applyOrder.orderList.filter((item) => {
+            return item.id != id;
+        });
+        if (!this.data.applyOrder.orderList) {
+            this.data.applyOrder.totalPage = 0;
+        }
+        this.setData({
+            applyOrder: this.data.applyOrder
+        });
+    },
+    //供其他页面删除营养指导订单item
+    deleteGuidanceItem(id) {
+        this.data.guidanceOrder.orderList = this.data.guidanceOrder.orderList.filter((item) => {
+            return item.id != id;
+        });
+        if (!this.data.guidanceOrder.orderList) {
+            this.data.guidanceOrder.totalPage = 0;
+        }
+        this.setData({
+            guidanceOrder: this.data.guidanceOrder
+        });
+    },
+    //供其他页面删除商城订单item
+    deleteMallItem(id) {
+        this.data.mallOrder.orderList = this.data.mallOrder.orderList.filter((item) => {
+            return item.id != id;
+        });
+        if (!this.data.mallOrder.orderList) {
+            this.data.mallOrder.totalPage = 0;
+        }
+        this.setData({
+            mallOrder: this.data.mallOrder
+        });
     }
 })

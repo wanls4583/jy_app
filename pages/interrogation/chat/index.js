@@ -17,30 +17,21 @@ Page({
         this.init(option);
     },
     onShow() {
-        if (wx.jyApp.payInterrogationResult) {
-            if (wx.jyApp.payInterrogationResult.result == 'success') {
+        if (wx.jyApp.tempData.payInterrogationResult) {
+            if (wx.jyApp.tempData.payInterrogationResult.result == 'success') {
                 this.init({
-                    id: wx.jyApp.payInterrogationResult.id
+                    id: wx.jyApp.tempData.payInterrogationResult.id
                 });
-                delete wx.jyApp.payInterrogationResult;
+                delete wx.jyApp.tempData.payInterrogationResult;
                 return;
             } else {
                 wx.jyApp.toast('支付失败');
-                delete wx.jyApp.payInterrogationResult;
+                delete wx.jyApp.tempData.payInterrogationResult;
             }
         }
         this.pollStoped = false;
         if (this.data.roomId) {
             this.getNewHistory();
-        }
-        if (wx.jyApp.hasAppraiseId) { //已经评价
-            if (wx.jyApp.hasAppraiseId == this.data.consultOrderId) {
-                this.data.consultOrder.isAppraise = true;
-                this.setData({
-                    consultOrder: this.data.consultOrder
-                });
-            }
-            delete wx.jyApp.hasAppraiseId;
         }
     },
     onHide() {
@@ -93,12 +84,15 @@ Page({
                     id: option.id
                 }
             }).then((data) => {
-                if (wx.jyApp.toRecieve) {
-                    wx.jyApp.hasRecievedId = option.id; //已接诊
+                if (wx.jyApp.tempData.toRecieve) {
+                    var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                    if (page) { //已接诊
+                        page.updateRecieve(option.id);
+                    }
                 }
                 this.initRoom(data);
             }).finally(() => {
-                delete wx.jyApp.toRecieve;
+                delete wx.jyApp.tempData.toRecieve;
             });
         } else if (option.roomId) {
             return wx.jyApp.http({
@@ -766,4 +760,13 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         });
     },
+    //供其他页面更新评论状态为已评论
+    updateAppraise(id) {
+        if (this.data.consultOrderId == id) {
+            this.data.consultOrder.isAppraise = true;
+            this.setData({
+                consultOrder: this.data.consultOrder
+            });
+        }
+    }
 })

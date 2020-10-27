@@ -16,14 +16,14 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
-        if (wx.jyApp.diagnosisTemplate) { //选择了模板
+        if (wx.jyApp.tempData.diagnosisTemplate) { //选择了模板
             this.setData({
-                diagnosis: wx.jyApp.diagnosisTemplate
+                diagnosis: wx.jyApp.tempData.diagnosisTemplate
             });
-            delete wx.jyApp.diagnosisTemplate;
+            delete wx.jyApp.tempData.diagnosisTemplate;
         }
-        if (wx.jyApp.usageGoods) { //添加了商品
-            var usageGoods = wx.jyApp.usageGoods;
+        if (wx.jyApp.tempData.usageGoods) { //添加了商品
+            var usageGoods = wx.jyApp.tempData.usageGoods;
             var index = 0;
             var arr = this.data.goodsList.filter((item) => {
                 return item.type == usageGoods.type && item.id == usageGoods.id;
@@ -41,7 +41,7 @@ Page({
             this.setData({
                 goodsList: this.data.goodsList
             });
-            delete wx.jyApp.usageGoods;
+            delete wx.jyApp.tempData.usageGoods;
             this.caculateTotalAmount();
         }
     },
@@ -78,7 +78,7 @@ Page({
     },
     onEdit(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
-        wx.jyApp.usageGoods = item;
+        wx.jyApp.tempData.usageGoods = item;
         wx.navigateTo({
             url: '/pages/interrogation/usage/index'
         });
@@ -125,6 +125,14 @@ Page({
                     wx.jyApp.toast('提交成功');
                 }, 500);
                 wx.navigateBack();
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if(page) { //已完成
+                    page.loadApplyOrderList(true);
+                }
+                page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
+                if(page) { //已完成
+                    page.loadInfo();
+                }
             }).finally(() => {
                 wx.hideLoading();
             });

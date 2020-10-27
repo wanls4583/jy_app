@@ -64,7 +64,15 @@ Page({
                 score: this.data.score
             }
         }).then(() => {
-            wx.jyApp.hasAppraiseId = this.id;
+            var id = this.id;
+            var page = wx.jyApp.utils.getPages('pages/order-list/index');
+            if (page) { //已经评价
+                page.updateAppraise(id);
+            }
+            page = wx.jyApp.utils.getPages('pages/interrogation/chat/index');
+            if (page) { //已经评价
+                page.updateAppraise(id);
+            }
             wx.navigateBack();
             setTimeout(() => {
                 wx.showToast({ title: '提交成功' });

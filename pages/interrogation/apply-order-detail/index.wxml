@@ -43,7 +43,7 @@
 			<text class="gray-color">{{order.orderTime||order.createTime}}</text>
 		</view>
 	</view>
-	<black wx:if="type=='interrogation'">
+	<black wx:if="{{type=='interrogation'}}">
 		<view
 			class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
 			wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"

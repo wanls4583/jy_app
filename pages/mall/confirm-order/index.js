@@ -74,6 +74,10 @@ Page({
                 wx.redirectTo({
                     url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                 });
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) {
+                    page.loadMallOrderList(true);
+                }
             });
         }).catch(() => {
             wx.hideLoading();

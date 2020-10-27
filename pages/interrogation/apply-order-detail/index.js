@@ -19,15 +19,8 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
-        if (wx.jyApp.hasRecievedId) { //已经接诊
-            if (this.data.order.id == wx.jyApp.hasRecievedId && this.data.type == 'interrogation') {
-                this.data.order.status = 5;
-                this.data.order._status = wx.jyApp.constData.interrogationOrderStatusMap[this.data.order.status];
-                this.setStatusColor(this.data.order);
-                this.setData({
-                    order: this.data.order
-                });
-            }
+        if (this.loaded) {
+            this.loadInfo();
         }
     },
     //支付问诊单
@@ -86,15 +79,7 @@ Page({
                     }).then(() => {
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.data.interrogationOrder.orderList = page.data.interrogationOrder.orderList.filter((item) => {
-                                return item.id != id;
-                            });
-                            if (!page.data.interrogationOrder.orderList) {
-                                page.data.interrogationOrder.totalPage = 0;
-                            }
-                            page.setData({
-                                interrogationOrder: page.data.interrogationOrder
-                            });
+                            page.deleteInterrogationItem(id);
                         }
                         wx.navigateBack();
                     }).finally(() => {
@@ -121,15 +106,7 @@ Page({
                     }).then(() => {
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.data.applyOrder.orderList = page.data.applyOrder.orderList.filter((item) => {
-                                return item.id != id;
-                            });
-                            if (!page.data.applyOrder.orderList) {
-                                page.data.applyOrder.totalPage = 0;
-                            }
-                            page.setData({
-                                applyOrder: page.data.applyOrder
-                            });
+                            page.deleteApplyItem(id);
                         }
                         wx.navigateBack();
                     }).finally(() => {
@@ -178,7 +155,7 @@ Page({
                 order.oneMoreVisible = [3, 4, 7].indexOf(order.status) > -1;
                 order.delVisible = [0, 3, 4, 7].indexOf(order.status) > -1;
             } else {
-                order.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(order.orderTime)) / aDay);
+                order.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(order.createTime)) / aDay);
                 order._status = wx.jyApp.constData.applyOrderStatusMap[order.status];
                 order.applyTicketVisible = order.ticketDays <= this.data.configData.allowApplyTicketDays && order.price > 0 && order.status == 2 || false;
                 order.delVisible = [2, 5].indexOf(order.status) > -1;

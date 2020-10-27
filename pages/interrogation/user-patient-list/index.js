@@ -19,19 +19,6 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
-    onShow() {
-        if (wx.jyApp.reloadPatientList) {
-            this.loadList().then(() => {
-                if (wx.jyApp.selectPatientId) {
-                    this.setData({
-                        selectId: wx.jyApp.selectPatientId
-                    });
-                    delete wx.jyApp.reloadPatientList;
-                }
-            });
-            delete wx.jyApp.reloadPatientList;
-        }
-    },
     onOpenWebview(e) {
         wx.jyApp.utils.openWebview(e);
     },
@@ -46,7 +33,7 @@ Page({
             wx.jyApp.toast('请选择患者');
             return;
         }
-        wx.jyApp.illness.patientId = this.data.selectId;
+        wx.jyApp.tempData.illness.patientId = this.data.selectId;
         wx.navigateTo({
             url: '/pages/interrogation/interrogation-pay/index'
         });

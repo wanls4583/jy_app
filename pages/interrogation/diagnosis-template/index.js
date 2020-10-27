@@ -42,7 +42,7 @@ Page({
         })
     },
     onUse(e) {
-        wx.jyApp.diagnosisTemplate = e.currentTarget.dataset.content;
+        wx.jyApp.tempData.diagnosisTemplate = e.currentTarget.dataset.content;
         wx.navigateBack();
     },
     loadList() {
