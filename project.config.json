@@ -73,9 +73,9 @@
       "list": [
         {
           "id": 0,
-          "name": "pages/interrogation/interrogation-list/index",
-          "pathName": "pages/interrogation/interrogation-list/index",
-          "query": "type=5",
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "type=3&pId=3000",
           "scene": null
         }
       ]

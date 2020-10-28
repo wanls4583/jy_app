@@ -16,12 +16,18 @@
 			<text class="flex-shrink-0">患者信息：</text>
 			<view class="flex">
 				<text>{{order.patient.patientName}}</text>
-				<text>，{{order.patient._sex}}</text>
-				<text>，{{order.patient.age}}岁</text>
-				<text>，{{order.patient.height}}cm</text>
-				<text>，{{order.patient.weight}}kg</text>
-				<text>，{{order.patient.BMI}}</text>
+				<view>
+					<text>，{{order.patient._sex}}</text>
+					<text>，{{order.patient.age}}岁</text>
+					<text>，{{order.patient.height}}cm</text>
+					<text>，{{order.patient.weight}}kg</text>
+					<text>，{{order.patient.BMI}}</text>
+				</view>
 			</view>
+		</view>
+		<view class="flex padding-bottom-20">
+			<text class="flex-shrink-0">食物过敏史：</text>
+			<text>{{order.patient.foodSensitive||''}}</text>
 		</view>
 		<view class="flex padding-bottom-20">
 			<text class="flex-shrink-0">病情描述：</text>
