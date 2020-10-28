@@ -62,7 +62,7 @@
 		</view>
 		<view class="flex padding-bottom-20">
 			<text class="flex-shrink-0">食物过敏史：</text>
-			<text>{{order.patient.foodSensitive||''}}</text>
+			<text>{{order.foodSensitive||''}}</text>
 		</view>
 		<view class="padding-bottom-20">
 			<text>医生姓名：{{order.doctorName}}</text>
