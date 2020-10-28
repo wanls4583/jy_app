@@ -6,7 +6,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['selectAddress', 'userInfo', 'configData'],
-            actions: ['updateSelectAddress', 'addCart', 'updateCartNum'],
+            actions: ['updateSelectAddress', 'addCart', 'updateCartNum', 'selectCart', 'unSelectCart'],
         });
         this.storeBindings.updateStoreBindings();
         if (!this.data.selectAddress) {
@@ -88,9 +88,11 @@ Page({
                 ids: ids.join(',')
             }
         }).then((data) => {
+            this.unSelectCart();
             data.infos.map((item) => {
                 this.addCart(item);
                 this.updateCartNum(item.id, countMap[item.id]);
+                this.selectCart(item.id);
             });
             if (data.infos.length < ids.length) {
                 setTimeout(() => {

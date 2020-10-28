@@ -36,6 +36,10 @@ page button:not([size='mini']) {
     overflow: hidden;
 }
 
+.button.circle {
+    border-radius: 1000px;
+}
+
 .clickable {
     position: relative;
     overflow: hidden;

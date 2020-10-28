@@ -5,10 +5,18 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['cart', 'cartTotalMoney', 'cartNum', 'selectAddress', 'configData'],
+            fields: ['cart', 'cartTotalMoney', 'selectAddress', 'configData'],
             actions: ['addCart', 'clearCart', 'updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
+        if (wx.jyApp.tempData.buyGoods) { //立即购买
+            wx.jyApp.tempData.buyGoods.selected = true;
+            this.setData({
+                cart: [wx.jyApp.tempData.buyGoods],
+                cartTotalMoney: wx.jyApp.tempData.buyGoods.price
+            });
+            delete wx.jyApp.tempData.buyGoods;
+        }
         this.setData({
             totalMoney: (this.data.cartTotalMoney + Number(this.data.configData.deliveryCost || 0)).toFixed(2)
         });

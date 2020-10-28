@@ -35,7 +35,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'configData'],
-            actions: ['addCart', 'updateCartNum', 'clearCart']
+            actions: ['addCart', 'updateCartNum', 'clearCart', 'unSelectCart', 'selectCart']
         });
         this.storeBindings.updateStoreBindings();
         this.loadMallOrderList();
@@ -155,9 +155,11 @@ Page({
             }
         }).then((data) => {
             data.infos = data.infos || [];
+            this.unSelectCart();
             data.infos.map((item) => {
                 this.addCart(item);
                 this.updateCartNum(item.id, countMap[item.id]);
+                this.selectCart(item.id);
             });
             if (data.infos.length < ids.length) {
                 setTimeout(() => {

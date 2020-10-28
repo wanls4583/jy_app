@@ -1,5 +1,5 @@
 <import src="/template/order-goods-item.wxml" />
-<view class="container padding-bottom-footer" wx:if="{{cart.length}}">
+<view class="container padding-bottom-footer">
 	<view bindtap="onSelectAddress" class="flex--center--between white-background-color padding-30">
 		<block wx:if="{{selectAddress}}">
 			<view style="max-width: 300px;">
@@ -21,7 +21,7 @@
 	</view>
 	<view class="margin-top-20 padding-left-right-30 white-background-color">
 		<view>
-			<template data="{{goods:item}}" is="order-goods-item" wx:for="{{cart}}" wx:key="index"></template>
+			<template data="{{goods:item}}" is="order-goods-item" wx:for="{{cart}}" wx:if="{{item.selected}}" wx:key="index"></template>
 		</view>
 		<view class="padding-top-bottom-20 border-top">配送金额：￥{{configData.deliveryCost}}</view>
 	</view>
@@ -29,13 +29,10 @@
 		<text class="gray-color">我已阅读并同意</text>
 		<view bindtap="onOpenWebView" class="button text primary small" data-url="{{configData.consult_shop_url}}">《营养咨询协议》和《购物注意事项》</view>
 	</view>
-	<view class="footer flex--center--between border-top">
-		<view class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
+	<view class="footer flex--center--between padding-30 padding-top-bottom-20 white-background-color border-top">
+		<view class="flex-grow-1 height-100 flex--center--start">
 			<text class="primary-color">合计:￥{{totalMoney}}</text>
 		</view>
-		<view bindtap="onSubmit" class="button primary center height-100 radius-0">提交订单</view>
+		<view bindtap="onSubmit" class="button primary circle">提交订单</view>
 	</view>
-</view>
-<view class="container" wx:else>
-	<empty class="custom-image" description="购物车为空" />
 </view>

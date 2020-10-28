@@ -31,7 +31,7 @@
 		<readonly-field label="企业电话" value="{{orderTicket.phone}}" wx:if="{{orderTicket.ticketType==2}}"></readonly-field>
 		<readonly-field label="企业地址" value="{{orderTicket.address}}" wx:if="{{orderTicket.ticketType==2}}"></readonly-field>
 	</view>
-	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30 z-index-100" wx:if="{{orderTicket.ticketUrl}}">
+	<view class="footer padding-30" wx:if="{{orderTicket.ticketUrl}}">
 		<view bindtap="onPreview" class="button primary block">查看发票</view>
 	</view>
 </view>

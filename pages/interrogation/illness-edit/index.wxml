@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<view class="container" wx:if="{{configData.showDoctor==1}}">
+<view class="container padding-bottom-footer" wx:if="{{configData.showDoctor==1}}">
 	<view class="padding-30 border-bottom border-top height-50vw white-background-color">
 		<textarea bindinput="onInput" class="height-100 width-100" maxlength="{{500}}" placeholder="为了更好的得到医生的帮助，请详细描述您的病情（至少10个字）" value="{{diseaseDetail}}" />
 	</view>
@@ -40,7 +40,7 @@
 			<text style="font-size:100rpx;margin-top:-20rpx">+</text>
 		</view>
 	</view>
-	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
+	<view class="footer padding-30">
 		<view bindtap="onNext" class="button primary block">下一步</view>
 	</view>
 </view>

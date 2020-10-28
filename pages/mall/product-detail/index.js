@@ -60,11 +60,14 @@ Page({
         });
     },
     onShowCart() {
-        if (!this.data.cartVisible && !this.data.cart.length) {
-            return;
-        }
-        this.setData({
-            cartVisible: !this.data.cartVisible
+        // if (!this.data.cartVisible && !this.data.cart.length) {
+        //     return;
+        // }
+        // this.setData({
+        //     cartVisible: !this.data.cartVisible
+        // });
+        wx.navigateTo({
+            url: '/pages/mall/cart/index'
         });
     },
     onAddToCart(e) {
@@ -73,6 +76,7 @@ Page({
             needMoney: Number(this.data.configData.minOrderMoney - wx.jyApp.store.cartTotalMoney).toFixed(2)
         });
         this.getProductNum();
+        wx.jyApp.toast('添加成功');
     },
     onCartNumChange(e) {
         var id = e.currentTarget.dataset.id;
@@ -105,7 +109,7 @@ Page({
                 banner: data.info.goodsPic && data.info.goodsPic.split(',') || [],
                 desImgList: data.info.goodsPicDetails && data.info.goodsPicDetails.split(',') || [],
             });
-        }).finally(()=>{
+        }).finally(() => {
             wx.hideLoading();
         });
     },
@@ -135,6 +139,13 @@ Page({
         } else {
             wx.jyApp.toast('请先添加商品');
         }
+    },
+    //立即购买
+    onBuy() {
+        wx.jyApp.tempData.buyGoods = Object.assign({}, this.data.productInfo);
+        wx.navigateTo({
+            url: '/pages/mall/confirm-order/index'
+        });
     },
     //获取商品购买数量
     getProductNum() {

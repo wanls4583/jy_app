@@ -192,7 +192,7 @@
 			</view>
 		</van-collapse-item>
 	</van-collapse>
-	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30" wx:if="{{approveStatus&&approveStatus!=1}}">
+	<view class="footer padding-30" wx:if="{{approveStatus&&approveStatus!=1}}">
 		<view bindtap="onSave" class="button primary block">提交审核</view>
 	</view>
 	<van-popup bind:click-overlay="onShowDisease" position="bottom" show="{{diseaseVisible}}">

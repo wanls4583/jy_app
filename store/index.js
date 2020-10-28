@@ -4,16 +4,23 @@ import { observable, action } from 'mobx-miniprogram'
 export const store = observable({
     cart: [],
     get cartNum() {
-        var count = 0;
+        return this.cart.length;
+    },
+    get cartSelectedNum() {
+        var num = 0;
         this.cart.map((item) => {
-            count += item.count;
+            if (item.selected) {
+                num++;
+            }
         });
-        return count;
+        return num;
     },
     get cartTotalMoney() {
         var money = 0;
         this.cart.map((item) => {
-            money += item.totalAmount;
+            if (item.selected) {
+                money += item.totalAmount;
+            }
         });
         return Number(money.toFixed(2));
     },
@@ -35,6 +42,11 @@ export const store = observable({
         }
         this.cart = this.cart.concat([]);
     }),
+    deleteCart: action(function (id) {
+        this.cart = this.cart.filter((item) => {
+            return item.id != id;
+        });
+    }),
     updateCartNum: action(function (id, count) {
         for (var i = 0; i < this.cart.length; i++) {
             if (this.cart[i].id == id) {
@@ -49,8 +61,30 @@ export const store = observable({
         }
         this.cart = this.cart.concat([]);
     }),
-    clearCart: action(function () {
-        this.cart = [];
+    clearCart: action(function (force) {
+        if (force) { //清空所有
+            this.cart = [];
+        } else { //只清除下单了的商品
+            this.cart = this.cart.filter((item) => {
+                return !item.selected;
+            });
+        }
+    }),
+    selectCart: action(function (id) {
+        this.cart.map((item) => {
+            if (item.id == id || !id) {
+                item.selected = true;
+            }
+        });
+        this.cart = this.cart.concat([]);
+    }),
+    unSelectCart: action(function (id) {
+        this.cart.map((item) => {
+            if (item.id == id || !id) {
+                item.selected = false
+            }
+        });
+        this.cart = this.cart.concat([]);
     }),
     selectAddress: null,
     updateSelectAddress: action(function (address) {

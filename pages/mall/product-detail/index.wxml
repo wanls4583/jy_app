@@ -22,6 +22,7 @@
 				<text class="font-large">{{productInfo.price}}</text>
 				<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{productInfo._unit}}</text>
 			</view>
+			<!-- 
 			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view
 					bindtap="onAddToCart"
@@ -45,6 +46,7 @@
 					/>
 				</block>
 			</view>
+			-->
 		</view>
 	</view>
 	<view class="margin-top-20 padding-20 white-background-color">
@@ -52,6 +54,15 @@
 		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description||''}}</view>
 		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
 	</view>
+	<view class="footer flex--center--between padding-30 padding-top-bottom-20 white-background-color border-top" wx:if="{{!readonly}}">
+		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start">
+			<van-icon class="primary-color margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="25px" wx:if="{{cartNum}}" />
+			<van-icon class="gray-color margin-right-30" name="shopping-cart-o" size="25px" wx:else />
+		</view>
+		<view bindtap="onAddToCart" class="button warn circle">加入购物车</view>
+		<view bindtap="onBuy" class="margin-left-20 button primary circle">立即购买</view>
+	</view>
+	<!-- 
 	<view class="footer flex--center--between" wx:if="{{!readonly}}">
 		<view bindtap="onShowCart" class="flex-grow-1 height-100 flex--center--start padding-left-30 border-top">
 			<van-icon class="primary-color margin-right-30" info="{{cartNum}}" name="shopping-cart-o" size="20px" wx:if="{{cartNum}}" />
@@ -87,4 +98,5 @@
 			</view>
 		</view>
 	</van-popup>
+	-->
 </view>

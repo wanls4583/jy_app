@@ -28,7 +28,7 @@
 		<van-field bindinput="onInput" data-prop="phone" label="企业电话" placeholder="请输入企业电话（选填）" value="{{phone}}" wx:if="{{ticketType==2}}"></van-field>
 		<van-field bindinput="onInput" data-prop="address" label="企业地址" placeholder="请输入企业地址（选填）" value="{{address}}" wx:if="{{ticketType==2}}"></van-field>
 	</view>
-	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30">
+	<view class="footer padding-30">
 		<view bindtap="onSubmit" class="button primary block">提交</view>
 	</view>
 </view>

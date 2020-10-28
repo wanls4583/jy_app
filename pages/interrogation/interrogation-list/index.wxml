@@ -38,7 +38,7 @@
 								</view>
 								<view class="flex--center--between width-100">
 									<text class="font-small gray-color">{{item.orderTime}}</text>
-									<text class="tag success" wx:if="{{status==3&&item.makeNutritionOrder==1}}">已开营养指导</text>
+									<text class="tag success" wx:if="{{(status==5||status==3)&&item.makeNutritionOrder==1}}">已开营养指导</text>
 								</view>
 							</view>
 						</view>

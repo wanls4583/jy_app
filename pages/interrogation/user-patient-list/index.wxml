@@ -26,7 +26,7 @@
 	<view class="padding-30">
 		<view catchtap="onAdd" class="button plain primary block">+ 添加患者</view>
 	</view>
-	<view class="position-fixed bottom-0 width-100 z-index-100 padding-30" wx:if="{{ifSelect}}">
+	<view class="footer padding-30" wx:if="{{ifSelect}}">
 		<view class="font-small gray-color align-center">
 			<text>开始问诊即代表已阅读并同意</text>
 			<text bindtap="onOpenWebview" class="primary-color clickable" data-url="{{configData.informed_consent_url}}">《知情同意书》</text>
