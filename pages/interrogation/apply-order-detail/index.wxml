@@ -14,15 +14,13 @@
 		</view>
 		<view class="flex padding-bottom-20">
 			<text class="flex-shrink-0">患者信息：</text>
-			<view class="flex">
+			<view>
 				<text>{{order.patient.patientName}}</text>
-				<view>
-					<text>，{{order.patient._sex}}</text>
-					<text>，{{order.patient.age}}岁</text>
-					<text>，{{order.patient.height}}cm</text>
-					<text>，{{order.patient.weight}}kg</text>
-					<text>，{{order.patient.BMI}}</text>
-				</view>
+				<text>，{{order.patient._sex}}</text>
+				<text>，{{order.patient.age}}岁</text>
+				<text>，{{order.patient.height}}cm</text>
+				<text>，{{order.patient.weight}}kg</text>
+				<text>，{{order.patient.BMI}}</text>
 			</view>
 		</view>
 		<view class="flex padding-bottom-20">
