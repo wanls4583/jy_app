@@ -44,13 +44,13 @@
 		<view bindtap="onBuyAgain" class="margin-left-20 button small primary" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 		<view
 			catchtap="onGoto"
-			class="margin-left-20 button small primary primary"
+			class="margin-left-20 button small primary"
 			data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=4"
 			wx:if="{{order.ticketStatus}}"
 		>发票详情</view>
 		<view
 			catchtap="onGoto"
-			class="margin-left-20 button small primary primary"
+			class="margin-left-20 button small primary"
 			data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
 			wx:elif="{{applyTicketVisible}}"
 		>申请发票</view>

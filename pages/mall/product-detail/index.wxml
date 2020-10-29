@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container" style="padding-bottom:{{!readonly?50:0}}px">
+<view class="container" style="padding-bottom:{{!readonly?60:0}}px">
 	<view bindtap="onBack" class="position-fixed z-index-100" style="top:{{bTop}}px;left:0;padding-left:20px;">
 		<view class="flex--center--center radius-50 clickable" style="width:{{bHeight}}px;height:{{bHeight}}px;background:rgba(0,0,0,0.5)">
 			<van-icon color="#fff" name="arrow-left" size="20px" />

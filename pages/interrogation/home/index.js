@@ -11,7 +11,7 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['userInfo', 'doctorInfo', 'configData'],
+                fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum'],
                 actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();

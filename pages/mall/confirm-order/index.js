@@ -10,10 +10,14 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         if (wx.jyApp.tempData.buyGoods) { //立即购买
-            wx.jyApp.tempData.buyGoods.selected = true;
+            var goods = wx.jyApp.tempData.buyGoods;
+            goods.selected = true;
+            goods.count = 1;
+            goods.totalAmount = goods.price;
+            goods.firstPic = goods.goodsPic && goods.goodsPic.split(',')[0] || '';
             this.setData({
-                cart: [wx.jyApp.tempData.buyGoods],
-                cartTotalMoney: wx.jyApp.tempData.buyGoods.price
+                cart: [goods],
+                cartTotalMoney: goods.price
             });
             delete wx.jyApp.tempData.buyGoods;
         }

@@ -110,4 +110,8 @@ export const store = observable({
     updateConfigData: action(function (configData) {
         this.configData = configData;
     }),
+    consultNum: {}, //医生会诊数量信息
+    updateConsultNum: action(function (consultNum) {
+        this.consultNum = consultNum;
+    }),
 })

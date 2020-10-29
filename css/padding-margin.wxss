@@ -339,5 +339,5 @@
 }
 
 .padding-bottom-footer {
-    padding-bottom: 140rpx;
+    padding-bottom: 130rpx;
 }
