@@ -75,7 +75,7 @@
           "id": 0,
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=3&pId=3000",
+          "query": "type=-1&&url=/pages/tab-bar-second/index&routeType=switchTab",
           "scene": null
         }
       ]

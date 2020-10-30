@@ -39,9 +39,12 @@ function request(obj) {
                     }
                     reject(res.data);
                     if (res.data.code == 401 || !wx.jyApp.store.userInfo) { //未登陆
-                        wx.reLaunch({
-                            url: '/pages/index/index'
-                        });
+                        clearTimeout(wx.reLaunchTimer);
+                        wx.reLaunchTimer = setTimeout(() => {
+                            wx.reLaunch({
+                                url: '/pages/index/index'
+                            });
+                        }, 1000);
                     }
                     wx.jyApp.log.info('服务器错误：', obj.url, obj.data, userInfo, res.data);
                 }
@@ -56,7 +59,7 @@ function request(obj) {
                     reject(res);
                     if (!obj.hideTip) {
                         setTimeout(() => { //延时提示，防止hideLoading干扰
-                            wx.jyApp.toast('服务器错误');
+                            // wx.jyApp.toast('服务器错误');
                         }, 300);
                     }
                     wx.jyApp.log.info('网络错误：', obj.url, obj.data, userInfo, res.statusCode);

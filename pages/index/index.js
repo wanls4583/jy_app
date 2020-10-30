@@ -26,7 +26,30 @@ Page({
         wx.jyApp.loginUtil.login({
             inviteId: this.inviteId,
             inviteWay: this.inviteWay
-        }).then(() => {
+        }).then((data) => {
+            if (data.doctorStatus == 3) {
+                wx.showModal({
+                    title: '提示',
+                    content: '医生已暂停服务，你可以去首页看看！',
+                    showCancel: false,
+                    success: (res) => {
+                        if (res.confirm) {
+                            _getInfo.bind(this)();
+                        }
+                    }
+                })
+            } else {
+                _getInfo.bind(this)();
+            }
+            wx.hideLoading();
+        }).catch(() => {
+            wx.hideLoading();
+            wx.jyApp.toast('登录失败');
+        });
+        function _getInfo() {
+            wx.showLoading({
+                title: '加载中...'
+            });
             this.getUserInfo().then((data) => {
                 data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
@@ -34,31 +57,57 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 this.getMessageCount();
-                if (this.url && this.firstLoad) {
-                    wx.navigateTo({
-                        url: this.url
-                    });
-                } else if (this.doctorId && this.firstLoad) {
-                    wx.navigateTo({
-                        url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
-                    });
-                } if (this.productId && this.firstLoad) {
-                    wx.navigateTo({
-                        url: '/pages/mall/product-detail/index?id=' + this.productId
-                    });
+                if (this.firstLoad) {
+                    if (this.url) {
+                        if(this.routeType == 'switchTab') {
+                            wx.switchTab({
+                                url: this.url
+                            });
+                        } else {
+                            wx.navigateTo({
+                                url: this.url
+                            });
+                        }
+                    } else if (this.to) {
+                        switch (this.to) {
+                            case 1:
+                                wx.navigateTo({
+                                    url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
+                                });
+                                break;
+                            case 2:
+                                wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                                break;
+                            case 3:
+                                wx.switchTab({ url: '/pages/tab-bar-second/index' });
+                                break;
+                        }
+                    } else if (this.doctorId) {
+                        wx.navigateTo({
+                            url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
+                        });
+                    } if (this.productId) {
+                        wx.navigateTo({
+                            url: '/pages/mall/product-detail/index?id=' + this.productId
+                        });
+                    } else {
+                        wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                    }
                 } else {
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
                 }
                 this.firstLoad = false;
             });
-        });
+        }
     },
     //检查启动参数
     checkOption(option) {
         console.log('检查启动参数');
         //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
+        //to:{1:医生详情页,2:首页,3:商城页}
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
+            this.routeType = option.routeType || 'navigateTo';
         } else if (option.type == 1 && option.uId) { //医生通过好友分享邀请
             this.inviteId = option.uId;
             this.inviteWay = 1;
@@ -73,6 +122,7 @@ Page({
                 this.inviteId = param.uId;
                 this.inviteWay = 2;
                 this.doctorId = param.dId;
+                this.to = param.to || 1;
             }
         }
     },

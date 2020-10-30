@@ -52,10 +52,6 @@ function login(param) {
             wx.setStorageSync('token', data.token);
             login.logining = false;
             return wx.jyApp.Promise.resolve(data);
-        }).catch(() => {
-            wx.showToast({
-                title: '登录失败'
-            });
         });
     });
 }
