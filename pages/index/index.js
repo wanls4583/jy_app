@@ -27,6 +27,7 @@ Page({
             inviteId: this.inviteId,
             inviteWay: this.inviteWay
         }).then((data) => {
+            wx.hideLoading();
             if (data.doctorStatus == 3) {
                 wx.showModal({
                     title: '提示',
@@ -41,7 +42,6 @@ Page({
             } else {
                 _getInfo.bind(this)();
             }
-            wx.hideLoading();
         }).catch(() => {
             wx.hideLoading();
             wx.jyApp.toast('登录失败');
@@ -51,7 +51,7 @@ Page({
                 title: '加载中...'
             });
             this.getUserInfo().then((data) => {
-                data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 });
             }).finally(() => {
@@ -86,7 +86,7 @@ Page({
                         wx.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                         });
-                    } if (this.productId) {
+                    } else if (this.productId) {
                         wx.navigateTo({
                             url: '/pages/mall/product-detail/index?id=' + this.productId
                         });
