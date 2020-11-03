@@ -3,9 +3,11 @@
 	<view class="white-background-color">
 		<view wx:for="{{cart}}" wx:key="id">
 			<van-swipe-cell right-width="{{75}}">
-				<view class="flex--center--center padding-left-right-30">
-					<radio bindtap="onCartSelect" checked="{{item.selected}}" color="rgb(42, 175, 255)" data-item="{{item}}"></radio>
-					<view class="flex-grow-1 margin-left-20">
+				<view class="flex--center--center padding-right-30">
+					<view class="flex padding-30 padding-right-20" bindtap="onCartSelect" data-item="{{item}}">
+						<radio checked="{{item.selected}}" color="rgb(42, 175, 255)"></radio>
+					</view>
+					<view class="flex-grow-1">
 						<template data="{{goods:item}}" is="cart-goods-item"></template>
 					</view>
 				</view>
