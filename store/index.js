@@ -24,6 +24,9 @@ export const store = observable({
         });
         return Number(money.toFixed(2));
     },
+    setCart: action(function (cart) {
+        this.cart = this.cart;
+    }),
     addCart: action(function (product) {
         var temp = this.cart.filter((item) => {
             return item.id == product.id;
@@ -41,11 +44,13 @@ export const store = observable({
             this.cart.push(product);
         }
         this.cart = this.cart.concat([]);
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     deleteCart: action(function (id) {
         this.cart = this.cart.filter((item) => {
             return item.id != id;
         });
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     updateCartNum: action(function (id, count) {
         for (var i = 0; i < this.cart.length; i++) {
@@ -60,6 +65,7 @@ export const store = observable({
             }
         }
         this.cart = this.cart.concat([]);
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     clearCart: action(function (force) {
         if (force) { //清空所有
@@ -69,6 +75,7 @@ export const store = observable({
                 return !item.selected;
             });
         }
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     selectCart: action(function (id) {
         this.cart.map((item) => {
@@ -77,6 +84,7 @@ export const store = observable({
             }
         });
         this.cart = this.cart.concat([]);
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     unSelectCart: action(function (id) {
         this.cart.map((item) => {
@@ -85,6 +93,7 @@ export const store = observable({
             }
         });
         this.cart = this.cart.concat([]);
+        wx.jyApp.utils.storeLocalCart(this.cart);
     }),
     selectAddress: null,
     updateSelectAddress: action(function (address) {

@@ -279,6 +279,13 @@ function getPages(route) {
         }
     }
 }
+function storeLocalCart(cart) {
+    wx.setStorageSync('jy_cart', cart);
+}
+
+function getLocalCart() {
+    return wx.getStorageSync('jy_cart');
+}
 
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
@@ -300,5 +307,7 @@ module.exports = {
     getMenuRect: getMenuRect,
     requestSubscribeMessage: requestSubscribeMessage,
     getPages: getPages,
+    storeLocalCart: storeLocalCart,
+    getLocalCart: getLocalCart,
     getUUID: getUUID
 }

@@ -50,7 +50,10 @@ Page({
             wx.jyApp.toast('购物车为空');
             return;
         }
-        var goods = this.data.cart.map((item) => {
+        var cart = this.data.cart.filter((item)=>{
+            return item.selected;
+        });
+        var goods = cart.map((item) => {
             return {
                 amount: item.totalAmount,
                 goodsId: item.id,

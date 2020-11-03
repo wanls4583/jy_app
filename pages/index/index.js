@@ -9,7 +9,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'addCart', 'updateCartNum'],
         });
         this.storeBindings.updateStoreBindings();
         this.checkOption(this.option);
@@ -59,7 +59,7 @@ Page({
                 this.getMessageCount();
                 if (this.firstLoad) {
                     if (this.url) {
-                        if(this.routeType == 'switchTab') {
+                        if (this.routeType == 'switchTab') {
                             wx.switchTab({
                                 url: this.url
                             });
@@ -144,6 +144,9 @@ Page({
                 data.info.role = 'DOCTOR';
             }
             this.updateUserInfo(data.info);
+            if(data.info.role == 'USER') {
+                this.getCart();
+            }
             return data;
         });
     },
@@ -181,5 +184,32 @@ Page({
                 this.getMessageCount();
             }, 5000);
         });
+    },
+    //获取购物车内容
+    getCart() {
+        var ids = [];
+        var countMap = {};
+        var cart = wx.jyApp.utils.getLocalCart();
+        if (cart && cart.length) {
+            cart.map((item) => {
+                var id = item.id;
+                if (ids.indexOf(id) == -1) {
+                    ids.push(id);
+                    countMap[id] = item.count;
+                }
+            });
+            wx.jyApp.http({
+                url: '/goods/infos',
+                data: {
+                    ids: ids.join(',')
+                }
+            }).then((data) => {
+                data.infos = data.infos || [];
+                data.infos.map((item) => {
+                    this.addCart(item);
+                    this.updateCartNum(item.id, countMap[item.id]);
+                });
+            });
+        }
     }
 })
