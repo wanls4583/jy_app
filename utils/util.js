@@ -190,7 +190,12 @@ function getAllConfig() {
         'hideAllBanner',
         'showInvite',
         'allowApplyTicketDays',
+        'normalOrderExpireMinute',
+        'nutritionOrderExpireDay',
+        'consultOrderExpireMinute',
+        'consultOrderCloseDay',
     ]).then((data) => {
+        data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;
         wx.jyApp.store.updateConfigData(data);
     });
 }

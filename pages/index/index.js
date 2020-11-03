@@ -69,7 +69,7 @@ Page({
                             });
                         }
                     } else if (this.to) {
-                        switch (this.to) {
+                        switch (Number(this.to)) {
                             case 1:
                                 wx.navigateTo({
                                     url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId

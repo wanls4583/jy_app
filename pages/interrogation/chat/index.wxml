@@ -235,7 +235,7 @@
 	>
 		<view class="flex--center--center">
 			<text>图文问诊</text>
-			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}/24小时</text>
+			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
 		</view>
 		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}">去咨询</view>
 	</view>

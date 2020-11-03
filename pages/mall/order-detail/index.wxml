@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="flex--center--center flex-direction-column padding-30 white-background-color">
 		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
-		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过三天未支付，订单自动失效</view>
+		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过{{configData.normalOrderExpireMinute}}分钟未支付，订单自动失效</view>
 	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>

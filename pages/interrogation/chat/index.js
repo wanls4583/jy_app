@@ -4,6 +4,11 @@ Page({
     data: {
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
@@ -39,6 +44,7 @@ Page({
     },
     onUnload() {
         this.stopPoll();
+        this.storeBindings.destroyStoreBindings();
     },
     init(option) {
         this.setData({
