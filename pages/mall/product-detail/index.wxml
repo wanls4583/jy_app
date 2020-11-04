@@ -54,17 +54,29 @@
 		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description||''}}</view>
 		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
 	</view>
-	<view class="footer flex--center--between padding-30 padding-top-bottom-20 white-background-color border-top" wx:if="{{!readonly}}">
-		<view bindtap="onShowCart" class="flex-grow-1 flex height-100">
-			<div class="flex--center--center flex-direction-column">
-				<van-icon class="primary-color" info="{{cartNum}}" name="shopping-cart-o" size="25px" wx:if="{{cartNum}}" />
-				<van-icon class="gray-color" name="shopping-cart-o" size="25px" wx:else />
-				<text class="font-mini">购物车</text>
-			</div>
-			<div class="flex-grow-1"></div>
+	<view class="footer flex--center--between white-background-color border-top" wx:if="{{!readonly}}">
+		<view bindtap="onShowCart" class="width-120rpx flex--center--center flex-direction-column clickable" style="height:110rpx">
+			<van-icon info="{{cartNum}}" name="shopping-cart-o" size="20px" wx:if="{{cartNum}}" />
+			<van-icon name="shopping-cart-o" size="20px" wx:else />
+			<text class="font-mini" style="line-height:1em;white-space:nowrap;;margin-top:2px">购物车</text>
 		</view>
-		<view bindtap="onAddToCart" class="button warn circle">加入购物车</view>
-		<view bindtap="onBuy" class="margin-left-20 button primary circle">立即购买</view>
+		<button
+			class="flex--center--center flex-direction-column clickable"
+			open-type="contact"
+			style="height:110rpx;width:120rpx !important"
+			wx:if="{{contactVisible}}"
+		>
+			<van-icon name="chat-o" size="20px" />
+			<text class="font-mini" style="line-height:1em;white-space:nowrap;margin-top:2px">客服</text>
+		</button>
+		<button bindtap="showContactTip" class="flex--center--center flex-direction-column clickable" style="height:110rpx;width:120rpx !important" wx:else>
+			<van-icon name="chat-o" size="20px" />
+			<text class="font-mini" style="line-height:1em;white-space:nowrap;margin-top:2px">客服</text>
+		</button>
+		<view class="flex-grow-1 flex--center--center margin-left-right-20">
+			<view bindtap="onAddToCart" class="button width-50 white-color" style="border-radius:100px 0 0 100px;background-color:rgba(42, 175, 255, 0.8);">加入购物车</view>
+			<view bindtap="onBuy" class="button primary width-50" style="border-radius:0 100px 100px 0">立即购买</view>
+		</view>
 	</view>
 	<!-- 
 	<view class="footer flex--center--between" wx:if="{{!readonly}}">

@@ -94,6 +94,9 @@
         "van-steps": "@vant/weapp/steps/index",
         "van-share-sheet": "@vant/weapp/share-sheet/index",
         "van-image": "@vant/weapp/image/index",
+        "van-goods-action": "@vant/weapp/goods-action/index",
+        "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
+        "van-goods-action-button": "@vant/weapp/goods-action-button/index",
         "van-stepper": "@vant/weapp/stepper/index"
     },
     "tabBar": {

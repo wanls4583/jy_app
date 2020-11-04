@@ -92,7 +92,12 @@
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_trend.png" />
 					<view class="font-small">查看收益</view>
 				</view>
-				<view bindtap="onCheckGoto" class="width-33 padding-20 padding-top-bottom-30 align-center clickable" data-income-switch="{{true}}" data-url="/pages/interrogation/withdraw/index">
+				<view
+					bindtap="onCheckGoto"
+					class="width-33 padding-20 padding-top-bottom-30 align-center clickable"
+					data-income-switch="{{true}}"
+					data-url="/pages/interrogation/withdraw/index"
+				>
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_withdrawal.png" />
 					<view class="font-small">提现</view>
 				</view>
@@ -138,7 +143,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-20 clickable">
+			<!-- <view class="padding-left-right-20 clickable">
 				<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>联系客服</text>
 					<view class="flex--center--center">
@@ -146,7 +151,19 @@
 						<van-icon color="#ccc" name="arrow" />
 					</view>
 				</view>
-			</view>
+			</view>-->
+			<button class="padding-left-right-20" open-type="contact" wx:if="{{contactVisible}}">
+				<view class="flex--center--between padding-top-bottom-30 border-bottom">
+					<text>联系客服</text>
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</button>
+			<button bindtap="showContactTip" class="padding-left-right-20" wx:else>
+				<view class="flex--center--between padding-top-bottom-30 border-bottom">
+					<text>联系客服</text>
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</button>
 			<view class="padding-left-right-20 clickable">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/setting/index">
 					<text>设置</text>

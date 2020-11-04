@@ -10,7 +10,8 @@ Page({
         bHeight: 32,
         needMoney: 0,
         count: 0,
-        readonly: false
+        readonly: false,
+        contactVisible: false
     },
     onLoad(option) {
         this.data.id = option.id;
@@ -32,6 +33,10 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
+        var hours = new Date().getHours();
+        this.setData({
+            contactVisible: hours >= 9 && hours <= 17
+        });
         this.getProductNum();
     },
     onShareAppMessage: function (res) {
@@ -160,5 +165,8 @@ Page({
                 count: count
             });
         });
+    },
+    showContactTip() {
+        wx.jyApp.toast('客服上班时间为9:00-18:00');
     }
 })

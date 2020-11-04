@@ -4,7 +4,7 @@
 		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
 		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过{{configData.nutritionOrderExpireDay}}天未支付，订单自动失效</view>
 	</view>
-	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.contactName}}">
+	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.contactName&&order.userId==userInfo.id}}">
 		<view>
 			<view class="flex--center--between">
 				<text class="flex-shrink-0">快递单号</text>
