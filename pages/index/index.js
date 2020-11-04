@@ -29,6 +29,7 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             if (data.doctorStatus == 3) {
+                this.to = 2;
                 wx.showModal({
                     title: '提示',
                     content: '医生已暂停服务，你可以去首页看看！',
