@@ -214,9 +214,29 @@ Page({
                     item._unit = '份';
                 }
             });
+            this.loadExpress(data.detail);
             this.setStatusColor(data.detail);
             this.setData({
                 order: data.detail
+            });
+        }
+    },
+    //获取物流信息
+    loadExpress(order) {
+        if (order.expressNumber) {
+            wx.jyApp.http({
+                url: '/express',
+                data: {
+                    expCode: 'SF',
+                    expNo: order.expressNumber
+                }
+            }).then((data) => {
+                this.setData({
+                    'order.loadedTrace': true
+                });
+                this.setData({
+                    'order.traces': JSON.parse(data.result).Traces
+                });
             });
         }
     },

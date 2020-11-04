@@ -1,0 +1,4 @@
+<view class="container">
+	<van-steps active="{{0}}" direction="vertical" steps="{{traces}}" wx:if="{{traces.length}}" />
+	<van-empty class="custom-image" description="暂无物流信息" wx:else />
+</view>

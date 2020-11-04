@@ -168,6 +168,7 @@ Page({
                 _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
             });
             this.setStatusColor(data.order);
+            this.loadExpress(data.order);
             this.setData({
                 order: data.order
             });
@@ -175,6 +176,25 @@ Page({
             !this.loaded && wx.hideLoading();
             this.loaded = true;
         });
+    },
+    //获取物流信息
+    loadExpress(order) {
+        if (order.expressNumber) {
+            wx.jyApp.http({
+                url: '/express',
+                data: {
+                    expCode: 'SF',
+                    expNo: order.expressNumber
+                }
+            }).then((data) => {
+                this.setData({
+                    'order.loadedTrace': true
+                });
+                this.setData({
+                    'order.traces': JSON.parse(data.result).Traces
+                });
+            });
+        }
     },
     setStatusColor(order) {
         switch (order.status) {

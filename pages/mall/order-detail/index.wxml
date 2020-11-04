@@ -6,6 +6,32 @@
 	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>
+			<view class="flex--center--between">
+				<text class="flex-shrink-0">快递单号</text>
+				<text>{{order.expressNumber||''}}</text>
+			</view>
+			<view class="flex--center--between margin-top-20" wx:if="{{order.expressNumber}}">
+				<text class="flex-shrink-0">快递公司</text>
+				<text>顺丰</text>
+			</view>
+			<view class="flex--center--between margin-top-20">
+				<text class="flex-shrink-0">物流信息</text>
+				<view
+					bindtap="onGoto"
+					class="flex--center--between clickable"
+					data-url="/pages/express/index?expressNumber={{order.expressNumber}}"
+					wx:if="{{order.traces&&order.traces.length}}"
+				>
+					<view class="margin-left-right-30">
+						<view class="font-small">{{order.traces[0].AcceptStation}}</view>
+						<view class="font-small gray-color">{{order.traces[0].AcceptTime}}</view>
+					</view>
+					<van-icon class="flex-shrink-0" color="#333" name="arrow" />
+				</view>
+				<view class="gray-color" wx:elif="{{!order.expressNumber||order.loadedTrace}}">暂无物流信息</view>
+			</view>
+		</view>
+		<view class="margin-top-20">
 			<text>{{order.contactName}}</text>
 			<text class="margin-left-30">{{order.contactPhone}}</text>
 		</view>

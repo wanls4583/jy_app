@@ -15,6 +15,7 @@
         "pages/mall/address-list/index",
         "pages/mall/product-list/index",
         "pages/order-list/index",
+        "pages/express/index",
         "pages/mall/order-detail/index",
         "pages/mall/search/index",
         "pages/mall/address-edit/index",

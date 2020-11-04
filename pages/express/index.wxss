@@ -1,0 +1,6 @@
+.order-goods-item:last-child .border-bottom{
+    border-bottom-style: solid;
+}
+.last-item .border-bottom {
+    border-style: none !important;
+}
