@@ -60,16 +60,7 @@
 			<van-icon name="shopping-cart-o" size="20px" wx:else />
 			<text class="font-mini" style="line-height:1em;white-space:nowrap;;margin-top:2px">购物车</text>
 		</view>
-		<button
-			class="flex--center--center flex-direction-column clickable"
-			open-type="contact"
-			style="height:110rpx;width:120rpx !important"
-			wx:if="{{contactVisible}}"
-		>
-			<van-icon name="chat-o" size="20px" />
-			<text class="font-mini" style="line-height:1em;white-space:nowrap;margin-top:2px">客服</text>
-		</button>
-		<button bindtap="showContactTip" class="flex--center--center flex-direction-column clickable" style="height:110rpx;width:120rpx !important" wx:else>
+		<button class="flex--center--center flex-direction-column clickable" open-type="contact" style="height:110rpx;width:120rpx !important">
 			<van-icon name="chat-o" size="20px" />
 			<text class="font-mini" style="line-height:1em;white-space:nowrap;margin-top:2px">客服</text>
 		</button>

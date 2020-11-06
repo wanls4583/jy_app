@@ -3,7 +3,6 @@ Page({
         settlementUrl: '',
         stopRefresh: false,
         userInfoButtonVisible: true,
-        contactVisible: false
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -17,10 +16,6 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
-        var hours = new Date().getHours();
-        this.setData({
-            contactVisible: hours >= 9 && hours <= 17
-        });
         this.getMessageCount();
         if (wx.getStorageSync('hasPopUserAuth') == 1 || this.data.userInfo.avatarUrl) {
             this.setData({
@@ -142,7 +137,4 @@ Page({
             return data;
         });
     },
-    showContactTip() {
-        wx.jyApp.toast('客服上班时间为9:00-18:00');
-    }
 })

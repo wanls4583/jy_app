@@ -152,16 +152,13 @@
 					</view>
 				</view>
 			</view>-->
-			<button class="padding-left-right-20" open-type="contact" wx:if="{{contactVisible}}">
+			<button class="padding-left-right-20" open-type="contact">
 				<view class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>联系客服</text>
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</button>
-			<button bindtap="showContactTip" class="padding-left-right-20" wx:else>
-				<view class="flex--center--between padding-top-bottom-30 border-bottom">
-					<text>联系客服</text>
-					<van-icon color="#ccc" name="arrow" />
+					<view class="flex--center--center">
+						<text class="gray-color">客服上班时间为:9:00-18:00</text>
+						<van-icon color="#ccc" name="arrow" />
+					</view>
 				</view>
 			</button>
 			<view class="padding-left-right-20 clickable">
