@@ -156,7 +156,7 @@
 				<view class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>联系客服</text>
 					<view class="flex--center--center">
-						<text class="gray-color">客服上班时间为:9:00-18:00</text>
+						<text class="gray-color">客服上班时间为9:00-18:00</text>
 						<van-icon color="#ccc" name="arrow" />
 					</view>
 				</view>
