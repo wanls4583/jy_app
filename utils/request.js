@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-02 15:12:40
+ * @Description: 
+ */
 const httpHost = require('../config/index.js').httpHost;
 
 function request(obj) {
@@ -7,6 +12,7 @@ function request(obj) {
     }
     header['token'] = wx.getStorageSync('token');
     header['role'] = wx.getStorageSync('role');
+    header['type'] = wx.getStorageSync('doctorType') == 2 ? 2 : 1;
     var userInfo = wx.jyApp.store.userInfo;
     if (userInfo) {
         userInfo = {

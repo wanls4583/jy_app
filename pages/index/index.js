@@ -51,8 +51,8 @@ Page({
             wx.showLoading({
                 title: '加载中...'
             });
-            this.getUserInfo().then((data) => {
-                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+            this.getUserInfo().then((doctorId) => {
+                return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 });
             }).finally(() => {
@@ -105,7 +105,7 @@ Page({
     checkOption(option) {
         console.log('检查启动参数');
         //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
-        //to:{1:医生详情页,2:首页,3:商城页}
+        //to:{1:医生详情页,2:首页,3:商城页,4:门诊患者页}
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
             this.routeType = option.routeType || 'navigateTo';
@@ -123,7 +123,7 @@ Page({
                 this.inviteId = param.uId;
                 this.inviteWay = 2;
                 this.doctorId = param.dId;
-                this.to = param.to || 1;
+                this.to = param.to || 2;
             }
         }
     },
@@ -136,6 +136,8 @@ Page({
                 });
             }
             var role = wx.getStorageSync('role');
+            var doctorType = wx.getStorageSync('doctorType');
+            var doctorId = data.info.doctorId;
             if (role == 'DOCTOR') {
                 data.info.role = 'DOCTOR';
             } else if (role == 'USER') {
@@ -144,11 +146,14 @@ Page({
             if (!role && data.info.switchStatus == 1) {
                 data.info.role = 'DOCTOR';
             }
+            if (doctorType == 2) { //线下医生
+                doctorId = data.info.offlineDoctorId
+            }
             this.updateUserInfo(data.info);
-            if(data.info.role == 'USER') {
+            if (data.info.role == 'USER') {
                 this.getCart();
             }
-            return data;
+            return doctorId;
         });
     },
     getMessageCount() {

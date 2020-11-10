@@ -105,8 +105,9 @@ App({
                     wx.jyApp.store.updateUserInfo(data.info);
                 }
                 //检查医生状态
-                if (data.info.doctorId) {
-                    wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                if (data.info.doctorId || data.info.offlineDoctorId) {
+                    var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
+                    wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                         wx.jyApp.store.updateDoctorInfo(data.doctor);
                     });
                 }

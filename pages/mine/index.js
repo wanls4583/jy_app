@@ -3,6 +3,7 @@ Page({
         settlementUrl: '',
         stopRefresh: false,
         userInfoButtonVisible: true,
+        actionVisible: false
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -64,11 +65,38 @@ Page({
     onSitchRole() {
         if (this.data.userInfo.role == 'DOCTOR') {
             wx.setStorageSync('role', 'USER');
+            wx.reLaunch({
+                url: '/pages/index/index'
+            });
         } else {
             wx.setStorageSync('role', 'DOCTOR');
+            if (this.data.userInfo.doctorId && this.data.userInfo.offlineDoctorId) {
+                this.setData({
+                    actionVisible: true
+                });
+            } else if (this.data.userInfo.doctorId) {
+                wx.setStorageSync('doctorType', 1);
+                wx.reLaunch({
+                    url: '/pages/index/index'
+                });
+            } else if (this.data.userInfo.offlineDoctorId) {
+                wx.setStorageSync('doctorType', 2);
+                wx.reLaunch({
+                    url: '/pages/index/index'
+                });
+            }
         }
+    },
+    onSelectDoctorType(e) {
+        var type = e.currentTarget.dataset.type;
+        wx.setStorageSync('doctorType', type);
         wx.reLaunch({
             url: '/pages/index/index'
+        });
+    },
+    onCancelAction() {
+        this.setData({
+            actionVisible: false
         });
     },
     //拨打电话
@@ -104,7 +132,8 @@ Page({
     reLogin() {
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
-                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(data.info.doctorId).then((data) => {
+                var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
+                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 });
             });

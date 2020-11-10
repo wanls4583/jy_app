@@ -239,7 +239,7 @@
 		</view>
 		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}">去咨询</view>
 	</view>
-	<van-action-sheet actions="{{actions}}" bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
+	<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">
 			<text class="font-title">申请营养指导</text>
 			<text class="primary-color font-small margin-top-10" wx:if="{{!consultOrder.applyCount}}">首次免诊金</text>

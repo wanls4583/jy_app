@@ -25,7 +25,7 @@
 			</view>
 		</view>
 		<!-- 未认证医生 -->
-		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:elif="{{userInfo.role=='DOCTOR'}}">
+		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:elif="{{userInfo.role=='DOCTOR'&&!doctorInfo}}">
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -69,34 +69,36 @@
 		</view>
 		<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
 			<block wx:if="{{userInfo.role=='USER'}}">
-				<view bindtap="onGoto" class="padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
-				<view bindtap="onGoto" class="padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
+				<view bindtap="onGoto" class="padding-30 align-center clickable" data-url="/pages/interrogation/user-patient-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_wenzhen.png" />
 					<view class="font-small">问诊患者</view>
 				</view>
 			</block>
 			<block wx:if="{{userInfo.role=='DOCTOR'}}">
-				<view bindtap="onCheckGoto" class="width-33 padding-20 padding-top-bottom-30 align-center clickable" data-url="/pages/order-list/index">
+				<view bindtap="onCheckGoto" class="padding-30 align-center clickable" data-url="/pages/order-list/index">
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small">我的订单</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="width-33 padding-20 padding-top-bottom-30 align-center clickable"
+					class="padding-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/income-list/index"
+					wx:if="{{doctorInfo.type==1}}"
 				>
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_trend.png" />
 					<view class="font-small">查看收益</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="width-33 padding-20 padding-top-bottom-30 align-center clickable"
+					class="padding-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/withdraw/index"
+					wx:if="{{doctorInfo.type==1}}"
 				>
 					<image class="width-60rpx height-60rpx;" mode="aspectFit" src="/image/icon_withdrawal.png" />
 					<view class="font-small">提现</view>
@@ -173,3 +175,14 @@
 	</pull-scroll-view>
 </view>
 <van-dialog id="van-dialog" />
+<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
+	<view class="flex--center--center padding-30">
+		<text class="font-title gray-color">请选择医生类型后切换账号</text>
+	</view>
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{1}}">
+		<text class="font-title">线上医生</text>
+	</view>
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}">
+		<text class="font-title">线下医生</text>
+	</view>
+</van-action-sheet>

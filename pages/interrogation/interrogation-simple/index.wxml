@@ -1,0 +1,17 @@
+<!-- index.wxml -->
+<view class="container">
+	<van-cell-group>
+		<van-field bind:input="onInput" data-prop="patient.patientName" label="患者姓名" placeholder="请填写真实姓名" value="{{patient.patientName}}" />
+		<readonly-field bindtap="onShowSex" label="性别" placeholder="性别" readonly value="{{patient._sex}}" />
+		<readonly-field bindtap="onShowBirthday" label="出生日期" placeholder="出生日期" readonly value="{{patient.birthday}}" />
+	</van-cell-group>
+	<view class="padding-left-right-30 margin-top-bottom-30">
+		<view bindtap="onSave" class="button primary block">提交问诊</view>
+	</view>
+	<van-popup position="bottom" show="{{sexVisible}}">
+		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmSex" columns="{{['女','男']}}" default-index="{{patient._sex=='男'?1:0}}" show-toolbar="{{true}}"></van-picker>
+	</van-popup>
+	<van-popup position="bottom" show="{{birthDayVisible}}">
+		<van-datetime-picker bind:cancel="onCancel" bind:confirm="onConfirmBirthday" max-date="{{maxDate}}" min-date="{{minDate}}" type="date" value="{{birthday}}" />
+	</van-popup>
+</view>
