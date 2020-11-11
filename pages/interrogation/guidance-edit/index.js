@@ -11,6 +11,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.consultOrderId = option.id;
+        this.type = option.type; //问诊类型
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -84,7 +85,7 @@ Page({
         });
     },
     onSave() {
-        if (!this.data.diagnosis) {
+        if (!this.data.diagnosis && this.type != 2) {
             wx.jyApp.toast('诊断信息不能为空');
             return;
         }
@@ -126,11 +127,11 @@ Page({
                 }, 500);
                 wx.navigateBack();
                 var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                if(page) { //已完成
+                if (page) { //已完成
                     page.loadApplyOrderList(true);
                 }
                 page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
-                if(page) { //已完成
+                if (page) { //已完成
                     page.loadInfo();
                 }
             }).finally(() => {

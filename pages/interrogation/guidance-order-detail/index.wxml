@@ -81,12 +81,12 @@
 				<text>{{order.patientName}}</text>
 				<text>，{{order._sex}}</text>
 				<text>，{{order.age}}岁</text>
-				<text>，{{order.height}}cm</text>
-				<text>，{{order.weight}}kg</text>
-				<text>，{{order.BMI}}</text>
+				<text wx:if="{{order.height}}">，{{order.height}}cm</text>
+				<text wx:if="{{order.weight}}">，{{order.weight}}kg</text>
+				<text wx:if="{{order.BMI}}">，{{order.BMI}}</text>
 			</view>
 		</view>
-		<view class="flex padding-bottom-20">
+		<view class="flex padding-bottom-20" wx:if="{{order.foodSensitive}}">
 			<text class="flex-shrink-0">食物过敏史：</text>
 			<text>{{order.foodSensitive||''}}</text>
 		</view>

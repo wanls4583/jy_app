@@ -292,7 +292,7 @@ Page({
             });
         } else { //医生开指导
             wx.navigateTo({
-                url: '/pages/interrogation/guidance-edit/index?id=' + this.data.consultOrderId
+                url: `/pages/interrogation/guidance-edit/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
             });
         }
         this.setData({

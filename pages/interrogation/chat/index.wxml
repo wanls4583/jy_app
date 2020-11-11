@@ -7,9 +7,9 @@
 		<text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
 		<text decode="{{true}}">{{patient._sex}}&nbsp;&nbsp;</text>
 		<text decode="{{true}}">{{patient.age}}岁&nbsp;&nbsp;</text>
-		<text decode="{{true}}">{{patient.height}}cm&nbsp;&nbsp;</text>
-		<text decode="{{true}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
-		<text>{{patient.BMI}}</text>
+		<text decode="{{true}}" wx:if="{{patient.height}}">{{patient.height}}cm&nbsp;&nbsp;</text>
+		<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
+		<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 	</view>
 	<view
 		bindtap="onClickChatBlock"

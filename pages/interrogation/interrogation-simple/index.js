@@ -72,9 +72,24 @@ Page({
                     doctorId: this.doctorId
                 }
             }).then((data) => {
-                wx.navigateTo({
-                    url: '/pages/interrogation/chat/index?id=' + data.id
-                });
+                if (data.params) {
+                    wx.jyApp.utils.pay(data.params, () => {
+                        wx.navigateTo({
+                            url: '/pages/interrogation/chat/index?id=' + data.id
+                        });
+                    }).catch(() => {
+                        setTimeout(() => {
+                            wx.jyApp.toast('支付失败');
+                        }, 500);
+                        wx.navigateTo({
+                            url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + data.id
+                        });
+                    });
+                } else {
+                    wx.navigateTo({
+                        url: '/pages/interrogation/chat/index?id=' + data.id
+                    });
+                }
             });
         }).finally(() => {
             wx.hideLoading();

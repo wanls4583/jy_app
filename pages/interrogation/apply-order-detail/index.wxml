@@ -9,7 +9,8 @@
 			<text class="flex-shrink-0">商品信息：</text>
 			<view class="flex-grow-1 flex--center--between">
 				<text>{{order.goodsName}}</text>
-				<text class="flex-shrink-0">￥{{order.orderAmount||order.price||0}}</text>
+				<!-- 简版问诊不显示金额 -->
+				<text class="flex-shrink-0" wx:if="{{order.price||order.type!=2}}">￥{{order.orderAmount||order.price||0}}</text>
 			</view>
 		</view>
 		<view class="flex padding-bottom-20">
@@ -18,21 +19,21 @@
 				<text>{{order.patient.patientName}}</text>
 				<text>，{{order.patient._sex}}</text>
 				<text>，{{order.patient.age}}岁</text>
-				<text>，{{order.patient.height}}cm</text>
-				<text>，{{order.patient.weight}}kg</text>
-				<text>，{{order.patient.BMI}}</text>
+				<text wx:if="{{order.patient.height}}">，{{order.patient.height}}cm</text>
+				<text wx:if="{{order.patient.weight}}">，{{order.patient.weight}}kg</text>
+				<text wx:if="{{order.patient.BMI}}">，{{order.patient.BMI}}</text>
 			</view>
 		</view>
-		<view class="flex padding-bottom-20">
+		<view class="flex padding-bottom-20" wx:if="{{order.patient.foodSensitive}}">
 			<text class="flex-shrink-0">食物过敏史：</text>
 			<text>{{order.patient.foodSensitive||''}}</text>
 		</view>
-		<view class="flex padding-bottom-20">
+		<view class="flex padding-bottom-20" wx:if="{{order.diseaseDetail}}">
 			<text class="flex-shrink-0">病情描述：</text>
-			<text>{{order.diseaseDetail}}</text>
+			<text>{{order.diseaseDetail||''}}</text>
 		</view>
 	</view>
-	<view class="flex flex-wrap-wrap padding-top-20 padding-bottom-10 padding-left-30 white-background-color">
+	<view class="flex flex-wrap-wrap padding-top-20 padding-bottom-10 padding-left-30 white-background-color" wx:if="{{order.picUrls.length}}">
 		<view class="border gray-background-color margin-right-30 margin-bottom-20" style="width:150rpx;height:150rpx;" wx:for="{{order.picUrls}}" wx:key="item">
 			<image bindtap="onClickImg" class="width-100 height-100" data-pic-urls="{{order.picUrls}}" data-src="{{item}}" mode="aspectFill" src="{{item}}" />
 		</view>
@@ -110,6 +111,13 @@
 				wx:elif="{{order.applyTicketVisible}}"
 			>申请发票</view>
 			<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+		</view>
+		<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
+			<view
+				catchtap="onGoto"
+				class="button primary small"
+				data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}&type={{order.type}}"
+			>开营养指导</view>
 		</view>
 		<view
 			class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top"

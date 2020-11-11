@@ -25,7 +25,8 @@
 						<view bindtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
 							<view class="flex--center--between padding-top-bottom-20">
 								<text>商品信息：{{order.goodsName}}</text>
-								<text class="margin-left-30">￥{{order.orderAmount}}</text>
+								<!-- 简版问诊不显示金额 -->
+								<text class="margin-left-30" wx:if="{{order.orderAmount||order.type!=2}}">￥{{order.orderAmount}}</text>
 							</view>
 							<view class="flex padding-bottom-20">
 								<text class="flex-shrink-0">患者信息：</text>
@@ -33,9 +34,9 @@
 									<text>{{order.patient.patientName}}</text>
 									<text>，{{order.patient._sex}}</text>
 									<text>，{{order.patient.age}}岁</text>
-									<text>，{{order.patient.height}}cm</text>
-									<text>，{{order.patient.weight}}kg</text>
-									<text>，{{order.patient.BMI}}</text>
+									<text wx:if="{{order.patient.height}}">，{{order.patient.height}}cm</text>
+									<text wx:if="{{order.patient.weight}}">，{{order.patient.weight}}kg</text>
+									<text wx:if="{{order.patient.BMI}}">，{{order.patient.BMI}}</text>
 								</view>
 							</view>
 						</view>
@@ -113,14 +114,11 @@
 									<text>{{order.patient.patientName}}</text>
 									<text>，{{order.patient._sex}}</text>
 									<text>，{{order.patient.age}}岁</text>
-									<text>，{{order.patient.height}}cm</text>
-									<text>，{{order.patient.weight}}kg</text>
-									<text>，{{order.patient.BMI}}</text>
+									<text wx:if="{{order.patient.height}}">，{{order.patient.height}}cm</text>
+									<text wx:if="{{order.patient.weight}}">，{{order.patient.weight}}kg</text>
+									<text wx:if="{{order.patient.BMI}}">，{{order.patient.BMI}}</text>
 								</view>
 							</view>
-						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
-							<view catchtap="onGoto" class="button primary small" data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}">开营养指导</view>
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
@@ -139,6 +137,13 @@
 								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
 							<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+						</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
+							<view
+								catchtap="onGoto"
+								class="button primary small"
+								data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}&type={{order.type}}"
+							>开营养指导</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">
 							<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
@@ -170,9 +175,9 @@
 									<text>{{order.patientName}}</text>
 									<text>，{{order._sex}}</text>
 									<text>，{{order.age}}岁</text>
-									<text>，{{order.height}}cm</text>
-									<text>，{{order.weight}}kg</text>
-									<text>，{{order.BMI}}</text>
+									<text wx:if="{{order.height}}">，{{order.height}}cm</text>
+									<text wx:if="{{order.weight}}">，{{order.weight}}kg</text>
+									<text wx:if="{{order.BMI}}">，{{order.BMI}}</text>
 								</view>
 							</view>
 							<view>
