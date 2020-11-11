@@ -82,6 +82,9 @@ Page({
                             case 3:
                                 wx.switchTab({ url: '/pages/tab-bar-second/index' });
                                 break;
+                            case 4:
+                                wx.navigateTo({ url: '/pages/interrogation/interrogation-simple/index?doctorId=' + this.doctorId });
+                                break;
                         }
                     } else if (this.doctorId) {
                         wx.navigateTo({
