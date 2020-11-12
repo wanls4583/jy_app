@@ -24,7 +24,7 @@ Page({
         });
         //登录检测
         wx.jyApp.loginUtil.login({
-            inviteId: this.inviteId,
+            inviteDoctorId: this.inviteDoctorId,
             inviteWay: this.inviteWay
         }).then((data) => {
             wx.hideLoading();
@@ -112,8 +112,9 @@ Page({
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
             this.routeType = option.routeType || 'navigateTo';
-        } else if (option.type == 1 && option.uId) { //医生通过好友分享邀请
-            this.inviteId = option.uId;
+        } else if (option.type == 1 && option.dId) { //医生通过好友分享邀请
+            this.inviteDoctorId = option.dId;
+            this.doctorId = option.dId;
             this.inviteWay = 1;
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
@@ -122,9 +123,9 @@ Page({
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
-            if (param.type == 1 && param.uId) { //医生通过二维码或名片分享邀请
-                this.inviteId = param.uId;
+            if (param.type == 1 && param.dId) { //医生通过二维码或名片分享邀请
                 this.inviteWay = 2;
+                this.inviteDoctorId = param.uId;
                 this.doctorId = param.dId;
                 this.to = param.to || 2;
             }

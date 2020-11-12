@@ -40,7 +40,7 @@ Page({
     onShareAppMessage: function (res) {
         return {
             title: '医生邀请',
-            path: '/pages/index/index?type=1&uId=' + this.data.userInfo.id,
+            path: '/pages/index/index?type=1&dId=' + this.data.doctorInfo.id,
             imageUrl: '/image/logo.png'
         }
     },
