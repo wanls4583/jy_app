@@ -21,7 +21,7 @@
 				wx:for="{{patientList}}"
 				wx:key="id"
 			>
-				<view class="height-100rpx width-100rpx overflow-hidden radius-50 border">
+				<view class="flex-shrink-0 height-100rpx width-100rpx overflow-hidden radius-50 border">
 					<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
 				</view>
 				<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
@@ -30,8 +30,9 @@
 							<text>{{item.patientName}}</text>
 							<text>，{{item._sex}}</text>
 							<text>，{{item.age}}岁</text>
-							<text>，{{item.height}}cm</text>
-							<text>，{{item.weight}}kg</text>
+							<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+							<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+							<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
 						</view>
 						<view>
 							<text class="font-small gray-color">{{item.joinTime}}</text>

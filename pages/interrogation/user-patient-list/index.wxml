@@ -4,16 +4,16 @@
 		<view class="position-relative white-background-color padding-left-right-30" wx:for="{{patientList}}" wx:key="id">
 			<van-swipe-cell right-width="{{150}}">
 				<view bindtap="onChange" class="flex--center--between" data-item="{{item}}">
-					<view class="radio-wrap" wx:if="{{ifSelect}}">
+					<view class="flex-shrink-0 radio-wrap" wx:if="{{ifSelect}}">
 						<radio checked="{{selectId==item.id}}" color="rgb(42, 175, 255)" value="{{item.id}}" />
 					</view>
 					<view class="flex-grow-1 flex--center--start height-120rpx border-bottom">
 						<text>{{item.patientName}}</text>
 						<text>，{{item._sex}}</text>
 						<text>，{{item.age}}岁</text>
-						<text>，{{item.height}}cm</text>
-						<text>，{{item.weight}}kg</text>
-						<text>，{{item.BMI}}</text>
+						<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+						<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+						<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
 					</view>
 				</view>
 				<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:150px">

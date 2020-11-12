@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-09-05 22:52:49
+ * @Description: 
+ */
 Page({
     data: {
         patientList: [],
@@ -57,6 +62,8 @@ Page({
             }
             data.page.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
+                item.BMI = (item.weight) / (item.height * item.height / 10000);
+                item.BMI = item.BMI && item.BMI.toFixed(2) || '';
             });
             this.data.patientList = this.data.patientList.concat(data.page.list);
             this.setData({
