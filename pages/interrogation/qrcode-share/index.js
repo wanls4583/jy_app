@@ -13,12 +13,17 @@ Page({
         this.uId = option.uId;
         this.type = option.type;
         this.source = option.source;
-        if(option.barcodeUrl) {
+        if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
             })
-        } else {
+        } else if (this.source) {
             this.getQrCode();
+        } else {
+            wx.navigateBack();
+            setTimeout(() => {
+                wx.jyApp.toast('参数错误');
+            }, 500);
         }
     },
     onUnload() {
