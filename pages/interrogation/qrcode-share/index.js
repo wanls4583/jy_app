@@ -1,6 +1,6 @@
 Page({
     data: {
-        barcode: '',
+        barcodeUrl: '',
         type: ''
     },
     onLoad(option) {
@@ -12,10 +12,14 @@ Page({
         this.dId = option.dId;
         this.uId = option.uId;
         this.type = option.type;
-        this.getQrCode();
-        this.setData({
-            type: this.type
-        });
+        this.source = option.source;
+        if(option.barcodeUrl) {
+            this.setData({
+                barcodeUrl: option.barcodeUrl
+            })
+        } else {
+            this.getQrCode();
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -27,7 +31,7 @@ Page({
             confirmButtonText: '复制链接'
         }).then(() => {
             wx.setClipboardData({
-                data: this.data.configData.h5_code_share_url + '?url=' + encodeURIComponent(this.data.barcode),
+                data: this.data.configData.h5_code_share_url + '?url=' + encodeURIComponent(this.data.barcodeUrl),
                 success(res) {
                     wx.showToast({
                         title: '复制成功'
@@ -46,7 +50,7 @@ Page({
     downloadImg() {
         return new wx.jyApp.Promise((resolve, reject) => {
             wx.downloadFile({
-                url: this.data.barcode,
+                url: this.data.barcodeUrl,
                 success: (res) => {
                     if (res.statusCode == 200 && res.tempFilePath) {
                         resolve(res.tempFilePath);
@@ -105,20 +109,27 @@ Page({
         }
     },
     getQrCode() {
+        var to = 2;
+        switch (this.source) {
+            case 'CARD': to = 1; break;
+            case 'INDEX': to = 2; break;
+            case 'EMALL': to = 3; break;
+            case 'SIMPLE_CONSULT': to = 4; break;
+        }
         wx.jyApp.http({
-            url: '/wx/share/barcode',
+            url: '/wx/share/barcodeUrl',
             data: {
                 page: 'pages/index/index',
-                source: this.dId ? 'CARD' : 'INVITE',
-                scene: `type=${this.type},dId=${this.dId || ''},uId=${this.uId || ''}`
+                source: this.source,
+                scene: `type=1,dId=${this.dId || ''},uId=${this.uId || ''},to=${to}`
             }
         }).then((data) => {
             this.setData({
-                barcode: data.barcode
+                barcodeUrl: data.barcodeUrl
             });
         }).catch(() => {
             this.setData({
-                barcode: 'https://juyuanyingyang.com'
+                barcodeUrl: 'https://juyuanyingyang.com'
             });
         });
     }

@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-09-08 20:40:56
+ * @Description: 
+ */
 Page({
     data: {
         steps: [{
@@ -19,7 +24,7 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'configData'],
+            fields: ['userInfo', 'doctorInfo', 'configData'],
         });
         this.storeBindings.updateStoreBindings();
     },
@@ -46,7 +51,7 @@ Page({
     },
     onQrcode(e) {
         wx.navigateTo({
-            url: '/pages/interrogation/qrcode-share/index?type=1&uId=' + this.data.userInfo.id
+            url: `/pages/interrogation/qrcode-share/index?source=INDEX&uId=${this.data.userInfo.id}&did=${this.data.doctorInfo.id}`
         });
         this.setData({
             shareVisble: false

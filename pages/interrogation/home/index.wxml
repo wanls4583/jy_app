@@ -51,7 +51,7 @@
 				<view
 					bindtap="onCheckGoto"
 					class="padding-30 align-center clickable"
-					data-url="/pages/interrogation/qrcode-share/index?type=1&dId={{userInfo.doctorId}}&uId={{userInfo.id}}"
+					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 				>
 					<image class="width-60rpx height-60rpx" src="/image/icon_qrcode.png" />
 					<view class="font-small">二维码名片</view>
