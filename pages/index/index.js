@@ -24,7 +24,7 @@ Page({
         });
         //登录检测
         wx.jyApp.loginUtil.login({
-            inviteDoctorId: this.inviteDoctorId,
+            inviteDoctorId: Number(this.inviteDoctorId) || '',
             inviteWay: this.inviteWay
         }).then((data) => {
             wx.hideLoading();
