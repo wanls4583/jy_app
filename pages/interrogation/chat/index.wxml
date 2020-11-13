@@ -214,18 +214,18 @@
 				<van-icon name="add-o" size="30px" />
 			</view>
 		</view>
-		<view class="flex--center--start padding-30 padding-bottom-20 border-top border-color-ddd" style="height:{{panelHeight}}px" wx:if="{{panelVisible}}">
-			<view class="flex--center--between flex-direction-column height-100 margin-right-30">
+		<view class="flex--center--start border-top border-color-ddd" style="height:{{panelHeight}}px" wx:if="{{panelVisible}}">
+			<view class="flex--center--between flex-direction-column width-25">
 				<view bindtap="onChooseImage" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="photo-o" size="30px" />
 				</view>
-				<view class="font-small">照片</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">照片</view>
 			</view>
-			<view class="flex--center--between flex-direction-column height-100">
+			<view class="flex--center--between flex-direction-column width-25">
 				<view bindtap="onClickApply" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="records" size="30px" />
 				</view>
-				<view class="font-small">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
 			</view>
 		</view>
 	</view>

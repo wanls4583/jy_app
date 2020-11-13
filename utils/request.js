@@ -63,11 +63,6 @@ function request(obj) {
                 if (res.statusCode != 200) {
                     obj.fail && obj.fail(res);
                     reject(res);
-                    if (!obj.hideTip) {
-                        setTimeout(() => { //延时提示，防止hideLoading干扰
-                            // wx.jyApp.toast('服务器错误');
-                        }, 300);
-                    }
                     wx.jyApp.log.info('网络错误：', obj.url, obj.data, userInfo, res.statusCode);
                 }
                 obj.complete && obj.complete(res);

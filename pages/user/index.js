@@ -206,16 +206,9 @@ Page({
         });
     },
     _updateUserInfo() {
-        wx.showLoading({
-            title: '更新中...',
-            mask: true
-        });
         wx.jyApp.loginUtil.updateUserInfo(this.data.userInfo).then(() => {
-            wx.hideLoading();
             wx.jyApp.toast('更新成功');
             wx.setStorageSync('hasPopUserAuth', 1);
-        }).catch(() => {
-            wx.hideLoading();
         });
     }
 })

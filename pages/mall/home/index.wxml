@@ -65,10 +65,10 @@
 						data-url="/pages/interrogation/illness-edit/index"
 						wx:if="{{configData.showDoctor==1}}"
 					>
-						<view class="width-80rpx height-80rpx">
+						<view style="width:90rpx;height:90rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
 						</view>
-						<text class="font-title margin-top-10">快速问诊</text>
+						<text class="margin-top-10">快速问诊</text>
 						<text class="font-small color-666">智能匹配医生</text>
 					</view>
 					<view
@@ -77,10 +77,10 @@
 						data-url="/pages/mall/search-doctor/index"
 						wx:if="{{configData.showDoctor==1}}"
 					>
-						<view class="width-80rpx height-80rpx">
+						<view style="width:90rpx;height:90rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_doctor.png" />
 						</view>
-						<text class="font-title margin-top-10">找医生</text>
+						<text class="margin-top-10">找医生</text>
 						<text class="font-small color-666">营养专家会诊</text>
 					</view>
 					<view
@@ -89,10 +89,10 @@
 						data-type="tab"
 						data-url="/pages/tab-bar-second/index"
 					>
-						<view class="width-80rpx height-80rpx">
+						<view style="width:90rpx;height:90rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_product.png" />
 						</view>
-						<text class="font-title margin-top-10">营养产品</text>
+						<text class="margin-top-10">营养产品</text>
 						<text class="font-small color-666">快速送货上门</text>
 					</view>
 				</view>

@@ -20,10 +20,7 @@ Page({
         } else if (this.source) {
             this.getQrCode();
         } else {
-            wx.navigateBack();
-            setTimeout(() => {
-                wx.jyApp.toast('参数错误');
-            }, 500);
+            wx.jyApp.toast('参数错误');
         }
     },
     onUnload() {
