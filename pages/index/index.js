@@ -125,7 +125,7 @@ Page({
             console.log(param);
             if (param.type == 1 && param.dId) { //医生通过二维码或名片分享邀请
                 this.inviteWay = 2;
-                this.inviteDoctorId = param.uId;
+                this.inviteDoctorId = param.dId;
                 this.doctorId = param.dId;
                 this.to = param.to || 2;
             }
