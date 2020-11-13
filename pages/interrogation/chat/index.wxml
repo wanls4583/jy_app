@@ -151,9 +151,9 @@
 										<text>{{patient.patientName}}，</text>
 										<text>{{patient._sex}}，</text>
 										<text>{{patient.age}}岁，</text>
-										<text>{{patient.height}}cm，</text>
-										<text>{{patient.weight}}kg，</text>
-										<text>{{patient.BMI}}</text>
+										<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+										<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+										<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 									</view>
 									<view class="align-center padding-bottom-20">
 										<view
