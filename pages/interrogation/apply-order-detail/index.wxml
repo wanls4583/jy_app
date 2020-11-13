@@ -61,13 +61,13 @@
 			>再来一单</view>
 			<view
 				catchtap="onGoto"
-				class="margin-left-20 button primay small"
+				class="margin-left-20 button primary small"
 				data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=1"
 				wx:if="{{order.ticketStatus}}"
 			>发票详情</view>
 			<view
 				catchtap="onGoto"
-				class="margin-left-20 button primay small"
+				class="margin-left-20 button primary small"
 				data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
 				wx:elif="{{order.applyTicketVisible}}"
 			>申请发票</view>
