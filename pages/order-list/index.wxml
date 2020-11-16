@@ -106,7 +106,7 @@
 						<view bindtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?id={{order.id}}">
 							<view class="flex--center--between padding-top-bottom-20">
 								<text>商品信息：{{order.goodsName}}</text>
-								<text class>￥{{order.price}}</text>
+								<text wx:if="{{order.price||order.type!=2}}">￥{{order.price}}</text>
 							</view>
 							<view class="flex padding-bottom-20">
 								<text class="flex-shrink-0">患者信息：</text>
