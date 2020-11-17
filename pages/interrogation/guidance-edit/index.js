@@ -86,10 +86,10 @@ Page({
     },
     onSave() {
         if (!this.data.diagnosis && this.type != 2) {
-            wx.jyApp.toast('诊断信息不能为空');
+            wx.jyApp.toast('营养诊断不能为空');
             return;
         }
-        if (!this.data.diagnosis) {
+        if (!this.data.goodsList.length) {
             wx.jyApp.toast('营养指导不能为空');
             return;
         }
