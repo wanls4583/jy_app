@@ -1,6 +1,6 @@
 Component({
     options: {
-        styleIsolation: 'apply-shared'
+        styleIsolation: 'shared'
     },
     data: {
         banner: [],
@@ -24,9 +24,10 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.loadBaner();
+            this.loadProduct();
             this.loadCategoryList();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 54
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
         },
         detached() {
@@ -38,8 +39,12 @@ Component({
             wx.jyApp.utils.navigateTo(e);
         },
         onRefresh(e) {
+            this.setData({
+                categoryId: 0
+            });
             wx.jyApp.Promise.all([
                 this.loadBaner(),
+                this.loadProduct(true),
                 this.loadCategoryList()
             ]).finally(() => {
                 this.setData({
@@ -108,7 +113,7 @@ Component({
                     page: page,
                     limit: this.data.size,
                     type: 1,
-                    categoryId: this.data.categoryId,
+                    categoryId: this.data.categoryId || '',
                     side: 'USER'
                 }
             });
@@ -144,10 +149,8 @@ Component({
             }).then((data) => {
                 var categories = data.categories || [];
                 this.setData({
-                    categoryList: categories,
-                    categoryId: categories.length && categories[0].id || 0
+                    categoryList: categories
                 });
-                this.loadProduct(true);
             });
         }
     }

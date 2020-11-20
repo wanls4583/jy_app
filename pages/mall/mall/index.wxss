@@ -48,3 +48,7 @@
 .jy-tab.top .jy-tab-item.active::after {
     background: #fff;
 }
+
+.van-empty {
+    padding-top: 50px !important;
+}

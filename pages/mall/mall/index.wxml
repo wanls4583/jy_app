@@ -18,6 +18,7 @@
 		</view>
 	</navigation-bar>
 	<scroll-view class="jy-tab top" scroll-x="{{true}}" style="top:{{menuRect.outerNavHeight}}px" wx:if="{{topMenuVisible}}">
+		<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}">全部</view>
 		<view
 			bindtap="onChangeTab"
 			class="jy-tab-item {{item.id==categoryId?'active':''}}"
@@ -59,6 +60,7 @@
 					</swiper>
 				</view>
 				<scroll-view class="jy-tab" scroll-x="{{true}}">
+					<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}">全部</view>
 					<view
 						bindtap="onChangeTab"
 						class="jy-tab-item {{item.id==categoryId?'active':''}}"
@@ -67,7 +69,7 @@
 						wx:key="id"
 					>{{item.categoryName}}</view>
 				</scroll-view>
-				<view id="product-container" wx:if="{{productList.length}}">
+				<view id="product-container">
 					<view class="flex flex-wrap-wrap margin-top-10">
 						<view
 							bindtap="onclickProdcut"
