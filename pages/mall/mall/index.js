@@ -6,7 +6,13 @@ Component({
         banner: [],
         productList: [],
         taocanList: [],
+        categoryList: [],
+        categoryId: 0,
+        topMenuVisible: false,
         stopRefresh: false,
+        page: 1,
+        size: 10,
+        totalPage: -1,
         minContentHeight: 0,
         menuRect: wx.jyApp.utils.getMenuRect()
     },
@@ -17,8 +23,8 @@ Component({
                 fields: ['configData', 'cartNum']
             });
             this.storeBindings.updateStoreBindings();
-            this.loadProduct();
             this.loadBaner();
+            this.loadCategoryList();
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 54
             });
@@ -33,13 +39,47 @@ Component({
         },
         onRefresh(e) {
             wx.jyApp.Promise.all([
-                this.loadProduct(),
                 this.loadBaner(),
+                this.loadCategoryList()
             ]).finally(() => {
                 this.setData({
                     stopRefresh: true
                 });
             });
+        },
+        onScroll(e) {
+            var self = this;
+            _getTop().then((top) => {
+                this.setData({
+                    topMenuVisible: top < this.data.menuRect.outerNavHeight ? true : false
+                });
+            });
+            //获取item的高度
+            function _getTop() {
+                return new Promise((resolve) => {
+                    var query = self.createSelectorQuery()
+                    query.select('#product-container').boundingClientRect(function (rect) {
+                        if (rect) {
+                            resolve(rect.top);
+                        }
+                    })
+                    query.exec();
+                });
+            }
+        },
+        onLoadMore(e) {
+            if (this.data.page <= this.data.totalPage) {
+                this.loadProduct();
+            }
+        },
+        onChangeTab(e) {
+            var id = e.currentTarget.dataset.id;
+            if (id != this.data.categoryId) {
+                this.setData({
+                    categoryId: id
+                });
+                this.loadProduct(true);
+            }
         },
         onclickProdcut(e) {
             var id = e.currentTarget.dataset.id;
@@ -60,44 +100,31 @@ Component({
                 url: `/pages/mall/product-list/index?type=${type}`
             });
         },
-        loadProduct() {
-            var rq1 = wx.jyApp.http({
+        loadProduct(refresh) {
+            var page = refresh ? 1 : this.data.page;
+            this.request = wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: 1,
-                    limit: 6,
-                    type: 2,
-                    side: 'USER'
-                }
-            }).then((data) => {
-                data.page.list.map((item) => {
-                    item._goodsName = item.goodsName;
-                    item._unit = '份';
-                    item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
-                });
-                this.setData({
-                    taocanList: data.page.list
-                });
-            });
-            var rq2 = wx.jyApp.http({
-                url: '/goods/list',
-                data: {
-                    page: 1,
-                    limit: 6,
+                    page: page,
+                    limit: this.data.size,
                     type: 1,
+                    categoryId: this.data.categoryId,
                     side: 'USER'
                 }
-            }).then((data) => {
+            });
+            this.request.then((data) => {
                 data.page.list.map((item) => {
                     item._goodsName = item.goodsName;
-                    item._unit = wx.jyApp.constData.unitChange[item.unit];
+                    item._unit = wx.jyApp.constData.unitChange[item.useUnit];
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
-                    productList: data.page.list
+                    page: page + 1,
+                    productList: refresh ? data.page.list : this.data.productList.concat(data.page.list),
+                    totalPage: data.page.totalPage
                 });
             });
-            return Promise.all([rq1, rq2]);
+            return this.request;
         },
         loadBaner() {
             return wx.jyApp.http({
@@ -111,5 +138,17 @@ Component({
                 });
             });
         },
+        loadCategoryList() {
+            return wx.jyApp.http({
+                url: '/goods/category'
+            }).then((data) => {
+                var categories = data.categories || [];
+                this.setData({
+                    categoryList: categories,
+                    categoryId: categories.length && categories[0].id || 0
+                });
+                this.loadProduct(true);
+            });
+        }
     }
 })

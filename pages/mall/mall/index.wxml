@@ -17,8 +17,24 @@
 			</view>
 		</view>
 	</navigation-bar>
+	<scroll-view class="jy-tab top" scroll-x="{{true}}" style="top:{{menuRect.outerNavHeight}}px" wx:if="{{topMenuVisible}}">
+		<view
+			bindtap="onChangeTab"
+			class="jy-tab-item {{item.id==categoryId?'active':''}}"
+			data-id="{{item.id}}"
+			wx:for="{{categoryList}}"
+			wx:key="id"
+		>{{item.categoryName}}</view>
+	</scroll-view>
 	<view class="position-absolute bottom-0 width-100" style="top:{{menuRect.outerNavHeight}}px">
-		<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
+		<pull-scroll-view
+			bindrefresh="onRefresh"
+			bindscroll="onScroll"
+			bindscrolltolower="onLoadMore"
+			refresher-background="#2aafff"
+			refresher-default-style="white"
+			stop-refresh="{{stopRefresh}}"
+		>
 			<view style="min-height:{{minContentHeight}}px">
 				<view class="position-absolute top-0 width-100 background-gradient" style="z-index:-1;height:86px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
 				<view class="position-relative padding-top-20" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">
@@ -42,44 +58,17 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view wx:if="{{taocanList.length}}">
-					<view class="flex--center--between padding-left-right-20">
-						<view class="padding-top-bottom-30 font-title font-bold">营养套餐</view>
-						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="2">
-							<text>查看更多</text>
-							<van-icon name="arrow" />
-						</view>
-					</view>
-					<view class="flex flex-wrap-wrap">
-						<view
-							bindtap="onclickProdcut"
-							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden shadow"
-							data-id="{{item.id}}"
-							style="width:345rpx;"
-							wx:for="{{taocanList}}"
-							wx:key="id"
-						>
-							<image class="width-100" mode="aspectFill" src="{{item.goodsPic}}" style="height:345rpx" />
-							<view class="padding-20 padding-top-10">
-								<view class="margin-top-10 ellipse">{{item._goodsName}}</view>
-								<view class="flex--center--start margin-top-10 danger-color font-bold">
-									<text class="font-small" style="margin-top:6rpx">￥</text>
-									<text class="font-large">{{item.price}}</text>
-									<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{item._unit}}</text>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-				<view wx:if="{{productList.length}}">
-					<view class="flex--center--between padding-left-right-20">
-						<view class="padding-top-bottom-30 font-title font-bold">营养产品</view>
-						<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable" data-type="1">
-							<text>查看更多</text>
-							<van-icon name="arrow" />
-						</view>
-					</view>
-					<view class="flex flex-wrap-wrap">
+				<scroll-view class="jy-tab" scroll-x="{{true}}">
+					<view
+						bindtap="onChangeTab"
+						class="jy-tab-item {{item.id==categoryId?'active':''}}"
+						data-id="{{item.id}}"
+						wx:for="{{categoryList}}"
+						wx:key="id"
+					>{{item.categoryName}}</view>
+				</scroll-view>
+				<view id="product-container" wx:if="{{productList.length}}">
+					<view class="flex flex-wrap-wrap margin-top-10">
 						<view
 							bindtap="onclickProdcut"
 							class="flex flex-direction-column white-background-color margin-left-20 margin-bottom-20 radius-8px overflow-hidden shadow"
@@ -99,6 +88,11 @@
 							</view>
 						</view>
 					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+						<empty description="暂无商品" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</view>
 			</view>
 			<template is="footer"></template>

@@ -1,0 +1,50 @@
+.jy-tab {
+    white-space: nowrap;
+}
+
+.jy-tab-item {
+    display: inline-block;
+    padding: 0 30rpx;
+    height: 45px;
+    line-height: 45px;
+    color: #666;
+}
+
+.jy-tab-item.active {
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.jy-tab-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    height: 4px;
+    border-radius: 4px;
+    width: 30%;
+    margin-left: -15%;
+    background: linear-gradient(to right, rgb(42, 175, 255), #56CCF2);
+}
+
+.jy-tab.top {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: rgb(42, 175, 255);
+}
+
+.jy-tab.top .jy-tab-item {
+    color: #fff;
+}
+
+.jy-tab.top .jy-tab-item.active {
+    color: #fff;
+}
+
+.jy-tab.top .jy-tab-item.active::after {
+    background: #fff;
+}
