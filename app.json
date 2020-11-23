@@ -35,6 +35,7 @@
         "pages/interrogation/diagnosis-template/index",
         "pages/interrogation/diagnosis-template-edit/index",
         "pages/interrogation/usage/index",
+        "pages/interrogation/usage-comb/index",
         "pages/interrogation/search/index",
         "pages/interrogation/product-list/index",
         "pages/interrogation/home/index",

@@ -58,6 +58,10 @@ checkbox {
     border-style: none;
 }
 
+.align-left {
+    text-align: left;
+}
+
 .align-right {
     text-align: right;
 }

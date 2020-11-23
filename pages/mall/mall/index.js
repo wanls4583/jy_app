@@ -66,7 +66,7 @@ Component({
                 data: {
                     page: 1,
                     limit: 6,
-                    type: 2,
+                    type: 3,
                     side: 'USER'
                 }
             }).then((data) => {

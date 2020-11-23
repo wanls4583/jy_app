@@ -4,7 +4,7 @@
 		<view class="flex-grow-1 padding-top-bottom-30 margin-left-30 border-bottom overflow-hidden">
 			<view class="flex-direction-column flex--start--between height-150rpx">
 				<view class="ellipse width-100">{{taocan.goodsName}}</view>
-				<view class="gray-color">一天{{taocan.frequency}}次</view>
+				<view class="gray-color">{{taocan.days}}天</view>
 				<view wx:if="{{taocan.isOrder}}">￥{{taocan.price}}</view>
 				<view class="flex--center--start danger-color font-bold" wx:else>
 					<text class="font-small" style="margin-top:6rpx">￥</text>

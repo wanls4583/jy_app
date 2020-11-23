@@ -153,7 +153,7 @@ Page({
                 data: {
                     page: page,
                     limit: this.data.limit,
-                    type: 2,
+                    type: 3,
                     side: 'USER'
                 },
                 complete: () => {

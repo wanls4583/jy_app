@@ -80,9 +80,15 @@ Page({
     onEdit(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
         wx.jyApp.tempData.usageGoods = item;
-        wx.navigateTo({
-            url: '/pages/interrogation/usage/index'
-        });
+        if (item.type == 3) {
+            wx.navigateTo({
+                url: '/pages/interrogation/usage-comb/index'
+            });
+        } else {
+            wx.navigateTo({
+                url: '/pages/interrogation/usage/index'
+            });
+        }
     },
     onSave() {
         if (!this.data.diagnosis && this.type != 2) {
