@@ -51,16 +51,23 @@ Page({
     },
     onAddTaocan(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
-        item.type = 2;
         var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
             return _item.id == item.id && _item.type == item.type
         });
         if (!arr.lenght) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.tempData.usageGoods = item;
-            wx.navigateTo({
-                url: '/pages/interrogation/usage/index'
-            });
+            if (item.type == 3) { //整取套餐
+                wx.navigateTo({
+                    url: '/pages/interrogation/usage-comb/index'
+                });
+            } else if (item.type == 2) { //配制套餐
+                wx.navigateTo({
+                    url: '/pages/interrogation/usage/index'
+                });
+            }
+        } else {
+            wx.jyApp.toast('已添加该套餐');
         }
     },
     onAddProduct(e) {
@@ -181,7 +188,7 @@ Page({
                 data: {
                     page: page,
                     limit: this.data.limit,
-                    type: 2,
+                    type: 3,
                     side: 'DOCTOR'
                 },
                 complete: () => {

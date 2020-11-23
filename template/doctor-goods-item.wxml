@@ -5,7 +5,7 @@
 			<view class="flex-direction-column flex--start--between height-150rpx">
 				<view>{{taocan.goodsName}}</view>
 				<view class="flex--center--between width-100">
-					<text class="gray-color">一天{{taocan.frequency}}次</text>
+					<text class="gray-color">{{taocan.days}}天</text>
 				</view>
 				<view class="flex--center--between width-100">
 					<view class="flex--center--start danger-color font-bold">

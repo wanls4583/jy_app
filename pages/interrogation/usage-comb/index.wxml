@@ -1,0 +1,50 @@
+<import src="/template/doctor-goods-item.wxml" />
+<navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
+<view class="padding-bottom-footer">
+	<view class="padding-left-right-30 white-background-color">
+		<template data="{{taocan:goods}}" is="doctor-taocan-item"></template>
+	</view>
+	<view class="margin-top-20 padding-30 white-background-color">
+		<view class="flex--center--between">
+			<text class="margin-right-30">套餐数量</text>
+			<van-stepper bind:change="onCountChang" min="{{1}}" value="{{count}}" />
+			<view class="flex-grow-1 margin-left-30 align-right">
+				<text>金额：</text>
+				<text class="danger-color">￥{{totalAmount}}</text>
+			</view>
+		</view>
+	</view>
+	<view class="margin-top-20 white-background-color">
+		<view class="font-title padding-top-bottom-20 margin-left-right-30 border-bottom">单个套餐信息</view>
+		<van-cell>
+			<view class="flex--center--start">
+				<view class="align-left" style="flex:3">产品名称</view>
+				<view class="align-center" style="flex:1">每次用量</view>
+				<view class="align-center" style="flex:1">总量</view>
+			</view>
+			<view class="flex--center--start" wx:for="{{productList}}" wx:key="id">
+				<view class="align-left" style="flex:3">{{item.productName}}</view>
+				<view class="align-center" style="flex:1">{{item.perUseNum}}{{unitChange[item.standardUnit]}}</view>
+				<view class="align-center" style="flex:1">{{item.gross}}{{unitChange[item.useUnit]}}</view>
+			</view>
+		</van-cell>
+		<van-cell title="配置用来" value="{{modulateDose}}毫升" />
+		<van-cell title="频率" value="{{_frequency}}" />
+		<van-cell title="天数" value="{{days}}天" />
+		<van-cell bindtap="onShowGiveWay" title="给予方式" value="{{_giveWay}}" />
+	</view>
+	<view class="footer padding-30">
+		<view bindtap="onSave" class="button primary block">保存</view>
+	</view>
+	<van-popup position="bottom" show="{{giveWayVisible}}">
+		<van-picker
+			bind:cancel="onCancel"
+			bind:confirm="onConfirmGiveWay"
+			columns="{{giveWayList}}"
+			default-index="{{giveWayDefault}}"
+			show-toolbar
+			value-key="label"
+		></van-picker>
+	</van-popup>
+</view>
+<van-dialog id="van-dialog" />
