@@ -17,12 +17,23 @@
 			</view>
 		</view>
 	</navigation-bar>
-	<scroll-view class="jy-tab top" scroll-x="{{true}}" style="top:{{menuRect.outerNavHeight}}px" wx:if="{{topMenuVisible}}">
-		<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}">全部</view>
+	<scroll-view
+		class="jy-tab top"
+		scroll-into-view="tab-{{scrollCategoryId}}"
+		scroll-with-animation="{{true}}"
+		scroll-x="{{true}}"
+		style="top:{{menuRect.outerNavHeight}}px"
+		wx:if="{{topMenuVisible}}"
+	>
+		<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}" id="tab-0">
+			<text>{{categoryList.length ? '全部' : '营养产品'}}</text>
+		</view>
 		<view
 			bindtap="onChangeTab"
 			class="jy-tab-item {{item.id==categoryId?'active':''}}"
 			data-id="{{item.id}}"
+			data-index="{{index}}"
+			id="tab-{{item.id}}"
 			wx:for="{{categoryList}}"
 			wx:key="id"
 		>{{item.categoryName}}</view>
@@ -59,12 +70,16 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<scroll-view class="jy-tab" scroll-x="{{true}}">
-					<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}">全部</view>
+				<scroll-view class="jy-tab" scroll-into-view="tab-{{scrollCategoryId}}" scroll-with-animation="{{true}}" scroll-x="{{true}}">
+					<view bindtap="onChangeTab" class="jy-tab-item {{0==categoryId?'active':''}}" data-id="{{0}}" id="tab-0">
+						<text>{{categoryList.length ? '全部' : '营养产品'}}</text>
+					</view>
 					<view
 						bindtap="onChangeTab"
 						class="jy-tab-item {{item.id==categoryId?'active':''}}"
 						data-id="{{item.id}}"
+						data-index="{{index}}"
+						id="tab-{{item.id}}"
 						wx:for="{{categoryList}}"
 						wx:key="id"
 					>{{item.categoryName}}</view>

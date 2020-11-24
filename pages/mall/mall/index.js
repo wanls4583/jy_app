@@ -8,6 +8,7 @@ Component({
         taocanList: [],
         categoryList: [],
         categoryId: 0,
+        scrollCategoryId: 0,
         topMenuVisible: false,
         stopRefresh: false,
         page: 1,
@@ -79,11 +80,15 @@ Component({
         },
         onChangeTab(e) {
             var id = e.currentTarget.dataset.id;
+            var index = e.currentTarget.dataset.index;
             if (id != this.data.categoryId) {
                 this.setData({
                     categoryId: id
                 });
                 this.loadProduct(true);
+                this.setData({
+                    scrollCategoryId: index ? this.data.categoryList[index - 1].id : 0
+                });
             }
         },
         onclickProdcut(e) {
@@ -112,7 +117,6 @@ Component({
                 data: {
                     page: page,
                     limit: this.data.size,
-                    type: 1,
                     categoryId: this.data.categoryId || '',
                     side: 'USER'
                 }
@@ -121,6 +125,9 @@ Component({
                 data.page.list.map((item) => {
                     item._goodsName = item.goodsName;
                     item._unit = wx.jyApp.constData.unitChange[item.useUnit];
+                    if (item.type != 1) {
+                        item._unit = '份';
+                    }
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
