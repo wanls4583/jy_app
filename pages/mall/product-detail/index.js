@@ -66,7 +66,7 @@ Page({
         // this.setData({
         //     cartVisible: !this.data.cartVisible
         // });
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/cart/index'
         });
     },
@@ -132,7 +132,7 @@ Page({
     onPay() {
         if (this.data.cart.length) {
             if (this.data.needMoney <= 0) {
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/confirm-order/index'
                 });
             }
@@ -143,7 +143,7 @@ Page({
     //立即购买
     onBuy() {
         wx.jyApp.tempData.buyGoods = Object.assign({}, this.data.productInfo);
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/confirm-order/index'
         });
     },

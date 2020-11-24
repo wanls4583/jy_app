@@ -49,7 +49,7 @@ Page({
         });
     },
     onGotoSearch() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/search/index'
         });
     },

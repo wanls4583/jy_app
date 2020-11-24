@@ -37,7 +37,7 @@ Page({
     },
     onSelectAddress() {
         wx.jyApp.selectAddressFlag = true;
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/address-list/index'
         });
     },

@@ -40,7 +40,7 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInfo();
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/chat/index?id=' + this.id
                 });
             }).catch(() => {

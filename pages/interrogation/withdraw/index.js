@@ -65,7 +65,7 @@ Page({
             var balance = this.data.doctorInfo.balance - this.data.amount;
             this.data.doctorInfo.balance = balance.toFixed(2);
             this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo));
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/withdraw-list/index'
             });
             setTimeout(() => {

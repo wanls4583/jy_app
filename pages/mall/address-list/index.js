@@ -28,7 +28,7 @@ Page({
     },
     onEditAddress(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/address-edit/index?id=' + id
         });
     },
@@ -60,7 +60,7 @@ Page({
         });
     },
     onAddAddress() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/address-edit/index'
         });
     },

@@ -42,7 +42,7 @@ Component({
             if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
                 return;
             }
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/chat/index?roomId=' + roomId
             });
         },
@@ -55,7 +55,7 @@ Component({
             wx.jyApp.utils.navigateTo(e);
         },
         onGotoSearch() {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/doctor-patient-search/index'
             });
         },

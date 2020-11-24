@@ -22,7 +22,7 @@
 							<text class="gray-color">订单编号：{{order.orderNo}}</text>
 							<text class="{{order.statusColor}}">{{order._status}}</text>
 						</view>
-						<view bindtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
+						<view catchtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
 							<view class="flex--center--between padding-top-bottom-20">
 								<text>商品信息：{{order.goodsName}}</text>
 								<!-- 简版问诊不显示金额 -->
@@ -51,13 +51,13 @@
 								wx:if="{{order.oneMoreVisible}}"
 							>再来一单</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=1"
 								wx:if="{{order.ticketStatus}}"
 							>发票详情</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
 								wx:elif="{{order.applyTicketVisible}}"
@@ -65,7 +65,7 @@
 							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 							<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary warn small"
 								data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
 								wx:if="{{!order.isAppraise&&order.status==3}}"
@@ -74,7 +74,7 @@
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{(order.delVisible||order.status==1)&&userInfo.role=='DOCTOR'}}">
 							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 							<view
-								catchtap="onRecieve"
+								bindtap="onRecieve"
 								class="margin-left-20 button primary small"
 								data-url="/pages/interrogation/chat/index?id={{order.id}}"
 								wx:if="{{order.status==1}}"
@@ -125,13 +125,13 @@
 							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.delVisible)&&userInfo.role=='USER'}}"
 						>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=2"
 								wx:if="{{order.ticketStatus}}"
 							>发票详情</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.price}}&orderNo={{order.orderNo}}&orderType=2"
 								wx:elif="{{order.applyTicketVisible}}"
@@ -140,7 +140,7 @@
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="button primary small"
 								data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}&type={{order.type}}"
 							>开营养指导</view>
@@ -197,13 +197,13 @@
 						>
 							<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=3"
 								wx:if="{{order.ticketStatus}}"
 							>发票详情</view>
 							<view
-								catchtap="onGoto"
+								bindtap="onGoto"
 								class="margin-left-20 button primary primary small"
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
 								wx:elif="{{order.applyTicketVisible}}"
@@ -251,13 +251,13 @@
 							>
 								<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 								<view
-									catchtap="onGoto"
+									bindtap="onGoto"
 									class="margin-left-20 button primary primary small"
 									data-url="/pages/interrogation/ticket-detail/index?id={{order.id}}&orderType=4"
 									wx:if="{{order.ticketStatus}}"
 								>发票详情</view>
 								<view
-									catchtap="onGoto"
+									bindtap="onGoto"
 									class="margin-left-20 button primary primary small"
 									data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=4"
 									wx:elif="{{applyTicketVisible}}"

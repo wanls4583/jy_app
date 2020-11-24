@@ -65,7 +65,7 @@ Page({
         });
     },
     onShowAddress() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/mall/address-list/index'
         });
     },
@@ -176,12 +176,12 @@ Page({
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
                 wx.hideLoading();
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/phone-bind/index'
                 });
             });
         } else {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/phone-bind/index'
             });
         }

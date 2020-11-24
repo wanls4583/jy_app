@@ -80,7 +80,7 @@ Page({
                 }, 0);
             }
             if (data.infos.length) {
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/cart/index'
                 });
             }

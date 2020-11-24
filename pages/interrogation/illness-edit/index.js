@@ -42,7 +42,7 @@ Page({
                     consultOrderPrice: this.data.doctor.consultOrderPrice
                 }
                 wx.jyApp.selectPatientFlag = true;
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/user-patient-list/index?selectPatient=1'
                 });
             }

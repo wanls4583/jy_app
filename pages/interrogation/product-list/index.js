@@ -58,11 +58,11 @@ Page({
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.tempData.usageGoods = item;
             if (item.type == 3) { //整取套餐
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/usage-comb/index'
                 });
             } else if (item.type == 2) { //配制套餐
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/usage/index'
                 });
             }
@@ -79,13 +79,13 @@ Page({
         if (!arr.lenght) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.tempData.usageGoods = item;
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'
             });
         }
     },
     onGotoSearch() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/search/index'
         });
     },

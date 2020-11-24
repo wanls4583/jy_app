@@ -12,13 +12,13 @@ Page({
         }
     },
     onAdd() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/diagnosis-template-edit/index'
         });
     },
     onEdit(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/diagnosis-template-edit/index?id=' + id
         });
     },

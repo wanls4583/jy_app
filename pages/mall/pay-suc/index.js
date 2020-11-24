@@ -9,7 +9,7 @@ Page({
     //查看详情
     onDetail() {
         if (this.type == 'mallOrder') {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/mall/order-detail/index?id=' + this.id
             });
         }

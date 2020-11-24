@@ -28,11 +28,11 @@ Page({
                 setTimeout(() => {
                     wx.jyApp.toast('支付失败');
                 }, 500);
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
                 });
             } else {
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/chat/index?id=' + wx.jyApp.tempData.payInterrogationResult.id
                 });
             }
@@ -58,7 +58,7 @@ Page({
                 message: '该医生已下线，你可以找其他医生进行问诊咨询',
                 confirmButtonText: '找其他医生'
             }).then(() => {
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/search-doctor/index'
                 });
             });
@@ -123,12 +123,12 @@ Page({
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
                 wx.hideLoading();
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
                 });
             });
         } else {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
             });
         }

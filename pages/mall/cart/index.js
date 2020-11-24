@@ -18,7 +18,7 @@ Page({
     },
     onPay() {
         if (this.data.cartSelectedNum > 0) {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/mall/confirm-order/index'
             });
         } else {

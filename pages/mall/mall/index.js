@@ -93,7 +93,7 @@ Component({
         },
         onclickProdcut(e) {
             var id = e.currentTarget.dataset.id;
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/mall/product-detail/index?id=' + id
             });
         },
@@ -106,7 +106,7 @@ Component({
         //查看更多
         onClickMore(e) {
             var type = e.currentTarget.dataset.type;
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: `/pages/mall/product-list/index?type=${type}`
             });
         },

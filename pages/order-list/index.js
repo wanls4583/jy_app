@@ -102,7 +102,7 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInterrogationOrderList(true);
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/chat/index?id=' + id
                 });
             }).catch(() => {
@@ -126,7 +126,7 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.updateMallStatus(id, 1);
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/order-detail/index?id=' + id
                 });
             }).catch(() => {
@@ -171,7 +171,7 @@ Page({
                 }, 0);
             }
             if (data.infos.length) {
-                wx.navigateTo({
+                wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/cart/index'
                 });
             }

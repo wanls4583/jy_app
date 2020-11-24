@@ -50,11 +50,11 @@ Component({
                     setTimeout(() => {
                         wx.jyApp.toast('支付失败');
                     }, 500);
-                    wx.navigateTo({
+                    wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
                     });
                 } else {
-                    wx.navigateTo({
+                    wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/chat/index?id=' + wx.jyApp.tempData.payInterrogationResult.id
                     });
                 }
@@ -95,7 +95,7 @@ Component({
         },
         onClickDoctor(e) {
             var id = e.currentTarget.dataset.id;
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/doctor-detail/index?id=' + id
             });
         },
@@ -107,7 +107,7 @@ Component({
         },
         //查看更多
         onClickMore(e) {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/mall/search-doctor/index?all=1'
             });
         },

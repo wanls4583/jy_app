@@ -65,14 +65,14 @@ Page({
                                 url: this.url
                             });
                         } else {
-                            wx.navigateTo({
+                            wx.jyApp.utils.navigateTo({
                                 url: this.url
                             });
                         }
                     } else if (this.to) {
                         switch (Number(this.to)) {
                             case 1:
-                                wx.navigateTo({
+                                wx.jyApp.utils.navigateTo({
                                     url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                                 });
                                 break;
@@ -83,15 +83,15 @@ Page({
                                 wx.switchTab({ url: '/pages/tab-bar-second/index' });
                                 break;
                             case 4:
-                                wx.navigateTo({ url: '/pages/interrogation/interrogation-simple/index?doctorId=' + this.doctorId });
+                                wx.jyApp.utils.navigateTo({ url: '/pages/interrogation/interrogation-simple/index?doctorId=' + this.doctorId });
                                 break;
                         }
                     } else if (this.doctorId) {
-                        wx.navigateTo({
+                        wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
                         });
                     } else if (this.productId) {
-                        wx.navigateTo({
+                        wx.jyApp.utils.navigateTo({
                             url: '/pages/mall/product-detail/index?id=' + this.productId
                         });
                     } else {

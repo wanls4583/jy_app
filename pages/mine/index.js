@@ -43,7 +43,7 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onGotoUser() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/user/index'
         });
     },
@@ -122,10 +122,10 @@ Page({
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
                 wx.hideLoading();
-                wx.navigateTo({ url: '/pages/user/index' });
+                wx.jyApp.utils.navigateTo({ url: '/pages/user/index' });
             });
         } else {
-            wx.navigateTo({ url: '/pages/user/index' });
+            wx.jyApp.utils.navigateTo({ url: '/pages/user/index' });
         }
     },
     //重新登录

@@ -55,13 +55,13 @@ Page({
         });
     },
     onClickTemplate() {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/diagnosis-template/index'
         });
     },
     onAddGoods() {
         wx.jyApp.diagnosisGoods = wx.jyApp.diagnosisGoods || [];
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/product-list/index'
         });
     },
@@ -81,11 +81,11 @@ Page({
         var item = Object.assign({}, e.currentTarget.dataset.item);
         wx.jyApp.tempData.usageGoods = item;
         if (item.type == 3) {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage-comb/index'
             });
         } else {
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'
             });
         }

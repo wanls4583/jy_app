@@ -50,7 +50,7 @@ Page({
         });
     },
     onQrcode(e) {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: `/pages/interrogation/qrcode-share/index?source=INDEX&uId=${this.data.userInfo.id}&did=${this.data.doctorInfo.id}`
         });
         this.setData({

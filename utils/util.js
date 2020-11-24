@@ -57,6 +57,10 @@ function getUUID(len) {
 }
 
 function navigateTo(e) {
+    if (e.url) {
+        _navigateTo(e.url);
+        return;
+    }
     var url = e.currentTarget.dataset.url;
     var type = e.currentTarget.dataset.type;
     if (type == 'tab') {
@@ -64,9 +68,19 @@ function navigateTo(e) {
             url: url
         });
     } else {
-        wx.navigateTo({
-            url: url
-        });
+        _navigateTo(url);
+    }
+
+    function _navigateTo(url) {
+        if (getCurrentPages().length > 9) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.navigateTo({
+                url: url
+            });
+        }
     }
 }
 

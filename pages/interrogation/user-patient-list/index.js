@@ -34,7 +34,7 @@ Page({
             return;
         }
         wx.jyApp.tempData.illness.patientId = this.data.selectId;
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/interrogation-pay/index'
         });
     },
@@ -46,7 +46,7 @@ Page({
     },
     onEdit(e) {
         var id = e.currentTarget.dataset.id;
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/user-patient-edit/index?id=' + id
         });
     },
@@ -68,7 +68,7 @@ Page({
         });
     },
     onAdd(e) {
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/user-patient-edit/index'
         });
     },

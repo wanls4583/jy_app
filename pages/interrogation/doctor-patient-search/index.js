@@ -29,7 +29,7 @@ Page({
         if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
             return;
         }
-        wx.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/chat/index?roomId=' + roomId
         });
     },

@@ -33,7 +33,7 @@ Component({
     methods: {
         onGoto(e) {
             var url = e.currentTarget.dataset.url;
-            wx.navigateTo({
+            wx.jyApp.utils.navigateTo({
                 url: url
             });
         },
