@@ -71,8 +71,23 @@ Page({
                         }
                     } else if (this.inviteWay == 2) { //扫医生二维码进入
                         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+                            var url = '';
+                            switch (data.doctor.barcodeSource) {
+                                case '/pages/interrogation/doctor-detail/index':
+                                    url = '/pages/interrogation/doctor-detail/index?id=' + this.inviteDoctorId
+                                    break;
+                                case '/pages/tab-bar-first/index':
+                                case '/pages/tab-bar-secon/index':
+                                    //医生扫医生的二维码进入首页或商城页需要先切换称患者
+                                    if (wx.store.userInfo.role == 'DOCTOR') {
+                                        this.data.userInfo.role = 'USER';
+                                        this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                                    }
+                                default:
+                                    url = data.doctor.barcodeSource;
+                            }
                             wx.jyApp.utils.navigateTo({
-                                url: data.doctor.barcodeSource
+                                url: url
                             });
                         });
                     } else if (this.doctorId) {
