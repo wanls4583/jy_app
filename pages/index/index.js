@@ -69,23 +69,12 @@ Page({
                                 url: this.url
                             });
                         }
-                    } else if (this.to) {
-                        switch (Number(this.to)) {
-                            case 1:
-                                wx.jyApp.utils.navigateTo({
-                                    url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
-                                });
-                                break;
-                            case 2:
-                                wx.switchTab({ url: '/pages/tab-bar-first/index' });
-                                break;
-                            case 3:
-                                wx.switchTab({ url: '/pages/tab-bar-second/index' });
-                                break;
-                            case 4:
-                                wx.jyApp.utils.navigateTo({ url: '/pages/interrogation/interrogation-simple/index?doctorId=' + this.doctorId });
-                                break;
-                        }
+                    } else if (this.inviteWay == 2) { //扫医生二维码进入
+                        wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+                            wx.jyApp.utils.navigateTo({
+                                url: data.doctor.barcodeSource
+                            });
+                        });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
@@ -127,7 +116,6 @@ Page({
                 this.inviteWay = 2;
                 this.inviteDoctorId = param.dId;
                 this.doctorId = param.dId;
-                this.to = param.to || 2;
             }
         }
     },
