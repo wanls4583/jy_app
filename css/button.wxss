@@ -15,6 +15,7 @@ page button {
 
 page button:after {
     border: none;
+    background-color: transparent;
 }
 
 page button:not([size='mini']) {
