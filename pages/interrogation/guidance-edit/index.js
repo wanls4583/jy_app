@@ -120,7 +120,7 @@ Page({
                         }
                         return {
                             amount: (item.price * item.count).toFixed(2),
-                            days: item.days,
+                            days: days,
                             frequency: item.frequency,
                             giveWay: item.giveWay,
                             goodsId: item.id,
