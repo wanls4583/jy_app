@@ -116,7 +116,7 @@ Page({
                     goods: this.data.goodsList.map((item) => {
                         var days = item.days;
                         if (item.type == 3) {
-                            days = Number((this.data.days * this.data.count).toFixed(2));
+                            days = Number((item.days * item.count).toFixed(2));
                         }
                         return {
                             amount: (item.price * item.count).toFixed(2),
