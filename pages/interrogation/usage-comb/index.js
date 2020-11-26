@@ -10,6 +10,7 @@ Page({
         count: '',
         days: '',
         modulateDose: 0,
+        remark: '',
         giveWayDefault: 0,
         productList: [],
     },
@@ -18,6 +19,7 @@ Page({
         var giveWayList = [];
         var goods = wx.jyApp.tempData.usageGoods;
         goods.hideBtn = true;
+        goods.hideDays = true;
         for (var key in giveWayMap) {
             giveWayList.push({
                 label: giveWayMap[key],
@@ -51,6 +53,9 @@ Page({
         if (!this.saved) {
             wx.jyApp.tempData.usageGoods = undefined;
         }
+    },
+    onInput(e) {
+        wx.jyApp.utils.onInput(e, this);
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);

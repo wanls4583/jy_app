@@ -28,10 +28,11 @@
 				<view class="align-center" style="flex:1">{{item.gross}}{{unitChange[item.useUnit]}}</view>
 			</view>
 		</van-cell>
-		<van-cell title="配置用来" value="{{modulateDose}}毫升" />
+		<van-cell title="配置用量" value="{{modulateDose}}毫升" />
 		<van-cell title="频率" value="{{_frequency}}" />
 		<van-cell title="天数" value="{{days}}天" />
 		<van-cell bindtap="onShowGiveWay" title="给予方式" value="{{_giveWay}}" />
+		<van-field bind:input="onInput" data-prop="remark" input-align="right" label="备注" value="{{remark}}"></van-field>
 	</view>
 	<view class="footer padding-30">
 		<view bindtap="onSave" class="button primary block">保存</view>
