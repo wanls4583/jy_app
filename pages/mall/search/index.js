@@ -147,7 +147,7 @@ Page({
             data: {
                 page: refresh ? 1 : this.data.taocanData.page,
                 limit: 10,
-                type: 2,
+                type: 3,
                 goodsName: this.data.goodsName,
                 side: 'USER'
             },

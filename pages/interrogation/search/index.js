@@ -155,7 +155,7 @@ Page({
             data: {
                 page: refresh ? 1 : this.data.taocanData.page,
                 limit: this.data.taocanData.limit,
-                type: 2,
+                type: 3,
                 goodsName: this.data.goodsName,
                 side: 'DOCTOR'
             },
