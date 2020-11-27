@@ -72,23 +72,41 @@ Page({
                     } else if (this.inviteWay == 2) { //扫医生二维码进入
                         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
                             var url = '';
-                            switch (data.doctor.barcodeSource) {
+                            var tabs = [
+                                '/pages/tab-bar-first/index',
+                                '/pages/tab-bar-second/index',
+                                '/pages/interrogation/message-list/index',
+                                '/pages/min/index',
+                            ]
+                            switch (data.doctor.barcodePath) {
                                 case '/pages/interrogation/doctor-detail/index':
                                     url = '/pages/interrogation/doctor-detail/index?id=' + this.inviteDoctorId
                                     break;
                                 case '/pages/tab-bar-first/index':
-                                case '/pages/tab-bar-secon/index':
+                                case '/pages/tab-bar-second/index':
                                     //医生扫医生的二维码进入首页或商城页需要先切换称患者
-                                    if (wx.store.userInfo.role == 'DOCTOR') {
+                                    if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                                         this.data.userInfo.role = 'USER';
                                         this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                                        wx.setStorageSync('role', 'USER');
                                     }
                                 default:
-                                    url = data.doctor.barcodeSource;
+                                    url = data.doctor.barcodePath;
                             }
-                            wx.jyApp.utils.navigateTo({
-                                url: url
-                            });
+                            if (url.slice(0, 6) == '/pages') {
+                                if(tabs.indexOf(url) > -1) {
+                                    wx.jyApp.utils.navigateTo({
+                                        url: url,
+                                        type: 'tab'
+                                    });
+                                } else {
+                                    wx.jyApp.utils.navigateTo({
+                                        url: url
+                                    });
+                                }
+                            } else {
+                                wx.jyApp.utils.openWebview(url);
+                            }
                         });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
@@ -105,6 +123,8 @@ Page({
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
                 }
                 this.firstLoad = false;
+            }).catch((e)=>{
+                console.log(e);
             });
         }
     },

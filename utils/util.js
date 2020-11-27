@@ -58,7 +58,13 @@ function getUUID(len) {
 
 function navigateTo(e) {
     if (e.url) {
-        _navigateTo(e.url);
+        if (e.type == 'tab') {
+            wx.switchTab({
+                url: e.url
+            });
+        } else {
+            _navigateTo(e.url);
+        }
         return;
     }
     var url = e.currentTarget.dataset.url;
@@ -156,12 +162,12 @@ function openWebview(e) {
     }
     if (url) {
         if (url.indexOf('/pages/') == 0) { //小程序内地址
-            wx.navigateTo({
+            navigateTo({
                 url: url
             });
         } else {
             url = encodeURIComponent(url);
-            wx.navigateTo({
+            navigateTo({
                 url: '/pages/web-view/index?url=' + url
             });
         }

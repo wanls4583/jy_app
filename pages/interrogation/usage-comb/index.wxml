@@ -28,7 +28,7 @@
 				<view class="align-center" style="flex:1">{{item.gross}}{{unitChange[item.useUnit]}}</view>
 			</view>
 		</van-cell>
-		<van-cell title="配置用量" value="{{modulateDose}}毫升" />
+		<van-cell title="配制用量" value="{{modulateDose}}毫升" />
 		<van-cell title="频率" value="{{_frequency}}" />
 		<van-cell title="天数" value="{{days}}天" />
 		<van-cell bindtap="onShowGiveWay" title="给予方式" value="{{_giveWay}}" />
