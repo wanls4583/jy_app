@@ -109,6 +109,8 @@ Page({
                             } else {
                                 wx.jyApp.utils.openWebview(url);
                             }
+                        }).catch(() => {
+                            wx.switchTab({ url: '/pages/tab-bar-first/index' });
                         });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
