@@ -7,7 +7,7 @@
 				<van-icon bindtap="onGoto" color="#fff" data-url="/pages/mall/cart/index" name="cart-o" size="25" wx:else></van-icon>
 				<view
 					bindtap="onGoto"
-					class="flex-grow-1 flex--center--center margin-left-20 white-background-color radius-100px"
+					class="flex-grow-1 flex--center--center margin-left-20 padding-left-right-20 white-background-color radius-100px"
 					data-url="/pages/mall/search/index"
 					style="height:{{menuRect.height}}px"
 				>

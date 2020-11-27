@@ -11,7 +11,7 @@
 				style="padding:0 {{menuRect.marginRight}}px"
 				wx:if="{{scrollTop>44}}"
 			>
-				<view class="flex--center--center width-100 white-background-color radius-100px" style="height:{{menuRect.height}}px">
+				<view class="flex--center--center width-100 padding-left-right-20 white-background-color radius-100px" style="height:{{menuRect.height}}px">
 					<van-icon color="#666" name="search" size="16"></van-icon>
 					<text class="margin-left-10 gray-color">请输入{{configData.showDoctor==1?'医生/':''}}产品</text>
 				</view>
