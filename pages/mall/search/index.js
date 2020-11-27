@@ -78,7 +78,7 @@ Page({
     onClickDoctor(e) {
         var id = e.currentTarget.dataset.id;
         wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/doctor-detail/index?id=' + id
+            url: '/pages/interrogation/doctor-detail/index?doctorId=' + id
         });
     },
     search() {

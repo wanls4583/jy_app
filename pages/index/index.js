@@ -79,9 +79,6 @@ Page({
                                 '/pages/min/index',
                             ]
                             switch (data.doctor.barcodePath) {
-                                case '/pages/interrogation/doctor-detail/index':
-                                    url = '/pages/interrogation/doctor-detail/index?id=' + this.inviteDoctorId
-                                    break;
                                 case '/pages/tab-bar-first/index':
                                 case '/pages/tab-bar-second/index':
                                     //医生扫医生的二维码进入首页或商城页需要先切换称患者
@@ -94,7 +91,12 @@ Page({
                                     url = data.doctor.barcodePath;
                             }
                             if (url.slice(0, 6) == '/pages') {
-                                if(tabs.indexOf(url) > -1) {
+                                if (url.indexOf('?') > -1) {
+                                    url += '&doctorId=' + this.inviteDoctorId;
+                                } else {
+                                    url += '?doctorId=' + this.inviteDoctorId;
+                                }
+                                if (tabs.indexOf(url) > -1) {
                                     wx.jyApp.utils.navigateTo({
                                         url: url,
                                         type: 'tab'
@@ -110,7 +112,7 @@ Page({
                         });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
-                            url: '/pages/interrogation/doctor-detail/index?id=' + this.doctorId
+                            url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.doctorId
                         });
                     } else if (this.productId) {
                         wx.jyApp.utils.navigateTo({
@@ -123,7 +125,7 @@ Page({
                     wx.switchTab({ url: '/pages/tab-bar-first/index' });
                 }
                 this.firstLoad = false;
-            }).catch((e)=>{
+            }).catch((e) => {
                 console.log(e);
             });
         }

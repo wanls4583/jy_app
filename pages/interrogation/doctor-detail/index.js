@@ -14,7 +14,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            doctorId: option.id
+            doctorId: option.doctorId
         });
         this.getDoctorInfo();
         this.getAppraiseList();
