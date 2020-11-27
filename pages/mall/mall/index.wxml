@@ -115,9 +115,9 @@
 			<template is="footer"></template>
 		</pull-scroll-view>
 	</view>
-	<view class="position-fixed flex padding-10 radius-50 clickable" style="bottom:30rpx;right:30rpx;background-color:rgba(256,256,256,0.9);border:1px solid #ddd">
+	<view class="position-fixed flex radius-50 clickable" style="bottom:30rpx;right:30rpx;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd">
 		<button class="flex" hover-class="none" open-type="contact">
-			<van-icon name="service-o" size="28" />
+			<van-icon name="service-o" size="25" />
 		</button>
 	</view>
 </view>
