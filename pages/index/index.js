@@ -90,22 +90,20 @@ Page({
                                 default:
                                     url = data.doctor.barcodePath;
                             }
+                            var type = '';
                             if (url.slice(0, 6) == '/pages') {
+                                if (tabs.indexOf(url) > -1) {
+                                    type = 'tab';
+                                }
                                 if (url.indexOf('?') > -1) {
                                     url += '&doctorId=' + this.inviteDoctorId;
                                 } else {
                                     url += '?doctorId=' + this.inviteDoctorId;
                                 }
-                                if (tabs.indexOf(url) > -1) {
-                                    wx.jyApp.utils.navigateTo({
-                                        url: url,
-                                        type: 'tab'
-                                    });
-                                } else {
-                                    wx.jyApp.utils.navigateTo({
-                                        url: url
-                                    });
-                                }
+                                wx.jyApp.utils.navigateTo({
+                                    url: url,
+                                    type: type
+                                });
                             } else {
                                 wx.jyApp.utils.openWebview(url);
                             }
