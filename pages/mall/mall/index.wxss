@@ -49,6 +49,6 @@
     background: #fff;
 }
 
-.van-empty {
+.mall .van-empty {
     padding-top: 50px !important;
 }
