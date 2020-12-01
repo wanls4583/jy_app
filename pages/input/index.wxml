@@ -8,7 +8,7 @@
 		class="width-100 white-background-color padding-30"
 		data-prop="value"
 		focus="{{true}}"
-		maxlength="{{-1}}"
+		maxlength="{{10000}}"
 		value="{{value}}"
 		wx:if="{{type=='textarea'}}"
 	></textarea>
