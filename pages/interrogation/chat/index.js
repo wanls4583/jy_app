@@ -442,7 +442,6 @@ Page({
             query.select('#page-id-' + pageId).boundingClientRect()
             query.exec(function (rect) {
                 self.gettingPageHeight[pageId] = false;
-                console.log(pageId, rect[0])
                 if (rect && rect[0]) {
                     if (!self.data.pageHeightMap[pageId]) {
                         self.setData({

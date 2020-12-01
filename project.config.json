@@ -35,7 +35,7 @@
     "packNpmRelationList": []
   },
   "compileType": "miniprogram",
-  "libVersion": "2.7.5",
+  "libVersion": "2.14.0",
   "appid": "wx270627231aff4f2c",
   "projectname": "jy_app",
   "cloudfunctionTemplateRoot": "",

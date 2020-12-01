@@ -64,12 +64,12 @@ Component({
             function _getTop() {
                 return new Promise((resolve) => {
                     var query = self.createSelectorQuery()
-                    query.select('#product-container').boundingClientRect(function (rect) {
-                        if (rect) {
-                            resolve(rect.top);
+                    query.select('#product-container').boundingClientRect()
+                    query.exec(function (rect) {
+                        if (rect && rect[0]) {
+                            resolve(rect[0].top);
                         }
-                    })
-                    query.exec();
+                    });
                 });
             }
         },
