@@ -74,7 +74,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/order-list/index"
 				>
-					<image class="width-80rpx height-80rpx;" mode="aspectFit" src="/image/icon_order.png" />
+					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的订单</view>
 				</view>
 				<view
@@ -82,7 +82,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/interrogation/user-patient-list/index"
 				>
-					<image class="width-80rpx height-80rpx;" mode="aspectFit" src="/image/icon_patient.png" />
+					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_patient.png" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">问诊患者</view>
 				</view>
 			</block>
@@ -92,7 +92,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/order-list/index"
 				>
-					<image class="width-80rpx height-80rpx;" mode="aspectFit" src="/image/icon_order.png" />
+					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_order.png" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的订单</view>
 				</view>
 				<view
@@ -102,7 +102,7 @@
 					data-url="/pages/interrogation/income-list/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
-					<image class="width-80rpx height-80rpx;" mode="aspectFit" src="/image/icon_trend.png" />
+					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_trend.png" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
 				</view>
 				<view
@@ -112,7 +112,7 @@
 					data-url="/pages/interrogation/withdraw/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
-					<image class="width-80rpx height-80rpx;" mode="aspectFit" src="/image/icon_withdrawal.png" />
+					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_withdrawal.png" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">提现</view>
 				</view>
 			</block>

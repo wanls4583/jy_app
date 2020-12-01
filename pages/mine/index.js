@@ -74,13 +74,12 @@ Page({
                 this.setData({
                     actionVisible: true
                 });
-            } else if (this.data.userInfo.doctorId) {
-                wx.setStorageSync('doctorType', 1);
-                wx.reLaunch({
-                    url: '/pages/index/index'
-                });
-            } else if (this.data.userInfo.offlineDoctorId) {
-                wx.setStorageSync('doctorType', 2);
+            } else {
+                if (this.data.userInfo.offlineDoctorId) {
+                    wx.setStorageSync('doctorType', 2);
+                } else {
+                    wx.setStorageSync('doctorType', 1);
+                }
                 wx.reLaunch({
                     url: '/pages/index/index'
                 });
