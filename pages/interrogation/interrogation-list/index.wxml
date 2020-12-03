@@ -35,6 +35,7 @@
 									<text>，{{item.age}}岁</text>
 									<text>，{{item.height}}cm</text>
 									<text>，{{item.weight}}kg</text>
+									<text class="tag" wx:if="{{item.type==3}}">视频</text>
 								</view>
 								<view class="flex--center--between width-100">
 									<text class="font-small gray-color">{{item.orderTime}}</text>
