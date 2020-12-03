@@ -106,6 +106,7 @@ Page({
         });
     },
     getPhoneNumber(e) {
+        var type = e.currentTarget.dataset.type;
         if (e.detail.iv && e.detail.encryptedData) {
             wx.showLoading({
                 title: '获取中...',
@@ -124,12 +125,12 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
+                    url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=${type}`
                 });
             });
         } else {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/illness-edit/index?doctorId=' + this.data.doctorId
+                url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }
     }

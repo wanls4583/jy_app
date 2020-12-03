@@ -1,0 +1,71 @@
+<view class="container">
+	<view class="padding-30 white-background-color">
+		<view class="margin-bottom-30 font-title font-bold align-center">请设置每周的视频问诊预约时间</view>
+		<view class="flex--center--between border font-small">
+			<view class="flex--center--between flex-direction-column" style="flex:1">
+				<view class="flex--center--center width-100 border" style="height:80rpx"></view>
+				<view class="flex--center--center width-100 border" style="height:80rpx">上午</view>
+				<view class="flex--center--center width-100 border" style="height:80rpx">下午</view>
+				<view class="flex--center--center width-100 border" style="height:80rpx">晚上</view>
+			</view>
+			<view class="flex--center--between flex-direction-column" style="flex:1" wx:for="{{timeArr}}" wx:key="index">
+				<view class="flex--center--center width-100 border" style="height:80rpx">{{item.title}}</view>
+				<view
+					bindtap="onClickTime"
+					class="flex--center--center width-100 border clickable"
+					data-index="{{index}}"
+					data-item="{{item}}"
+					data-type="morning"
+					style="height:80rpx"
+				>
+					<text class="success-color" wx:if="{{item.morning && item.morning.length}}">可预约</text>
+					<text class="gray-color" wx:else>未设置</text>
+				</view>
+				<view
+					bindtap="onClickTime"
+					class="flex--center--center width-100 border clickable"
+					data-index="{{index}}"
+					data-item="{{item}}"
+					data-type="afternoon"
+					style="height:80rpx"
+				>
+					<text class="success-color" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
+					<text class="gray-color" wx:else>未设置</text>
+				</view>
+				<view
+					bindtap="onClickTime"
+					class="flex--center--center width-100 border clickable"
+					data-index="{{index}}"
+					data-item="{{item}}"
+					data-type="night"
+					style="height:80rpx"
+				>
+					<text class="success-color" wx:if="{{item.night && item.night.length}}">可预约</text>
+					<text class="gray-color" wx:else>未设置</text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="padding-30 margin-top-20 white-background-color">
+		<view class="font-title font-bold align-center">服务说明</view>
+		<view class="gray-color" style="white-space:pre-line">
+			1、患者预约后，我们将发送预约通知给您，请在约定时间主动向患者发起视频通话，为患者提供视频问诊服务。
+			2、患者可能无法及时接听视频，您可在问诊中使用文字与患者约定其他时间进行视频。
+			3、一次视频服务时间为15分钟，请您注意沟通时间。
+			4、若您未在约定时间主动向患者发起视频，订单将全额退款给患者。
+		</view>
+	</view>
+</view>
+<van-popup bind:close="onShowTime" closeable position="bottom" show="{{timeVisible}}">
+	<view class="padding-20 font-title font-bold align-center">请选择问诊时间段</view>
+	<view class="align-center">{{timeTitle}}</view>
+	<view class="flex flex-wrap-wrap padding-left-30 margin-top-20">
+		<view class="width-33 padding-bottom-30 padding-right-30" wx:for="{{slectTimes}}" wx:key="index">
+			<view
+				bindtap="onCheckedTime"
+				class="width-100 flex--center--center padding-20 clickable border {{item.checked?'primary-border-color primary-color':'gray-color'}}"
+				data-index="{{index}}"
+			>{{item.time}}</view>
+		</view>
+	</view>
+</van-popup>

@@ -8,6 +8,9 @@ Page({
         statusList: [],
         statusMap: {},
         statusDefault: 0,
+        videoOrderSwitch: 0,
+        videoOrderPrice: 0,
+        videoServiceTime: null,
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -18,9 +21,13 @@ Page({
         this.storeBindings.updateStoreBindings();
         this.setData({
             consultOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.consultOrderPrice || 0,
+            videoOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.videoOrderPrice || 0,
             nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.nutritionOrderPrice || 0,
             consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
+            videoOrderSwitch: this.data.doctorInfo.videoOrderSwitch,
             status: this.data.doctorInfo.status,
+            videoServiceTime: this.data.doctorInfo.videoServiceTime,
+            statusDefault: this.data.doctorInfo.status == 2 ? 1 : 0,
             statusList: [{
                 label: '上线',
                 value: 1
@@ -44,6 +51,12 @@ Page({
         });
         this.submit();
     },
+    onSwitchVideoChange(e) {
+        this.setData({
+            videoOrderSwitch: this.data.videoOrderSwitch == 1 ? 0 : 1
+        });
+        this.submit();
+    },
     onClickTextPrice() {
         if (this.data.doctorInfo.incomeSwitch != 1) {
             return;
@@ -61,6 +74,28 @@ Page({
                 }
                 this.setData({
                     consultOrderPrice: value
+                });
+                this.submit();
+            }
+        });
+    },
+    onClickVideoPrice() {
+        if (this.data.doctorInfo.incomeSwitch != 1) {
+            return;
+        }
+        wx.jyApp.utils.setText({
+            title: '图文问诊每次金额',
+            defaultValue: this.data.videoOrderPrice,
+            type: 'number',
+            complete: (value) => {
+                if (value < 0 || value > 1000) {
+                    setTimeout(() => {
+                        wx.jyApp.toast('视频问诊金额需在0-1000范围内');
+                    }, 500);
+                    return;
+                }
+                this.setData({
+                    videoOrderPrice: value
                 });
                 this.submit();
             }
@@ -108,23 +143,40 @@ Page({
             statusVisible: false
         });
     },
+    onSetTime() {
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/appointment-setting/index'
+        });
+        wx.jyApp.tempData.setTimeCallback = (videoServiceTime) => {
+            this.setData({
+                videoServiceTime: videoServiceTime
+            });
+            this.submit();
+        };
+    },
     submit() {
         return wx.jyApp.http({
             url: '/doctor/config',
             method: 'post',
             data: {
                 consultOrderPrice: this.data.doctorInfo.incomeSwitch == 1 ? (Number(this.data.consultOrderPrice) || 0) : this.data.doctorInfo.consultOrderPrice,
+                videoOrderPrice: this.data.doctorInfo.incomeSwitch == 1 ? (Number(this.data.videoOrderPrice) || 0) : this.data.doctorInfo.videoOrderPrice,
                 nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 ? (Number(this.data.nutritionOrderPrice) || 0) : this.data.doctorInfo.nutritionOrderPrice,
                 consultOrderSwitch: this.data.consultOrderSwitch,
-                status: this.data.status
+                videoOrderSwitch: this.data.videoOrderSwitch,
+                status: this.data.status,
+                videoServiceTime: this.data.videoServiceTime
             }
         }).then(() => {
             if (this.data.doctorInfo.incomeSwitch == 1) {
                 this.data.doctorInfo.consultOrderPrice = Number(this.data.consultOrderPrice) || 0
+                this.data.doctorInfo.videoOrderPrice = Number(this.data.videoOrderPrice) || 0
                 this.data.doctorInfo.nutritionOrderPrice = Number(this.data.nutritionOrderPrice) || 0
             }
             this.data.doctorInfo.consultOrderSwitch = this.data.consultOrderSwitch
+            this.data.doctorInfo.videoOrderSwitch = this.data.videoOrderSwitch
             this.data.doctorInfo.status = this.data.status
+            this.data.doctorInfo.videoServiceTime = this.data.videoServiceTime
             this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo))
         });
     }

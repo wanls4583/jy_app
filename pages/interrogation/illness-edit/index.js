@@ -14,6 +14,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId || '';
+        this.type = option.type || 1;
         this.taskMap = {}
     },
     onUnload() {
@@ -39,8 +40,11 @@ Page({
                     picUrls: this.data.picUrls,
                     doctorId: this.doctorId,
                     doctorName: this.data.doctor.doctorName,
-                    consultOrderPrice: this.data.doctor.consultOrderPrice
+                    consultOrderPrice: this.type == 3 ? this.data.doctor.videoOrderPrice : this.data.doctor.consultOrderPrice,
+                    type: this.type,
+                    bookDateTime: wx.jyApp.tempData.bookDateTime
                 }
+                delete wx.jyApp.tempData.bookDateTime;
                 wx.jyApp.selectPatientFlag = true;
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/user-patient-list/index?selectPatient=1'

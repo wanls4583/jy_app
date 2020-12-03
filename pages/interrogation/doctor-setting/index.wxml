@@ -12,6 +12,23 @@
 			</view>
 		</view>
 	</view>
+	<view class="padding-left-right-30 white-background-color margin-top-20">
+		<view class="flex--center--between padding-top-bottom-30 border-bottom">
+			<text>视频问诊</text>
+			<switch bindchange="onSwitchVideoChange" checked="{{videoOrderSwitch==1}}" color="rgb(42, 175, 255)" />
+		</view>
+		<view bindtap="onClickVideoPrice" class="flex--center--between padding-top-bottom-30">
+			<text>视频问诊每次金额</text>
+			<view class="flex--center--center">
+				<text class="primary-color margin-right-20">{{videoOrderPrice}}</text>
+				<van-icon color="#ccc" name="arrow" />
+			</view>
+		</view>
+		<view bindtap="onSetTime" class="flex--center--between padding-top-bottom-30">
+			<text>视频问诊预约时间</text>
+			<van-icon color="#ccc" name="arrow" />
+		</view>
+	</view>
 	<view bindtap="onClickGuidePrice" class="padding-left-right-30 white-background-color margin-top-20">
 		<view class="flex--center--between padding-top-bottom-30">
 			<text>营养指导诊金</text>

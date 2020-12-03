@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="flex--center--between height-100rpx padding-30">
 		<view bindtap="onCancel" class="button text padding-30">取消</view>
-		<view bindtap="onSave" class="button primary small {{value===''?'disabled':''}}">完成</view>
+		<view bindtap="onSave" class="button primary small">完成</view>
 	</view>
 	<textarea
 		bindinput="onInput"

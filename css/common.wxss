@@ -46,6 +46,14 @@ checkbox {
     border: 1rpx solid #f6f6f6;
 }
 
+.border-left {
+    border-left: 1rpx solid #ebedf0;
+}
+
+.border-right {
+    border-right: 1rpx solid #ebedf0;
+}
+
 .border-top {
     border-top: 1rpx solid #ebedf0;
 }
@@ -56,6 +64,22 @@ checkbox {
 
 .border-style-none {
     border-style: none;
+}
+
+.border-left-style-none {
+    border-left-style: none;
+}
+
+.border-right-style-none {
+    border-right-style: none;
+}
+
+.border-top-style-none {
+    border-top-style: none;
+}
+
+.border-bottom-style-none {
+    border-bottom-style: none;
 }
 
 .align-left {

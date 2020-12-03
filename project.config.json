@@ -59,7 +59,13 @@
       "list": []
     },
     "miniprogram": {
-      "list": []
+      "list": [
+        {
+          "name": "pages/interrogation/appointment/index",
+          "pathName": "pages/interrogation/appointment/index",
+          "scene": null
+        }
+      ]
     }
   }
 }

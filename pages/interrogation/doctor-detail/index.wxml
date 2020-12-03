@@ -56,10 +56,42 @@
 				</view>
 			</view>
 			<block wx:if="{{doctor.consultOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
-				<button bindgetphonenumber="getPhoneNumber" class="button primary small" hover-class="none" open-type="getPhoneNumber" wx:if="{{!userInfo.phone}}">
+				<button
+					bindgetphonenumber="getPhoneNumber"
+					class="button primary small"
+					data-type="1"
+					hover-class="none"
+					open-type="getPhoneNumber"
+					wx:if="{{!userInfo.phone}}"
+				>
 					<text>去咨询</text>
 				</button>
-				<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}" wx:else>去咨询</view>
+				<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}&type=1" wx:else>去咨询</view>
+			</block>
+			<view class="button primary small disabled" wx:else>未开通</view>
+		</view>
+		<view class="flex--center--between padding-30 margin-top-30 gray-background-color radius-8rpx">
+			<view class="flex--center--between height-80rpx">
+				<view class="width-80rpx height-100 radius-8rpx overflow-hidden">
+					<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
+				</view>
+				<view class="flex--start--between flex-direction-column height-100 margin-left-30">
+					<text>视频问诊</text>
+					<text class="font-small">￥{{doctor.videoOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
+				</view>
+			</view>
+			<block wx:if="{{doctor.videoOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
+				<button
+					bindgetphonenumber="getPhoneNumber"
+					class="button primary small"
+					data-type="3"
+					hover-class="none"
+					open-type="getPhoneNumber"
+					wx:if="{{!userInfo.phone}}"
+				>
+					<text>去咨询</text>
+				</button>
+				<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{doctorId}}&type=3" wx:else>去咨询</view>
 			</block>
 			<view class="button primary small disabled" wx:else>未开通</view>
 		</view>

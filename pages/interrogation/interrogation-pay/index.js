@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-02 15:12:40
+ * @Description: 
+ */
 Page({
     data: {
         order: {}
@@ -13,9 +18,10 @@ Page({
         wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.doctorReciveMsg).finally(() => {
             wx.jyApp.showLoading('支付中...', true);
             wx.jyApp.http({
-                url: '/consultorder/save',
+                url: wx.jyApp.tempData.illness == 3 ? '/consultorder/video/save' : '/consultorder/save',
                 method: 'post',
                 data: {
+                    'bookDateTime': wx.jyApp.tempData.illness.bookDateTime || '',
                     "diseaseDetail": wx.jyApp.tempData.illness.diseaseDetail,
                     "doctorId": wx.jyApp.tempData.illness.doctorId,
                     "patientId": wx.jyApp.tempData.illness.patientId,
@@ -32,6 +38,7 @@ Page({
                     }).then(() => {
                         wx.jyApp.tempData.payInterrogationResult = {
                             id: data.id,
+                            type: wx.jyApp.tempData.illness.type,
                             result: 'success'
                         }
                     }).catch((err) => {
@@ -46,6 +53,7 @@ Page({
                 } else {
                     wx.jyApp.tempData.payInterrogationResult = {
                         id: data.id,
+                        type: wx.jyApp.tempData.illness.type,
                         result: 'success'
                     }
                     wx.navigateBack({
