@@ -113,9 +113,7 @@ Page({
         var itemObj = e.currentTarget.dataset.item;
         var date = itemObj.title.value;
         wx.jyApp.tempData.bookDateTime = date.formatTime('yyyy-MM-dd hh:mm');
-        wx.redirectTo({
-            url: `/pages/interrogation/illness-edit/index?doctorId=${this.doctorId}type=3`
-        });
+        wx.navigateBack();
     },
     getVideoServiceTime(doctorId) {
         wx.jyApp.http({

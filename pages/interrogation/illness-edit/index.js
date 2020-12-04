@@ -16,6 +16,11 @@ Page({
         this.doctorId = option.doctorId || '';
         this.type = option.type || 1;
         this.taskMap = {}
+        if(this.type == 3) {
+            wx.utils.navigateTo({
+                url: '/pages/inerrogation/appointment-select/index'
+            });
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
