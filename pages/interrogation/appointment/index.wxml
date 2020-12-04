@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="padding-30 white-background-color">
-		<view class="margin-bottom-30 font-bold align-center">请设置每周的视频问诊预约时间</view>
+		<view class="margin-bottom-30 font-bold align-center">您可预约医生7天内的视频问诊时间</view>
 		<view class="flex--center--between border font-small">
 			<view class="flex--center--between flex-direction-column" style="flex:1">
 				<view class="flex--center--center width-100 border" style="height:80rpx"></view>
@@ -9,39 +9,47 @@
 				<view class="flex--center--center width-100 border" style="height:80rpx">晚上</view>
 			</view>
 			<view class="flex--center--between flex-direction-column" style="flex:1" wx:for="{{timeArr}}" wx:key="index">
-				<view class="flex--center--center width-100 border" style="height:80rpx">{{item.title}}</view>
+				<view class="flex--center--center width-100 border" style="height:80rpx">
+					<view>
+						<view class="align-center">{{item.title.dateStr}}</view>
+						<view class="gray-color align-center">{{item.title.dayStr}}</view>
+					</view>
+				</view>
 				<view
 					bindtap="onClickTime"
-					class="flex--center--center width-100 border clickable"
-					data-index="{{index}}"
+					class="flex--center--center width-100 border primary-color clickable"
 					data-item="{{item}}"
 					data-type="morning"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.morning && item.morning.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<view wx:if="{{item.morning && item.morning.length}}">
+						<view class="align-center">已预约</view>
+						<view class="align-center success-color">[{{item.morningNum}}/{{item.morning.length}}]</view>
+					</view>
 				</view>
 				<view
 					bindtap="onClickTime"
-					class="flex--center--center width-100 border clickable"
-					data-index="{{index}}"
+					class="flex--center--center width-100 border primary-color clickable"
 					data-item="{{item}}"
 					data-type="afternoon"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<view wx:if="{{item.afternoon && item.afternoon.length}}">
+						<view class="align-center">已预约</view>
+						<view class="align-center success-color">[{{item.afternoonNum}}/{{item.afternoon.length}}]</view>
+					</view>
 				</view>
 				<view
 					bindtap="onClickTime"
-					class="flex--center--center width-100 border clickable"
-					data-index="{{index}}"
+					class="flex--center--center width-100 border primary-color clickable"
 					data-item="{{item}}"
 					data-type="night"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.night && item.night.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<view wx:if="{{item.night && item.night.length}}">
+						<view class="align-center">已预约</view>
+						<view class="align-center success-color">[{{item.nightNum}}/{{item.night.length}}]</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -57,18 +65,18 @@
 	</view>
 </view>
 <van-popup bind:close="onShowTime" closeable position="bottom" show="{{timeVisible}}">
-	<view class="padding-20 font-bold align-center">请选择问诊时间段</view>
+	<view class="padding-20 font-bold align-center">视频问诊预约详情</view>
 	<view class="align-center">{{timeTitle}}</view>
 	<view class="flex flex-wrap-wrap padding-left-30 margin-top-20">
 		<view class="width-33 padding-bottom-30 padding-right-30" wx:for="{{slectTimes}}" wx:key="index">
 			<view
 				bindtap="onCheckedTime"
-				class="width-100 flex--center--center padding-10 clickable border {{item.checked?'primary-border-color primary-color':'gray-color'}}"
-				data-index="{{index}}"
+				class="width-100 flex--center--center padding-10 clickable border {{item.name?'primary-border-color primary-color':'gray-color'}}"
+				data-item="{{item}}"
 			>
 				<view>
 					<view class="align-center">{{item.time}}</view>
-					<view class="align-center font-small">{{item.checked?'可预约':'未设置'}}</view>
+					<view class="align-center font-small">{{item.name || '未预约'}}</view>
 				</view>
 			</view>
 		</view>

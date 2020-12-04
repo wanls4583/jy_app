@@ -14,11 +14,18 @@ Page({
         timeTitle: ''
     },
     onLoad(option) {
-        this.doctorId = option.doctorId;
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['doctorInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         wx.jyApp.showLoading('加载中...', true);
-        wx.jyApp.Promise.all([this.getDoctorInfo(this.doctorId), this.getVideoServiceTime(this.doctorId)]).then(() => {
+        wx.jyApp.Promise.all([this.getVideoServiceTime(this.data.doctorInfo.id)]).then(() => {
             wx.hideLoading();
+            this.videoServiceTime = this.data.doctorInfo.videoServiceTime;
             this.initData();
+        }).catch((e)=>{
+            console.log(e);
         });
     },
     onUnload() {
@@ -51,6 +58,18 @@ Page({
                     return false;
                 }),
             }
+            var morningNum = timeArr[i].morning.filter((item) => {
+                return this.bookedTimesNameMap[i + 1] && this.bookedTimesNameMap[i + 1][item];
+            }).length;
+            var afternoonNum = timeArr[i].afternoon.filter((item) => {
+                return this.bookedTimesNameMap[i + 1] && this.bookedTimesNameMap[i + 1][item];
+            }).length;
+            var nightNum = timeArr[i].night.filter((item) => {
+                return this.bookedTimesNameMap[i + 1] && this.bookedTimesNameMap[i + 1][item];
+            }).length;
+            timeArr[i].morningNum = morningNum;
+            timeArr[i].afternoonNum = afternoonNum;
+            timeArr[i].nightNum = nightNum;
         }
         timeArr = timeArr.slice(nowDay - 1).concat(timeArr.slice(0, nowDay - 1));
         timeArr.map((item, index) => {
@@ -103,18 +122,12 @@ Page({
                 return {
                     title: itemObj.title,
                     time: item,
-                    checked: this.bookedTimes[day] && this.bookedTimes[day][item]
+                    name: this.bookedTimesNameMap[day] && this.bookedTimesNameMap[day][item]
                 }
             }),
             timeTitle: timeTitle
         });
         this.onShowTime();
-    },
-    onCheckedTime(e) {
-        var itemObj = e.currentTarget.dataset.item;
-        var date = new Date(itemObj.title.value);
-        wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
-        wx.navigateBack();
     },
     getVideoServiceTime(doctorId) {
         return wx.jyApp.http({
@@ -124,21 +137,16 @@ Page({
             }
         }).then((data) => {
             this.bookedTimes = data.bookedTimes;
+            this.bookedTimesNameMap = {};
             for (var key in this.bookedTimes) {
                 var item = this.bookedTimes[key];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item.patientName;
                 });
-                this.bookedTimes[key] = timeMap;
+                this.bookedTimesNameMap[key] = timeMap;
             }
             return data.bookedTimes;
-        });
-    },
-    getDoctorInfo(doctorId) {
-        return wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-            this.videoServiceTime = data.doctor.videoServiceTime;
-            return data.doctor.videoServiceTime;
         });
     }
 })

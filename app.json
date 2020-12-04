@@ -55,6 +55,7 @@
         "pages/interrogation/ticket-detail/index",
         "pages/interrogation/interrogation-list/index",
         "pages/interrogation/interrogation-simple/index",
+        "pages/interrogation/appointment/index",
         "pages/interrogation/appointment-setting/index",
         "pages/interrogation/appointment-select/index",
         "pages/mall/search-doctor/index"
