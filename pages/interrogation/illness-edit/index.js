@@ -18,7 +18,7 @@ Page({
         this.taskMap = {}
         if(this.type == 3) {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/inerrogation/appointment-select/index'
+                url: '/pages/interrogation/appointment-select/index'
             });
         }
     },
