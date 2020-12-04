@@ -11,8 +11,8 @@
 			<view class="flex--center--between flex-direction-column" style="flex:1" wx:for="{{timeArr}}" wx:key="index">
 				<view class="flex--center--center width-100 border" style="height:80rpx">
 					<view>
-						<view class="align-center">{{item.title.dateStr}}</view>
-						<view class="gray-color align-center">{{item.title.dayStr}}</view>
+						<view class="align-center nowrap">{{item.title.dateStr}}</view>
+						<view class="gray-color align-center nowrap line-height-1em">{{item.title.dayStr}}</view>
 					</view>
 				</view>
 				<view bindtap="onClickTime" class="flex--center--center width-100 border clickable" data-item="{{item}}" data-type="morning" style="height:80rpx">

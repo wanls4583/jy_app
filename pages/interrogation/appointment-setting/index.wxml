@@ -9,7 +9,7 @@
 				<view class="flex--center--center width-100 border" style="height:80rpx">晚上</view>
 			</view>
 			<view class="flex--center--between flex-direction-column" style="flex:1" wx:for="{{timeArr}}" wx:key="index">
-				<view class="flex--center--center width-100 border" style="height:80rpx">{{item.title}}</view>
+				<view class="flex--center--center width-100 border nowrap line-height-1em" style="height:80rpx">{{item.title}}</view>
 				<view
 					bindtap="onClickTime"
 					class="flex--center--center width-100 border clickable"
