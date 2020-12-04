@@ -301,7 +301,7 @@ checkbox {
 
 .tag {
     display: inline-block;
-    padding: 2px 4px;
+    padding: 4px;
     font-size: 20rpx;
     background-color: rgb(42, 175, 255);
     border: 1rpx solid rgb(42, 175, 255);
@@ -325,6 +325,10 @@ checkbox {
 .tag.danger {
     background-color: #ee0a24;
     border: 1rpx solid #ee0a24;
+}
+
+.tag.hollow {
+    color: rgb(42, 175, 255);
 }
 
 .tag.success.hollow {
