@@ -24,7 +24,7 @@
 				>
 					<view wx:if="{{item.morning && item.morning.length}}">
 						<view class="align-center nowrap">已预约</view>
-						<view class="align-center success-color line-height-1em">[{{item.morningNum}}/{{item.morning.length}}]</view>
+						<view class="align-center success-color nowrap line-height-1em">[{{item.morningNum}}/{{item.morning.length}}]</view>
 					</view>
 				</view>
 				<view
@@ -36,7 +36,7 @@
 				>
 					<view wx:if="{{item.afternoon && item.afternoon.length}}">
 						<view class="align-center nowrap">已预约</view>
-						<view class="align-center success-color line-height-1em">[{{item.afternoonNum}}/{{item.afternoon.length}}]</view>
+						<view class="align-center success-color nowrap line-height-1em">[{{item.afternoonNum}}/{{item.afternoon.length}}]</view>
 					</view>
 				</view>
 				<view
@@ -48,7 +48,7 @@
 				>
 					<view wx:if="{{item.night && item.night.length}}">
 						<view class="align-center nowrap">已预约</view>
-						<view class="align-center success-color line-height-1em">[{{item.nightNum}}/{{item.night.length}}]</view>
+						<view class="align-center success-color nowrap line-height-1em">[{{item.nightNum}}/{{item.night.length}}]</view>
 					</view>
 				</view>
 			</view>
