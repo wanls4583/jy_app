@@ -8,6 +8,10 @@
 			<text class="flex-shrink-0">订单日期：</text>
 			<text>{{orderTime}}</text>
 		</view>
+		<view class="flex padding-top-bottom-20 border-bottom" wx:if="{{bookDateTime}}">
+			<text class="flex-shrink-0">预约时间：</text>
+			<text decode="{{true}}">{{bookDateTime}}</text>
+		</view>
 		<view class="flex padding-top-bottom-20">
 			<text class="flex-shrink-0">订单金额：</text>
 			<text class="primary-color">￥{{consultOrderPrice}}</text>

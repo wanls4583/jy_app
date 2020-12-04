@@ -24,7 +24,7 @@ Page({
     onShow() {
         if (wx.jyApp.tempData.payInterrogationResult) {
             if (wx.jyApp.tempData.payInterrogationResult.result == 'success') {
-                if (wx.jyApp.tempData.type == 3) { //视频问诊
+                if (wx.jyApp.tempData.payInterrogationResult.type == 3) { //视频问诊
                     setTimeout(() => {
                         wx.jyApp.toast('支付成功');
                     }, 500);

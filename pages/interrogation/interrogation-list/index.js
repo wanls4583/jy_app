@@ -117,6 +117,10 @@ Page({
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
+                if(item.videoBookDateTime) {
+                    item.videoBookDateTime = new Date(item.videoBookDateTime);
+                    item.videoBookDateTime = item.videoBookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[item.videoBookDateTime.getDay()] + '&nbsp;' + item.videoBookDateTime.formatTime('hh:mm')
+                }
             });
             this.data.dataMap[status].patientList = this.data.dataMap[status].patientList.concat(data.page.list);
             this.setData({

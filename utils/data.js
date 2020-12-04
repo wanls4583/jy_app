@@ -146,3 +146,4 @@ export const subIds = {
   'patientPayMsg': '7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY',
   'doctorReciveMsg': 'mr0I6bbT1vi27P_qSnOaalBaKepLb-aTRudnJx27Aok'
 }
+export const dayArr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']

@@ -26,7 +26,7 @@ function parseDate(str) {
     var reg = /\d{4}-\d{1,2}-\d{1,2}/.exec(str);
     if (reg) {
         var arr = reg[0].split('-');
-        return new Date(Number(arr[0]), Number(arr[1]), Number(arr[2]));
+        return new Date(Number(arr[0]), Number(arr[1]) - 1, Number(arr[2]));
     }
 }
 
@@ -36,7 +36,7 @@ function parseDateTime(str) {
     if (dateReg && timeReg) {
         var arr1 = dateReg[0].split('-');
         var arr2 = timeReg[0].split(':');
-        return new Date(Number(arr1[0]), Number(arr1[1]), Number(arr1[2]), Number(arr2[0]), Number(arr2[1]), Number(arr2[2]));
+        return new Date(Number(arr1[0]), Number(arr1[1]) - 1, Number(arr1[2]), Number(arr2[0]), Number(arr2[1]), Number(arr2[2]));
     } else if (dateReg) {
         return parseDate(str);
     }

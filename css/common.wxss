@@ -304,6 +304,7 @@ checkbox {
     padding: 2px 4px;
     font-size: 20rpx;
     background-color: rgb(42, 175, 255);
+    border: 1rpx solid rgb(42, 175, 255);
     color: #fff;
     margin-left: 10rpx;
     border-radius: 8rpx;
@@ -312,14 +313,21 @@ checkbox {
 
 .tag.success {
     background-color: #07c160;
+    border: 1rpx solid #07c160;
 }
 
 .tag.warn {
     background-color: #ff976a;
+    border: 1rpx solid #ff976a;
 }
 
 .tag.danger {
     background-color: #ee0a24;
+    border: 1rpx solid #ee0a24;
+}
+
+.tag.hollow {
+    background-color: transparent
 }
 
 .line-height-1em {

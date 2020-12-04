@@ -63,7 +63,7 @@ Page({
             var title = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
             var now = new Date();
             var day = now.getDay();
-            var dateTitle = [{ dateStr: '今天', dayStr: title[day], day: day || 7, value: now }];
+            var dateTitle = [{ dateStr: '今天', dayStr: title[day], day: day || 7, value: now.getTime() }];
             var oneDay = 24 * 60 * 60 * 1000;
             now = now.getTime();
             for (var i = 1; i <= 6; i++) {
@@ -73,7 +73,7 @@ Page({
                     dateStr: date.formatTime('MM/dd'),
                     dayStr: title[day],
                     day: day || 7,
-                    value: date
+                    value: date.getTime()
                 }
                 dateTitle.push(obj);
             }
@@ -101,6 +101,7 @@ Page({
         this.setData({
             slectTimes: itemObj[type].map((item) => {
                 return {
+                    title: itemObj.title,
                     time: item,
                     checked: this.bookedTimes[day] && this.bookedTimes[day][item]
                 }
@@ -111,8 +112,8 @@ Page({
     },
     onCheckedTime(e) {
         var itemObj = e.currentTarget.dataset.item;
-        var date = itemObj.title.value;
-        wx.jyApp.tempData.bookDateTime = date.formatTime('yyyy-MM-dd hh:mm');
+        var date = new Date(itemObj.title.value);
+        wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
         wx.navigateBack();
     },
     getVideoServiceTime(doctorId) {

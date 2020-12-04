@@ -31,7 +31,7 @@ Page({
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
                 });
-            } else if(wx.jyApp.tempData.type == 3) { //视频问诊
+            } else if(wx.jyApp.tempData.payInterrogationResult.type == 3) { //视频问诊
                 setTimeout(() => {
                     wx.jyApp.toast('支付成功');
                 }, 500);

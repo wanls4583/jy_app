@@ -8,28 +8,42 @@ Page({
         order: {}
     },
     onLoad(option) {
+        var goodsName = '';
+        var bookDateTime = '';
+        if (wx.jyApp.tempData.illness.type == 3) {
+            goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '视频问诊';
+            bookDateTime = wx.jyApp.tempData.illness.bookDateTime;
+            bookDateTime = bookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[bookDateTime.getDay()] + '&nbsp;' + bookDateTime.formatTime('hh:mm')
+        } else {
+            goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '图文问诊';
+        }
         this.setData({
-            goodsName: wx.jyApp.tempData.illness.doctorName + '-' + '图文问诊',
+            goodsName: wx.jyApp.tempData.illness.doctorName + '-' + ('图文问诊'),
             consultOrderPrice: wx.jyApp.tempData.illness.consultOrderPrice,
-            orderTime: new Date().formatTime('yyyy-MM-dd')
+            orderTime: new Date().formatTime('yyyy-MM-dd'),
+            bookDateTime: bookDateTime
         });
     },
     onSubmit() {
+        var bookDateTime = '';
+        if (wx.jyApp.tempData.illness.bookDateTime) {
+            bookDateTime = wx.jyApp.tempData.illness.bookDateTime.formatTime('yyyy-MM-dd hh:mm');
+        }
         wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.doctorReciveMsg).finally(() => {
             wx.jyApp.showLoading('支付中...', true);
             wx.jyApp.http({
-                url: wx.jyApp.tempData.illness == 3 ? '/consultorder/video/save' : '/consultorder/save',
+                url: wx.jyApp.tempData.illness.type == 3 ? '/consultorder/video/save' : '/consultorder/save',
                 method: 'post',
                 data: {
-                    'bookDateTime': wx.jyApp.tempData.illness.bookDateTime || '',
+                    'bookDateTime': bookDateTime,
                     "diseaseDetail": wx.jyApp.tempData.illness.diseaseDetail,
                     "doctorId": wx.jyApp.tempData.illness.doctorId,
                     "patientId": wx.jyApp.tempData.illness.patientId,
                     "picUrls": wx.jyApp.tempData.illness.picUrls.join(',')
                 }
             }).then((data) => {
-                delete wx.jyApp.tempData.illness;
                 var delta = 3;
+                var type = wx.jyApp.tempData.illness.type;
                 if (data.params) {
                     wx.jyApp.utils.pay(data.params, () => {
                         wx.navigateBack({
@@ -38,7 +52,7 @@ Page({
                     }).then(() => {
                         wx.jyApp.tempData.payInterrogationResult = {
                             id: data.id,
-                            type: wx.jyApp.tempData.illness.type,
+                            type: type,
                             result: 'success'
                         }
                     }).catch((err) => {
@@ -53,13 +67,14 @@ Page({
                 } else {
                     wx.jyApp.tempData.payInterrogationResult = {
                         id: data.id,
-                        type: wx.jyApp.tempData.illness.type,
+                        type: type,
                         result: 'success'
                     }
                     wx.navigateBack({
                         delta: delta
                     });
                 }
+                delete wx.jyApp.tempData.illness;
             }).finally(() => {
                 wx.hideLoading();
             });

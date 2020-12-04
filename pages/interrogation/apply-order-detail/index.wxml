@@ -13,6 +13,12 @@
 				<text class="flex-shrink-0" wx:if="{{order.price||order.type!=2}}">￥{{order.orderAmount||order.price||0}}</text>
 			</view>
 		</view>
+		<view class="flex padding-bottom-20" wx:if="{{order.videoBookDateTime}}">
+			<text class="flex-shrink-0">预约时间：</text>
+			<view class="flex-grow-1 flex--center--between">
+				<text decode="{{true}}">{{order.videoBookDateTime}}</text>
+			</view>
+		</view>
 		<view class="flex padding-bottom-20">
 			<text class="flex-shrink-0">患者信息：</text>
 			<view>
