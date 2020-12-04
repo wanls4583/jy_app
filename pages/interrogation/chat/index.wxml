@@ -241,7 +241,7 @@
 			<text>图文问诊</text>
 			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
 		</view>
-		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}">去咨询</view>
+		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}&type={{consultOrder.type}}">去咨询</view>
 	</view>
 	<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">

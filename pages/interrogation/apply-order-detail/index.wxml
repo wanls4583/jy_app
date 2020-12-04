@@ -56,7 +56,7 @@
 			<view
 				bindtap="onGoto"
 				class="margin-left-20 button primary small"
-				data-url="/pages/interrogation/illness-edit/index?doctorId={{order.doctorId}}"
+				data-url="/pages/interrogation/illness-edit/index?doctorId={{order.doctorId}}&type={{order.type}}"
 				wx:if="{{order.oneMoreVisible}}"
 			>再来一单</view>
 			<view

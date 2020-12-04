@@ -24,6 +24,14 @@ Page({
     onShow() {
         if (wx.jyApp.tempData.payInterrogationResult) {
             if (wx.jyApp.tempData.payInterrogationResult.result == 'success') {
+                if (wx.jyApp.tempData.type == 3) { //视频问诊
+                    setTimeout(() => {
+                        wx.jyApp.toast('支付成功');
+                    }, 500);
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
+                    });
+                }
                 this.init({
                     id: wx.jyApp.tempData.payInterrogationResult.id
                 });
