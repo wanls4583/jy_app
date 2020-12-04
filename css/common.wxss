@@ -307,6 +307,7 @@ checkbox {
     border: 1rpx solid rgb(42, 175, 255);
     color: #fff;
     margin-left: 10rpx;
+    line-height: 1em;
     border-radius: 8rpx;
     box-shadow: 0 0 4rpx rgba(0, 0, 0, 0.2);
 }
@@ -324,6 +325,18 @@ checkbox {
 .tag.danger {
     background-color: #ee0a24;
     border: 1rpx solid #ee0a24;
+}
+
+.tag.success.hollow {
+    color: #07c160;
+}
+
+.tag.warn.hollow {
+    color: #ff976a;
+}
+
+.tag.danger.hollow {
+    color: #ee0a24;
 }
 
 .tag.hollow {
