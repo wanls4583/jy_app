@@ -18,8 +18,8 @@
 					data-type="morning"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.morning && item.morning.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.morning && item.morning.length}}">可预约</text>
+					<text class="gray-color line-height-1em" wx:else>未设置</text>
 				</view>
 				<view
 					bindtap="onClickTime"
@@ -29,8 +29,8 @@
 					data-type="afternoon"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
+					<text class="gray-color line-height-1em" wx:else>未设置</text>
 				</view>
 				<view
 					bindtap="onClickTime"
@@ -40,8 +40,8 @@
 					data-type="night"
 					style="height:80rpx"
 				>
-					<text class="primary-color" wx:if="{{item.night && item.night.length}}">可预约</text>
-					<text class="gray-color" wx:else>未设置</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.night && item.night.length}}">可预约</text>
+					<text class="gray-color line-height-1em" wx:else>未设置</text>
 				</view>
 			</view>
 		</view>

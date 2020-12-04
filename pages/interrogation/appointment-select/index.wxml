@@ -16,13 +16,13 @@
 					</view>
 				</view>
 				<view bindtap="onClickTime" class="flex--center--center width-100 border clickable" data-item="{{item}}" data-type="morning" style="height:80rpx">
-					<text class="primary-color" wx:if="{{item.morning && item.morning.length}}">可预约</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.morning && item.morning.length}}">可预约</text>
 				</view>
 				<view bindtap="onClickTime" class="flex--center--center width-100 border clickable" data-item="{{item}}" data-type="afternoon" style="height:80rpx">
-					<text class="primary-color" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.afternoon && item.afternoon.length}}">可预约</text>
 				</view>
 				<view bindtap="onClickTime" class="flex--center--center width-100 border clickable" data-item="{{item}}" data-type="night" style="height:80rpx">
-					<text class="primary-color" wx:if="{{item.night && item.night.length}}">可预约</text>
+					<text class="primary-color line-height-1em" wx:if="{{item.night && item.night.length}}">可预约</text>
 				</view>
 			</view>
 		</view>
