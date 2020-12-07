@@ -3,16 +3,16 @@
 		<!-- 认证医生 -->
 		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo.authStatus==1}}">
 			<view class="flex--center--center">
-				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
+				<view class="flex-shrink-0 width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
 				</view>
-				<view class="flex--start--between flex-direction-column height-100rpx padding-top-bottom-10">
-					<view class="flex--center--center white-color">
-						<text class="font-bold">{{doctorInfo.doctorName || '--'}}</text>
-						<text class="font-small" decode="{{true}}">&nbsp;&nbsp;{{doctorInfo.jobTitle || '--'}}</text>
-						<view class="tag success">已认证</view>
+				<view class="flex-grow-1">
+					<view class="white-color">
+						<text class="font-bold" decode="{{true}}">{{doctorInfo.doctorName || '--'}}&nbsp;&nbsp;</text>
+						<text class="font-small">{{doctorInfo.jobTitle || '--'}}</text>
+						<view class="tag success" style="vertical-align:top">已认证</view>
 					</view>
-					<text class="white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}</text>
+					<text class="margin-top-20 white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}</text>
 				</view>
 			</view>
 			<view
@@ -74,7 +74,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/order-list/index"
 				>
-					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_order.png" />
+					<image mode="aspectFit" src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的订单</view>
 				</view>
 				<view
@@ -82,7 +82,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/interrogation/user-patient-list/index"
 				>
-					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_patient.png" />
+					<image mode="aspectFit" src="/image/icon_patient.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">问诊患者</view>
 				</view>
 			</block>
@@ -92,7 +92,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/order-list/index"
 				>
-					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_order.png" />
+					<image mode="aspectFit" src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的订单</view>
 				</view>
 				<view
@@ -102,7 +102,7 @@
 					data-url="/pages/interrogation/income-list/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
-					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_trend.png" />
+					<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
 				</view>
 				<view
@@ -112,7 +112,7 @@
 					data-url="/pages/interrogation/withdraw/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
-					<image style="width:70rpx;height:70rpx" mode="aspectFit" src="/image/icon_withdrawal.png" />
+					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">提现</view>
 				</view>
 			</block>
