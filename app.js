@@ -9,6 +9,7 @@ import * as constData from './utils/data';
 import Dialog from '@vant/weapp/dialog/dialog';
 import { Promise } from 'es6-promise';
 import config from './config/index';
+import room from './utils/room';
 App({
     onLaunch: function (option) {
         console.log(option);
@@ -24,6 +25,7 @@ App({
         wx.jyApp.dialog = Dialog;
         wx.jyApp.constData = constData;
         wx.jyApp.utils = utils;
+        wx.jyApp.room = room;
         wx.jyApp.Promise = Promise;
         wx.jyApp.toast = (msg) => {
             wx.showToast({

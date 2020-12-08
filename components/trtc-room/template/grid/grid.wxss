@@ -327,12 +327,12 @@
   flex: 1;
   line-height: 60rpx;
 }
-.bgm-panel .setting-option .slider-content slider{
+.bgm-panel .setting-option .slider-content .slider{
   transform:scale(0.9);
   margin: 0;
 }
 
-.bgm-panel .setting-option .slider-content progress{
+.bgm-panel .setting-option .slider-content .progress{
   transform:scale(0.9);
   margin-top: 28rpx;
 }
@@ -483,7 +483,7 @@
 	color: #ffffff;
 	background-color: #006eff;
 }
-.radio-group-no-box radio{
+.radio-group-no-box .radio{
 	display: none;
 }
 

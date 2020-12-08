@@ -36,13 +36,6 @@ function request(obj) {
             success: (res) => {
                 if (res.data.code == 0) {
                     obj.success && obj.success(res.data);
-                    if (obj.url == '/systemnotice/totalNotRead') { //处理视频通话消息
-                        if (res.data.videoRoom) {
-                            wx.jyApp.utils.navigateTo({
-                                url: `/pages/trtc/index?roomId=${res.data.videoRoom.roomId}&nickname=${res.data.videoRoom.nickname}&avatar=${res.data.videoRoom.avatar}`
-                            });
-                        }
-                    }
                     resolve(res.data);
                 } else {
                     if (!obj.hideTip) {

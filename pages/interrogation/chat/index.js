@@ -784,7 +784,7 @@ Page({
             }
         }).then((data) => {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/trtc/index?roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
+                url: `/pages/trtc/index?roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}&userId=${this.data.userId}`
             });
         });
     },

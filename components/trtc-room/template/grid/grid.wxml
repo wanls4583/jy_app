@@ -229,19 +229,19 @@
         <view class="setting-option">
           <view class="label">MIC音量</view>
           <view class="slider-content">
-            <slider value="{{MICVolume}}" min="0" max="100" show-value="true" activeColor="#006eff" bindchange="_changeProperty" data-property-name="MICVolume" />
+            <slider class="slider" value="{{MICVolume}}" min="0" max="100" show-value="true" activeColor="#006eff" bindchange="_changeProperty" data-property-name="MICVolume" />
           </view>
         </view>
         <view class="setting-option">
           <view class="label">BGM音量</view>
           <view class="slider-content">
-            <slider value="{{BGMVolume}}" min="0" max="100" show-value="true" activeColor="#006eff" bindchange="_changeProperty" data-property-name="BGMVolume" />
+            <slider class="slider" value="{{BGMVolume}}" min="0" max="100" show-value="true" activeColor="#006eff" bindchange="_changeProperty" data-property-name="BGMVolume" />
           </view>
         </view>
         <view class="setting-option">
           <view class="label">播放进度</view>
           <view class="slider-content">
-            <progress activeColor="#006eff" percent="{{BGMProgress}}"></progress>
+            <progress class="progress" activeColor="#006eff" percent="{{BGMProgress}}"></progress>
           </view>
         </view>
         <view class="menu">

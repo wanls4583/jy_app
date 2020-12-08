@@ -13,9 +13,9 @@ let touchX = 0
 let touchY = 0
 
 Component({
-  options: {
-    styleIsolation: 'apply-shared'
-  },
+  // options: {
+  //   styleIsolation: 'apply-shared'
+  // },
   /**
    * 组件的属性列表
    */
