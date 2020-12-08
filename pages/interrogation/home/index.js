@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-30 09:33:23
+ * @Description: 
+ */
 Component({
     options: {
         styleIsolation: 'apply-shared'
@@ -11,7 +16,7 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum'],
+                fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum','videoBookNum'],
                 actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();

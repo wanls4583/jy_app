@@ -40,7 +40,14 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/interrogation/appointment/index"
 				>
-					<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
+					<view class="position-relative">
+						<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
+						<view
+							class="position-absolute radius-50 white-color font-mini"
+							style="right:-10px;top:-10px;min-width:15px;height:15px;line-height:15px;background-color:red;"
+							wx:if="{{videoBookNum}}"
+						>{{videoBookNum}}</view>
+					</view>
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">视频预约</view>
 				</view>
 				<view

@@ -201,6 +201,7 @@ Page({
         }).then((data) => {
             this.updateNoticeCount(data.totalNotRead || 0);
             this.updateMsgCount(data.msgTotalNotRead || 0);
+            this.updateVideoBookNum(data.videoBookNum || 0);
             this.updateConsultNum(data.consultNum);
             if (data.msgTotalNotRead) {
                 wx.setTabBarBadge({
