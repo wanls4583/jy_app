@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/trtc/index",
         "pages/input/index",
         "pages/notice-list/index",
         "pages/phone-bind/index",
@@ -76,6 +77,7 @@
         "pull-scroll-view": "/components/pull-scroll-view/index",
         "readonly-field": "/components/readonly-field/index",
         "empty": "/components/empty/index",
+        "trtc-room": "/components/trtc-room/trtc-room",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-search": "@vant/weapp/search/index",

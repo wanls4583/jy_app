@@ -1,0 +1,121 @@
+<!-- template 1v1 -->
+<template name="1v1">
+	<view class="template-1v1">
+		<view
+			class="view-container player-container {{item.isVisible?'':'none'}}"
+			wx:for="{{streamList}}"
+			wx:if="{{item.src && (item.hasVideo || item.hasAudio)}}"
+			wx:key="streamID"
+		>
+			<live-player
+				auto-pause-if-navigate="{{item.autoPauseIfNavigate}}"
+				auto-pause-if-open-native="{{item.autoPauseIfOpenNative}}"
+				autoplay="{{item.autoplay}}"
+				background-mute="{{item.enableBackgroundMute}}"
+				bindaudiovolumenotify="_playerAudioVolumeNotify"
+				bindfullscreenchange="_playerFullscreenChange"
+				bindnetstatus="_playerNetStatus"
+				bindstatechange="_playerStateChange"
+				class="player"
+				data-streamid="{{item.streamID}}"
+				data-streamtype="{{item.streamType}}"
+				data-userid="{{item.userID}}"
+				debug="{{debug}}"
+				enable-recv-message="{{item.enableRecvMessage}}"
+				id="{{item.streamID}}"
+				max-cache="{{item.maxCache}}"
+				min-cache="{{item.minCache}}"
+				mode="RTC"
+				mute-audio="{{item.muteAudio}}"
+				mute-video="{{item.muteVideo}}"
+				object-fit="{{item.objectFit}}"
+				orientation="{{item.orientation}}"
+				sound-mode="{{item.soundMode}}"
+				src="{{item.src}}"
+			/>
+		</view>
+		<view class="view-container pusher-container {{pusher.isVisible?'':'none'}} {{streamList.length===0? 'fullscreen':''}}">
+			<live-pusher
+				aspect="{{pusher.videoAspect}}"
+				audio-quality="{{pusher.audioQuality}}"
+				audio-reverb-type="{{pusher.audioReverbType}}"
+				audio-volume-type="{{pusher.audioVolumeType}}"
+				auto-focus="{{pusher.enableAutoFocus}}"
+				autopush="{{pusher.autopush}}"
+				background-mute="{{pusher.enableBackgroundMute}}"
+				beauty="{{pusher.beautyLevel}}"
+				bindaudiovolumenotify="_pusherAudioVolumeNotify"
+				bindbgmcomplete="_pusherBGMCompleteHandler"
+				bindbgmprogress="_pusherBGMProgressHandler"
+				bindbgmstart="_pusherBGMStartHandler"
+				binderror="_pusherErrorHandler"
+				bindnetstatus="_pusherNetStatusHandler"
+				bindstatechange="_pusherStateChangeHandler"
+				class="pusher"
+				debug="{{debug}}"
+				device-position="{{pusher.frontCamera}}"
+				enable-agc="{{pusher.enableAgc}}"
+				enable-ans="{{pusher.enableAns}}"
+				enable-camera="{{pusher.enableCamera}}"
+				enable-ear-monitor="{{pusher.enableEarMonitor}}"
+				enable-mic="{{pusher.enableMic}}"
+				local-mirror="{{pusher.localMirror}}"
+				max-bitrate="{{pusher.maxBitrate}}"
+				min-bitrate="{{pusher.minBitrate}}"
+				mode="{{pusher.mode}}"
+				muted="{{!pusher.enableMic}}"
+				orientation="{{pusher.videoOrientation}}"
+				remote-mirror="{{pusher.enableRemoteMirror}}"
+				url="{{pusher.url}}"
+				video-height="{{pusher.videoHeight}}"
+				video-width="{{pusher.videoWidth}}"
+				waiting-image="{{pusher.waitingImage}}"
+				whiteness="{{pusher.whitenessLevel}}"
+				zoom="{{pusher.enableZoom}}"
+			/>
+			<view class="loading" wx:if="{{streamList.length === 0}}">
+				<view class="loading-img">
+					<image class="rotate-img" src="./static/loading.png" />
+				</view>
+				<view class="loading-text">等待接听中...</view>
+			</view>
+		</view>
+		<view class="handle-btns">
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="_toggleAudio" class="btn-normal">
+					<image class="btn-image" src="{{pusher.enableMic? './static/audio-true.png': './static/audio-false.png'}} " />
+				</view>
+				<view class="margin-top-10 white-color">静音：{{pusher.enableMic?'开':'关'}}</view>
+			</view>
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="switchCamera" class="btn-normal">
+					<image class="btn-image" src="{{pusher.cameraPosition=='back'?'./static/switch-back.png':'./static/switch.png'}}" />
+				</view>
+				<view class="margin-top-10 white-color">切换摄像头</view>
+			</view>
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="_toggleVideo" class="btn-normal">
+					<image class="btn-image" src="{{pusher.enableCamera? './static/camera-true.png': './static/camera-false.png'}} " />
+				</view>
+				<view class="margin-top-10 white-color">摄像头：{{pusher.enableCamera?'开':'关'}}</view>
+			</view>
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="_toggleSoundMode" class="btn-normal">
+					<image class="btn-image" src="{{streamList[0].soundMode === 'ear' ? './static/phone.png': './static/speaker-true.png'}} " />
+				</view>
+				<view class="margin-top-10 white-color">免提：{{streamList[0].soundMode === 'ear'?'关':'开'}}</view>
+			</view>
+		</view>
+		<view class="bottom-btns">
+			<!-- <view class="btn-normal" data-key="beautyLevel" data-value="9|0" data-value-type="number" bindtap="_setPuserProperty">
+        <image class="btn-image" src="{{pusher.beautyLevel == 9 ? './static/beauty-true.png': './static/beauty-false.png'}} "/>
+			</view>-->
+			<view bindtap="_hangUp" class="btn-hangup">
+				<image class="btn-image" src="./static/hangup.png" />
+			</view>
+			<!-- <view class="btn-normal" bindtap="_toggleIMPanel">
+        <image class="btn-image" src="{{enableIM? './static/im.png': './static/im-disable.png'}}"/>
+			</view>-->
+		</view>
+	</view>
+</template>

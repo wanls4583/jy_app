@@ -773,6 +773,21 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         });
     },
+    onVideo(e) {
+        var roomId = String(Math.random()).slice(2);
+        wx.jyApp.http({
+            url: '/wx/trtc/call',
+            method: 'post',
+            data: {
+                consultOrderId: this.data.consultOrderId,
+                roomId: roomId
+            }
+        }).then((data) => {
+            wx.jyApp.utils.navigateTo({
+                url: `/pages/trtc/index?roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
+            });
+        });
+    },
     //供其他页面更新评论状态为已评论
     updateAppraise(id) {
         if (this.data.consultOrderId == id) {

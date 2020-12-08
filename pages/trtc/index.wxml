@@ -1,0 +1,26 @@
+<view class="page-room">
+	<trtc-room config="{{trtcConfig}}" id="trtcroom" wx:if="{{trtcConfig}}"></trtc-room>
+	<view class="width-100 height-100 call-page padding-top-30 white-color" wx:elif="{{active}}">
+		<view class="flex--center--start flex-direction-column" style="margin-top:300rpx">
+			<view class="radius-8px white-background-color" style="width:300rpx;height:300rpx">
+				<image src="{{avatar}}"/>
+			</view>
+			<view class="margin-top-30 font-title align-center">{{nickname}}</view>
+			<view class="margin-top-30 align-center">邀请你视频通话</view>
+		</view>
+		<view class="my-bottom-btns">
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="onHandup" class="my-btn-hangup">
+					<image src="/image/handup.png" />
+				</view>
+				<view class="margin-top-10">拒绝</view>
+			</view>
+			<view class="flex--center--center flex-direction-column">
+				<view bindtap="onAnser" class="my-btn-answer">
+					<image src="/image/answer.png" />
+				</view>
+				<view class="margin-top-10">接听</view>
+			</view>
+		</view>
+	</view>
+</view>

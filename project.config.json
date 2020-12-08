@@ -4,12 +4,12 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
     "enhance": false,
     "postcss": true,
     "preloadBackgroundData": false,
-    "minified": false,
+    "minified": true,
     "newFeature": true,
     "coverView": true,
     "nodeModules": true,
@@ -32,7 +32,8 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": []
+    "packNpmRelationList": [],
+    "minifyWXSS": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.14.0",
@@ -61,8 +62,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/interrogation/appointment-select/index",
-          "pathName": "pages/interrogation/appointment-select/index",
+          "name": "pages/trtc/index",
+          "pathName": "pages/trtc/index",
           "query": "",
           "scene": null
         }

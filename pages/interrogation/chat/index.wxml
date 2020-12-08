@@ -231,6 +231,12 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
 			</view>
+			<view class="flex--center--between flex-direction-column width-25">
+				<view bindtap="onVideo" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<van-icon name="phone-o" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">视频通话</view>
+			</view>
 		</view>
 	</view>
 	<view

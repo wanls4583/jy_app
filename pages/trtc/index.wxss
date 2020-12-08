@@ -1,0 +1,34 @@
+.page-room{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.call-page {
+    position: relative;
+    background-color: #000;
+}
+.my-bottom-btns {
+    position: absolute;
+    bottom: 4vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.my-btn-hangup,.my-btn-answer  {
+    width: 10vh;
+    height: 10vh;
+    background: #f75c45;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.my-btn-answer {
+    background: #07c160;
+}
+.my-btn-hangup image,.my-btn-answer image {
+    width: 6vh;
+    height: 6vh;
+}
