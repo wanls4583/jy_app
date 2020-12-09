@@ -46,12 +46,14 @@ Page({
         });
     },
     initRoom() {
+        var streamID = this.userID + '_' + this.data.roomId + '_' + String(Math.random()).slice(2);
         this.setData({
             trtcConfig: {
                 sdkAppID: '1400456678',  // 开通实时音视频服务创建应用后分配的 SDKAppID
                 userID: this.userID,     // 用户 ID，可以由您的帐号系统指定
                 userSig: this.userSig,   // 身份签名，相当于登录密码的作用
                 template: '1v1',         // 画面排版模式
+                streamID: streamID
             }
         }, () => {
             let trtcRoomContext = this.selectComponent('#trtcroom')
