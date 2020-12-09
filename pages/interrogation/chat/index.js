@@ -138,9 +138,8 @@ Page({
         wx.hideLoading();
     },
     onClickAvatar(e) {
-        var src = e.currentTarget.dataset.src;
-        wx.previewImage({
-            urls: [src]
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/record/index?patientId=' + this.data.patient.id
         });
     },
     foucus: function (e) {
