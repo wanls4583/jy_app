@@ -41,6 +41,7 @@
 								<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 								<view class="flex-grow-1 border-bottom border-color-ddd"></view>
 							</view>
+							<!-- 结束消息 -->
 							<view class="flex--center--center padding-20" wx:if="{{item.type==-2&&talker.role=='DOCTOR'&&!consultOrder.isAppraise&&consultOrder.status==3}}">
 								<view class="flex--center--center flex-direction-column white-background-color padding-20 radius-8rpx">
 									<view>请对本次图文问诊进行评价吧</view>
@@ -79,15 +80,17 @@
 										wx:else
 									/>
 								</view>
+								<!-- 文本消息 -->
 								<view
-									class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color white-color"
+									class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color"
 									wx:if="{{item.type==1}}"
 								>
-									<text class="{{item.sender==talker.id&&'color-333'||''}}">{{item.txt}}</text>
+									<text class="{{item.sender==talker.id&&'color-333'||'white-color'}}">{{item.txt}}</text>
 									<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
 									<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
 									<icon bindtap="onResend" class="send-status" data-id="{{item.id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
 								</view>
+								<!-- 图片消息 -->
 								<view class="position-relative flex-shrink-1" wx:elif="{{item.type==2}}">
 									<image class="flex radius-8rpx" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
 									<image
@@ -118,6 +121,7 @@
 										wx:if="{{item.sendStatus=='sendFail'||item.sendStatus=='uploadFail'}}"
 									></icon>
 								</view>
+								<!-- 问诊单 -->
 								<view class="position-relative padding-20 radius-8rpx white-background-color" wx:elif="{{item.type==3}}">
 									<view>
 										<view>{{item.txt}}</view>
@@ -131,6 +135,7 @@
 										</view>
 									</view>
 								</view>
+								<!-- 申请单 -->
 								<view class="position-relative" wx:elif="{{item.type==4}}">
 									<view class="white-background-color border primary-border-color overflow-hidden radius-8rpx" data-id="{{item.orderApplyVO.id}}">
 										<view class="width-100 padding-20 primary-background-color white-color align-center">营养指导申请（{{item.orderApplyVO._status}}）</view>
@@ -147,6 +152,7 @@
 										</view>
 									</view>
 								</view>
+								<!-- 指导单 -->
 								<view class="position-relative" wx:elif="{{item.type==5}}">
 									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 										<view class="width-100 padding-20 success-background-color white-color align-center">营养指导（{{item.nutritionOrderChatVO._status}}）</view>
@@ -167,6 +173,17 @@
 											>查看详情</view>
 										</view>
 									</view>
+								</view>
+								<!-- 视频通话 -->
+								<view
+									class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color"
+									wx:elif="{{item.type==6}}"
+								>
+									<view class="flex--center--start {{item.sender==currentUser.id&&'white-color'||'color-333'}}">
+										<van-icon name="phone-o" size="20px" />
+										<text>{{item.txt}}</text>
+									</view>
+									<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
 								</view>
 								<view class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==currentUser.id}}">
 									<image
@@ -231,7 +248,7 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
 			</view>
-			<view class="flex--center--between flex-direction-column width-25">
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{consultOrder.type==3&&currentUser.role=='DOCTOR'}}">
 				<view bindtap="onVideo" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="phone-o" size="30px" />
 				</view>
@@ -247,7 +264,11 @@
 			<text>图文问诊</text>
 			<text class="margin-left-20 primary-color">￥{{talker.consultOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
 		</view>
-		<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}&type={{consultOrder.type}}">去咨询</view>
+		<view
+			bindtap="onGoto"
+			class="button primary small"
+			data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}&type={{consultOrder.type}}"
+		>去咨询</view>
 	</view>
 	<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">
