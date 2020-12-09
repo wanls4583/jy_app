@@ -29,7 +29,12 @@ Page({
         if (wx.jyApp.tempData.illness.bookDateTime) {
             bookDateTime = wx.jyApp.tempData.illness.bookDateTime.formatTime('yyyy-MM-dd hh:mm');
         }
-        wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.doctorReciveMsg).finally(() => {
+        var subIds = [wx.jyApp.constData.subIds.doctorReciveMsg];
+        if (wx.jyApp.tempData.illness.type == 3) {
+            subIds.push(wx.jyApp.constData.subIds.phone);
+            subIds.push(wx.jyApp.constData.subIds.appointment);
+        }
+        wx.jyApp.utils.requestSubscribeMessage(subIds).finally(() => {
             wx.jyApp.showLoading('支付中...', true);
             wx.jyApp.http({
                 url: wx.jyApp.tempData.illness.type == 3 ? '/consultorder/video/save' : '/consultorder/save',

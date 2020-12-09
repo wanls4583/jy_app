@@ -144,6 +144,8 @@ export const typeMap = {
 }
 export const subIds = {
   'patientPayMsg': '7-Yxz1A_B_sloIu28bAEUtlgWmltGul5Yl9pQCXfzuY',
-  'doctorReciveMsg': 'mr0I6bbT1vi27P_qSnOaalBaKepLb-aTRudnJx27Aok'
+  'doctorReciveMsg': 'mr0I6bbT1vi27P_qSnOaalBaKepLb-aTRudnJx27Aok',
+  'phone': 'x_SCWh8uk9zeSwbpIAkz3htoua27Jjlf0hG-kfNM5Uw',
+  'appointment': 'OnHKW-18JNl7SaLjd2TrHmYzm50rp4Q8jvl7Qn84R-s'
 }
 export const dayArr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
