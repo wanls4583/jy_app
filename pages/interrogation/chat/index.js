@@ -250,7 +250,7 @@ Page({
             this.data.pages.push(chat.id);
             this.setData({
                 pages: this.data.pages,
-                [`pageMap[${id}]`]: [chat]
+                [`pageMap[${chat.id}]`]: [chat]
             }, () => {
                 this.scrollToBottom();
             });
@@ -677,7 +677,7 @@ Page({
                     this.data.pageMap[pageId] = list.slice(index);
                     this.caculateSendTime();
                     this.setData({
-                        paegs: this.data.pages,
+                        pages: this.data.pages,
                         [`pageMap[${pageId}]`]: list.slice(index)
                     }, () => {
                         this.getPageHeight(pageId);
