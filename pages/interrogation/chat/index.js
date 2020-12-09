@@ -774,14 +774,14 @@ Page({
         });
     },
     onVideo(e) {
-        var roomId = String(Math.random()).slice(2);
+        var roomId = Math.ceil(Math.random() * 4294967295);
         wx.jyApp.room.invite({
             consultOrderId: this.data.consultOrderId,
             roomId: roomId,
             user: this.data.currentUser
         }).then(() => {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/trtc/index?roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
+                url: `/pages/trtc/index?consultOrderId=${this.data.consultOrderId}&roomId=${roomId}&active=true`
             });
         });
     },

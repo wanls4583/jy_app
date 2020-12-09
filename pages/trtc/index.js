@@ -30,6 +30,9 @@ Page({
         });
     },
     onUnload() {
+        if (!this.remoteUser && this.data.active) {
+            wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+        }
         wx.setKeepScreenOn({
             keepScreenOn: false,
         });
@@ -79,7 +82,7 @@ Page({
                     }
                 })
                 // 远端用户退出
-                trtcRoomContext.on(TRTC_EVENT.REMOTE_USER_LEAVE, (event) => {
+                trtcRoomContext.on(EVENT.REMOTE_USER_LEAVE, (event) => {
                     if (this.remoteUser === event.data.userID) {
                         this.remoteUser = null;
                         wx.jyApp.toast('通话结束');
@@ -101,11 +104,17 @@ Page({
             switch (data.type) {
                 case 'REJECT':
                     wx.jyApp.toast('对方已拒绝');
-                    this.trtcRoomContext && this.trtcRoomContext._hangUp();
+                    setTimeout(() => {
+                        this.trtcRoomContext && this.trtcRoomContext.exitRoom();
+                        wx.navigateBack();
+                    }, 1500);
                     break;
                 case 'CANCEL':
                     wx.jyApp.toast('通话已取消');
-                    this.trtcRoomContext && this.trtcRoomContext._hangUp();
+                    setTimeout(() => {
+                        this.trtcRoomContext && this.trtcRoomContext.exitRoom();
+                        wx.navigateBack();
+                    }, 1500);
                     break;
                 case 'CALL':
                     wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
@@ -129,7 +138,7 @@ Page({
     },
     onHandup() {
         wx.jyApp.toast('已取消');
-        wx.jyApp.room.refuse({roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+        wx.jyApp.room.refuse({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
         setTimeout(() => {
             wx.navigateBack();
         }, 1500);
