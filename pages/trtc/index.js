@@ -6,9 +6,10 @@
 Page({
     data: {
         trtcConfig: null,
-        active: false,
+        active: false, //是否未接听者
         userId: '',
         roomId: '',
+        consultOrderId: '',
         nickname: '',
         avatar: ''
     },
@@ -17,6 +18,7 @@ Page({
             this.setData({
                 active: option.active || false,
                 roomId: option.roomId || '',
+                consultOrderId: option.consultOrderId || '',
                 nickname: option.nickname || '',
                 avatar: option.avatar || '',
             });
@@ -30,7 +32,7 @@ Page({
         });
     },
     onUnload() {
-        if (!this.remoteUser && this.data.active) {
+        if (!this.remoteUser && !this.data.active) {
             wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
         }
         wx.setKeepScreenOn({

@@ -115,7 +115,7 @@ Page({
         var date = new Date(itemObj.title.value);
         wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
         wx.redirectTo({
-            url: '/pages/interrogation/illNess-edit/index?type=3&doctorId=' + this.doctorId
+            url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
         });
     },
     getVideoServiceTime(doctorId) {
