@@ -255,7 +255,7 @@ Page({
             try {
                 if (data.data) {
                     var page = getCurrentPages();
-                    page = page[page.length - 1];
+                    page = page[page.length - 1].route;
                     data = JSON.parse(data.data);
                     if (data.type == 'CALL') { //通话邀请
                         if (page != '/pages/trtc/index') {

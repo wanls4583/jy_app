@@ -3,7 +3,7 @@
 	<view class="width-100 height-100 call-page padding-top-30 white-color" wx:elif="{{active}}">
 		<view class="flex--center--start flex-direction-column" style="margin-top:300rpx">
 			<view class="radius-8px white-background-color" style="width:300rpx;height:300rpx">
-				<image src="{{avatar}}"/>
+				<image class="width-100 height-100" mode="aspectFill" src="{{avatar}}" />
 			</view>
 			<view class="margin-top-30 font-title align-center">{{nickname}}</view>
 			<view class="margin-top-30 align-center">邀请你视频通话</view>
