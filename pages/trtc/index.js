@@ -34,11 +34,6 @@ Page({
         });
     },
     onUnload() {
-        if (this.remoteUser) {
-            setTimeout(() => {
-                wx.jyApp.toast('通话已结束');
-            }, 500);
-        }
         this.trtcRoomContext && this.trtcRoomContext.exitRoom();
         delete wx.jyApp.tempData.roomInfoCallBack;
         wx.setKeepScreenOn({
@@ -70,13 +65,15 @@ Page({
                 })
                 trtcRoomContext.on(EVENT.LOCAL_LEAVE, (event) => {
                     this.trtcRoomContext = null;
-                    wx.navigateBack();
                     if (!this.remoteUser) {
-                        setTimeout(() => {
-                            wx.jyApp.toast('通话已取消');
-                            wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
-                        }, 500);
+                        wx.jyApp.toast('通话已取消');
+                        wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                    } else {
+                        wx.jyApp.toast('通话已结束');
                     }
+                    setTimeout(() => {
+                        wx.navigateBack();
+                    }, 1500);
                 })
                 // 监听远端用户的视频流的变更事件
                 trtcRoomContext.on(EVENT.REMOTE_VIDEO_ADD, (event) => {
@@ -107,7 +104,10 @@ Page({
                 // 远端用户退出
                 trtcRoomContext.on(EVENT.REMOTE_USER_LEAVE, (event) => {
                     if (this.remoteUser === event.data.userID) {
-                        wx.navigateBack();
+                        wx.jyApp.toast('通话已结束');
+                        setTimeout(() => {
+                            wx.navigateBack();
+                        }, 1500);
                     }
                 })
                 // 进入房间
@@ -123,28 +123,28 @@ Page({
             switch (data.type) {
                 case 'REJECT':
                     if (data.roomId == this.data.roomId) {
-                        wx.navigateBack();
+                        wx.jyApp.toast('对方已拒绝通话');
                         setTimeout(() => {
-                            wx.jyApp.toast('对方已拒绝通话');
-                        }, 500);
+                            wx.navigateBack();
+                        }, 1500);
                     }
                     break;
                 case 'CANCEL':
                     if (data.roomId == this.data.roomId) {
-                        wx.navigateBack();
+                        wx.jyApp.toast('对方已取消通话');
                         setTimeout(() => {
-                            wx.jyApp.toast('对方已取消通话');
-                        }, 500);
+                            wx.navigateBack();
+                        }, 1500);
                     }
                     break;
                 case 'CALL':
                     wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: data.roomId, consultOrderId: data.consultOrderId });
                     break;
                 case 'BUSY':
-                    wx.navigateBack();
+                    wx.jyApp.toast('对方忙线中，请稍后再试');
                     setTimeout(() => {
-                        wx.jyApp.toast('对方忙线中');
-                    }, 500);
+                        wx.navigateBack();
+                    }, 1500);
                     break;
             }
         }
@@ -164,9 +164,9 @@ Page({
     },
     onHandup() {
         wx.jyApp.room.refuse({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
-        wx.navigateBack();
+        wx.jyApp.toast('通话已取消');
         setTimeout(() => {
-            wx.jyApp.toast('通话已取消');
-        }, 500);
+            wx.navigateBack();
+        }, 1500);
     }
 })
