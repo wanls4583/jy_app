@@ -13,16 +13,10 @@ Page({
         avatar: ''
     },
     onLoad(option) {
-        this.storeBindings = wx.jyApp.createStoreBindings(this, {
-            store: wx.jyApp.store,
-            fields: ['userInfo'],
-        });
-        this.storeBindings.updateStoreBindings();
         this.getUserSig().then(() => {
             this.setData({
                 active: option.active || false,
                 roomId: option.roomId || '',
-                userId: option.userId || '',
                 nickname: option.nickname || '',
                 avatar: option.avatar || '',
             });
@@ -39,7 +33,6 @@ Page({
         wx.setKeepScreenOn({
             keepScreenOn: false,
         });
-        this.storeBindings.destroyStoreBindings();
         delete wx.jyApp.tempData.roomInfoCallBack;
     },
     onShow: function () {
@@ -64,8 +57,6 @@ Page({
                     // 进房成功后发布本地音频流和视频流 
                     trtcRoomContext.publishLocalVideo()
                     trtcRoomContext.publishLocalAudio()
-                    //发起邀请
-                    wx.jyApp.room.invite(this.data.userId, { user: this.data.userInfo, roomId: this.data.roomId });
                 })
                 // 监听远端用户的视频流的变更事件
                 trtcRoomContext.on(EVENT.REMOTE_VIDEO_ADD, (event) => {
@@ -108,18 +99,18 @@ Page({
     initEvent() {
         wx.jyApp.tempData.roomInfoCallBack = (data) => {
             switch (data.type) {
-                case 'refuse':
+                case 'REJECT':
                     wx.jyApp.toast('对方已拒绝');
                     this.trtcRoomContext && this.trtcRoomContext._hangUp();
                     break;
-                case 'cancel':
+                case 'CANCEL':
                     wx.jyApp.toast('通话已取消');
                     this.trtcRoomContext && this.trtcRoomContext._hangUp();
                     break;
-                case 'invite':
-                    wx.jyApp.room.setRoomInfo(data.user.id, { type: 'busy', user: this.data.userInfo });
+                case 'CALL':
+                    wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
                     break;
-                case 'busy':
+                case 'BUSY':
                     wx.jyApp.toast('对方忙线中');
                     break;
             }
@@ -138,7 +129,7 @@ Page({
     },
     onHandup() {
         wx.jyApp.toast('已取消');
-        wx.jyApp.room.refuse(this.data.userId, { user: this.data.userInfo, roomId: this.data.roomId });
+        wx.jyApp.room.refuse({roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
         setTimeout(() => {
             wx.navigateBack();
         }, 1500);

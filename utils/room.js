@@ -3,20 +3,20 @@
  * @Date: 2020-12-08 14:27:39
  * @Description: 
  */
-function getRoomInfo(userId) {
+function getRoomInfo() {
     return wx.jyApp.http({
-        url: '/rooInfo',
-        data: {
-            userId: userId
-        }
+        url: '/wx/trtc/query/data'
     });
 }
 
-function setRoomInfo(userId, data) {
+function setRoomInfo(data) {
     return wx.jyApp.http({
-        url: '/rooInfo',
+        url: '/wx/trtc/report',
+        method: 'post',
         data: {
-            userId: userId,
+            consultOrderId: data.consultOrderId,
+            status: data.type,
+            roomId: data.roomId,
             data: data
         }
     });
@@ -25,29 +25,32 @@ function setRoomInfo(userId, data) {
 
 function invite(option) {
     var data = {
-        type: 'invite',
+        type: 'CALL',
         user: option.user,
+        consultOrderId: option.consultOrderId,
         roomId: option.roomId
     }
-    return setRoomInfo(option.receiver, data);
+    return setRoomInfo(data);
 }
 
 function cancel(option) {
     var data = {
-        type: 'cancel',
+        type: 'CANCEL',
         user: option.user,
+        consultOrderId: option.consultOrderId,
         roomId: option.roomId
     }
-    return setRoomInfo(option.receiver, data);
+    return setRoomInfo(data);
 }
 
 function refuse(option) {
     var data = {
-        type: 'refuse',
+        type: 'REJECT',
         user: option.user,
+        consultOrderId: option.consultOrderId,
         roomId: option.roomId
     }
-    return setRoomInfo(option.receiver, data);
+    return setRoomInfo(data);
 }
 
 module.exports = {

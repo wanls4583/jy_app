@@ -251,21 +251,19 @@ Page({
     },
     //获取视频通话信息
     getRoomInfo() {
-        var user = wx.jyApp.store.userInfo;
-        wx.jyApp.room.getRoomInfo(user.id).then((data) => {
+        wx.jyApp.room.getRoomInfo().then((data) => {
             try {
                 if (data.data) {
                     var page = getCurrentPages()[0].route;
                     data = JSON.parse(data.data);
-                    if (data.type == 'invite') { //通话邀请
+                    if (data.type == 'CALL') { //通话邀请
                         if (page != '/pages/trtc/index') {
                             wx.jyApp.utils.navigateTo({
-                                url: `/pages/trtc/index?roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatar}`
+                                url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatar}`
                             });
                         }
                     }
                     wx.jyApp.tempData.roomInfoCallBack && wx.jyApp.tempData.roomInfoCallBack(data.data);
-                    return wx.jyApp.room.setRoomInfo(user.id, '');
                 }
             } catch (e) {
 
