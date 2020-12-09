@@ -258,7 +258,7 @@ Page({
                     page = page[page.length - 1].route;
                     data = JSON.parse(data.data);
                     if (data.type == 'CALL') { //通话邀请
-                        if (page != '/pages/trtc/index') {
+                        if (page != 'pages/trtc/index') {
                             wx.jyApp.utils.navigateTo({
                                 url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatarUrl}&active=true`
                             });
