@@ -6,7 +6,7 @@
 Page({
     data: {
         trtcConfig: null,
-        active: false, //是否未接听者
+        recieve: false, //是否未接听者
         userId: '',
         roomId: '',
         consultOrderId: '',
@@ -15,16 +15,16 @@ Page({
         waiting: false
     },
     onLoad(option) {
+        this.setData({
+            recieve: option.recieve || false,
+            waiting: !option.recieve,
+            roomId: option.roomId || '',
+            consultOrderId: option.consultOrderId || '',
+            nickname: option.nickname || '',
+            avatar: option.avatar || '',
+        });
         this.getUserSig().then(() => {
-            this.setData({
-                active: option.active || false,
-                waiting: !option.active,
-                roomId: option.roomId || '',
-                consultOrderId: option.consultOrderId || '',
-                nickname: option.nickname || '',
-                avatar: option.avatar || '',
-            });
-            if (!this.data.active) {
+            if (!this.data.recieve) {
                 this.initRoom();
             }
         });
@@ -34,14 +34,7 @@ Page({
         });
     },
     onUnload() {
-        if (!this.remoteUser) {
-            if (!this.data.active) {
-                wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
-                setTimeout(() => {
-                    wx.jyApp.toast('通话已取消');
-                }, 500);
-            }
-        } else {
+        if (this.remoteUser) {
             setTimeout(() => {
                 wx.jyApp.toast('通话已结束');
             }, 500);
@@ -73,6 +66,14 @@ Page({
                     // 进房成功后发布本地音频流和视频流 
                     trtcRoomContext.publishLocalVideo()
                     trtcRoomContext.publishLocalAudio()
+                })
+                trtcRoomContext.on(EVENT.LOCAL_LEAVE, (event) => {
+                    wx.navigateBack();
+                    if (!this.remoteUser) {
+                        setTimeout(() => {
+                            wx.jyApp.toast('通话已取消');
+                        }, 500);
+                    }
                 })
                 // 监听远端用户的视频流的变更事件
                 trtcRoomContext.on(EVENT.REMOTE_VIDEO_ADD, (event) => {

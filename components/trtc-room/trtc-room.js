@@ -2014,9 +2014,9 @@ Component({
      */
     _hangUp() {
       this.exitRoom()
-      wx.navigateBack({
-        delta: 1,
-      })
+      // wx.navigateBack({
+      //   delta: 1,
+      // })
     },
     /**
      * 切换订阅音频状态
