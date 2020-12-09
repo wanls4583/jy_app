@@ -33,3 +33,4 @@
 		<view bindtap="onSave" class="margin-top-30 button primary block">提交问诊</view>
 	</view>
 </view>
+<van-dialog id="van-dialog" />
