@@ -254,12 +254,13 @@ Page({
         wx.jyApp.room.getRoomInfo().then((data) => {
             try {
                 if (data.data) {
-                    var page = getCurrentPages()[0].route;
+                    var page = getCurrentPages();
+                    page = page[page.length - 1];
                     data = JSON.parse(data.data);
                     if (data.type == 'CALL') { //通话邀请
                         if (page != '/pages/trtc/index') {
                             wx.jyApp.utils.navigateTo({
-                                url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatar}&active=true`
+                                url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatarUrl}&active=true`
                             });
                         }
                     }
