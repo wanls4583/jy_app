@@ -17,7 +17,7 @@ function setRoomInfo(data) {
             consultOrderId: data.consultOrderId,
             status: data.type,
             roomId: data.roomId,
-            data: data
+            data: JSON.stringify(data)
         }
     });
 }
