@@ -259,7 +259,7 @@ Page({
                     if (data.type == 'CALL') { //通话邀请
                         if (page != '/pages/trtc/index') {
                             wx.jyApp.utils.navigateTo({
-                                url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatar}`
+                                url: `/pages/trtc/index?consultOrderId=${data.consultOrderId}&roomId=${data.roomId}&nickname=${data.user.nickname}&avatar=${data.user.avatar}&active=true`
                             });
                         }
                     }

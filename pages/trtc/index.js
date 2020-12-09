@@ -20,7 +20,7 @@ Page({
                 nickname: option.nickname || '',
                 avatar: option.avatar || '',
             });
-            if (this.data.active) {
+            if (!this.data.active) {
                 this.initRoom();
             }
         });
