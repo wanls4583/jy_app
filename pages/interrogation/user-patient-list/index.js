@@ -44,6 +44,12 @@ Page({
             selectId: item.id
         });
     },
+    onDetail(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/record/index?patientId=' + id
+        });
+    },
     onEdit(e) {
         var id = e.currentTarget.dataset.id;
         wx.jyApp.utils.navigateTo({
