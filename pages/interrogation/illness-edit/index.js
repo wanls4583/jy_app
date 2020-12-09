@@ -17,7 +17,7 @@ Page({
         this.type = option.type || 1;
         this.taskMap = {}
         if(this.type == 3) {
-            wx.jyApp.utils.navigateTo({
+            wx.redirectTo({
                 url: '/pages/interrogation/appointment-select/index?doctorId=' + this.doctorId
             });
         }

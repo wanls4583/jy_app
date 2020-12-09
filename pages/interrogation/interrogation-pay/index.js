@@ -18,7 +18,7 @@ Page({
             goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '图文问诊';
         }
         this.setData({
-            goodsName: wx.jyApp.tempData.illness.doctorName + '-' + ('图文问诊'),
+            goodsName: goodsName,
             consultOrderPrice: wx.jyApp.tempData.illness.consultOrderPrice,
             orderTime: new Date().formatTime('yyyy-MM-dd'),
             bookDateTime: bookDateTime
