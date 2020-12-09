@@ -781,7 +781,7 @@ Page({
             user: this.data.currentUser
         }).then(() => {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/trtc/index?consultOrderId=${this.data.consultOrderId}&roomId=${roomId}`
+                url: `/pages/trtc/index?consultOrderId=${this.data.consultOrderId}&roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
             });
         });
     },

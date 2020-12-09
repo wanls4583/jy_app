@@ -11,12 +11,14 @@ Page({
         roomId: '',
         consultOrderId: '',
         nickname: '',
-        avatar: ''
+        avatar: '',
+        waiting: false
     },
     onLoad(option) {
         this.getUserSig().then(() => {
             this.setData({
                 active: option.active || false,
+                waiting: !option.active,
                 roomId: option.roomId || '',
                 consultOrderId: option.consultOrderId || '',
                 nickname: option.nickname || '',
@@ -71,6 +73,9 @@ Page({
                         let streamType = event.data.streamType// 'main' or 'aux'            
                         trtcRoomContext.subscribeRemoteVideo({ userID: userID, streamType: streamType })
                         this.remoteUser = userID;
+                        this.setData({
+                            waiting: false
+                        })
                     }
                 })
 
@@ -81,6 +86,9 @@ Page({
                     if (!this.remoteUser || this.remoteUser === userID) {
                         trtcRoomContext.subscribeRemoteAudio({ userID: userID })
                         this.remoteUser = userID;
+                        this.setData({
+                            waiting: false
+                        })
                     }
                 })
                 // 远端用户退出

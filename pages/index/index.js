@@ -264,7 +264,7 @@ Page({
                             });
                         }
                     }
-                    wx.jyApp.tempData.roomInfoCallBack && wx.jyApp.tempData.roomInfoCallBack(data.data);
+                    wx.jyApp.tempData.roomInfoCallBack && wx.jyApp.tempData.roomInfoCallBack(data);
                 }
             } catch (e) {
 

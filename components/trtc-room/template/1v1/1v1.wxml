@@ -73,12 +73,12 @@
 				whiteness="{{pusher.whitenessLevel}}"
 				zoom="{{pusher.enableZoom}}"
 			/>
-			<view class="loading" wx:if="{{streamList.length === 0}}">
+			<!-- <view class="loading" wx:if="{{streamList.length === 0}}">
 				<view class="loading-img">
 					<image class="rotate-img" src="./static/loading.png" />
 				</view>
 				<view class="loading-text">等待接听中...</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="handle-btns">
 			<view class="flex--center--center flex-direction-column">
