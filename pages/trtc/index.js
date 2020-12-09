@@ -34,13 +34,22 @@ Page({
         });
     },
     onUnload() {
-        if (!this.remoteUser && !this.data.active) {
-            wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+        if (!this.remoteUser) {
+            if (!this.data.active) {
+                wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                setTimeout(() => {
+                    wx.jyApp.toast('通话已取消');
+                }, 500);
+            }
+        } else {
+            setTimeout(() => {
+                wx.jyApp.toast('通话已结束');
+            }, 500);
         }
+        delete wx.jyApp.tempData.roomInfoCallBack;
         wx.setKeepScreenOn({
             keepScreenOn: false,
         });
-        delete wx.jyApp.tempData.roomInfoCallBack;
     },
     onShow: function () {
         wx.setKeepScreenOn({
@@ -94,11 +103,8 @@ Page({
                 // 远端用户退出
                 trtcRoomContext.on(EVENT.REMOTE_USER_LEAVE, (event) => {
                     if (this.remoteUser === event.data.userID) {
-                        this.remoteUser = null;
-                        trtcRoomContext._hangUp();
-                        setTimeout(() => {
-                            wx.jyApp.toast('通话结束');
-                        }, 500);
+                        trtcRoomContext.exitRoom();
+                        wx.navigateBack();
                     }
                 })
                 // 进入房间
@@ -116,18 +122,18 @@ Page({
                     this.trtcRoomContext && this.trtcRoomContext.exitRoom();
                     wx.navigateBack();
                     setTimeout(() => {
-                        wx.jyApp.toast('对方已拒绝');
+                        wx.jyApp.toast('对方已拒绝通话');
                     }, 500);
                     break;
                 case 'CANCEL':
                     this.trtcRoomContext && this.trtcRoomContext.exitRoom();
                     wx.navigateBack();
                     setTimeout(() => {
-                        wx.jyApp.toast('通话已取消');
+                        wx.jyApp.toast('对方已取消通话');
                     }, 500);
                     break;
                 case 'CALL':
-                    wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                    wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: data.roomId, consultOrderId: data.consultOrderId });
                     break;
                 case 'BUSY':
                     wx.jyApp.toast('对方忙线中');
@@ -150,7 +156,7 @@ Page({
         wx.jyApp.room.refuse({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
         wx.navigateBack();
         setTimeout(() => {
-            wx.jyApp.toast('已取消');
+            wx.jyApp.toast('通话已取消');
         }, 500);
     }
 })
