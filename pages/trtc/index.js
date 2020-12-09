@@ -65,9 +65,9 @@ Page({
                 })
                 // 监听远端用户的视频流的变更事件
                 trtcRoomContext.on(EVENT.REMOTE_VIDEO_ADD, (event) => {
-                    if (!this.remoteUser || this.remoteUser === data.userID) {
+                    let userID = event.data.userID
+                    if (!this.remoteUser || this.remoteUser === userID) {
                         // 订阅（即播放）远端用户的视频流
-                        let userID = event.data.userID
                         let streamType = event.data.streamType// 'main' or 'aux'            
                         trtcRoomContext.subscribeRemoteVideo({ userID: userID, streamType: streamType })
                         this.remoteUser = userID;
@@ -76,9 +76,9 @@ Page({
 
                 // 监听远端用户的音频流的变更事件
                 trtcRoomContext.on(EVENT.REMOTE_AUDIO_ADD, (event) => {
+                    let userID = event.data.userID
                     // 订阅（即播放）远端用户的音频流
-                    if (!this.remoteUser || this.remoteUser === data.userID) {
-                        let userID = event.data.userID
+                    if (!this.remoteUser || this.remoteUser === userID) {
                         trtcRoomContext.subscribeRemoteAudio({ userID: userID })
                         this.remoteUser = userID;
                     }
@@ -87,10 +87,10 @@ Page({
                 trtcRoomContext.on(EVENT.REMOTE_USER_LEAVE, (event) => {
                     if (this.remoteUser === event.data.userID) {
                         this.remoteUser = null;
-                        wx.jyApp.toast('通话结束');
+                        trtcRoomContext._hangUp();
                         setTimeout(() => {
-                            trtcRoomContext._hangUp();
-                        }, 1500);
+                            wx.jyApp.toast('通话结束');
+                        }, 500);
                     }
                 })
                 // 进入房间
@@ -105,18 +105,18 @@ Page({
         wx.jyApp.tempData.roomInfoCallBack = (data) => {
             switch (data.type) {
                 case 'REJECT':
-                    wx.jyApp.toast('对方已拒绝');
+                    this.trtcRoomContext && this.trtcRoomContext.exitRoom();
+                    wx.navigateBack();
                     setTimeout(() => {
-                        this.trtcRoomContext && this.trtcRoomContext.exitRoom();
-                        wx.navigateBack();
-                    }, 1500);
+                        wx.jyApp.toast('对方已拒绝');
+                    }, 500);
                     break;
                 case 'CANCEL':
-                    wx.jyApp.toast('通话已取消');
+                    this.trtcRoomContext && this.trtcRoomContext.exitRoom();
+                    wx.navigateBack();
                     setTimeout(() => {
-                        this.trtcRoomContext && this.trtcRoomContext.exitRoom();
-                        wx.navigateBack();
-                    }, 1500);
+                        wx.jyApp.toast('通话已取消');
+                    }, 500);
                     break;
                 case 'CALL':
                     wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
@@ -139,10 +139,10 @@ Page({
         this.initRoom();
     },
     onHandup() {
-        wx.jyApp.toast('已取消');
         wx.jyApp.room.refuse({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+        wx.navigateBack();
         setTimeout(() => {
-            wx.navigateBack();
-        }, 1500);
+            wx.jyApp.toast('已取消');
+        }, 500);
     }
 })
