@@ -44,6 +44,12 @@ Page({
             selectId: item.id
         });
     },
+    onDetail(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/record/index?patientId=' + id
+        });
+    },
     onEdit(e) {
         var id = e.currentTarget.dataset.id;
         wx.jyApp.utils.navigateTo({
@@ -51,20 +57,25 @@ Page({
         });
     },
     onDelete(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.showLoading('删除中...', true);
-        wx.jyApp.http({
-            url: '/patientdocument/delete',
-            method: 'post',
-            data: {
-                id: id
-            }
+        wx.jyApp.dialog.confirm({
+            message: '确定删除么？',
+            confirmButtonText: '删除'
         }).then(() => {
-            wx.hideLoading();
-            wx.jyApp.toast('删除成功');
-            this.loadList();
-        }).catch(() => {
-            wx.hideLoading();
+            var id = e.currentTarget.dataset.id;
+            wx.jyApp.showLoading('删除中...', true);
+            wx.jyApp.http({
+                url: '/patientdocument/delete',
+                method: 'post',
+                data: {
+                    id: id
+                }
+            }).then(() => {
+                wx.hideLoading();
+                wx.jyApp.toast('删除成功');
+                this.loadList();
+            }).catch(() => {
+                wx.hideLoading();
+            });
         });
     },
     onAdd(e) {

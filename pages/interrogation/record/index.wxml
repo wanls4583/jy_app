@@ -1,0 +1,91 @@
+<import src="/template/order-goods-item.wxml" />
+<view class="container">
+	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
+		<van-collapse-item name="info" title="患者信息">
+			<readonly-field label="姓名" value="{{patientDocument.patientName}}"></readonly-field>
+			<readonly-field label="性别" value="{{patientDocument._sex}}"></readonly-field>
+			<readonly-field label="年龄" value="{{patientDocument.age}}"></readonly-field>
+			<readonly-field label="身高" value="{{patientDocument.height?patientDocument.height+'cm':''}}"></readonly-field>
+			<readonly-field label="体重" value="{{patientDocument.weight?patientDocument.weight+'kg':''}}"></readonly-field>
+			<readonly-field label="BMI" value="{{patientDocument.BMI}}"></readonly-field>
+			<readonly-field label="食物过敏史" value="{{patientDocument.foodSensitive}}"></readonly-field>
+		</van-collapse-item>
+		<van-collapse-item name="type1" title="图文问诊">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[1]}}" wx:key="index">
+					<view class="flex--center--start">
+						<view class="flex-shrink-0 label label-color">问诊时间：</view>
+						<view>{{item.orderTime}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 align-self-start label label-color">问诊描述：</view>
+						<view>{{item.diseaseDetail}}</view>
+					</view>
+					<view class="flex flex-wrap-wrap" style="margin-left:6.2em" wx:if="{{item.picUrls.length}}">
+						<view class="border gray-background-color margin-right-30 margin-bottom-20" style="width:150rpx;height:150rpx;" wx:for="{{item.picUrls}}" wx:key="item">
+							<image
+								bindtap="onClickImg"
+								class="width-100 height-100"
+								data-pic-urls="{{item.picUrls}}"
+								data-src="{{pic}}"
+								mode="aspectFill"
+								src="{{pic}}"
+								wx:for-item="pic"
+							/>
+						</view>
+					</view>
+				</view>
+			</view>
+		</van-collapse-item>
+		<van-collapse-item name="type3" title="视频问诊">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[3]}}" wx:key="index">
+					<view class="flex--center--start">
+						<view class="flex-shrink-0 label label-color">问诊时间：</view>
+						<view>{{item.orderTime}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 align-self-start label label-color">问诊描述：</view>
+						<view>{{item.diseaseDetail}}</view>
+					</view>
+					<view class="flex flex-wrap-wrap" style="margin-left:6.2em" wx:if="{{item.picUrls.length}}">
+						<view class="border gray-background-color margin-right-30 margin-bottom-20" style="width:150rpx;height:150rpx;" wx:for="{{item.picUrls}}" wx:key="item">
+							<image
+								bindtap="onClickImg"
+								class="width-100 height-100"
+								data-pic-urls="{{item.picUrls}}"
+								data-src="{{pic}}"
+								mode="aspectFill"
+								src="{{pic}}"
+								wx:for-item="pic"
+							/>
+						</view>
+					</view>
+				</view>
+			</view>
+		</van-collapse-item>
+		<van-collapse-item name="guide" title="营养指导">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-20 color-333" wx:for="{{nutritionOrder}}" wx:key="index">
+					<view class="flex--center--start">
+						<view class="flex-shrink-0 label-color">营养指导时间：</view>
+						<view>{{item.orderTime}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 align-self-start label label-color">营养诊断：</view>
+						<view>{{item.diagnosis}}</view>
+					</view>
+					<view class="label-color margin-top-bottom-20">营养指导：</view>
+					<view class="border-bottom padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
+						<view class="flex--center--between">
+							<view>{{product.goodsName}}</view>
+							<view class="flex-shrink-0 gray-color">x{{product.count}}{{product._unit}}</view>
+						</view>
+						<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
+						<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+					</view>
+				</view>
+			</view>
+		</van-collapse-item>
+	</van-collapse>
+</view>
