@@ -44,12 +44,12 @@
 		<view class="width-33 padding-bottom-30 padding-right-30" wx:for="{{slectTimes}}" wx:key="index">
 			<view
 				bindtap="onCheckedTime"
-				class="width-100 flex--center--center padding-10 clickable border {{item.checked?'gray-color':'primary-border-color primary-color'}}"
+				class="width-100 flex--center--center padding-10 clickable border {{item.disabled||item.checked?'gray-color':'primary-border-color primary-color'}}"
 				data-item="{{item}}"
 			>
 				<view>
 					<view class="align-center">{{item.time}}</view>
-					<view class="align-center font-small">{{item.checked?'已满':'可预约'}}</view>
+					<view class="align-center font-small">{{item.disabled?'已过期':(item.checked?'已满':'可预约')}}</view>
 				</view>
 			</view>
 		</view>

@@ -119,10 +119,17 @@ Page({
         }
         this.setData({
             slectTimes: itemObj[type].map((item) => {
+                var checked = this.bookedTimes[day] && this.bookedTimes[day][item];
+                var disabled = false;
+                var date = Date.prototype.parseDateTime(new Date(itemObj.title.value).formatTime('yyyy-MM-dd ') + item + ':00');
+                if (date.getTime() < new Date().getTime()) {
+                    disabled = true;
+                }
                 return {
                     title: itemObj.title,
                     time: item,
-                    checked: this.bookedTimes[day] && this.bookedTimes[day][item]
+                    disabled: disabled,
+                    checked: checked
                 }
             }),
             timeTitle: timeTitle
@@ -132,6 +139,9 @@ Page({
     onCheckedTime(e) {
         var itemObj = e.currentTarget.dataset.item;
         var date = new Date(itemObj.title.value);
+        if (itemObj.disabled || item.checked) {
+            return;
+        }
         wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
         wx.redirectTo({
             url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
