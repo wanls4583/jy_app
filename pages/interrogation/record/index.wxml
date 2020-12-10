@@ -19,7 +19,7 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 align-self-start label label-color">问诊描述：</view>
-						<view>{{item.diseaseDetail}}</view>
+						<view>{{item.diseaseDetail||''}}</view>
 					</view>
 					<view class="flex flex-wrap-wrap" style="margin-left:6.2em" wx:if="{{item.picUrls.length}}">
 						<view class="border gray-background-color margin-right-30 margin-bottom-20" style="width:150rpx;height:150rpx;" wx:for="{{item.picUrls}}" wx:key="item">
@@ -46,7 +46,7 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 align-self-start label label-color">问诊描述：</view>
-						<view>{{item.diseaseDetail}}</view>
+						<view>{{item.diseaseDetail||''}}</view>
 					</view>
 					<view class="flex flex-wrap-wrap" style="margin-left:6.2em" wx:if="{{item.picUrls.length}}">
 						<view class="border gray-background-color margin-right-30 margin-bottom-20" style="width:150rpx;height:150rpx;" wx:for="{{item.picUrls}}" wx:key="item">
@@ -73,7 +73,7 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 align-self-start label label-color">营养诊断：</view>
-						<view>{{item.diagnosis}}</view>
+						<view>{{item.diagnosis||''}}</view>
 					</view>
 					<view class="label-color margin-top-bottom-20">营养指导：</view>
 					<view class="border-bottom padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
