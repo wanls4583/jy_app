@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="padding-30 white-background-color">
-		<view class="margin-bottom-30 font-bold align-center">您可预约医生7天内的视频问诊时间</view>
+		<view class="margin-bottom-30 font-bold align-center">您当前的视频问诊预约列表如下</view>
 		<view class="flex--center--between border font-small">
 			<view class="flex--center--between flex-direction-column" style="flex:1">
 				<view class="flex--center--center width-100 border" style="height:80rpx"></view>

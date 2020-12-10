@@ -132,12 +132,12 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 wx.jyApp.utils.navigateTo({
-                    url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=${type}`
+                    url: `/pages/interrogation/${type==3?'appointment-select':'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
                 });
             });
         } else {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=${type}`
+                url: `/pages/interrogation/${type==3?'appointment-select':'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }
     }

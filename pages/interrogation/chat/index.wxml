@@ -267,7 +267,7 @@
 		<view
 			bindtap="onGoto"
 			class="button primary small"
-			data-url="/pages/interrogation/illness-edit/index?doctorId={{consultOrder.doctorId}}&type={{consultOrder.type}}"
+			data-url="/pages/interrogation/{{consultOrder.type==3?'appointment-select':'illness-edit'}}/index?doctorId={{consultOrder.doctorId}}&type={{consultOrder.type}}"
 		>去咨询</view>
 	</view>
 	<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">

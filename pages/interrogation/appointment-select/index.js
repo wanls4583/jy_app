@@ -15,6 +15,7 @@ Page({
     },
     onLoad(option) {
         this.doctorId = option.doctorId;
+        this.initTitle();
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([this.getDoctorInfo(this.doctorId), this.getVideoServiceTime(this.doctorId)]).then(() => {
             wx.hideLoading();
@@ -23,33 +24,15 @@ Page({
     },
     onUnload() {
     },
-    initData() {
-        var morning = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
-        var afternoon = ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-        var night = ['18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
+    initTitle() {
         var nowDay = new Date().getDay();
         var title = _getTitle();
         var timeArr = [];
         for (var i = 0; i < 7; i++) {
             timeArr[i] = {
-                morning: morning.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
-                afternoon: afternoon.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
-                night: night.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
+                morning: [],
+                afternoon: [],
+                night: [],
             }
         }
         timeArr = timeArr.slice(nowDay - 1).concat(timeArr.slice(0, nowDay - 1));
@@ -79,6 +62,42 @@ Page({
             }
             return dateTitle;
         }
+    },
+    initData() {
+        var morning = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
+        var afternoon = ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+        var night = ['18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
+        var nowDay = new Date().getDay();
+        var timeArr = [];
+        for (var i = 0; i < 7; i++) {
+            timeArr[i] = {
+                morning: morning.filter((item) => {
+                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
+                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    }
+                    return false;
+                }),
+                afternoon: afternoon.filter((item) => {
+                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
+                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    }
+                    return false;
+                }),
+                night: night.filter((item) => {
+                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
+                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    }
+                    return false;
+                }),
+            }
+        }
+        timeArr = timeArr.slice(nowDay - 1).concat(timeArr.slice(0, nowDay - 1));
+        timeArr.map((item, index) => {
+            item.title = this.data.timeArr[index].title;
+        });
+        this.setData({
+            timeArr: timeArr
+        });
     },
     onShowTime() {
         this.setData({
@@ -114,9 +133,8 @@ Page({
         var itemObj = e.currentTarget.dataset.item;
         var date = new Date(itemObj.title.value);
         wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
-        wx.jyApp.tempData.illnessType = 3;
         wx.redirectTo({
-            url: '/pages/interrogation/illness-edit/index?doctorId=' + this.doctorId
+            url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
         });
     },
     getVideoServiceTime(doctorId) {

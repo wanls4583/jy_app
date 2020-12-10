@@ -14,14 +14,13 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.doctorId = option.doctorId || '';
-        this.type = wx.jyApp.tempData.illnessType || 1;
+        this.type = option.type || 1;
         this.taskMap = {}
-        if(option.type == 3) {
+        if(this.type == 3) {
             wx.redirectTo({
                 url: '/pages/interrogation/appointment-select/index?doctorId=' + this.doctorId
             });
         }
-        delete wx.jyApp.tempData.illnessType;
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
