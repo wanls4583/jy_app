@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import "css/font.wxss";
 @import "css/common.wxss";
 @import "css/van-custom.wxss";
 @import "css/padding-margin.wxss";

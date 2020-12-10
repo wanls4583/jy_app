@@ -180,7 +180,7 @@
 									wx:elif="{{item.type==6}}"
 								>
 									<view class="flex--center--start {{item.sender==currentUser.id&&'white-color'||'color-333'}}">
-										<van-icon name="phone-o" size="20px" />
+										<text class="iconfont icon-video margin-right-10" style="font-size:40rpx"></text>
 										<text>{{item.txt}}</text>
 									</view>
 									<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
@@ -250,7 +250,7 @@
 			</view>
 			<view class="flex--center--between flex-direction-column width-25" wx:if="{{consultOrder.type==3&&currentUser.role=='DOCTOR'}}">
 				<view bindtap="onVideo" class="flex--center--center width-60px height-60px radius-8px white-background-color">
-					<van-icon name="phone-o" size="30px" />
+					<text class="iconfont icon-video" style="font-size:35px"></text>
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">视频通话</view>
 			</view>
