@@ -16,11 +16,6 @@ Page({
         this.doctorId = option.doctorId || '';
         this.type = option.type || 1;
         this.taskMap = {}
-        if(this.type == 3) {
-            wx.redirectTo({
-                url: '/pages/interrogation/appointment-select/index?doctorId=' + this.doctorId
-            });
-        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
