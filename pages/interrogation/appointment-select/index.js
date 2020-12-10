@@ -139,7 +139,7 @@ Page({
     onCheckedTime(e) {
         var itemObj = e.currentTarget.dataset.item;
         var date = new Date(itemObj.title.value);
-        if (itemObj.disabled || item.checked) {
+        if (itemObj.disabled || itemObj.checked) {
             return;
         }
         wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
