@@ -64,7 +64,7 @@ Page({
         wx.jyApp.utils.setText({
             title: '图文问诊每次金额',
             defaultValue: this.data.consultOrderPrice,
-            type: 'number',
+            type: 'int',
             complete: (value) => {
                 if (value < 0 || value > 1000) {
                     setTimeout(() => {
@@ -84,9 +84,9 @@ Page({
             return;
         }
         wx.jyApp.utils.setText({
-            title: '图文问诊每次金额',
+            title: '视频问诊每次金额',
             defaultValue: this.data.videoOrderPrice,
-            type: 'number',
+            type: 'int',
             complete: (value) => {
                 if (value < 0 || value > 1000) {
                     setTimeout(() => {
