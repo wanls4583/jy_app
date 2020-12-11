@@ -39,6 +39,7 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/interrogation/appointment/index"
+					wx:if="{{doctorInfo.type==1}}"
 				>
 					<view class="position-relative">
 						<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
