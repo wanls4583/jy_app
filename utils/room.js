@@ -53,10 +53,32 @@ function refuse(option) {
     return setRoomInfo(data);
 }
 
+function over(option) {
+    var data = {
+        type: 'OVER',
+        user: option.user,
+        consultOrderId: option.consultOrderId,
+        roomId: option.roomId
+    }
+    return setRoomInfo(data);
+}
+
+function busy(option) {
+    var data = {
+        type: 'BUSY',
+        user: option.user,
+        consultOrderId: option.consultOrderId,
+        roomId: option.roomId
+    }
+    return setRoomInfo(data);
+}
+
 module.exports = {
     getRoomInfo: getRoomInfo,
     setRoomInfo: setRoomInfo,
     invite: invite,
     cancel: cancel,
     refuse: refuse,
+    over: over,
+    busy: busy,
 }

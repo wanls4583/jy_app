@@ -64,13 +64,26 @@ Page({
                     // 进房成功后发布本地音频流和视频流 
                     trtcRoomContext.publishLocalVideo()
                     trtcRoomContext.publishLocalAudio()
+                    //最长等待50秒
+                    this.timeoutTimer = setTimeout(() => {
+                        this.timeoutTimer = null;
+                        trtcRoomContext.exitRoom();
+                        wx.jyApp.toast('当前无人接听，请稍后再试');
+                        wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                        setTimeout(() => {
+                            wx.navigateBack();
+                        }, 1500);
+                    }, 50000);
                 })
                 trtcRoomContext.on(EVENT.LOCAL_LEAVE, (event) => {
                     this.trtcRoomContext = null;
                     if (!this.remoteUser) {
-                        wx.jyApp.toast('通话已取消');
-                        wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                        if (this.timeoutTimer) {
+                            wx.jyApp.toast('通话已取消');
+                            wx.jyApp.room.cancel({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
+                        }
                     } else {
+                        wx.jyApp.room.over({ roomId: this.data.roomId, consultOrderId: this.data.consultOrderId });
                         wx.jyApp.toast('通话已结束');
                     }
                     setTimeout(() => {
@@ -88,6 +101,7 @@ Page({
                         this.setData({
                             waiting: false
                         })
+                        this.timeoutTimer && clearTimeout(this.timeoutTimer);
                     }
                 })
 
@@ -101,6 +115,7 @@ Page({
                         this.setData({
                             waiting: false
                         })
+                        this.timeoutTimer && clearTimeout(this.timeoutTimer);
                     }
                 })
                 // 远端用户退出
@@ -110,6 +125,7 @@ Page({
                         setTimeout(() => {
                             wx.navigateBack();
                         }, 1500);
+                        this.timeoutTimer && clearTimeout(this.timeoutTimer);
                     }
                 })
                 // 进入房间
@@ -140,7 +156,7 @@ Page({
                     }
                     break;
                 case 'CALL':
-                    wx.jyApp.room.setRoomInfo({ type: 'BUSY', roomId: data.roomId, consultOrderId: data.consultOrderId });
+                    wx.jyApp.room.busy({ roomId: data.roomId, consultOrderId: data.consultOrderId });
                     break;
                 case 'BUSY':
                     wx.jyApp.toast('对方忙线中，请稍后再试');
