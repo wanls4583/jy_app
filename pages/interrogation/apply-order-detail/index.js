@@ -149,12 +149,14 @@ Page({
             order.picUrls = order.picUrls && order.picUrls.split(',') || [];
             this.setStatusColor(order);
             if (this.data.type == 'interrogation') {
-                order.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(order.orderTime)) / aDay);
+                order.orderTime = typeof order.orderTime == 'string' ? Date.prototype.parseDateTime(order.orderTime) : order.orderTime;
+                order.ticketDays = Math.ceil((todayBegin - order.orderTime) / aDay);
+                order.orderTime = new Date(order.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
                 order._status = wx.jyApp.constData.interrogationOrderStatusMap[order.status];
                 order.applyTicketVisible = order.ticketDays <= this.data.configData.allowApplyTicketDays && order.orderAmount > 0 && order.status == 3 || false;
                 order.oneMoreVisible = [3, 4, 7].indexOf(order.status) > -1;
                 order.delVisible = [0, 3, 4, 7].indexOf(order.status) > -1;
-                if(order.videoBookDateTime) {
+                if (order.videoBookDateTime) {
                     order.videoBookDateTime = new Date(order.videoBookDateTime);
                     order.videoBookDateTime = order.videoBookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[order.videoBookDateTime.getDay()] + '&nbsp;' + order.videoBookDateTime.formatTime('hh:mm')
                 }
