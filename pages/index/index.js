@@ -270,7 +270,8 @@ Page({
 
             }
         }).finally(() => {
-            setTimeout(() => {
+            clearTimeout(this.getRoomInfo.timer)
+            this.getRoomInfo.timer = setTimeout(() => {
                 this.getRoomInfo();
             }, 2000);
         });
