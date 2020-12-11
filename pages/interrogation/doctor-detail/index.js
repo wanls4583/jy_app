@@ -31,7 +31,7 @@ Page({
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
                 });
-            } else if(wx.jyApp.tempData.payInterrogationResult.type == 3) { //视频问诊
+            } else if (wx.jyApp.tempData.payInterrogationResult.type == 3) { //视频问诊
                 setTimeout(() => {
                     wx.jyApp.toast('支付成功');
                 }, 500);
@@ -87,6 +87,16 @@ Page({
     },
     getDoctorInfo() {
         wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorId).then((data) => {
+            var setedTime = false;
+            if (data.doctor && data.doctor.videoServiceTime) {
+                for (var key in data.doctor.videoServiceTime) {
+                    if (data.doctor.videoServiceTime[key].length) {
+                        setedTime = true;
+                        break;
+                    }
+                }
+                data.doctor.setedTime = setedTime;
+            }
             this.setData({
                 doctor: data.doctor
             });
@@ -132,12 +142,12 @@ Page({
             }).finally(() => {
                 wx.hideLoading();
                 wx.jyApp.utils.navigateTo({
-                    url: `/pages/interrogation/${type==3?'appointment-select':'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+                    url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
                 });
             });
         } else {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/${type==3?'appointment-select':'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+                url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }
     }
