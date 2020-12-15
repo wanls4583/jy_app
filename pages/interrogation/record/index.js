@@ -37,10 +37,12 @@ Page({
             for (var key in data.consultOrder) {
                 data.consultOrder[key].map((item) => {
                     item.picUrls = item.picUrls && item.picUrls.split(',') || [];
+                    item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
                 });
             }
             data.nutritionOrder = data.nutritionOrder || [];
             data.nutritionOrder.map((_item) => {
+                _item.orderTime = new Date(_item.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
                 _item.goods.map((item) => {
                     item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                     item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
