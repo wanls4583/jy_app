@@ -411,7 +411,10 @@ Page({
             data.page.list.map((item) => {
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
-                item.recieveAble = (item.status == 1 && (item.videoBookDateTime - now) < 5 * 60 * 1000);
+                item.recieveAble = item.status == 1;
+                if (item.type == 3) {
+                    item.recieveAble = item.recieveAble && (item.videoBookDateTime - now) < 5 * 60 * 1000;
+                }
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.orderAmount > 0 && item.status == 3 || false;
                 item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
                 item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;

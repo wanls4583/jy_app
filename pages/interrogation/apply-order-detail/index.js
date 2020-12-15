@@ -40,7 +40,7 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInfo();
-                if(this.order.type != 3) { //视频问诊不需要跳到聊天页面
+                if (this.order.type != 3) { //视频问诊不需要跳到聊天页面
                     wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/chat/index?id=' + this.id
                     });
@@ -118,6 +118,11 @@ Page({
             }
         });
     },
+    //立即接诊
+    onRecieve(e) {
+        wx.jyApp.tempData.toRecieve = true;
+        wx.jyApp.utils.navigateTo(e);
+    },
     loadInfo() {
         if (wx.jyApp.tempData.applyOrderData) {
             _initData.bind(this)(wx.jyApp.tempData.applyOrderData);
@@ -151,6 +156,10 @@ Page({
             order.picUrls = order.picUrls && order.picUrls.split(',') || [];
             this.setStatusColor(order);
             if (this.data.type == 'interrogation') {
+                order.recieveAble = order.status == 1;
+                if (order.type == 3) {
+                    order.recieveAble = order.recieveAble && (order.videoBookDateTime - data.now) < 5 * 60 * 1000;
+                }
                 order.orderTime = typeof order.orderTime == 'string' ? Date.prototype.parseDateTime(order.orderTime) : order.orderTime;
                 order.ticketDays = Math.ceil((todayBegin - order.orderTime) / aDay);
                 order.orderTime = new Date(order.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');

@@ -88,14 +88,14 @@
 		</view>
 		<view
 			class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
-			wx:if="{{(order.delVisible||order.status==1)&&userInfo.role=='DOCTOR'}}"
+			wx:if="{{(order.delVisible||order.recieveAble)&&userInfo.role=='DOCTOR'}}"
 		>
 			<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 			<view
 				catchtap="onRecieve"
 				class="margin-left-20 button primary small"
 				data-url="/pages/interrogation/chat/index?id={{order.id}}"
-				wx:if="{{order.status==1}}"
+				wx:if="{{order.recieveAble}}"
 			>立即接诊</view>
 		</view>
 	</black>
