@@ -36,7 +36,7 @@ Page({
             data.patientDocument.BMI = data.patientDocument.BMI && data.patientDocument.BMI.toFixed(2) || '';
             for (var key in data.consultOrder) {
                 data.consultOrder[key].map((item) => {
-                    item.picUrls = item.picUrls && item.picUrls.split(',') | [];
+                    item.picUrls = item.picUrls && item.picUrls.split(',') || [];
                 });
             }
             data.nutritionOrder = data.nutritionOrder || [];
