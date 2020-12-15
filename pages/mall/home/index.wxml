@@ -153,6 +153,14 @@
 <view class="position-fixed bottom-0 z-index-100 width-100 padding-30" wx:if="{{tipVisible}}">
 	<view class="flex--center--between radius-100px padding-20" style="background:rgba(0,0,0,0.5)">
 		<text class="font-small white-color">点击“我的->切换账号”可切换为医生账号</text>
-		<view bindtap="onClickHideTip" class="button small primary radius-100px">我知道了</view>
+		<view bindtap="onClickHideTip" class="flex-shrink-0 button small primary radius-100px">我知道了</view>
 	</view>
+</view>
+<view
+	class="position-fixed z-index-100 flex radius-50 clickable"
+	style="bottom:30rpx;right:30rpx;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd"
+>
+	<button class="flex" hover-class="none" open-type="contact">
+		<van-icon name="service-o" size="25" />
+	</button>
 </view>
