@@ -25,7 +25,7 @@ Page({
             wx.hideLoading();
             this.videoServiceTime = this.data.doctorInfo.videoServiceTime;
             this.initData();
-        }).catch((e)=>{
+        }).catch((e) => {
             console.log(e);
         });
     },
@@ -141,15 +141,25 @@ Page({
         }
         this.setData({
             slectTimes: itemObj[type].map((item) => {
+                var _item = this.bookedTimesNameMap[day] && this.bookedTimesNameMap[day][item];
                 return {
                     title: itemObj.title,
                     time: item,
-                    name: this.bookedTimesNameMap[day] && this.bookedTimesNameMap[day][item]
+                    patientName: _item && _item.patientName || '',
+                    consultOrderId: _item && _item.consultOrderId || ''
                 }
             }),
             timeTitle: timeTitle
         });
         this.onShowTime();
+    },
+    onCheckedTime(e) {
+        var itemObj = e.currentTarget.dataset.item;
+        if (itemObj.consultOrderId) {
+            wx.jyApp.utils.navigateTo({
+                url: `/pages/intterogation/apply-order-detail/index?id=${itemObj.consultOrderId}`
+            });
+        }
     },
     getVideoServiceTime(doctorId) {
         return wx.jyApp.http({
@@ -164,7 +174,7 @@ Page({
                 var item = this.bookedTimes[key];
                 var timeMap = {};
                 item.map((_item) => {
-                    timeMap[_item.time] = _item.patientName;
+                    timeMap[_item.time] = _item;
                 });
                 this.bookedTimesNameMap[key] = timeMap;
             }

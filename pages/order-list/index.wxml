@@ -67,7 +67,7 @@
 								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
 							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
-							<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
+							<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" data-type="{{order.type}}" wx:if="{{order.status==0}}">立即支付</view>
 							<view
 								bindtap="onGoto"
 								class="margin-left-20 button primary warn small"

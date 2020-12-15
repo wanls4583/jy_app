@@ -64,6 +64,7 @@
 			<view
 				bindtap="onCheckedTime"
 				class="width-100 flex--center--center padding-10 clickable border {{item.checked?'primary-border-color primary-color':'gray-color'}}"
+				data-day="{{item.day}}"
 				data-index="{{index}}"
 			>
 				<view>

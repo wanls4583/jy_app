@@ -40,9 +40,11 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInfo();
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/chat/index?id=' + this.id
-                });
+                if(this.order.type != 3) { //视频问诊不需要跳到聊天页面
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/interrogation/chat/index?id=' + this.id
+                    });
+                }
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });

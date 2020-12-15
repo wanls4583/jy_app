@@ -91,6 +91,7 @@ Page({
     //支付问诊单
     onInterrogationPay(e) {
         var id = e.currentTarget.dataset.id;
+        var type = e.currentTarget.dataset.type;
         wx.jyApp.showLoading('支付中...', true);
         wx.jyApp.http({
             url: '/consultorder/pay',
@@ -102,9 +103,15 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInterrogationOrderList(true);
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/chat/index?id=' + id
-                });
+                if (type == 3) {
+                    wx.jyApp.utils.navigateTo({
+                        url: `/pages/interrogation/apply-order-detail/index?id=${id}&type=interrogation`
+                    });
+                } else {
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/interrogation/chat/index?id=' + id
+                    });
+                }
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
@@ -398,19 +405,20 @@ Page({
                     }
                 });
             }
+            var now = data.now;
             var todayBegin = Date.prototype.getTodayBegin();
             var aDay = 24 * 60 * 60 * 1000;
             data.page.list.map((item) => {
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
-                item.recieveAble = item.status == 1;
+                item.recieveAble = (item.status == 1 && (item.videoBookDateTime - now) < 5 * 60 * 1000);
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.orderAmount > 0 && item.status == 3 || false;
                 item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
                 item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 item.patient.BMI = (item.patient.weight) / (item.patient.height * item.patient.height / 10000);
                 item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(2) || '';
-                if(item.videoBookDateTime) {
+                if (item.videoBookDateTime) {
                     item.videoBookDateTime = new Date(item.videoBookDateTime);
                     item.videoBookDateTime = item.videoBookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[item.videoBookDateTime.getDay()] + '&nbsp;' + item.videoBookDateTime.formatTime('hh:mm')
                 }

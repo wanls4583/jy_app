@@ -33,6 +33,7 @@ Page({
         if (wx.jyApp.tempData.illness.type == 3) {
             subIds.push(wx.jyApp.constData.subIds.phone);
             subIds.push(wx.jyApp.constData.subIds.appointment);
+            subIds.push(wx.jyApp.constData.subIds.appointmentSuc);
         }
         wx.jyApp.utils.requestSubscribeMessage(subIds).finally(() => {
             wx.jyApp.showLoading('支付中...', true);
