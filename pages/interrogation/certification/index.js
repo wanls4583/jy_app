@@ -431,7 +431,11 @@ Page({
             wx.jyApp.toast('请上传职称证');
             return;
         }
-        wx.jyApp.utils.requestSubscribeMessage(wx.jyApp.constData.subIds.patientPayMsg).finally(() => {
+        var subIds = [];
+        subIds.push(wx.jyApp.constData.subIds.patientPayMsg);
+        subIds.push(wx.jyApp.constData.subIds.appointment);
+        subIds.push(wx.jyApp.constData.subIds.appointmentSuc);
+        wx.jyApp.utils.requestSubscribeMessage(subIds).finally(() => {
             wx.showLoading({
                 title: '提交中...',
                 mask: true
