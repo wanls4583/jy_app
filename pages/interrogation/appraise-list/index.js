@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-09-07 14:39:31
+ * @Description: 
+ */
 Page({
     data: {
         list: [],
@@ -42,6 +47,8 @@ Page({
             data.page.list.map((item) => {
                 if (item.type == 1) {
                     item._type = '图文问诊';
+                } else if(item.type == 3) {
+                    item._type = '视频问诊';
                 }
             });
             this.setData({
