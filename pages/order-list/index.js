@@ -102,7 +102,7 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
-                this.loadInterrogationOrderList(true);
+                this.updateInterrogationStatus(id, 1);
                 if (type == 3) {
                     wx.jyApp.utils.navigateTo({
                         url: `/pages/interrogation/apply-order-detail/index?id=${id}&type=interrogation`
@@ -658,6 +658,7 @@ Page({
         this.data.applyOrder.orderList.map((item, index) => {
             if (item.id == id) {
                 item.status = status;
+                item.delVisible = [2, 5].indexOf(item.status) > -1;
                 item._status = wx.jyApp.constData.applyOrderStatusMap[item.status];
                 this.setStatusColor(item, 'apply');
                 this.setData({
@@ -671,6 +672,8 @@ Page({
         this.data.guidanceOrder.orderList.map((item, index) => {
             if (item.id == id) {
                 item.status = status;
+                item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
+                item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 this.setStatusColor(item, 'mall');
                 this.setData({
@@ -684,10 +687,27 @@ Page({
         this.data.mallOrder.orderList.map((item, index) => {
             if (item.id == id) {
                 item.status = status;
+                item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
+                item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 this.setStatusColor(item, 'mall');
                 this.setData({
                     [`mallOrder.orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    //供其他页面更新商城订单状态
+    updateInterrogationStatus(id, status) {
+        this.data.interrogationOrder.orderList.map((item, index) => {
+            if (item.id == id) {
+                item.status = status;
+                item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
+                item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;
+                item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                this.setStatusColor(item, 'interrogation');
+                this.setData({
+                    [`interrogationOrder.orderList[${index}]`]: item
                 });
             }
         });

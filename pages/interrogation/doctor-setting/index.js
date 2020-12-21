@@ -73,7 +73,7 @@ Page({
                     return;
                 }
                 this.setData({
-                    consultOrderPrice: value
+                    consultOrderPrice: value || 0
                 });
                 this.submit();
             }
@@ -95,7 +95,7 @@ Page({
                     return;
                 }
                 this.setData({
-                    videoOrderPrice: value
+                    videoOrderPrice: value || 0
                 });
                 this.submit();
             }

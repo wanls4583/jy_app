@@ -106,7 +106,9 @@ function onInputNum(e, context, dot) {
     var r = reg.exec(value);
     var num = r && r[0] || '';
     if (dot === 0) { //整数
-        num = parseInt(num) || '';
+        if(num) {
+            num = parseInt(num);
+        }
     } else {
         dot = dot || 2; //默认两位小数
         if (r && r[1] && r[1].length > (dot + 1)) {
@@ -272,17 +274,21 @@ function requestSubscribeMessage(tmplIds) {
         tmplIds = [tmplIds];
     }
     return new wx.jyApp.Promise((resolve, reject) => {
-        wx.requestSubscribeMessage({
-            tmplIds: tmplIds,
-            success(res) {
-                resolve(res)
-                console.log('订阅成功', res);
-            },
-            fail(err) {
-                reject(err);
-                console.log('订阅失败', err);
-            }
-        });
+        if (tmplIds.length) {
+            wx.requestSubscribeMessage({
+                tmplIds: tmplIds,
+                success(res) {
+                    resolve(res)
+                    console.log('订阅成功', res);
+                },
+                fail(err) {
+                    reject(err);
+                    console.log('订阅失败', err);
+                }
+            });
+        } else {
+            resolve();
+        }
     });
 }
 
@@ -299,12 +305,17 @@ function getPages(route) {
         }
     }
 }
+//存储本地购物车
 function storeLocalCart(cart) {
     wx.setStorageSync('jy_cart', cart);
 }
-
+//获取本地购物车
 function getLocalCart() {
     return wx.getStorageSync('jy_cart');
+}
+//判断value是否有值
+function isNull(value) {
+    return value === null || value === undefined
 }
 
 Date.prototype.formatTime = formatTime;
@@ -329,5 +340,6 @@ module.exports = {
     getPages: getPages,
     storeLocalCart: storeLocalCart,
     getLocalCart: getLocalCart,
-    getUUID: getUUID
+    getUUID: getUUID,
+    isNull: isNull,
 }

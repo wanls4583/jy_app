@@ -157,7 +157,7 @@ Page({
         var itemObj = e.currentTarget.dataset.item;
         if (itemObj.consultOrderId) {
             wx.jyApp.utils.navigateTo({
-                url: `/pages/intterogation/apply-order-detail/index?id=${itemObj.consultOrderId}`
+                url: `/pages/interrogation/apply-order-detail/index?type=interrogation&id=${itemObj.consultOrderId}`
             });
         }
     },

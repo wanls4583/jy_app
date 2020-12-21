@@ -82,7 +82,7 @@
 			<view
 				catchtap="onGoto"
 				class="margin-left-20 button primary warn small"
-				data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}"
+				data-url="/pages/interrogation/doctor-appraise/index?id={{order.id}}&doctorId={{order.doctorId}}&type={{order.type}}"
 				wx:if="{{!order.isAppraise&&order.status==3}}"
 			>去评价</view>
 		</view>

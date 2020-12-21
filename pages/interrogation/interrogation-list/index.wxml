@@ -33,8 +33,8 @@
 									<text>{{item.patientName}}</text>
 									<text>，{{item._sex}}</text>
 									<text>，{{item.age}}岁</text>
-									<text>，{{item.height}}cm</text>
-									<text>，{{item.weight}}kg</text>
+									<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
 									<text class="tag hollow" wx:if="{{item.type==3}}">视频</text>
 								</view>
 								<view class="flex--center--between width-100">

@@ -10,6 +10,9 @@ Page({
         this.id = option.id;
         this.doctorId = option.doctorId;
         this.getDoctorInfo();
+        this.setData({
+            type: option.type || 1
+        });
     },
     onInput(e) {
         var prop = e.currentTarget.dataset.prop;

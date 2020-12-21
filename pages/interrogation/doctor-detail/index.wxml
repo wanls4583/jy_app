@@ -55,6 +55,7 @@
 			<block wx:if="{{doctor.consultOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
 				<button
 					bindgetphonenumber="getPhoneNumber"
+					bindtap="onSub"
 					class="button primary small"
 					data-type="1"
 					hover-class="none"
@@ -83,6 +84,7 @@
 			<block wx:if="{{doctor.videoOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
 				<button
 					bindgetphonenumber="getPhoneNumber"
+					bindtap="onSub"
 					class="button primary small"
 					data-type="3"
 					hover-class="none"

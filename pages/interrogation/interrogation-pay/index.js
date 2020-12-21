@@ -29,7 +29,7 @@ Page({
         if (wx.jyApp.tempData.illness.bookDateTime) {
             bookDateTime = wx.jyApp.tempData.illness.bookDateTime.formatTime('yyyy-MM-dd hh:mm');
         }
-        var subIds = [wx.jyApp.constData.subIds.doctorReciveMsg];
+        var subIds = [];
         if (wx.jyApp.tempData.illness.type == 3) {
             subIds.push(wx.jyApp.constData.subIds.phone);
             subIds.push(wx.jyApp.constData.subIds.appointment);

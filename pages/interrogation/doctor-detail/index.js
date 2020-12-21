@@ -70,7 +70,9 @@ Page({
                 });
             });
         } else {
-            wx.jyApp.utils.navigateTo(e);
+            wx.jyApp.utils.requestSubscribeMessage([wx.jyApp.constData.subIds.doctorReciveMsg]).finally(() => {
+                wx.jyApp.utils.navigateTo(e);
+            });
         }
     },
     onClickImg(e) {
@@ -83,6 +85,15 @@ Page({
     onShowDetail() {
         this.setData({
             detailVisble: !this.data.detailVisble
+        });
+    },
+    onSub(e) {
+        var type = e.currentTarget.dataset.type;
+        wx.jyApp.utils.requestSubscribeMessage([wx.jyApp.constData.subIds.doctorReciveMsg]).finally(() => {
+            this.subed = true;
+            this.hasPhone && wx.jyApp.utils.navigateTo({
+                url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+            });
         });
     },
     getDoctorInfo() {
@@ -114,6 +125,8 @@ Page({
             data.page.list.map((item) => {
                 if (item.type == 1) {
                     item._type = '图文问诊';
+                } else if(item.type == 3) {
+                    item._type = '视频问诊';
                 }
             });
             this.setData({
@@ -125,10 +138,6 @@ Page({
     getPhoneNumber(e) {
         var type = e.currentTarget.dataset.type;
         if (e.detail.iv && e.detail.encryptedData) {
-            wx.showLoading({
-                title: '获取中...',
-                mask: true
-            });
             wx.jyApp.http({
                 url: '/wx/user/authorize/phone',
                 method: 'post',
@@ -140,13 +149,14 @@ Page({
                 this.data.userInfo.phone = data.phone;
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
-                wx.hideLoading();
-                wx.jyApp.utils.navigateTo({
+                this.hasPhone = true;
+                this.subed && wx.jyApp.utils.navigateTo({
                     url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
                 });
             });
         } else {
-            wx.jyApp.utils.navigateTo({
+            this.hasPhone = true;
+            this.subed && wx.jyApp.utils.navigateTo({
                 url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }

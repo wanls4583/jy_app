@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<view class="padding-top-20 padding-left-30 white-background-color">你对医生的图文问诊满意吗？</view>
+	<view class="padding-top-20 padding-left-30 white-background-color">你对医生的{{type==3?'视频':'图文'}}问诊满意吗？</view>
 	<view class="padding-30 flex--center--start white-background-color">
 		<image class="width-120rpx height-120rpx radius-50" src="{{doctor.avatar}}" />
 		<text class="margin-left-30">{{doctor.doctorName}}</text>
@@ -10,7 +10,7 @@
 		<text class="margin-left-20 font-small">{{result}}</text>
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color">
-		<textarea bindinput="onInput" class="height-50vw width-100 padding-20 border" data-prop="content" placeholder="对本次图文问诊服务有什么评价（至少5个字）" value="{{content}}" />
+		<textarea bindinput="onInput" class="height-50vw width-100 padding-20 border" data-prop="content" placeholder="对本次{{type==3?'视频':'图文'}}问诊服务有什么评价（至少5个字）" value="{{content}}" />
 		<view class="flex">
 			<view bindtap="onCheck" class="flex--center--center margin-top-20">
 				<radio checked="{{anonymous==1}}" color="rgb(42, 175, 255)" value="{{anonymous}}" />
