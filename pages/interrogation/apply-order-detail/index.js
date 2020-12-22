@@ -45,6 +45,10 @@ Page({
                         url: '/pages/interrogation/chat/index?id=' + this.id
                     });
                 }
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) {
+                    page.updateInterrogationStatus(id, 1);
+                }
             }).catch(() => {
                 wx.jyApp.toast('支付失败');
             });
