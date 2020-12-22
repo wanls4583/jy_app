@@ -40,16 +40,17 @@ Page({
             wx.hideLoading();
             wx.jyApp.utils.pay(data.params).then(() => {
                 this.loadInfo();
-                if (this.order.type != 3) { //视频问诊不需要跳到聊天页面
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) {
+                    page.updateInterrogationStatus(this.id, 1);
+                }
+                if (this.data.order.type != 3) { //视频问诊不需要跳到聊天页面
                     wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/chat/index?id=' + this.id
                     });
                 }
-                var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                if (page) {
-                    page.updateInterrogationStatus(id, 1);
-                }
-            }).catch(() => {
+            }).catch((e) => {
+                console.log(e)
                 wx.jyApp.toast('支付失败');
             });
         }).catch(() => {
