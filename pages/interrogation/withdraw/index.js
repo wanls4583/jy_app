@@ -1,6 +1,12 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-30 09:33:23
+ * @Description: 
+ */
 Page({
     data: {
-        amount: ''
+        amount: '',
+        doctorBankCard: null
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -9,9 +15,13 @@ Page({
             actions: ['updateDoctorInfo'],
         });
         this.checkAmount();
+        this.getBankCard();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+    },
+    onShow() {
+        this.getBankCard();
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
@@ -50,6 +60,18 @@ Page({
             method: 'post',
         });
     },
+    getBankCard() {
+        wx.jyApp.showLoading('加载中...', true);
+        wx.jyApp.http({
+            url: `/doctor/bankcard`,
+        }).then((data) => {
+            this.setData({
+                doctorBankCard: data.doctorBankCard
+            });
+        }).finally(()=>{
+            wx.hideLoading();
+        });
+    },
     submit() {
         wx.showLoading({
             title: '提交中...',
@@ -59,7 +81,8 @@ Page({
             url: '/doctorwithdraw/save',
             method: 'post',
             data: {
-                amount: this.data.amount
+                amount: this.data.amount,
+                type: 2
             }
         }).then(() => {
             var balance = this.data.doctorInfo.balance - this.data.amount;
