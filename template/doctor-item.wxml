@@ -12,8 +12,14 @@
 				<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{doctor.workHospitalName}}</text>
 				<view class="margin-top-10 gray-color font-small">擅长：{{doctor.goodAtDomain}}</view>
 				<view class="flex margin-top-10">
-					<text decode="{{true}}">图文问诊&nbsp;</text>
-					<text class="danger-color">￥{{doctor.consultOrderPrice}}</text>
+					<block wx:if="{{doctor.consultOrderSwitch==1}}">
+						<text>图文问诊</text>
+						<text class="danger-color margin-left-10">￥{{doctor.consultOrderPrice}}</text>
+					</block>
+					<block wx:if="{{doctor.videoOrderSwitch==1}}">
+						<text class="margin-left-20">视频问诊</text>
+						<text class="danger-color margin-left-10">￥{{doctor.videoOrderPrice}}</text>
+					</block>
 				</view>
 			</view>
 		</view>

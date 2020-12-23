@@ -19,11 +19,11 @@ Page({
             fields: ['doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
+        this.videoServiceTime = JSON.parse(JSON.stringify(this.data.doctorInfo.videoServiceTime));
         this.initTitle();
         wx.jyApp.showLoading('加载中...', true);
-        wx.jyApp.Promise.all([this.getVideoServiceTime(this.data.doctorInfo.id)]).then(() => {
+        wx.jyApp.Promise.all([this.getBookedTimes(this.data.doctorInfo.id)]).then(() => {
             wx.hideLoading();
-            this.videoServiceTime = this.data.doctorInfo.videoServiceTime;
             this.initData();
         }).catch((e) => {
             console.log(e);
@@ -161,7 +161,7 @@ Page({
             });
         }
     },
-    getVideoServiceTime(doctorId) {
+    getBookedTimes(doctorId) {
         return wx.jyApp.http({
             url: '/consultorder/book/query',
             data: {
@@ -170,13 +170,19 @@ Page({
         }).then((data) => {
             this.bookedTimes = data.bookedTimes;
             this.bookedTimesNameMap = {};
-            for (var key in this.bookedTimes) {
-                var item = this.bookedTimes[key];
+            for (var day in this.bookedTimes) {
+                var item = this.bookedTimes[day];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item;
+                    if (!this.videoServiceTime[day]) {
+                        this.videoServiceTime[day] = [_item.time];
+                    } else {
+                        this.videoServiceTime[day].push(_item.time);
+                        this.videoServiceTime[day].sort();
+                    }
                 });
-                this.bookedTimesNameMap[key] = timeMap;
+                this.bookedTimesNameMap[day] = timeMap;
             }
             return data.bookedTimes;
         });

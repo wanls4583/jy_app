@@ -17,7 +17,7 @@ Page({
         this.doctorId = option.doctorId;
         this.initTitle();
         wx.jyApp.showLoading('加载中...', true);
-        wx.jyApp.Promise.all([this.getDoctorInfo(this.doctorId), this.getVideoServiceTime(this.doctorId)]).then(() => {
+        wx.jyApp.Promise.all([this.getDoctorInfo(this.doctorId), this.getBookedTimes(this.doctorId)]).then(() => {
             wx.hideLoading();
             this.initData();
         });
@@ -142,12 +142,21 @@ Page({
         if (itemObj.disabled || itemObj.checked) {
             return;
         }
-        wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
-        wx.redirectTo({
-            url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
+        wx.jyApp.http({
+            url: '/consultorder/book/check',
+            data: {
+                doctorId: this.doctorId,
+                type: 3,
+                bookDateTime: date.formatTime('yyyy-MM-dd ') + itemObj.time
+            }
+        }).then(()=>{
+            wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
+            wx.redirectTo({
+                url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
+            });
         });
     },
-    getVideoServiceTime(doctorId) {
+    getBookedTimes(doctorId) {
         return wx.jyApp.http({
             url: '/consultorder/book/query',
             data: {
@@ -155,13 +164,22 @@ Page({
             }
         }).then((data) => {
             this.bookedTimes = data.bookedTimes;
-            for (var key in this.bookedTimes) {
-                var item = this.bookedTimes[key];
+            for (var day in this.bookedTimes) {
+                var item = this.bookedTimes[day];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item.patientName;
+                    //某些已预约的时间点被医生取消，需要去并集显示已取消的点
+                    if (this.videoServiceTime) {
+                        if (!this.videoServiceTime[day]) {
+                            this.videoServiceTime[day] = [_item.time];
+                        } else {
+                            this.videoServiceTime[day].push(_item.time);
+                            this.videoServiceTime[day].sort();
+                        }
+                    }
                 });
-                this.bookedTimes[key] = timeMap;
+                this.bookedTimes[day] = timeMap;
             }
             return data.bookedTimes;
         });
@@ -169,6 +187,19 @@ Page({
     getDoctorInfo(doctorId) {
         return wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
             this.videoServiceTime = data.doctor.videoServiceTime;
+            //某些已预约的时间点被医生取消，需要去并集显示已取消的点
+            if (this.bookedTimes) {
+                for (var day in this.bookedTimes) {
+                    for (var time in this.bookedTimes[day]) {
+                        if (!this.videoServiceTime[day]) {
+                            this.videoServiceTime[day] = [time];
+                        } else {
+                            this.videoServiceTime[day].push(time);
+                            this.videoServiceTime[day].sort();
+                        }
+                    }
+                }
+            }
             return data.doctor.videoServiceTime;
         });
     }

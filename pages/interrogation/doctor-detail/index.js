@@ -23,6 +23,8 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
+        this.hasPhone = false;
+        this.subed = false;
         if (wx.jyApp.tempData.payInterrogationResult) { //问诊支付结果
             if (wx.jyApp.tempData.payInterrogationResult.result == 'fail') {
                 setTimeout(() => {

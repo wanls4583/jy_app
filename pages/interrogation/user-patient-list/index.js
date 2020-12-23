@@ -33,9 +33,18 @@ Page({
             wx.jyApp.toast('请选择患者');
             return;
         }
-        wx.jyApp.tempData.illness.patientId = this.data.selectId;
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/interrogation-pay/index'
+        wx.jyApp.http({
+            url: '/consultorder/book/check',
+            data: {
+                patientId: this.data.selectId,
+                doctorId: wx.jyApp.tempData.illness.doctorId,
+                type: 1,
+            }
+        }).then(()=>{
+            wx.jyApp.tempData.illness.patientId = this.data.selectId;
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/interrogation-pay/index'
+            });
         });
     },
     onChange(e) {
