@@ -11,8 +11,8 @@
 	</view>
 	<!-- 拨打电话 -->
 	<block wx:if="{{trtcConfig}}">
-		<view class="position-fixed z-index-100 width-100 white-color align-center" style="bottom:25vh">
-			<text wx:if="{{duration}}">{{duration}}</text>
+		<view class="position-fixed z-index-100 width-100 align-center" style="bottom:25vh">
+			<text wx:if="{{duration}}" style="color:#eee">{{duration}}</text>
 		</view>
 		<trtc-room config="{{trtcConfig}}" id="trtcroom"></trtc-room>
 	</block>

@@ -105,7 +105,7 @@
 				<view bindtap="switchCamera" class="btn-normal">
 					<image class="btn-image" src="{{pusher.cameraPosition=='back'?'./static/switch-back.png':'./static/switch.png'}}" />
 				</view>
-				<view class="margin-top-10 white-color">切换摄像头</view>
+				<view class="margin-top-10" style="color:#eee">切换摄像头</view>
 			</view>
 			<view bindtap="_hangUp" class="btn-hangup">
 				<image class="btn-image" src="./static/hangup.png" />
@@ -114,7 +114,7 @@
 				<view bindtap="_toggleVideo" class="btn-normal">
 					<image class="btn-image" src="{{pusher.enableCamera? './static/camera-true.png': './static/camera-false.png'}} " />
 				</view>
-				<view class="margin-top-10 white-color">摄像头：{{pusher.enableCamera?'开':'关'}}</view>
+				<view class="margin-top-10" style="color:#eee">摄像头：{{pusher.enableCamera?'开':'关'}}</view>
 			</view>
 		</view>
 	</view>
