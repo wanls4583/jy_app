@@ -1,0 +1,19 @@
+<view class="video-container width-100 height-100" bindtap="onClick">
+	<video
+		bindended="onEnd"
+		bindpause="onPause"
+		bindplay="onPlay"
+        bindloadedmetadata="onReady"
+		class="width-100 height-100"
+		controls
+		data-index="{{index}}"
+		id="{{id}}"
+		show-center-play-btn="{{false}}"
+		show-play-btn="{{false}}"
+		src="{{src}}"
+        style="border-radius:8px"
+	></video>
+	<view class="play-btn" wx:if="{{playVisible}}">
+		<van-icon color="#fff" name="play" size="30px" />
+	</view>
+</view>

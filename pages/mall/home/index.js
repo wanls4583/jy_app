@@ -100,9 +100,9 @@ Component({
             });
         },
         onClickBanner(e) {
-            var link = e.currentTarget.dataset.link;
-            if (link) {
-                wx.jyApp.utils.openWebview(link);
+            var item = e.currentTarget.dataset.item;
+            if (item.linkUrl && item.type == 1) {
+                wx.jyApp.utils.openWebview(item.linkUrl);
             }
         },
         //查看更多

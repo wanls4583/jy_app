@@ -135,13 +135,21 @@
 					<view
 						bindtap="onClickBanner"
 						class="padding-20 margin-bottom-20 white-background-color radius-8px shadow"
-						data-link="{{item.linkUrl}}"
+						data-item="{{item}}"
 						wx:for="{{kepuList}}"
 						wx:key="id"
 					>
 						<view class="position-relative radius-8px overflow-hidden">
-							<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;"></view>
-							<view class="position-absolute font-title font-bold" style="top:20rpx;left:20rpx;right:20rpx;color:{{item.titleColor}}">{{item.title||''}}</view>
+							<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:0;padding-top:50%;">
+								<view class="position-absolute top-0 bottom-0 width-100" wx:if="{{item.type==2}}">
+									<jy-video src="{{item.linkUrl}}" wx:if="{{item.type==2}}"></jy-video>
+								</view>
+							</view>
+							<view
+								class="position-absolute font-title font-bold"
+								style="top:20rpx;left:20rpx;right:20rpx;z-index-100;color:{{item.titleColor}}"
+								wx:if="{{item.type==1}}"
+							>{{item.title||''}}</view>
 						</view>
 					</view>
 				</view>

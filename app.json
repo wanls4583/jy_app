@@ -78,6 +78,7 @@
         "pull-scroll-view": "/components/pull-scroll-view/index",
         "readonly-field": "/components/readonly-field/index",
         "empty": "/components/empty/index",
+        "jy-video": "/components/video/index",
         "trtc-room": "/components/trtc-room/trtc-room",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
