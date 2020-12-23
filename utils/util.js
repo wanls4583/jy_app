@@ -47,6 +47,15 @@ function getTodayBegin() {
     return date - date.getHours() * 60 * 60 * 1000 - date.getMinutes() * 60 * 1000 - date.getSeconds() * 1000 - date.getMilliseconds();
 }
 
+function countTime(seconds) {
+    var hour = Math.floor(seconds / (60 * 60));
+    var minute = Math.floor((seconds - hour * 60 * 60) / 60);
+    var second = seconds - hour * 60 * 60 - minute * 60;
+    second = Math.floor(second);
+    var str = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2);
+    return str;
+}
+
 function getUUID(len) {
     len = len || 16;
     var str = '';
@@ -106,7 +115,7 @@ function onInputNum(e, context, dot) {
     var r = reg.exec(value);
     var num = r && r[0] || '';
     if (dot === 0) { //整数
-        if(num) {
+        if (num) {
             num = parseInt(num);
         }
     } else {
@@ -322,6 +331,7 @@ Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
 Date.prototype.parseDateTime = parseDateTime;
 Date.prototype.getTodayBegin = getTodayBegin;
+Date.prototype.countTime = countTime;
 
 module.exports = {
     emailReg: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,

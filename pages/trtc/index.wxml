@@ -11,9 +11,12 @@
 	</view>
 	<!-- 拨打电话 -->
 	<block wx:if="{{trtcConfig}}">
+		<view class="position-fixed z-index-100 width-100 white-color align-center" style="bottom:25vh">
+			<text wx:if="{{duration}}">{{duration}}</text>
+		</view>
 		<trtc-room config="{{trtcConfig}}" id="trtcroom"></trtc-room>
 	</block>
-	<!-- 接听电话 -->
+	<!-- 接听电话界面 -->
 	<view class="width-100 height-100 call-page padding-top-30 white-color" wx:elif="{{recieve}}">
 		<view class="position-absolute width-100 flex--center--start flex-direction-column" style="top:50%;transform:translateY(-45%)">
 			<view class="white-background-color" style="width:300rpx;height:300rpx">

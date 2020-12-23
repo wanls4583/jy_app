@@ -12,7 +12,8 @@ Page({
         consultOrderId: '',
         nickname: '',
         avatar: '',
-        waiting: false
+        waiting: false,
+        duration: 0
     },
     onLoad(option) {
         this.setData({
@@ -102,6 +103,13 @@ Page({
                             waiting: false
                         })
                         this.timeoutTimer && clearTimeout(this.timeoutTimer);
+                        let count = 0;
+                        this.durationTimer = setInterval(()=>{
+                            count++;
+                            this.setData({
+                                duration: Date.prototype.countTime(count)
+                            });
+                        }, 1000);
                     }
                 })
 

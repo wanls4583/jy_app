@@ -78,7 +78,7 @@
 					<image class="rotate-img" src="./static/loading.png" />
 				</view>
 				<view class="loading-text">等待接听中...</view>
-			</view> -->
+			</view>-->
 		</view>
 		<view class="handle-btns">
 			<!-- <view class="flex--center--center flex-direction-column">
@@ -86,13 +86,13 @@
 					<image class="btn-image" src="{{pusher.enableMic? './static/audio-true.png': './static/audio-false.png'}} " />
 				</view>
 				<view class="margin-top-10 white-color">静音：{{pusher.enableMic?'开':'关'}}</view>
-			</view> -->
+			</view>-->
 			<!-- <view class="flex--center--center flex-direction-column">
 				<view bindtap="_toggleSoundMode" class="btn-normal">
 					<image class="btn-image" src="{{streamList[0].soundMode === 'ear' ? './static/phone.png': './static/speaker-true.png'}} " />
 				</view>
 				<view class="margin-top-10 white-color">免提：{{streamList[0].soundMode === 'ear'?'关':'开'}}</view>
-			</view> -->
+			</view>-->
 			<!-- <view class="btn-normal" data-key="beautyLevel" data-value="9|0" data-value-type="number" bindtap="_setPuserProperty">
         		<image class="btn-image" src="{{pusher.beautyLevel == 9 ? './static/beauty-true.png': './static/beauty-false.png'}} "/>
 			</view>-->
