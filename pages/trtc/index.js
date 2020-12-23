@@ -37,6 +37,7 @@ Page({
     onUnload() {
         this.trtcRoomContext && this.trtcRoomContext.exitRoom();
         delete wx.jyApp.tempData.roomInfoCallBack;
+        clearInterval(this.durationTimer);
         wx.setKeepScreenOn({
             keepScreenOn: false,
         });
