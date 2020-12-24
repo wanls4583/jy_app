@@ -89,7 +89,7 @@
 					data-type="3"
 					hover-class="none"
 					open-type="getPhoneNumber"
-					wx:if="{{userInfo.phone}}"
+					wx:if="{{!userInfo.phone}}"
 				>
 					<text>去咨询</text>
 				</button>
