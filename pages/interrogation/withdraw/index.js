@@ -6,7 +6,8 @@
 Page({
     data: {
         amount: '',
-        doctorBankCard: null
+        doctorBankCard: null,
+        type: 2
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -14,8 +15,11 @@ Page({
             fields: ['doctorInfo', 'userInfo'],
             actions: ['updateDoctorInfo'],
         });
+        this.storeBindings.updateStoreBindings();
         this.checkAmount();
-        this.getBankCard();
+        if (this.data.type == 2) {
+            this.getBankCard();
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -65,14 +69,21 @@ Page({
         wx.jyApp.http({
             url: `/doctor/bankcard`,
         }).then((data) => {
+            if (data.doctorBankCard && data.doctorBankCard.bankCardNumber) {
+                data.doctorBankCard.fourNum = data.doctorBankCard.bankCardNumber.slice(-4);
+            }
             this.setData({
                 doctorBankCard: data.doctorBankCard
             });
-        }).finally(()=>{
+        }).finally(() => {
             wx.hideLoading();
         });
     },
     submit() {
+        if (this.data.type == 2 && !this.data.doctorBankCard) {
+            wx.jyApp.toast('请填写到账银行卡');
+            return;
+        }
         wx.showLoading({
             title: '提交中...',
             mask: true
@@ -82,7 +93,7 @@ Page({
             method: 'post',
             data: {
                 amount: this.data.amount,
-                type: 2
+                type: this.data.type
             }
         }).then(() => {
             var balance = this.data.doctorInfo.balance - this.data.amount;

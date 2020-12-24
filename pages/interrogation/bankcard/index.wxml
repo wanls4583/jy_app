@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="white-background-color">
-		<van-field bindinput="onInput" data-prop="bankCardUsername" label="持卡人" placeholder="持卡人" value="{{bankCardUsername}}"></van-field>
+		<readonly-field bindinput="onInput" data-prop="bankCardUsername" label="持卡人" placeholder="持卡人" value="{{bankCardUsername}}"></readonly-field>
 		<van-field bindinput="onInputNum" data-prop="bankCardNumber" label="卡号" placeholder="持卡本人银行卡号" value="{{bankCardNumber}}"></van-field>
 		<van-field bindinput="onInput" data-prop="bankName" label="开户银行" placeholder="银行卡开户支行名称" value="{{bankName}}"></van-field>
 		<view class="padding-30 gray-color">

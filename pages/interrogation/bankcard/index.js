@@ -14,6 +14,10 @@ Page({
             store: wx.jyApp.store,
             fields: ['doctorInfo'],
         });
+        this.storeBindings.updateStoreBindings();
+        this.setData({
+            bankCardUsername: this.data.doctorInfo.doctorName
+        })
         this.getBankCard();
     },
     onUnload() {

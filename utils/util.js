@@ -87,6 +87,9 @@ function navigateTo(e) {
     }
 
     function _navigateTo(url) {
+        if(!url) {
+            return;
+        }
         if (getCurrentPages().length > 9) {
             wx.redirectTo({
                 url: url
