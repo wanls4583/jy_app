@@ -98,8 +98,8 @@ Component({
             });
         },
         onClickBanner(e) {
-            var link = e.currentTarget.dataset.link;
-            if (link) {
+            var item = e.currentTarget.dataset.item;
+            if (item.linkUrl && item.type == 1) {
                 wx.jyApp.utils.openWebview(link);
             }
         },

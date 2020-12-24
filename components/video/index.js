@@ -15,6 +15,7 @@ Component({
   },
   data: {
     playVisible: true,
+    bottomPlayVisible: false,
     pauseVisible: false,
     id: 'video' + wx.jyApp.utils.getUUID()
   },
@@ -29,7 +30,8 @@ Component({
   methods: {
     _attached() {
     },
-    onReady() {
+    onReady(e) {
+      console.log(e);
       this.videoContext = wx.createVideoContext(this.data.id, this);
     },
     onPlay() {
@@ -47,8 +49,22 @@ Component({
         playVisible: true,
       });
     },
+    onFull(e) {
+      if (e.detail.fullScreen) {
+        if (!this.data.playVisible) {
+          this.videoContext.play();
+        }
+        this.setData({
+          bottomPlayVisible: true
+        });
+      } else {
+        this.setData({
+          bottomPlayVisible: false
+        });
+      }
+    },
     onClick() {
-      if(this.data.playVisible) {
+      if (this.data.playVisible) {
         this.play();
       } else {
         this.pause();

@@ -4,14 +4,16 @@
 		bindpause="onPause"
 		bindplay="onPlay"
         bindloadedmetadata="onReady"
+		bindfullscreenchange="onFull"
 		class="width-100 height-100"
 		controls
 		data-index="{{index}}"
 		id="{{id}}"
 		show-center-play-btn="{{false}}"
-		show-play-btn="{{false}}"
+		show-play-btn="{{bottomPlayVisible}}"
 		src="{{src}}"
         style="border-radius:8px"
+		object-fit="cover"
 	></video>
 	<view class="play-btn" wx:if="{{playVisible}}">
 		<van-icon color="#fff" name="play" size="30px" />
