@@ -62,11 +62,13 @@
 					>
 						<swiper-item bindtap="onClickBanner" data-item="{{item}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 							<view class="position-relative height-100 padding-left-right-20">
-								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" wx:if="{{item.type==1}}" />
 								<jy-video src="{{item.linkUrl}}" wx:if="{{item.type==2}}"></jy-video>
-								<view class="position-absolute bottom-0 z-index-100 align-right padding-30" style="left:30rpx;right:30rpx">
-									<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
-								</view>
+								<block wx:else>
+									<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" />
+									<view class="position-absolute bottom-0 z-index-100 align-right padding-30" style="left:30rpx;right:30rpx">
+										<text style="color:{{item.titleColor}}">{{item.title||''}}</text>
+									</view>
+								</block>
 							</view>
 						</swiper-item>
 					</swiper>
