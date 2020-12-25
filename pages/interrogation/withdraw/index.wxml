@@ -3,7 +3,7 @@
 		<view bindtap="onGoto" class="flex align-items-center padding-top-bottom-30 border-bottom" data-url="{{type==2?'/pages/interrogation/bankcard/index':''}}">
 			<block wx:if="{{type==2}}">
 				<text style="width:100px">到账银行卡</text>
-				<text class="primary-color" style="flex:1" wx:if="{{doctorBankCard}}">{{doctorBankCard.bankCardUsername}}（{{doctorBankCard.fourNum}}）</text>
+				<text class="primary-color" style="flex:1" wx:if="{{doctorBankCard}}">{{doctorBankCard.bankName}}（{{doctorBankCard.fourNum}}）</text>
 				<text class="gray-color" style="flex:1" wx:else>请填写到账银行卡</text>
 			</block>
 			<block wx:else>
