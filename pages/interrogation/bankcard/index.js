@@ -44,6 +44,7 @@ Page({
                     bankCardUsername: data.doctorBankCard.bankCardUsername,
                     bankCardNumber: data.doctorBankCard.bankCardNumber,
                     bankName: data.doctorBankCard.bankName,
+                    id: data.doctorBankCard.id
                 });
             }
         });
@@ -55,6 +56,7 @@ Page({
             data: {
                 bankCardUsername: this.data.bankCardUsername,
                 bankCardNumber: this.data.bankCardNumber,
+                id: this.data.id,
                 bankName: this.data.bankName,
                 doctorId: this.data.doctorInfo.id
             }

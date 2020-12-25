@@ -14,9 +14,9 @@
 	<view
 		bindtap="onClickChatBlock"
 		class="position-absolute width-100"
-		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px"
+		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
 	>
-		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-with-animation="{{false}}" scroll-y="{{true}}">
+		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-with-animation="{{false}}" scroll-anchoring="{{true}}" enhanced="{{true}}" scroll-y="{{true}}">
 			<!-- 触发ios的回弹，防止ios的bug -->
 			<view style="height:2px"></view>
 			<view style="min-height:100%;">
@@ -201,7 +201,7 @@
 						</view>
 					</block>
 				</view>
-				<view id="{{bottomId}}"></view>
+				<!-- <view id="{{bottomId}}"></view> -->
 			</view>
 		</scroll-view>
 	</view>

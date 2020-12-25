@@ -538,14 +538,13 @@ Page({
     },
     //滚动到底部
     scrollToBottom() {
-        var id = wx.jyApp.utils.getUUID();
+        var domId = this.data.pages[this.data.pages.length - 1];
+        domId = this.data.pageMap[domId];
+        domId = domId[domId.length - 1].id;
+        domId = 'id-' + domId;
         this.setData({
-            bottomId: 'bottom-id-' + id
-        }, () => {
-            this.setData({
-                domId: 'bottom-id-' + id
-            });
-        });
+            domId: domId
+        })
     },
     //轮询消息
     getNewHistory() {
@@ -657,15 +656,15 @@ Page({
                     pages: this.data.pages,
                     [`pageMap[${pageId}]`]: list
                 }, () => {
-                    if (ifPre) {
-                        this.setData({
-                            domId: 'page-id-' + this.data.pages[1]
-                        });
-                    } else {
-                        this.scrollToBottom();
-                    }
                     this.getPageHeight(pageId);
                 });
+                if (ifPre) {
+                    this.setData({
+                        domId: 'page-id-' + this.data.pages[1]
+                    });
+                } else {
+                    this.scrollToBottom();
+                }
             } else {
                 var lastPageId = this.data.pages[this.data.pages.length - 1];
                 var lastPageList = this.data.pageMap[lastPageId];
@@ -681,8 +680,8 @@ Page({
                         [`pageMap[${pageId}]`]: list.slice(index)
                     }, () => {
                         this.getPageHeight(pageId);
-                        this.scrollToBottom();
                     });
+                    this.scrollToBottom();
                 } else {
                     lastPageList = lastPageList.concat(list);
                     this.data.pageMap[lastPageId] = lastPageList;
@@ -691,8 +690,8 @@ Page({
                         [`pageMap[${lastPageId}]`]: lastPageList
                     }, () => {
                         this.getPageHeight(lastPageId);
-                        this.scrollToBottom();
                     });
+                    this.scrollToBottom();
                 }
             }
         }).catch((err) => {
