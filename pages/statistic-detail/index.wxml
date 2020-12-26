@@ -1,0 +1,3 @@
+<view class="container">
+	<canvas canvas-id="canvas1" class="width-100" style="height:62vw"></canvas>
+</view>

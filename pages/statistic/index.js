@@ -97,6 +97,12 @@ Page({
         })
         this.loadData();
     },
+    onClick(e) {
+        var indicator = e.currentTarget.dataset.indicator;
+        wx.jyApp.utils.navigateTo({
+            url: `/pages/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}`
+        });
+    },
     resetData() {
         this.setData({
             consultOrderAmount: 0,
@@ -201,7 +207,7 @@ Page({
             });
         }).catch((e) => {
             console.log(e);
-        }).finally(()=>{
+        }).finally(() => {
             wx.hideLoading();
         });
     }

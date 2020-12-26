@@ -8,7 +8,7 @@
 	</van-tabs>
 	<view class="white-background-color padding-30">
 		<view class="flex--center--center">
-			<view class="position-relative">
+			<view class="position-relative" bindtap="onClick" data-indicator="tradeAmount">
 				<text class="primary-color font-large font-bold">{{tradeAmount}}</text>
 				<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 					<text class="success-color" wx:if="{{tradeAmountPercent>=0}}">▲{{tradeAmountPercent}}%</text>
