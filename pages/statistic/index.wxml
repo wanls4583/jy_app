@@ -1,0 +1,301 @@
+<view class="container">
+	<van-tabs active="{{0}}" bind:change="onChangeTab" bind:click="onClickTab">
+		<van-tab title="今天"></van-tab>
+		<van-tab title="昨天"></van-tab>
+		<van-tab title="本月"></van-tab>
+		<van-tab title="上月"></van-tab>
+		<van-tab title="自定义"></van-tab>
+	</van-tabs>
+	<view class="white-background-color padding-30">
+		<view class="flex--center--center">
+			<view class="position-relative">
+				<text class="primary-color font-large font-bold">{{tradeAmount}}</text>
+				<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+					<text class="success-color" wx:if="{{tradeAmountPercent>=0}}">▲{{tradeAmountPercent}}%</text>
+					<text class="danger-color" wx:else>▼{{-tradeAmountPercent}}%</text>
+				</view>
+			</view>
+		</view>
+		<view class="margin-top-10 gray-color font-small align-center">实际消费总额</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{tradeUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{tradeUsersPercent>=0}}">▲{{tradeUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-tradeUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际消费人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{tradeNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{tradeNumPercent>=0}}">▲{{tradeNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-tradeNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际消费次数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 患者数据 -->
+	<view class="white-background-color margin-top-20 padding-30 border-bottom">
+		<view class="font-title">患者数据</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{increaseUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{increaseUsersPercent>=0}}">▲{{increaseUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-increaseUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">新增患者数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{loginUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{loginUsersPercent>=0}}">▲{{loginUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-loginUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">登录患者数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{totalUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{totalUsersPercent>=0}}">▲{{totalUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-totalUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">累计患者数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 医生数据 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">医生数据</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{increaseDoctors}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{increaseDoctorsPercent>=0}}">▲{{increaseDoctorsPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-increaseDoctorsPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">新增医生数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{loginDoctors}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{loginDoctorsPercent>=0}}">▲{{loginDoctorsPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-loginDoctorsPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">登录医生数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{totalDoctors}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{totalDoctorsPercent>=0}}">▲{{totalDoctorsPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-totalDoctorsPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">累计医生数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 指导订单 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">指导订单</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionOrderAmount}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionOrderAmountPercent>=0}}">▲{{nutritionOrderAmountPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionOrderAmountPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionOrderUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionOrderUsersPercent>=0}}">▲{{nutritionOrderUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionOrderUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionOrderNumPercent>=0}}">▲{{nutritionOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 商城订单 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">商城订单</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{emallOrderAmount}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{emallOrderAmountPercent>=0}}">▲{{emallOrderAmountPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-emallOrderAmountPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{emallOrderUsers}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{emallOrderUsersPercent>=0}}">▲{{emallOrderUsersPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-emallOrderUsersPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{emallOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{emallOrderNumPercent>=0}}">▲{{emallOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-emallOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 图文问诊订单 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">图文问诊订单</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultOrderAmount}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultOrderAmountPercent>=0}}">▲{{consultOrderAmountPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultOrderAmountPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultOrderNumPercent>=0}}">▲{{consultOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultOrderNumPercent>=0}}">▲{{consultOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 视频问诊订单 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">视频问诊订单</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultVideoOrderAmount}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultVideoOrderAmountPercent>=0}}">▲{{consultVideoOrderAmountPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultVideoOrderAmountPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultVideoOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultVideoOrderNumPercent>=0}}">▲{{consultVideoOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultVideoOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{consultVideoOrderNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{consultVideoOrderNumPercent>=0}}">▲{{consultVideoOrderNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-consultVideoOrderNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
+			</view>
+		</view>
+	</view>
+	<!-- 指导申请订单 -->
+	<view class="white-background-color padding-30 border-bottom">
+		<view class="font-title">指导申请订单</view>
+		<view class="flex--center--around margin-top-30">
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionApplyAmount}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionApplyAmountPercent>=0}}">▲{{nutritionApplyAmountPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionApplyAmountPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionApplyNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionApplyNumPercent>=0}}">▲{{nutritionApplyNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionApplyNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
+			</view>
+			<view class="flex--center--start flex-direction-column">
+				<view class="position-relative">
+					<text class="primary-color font-title font-bold">{{nutritionApplyNum}}</text>
+					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
+						<text class="success-color" wx:if="{{nutritionApplyNumPercent>=0}}">▲{{nutritionApplyNumPercent}}%</text>
+						<text class="danger-color" wx:else>▼{{-nutritionApplyNumPercent}}%</text>
+					</view>
+				</view>
+				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
+			</view>
+		</view>
+	</view>
+</view>
+<van-popup position="bottom" show="{{startDateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelStart" bind:confirm="onConfirmStartDate" title="开始日期" type="date" value="{{now}}" />
+</van-popup>
+<van-popup position="bottom" show="{{endDateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelEnd" bind:confirm="onConfirmEndDate" title="结束日期" type="date" value="{{now}}" />
+</van-popup>
