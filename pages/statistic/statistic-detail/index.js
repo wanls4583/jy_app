@@ -13,8 +13,6 @@ Page({
     },
     onLoad(option) {
         this.indicator = option.indicator;
-        this.startDate = option.startDate;
-        this.endDate = option.endDate;
         this.systemInfo = wx.getSystemInfoSync();
         this.title = [option.title];
         this.prop = ['total']
@@ -28,7 +26,9 @@ Page({
             this.title[2] = this.title[1].replace('消费', '退费');
         }
         this.setData({
-            title: this.title
+            title: this.title,
+            startDate: option.startDate,
+            endDate: option.endDate
         });
         this.loadData();
     },
@@ -38,8 +38,8 @@ Page({
         wx.jyApp.http({
             url: '/statistics/detail',
             data: {
-                startDate: this.startDate,
-                endDate: this.endDate,
+                startDate: this.data.startDate,
+                endDate: this.data.endDate,
                 indicator: this.indicator,
             }
         }).then((data) => {

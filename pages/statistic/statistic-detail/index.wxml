@@ -1,11 +1,18 @@
-<view class="font-large font-bold padding-20">{{title[0]}}：{{summary}}</view>
-<view class="primary-color padding-20 padding-top-0" wx:if="{{title.length>1}}">备注：{{title[0]}}={{title[1]}}-{{title[2]}}</view>
-<ec-canvas canvas-id="canvas0" ec="{{ecs[0]}}" wx:if="{{ecs[0]}}" style="height:100vw"></ec-canvas>
+<view class="padding-30 border-bottom gray-color align-center">{{startDate}}至{{endDate}}</view>
+<view class="font-large font-bold padding-30 margin-top-30">{{title[0]}}：{{summary}}</view>
+<view class="primary-color padding-30 padding-top-0" wx:if="{{title.length>1}}">备注：{{title[0]}}={{title[1]}}-{{title[2]}}</view>
+<view class="padding-left-30">
+	<ec-canvas canvas-id="canvas0" ec="{{ecs[0]}}" style="height:100vw;" wx:if="{{ecs[0]}}"></ec-canvas>
+</view>
 <block wx:if="{{title[1]}}">
-	<view class="font-large font-bold padding-20">{{title[1]}}：{{consume}}</view>
-	<ec-canvas canvas-id="canvas0" ec="{{ecs[1]}}" wx:if="{{ecs[1]}}" style="height:100vw"></ec-canvas>
+	<view class="font-large font-bold padding-30">{{title[1]}}：{{consume}}</view>
+	<view class="padding-left-30">
+		<ec-canvas canvas-id="canvas0" ec="{{ecs[1]}}" style="height:100vw;" wx:if="{{ecs[1]}}"></ec-canvas>
+	</view>
 </block>
 <block wx:if="{{title[2]}}">
-	<view class="font-large font-bold padding-20">{{title[2]}}：{{refund}}</view>
-	<ec-canvas canvas-id="canvas0" ec="{{ecs[2]}}" wx:if="{{ecs[2]}}" style="height:100vw"></ec-canvas>
+	<view class="font-large font-bold padding-30">{{title[2]}}：{{refund}}</view>
+	<view class="padding-left-30">
+		<ec-canvas canvas-id="canvas0" ec="{{ecs[2]}}" style="height:100vw;" wx:if="{{ecs[2]}}"></ec-canvas>
+	</view>
 </block>
