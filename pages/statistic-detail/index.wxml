@@ -1,0 +1,13 @@
+<view class="container white-background-color">
+	<view class="font-large font-bold padding-20">{{title[0]}}</view>
+	<view class="primary-color padding-20 padding-top-0" wx:if="{{title.length>1}}">备注：{{title[0]}}={{title[1]}}={{title[2]}}</view>
+	<canvas canvas-id="canvas0" class="width-100" style="height:62vw"></canvas>
+	<block wx:if="{{title[1]}}">
+		<view class="font-large font-bold padding-20">{{title[1]}}</view>
+		<canvas canvas-id="canvas1" class="width-100" style="height:62vw"></canvas>
+	</block>
+	<block wx:if="{{title[2]}}">
+		<view class="font-large font-bold padding-20">{{title[2]}}</view>
+		<canvas canvas-id="canvas2" class="width-100" style="height:62vw"></canvas>
+	</block>
+</view>

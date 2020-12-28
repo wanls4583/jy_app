@@ -1,6 +1,8 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/statistic-detail/index",
+        "pages/statistic/index",
         "pages/interrogation/bankcard/index",
         "pages/trtc/index",
         "pages/input/index",
