@@ -1,0 +1,23 @@
+<!-- 新的：接口对其了H5 -->
+<canvas
+	bindinit="init"
+	bindtouchend="{{ ec.disableTouch ? '' : 'touchEnd' }}"
+	bindtouchmove="{{ ec.disableTouch ? '' : 'touchMove' }}"
+	bindtouchstart="{{ ec.disableTouch ? '' : 'touchStart' }}"
+	canvas-id="{{ canvasId }}"
+	class="ec-canvas"
+	style="{{style}}"
+	type="2d"
+	wx:if="{{isUseNewCanvas}}"
+></canvas>
+<!-- 旧的 -->
+<canvas
+	bindinit="init"
+	bindtouchend="{{ ec.disableTouch ? '' : 'touchEnd' }}"
+	bindtouchmove="{{ ec.disableTouch ? '' : 'touchMove' }}"
+	bindtouchstart="{{ ec.disableTouch ? '' : 'touchStart' }}"
+	canvas-id="{{ canvasId }}"
+	class="ec-canvas"
+	style="{{style}}"
+	wx:else
+></canvas>

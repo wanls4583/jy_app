@@ -101,7 +101,7 @@ Page({
         var indicator = e.currentTarget.dataset.indicator;
         var title = e.currentTarget.dataset.title;
         wx.jyApp.utils.navigateTo({
-            url: `/pages/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}&title=${title}`
+            url: `/pages/statistic/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}&title=${title}`
         });
     },
     resetData() {

@@ -1,8 +1,6 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/statistic-detail/index",
-        "pages/statistic/index",
         "pages/interrogation/bankcard/index",
         "pages/trtc/index",
         "pages/input/index",
@@ -63,6 +61,15 @@
         "pages/interrogation/appointment-setting/index",
         "pages/interrogation/appointment-select/index",
         "pages/mall/search-doctor/index"
+    ],
+    "subpackages": [
+        {
+            "root": "pages/statistic",
+            "pages": [
+                "summary/index",
+                "statistic-detail/index"
+            ]
+        }
     ],
     "window": {
         "backgroundTextStyle": "light",
