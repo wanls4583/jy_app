@@ -6,8 +6,10 @@
 import * as echarts from '../ec-canvas/echarts';
 Page({
     data: {
-        value: '',
         ecs: [],
+        summary: 0,
+        consume: 0,
+        refund: 0
     },
     onLoad(option) {
         this.indicator = option.indicator;
@@ -42,16 +44,25 @@ Page({
             }
         }).then((data) => {
             var ecs = [];
+            var consume = 0;
+            var refund = 0;
             this.prop.map((item, index) => {
                 if (data.list && data.list.length) {
+                    data.list.map((item) => {
+                        consume += (item.consume || 0);
+                        refund += (item.refund || 0);
+                    });
                     ecs[index] = {
                         onInit: this.createInitFun(data.list, item)
                     }
                 }
             });
             this.setData({
-                ecs: ecs
-            })
+                ecs: ecs,
+                summary: data.summary,
+                consume: consume.toFixed(2),
+                refund: refund.toFixed(2),
+            });
         });
     },
     createInitFun(list, prop) {
