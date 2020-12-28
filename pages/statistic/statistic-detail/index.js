@@ -77,7 +77,9 @@ Page({
             var option = {
                 grid: {
                     top: 30,
-                    bottom: 30
+                    bottom: 30,
+                    left: '10%',
+                    right: '10%'
                 },
                 color: ["#07c160"],
                 xAxis: {
