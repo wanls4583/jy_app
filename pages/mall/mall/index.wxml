@@ -35,7 +35,7 @@
 			data-index="{{index}}"
 			id="tab-{{item.id}}"
 			wx:for="{{categoryList}}"
-			wx:if="{{configData.hideCoategory!=1}}"
+			wx:if="{{configData.hideCategory!=1}}"
 			wx:key="id"
 		>{{item.categoryName}}</view>
 	</scroll-view>
@@ -85,7 +85,7 @@
 						data-index="{{index}}"
 						id="tab-{{item.id}}"
 						wx:for="{{categoryList}}"
-						wx:if="{{configData.hideCoategory!=1}}"
+						wx:if="{{configData.hideCategory!=1}}"
 						wx:key="id"
 					>{{item.categoryName}}</view>
 				</scroll-view>

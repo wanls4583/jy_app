@@ -228,7 +228,7 @@ function getAllConfig() {
         'nutritionOrderExpireDay',
         'consultOrderExpireMinute',
         'consultOrderCloseDay',
-        'hideCoategory'
+        'hideCategory'
     ]).then((data) => {
         data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;
         wx.jyApp.store.updateConfigData(data);
