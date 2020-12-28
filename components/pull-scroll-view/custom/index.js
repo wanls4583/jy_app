@@ -19,6 +19,15 @@ Component({
                 this.toTop();
             }
         },
+        scrollTop: {
+            type: Number,
+            value: 0,
+            observer: function (newVal, oldVal) {
+                this.scrollTop(newVal);
+                //使下次能再触发observer
+                this.properties.scrollTop = Math.random();
+            }
+        },
         stopRefresh: {
             type: Boolean,
             value: false,
@@ -88,7 +97,7 @@ Component({
                     _topHeight: this.data.topHeight
                 }, () => {
                     this.setData({
-                        _scrollTop: this.data.topHeight
+                        _scrollTop: this.data.topHeight + this.properties.scrollTop
                     });
                 });
             });
@@ -139,6 +148,11 @@ Component({
                     _scrollTop: this.data._scrollTop == this.data.topHeight ? this.data.topHeight + 1 : this.data.topHeight
                 });
             }, 50);
+        },
+        scrollTop(top) {
+            this.setData({
+                _scrollTop: top
+            });
         },
         refresh() {
             if (this.refreshing) {

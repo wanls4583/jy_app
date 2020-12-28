@@ -22,6 +22,10 @@ Component({
             type: Boolean,
             value: false
         },
+        scrollTop: {
+            type: Number,
+            value: 0
+        },
         stopRefresh: {
             type: Boolean,
             value: false

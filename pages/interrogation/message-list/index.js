@@ -33,7 +33,13 @@ Page({
         for (var i = 0; i < this.data.messageList.length; i++) {
             var item = this.data.messageList[i];
             if (item.id == id) {
-                item.notReadNum = 0;
+                if (item.notReadNum) {
+                    item.notReadNum = 0;
+                    var msgCount = wx.jyApp.store.msgCount;
+                    if (msgCount > 0) {
+                        this.updateMsgCount(wx.jyApp.store.msgCount - 1);
+                    }
+                }
                 this.setData({
                     [`messageList[${i}]`]: item
                 });
@@ -66,6 +72,9 @@ Page({
                 this.data.page = 1;
                 this.data.totalPage = -1;
                 this.data.messageList = [];
+                this.setData({
+                    scrollTop: Math.random()
+                });
             }
             var today = new Date();
             today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;

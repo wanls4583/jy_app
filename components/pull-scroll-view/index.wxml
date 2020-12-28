@@ -7,6 +7,7 @@
 		lower-threshold="{{lowerThreshold}}"
 		refresher-background="{{refresherBackground}}"
 		scroll-to-top="{{scrollToTop}}"
+		scroll-top="{{scrollTop}}"
 		stop-refresh="{{stopRefresh}}"
 		style="{{style}}"
 		upper-threshold="{{upperThreshold}}"

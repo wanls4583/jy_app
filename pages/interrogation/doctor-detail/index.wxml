@@ -68,10 +68,7 @@
 			</block>
 			<view class="button primary small disabled" wx:else>未开通</view>
 		</view>
-		<view
-			class="flex--center--between padding-30 margin-top-30 gray-background-color radius-8rpx"
-			wx:if="{{doctor.videoOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1&&doctor.setedTime}}"
-		>
+		<view class="flex--center--between padding-30 margin-top-30 gray-background-color radius-8rpx">
 			<view class="flex--center--between height-80rpx">
 				<view class="width-80rpx height-100 radius-8rpx overflow-hidden" style="padding:5rpx">
 					<image class="width-100 height-100" mode="aspectFit" src="/image/icon_shipin.png" />

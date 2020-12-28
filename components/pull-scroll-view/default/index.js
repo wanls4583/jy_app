@@ -21,6 +21,15 @@ Component({
                 this.toTop();
             }
         },
+        scrollTop: {
+            type: Number,
+            value: 0,
+            observer: function (newVal, oldVal) {
+                this.scrollTop(newVal);
+                //使下次能再触发observer
+                this.properties.scrollTop = Math.random();
+            }
+        },
         stopRefresh: {
             type: Boolean,
             value: false,
@@ -78,6 +87,11 @@ Component({
         toTop() {
             this.setData({
                 _scrollTop: this.data._scrollTop == 0 ? 1 : 0
+            });
+        },
+        scrollTop(top) {
+            this.setData({
+                _scrollTop: top
             });
         },
         refresh() {

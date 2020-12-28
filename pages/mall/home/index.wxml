@@ -48,7 +48,7 @@
 						interval="{{5000}}"
 						style="height:236rpx;transform:translateY(0);"
 					>
-						<swiper-item bindtap="onClickBanner" data-link="{{item.linkUrl}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
+						<swiper-item bindtap="onClickBanner" data-item="{{item}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
 							<view class="position-relative height-100 padding-left-right-20">
 								<jy-video src="{{item.linkUrl}}" wx:if="{{item.type==2}}"></jy-video>
 								<block wx:else>

@@ -99,8 +99,8 @@ Component({
         },
         onClickBanner(e) {
             var item = e.currentTarget.dataset.item;
-            if (item.linkUrl && item.type == 1) {
-                wx.jyApp.utils.openWebview(link);
+            if (item.linkUrl && item.type != 2) {
+                wx.jyApp.utils.openWebview(item.linkUrl);
             }
         },
         //查看更多
