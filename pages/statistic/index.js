@@ -99,8 +99,9 @@ Page({
     },
     onClick(e) {
         var indicator = e.currentTarget.dataset.indicator;
+        var title = e.currentTarget.dataset.title;
         wx.jyApp.utils.navigateTo({
-            url: `/pages/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}`
+            url: `/pages/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}&title=${title}`
         });
     },
     resetData() {
@@ -161,15 +162,19 @@ Page({
         }).then((data) => {
             data.current = data.current || {};
             data.previous = data.previous || {};
-            this.setData({
+            data = {
                 consultOrderAmount: data.current.consultOrderAmount,
                 consultOrderAmountPercent: ((data.current.consultOrderAmount - data.previous.consultOrderAmount) / data.previous.consultOrderAmount * 100).toFixed(2),
                 consultOrderNum: data.current.consultOrderNum,
                 consultOrderNumPercent: ((data.current.consultOrderNum - data.previous.consultOrderNum) / data.previous.consultOrderNum * 100).toFixed(2),
+                consultOrderUsers: data.current.consultOrderUsers,
+                consultOrderUsersPercent: ((data.current.consultOrderUsers - data.previous.consultOrderUsers) / data.previous.consultOrderUsers * 100).toFixed(2),
                 consultVideoOrderAmount: data.current.consultVideoOrderAmount,
                 consultVideoOrderAmountPercent: ((data.current.consultVideoOrderAmount - data.previous.consultVideoOrderAmount) / data.previous.consultVideoOrderAmount * 100).toFixed(2),
                 consultVideoOrderNum: data.current.consultVideoOrderNum,
                 consultVideoOrderNumPercent: ((data.current.consultVideoOrderNum - data.previous.consultVideoOrderNum) / data.previous.consultVideoOrderNum * 100).toFixed(2),
+                consultVideoOrderUsers: data.current.consultVideoOrderUsers,
+                consultVideoOrderUsersPercent: ((data.current.consultVideoOrderUsers - data.previous.consultVideoOrderUsers) / data.previous.consultVideoOrderUsers * 100).toFixed(2),
                 emallOrderAmount: data.current.emallOrderAmount,
                 emallOrderAmountPercent: ((data.current.emallOrderAmount - data.previous.emallOrderAmount) / data.previous.emallOrderAmount * 100).toFixed(2),
                 emallOrderNum: data.current.emallOrderNum,
@@ -188,6 +193,8 @@ Page({
                 nutritionApplyAmountPercent: ((data.current.nutritionApplyAmount - data.previous.nutritionApplyAmount) / data.previous.nutritionApplyAmount * 100).toFixed(2),
                 nutritionApplyNum: data.current.nutritionApplyNum,
                 nutritionApplyNumPercent: ((data.current.nutritionApplyNum - data.previous.nutritionApplyNum) / data.previous.nutritionApplyNum * 100).toFixed(2),
+                nutritionApplyUsers: data.current.nutritionApplyUsers,
+                nutritionApplyUsersPercent: ((data.current.nutritionApplyUsers - data.previous.nutritionApplyUsers) / data.previous.nutritionApplyUsers * 100).toFixed(2),
                 nutritionOrderAmount: data.current.nutritionOrderAmount,
                 nutritionOrderAmountPercent: ((data.current.nutritionOrderAmount - data.previous.nutritionOrderAmount) / data.previous.nutritionOrderAmount * 100).toFixed(2),
                 nutritionOrderNum: data.current.nutritionOrderNum,
@@ -204,7 +211,16 @@ Page({
                 tradeNumPercent: ((data.current.tradeNum - data.previous.tradeNum) / data.previous.tradeNum * 100).toFixed(2),
                 tradeUsers: data.current.tradeUsers,
                 tradeUsersPercent: ((data.current.tradeUsers - data.previous.tradeUsers) / data.previous.tradeUsers * 100).toFixed(2),
-            });
+            };
+            for (var key in data) {
+                if (data[key] == 'NaN' || data[key] == '-NaN') {
+                    data[key] = 0;
+                }
+                data[key] = data[key] || 0;
+                this.setData({
+                    [`${key}`]: data[key]
+                });
+            }
         }).catch((e) => {
             console.log(e);
         }).finally(() => {
