@@ -46,15 +46,15 @@ Page({
             var ecs = [];
             var consume = 0;
             var refund = 0;
+            data.list = data.list || [];
             this.prop.map((item, index) => {
-                if (data.list && data.list.length) {
-                    data.list.map((item) => {
-                        consume += (item.consume || 0);
-                        refund += (item.refund || 0);
-                    });
-                    ecs[index] = {
-                        onInit: this.createInitFun(data.list, item)
-                    }
+                data.list.map((item) => {
+                    consume += (item.consume || 0);
+                    refund += (item.refund || 0);
+                });
+                ecs[index] = {
+                    onInit: this.createInitFun(data.list, item),
+                    disableTouch: true
                 }
             });
             this.setData({
@@ -75,6 +75,10 @@ Page({
             canvas.setChart(chart);
 
             var option = {
+                grid: {
+                    top: 30,
+                    bottom: 30
+                },
                 color: ["#07c160"],
                 xAxis: {
                     type: 'category',
@@ -82,9 +86,12 @@ Page({
                 },
                 yAxis: {
                     type: 'value',
-                    nameTextStyle: {
-                        color: "#07c160"
-                    }
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: "#07c160"
+                        }
+                    },
                 },
                 series: [{
                     data: list.map((item) => { return item[prop] }),
