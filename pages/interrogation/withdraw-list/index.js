@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-09-08 17:47:15
+ * @Description: 
+ */
 Page({
     data: {
         dataList: [],
@@ -27,6 +32,10 @@ Page({
         this.request.then((data) => {
             data.list.map((item) => {
                 item._status = this.data.statusMap[item.status];
+                item._nickname = item.nickname;
+                if (item.bankName) {
+                    item._nickname = item.bankName + '(' + item.bankCardNumber.slice(item.bankCardNumber.length - 4) + ')';
+                }
             });
             this.setData({
                 dataList: data.list,
