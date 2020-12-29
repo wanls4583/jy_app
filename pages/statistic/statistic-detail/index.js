@@ -59,7 +59,7 @@ Page({
             });
             this.setData({
                 ecs: ecs,
-                summary: data.summary,
+                summary: data.summary || 0,
                 consume: consume.toFixed(2),
                 refund: refund.toFixed(2),
             });
