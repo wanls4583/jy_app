@@ -10,7 +10,7 @@
 						<view class="align-right" style="float:left;width:25%">{{item.amount}}元</view>
 					</view>
 					<view class="margin-top-10 gray-color font-small">{{item.createTime}}</view>
-					<view class="margin-top-10 danger-color font-small" wx:if="{{item.status==3}}">失败原因：{{item.payMsg}}</view>
+					<view class="margin-top-10 danger-color font-small" wx:if="{{item.status==3&&item.payMsg}}">失败原因：{{item.payMsg}}</view>
 				</view>
 			</view>
 		</view>

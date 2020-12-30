@@ -87,7 +87,7 @@ function navigateTo(e) {
     }
 
     function _navigateTo(url) {
-        if(!url) {
+        if (!url) {
             return;
         }
         if (getCurrentPages().length > 9) {
@@ -112,7 +112,6 @@ function onInput(e, context) {
 function onInputNum(e, context, dot) {
     var prop = e.currentTarget.dataset.prop;
     var value = typeof e.detail == 'object' ? e.detail.value : e.detail;
-    var originValue = value;
     value = String(value);
     value = value.replace(/[^0123456789\.]/g, '');
     var reg = /^\d+(\.\d*)?$/;
@@ -128,11 +127,9 @@ function onInputNum(e, context, dot) {
             num = num.slice(0, num.length - (r[1].length - (dot + 1)));
         }
     }
-    if(originValue != String(num)) {
-        context.setData({
-            [prop]: num
-        });
-    }
+    context.setData({
+        [prop]: num
+    });
 }
 
 function setText(inputParam) {
@@ -239,7 +236,11 @@ function getAllConfig() {
 }
 
 //使用医生功能时，检查医生状态
-function checkDoctor(option = { hideTip: false, checkApprove: true, checkStatus: true }) {
+function checkDoctor(option = {
+    hideTip: false,
+    checkApprove: true,
+    checkStatus: true
+}) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
     if ((!doctorInfo || doctorInfo.type != 2 && doctorInfo.authStatus != 1) && option.checkApprove) {
