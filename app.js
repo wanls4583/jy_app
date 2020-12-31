@@ -1,13 +1,19 @@
 //app.js
 import loginUtil from './utils/login.js';
 import log from './utils/log.js';
-import { createStoreBindings } from 'mobx-miniprogram-bindings';
-import { store } from './store/index';
+import {
+    createStoreBindings
+} from 'mobx-miniprogram-bindings';
+import {
+    store
+} from './store/index';
 import http from './utils/request';
 import utils from './utils/util';
 import * as constData from './utils/data';
 import Dialog from '@vant/weapp/dialog/dialog';
-import { Promise } from 'es6-promise';
+import {
+    Promise
+} from 'es6-promise';
 import config from './config/index';
 import room from './utils/room';
 App({
@@ -39,6 +45,17 @@ App({
                 mask: Boolean(mask)
             });
         }
+        wx.jyApp.setTempData = (prop, val) => {
+            wx.jyApp.tempData[prop] = val;
+        }
+        wx.jyApp.getTempData = (prop, clear) => {
+            var data = wx.jyApp.tempData[prop];
+            clear && wx.jyApp.clearTempData(prop);
+            return data;
+        }
+        wx.jyApp.clearTempData = (prop) => {
+            delete wx.jyApp.tempData[prop];
+        }
         this.firstLoad = true;
     },
     onShow() {
@@ -66,6 +83,7 @@ App({
 
         updateManager.onUpdateReady(function () {
             _showTip();
+
             function _showTip() {
                 var pages = getCurrentPages();
                 if (pages[pages.length - 1].route != 'pages/index/index') {
@@ -154,5 +172,9 @@ Number.prototype.toFixed = function (n, addZero) {
 }
 
 if (!wx.nextTick) {
-    wx.nextTick = function (cb) { setTimeout(() => { cb() }) }
+    wx.nextTick = function (cb) {
+        setTimeout(() => {
+            cb()
+        })
+    }
 }

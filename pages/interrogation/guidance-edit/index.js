@@ -2,6 +2,8 @@ Page({
     data: {
         diagnosis: '',
         goodsList: [],
+        nutritionlist: [],
+        nutritionVisible: false,
         totalAmount: 0
     },
     onLoad(option) {
@@ -12,6 +14,30 @@ Page({
         this.storeBindings.updateStoreBindings();
         this.consultOrderId = option.id;
         this.type = option.type; //问诊类型
+        this.patitent = wx.jyApp.getTempData('guidePatient', true);
+        this.getAllNutrition();
+        this.prop = ['ca',
+            'carbohydrate',
+            'cholesterol',
+            'cu',
+            'energy',
+            'fat',
+            'fe',
+            'i',
+            'k',
+            'mg',
+            'mn',
+            'na',
+            'niacin',
+            'p',
+            'protein',
+            'se',
+            'vitaminB1',
+            'vitaminB2',
+            'vitaminC',
+            'vitaminE',
+            'zn'
+        ]
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -44,6 +70,7 @@ Page({
             });
             delete wx.jyApp.tempData.usageGoods;
             this.caculateTotalAmount();
+            this.anlizeNutrition();
         }
     },
     onGoto(e) {
@@ -75,6 +102,7 @@ Page({
                 goodsList: this.data.goodsList
             });
             this.caculateTotalAmount();
+            this.anlizeNutrition();
         });
     },
     onEdit(e) {
@@ -89,6 +117,16 @@ Page({
                 url: '/pages/interrogation/usage/index'
             });
         }
+    },
+    onShowAnalize() {
+        this.setData({
+            nutritionVisible: true
+        });
+    },
+    onCloseAnalize() {
+        this.setData({
+            nutritionVisible: false
+        });
     },
     onSave() {
         if (!this.data.diagnosis && this.type != 2) {
@@ -159,6 +197,94 @@ Page({
         totalAmount = totalAmount.toFixed(2);
         this.setData({
             totalAmount: totalAmount
+        });
+    },
+    //营养素分析
+    anlizeNutrition() {
+        var nutritionData = {};
+        var goodsList = [];
+        this.prop.map(item => {
+            nutritionData[item] = {
+                name: wx.jyApp.constData.nutritionNameMap[item],
+                standardData: 0,
+                gross: 0, //每天总量
+                grossPercent: 0, //每天总量占推荐值得比
+                energyPercent: 0, //能量占比
+                singleGross: 0 //单餐
+            }
+        });
+        this.data.goodsList.map(item => {
+            if (item.type == 1) {
+                goodsList.push(item);
+            } else {
+                item.items.map(_item => {
+                    _item.frequency = item.frequency;
+                    goodsList.push(_item);
+                });
+            }
+        });
+        _analize.bind(this)(goodsList);
+        console.log(nutritionData);
+
+        function _analize(goodsList) {
+            //获取推荐值
+            this.prop.map(item => {
+                nutritionData[item].standardData = wx.jyApp.utils.getSuggestData(item, this.patitent);
+            });
+            goodsList.map(goods => {
+                for (var i = 0; i < this.nutritionlist.length; i++) {
+                    var item = this.nutritionlist[i];
+                    if (item.productId == goods.productId) {
+                        this.prop.map(_item => {
+                            nutritionData[_item].singleGross += item[_item] * goods.perUseNum * 0.01;
+                            nutritionData[_item].gross += item[_item] * goods.perUseNum * goods.frequency * 0.01;
+                        });
+                        break;
+                    }
+                }
+            });
+            this.prop.map(item => {
+                var nutrition = nutritionData[item];
+                nutrition.singleGross = nutrition.singleGross.toFixed(2);
+                nutrition.gross = nutrition.gross.toFixed(2);
+                if (nutrition.standardData) {
+                    nutrition.grossPercent = (nutrition.gross / nutrition.standardData * 100).toFixed(2);
+                }
+                if (nutritionData.energy.gross > 0) {
+                    switch (item) {
+                        case "energy":
+                            nutrition.energyPercent = 100;
+                            break;
+                        case "protein":
+                            nutrition.energyPercent = nutrition.gross * 4 / nutritionData.energy.gross * 100;
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            break;
+                        case "fat":
+                            nutrition.energyPercent = nutrition.gross * 9 / nutritionData.energy.gross * 100;
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            break;
+                        case "carbohydrate":
+                            nutrition.energyPercent = nutrition.gross * 4 / nutritionData.energy.gross * 100;
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            break;
+                    }
+                }
+            });
+            var arr = [];
+            this.prop.map(item => {
+                arr.push(nutritionData[item]);
+            });
+            this.setData({
+                nutritionlist: arr
+            });
+        }
+    },
+    //获取所有产品营养素
+    getAllNutrition() {
+        wx.jyApp.http({
+            url: '/product/nutritionist/all'
+        }).then((data) => {
+            this.nutritionlist = data.list || [];
         });
     }
 })

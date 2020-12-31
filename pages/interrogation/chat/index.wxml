@@ -145,7 +145,7 @@
 											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 										</view>
 										<view class="align-center padding-bottom-20" wx:if="{{currentUser.role=='DOCTOR'&&item.orderApplyVO.status==1&&status==1}}">
-											<view bindtap="onGoto" class="button small primary" data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}">开营养指导</view>
+											<view bindtap="onGuide" class="button small primary" data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}&type={{consultOrder.type}}">开营养指导</view>
 										</view>
 									</view>
 								</view>

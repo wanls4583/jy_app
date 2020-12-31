@@ -152,10 +152,15 @@ Page({
     blur: function (e) {
         this.setData({
             inputBottom: 0,
-            inputFoucus: false
+            inputFoucus: falseonGuide
         });
     },
     onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
+    //开指导
+    onGuide(e) {
+        wx.jyApp.setTempData('guidePatient', this.data.patient);
         wx.jyApp.utils.navigateTo(e);
     },
     onShowPanel() {
@@ -298,6 +303,7 @@ Page({
                 actionVisible: true
             });
         } else { //医生开指导
+            wx.jyApp.setTempData('guidePatient', this.data.patient);
             wx.jyApp.utils.navigateTo({
                 url: `/pages/interrogation/guidance-edit/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
             });

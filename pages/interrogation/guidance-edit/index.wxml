@@ -44,8 +44,40 @@
 			</view>
 		</view>
 	</view>
-	<view class="footer padding-30">
-		<view bindtap="onSave" class="button primary block">保存</view>
+	<view class="footer flex--center--around padding-top-bottom-30">
+		<view bindtap="onShowAnalize" class="button primary block plain" style="width: 40%">营养素分析</view>
+		<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />
+<!-- 营养素分析表 -->
+<van-popup
+	bind:click-overlay="onCloseAnalize"
+	bind:close="onCloseAnalize"
+	closeable="{{true}}"
+	position="bottom"
+	safe-area-inset-top="{{true}}"
+	show="{{nutritionVisible}}"
+>
+	<view class="flex--center--start padding-30">
+		<text>营养素分析(</text>
+		<text class="primary-color">含所有已添加营养指导</text>
+		<text>)</text>
+	</view>
+	<view class="flex--center--between">
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">营养素</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天推荐值</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">能量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">单餐</view>
+	</view>
+	<view class="flex--center--between" wx:for="{{nutritionlist}}">
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.name}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
+	</view>
+</van-popup>

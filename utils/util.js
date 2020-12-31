@@ -334,6 +334,19 @@ function getLocalCart() {
 function isNull(value) {
     return value === null || value === undefined
 }
+//获取营养素推荐值
+function getSuggestData(name, patientDoc) {
+    var result = null;
+    if (!patientDoc) {
+        return null;
+    }
+    wx.jyApp.constData.yingyangtuijian.map(item => {
+        if (patientDoc.age >= item["maxAge"] && patientDoc.age <= item["minAge"] && patientDoc.sex == item["sex"]) {
+            result = item[name];
+        }
+    })
+    return result;
+}
 
 Date.prototype.formatTime = formatTime;
 Date.prototype.parseDate = parseDate;
@@ -360,4 +373,5 @@ module.exports = {
     getLocalCart: getLocalCart,
     getUUID: getUUID,
     isNull: isNull,
+    getSuggestData: getSuggestData
 }
