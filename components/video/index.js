@@ -28,8 +28,7 @@ Component({
     this._attached();
   },
   methods: {
-    _attached() {
-    },
+    _attached() {},
     onReady(e) {
       console.log(e);
       this.videoContext = wx.createVideoContext(this.data.id, this);
@@ -38,6 +37,11 @@ Component({
       this.setData({
         playVisible: false
       });
+      var video = wx.jyApp.getTempData('playedVideoContext');
+      wx.jyApp.setTempData('playedVideoContext', this.videoContext);
+      if (video) {
+        video.pause();
+      }
     },
     onPause() {
       this.setData({
