@@ -47,11 +47,11 @@ Page({
             var consume = 0;
             var refund = 0;
             data.list = data.list || [];
+            data.list.map((item) => {
+                consume += (item.consume || 0);
+                refund += (item.refund || 0);
+            });
             this.prop.map((item, index) => {
-                data.list.map((item) => {
-                    consume += (item.consume || 0);
-                    refund += (item.refund || 0);
-                });
                 ecs[index] = {
                     onInit: this.createInitFun(data.list, item),
                     disableTouch: true
