@@ -32,8 +32,7 @@ Page({
         });
         this.loadData();
     },
-    onUnload() {
-    },
+    onUnload() {},
     loadData() {
         wx.jyApp.http({
             url: '/statistics/detail',
@@ -84,7 +83,9 @@ Page({
                 color: ["#07c160"],
                 xAxis: {
                     type: 'category',
-                    data: list.map((item) => { return item.date })
+                    data: list.map((item) => {
+                        return item.date
+                    })
                 },
                 yAxis: {
                     type: 'value',
@@ -96,7 +97,9 @@ Page({
                     },
                 },
                 series: [{
-                    data: list.map((item) => { return item[prop] }),
+                    data: list.map((item) => {
+                        return item[prop]
+                    }),
                     type: 'bar'
                 }]
             };

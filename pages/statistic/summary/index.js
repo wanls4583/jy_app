@@ -100,6 +100,10 @@ Page({
     onClick(e) {
         var indicator = e.currentTarget.dataset.indicator;
         var title = e.currentTarget.dataset.title;
+        if (['totalUsers', 'totalDoctors'].indexOf(indicator) > -1) {
+            wx.jyApp.toast('暂不支持查看该项详情数据');
+            return;
+        }
         wx.jyApp.utils.navigateTo({
             url: `/pages/statistic/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}&title=${title}`
         });
