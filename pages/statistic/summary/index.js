@@ -70,7 +70,8 @@ Page({
         this._startDate = e.detail;
         this.setData({
             startDateVisible: false,
-            endDateVisible: true
+            endDateVisible: true,
+            minDate: this._startDate
         })
     },
     onCancelStart() {
@@ -78,7 +79,8 @@ Page({
         this.startDate = new Date(this.startDate).formatTime('yyyy-MM-dd');
         this.setData({
             startDateVisible: false,
-            endDateVisible: true
+            endDateVisible: true,
+            minDate: this._startDate
         })
     },
     onConfirmEndDate(e) {
