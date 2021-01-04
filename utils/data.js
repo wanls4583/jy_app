@@ -151,27 +151,27 @@ export const subIds = {
 }
 export const dayArr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 export const nutritionNameMap = {
-  'ca': '钙',
-  'carbohydrate': '碳水化合物',
-  'cholesterol': '胆固醇',
-  'cu': '铜',
-  'energy': '能量',
-  'fat': '脂肪',
-  'fe': '铁',
-  'i': '碘',
-  'k': '钾',
-  'mg': '镁',
-  'mn': '锰',
-  'na': '钠',
-  'niacin': '烟酸',
-  'p': '磷',
-  'protein': '蛋白质',
-  'se': '硒',
-  'vitaminB1': '维生素B1',
-  'vitaminB2': '维生素B2',
-  'vitaminC': '维生素C',
-  'vitaminE': '维生素E',
-  'zn': '锌'
+  'ca': '钙(mg)',
+  'carbohydrate': '碳水化合物(g)',
+  'cholesterol': '胆固醇(mg)',
+  'cu': '铜(mg)',
+  'energy': '能量(kcal)',
+  'fat': '脂肪(g)',
+  'fe': '铁(mg)',
+  'i': '碘(ug)',
+  'k': '钾(mg)',
+  'mg': '镁(mg)',
+  'mn': '锰(mg)',
+  'na': '钠(mg)',
+  'niacin': '烟酸(mg)',
+  'p': '磷(mg)',
+  'protein': '蛋白质(g)',
+  'se': '硒(ug)',
+  'vitaminB1': '维生素B1(mg)',
+  'vitaminB2': '维生素B2(mg)',
+  'vitaminC': '维生素C(mg)',
+  'vitaminE': '维生素E(mg)',
+  'zn': '锌(mg)'
 }
 //营养素推荐值
 export const yingyangtuijian = [{

@@ -36,7 +36,7 @@ Page({
         });
         if (!arr.lenght) {
             wx.jyApp.diagnosisGoods.push(item);
-            wx.jyApp.tempData.usageGoods = item;
+            wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'
             });
@@ -50,7 +50,7 @@ Page({
         });
         if (!arr.lenght) {
             wx.jyApp.diagnosisGoods.push(item);
-            wx.jyApp.tempData.usageGoods = item;
+            wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'
             });

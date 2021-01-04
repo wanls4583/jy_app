@@ -1,5 +1,8 @@
 // store.js
-import { observable, action } from 'mobx-miniprogram'
+import {
+    observable,
+    action
+} from 'mobx-miniprogram'
 
 export const store = observable({
     cart: [],
@@ -126,5 +129,9 @@ export const store = observable({
     videoBookNum: 0,
     updateVideoBookNum: action(function (videoBookNum) {
         this.videoBookNum = videoBookNum;
+    }),
+    allNutritionlist: [],
+    updateAllNutritionlist: action(function (allNutritionlist) {
+        this.allNutritionlist = allNutritionlist;
     }),
 })

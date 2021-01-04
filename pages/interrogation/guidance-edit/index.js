@@ -9,12 +9,13 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData'],
+            fields: ['configData', 'allNutritionlist'],
+            actions: ['updateAllNutritionlist']
         });
         this.storeBindings.updateStoreBindings();
         this.consultOrderId = option.id;
         this.type = option.type; //问诊类型
-        this.patitent = wx.jyApp.getTempData('guidePatient', true);
+        this.patitent = wx.jyApp.getTempData('guidePatient');
         this.getAllNutrition();
         this.prop = ['ca',
             'carbohydrate',
@@ -41,6 +42,7 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+        wx.jyApp.clearTempData('guidePatient');
     },
     onShow() {
         if (wx.jyApp.tempData.diagnosisTemplate) { //选择了模板
@@ -49,8 +51,8 @@ Page({
             });
             delete wx.jyApp.tempData.diagnosisTemplate;
         }
-        if (wx.jyApp.tempData.usageGoods) { //添加了商品
-            var usageGoods = wx.jyApp.tempData.usageGoods;
+        var usageGoods = wx.jyApp.getTempData('usageGoods');
+        if (usageGoods) { //添加了商品
             var index = 0;
             var arr = this.data.goodsList.filter((item) => {
                 return item.type == usageGoods.type && item.id == usageGoods.id;
@@ -68,7 +70,8 @@ Page({
             this.setData({
                 goodsList: this.data.goodsList
             });
-            delete wx.jyApp.tempData.usageGoods;
+            wx.jyApp.clearTempData('usageGoods');
+            wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
             this.caculateTotalAmount();
             this.anlizeNutrition();
         }
@@ -107,7 +110,7 @@ Page({
     },
     onEdit(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
-        wx.jyApp.tempData.usageGoods = item;
+        wx.jyApp.setTempData('usageGoods', item);
         if (item.type == 3) {
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage-comb/index'
@@ -203,7 +206,7 @@ Page({
     anlizeNutrition() {
         var nutritionData = {};
         var goodsList = [];
-        if(!this.nutritionlist.length) {
+        if (!this.data.allNutritionlist.length) {
             return;
         }
         this.prop.map(item => {
@@ -227,7 +230,6 @@ Page({
             }
         });
         _analize.bind(this)(goodsList);
-        console.log(nutritionData);
 
         function _analize(goodsList) {
             //获取推荐值
@@ -235,8 +237,8 @@ Page({
                 nutritionData[item].standardData = wx.jyApp.utils.getSuggestData(item, this.patitent);
             });
             goodsList.map(goods => {
-                for (var i = 0; i < this.nutritionlist.length; i++) {
-                    var item = this.nutritionlist[i];
+                for (var i = 0; i < this.data.allNutritionlist.length; i++) {
+                    var item = this.data.allNutritionlist[i];
                     if (item.productId == goods.productId) {
                         this.prop.map(_item => {
                             nutritionData[_item].singleGross += item[_item] * goods.perUseNum * 0.01;
@@ -287,7 +289,7 @@ Page({
         wx.jyApp.http({
             url: '/product/nutritionist/all'
         }).then((data) => {
-            this.nutritionlist = data.list || [];
+            this.updateAllNutritionlist(data.list || []);
         });
     }
 })

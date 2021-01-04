@@ -6,7 +6,15 @@
 		<template data="{{taocan:goods}}" is="doctor-taocan-item" wx:else></template>
 	</view>
 	<view class="margin-top-20 white-background-color">
-		<van-field bind:input="onInputNum" data-prop="perUseNum" label="每次用量" readonly="{{goods.type==2}}" title-width="4.5em" type="number" value="{{perUseNum}}">
+		<van-field
+			bind:input="onChangePerUseNum"
+			data-prop="perUseNum"
+			label="每次用量"
+			readonly="{{goods.type==2}}"
+			title-width="4.5em"
+			type="number"
+			value="{{perUseNum}}"
+		>
 			<view slot="right-icon" wx:if="{{goods.type==1}}">{{goods._standardUnit}}</view>
 			<view slot="right-icon" wx:else>份</view>
 		</van-field>
@@ -17,21 +25,23 @@
 		<van-cell>
 			<view class="flex--center--between">
 				<text>天数</text>
-				<van-stepper bind:blur="onDaysBlur" bind:change="onDaysChange"  bind:minus="onDaysMinus" bind:plus="onDaysPlus" data-prop="days" input-width="300rpx" min="{{0}}" value="{{days}}" />
+				<van-stepper
+					bind:blur="onDaysBlur"
+					bind:change="onDaysChange"
+					bind:minus="onDaysMinus"
+					bind:plus="onDaysPlus"
+					data-prop="days"
+					input-width="300rpx"
+					min="{{0}}"
+					value="{{days}}"
+				/>
 				<text>天</text>
 			</view>
 		</van-cell>
 		<van-cell>
 			<view class="flex--center--between">
 				<text>总量</text>
-				<van-stepper
-					bind:change="onCountChang"
-					data-prop="count"
-					integer="{{true}}"
-					input-width="300rpx"
-					min="{{1}}"
-					value="{{count}}"
-				/>
+				<van-stepper bind:change="onCountChang" data-prop="count" input-width="300rpx" integer="{{true}}" min="{{1}}" value="{{count}}" />
 				<text>{{goods._unit}}</text>
 			</view>
 		</van-cell>
@@ -41,8 +51,9 @@
 			<view class="primary-color">金额：￥{{totalAmount}}</view>
 		</view>
 	</view>
-	<view class="footer padding-30">
-		<view bindtap="onSave" class="button primary block">保存</view>
+	<view class="footer flex--center--around padding-top-bottom-30">
+		<view bindtap="onShowAnalize" class="button primary block plain" style="width: 40%">营养素分析</view>
+		<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
 	</view>
 	<van-popup position="bottom" show="{{frequencyVisible}}">
 		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmFrequency" columns="{{frequencyArray}}" default-index="{{frequencyDefault}}" show-toolbar></van-picker>
@@ -59,3 +70,34 @@
 	</van-popup>
 </view>
 <van-dialog id="van-dialog" />
+<!-- 营养素分析表 -->
+<van-popup
+	bind:click-overlay="onCloseAnalize"
+	bind:close="onCloseAnalize"
+	closeable="{{true}}"
+	position="bottom"
+	safe-area-inset-top="{{true}}"
+	show="{{nutritionVisible}}"
+>
+	<view class="flex--center--start padding-30">
+		<text>营养素分析(</text>
+		<text class="primary-color">含所有已添加营养指导</text>
+		<text>)</text>
+	</view>
+	<view class="flex--center--between">
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">营养素</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天推荐值</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">能量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">单餐</view>
+	</view>
+	<view class="flex--center--between" wx:for="{{nutritionlist}}" wx:key="name">
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.name}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
+	</view>
+</van-popup>
