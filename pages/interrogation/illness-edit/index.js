@@ -85,7 +85,7 @@ Page({
             }).then((data) => {
                 wx.hideLoading();
                 if (data.doctor) {
-                    this.doctorId = data.id;
+                    this.doctorId = data.doctor.id;
                     this.setData({
                         doctor: data.doctor
                     });

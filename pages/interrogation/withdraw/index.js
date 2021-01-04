@@ -17,15 +17,14 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.checkAmount();
-        if (this.data.type == 2) {
-            this.getBankCard();
-        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
-        this.getBankCard();
+        if (this.data.type == 2) {
+            this.getBankCard();
+        }
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
@@ -103,7 +102,9 @@ Page({
                 url: '/pages/interrogation/withdraw-list/index'
             });
             setTimeout(() => {
-                wx.showToast({ title: '提现成功' });
+                wx.showToast({
+                    title: '提现成功'
+                });
             }, 500);
         }).finally(() => {
             wx.hideLoading();

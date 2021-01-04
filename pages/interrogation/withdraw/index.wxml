@@ -25,7 +25,7 @@
 		<view class="border-bottom flex--center--between">
 			<view class="flex-grow-1 position-relative" style="height:40px">
 				<text class="position-absolute left-0 top-0 font-large font-bold" style="line-height:40px">￥</text>
-				<input bindinput="onInputNum" class="width-100 height-100" data-prop="amount" style="line-height:40px;padding-left:20px" type="text" value="{{amount}}" />
+				<textarea bindinput="onInputNum" class="width-100 height-100 font-large" data-prop="amount" style="padding-left:20px;line-height:40px" type="text" value="{{amount}}" />
 			</view>
 			<text bindtap="onAll" class="primary-color padding-10">全部提现</text>
 		</view>
