@@ -203,6 +203,9 @@ Page({
     anlizeNutrition() {
         var nutritionData = {};
         var goodsList = [];
+        if(!this.nutritionlist.length) {
+            return;
+        }
         this.prop.map(item => {
             nutritionData[item] = {
                 name: wx.jyApp.constData.nutritionNameMap[item],
