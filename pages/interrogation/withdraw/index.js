@@ -7,16 +7,21 @@ Page({
     data: {
         amount: '',
         doctorBankCard: null,
-        type: 2
+        type: 1
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['doctorInfo', 'userInfo'],
+            fields: ['doctorInfo', 'userInfo', 'configData'],
             actions: ['updateDoctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.checkAmount();
+        if (!wx.jyApp.utils.isNull(this.data.configData.withdrawType)) {
+            this.setData({
+                type: this.data.configData.withdrawType
+            });
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

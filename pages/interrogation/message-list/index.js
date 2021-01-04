@@ -73,7 +73,7 @@ Page({
                 this.data.totalPage = -1;
                 this.data.messageList = [];
                 this.setData({
-                    scrollTop: Math.random()
+                    scrollTop: true
                 });
             }
             var today = new Date();

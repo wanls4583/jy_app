@@ -57,7 +57,7 @@ Component({
     data: {
         _scrollTop: 0,
         refresherTriggered: true,
-        animation: true,
+        animation: false,
     },
     lifetimes: {
         attached() {

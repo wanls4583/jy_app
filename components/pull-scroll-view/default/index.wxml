@@ -1,7 +1,20 @@
-<view class='pull_scroll_view external-classes' style='{{style}}'>
-    <scroll-view class='scroll_view' refresher-enabled="{{true}}" refresher-triggered="{{refresherTriggered}}" refresher-background="{{refresherBackground}}" refresher-default-style="{{refresherDefaultStyle}}"  bindscrolltolower='onScrolltolower' bindscrolltoupper='onScrolltoupper' bindscroll='onScroll' bindrefresherrefresh="refresh" scroll-top='{{_scrollTop}}' scroll-with-animation='{{animation}}' scroll-y>
-        <view class='content'>
-            <slot></slot>
-        </view>
-    </scroll-view>
+<view class="pull_scroll_view external-classes" style="{{style}}">
+	<scroll-view
+		bindrefresherrefresh="refresh"
+		bindscroll="onScroll"
+		bindscrolltolower="onScrolltolower"
+		bindscrolltoupper="onScrolltoupper"
+		class="scroll_view"
+		refresher-background="{{refresherBackground}}"
+		refresher-default-style="{{refresherDefaultStyle}}"
+		refresher-enabled="{{true}}"
+		refresher-triggered="{{refresherTriggered}}"
+		scroll-top="{{_scrollTop}}"
+		scroll-with-animation="{{animation}}"
+		scroll-y
+	>
+		<view class="content">
+			<slot></slot>
+		</view>
+	</scroll-view>
 </view>
