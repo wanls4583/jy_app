@@ -48,19 +48,20 @@ Page({
                 if (date.getMonth() >= 11) {
                     this.endDate = new Date(date.getFullYear() + 1, 0, 1);
                 } else {
-                    this.endDate = new Date(date.getFullYear(), date.getMonth(), 1)
+                    this.endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1)
                 }
                 this.endDate = new Date(this.endDate.getTime() - 1000).formatTime('yyyy-MM-dd');
                 break;
             case '上月':
                 var date = new Date();
                 if (date.getMonth() == 0) {
-                    this.startDate = new Date(date.getFullYear() - 1, 0, 1).formatTime('yyyy-MM-dd');
+                    this.startDate = new Date(date.getFullYear() - 1, 11, 1).formatTime('yyyy-MM-dd');
+                    this.endDate = new Date(date.getFullYear() - 1, 11, 31).formatTime('yyyy-MM-dd');
                 } else {
                     this.startDate = new Date(date.getFullYear(), date.getMonth() - 1, 1).formatTime('yyyy-MM-dd');
+                    this.endDate = new Date(date.getFullYear(), date.getMonth(), 1);
+                    this.endDate = new Date(this.endDate.getTime() - 1000).formatTime('yyyy-MM-dd');
                 }
-                this.endDate = new Date(date.getFullYear(), date.getMonth(), 1);
-                this.endDate = new Date(this.endDate.getTime() - 1000).formatTime('yyyy-MM-dd');
                 break;
         }
         this.loadData();
