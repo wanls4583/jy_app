@@ -1,6 +1,6 @@
 <import src="/template/doctor-goods-item.wxml" />
-<navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
 <view class="container padding-bottom-footer">
+	<navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
 	<view class="padding-left-right-30 white-background-color">
 		<template data="{{taocan:goods}}" is="doctor-taocan-item"></template>
 	</view>
@@ -34,21 +34,14 @@
 		<van-cell bindtap="onShowGiveWay" title="给予方式" value="{{_giveWay}}" />
 		<van-field bind:input="onInput" data-prop="remark" input-align="right" label="备注" value="{{remark}}"></van-field>
 	</view>
-	<view class="footer flex--center--around padding-top-bottom-30">
-		<view bindtap="onShowAnalize" class="button primary block plain" style="width: 40%">营养素分析</view>
-		<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
-	</view>
-	<van-popup position="bottom" show="{{giveWayVisible}}">
-		<van-picker
-			bind:cancel="onCancel"
-			bind:confirm="onConfirmGiveWay"
-			columns="{{giveWayList}}"
-			default-index="{{giveWayDefault}}"
-			show-toolbar
-			value-key="label"
-		></van-picker>
-	</van-popup>
 </view>
+<view class="footer flex--center--around padding-top-bottom-30">
+	<view bindtap="onShowAnalize" class="button primary block plain" style="width: 40%">营养素分析</view>
+	<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
+</view>
+<van-popup position="bottom" show="{{giveWayVisible}}">
+	<van-picker bind:cancel="onCancel" bind:confirm="onConfirmGiveWay" columns="{{giveWayList}}" default-index="{{giveWayDefault}}" show-toolbar value-key="label"></van-picker>
+</van-popup>
 <van-dialog id="van-dialog" />
 <!-- 营养素分析表 -->
 <van-popup bind:click-overlay="onCloseAnalize" bind:close="onCloseAnalize" closeable="{{true}}" position="bottom" show="{{nutritionVisible}}">

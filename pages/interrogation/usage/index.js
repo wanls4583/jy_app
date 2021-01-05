@@ -292,6 +292,9 @@ Page({
                 grossPercent: 0, //每天总量占推荐值得比
                 singleGross: 0 //单餐
             }
+            if (['energy', 'protein', 'fat', 'carbohydrate'].indexOf(item) > -1) {
+                nutritionData[item].energyPercent = '0%';
+            }
         });
         guideGoodsList.map(item => {
             if (item.type == 1) {
