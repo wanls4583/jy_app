@@ -2,17 +2,17 @@
 	<view class="white-color" style="padding:50rpx 30rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 		<view class="font-large font-bold align-center">互联网医院营养指导单</view>
 		<view class="flex--center--between margin-top-30">
-			<view class="width-33">姓名：{{order.patientName}}</view>
-			<view class="width-33">性别：{{order._sex}}</view>
-			<view class="width-33">年龄：{{order.age}}</view>
+			<view style="flex:2">姓名：{{order.patientName}}</view>
+			<view style="flex:2">性别：{{order._sex}}</view>
+			<view style="flex:1.5">年龄：{{order.age}}</view>
 		</view>
 		<view class="flex--center--between margin-top-30" wx:if="{{order.doctorType!=2}}">
-			<view class="width-33" wx:if="{{order.height}}">身高：{{order.height}}</view>
-			<view class="width-33" wx:if="{{order.weight}}">体重：{{order.weight}}</view>
-			<view class="width-33" wx:if="{{order.BMI}}">BMI：{{order.BMI}}</view>
+			<view style="flex:2" wx:if="{{order.height}}">身高：{{order.height}}</view>
+			<view style="flex:2" wx:if="{{order.weight}}">体重：{{order.weight}}</view>
+			<view class="nowrap" style="flex:1.5" wx:if="{{order.BMI}}">BMI：{{order.BMI}}</view>
 		</view>
 	</view>
-	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.doctorType!=2}}">
+	<view class="white-background-color padding-30" wx:if="{{order.doctorType!=2}}">
 		<view class="font-bold pre-vertical-line primary-line-color">主诉</view>
 		<view class="margin-top-20">{{order.diseaseDetail||''}}</view>
 	</view>
