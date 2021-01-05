@@ -17,27 +17,28 @@ Page({
         this.type = option.type; //问诊类型
         this.patitent = wx.jyApp.getTempData('guidePatient');
         this.getAllNutrition();
-        this.prop = ['ca',
+        this.prop = [
+            'energy',
+            'protein',
+            'fat',
             'carbohydrate',
             'cholesterol',
-            'cu',
-            'energy',
-            'fat',
-            'fe',
-            'i',
-            'k',
-            'mg',
-            'mn',
-            'na',
-            'niacin',
-            'p',
-            'protein',
-            'se',
             'vitaminB1',
             'vitaminB2',
+            'niacin',
             'vitaminC',
             'vitaminE',
-            'zn'
+            'ca',
+            'p',
+            'k',
+            'na',
+            'mg',
+            'fe',
+            'zn',
+            'se',
+            'cu',
+            'mn',
+            'i',
         ]
     },
     onUnload() {
@@ -215,7 +216,6 @@ Page({
                 standardData: 0,
                 gross: 0, //每天总量
                 grossPercent: 0, //每天总量占推荐值得比
-                energyPercent: 0, //能量占比
                 singleGross: 0 //单餐
             }
         });
@@ -258,19 +258,19 @@ Page({
                 if (nutritionData.energy.gross > 0) {
                     switch (item) {
                         case "energy":
-                            nutrition.energyPercent = 100;
+                            nutrition.energyPercent = 100 + '%';
                             break;
                         case "protein":
                             nutrition.energyPercent = nutrition.gross * 4 / nutritionData.energy.gross * 100;
-                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2) + '%';
                             break;
                         case "fat":
                             nutrition.energyPercent = nutrition.gross * 9 / nutritionData.energy.gross * 100;
-                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2) + '%';
                             break;
                         case "carbohydrate":
                             nutrition.energyPercent = nutrition.gross * 4 / nutritionData.energy.gross * 100;
-                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2);
+                            nutrition.energyPercent = nutrition.energyPercent.toFixed(2) + '%';
                             break;
                     }
                 }

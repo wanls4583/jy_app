@@ -1,6 +1,6 @@
 <import src="/template/doctor-goods-item.wxml" />
 <navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
-<view class="padding-bottom-footer">
+<view class="container padding-bottom-footer">
 	<view class="padding-left-right-30 white-background-color">
 		<template data="{{taocan:goods}}" is="doctor-taocan-item"></template>
 	</view>
@@ -51,14 +51,7 @@
 </view>
 <van-dialog id="van-dialog" />
 <!-- 营养素分析表 -->
-<van-popup
-	bind:click-overlay="onCloseAnalize"
-	bind:close="onCloseAnalize"
-	closeable="{{true}}"
-	position="bottom"
-	safe-area-inset-top="{{true}}"
-	show="{{nutritionVisible}}"
->
+<van-popup bind:click-overlay="onCloseAnalize" bind:close="onCloseAnalize" closeable="{{true}}" position="bottom" show="{{nutritionVisible}}">
 	<view class="flex--center--start padding-30">
 		<text>营养素分析(</text>
 		<text class="primary-color">含所有已添加营养指导</text>
@@ -77,7 +70,7 @@
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
 	</view>
 </van-popup>

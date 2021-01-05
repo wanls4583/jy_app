@@ -56,7 +56,6 @@
 	bind:close="onCloseAnalize"
 	closeable="{{true}}"
 	position="bottom"
-	safe-area-inset-top="{{true}}"
 	show="{{nutritionVisible}}"
 >
 	<view class="flex--center--start padding-30">
@@ -77,7 +76,7 @@
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
 	</view>
 </van-popup>
