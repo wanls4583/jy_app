@@ -44,6 +44,7 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
         wx.jyApp.clearTempData('guidePatient');
+        wx.jyApp.clearTempData('guideGoodsList');
     },
     onShow() {
         if (wx.jyApp.tempData.diagnosisTemplate) { //选择了模板
@@ -72,10 +73,10 @@ Page({
                 goodsList: this.data.goodsList
             });
             wx.jyApp.clearTempData('usageGoods');
-            wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
             this.caculateTotalAmount();
             this.anlizeNutrition();
         }
+        wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
@@ -107,6 +108,7 @@ Page({
             });
             this.caculateTotalAmount();
             this.anlizeNutrition();
+            wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
         });
     },
     onEdit(e) {
