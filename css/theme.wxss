@@ -133,3 +133,7 @@
 .label-color {
     color: #646566;
 }
+
+.primary-line-color.pre-vertical-line:before {
+    background-color: rgb(42, 175, 255);
+}

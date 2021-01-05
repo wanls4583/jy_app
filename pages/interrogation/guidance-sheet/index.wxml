@@ -1,0 +1,37 @@
+<view class="container">
+	<view class="white-color" style="padding:50rpx 30rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
+		<view class="font-large font-bold align-center">互联网医院营养指导单</view>
+		<view class="flex--center--between margin-top-30">
+			<view class="width-33">姓名：{{order.patientName}}</view>
+			<view class="width-33">性别：{{order._sex}}</view>
+			<view class="width-33">年龄：{{order.age}}</view>
+		</view>
+		<view class="flex--center--between margin-top-30" wx:if="{{order.doctorType!=2}}">
+			<view class="width-33" wx:if="{{order.height}}">身高：{{order.height}}</view>
+			<view class="width-33" wx:if="{{order.weight}}">体重：{{order.weight}}</view>
+			<view class="width-33" wx:if="{{order.BMI}}">BMI：{{order.BMI}}</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-30 margin-top-20" wx:if="{{order.doctorType!=2}}">
+		<view class="font-bold pre-vertical-line primary-line-color">主诉</view>
+		<view class="margin-top-20">{{order.diseaseDetail||''}}</view>
+	</view>
+	<view class="white-background-color padding-30 margin-top-20">
+		<view class="font-bold pre-vertical-line primary-line-color">营养诊断</view>
+		<view class="margin-top-20">{{order.diagnosis||''}}</view>
+	</view>
+	<view class="white-background-color padding-30 margin-top-20">
+		<view class="font-bold pre-vertical-line primary-line-color">营养指导</view>
+		<view class="margin-top-20" wx:for="{{order.goods}}" wx:key="id">
+			<view class="flex--center--between">
+				<view class="font-bold">{{item.goodsName}}</view>
+				<view>x{{item.count}}{{item._unit}}</view>
+			</view>
+			<view class="margin-top-20 gray-color">{{item.usage}}</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-30 margin-top-20">
+		<view>医生姓名：{{order.doctorName}}</view>
+		<view class="margin-top-20">创建时间：{{order.orderTime}}</view>
+	</view>
+</view>

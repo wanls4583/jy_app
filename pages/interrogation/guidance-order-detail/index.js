@@ -171,6 +171,10 @@ Page({
             }
         });
     },
+    onGotoSheet(e) {
+        wx.jyApp.setTempData('guidanceSheetData', this.data.order);
+        this.onGoto(e);
+    },
     loadInfo() {
         if (wx.jyApp.tempData.guidanceOrderData) {
             _initData.bind(this)(wx.jyApp.tempData.guidanceOrderData);
