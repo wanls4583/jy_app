@@ -168,7 +168,7 @@ Page({
     anlizeNutrition() {
         var usageGoods = this.data.goods;
         //已添加的指导
-        var guideGoodsList = wx.jyApp.getTempData('guideGoodsList') || [];
+        var guideGoodsList = (wx.jyApp.getTempData('guideGoodsList') || []).concat([]);
         var index = 0;
         var arr = guideGoodsList.filter((item) => {
             return item.type == usageGoods.type && item.id == usageGoods.id;

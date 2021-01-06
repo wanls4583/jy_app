@@ -39,6 +39,22 @@ App({
                 icon: 'none'
             });
         }
+        wx.jyApp.toastBack = (msg) => {
+            var nowPage = wx.getCurrentPages();
+            nowPage = nowPage[nowPage.length - 1].route;
+            wx.showToast({
+                title: msg,
+                icon: 'none'
+            });
+            clearTimeout(wx.jyApp.toastBack.timer);
+            wx.jyApp.toastBack.timer = setTimeout(() => {
+                var page = wx.getCurrentPages();
+                page = page[page.length - 1].route;
+                if (nowPage == page) {
+                    wx.navigateBack();
+                }
+            }, 1500);
+        }
         wx.jyApp.showLoading = (title, mask) => {
             wx.showLoading({
                 title: title,

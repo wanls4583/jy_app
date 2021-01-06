@@ -16,7 +16,15 @@
 		class="position-absolute width-100"
 		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
 	>
-		<scroll-view bindscroll="onScroll" class="height-100" scroll-into-view="{{domId}}" scroll-with-animation="{{false}}" scroll-anchoring="{{true}}" enhanced="{{true}}" scroll-y="{{true}}">
+		<scroll-view
+			bindscroll="onScroll"
+			class="height-100"
+			enhanced="{{true}}"
+			scroll-anchoring="{{true}}"
+			scroll-into-view="{{domId}}"
+			scroll-with-animation="{{false}}"
+			scroll-y="{{true}}"
+		>
 			<!-- 触发ios的回弹，防止ios的bug -->
 			<view style="height:2px"></view>
 			<view style="min-height:100%;">
@@ -53,14 +61,14 @@
 								</view>
 							</view>
 							<!-- 系统消息 -->
-							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0}}">
+							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0&&!item.txtObj}}">
 								<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 							</view>
 							<view
 								class="flex padding-20 padding-left-right-0 overflow-hidden {{item.sender==currentUser.id?'myself':'other'}}"
 								id="{{item.domId}}"
 								style="line-height:40rpx"
-								wx:if="{{item.type>0}}"
+								wx:if="{{item.type>0||item.txtObj}}"
 							>
 								<view class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==talker.id}}">
 									<image
@@ -145,7 +153,11 @@
 											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 										</view>
 										<view class="align-center padding-bottom-20" wx:if="{{currentUser.role=='DOCTOR'&&item.orderApplyVO.status==1&&status==1}}">
-											<view bindtap="onGuide" class="button small primary" data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}&type={{consultOrder.type}}">开营养指导</view>
+											<view
+												bindtap="onGuide"
+												class="button small primary"
+												data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}&type={{consultOrder.type}}"
+											>开营养指导</view>
 										</view>
 									</view>
 								</view>
@@ -168,6 +180,29 @@
 												data-id="{{item.associateId}}"
 												data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}"
 											>查看详情</view>
+										</view>
+									</view>
+								</view>
+								<!-- NRS2000 -->
+								<view class="position-relative" wx:elif="{{item.type==7}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">NRS2000（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-bottom-30" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.result}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/nrs/index?id={{item.filtrateChatVO.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
 										</view>
 									</view>
 								</view>
@@ -248,6 +283,12 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">视频通话</view>
 			</view>
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'}}">
+				<view bindtap="onScreen" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<text class="iconfont icon-shaicha" style="font-size:35px"></text>
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">营养筛查</view>
+			</view>
 		</view>
 	</view>
 	<view
@@ -276,3 +317,20 @@
 		</view>
 	</van-action-sheet>
 </view>
+<van-popup bind:click-overlay="onCloseScreen" bind:close="onCloseScreen" closeable="{{true}}" position="bottom" show="{{screenVisible}}">
+	<view class="font-bold align-center padding-30">选择筛查方式</view>
+	<view class="flex flex-wrap-wrap padding-30 padding-top-0">
+		<view
+			bindtap="onClickSceen"
+			class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+			data-item="{{item}}"
+			style="border-radius:100px"
+			wx:for="{{screenList}}"
+			wx:key="index"
+		>{{item.name}}</view>
+	</view>
+	<view class="flex">
+		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">自己筛查</view>
+		<view bindtap="onSendScreen" class="primary-color padding-30 align-center border-top clickable" style="flex:1">发送给患者</view>
+	</view>
+</van-popup>

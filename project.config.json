@@ -64,8 +64,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/trtc/index",
-          "pathName": "pages/trtc/index",
+          "name": "pages/screen/nrs/index",
+          "pathName": "pages/screen/nrs/index",
           "query": "",
           "scene": null
         }

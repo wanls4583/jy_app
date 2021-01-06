@@ -7,7 +7,8 @@ Page({
     data: {
         startDateVisible: false,
         endDateVisible: false,
-        now: new Date().getTime()
+        now: new Date().getTime(),
+        previous: null
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -228,6 +229,9 @@ Page({
                     [`${key}`]: data[key]
                 });
             }
+            this.setData({
+                previous: data.previous
+            });
         }).catch((e) => {
             console.log(e);
         }).finally(() => {

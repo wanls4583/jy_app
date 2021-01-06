@@ -392,3 +392,8 @@ readonly-field:last-child .border-bottom {
 .nowrap {
     white-space: nowrap;
 }
+
+.label {
+    width: 6.2em;
+    color: #646566;
+}

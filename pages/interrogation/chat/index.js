@@ -2,11 +2,12 @@ import Utils from '../../../utils/util.js';
 
 Page({
     data: {
+
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData'],
+            fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
@@ -85,6 +86,25 @@ Page({
             nowPageIndex: 0,
             loadButtonHeight: 45, //加载更多按钮的高度
             loading: true, //上翻页加载中状态
+            screenVisible: false,
+            screenList: [{
+                name: 'NRS 2000',
+                filtrateType: 'NRS2000',
+                selected: true
+            }, {
+                name: 'PGSGA',
+                filtrateType: 'PGSGA'
+            }, {
+                name: 'SGA',
+                filtrateType: 'SGA'
+            }, {
+                name: 'MUST',
+                filtrateType: 'MUST'
+            }, {
+                name: 'MNA',
+                filtrateType: 'MNA'
+            }],
+            filtrateType: 'NRS2000'
         });
         wx.showLoading({
             title: '加载中...',
@@ -627,12 +647,20 @@ Page({
                     } catch (e) {
                         obj = {};
                     }
+                    //处理历史消息中的状态
                     this.chatListMapCall((_item) => {
                         _updateStatus(_item, item, obj);
                     });
+                    //处理当前请求的消息中的状态
                     list.map((_item) => {
                         _updateStatus(_item, item, obj);
                     });
+                    //状态消息需要从消息列表中删除
+                    if ([4, 5].indexOf(obj.type) > -1) {
+                        item.del = true;
+                    } else {
+                        item.txtObj = obj;
+                    }
                 }
             });
             //通过动态消息更新申请单和指导单的状态
@@ -651,7 +679,7 @@ Page({
             }
             //去除状态消息
             list = list.filter((item) => {
-                return !(item.type == 0 && item.associateId);
+                return !item.del;
             });
             if (ifPre || !this.data.pages.length) { //上翻记录
                 var pageId = list[0].id;
@@ -777,6 +805,7 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         });
     },
+    //视频通话
     onVideo(e) {
         var roomId = Math.ceil(Math.random() * 4294967295);
         wx.jyApp.room.invite({
@@ -787,6 +816,86 @@ Page({
             wx.jyApp.utils.navigateTo({
                 url: `/pages/trtc/index?consultOrderId=${this.data.consultOrderId}&roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
             });
+        });
+    },
+    //筛查
+    onScreen() {
+        this.setData({
+            screenVisible: true
+        });
+    },
+    //关闭筛查弹框
+    onCloseScreen() {
+        this.setData({
+            screenVisible: false
+        });
+    },
+    //选择筛查方式
+    onClickSceen(e) {
+        var item = e.currentTarget.dataset.item;
+        this.data.screenList.map((_item) => {
+            if (_item.filtrateType == item.filtrateType) {
+                _item.selected = true;
+            } else {
+                _item.selected = false;
+            }
+        });
+        this.setData({
+            screenList: this.data.screenList
+        });
+    },
+    //自己筛查
+    onSelfScreen() {
+        wx.jyApp.showLoading('加载中...', true);
+        wx.jyApp.http({
+            url: '/patient/filtrate/save',
+            method: 'post',
+            data: {
+                consultOrderId: this.data.consultOrderId,
+                filtrateType: this.data.filtrateType,
+                isSelf: true,
+            }
+        }).then((data) => {
+            wx.jyApp.setTempData('screenPatient', this.data.patient);
+            wx.jyApp.utils.navigateTo({
+                url: `/pages/screen/nrs/index?filtrateId=${data.filtrateId}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.currentUser.nickname}`
+            })
+            this.setData({
+                screenVisible: false
+            });
+        }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    //发送给患者筛查
+    onSendScreen() {
+        wx.jyApp.showLoading('发送中...', true);
+        wx.jyApp.http({
+            url: '/patient/filtrate/save',
+            method: 'post',
+            data: {
+                consultOrderId: this.data.consultOrderId,
+                filtrateType: this.data.filtrateType,
+                isSelf: false,
+            }
+        }).then((data) => {
+            this.setData({
+                screenVisible: false
+            });
+        }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    //聊天框点击筛查单
+    onGotoScreen(e) {
+        var url = e.currentTarget.dataset.url;
+        if (this.data.currentUser.role == 'DOCTOR') {
+            url = `${url}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.currentUser.nickname}`
+        } else {
+            url = `${url}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.talker.nickname}`
+        }
+        wx.jyApp.utils.navigateTo({
+            url: url
         });
     },
     //供其他页面更新评论状态为已评论

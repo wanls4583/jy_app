@@ -63,15 +63,19 @@
         "pages/interrogation/guidance-sheet/index",
         "pages/mall/search-doctor/index"
     ],
-    "subpackages": [
-        {
-            "root": "pages/statistic",
-            "pages": [
-                "summary/index",
-                "statistic-detail/index"
-            ]
-        }
-    ],
+    "subpackages": [{
+        "root": "pages/statistic",
+        "pages": [
+            "summary/index",
+            "statistic-detail/index"
+        ]
+    }, {
+        "root": "pages/screen",
+        "name": "screen",
+        "pages": [
+            "nrs/index"
+        ]
+    }],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
@@ -99,6 +103,8 @@
         "van-cell": "@vant/weapp/cell/index",
         "van-swipe-cell": "@vant/weapp/swipe-cell/index",
         "van-cell-group": "@vant/weapp/cell-group/index",
+        "van-radio-group": "@vant/weapp/radio-group/index",
+        "van-radio": "@vant/weapp/radio/index",
         "van-area": "@vant/weapp/area/index",
         "van-action-sheet": "@vant/weapp/action-sheet/index",
         "van-dialog": "@vant/weapp/dialog/index",
@@ -123,8 +129,7 @@
         "selectedColor": "#2aafff",
         "borderStyle": "black",
         "backgroundColor": "#fff",
-        "list": [
-            {
+        "list": [{
                 "pagePath": "pages/tab-bar-first/index",
                 "iconPath": "image/icon_home.png",
                 "selectedIconPath": "image/icon_home_active.png",

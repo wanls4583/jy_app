@@ -3,7 +3,6 @@
  * @Date: 2020-11-10 16:46:03
  * @Description: 
  */
-import area from '../../../data/area.js';
 const app = getApp()
 
 Page({
