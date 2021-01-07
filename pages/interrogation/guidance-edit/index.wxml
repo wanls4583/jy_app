@@ -72,7 +72,7 @@
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">单餐</view>
 	</view>
 	<view class="flex--center--between" wx:for="{{nutritionlist}}" wx:key="name">
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.name}}</view>
+		<view class="flex--center--center border padding-10 align-center" style="flex:1;height:50px;word-break:break-word">{{item.name}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
