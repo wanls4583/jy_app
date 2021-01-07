@@ -738,7 +738,7 @@ Page({
                     loading: false
                 });
             }, 500);
-            if (this.data.status == 1 && !this.pollStoped) { //聊天是否未关闭
+            if (/* this.data.status == 1 && */ !this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
