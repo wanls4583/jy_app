@@ -1,37 +1,36 @@
-<view class="container">
-	<view class="white-color" style="padding:50rpx 30rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
-		<view class="font-large font-bold align-center">互联网医院营养指导单</view>
+<view class="container white-background-color">
+	<view class="padding-30">
+		<view class="font-large font-bold align-center">互联网医院营养处方单</view>
 		<view class="flex--center--between margin-top-30">
-			<view style="flex:2">姓名：{{order.patientName}}</view>
-			<view style="flex:2">性别：{{order._sex}}</view>
-			<view style="flex:1.5">年龄：{{order.age}}</view>
+			<view style="flex:2">姓名：{{recipe.detail.patientName}}</view>
+			<view style="flex:1">性别：{{recipe.detail._sex}}</view>
+			<view style="flex:1">年龄：{{recipe.detail.age}}</view>
 		</view>
-		<view class="flex--center--between margin-top-30" wx:if="{{order.doctorType!=2}}">
-			<view style="flex:2" wx:if="{{order.height}}">身高：{{order.height}}</view>
-			<view style="flex:2" wx:if="{{order.weight}}">体重：{{order.weight}}</view>
-			<view class="nowrap" style="flex:1.5" wx:if="{{order.BMI}}">BMI：{{order.BMI}}</view>
-		</view>
+		<view class="margin-top-30">科室：{{recipe.departmentName}}</view>
+		<view class="margin-top-30">主诉：{{recipe.diseaseDetail}}</view>
+		<view class="margin-top-30 padding-bottom">诊断：{{recipe.detail.diagnosis}}</view>
+		<view class="margin-top-30 border-bottom"></view>
 	</view>
-	<view class="white-background-color padding-30" wx:if="{{order.doctorType!=2}}">
-		<view class="font-bold pre-vertical-line primary-line-color">主诉</view>
-		<view class="margin-top-20">{{order.diseaseDetail||''}}</view>
-	</view>
-	<view class="white-background-color padding-30 margin-top-20">
-		<view class="font-bold pre-vertical-line primary-line-color">营养诊断</view>
-		<view class="margin-top-20">{{order.diagnosis||''}}</view>
-	</view>
-	<view class="white-background-color padding-30 margin-top-20">
-		<view class="font-bold pre-vertical-line primary-line-color">营养指导</view>
-		<view class="margin-top-20" wx:for="{{order.goods}}" wx:key="id">
+	<view class="padding-30 margin-top-30">
+		<view class="font-large font-bold">Pp</view>
+		<view class="margin-top-30" wx:for="{{recipe.detail.goods}}" wx:key="id">
 			<view class="flex--center--between">
 				<view class="font-bold">{{item.goodsName}}</view>
 				<view>x{{item.count}}{{item._unit}}</view>
 			</view>
-			<view class="margin-top-20 gray-color">{{item.usage}}</view>
+			<view class="margin-top-30 gray-color">{{item.usage}}</view>
+			<view class="margin-top-30 gray-color" wx:if="{{item.remark}}">备注：{{item.remark}}</view>
 		</view>
+		<view class="border-bottom"></view>
+		<view class="margin-top-30">以下空白</view>
+		<view style="height:100px"></view>
 	</view>
-	<view class="white-background-color padding-30 margin-top-20">
-		<view>医生姓名：{{order.doctorName}}</view>
-		<view class="margin-top-20">创建时间：{{order.orderTime}}</view>
+	<view class="flex--start--between flex-direction-column padding-30 border-top">
+		<view class="flex--center--between">
+			<view>医师：{{recipe.detail.doctorName}}</view>
+			<view>审核医师：{{recipe.approveDoctor}}</view>
+		</view>
+		<view class="margin-top-30">开具日期：{{recipe.detail.orderTime}}</view>
+		<view class="margin-top-30 gray-color">注意：处方有效期为3天，擅自下载打印无效</view>
 	</view>
 </view>
