@@ -61,14 +61,14 @@
 								</view>
 							</view>
 							<!-- 系统消息 -->
-							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0&&!item.txtObj}}">
+							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0}}">
 								<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
 							</view>
 							<view
 								class="flex padding-20 padding-left-right-0 overflow-hidden {{item.sender==currentUser.id?'myself':'other'}}"
 								id="{{item.domId}}"
 								style="line-height:40rpx"
-								wx:if="{{item.type>0||item.txtObj}}"
+								wx:if="{{item.type>0}}"
 							>
 								<view class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==talker.id}}">
 									<image
@@ -195,7 +195,7 @@
 											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
 											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 										</view>
-										<view class="padding-bottom-30" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.result}}</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
 										<view class="align-center padding-bottom-30">
 											<view
 												bindtap="onGotoScreen"

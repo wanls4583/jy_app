@@ -6,18 +6,18 @@
 Page({
     data: {
         patient: {},
-        createTime: new Date().getTime(),
+        filterDate: new Date().getTime(),
         nrs: {
-            createTime: new Date().formatTime('yyyy-MM-dd'),
+            filterDate: new Date().formatTime('yyyy-MM-dd'),
             bmiLessThan: '',
             stature: '',
             weight: '',
             BMI: '',
-            loseWeight: '',
-            foodIntake: '',
-            needNormal: '',
-            ageGe70: '',
-            score: '',
+            loseWeight: null,
+            foodIntake: null,
+            needNormal: null,
+            ageGe70: 0,
+            score: 0,
             result: '',
         },
         dateVisible: false
@@ -53,9 +53,9 @@ Page({
         });
     },
     onConfirmDate(e) {
-        var createTime = new Date(e.detail).formatTime('yyyy-MM-dd');
+        var filterDate = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
-            'nrs.createTime': createTime,
+            'nrs.filterDate': filterDate,
             dateVisible: false
         });
     },
@@ -86,11 +86,15 @@ Page({
         var score = [this.data.nrs.bmiLessThan, this.data.nrs.loseWeight, this.data.nrs.foodIntake].sort(function (a, b) {
             return a - b
         })[2];
-        score = Number(score) + Number(this.data.nrs.needNormal) + Number(this.data.nrs.ageGe70);
+        score = _getRealNum(score) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
         this.setData({
             'nrs.score': score,
             'nrs.result': score >= 3 ? '患者有营养风险，需进行营养支持治疗' : '建议每周重新评估患者的营养状况'
         });
+
+        function _getRealNum(num) {
+            return Number(num > 0 ? num : 0);
+        }
     },
     loadInfo(id) {
         wx.jyApp.http({

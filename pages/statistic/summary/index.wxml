@@ -216,7 +216,7 @@
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
 			</view>
-			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="consultOrderNum" data-title="实际人数">
+			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="consultOrderUsers" data-title="实际人数">
 				<view class="position-relative">
 					<text class="primary-color font-title font-bold">{{consultOrderUsers}}</text>
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
@@ -255,7 +255,7 @@
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
 			</view>
-			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="consultVideoOrderNum" data-title="实际人数">
+			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="consultVideoOrderUsers" data-title="实际人数">
 				<view class="position-relative">
 					<text class="primary-color font-title font-bold">{{consultVideoOrderUsers}}</text>
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
@@ -294,7 +294,7 @@
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
 			</view>
-			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="nutritionApplyNum" data-title="实际人数">
+			<view bindtap="onClick" class="flex--center--start flex-direction-column" data-indicator="nutritionApplyUsers" data-title="实际人数">
 				<view class="position-relative">
 					<text class="primary-color font-title font-bold">{{nutritionApplyUsers}}</text>
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">

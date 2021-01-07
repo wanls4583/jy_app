@@ -7,7 +7,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData', 'doctorInfo'],
+            fields: ['configData', 'doctorInfo', 'userInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
@@ -656,11 +656,7 @@ Page({
                         _updateStatus(_item, item, obj);
                     });
                     //状态消息需要从消息列表中删除
-                    if ([4, 5].indexOf(obj.type) > -1) {
-                        item.del = true;
-                    } else {
-                        item.txtObj = obj;
-                    }
+                    item.del = true;
                 }
             });
             //通过动态消息更新申请单和指导单的状态
@@ -858,8 +854,8 @@ Page({
         }).then((data) => {
             wx.jyApp.setTempData('screenPatient', this.data.patient);
             wx.jyApp.utils.navigateTo({
-                url: `/pages/screen/nrs/index?filtrateId=${data.filtrateId}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.currentUser.nickname}`
-            })
+                url: `/pages/screen/nrs/index?filtrateId=${data.filtrateId}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            });
             this.setData({
                 screenVisible: false
             });
@@ -889,10 +885,11 @@ Page({
     //聊天框点击筛查单
     onGotoScreen(e) {
         var url = e.currentTarget.dataset.url;
+        wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.currentUser.role == 'DOCTOR') {
-            url = `${url}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.currentUser.nickname}`
+            url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
         } else {
-            url = `${url}&filtrateByName=${this.data.currentUser.nickname}&doctorName=${this.data.talker.nickname}`
+            url = `${url}&filtrateByName=${this.data.userInfo.nickname}&doctorName=${this.data.doctorInfo.doctorName}`
         }
         wx.jyApp.utils.navigateTo({
             url: url
