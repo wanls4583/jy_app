@@ -21,7 +21,7 @@
 			<view class="margin-top-30 gray-color">{{item.usage}}</view>
 			<view class="margin-top-30 gray-color" wx:if="{{item.remark}}">备注：{{item.remark}}</view>
 		</view>
-		<view class="border-bottom"></view>
+		<view class="margin-top-30 border-bottom"></view>
 		<view class="margin-top-30">以下空白</view>
 		<view style="height:100px"></view>
 	</view>
