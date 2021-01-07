@@ -25,7 +25,7 @@
 		<view class="margin-top-30">以下空白</view>
 		<view style="height:100px"></view>
 	</view>
-	<view class="flex--start--between flex-direction-column padding-30 border-top">
+	<view class="padding-30 border-top">
 		<view class="flex--center--between">
 			<view>医师：{{recipe.detail.doctorName}}</view>
 			<view>审核医师：{{recipe.approveDoctor}}</view>
