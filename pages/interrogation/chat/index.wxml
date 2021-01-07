@@ -206,6 +206,29 @@
 										</view>
 									</view>
 								</view>
+								<!-- PGSGA -->
+								<view class="position-relative" wx:elif="{{item.type==8}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">PGSGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/pgsga/index?id={{item.filtrateChatVO.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
 								<!-- 视频通话 -->
 								<view class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color" wx:elif="{{item.type==6}}">
 									<view class="flex--center--start {{item.sender==currentUser.id&&'white-color'||'color-333'}}">

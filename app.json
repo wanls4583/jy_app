@@ -73,7 +73,8 @@
         "root": "pages/screen",
         "name": "screen",
         "pages": [
-            "nrs/index"
+            "nrs/index",
+            "pgsga/index"
         ]
     }],
     "window": {
@@ -104,7 +105,9 @@
         "van-swipe-cell": "@vant/weapp/swipe-cell/index",
         "van-cell-group": "@vant/weapp/cell-group/index",
         "van-radio-group": "@vant/weapp/radio-group/index",
+        "van-checkbox-group": "@vant/weapp/checkbox-group/index",
         "van-radio": "@vant/weapp/radio/index",
+        "van-checkbox": "@vant/weapp/checkbox/index",
         "van-area": "@vant/weapp/area/index",
         "van-action-sheet": "@vant/weapp/action-sheet/index",
         "van-dialog": "@vant/weapp/dialog/index",

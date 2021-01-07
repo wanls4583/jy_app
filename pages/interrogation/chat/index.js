@@ -671,6 +671,11 @@ Page({
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
                     }
+                    if ([7, 8].indexOf(obj.type) > -1) {
+                        _item.filtrateChatVO = _item.orderApplyVO || {};
+                        _item.filtrateChatVO.associateId = obj.associateId;
+                        _item.filtrateChatVO.filtrateResult = obj.filtrateResult;
+                    }
                 }
             }
             //去除状态消息
@@ -837,11 +842,21 @@ Page({
             }
         });
         this.setData({
-            screenList: this.data.screenList
+            screenList: this.data.screenList,
+            filtrateType: item.filtrateType
         });
     },
     //自己筛查
-    onSelfScreen() {
+    onSelfScreen(e) {
+        var url = '';
+        switch (this.data.filtrateType) {
+            case 'NRS2000':
+                url = '/pages/screen/nrs/index';
+                break;
+            case 'PGSGA':
+                url = '/pages/screen/pgsga/index';
+                break;
+        }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: '/patient/filtrate/save',
@@ -854,7 +869,7 @@ Page({
         }).then((data) => {
             wx.jyApp.setTempData('screenPatient', this.data.patient);
             wx.jyApp.utils.navigateTo({
-                url: `/pages/screen/nrs/index?filtrateId=${data.filtrateId}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+                url: `${url}?filtrateId=${data.filtrateId}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
             });
             this.setData({
                 screenVisible: false

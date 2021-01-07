@@ -7,33 +7,53 @@ Page({
     data: {
         patient: {},
         filterDate: new Date().getTime(),
-        nrs: {
+        pgsga: {
             filterDate: new Date().formatTime('yyyy-MM-dd'),
-            bmiLessThan: '',
-            stature: '',
-            weight: '',
-            BMI: '',
-            loseWeight: null,
-            foodIntake: null,
-            needNormal: null,
-            ageGe70: 0,
-            score: 0,
-            result: '',
+            currentWeight: '',
+            currentStature: '',
+            weightOneMouthAgo: '',
+            weightSixMouthAgo: '',
+            weightChange: '',
+            dieteticChange: [],
+            appetiteChange: '',
+            symptom: [],
+            wherePained: '',
+            other: '',
+            physicalCondition: '',
+            mainDeseasePeriod: '',
+            otherMainDeseasePeriod: '',
+            metabolismStatus: null,
+            fatOfCheek: null,
+            fatOfTriceps: null,
+            fatOfRib: null,
+            fatOfLack: null,
+            muscleOfTempora: null,
+            muscleOfCollarbone: null,
+            muscleOfShoulder: null,
+            muscleBewteenBones: null,
+            muscleOfScapula: null,
+            muscleOfThigh: null,
+            muscleOfTotalGrade: null,
+            edemaOfAnkle: null,
+            edemaOfShin: null,
+            edemaOfAbdominal: null,
+            edemaOfTotalGrade: null,
+            integralEvaluation: null,
         },
-        dateVisible: false
+        dateVisible: false,
+        step: 1
     },
     onLoad(option) {
         if (!option.id) {
             var patient = wx.jyApp.getTempData('screenPatient') || {};
             patient._sex = patient.sex == 1 ? '男' : '女';
             this.setData({
-                'nrs.filtrateId': option.filtrateId,
-                'nrs.filtrateByName': option.filtrateByName,
-                'nrs.doctorName': option.doctorName,
-                'nrs.stature': patient.height,
-                'nrs.weight': patient.weight,
-                'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
+                filtrateByName: option.filtrateByName,
+                doctorName: option.doctorName,
                 patient: patient,
+                'pgsga.filtrateId': option.filtrateId,
+                'pgsga.currentStature': patient.height,
+                'pgsga.currentWeight': patient.weight,
             });
             this.setBMI();
             this.countScore();
@@ -42,9 +62,18 @@ Page({
         }
     },
     onUnload() {},
+    onNext() {
+        this.setData({
+            step: this.data.step + 1
+        });
+    },
+    onPre() {
+        this.setData({
+            step: this.data.step - 1
+        });
+    },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
-        this.setBMI();
         this.countScore();
     },
     onShowDate() {
@@ -55,7 +84,7 @@ Page({
     onConfirmDate(e) {
         var filterDate = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
-            'nrs.filterDate': filterDate,
+            'pgsga.filterDate': filterDate,
             dateVisible: false
         });
     },
@@ -72,25 +101,21 @@ Page({
         this.countScore();
     },
     setBMI() {
-        if (this.data.nrs.stature && this.data.nrs.weight) {
-            var BMI = (this.data.nrs.weight) / (this.data.nrs.stature * this.data.nrs.stature / 10000);
-            BMI = BMI && BMI.toFixed(2) || '';
+        if (this.data.patient.height && this.data.patient.weight) {
+            var BMI = _getBMI(this.data.patient.height, this.data.patient.weight)
             this.setData({
-                'nrs.BMI': BMI,
-                'nrs.bmiLessThan': BMI < 18.5 ? 3 : 0
+                'patient.BMI': BMI
             });
+        }
+
+        function _getBMI(stature, weight) {
+            var BMI = (weight) / (stature * stature / 10000);
+            BMI = BMI && BMI.toFixed(2) || '';
+            return BMI || '';
         }
     },
     //计算总分
     countScore() {
-        var score = [this.data.nrs.bmiLessThan, this.data.nrs.loseWeight, this.data.nrs.foodIntake].sort(function (a, b) {
-            return a - b
-        })[2];
-        score = _getRealNum(score) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
-        this.setData({
-            'nrs.score': score,
-            'nrs.result': score >= 3 ? '患者有营养风险，需进行营养支持治疗' : '建议每周重新评估患者的营养状况'
-        });
 
         function _getRealNum(num) {
             return Number(num > 0 ? num : 0);
@@ -98,21 +123,32 @@ Page({
     },
     loadInfo(id) {
         wx.jyApp.http({
-            url: `/filtrate/nrs/info/${id}`,
+            url: `/filtrate/pgsga/info/${id}`,
         }).then((data) => {
+            data.patientFiltrate = data.patientFiltrate || {};
+            data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            data.filtratePgsga = data.filtratePgsga || {};
+            data.filtratePgsga.symptom = data.filtratePgsga.symptom && data.filtratePgsga.symptom.split(',') || [];
+            data.filtratePgsga.dieteticChange = data.filtratePgsga.dieteticChange && data.filtratePgsga.dieteticChange.split(',') || [];
             this.setData({
-                nrs: data.filtrateNrs
+                pgsga: data.filtratePgsga,
+                patient: data.patientFiltrate,
+                filtrateByName: data.patientFiltrate.filtrateByName,
+                doctorName: data.patientFiltrate.doctorName,
             });
             this.setBMI();
         });
     },
     onSave() {
+        var data = {
+            ...this.data.pgsga
+        };
+        data.symptom = data.symptom.join(',');
+        data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.http({
-            url: '/filtrate/nrs/save',
+            url: '/filtrate/pgsga/save',
             method: 'post',
-            data: {
-                ...this.data.nrs
-            }
+            data: data
         }).then(() => {
             wx.jyApp.toastBack('保存成功');
         });

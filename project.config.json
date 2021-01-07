@@ -64,8 +64,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/screen/nrs/index",
-          "pathName": "pages/screen/nrs/index",
+          "name": "pages/screen/pgsga/index",
+          "pathName": "pages/screen/pgsga/index",
           "query": "",
           "scene": null
         }
