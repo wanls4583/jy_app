@@ -77,9 +77,9 @@ Page({
         this.countScore();
     },
     onShowDate() {
-        this.setData({
-            dateVisible: true
-        });
+        // this.setData({
+        //     dateVisible: true
+        // });
     },
     onConfirmDate(e) {
         var filterDate = new Date(e.detail).formatTime('yyyy-MM-dd');
