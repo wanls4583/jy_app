@@ -14,7 +14,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{tradeAmountPercent>0}}">▲{{tradeAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{tradeAmountPercent<0}}">▼{{-tradeAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.tradeAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.tradeAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际消费总额</view>
@@ -27,7 +27,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{tradeUsersPercent>0}}">▲{{tradeUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{tradeUsersPercent<0}}">▼{{-tradeUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.tradeUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.tradeUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际消费人数</view>
@@ -38,7 +38,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{tradeNumPercent>0}}">▲{{tradeNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{tradeNumPercent<0}}">▼{{-tradeNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.tradeNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.tradeNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际消费次数</view>
@@ -55,7 +55,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{increaseUsersPercent>0}}">▲{{increaseUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{increaseUsersPercent<0}}">▼{{-increaseUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.increaseUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.increaseUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">新增患者数</view>
@@ -66,7 +66,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{loginUsersPercent>0}}">▲{{loginUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{loginUsersPercent<0}}">▼{{-loginUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.loginUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.loginUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">登录患者数</view>
@@ -77,7 +77,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{totalUsersPercent>0}}">▲{{totalUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{totalUsersPercent<0}}">▼{{-totalUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.totalUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.totalUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">累计患者数</view>
@@ -94,7 +94,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{increaseDoctorsPercent>0}}">▲{{increaseDoctorsPercent}}%</text>
 						<text class="danger-color" wx:elif="{{increaseDoctorsPercent<0}}">▼{{-increaseDoctorsPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.increaseDoctors}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.increaseDoctors}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">新增医生数</view>
@@ -105,7 +105,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{loginDoctorsPercent>0}}">▲{{loginDoctorsPercent}}%</text>
 						<text class="danger-color" wx:elif="{{loginDoctorsPercent<0}}">▼{{-loginDoctorsPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.loginDoctors}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.loginDoctors}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">登录医生数</view>
@@ -116,7 +116,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{totalDoctorsPercent>0}}">▲{{totalDoctorsPercent}}%</text>
 						<text class="danger-color" wx:elif="{{totalDoctorsPercent<0}}">▼{{-totalDoctorsPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.totalDoctors}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.totalDoctors}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">累计医生数</view>
@@ -133,7 +133,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionOrderAmountPercent>0}}">▲{{nutritionOrderAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionOrderAmountPercent<0}}">▼{{-nutritionOrderAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionOrderAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionOrderAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
@@ -144,7 +144,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionOrderUsersPercent>0}}">▲{{nutritionOrderUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionOrderUsersPercent<0}}">▼{{-nutritionOrderUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionOrderUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionOrderUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
@@ -155,7 +155,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionOrderNumPercent>0}}">▲{{nutritionOrderNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionOrderNumPercent<0}}">▼{{-nutritionOrderNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionOrderNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionOrderNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
@@ -172,7 +172,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{emallOrderAmountPercent>0}}">▲{{emallOrderAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{emallOrderAmountPercent<0}}">▼{{-emallOrderAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.emallOrderAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.emallOrderAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
@@ -183,7 +183,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{emallOrderUsersPercent>0}}">▲{{emallOrderUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{emallOrderUsersPercent<0}}">▼{{-emallOrderUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.emallOrderUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.emallOrderUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
@@ -194,7 +194,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{emallOrderNumPercent>0}}">▲{{emallOrderNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{emallOrderNumPercent<0}}">▼{{-emallOrderNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.emallOrderNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.emallOrderNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
@@ -211,7 +211,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultOrderAmountPercent>0}}">▲{{consultOrderAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultOrderAmountPercent<0}}">▼{{-consultOrderAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultOrderAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultOrderAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
@@ -222,7 +222,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultOrderUsersPercent>0}}">▲{{consultOrderUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultOrderUsersPercent<0}}">▼{{-consultOrderUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultOrderUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultOrderUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
@@ -233,7 +233,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultOrderNumPercent>0}}">▲{{consultOrderNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultOrderNumPercent<0}}">▼{{-consultOrderNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultOrderNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultOrderNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
@@ -250,7 +250,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultVideoOrderAmountPercent>0}}">▲{{consultVideoOrderAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultVideoOrderAmountPercent<0}}">▼{{-consultVideoOrderAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultVideoOrderAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultVideoOrderAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
@@ -261,7 +261,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultVideoOrderUsersPercent>0}}">▲{{consultVideoOrderUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultVideoOrderUsersPercent<0}}">▼{{-consultVideoOrderUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultVideoOrderUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultVideoOrderUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
@@ -272,7 +272,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{consultVideoOrderNumPercent>0}}">▲{{consultVideoOrderNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{consultVideoOrderNumPercent<0}}">▼{{-consultVideoOrderNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.consultVideoOrderNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.consultVideoOrderNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>
@@ -289,7 +289,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionApplyAmountPercent>0}}">▲{{nutritionApplyAmountPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionApplyAmountPercent<0}}">▼{{-nutritionApplyAmountPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionApplyAmount}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionApplyAmount}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际金额</view>
@@ -300,7 +300,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionApplyUsersPercent>0}}">▲{{nutritionApplyUsersPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionApplyUsersPercent<0}}">▼{{-nutritionApplyUsersPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionApplyUsers}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionApplyUsers}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际人数</view>
@@ -311,7 +311,7 @@
 					<view class="position-absolute top-0 margin-left-10 font-mini nowrap" style="left:100%">
 						<text class="success-color" wx:if="{{nutritionApplyNumPercent>0}}">▲{{nutritionApplyNumPercent}}%</text>
 						<text class="danger-color" wx:elif="{{nutritionApplyNumPercent<0}}">▼{{-nutritionApplyNumPercent}}%</text>
-						<text class="gray-color" wx:elif="{{data.previous.nutritionApplyNum}}">■0%</text>
+						<text class="gray-color" wx:elif="{{previous.nutritionApplyNum}}">■0%</text>
 					</view>
 				</view>
 				<view class="margin-top-10 gray-color font-small align-center">实际订单数</view>

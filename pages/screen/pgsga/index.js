@@ -27,13 +27,13 @@ Page({
             var patient = wx.jyApp.getTempData('screenPatient') || {};
             patient._sex = patient.sex == 1 ? '男' : '女';
             this.setData({
-                filtrateByName: option.filtrateByName,
-                doctorName: option.doctorName,
-                patient: patient,
                 'nrs.filtrateId': option.filtrateId,
+                'nrs.filtrateByName': option.filtrateByName,
+                'nrs.doctorName': option.doctorName,
                 'nrs.stature': patient.height,
                 'nrs.weight': patient.weight,
                 'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
+                patient: patient,
             });
             this.setBMI();
             this.countScore();
@@ -73,23 +73,12 @@ Page({
     },
     setBMI() {
         if (this.data.nrs.stature && this.data.nrs.weight) {
-            var BMI = _getBMI(this.data.nrs.stature, this.data.nrs.weight)
+            var BMI = (this.data.nrs.weight) / (this.data.nrs.stature * this.data.nrs.stature / 10000);
+            BMI = BMI && BMI.toFixed(2) || '';
             this.setData({
                 'nrs.BMI': BMI,
                 'nrs.bmiLessThan': BMI < 18.5 ? 3 : 0
             });
-        }
-        if (this.data.patient.height && this.data.patient.weight) {
-            var BMI = _getBMI(this.data.patient.height, this.data.patient.weight)
-            this.setData({
-                'patient.BMI': BMI
-            });
-        }
-
-        function _getBMI(stature, weight) {
-            var BMI = (weight) / (stature * stature / 10000);
-            BMI = BMI && BMI.toFixed(2) || '';
-            return BMI || '';
         }
     },
     //计算总分
@@ -111,13 +100,8 @@ Page({
         wx.jyApp.http({
             url: `/filtrate/nrs/info/${id}`,
         }).then((data) => {
-            data.patientFiltrate = data.patientFiltrate || {};
-            data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             this.setData({
-                nrs: data.filtrateNrs,
-                patient: data.patientFiltrate,
-                filtrateByName: data.patientFiltrate.filtrateByName,
-                doctorName: data.patientFiltrate.doctorName,
+                nrs: data.filtrateNrs
             });
             this.setBMI();
         });

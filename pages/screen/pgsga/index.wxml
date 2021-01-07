@@ -1,4 +1,4 @@
-<view class="container padding-bottom-footer">
+<view class="container footer-padding-bottom">
 	<view class="white-background-color">
 		<view class="padding-left-right-30">
 			<view class="padding-top-bottom-30 border-bottom">
@@ -81,8 +81,8 @@
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">筛查结果</view>
 		<van-field label="总分" value="{{nrs.score}}" />
-		<readonly-field label="填写人" value="{{filtrateByName}}" />
-		<readonly-field label="筛查医生" value="{{doctorName}}" />
+		<readonly-field label="填写人" value="{{nrs.filtrateByName}}" />
+		<readonly-field label="筛查医生" value="{{nrs.doctorName}}" />
 		<van-field autosize label="结果解释" maxlength="{{500}}" type="textarea" value="{{nrs.result}}" />
 		<view class="padding-30 gray-color">
 			<view>{{'总分<3：建议每周重新评估患者的营养状况'}}</view>

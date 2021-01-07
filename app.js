@@ -40,7 +40,7 @@ App({
             });
         }
         wx.jyApp.toastBack = (msg) => {
-            var nowPage = wx.getCurrentPages();
+            var nowPage = getCurrentPages();
             nowPage = nowPage[nowPage.length - 1].route;
             wx.showToast({
                 title: msg,
@@ -48,7 +48,7 @@ App({
             });
             clearTimeout(wx.jyApp.toastBack.timer);
             wx.jyApp.toastBack.timer = setTimeout(() => {
-                var page = wx.getCurrentPages();
+                var page = getCurrentPages();
                 page = page[page.length - 1].route;
                 if (nowPage == page) {
                     wx.navigateBack();

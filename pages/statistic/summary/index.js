@@ -170,6 +170,9 @@ Page({
         }).then((data) => {
             data.current = data.current || {};
             data.previous = data.previous || {};
+            this.setData({
+                previous: data.previous
+            });
             data = {
                 consultOrderAmount: data.current.consultOrderAmount,
                 consultOrderAmountPercent: ((data.current.consultOrderAmount - data.previous.consultOrderAmount) / data.previous.consultOrderAmount * 100).toFixed(2),
@@ -229,9 +232,6 @@ Page({
                     [`${key}`]: data[key]
                 });
             }
-            this.setData({
-                previous: data.previous
-            });
         }).catch((e) => {
             console.log(e);
         }).finally(() => {
