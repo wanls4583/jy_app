@@ -10,7 +10,7 @@
 				<text wx:if="{{nrs.BMI}}">，{{nrs.BMI}}</text>
 			</view>
 		</view>
-		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filterDate}}" />
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">人体测量</view>
@@ -94,5 +94,5 @@
 	<view bindtap="onSave" class="button primary block">保存</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filterDate}}" />
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

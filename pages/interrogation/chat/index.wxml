@@ -201,7 +201,7 @@
 												bindtap="onGotoScreen"
 												class="button small success"
 												data-item="{{item}}"
-												data-url="/pages/screen/nrs/index?id={{item.filtrateChatVO.associateId||''}}&filtrateId={{item.associateId}}"
+												data-url="/pages/screen/nrs/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
 											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
 										</view>
 									</view>
@@ -224,7 +224,7 @@
 												bindtap="onGotoScreen"
 												class="button small success"
 												data-item="{{item}}"
-												data-url="/pages/screen/pgsga/index?id={{item.filtrateChatVO.associateId||''}}&filtrateId={{item.associateId}}"
+												data-url="/pages/screen/pgsga/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
 											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
 										</view>
 									</view>

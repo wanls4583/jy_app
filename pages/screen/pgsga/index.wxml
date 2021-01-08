@@ -11,7 +11,7 @@
 					<text wx:if="{{pgsga.BMI}}">，{{pgsga.BMI}}</text>
 				</view>
 			</view>
-			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filterDate}}" />
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtrateDate}}" />
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">体重变化</view>
@@ -65,19 +65,19 @@
 				<van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
 				<van-checkbox name="容易饱胀" shape="square">容易饱胀（1分）</van-checkbox>
 				<van-checkbox name="没有饮食方面的问题" shape="square">没有饮食方面的问题（0分）</van-checkbox>
-				<van-checkbox name="没有食欲，就是不想吃" shape="square">没有食欲，就是不想吃（3分）</van-checkbox>
+				<van-checkbox name="没有食欲" shape="square">没有食欲，就是不想吃（3分）</van-checkbox>
 				<van-checkbox name="有怪味困扰着我" shape="square">有怪味困扰着我（2分）</van-checkbox>
 				<van-checkbox name="吃起来感觉没有味道" shape="square">吃起来感觉没有味道，或者变得奇怪（1分）</van-checkbox>
 				<van-checkbox name="何处疼痛" shape="square">
 					<view class="flex--center--between">
 						<text>疼痛；何处（3分）</text>
-						<input bindinput="onInput" class="border" data-prop="pgsga.wherePained" placeholder="疼痛；何处" type="text" />
+						<input bindinput="onInput" class="border" data-prop="pgsga.wherePained" placeholder="疼痛；何处" type="text" value="{{pgsga.wherePained}}" />
 					</view>
 				</van-checkbox>
 				<van-checkbox name="其他" shape="square">
 					<view class="flex--center--between">
 						<text>其他（1分）</text>
-						<input bindinput="onInput" class="border" data-prop="pgsga.other" placeholder="其他" type="text" />
+						<input bindinput="onInput" class="border" data-prop="pgsga.other" placeholder="其他" type="text" value="{{pgsga.other}}" />
 					</view>
 				</van-checkbox>
 			</van-checkbox-group>
@@ -108,8 +108,16 @@
 				<van-radio name="3级">3级（3分）</van-radio>
 				<van-radio name="4级">4级（4分）</van-radio>
 				<van-radio name="其他">
-					<view class="flex--center--between">
-						<input bindinput="onInput" class="border" data-prop="pgsga.otherMainDeseasePeriod" placeholder="具体分数" type="text" />
+					<view class="flex--center--start">
+						<text>其他</text>
+						<input
+							bindinput="onInputNum"
+							class="border"
+							data-prop="pgsga.otherMainDeseasePeriod"
+							placeholder="具体分数"
+							type="text"
+							value="{{pgsga.otherMainDeseasePeriod}}"
+						/>
 					</view>
 				</van-radio>
 			</van-radio-group>
@@ -277,7 +285,7 @@
 	<view class="white-background-color padding-top-30" wx:if="{{step==10}}">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">整体评估</view>
 		<view class="padding-30">
-			<van-radio-group bind:change="onChange" data-prop="pgsga.integralEvaluation" value="{{pgsga.integralEvaluation}}">
+			<van-radio-group value="{{pgsga.integralEvaluation}}">
 				<van-radio name="SGA_A">营养状况良好(SGA-A)（0-3分）</van-radio>
 				<van-radio name="SGA_B">中度或可疑营养不良(SGA-B)（4-8分）</van-radio>
 				<van-radio name="SGA_C">严重营养不良(SGA-C)（>8分）</van-radio>
@@ -293,5 +301,5 @@
 	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==10}}">保存</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filterDate}}" />
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

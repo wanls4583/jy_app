@@ -6,9 +6,9 @@
 Page({
     data: {
         patient: {},
-        filterDate: new Date().getTime(),
+        filtrateDate: new Date().getTime(),
         nrs: {
-            filterDate: new Date().formatTime('yyyy-MM-dd'),
+            filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             bmiLessThan: '',
             stature: '',
             weight: '',
@@ -53,9 +53,9 @@ Page({
         // });
     },
     onConfirmDate(e) {
-        var filterDate = new Date(e.detail).formatTime('yyyy-MM-dd');
+        var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
-            'nrs.filterDate': filterDate,
+            'nrs.filtrateDate': filtrateDate,
             dateVisible: false
         });
     },
@@ -113,6 +113,7 @@ Page({
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            data.filtrateNrs.filtrateDate = data.patientFiltrate.filtrateDate;
             this.setData({
                 nrs: data.filtrateNrs,
                 patient: data.patientFiltrate,
