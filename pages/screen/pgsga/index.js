@@ -83,6 +83,12 @@ Page({
             'UNCOMFORTABLE': 2,
             'LITTLE_MOTION': 3,
             'IN_BED': 3,
+        },
+        mainDeseasePeriodMap: {
+            '1级': 1,
+            '2级': 2,
+            '3级': 3,
+            '4级': 4,
         }
     },
     onLoad(option) {
@@ -146,7 +152,7 @@ Page({
         });
         if (prop == 'pgsga.mainDeseasePeriod') {
             this.setData({
-                'pgsga.otherMainDeseasePeriod': e.detail
+                'pgsga.otherMainDeseasePeriod': this.data.mainDeseasePeriodMap[e.detail]
             });
         }
         this.countScore();
