@@ -12,7 +12,7 @@
 		<view class="margin-top-30 border-bottom"></view>
 	</view>
 	<view class="padding-30 margin-top-30">
-		<view class="font-large font-bold">Pp</view>
+		<view class="font-large font-bold">Rp</view>
 		<view class="margin-top-30" wx:for="{{recipe.detail.goods}}" wx:key="id">
 			<view class="flex--center--between">
 				<view class="font-bold">{{item.goodsName}}</view>
