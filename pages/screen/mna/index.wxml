@@ -1,0 +1,219 @@
+<view class="container padding-bottom-footer">
+	<view wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{mna.filtrateDate}}" />
+		</view>
+		<view class="white-background-color padding-top-bottom-30 margin-top-20">
+			<view class="margin-left-30 pre-vertical-line primary-line-color">人体测量</view>
+			<van-field bind:input="onInput" data-prop="mna.stature" label="身高(cm)" value="{{mna.stature}}" />
+			<van-field bind:input="onInput" data-prop="mna.weight" label="体重(kg)" value="{{mna.weight}}" />
+			<van-field label="体质指数(BMI)" title-width="7em" value="{{mna.BMI}}" />
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==2}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">营养筛查</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">1、既往3个月内是否由于食欲下降、消化问题、咀嚼困难而摄食减少？</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q1" value="{{mna.q1}}">
+				<van-radio name="{{0}}">食欲完全丧失（0分）</van-radio>
+				<van-radio name="{{1}}">食欲中度下降（1分）</van-radio>
+				<van-radio name="{{2}}">食欲正常（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">2、既往3个月内体重下降</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q2" value="{{mna.q2}}">
+				<van-radio name="{{0}}">大于3kg（0分）</van-radio>
+				<van-radio name="{{1}}">不知道（1分）</van-radio>
+				<van-radio name="{{2}}">1-3kg（2分）</van-radio>
+				<van-radio name="{{3}}">无体重下降（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">3、活动能力</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q3" value="{{mna.q3}}">
+				<van-radio name="{{0}}">需要卧床或长期坐着（0分）</van-radio>
+				<van-radio name="{{1}}">能不依赖床或椅子，但不能外出（1分）</van-radio>
+				<van-radio name="{{2}}">能独立外出（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">4、既往3个月内有无重大心理变化或急性疾病</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q4" value="{{mna.q4}}">
+				<van-radio name="{{0}}">有（0分）</van-radio>
+				<van-radio name="{{1}}">无（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">5、神经心里问题</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q5" value="{{mna.q5}}">
+				<van-radio name="{{0}}">严重智力减退或抑郁（0分）</van-radio>
+				<van-radio name="{{1}}">轻度智力减退（1分）</van-radio>
+				<van-radio name="{{2}}">无（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">6、BMI(kg/m2)</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q6" value="{{mna.q6}}">
+				<van-radio name="{{0}}">小于19（0分）</van-radio>
+				<van-radio name="{{1}}">19~小于21（1分）</van-radio>
+				<van-radio name="{{2}}">21-小于23（2分）</van-radio>
+				<van-radio name="{{3}}">大于或等于23（3分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view style="height:20rpx;background-color:#f6f6f6;"></view>
+		<view class="margin-left-30 margin-top-30 pre-vertical-line primary-line-color">筛选项得分</view>
+		<view class="padding-30">
+			<van-radio-group value="{{mna.step2Score}}">
+				<van-radio name="{{1}}">{{'≥12正常无需以下评价（筛查总分默认加上17分）'}}</van-radio>
+				<van-radio name="{{2}}">{{'≤11可能营养不良，继续以下评价'}}</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==3}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">一般评估</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">7、独立生活（无护理或不住院）？</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q7" value="{{mna.q7}}">
+				<van-radio name="{{0}}">否（0分）</van-radio>
+				<van-radio name="{{1}}">是（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">8、每日应用处方药超过三种？</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q8" value="{{mna.q8}}">
+				<van-radio name="{{0}}">是（0分）</van-radio>
+				<van-radio name="{{1}}">否（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">9、褥疮或皮肤溃疡</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q9" value="{{mna.q9}}">
+				<van-radio name="{{0}}">是（0分）</van-radio>
+				<van-radio name="{{1}}">否（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">10、每日几次完成全部饭菜？</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q10" value="{{mna.q10}}">
+				<van-radio name="{{0}}">1餐（0分）</van-radio>
+				<van-radio name="{{1}}">2餐（1分）</van-radio>
+				<van-radio name="{{2}}">3餐（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">11、蛋白质摄入情况</view>
+			<view class="flex padding-bottom-30">
+				<view>每周至少一份奶制品？</view>
+				<van-radio-group bind:change="onChange" data-prop="mna.q111" style="display:flex" value="{{mna.q111}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+			<view class="flex padding-bottom-30">
+				<view>每周二次或以上蛋类？</view>
+				<van-radio-group bind:change="onChange" data-prop="mna.q112" style="display:flex" value="{{mna.q112}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+			<view class="flex padding-bottom-30">
+				<view>每日肉、鱼或家禽？</view>
+				<van-radio-group bind:change="onChange" data-prop="mna.q113" style="display:flex" value="{{mna.q113}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+			<van-radio-group value="{{mna.q11Score}}">
+				<van-radio name="{{0}}">0个或1个“是”（0分）</van-radio>
+				<van-radio name="{{1}}">2个“是”（1分）</van-radio>
+				<van-radio name="{{2}}">3个“是”（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">12、每日二份以上水果或蔬菜</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q12" value="{{mna.q12}}">
+				<van-radio name="{{0}}">否（0分）</van-radio>
+				<van-radio name="{{1}}">是（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">13、每日饮水量 (水、果汁、咖啡、茶、奶等）</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q13" value="{{mna.q13}}">
+				<van-radio name="{{0}}">小于3杯（0分）</van-radio>
+				<van-radio name="{{0.5}}">3-5杯（0.5分）</van-radio>
+				<van-radio name="{{1}}">大于5杯（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">14、进食能力</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q14" value="{{mna.q14}}">
+				<van-radio name="{{0}}">无法独立进食（0分）</van-radio>
+				<van-radio name="{{1}}">独立进食稍有困难(（1分）</van-radio>
+				<van-radio name="{{2}}">完全独立进食（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">15、自我评定营养状况</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q15" value="{{mna.q15}}">
+				<van-radio name="{{0}}">营养不良（0分）</van-radio>
+				<van-radio name="{{1}}">不能确定（1分）</van-radio>
+				<van-radio name="{{2}}">营养良好（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">16、与同龄人相比，你如何评价自己的健康状况？</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q16" value="{{mna.q16}}">
+				<van-radio name="{{0}}">不太好（0分）</van-radio>
+				<van-radio name="{{0.5}}">不知道（0.5分）</van-radio>
+				<van-radio name="{{1}}">好（1分）</van-radio>
+				<van-radio name="{{2}}">较好（2分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">17、中臂围（cm)</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q17" value="{{mna.q17}}">
+				<van-radio name="{{0}}">小于21（0分）</van-radio>
+				<van-radio name="{{0.5}}">21-22（0.5分）</van-radio>
+				<van-radio name="{{1}}">大于等于22（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">18、腓肠肌围（cm)</view>
+			<van-radio-group bind:change="onChange" data-prop="mna.q18" value="{{mna.q18}}">
+				<van-radio name="{{0}}">小于31（0分）</van-radio>
+				<van-radio name="{{1}}">大于等于31（1分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==4}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">评估结果</view>
+		<view class="padding-30">
+			<van-radio-group value="{{mna._result}}">
+				<van-radio name="A">{{'总分≥24：表示营养状况良好'}}</van-radio>
+				<van-radio name="B">{{'总分17-24：存在营养不良的危险'}}</van-radio>
+				<van-radio name="C">{{'总分≤17：明确为营养不良'}}</van-radio>
+			</van-radio-group>
+			<view class="padding-top-bottom-30 border-top">筛查医生：{{doctorName}}</view>
+			<view>填写人：{{filtrateByName}}</view>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
+	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<4}}">下一页</view>
+	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==4}}">保存</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

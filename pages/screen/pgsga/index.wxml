@@ -8,7 +8,7 @@
 					<text>，{{patient.age}}岁</text>
 					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
 					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-					<text wx:if="{{pgsga.BMI}}">，{{pgsga.BMI}}</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
 				</view>
 			</view>
 			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtrateDate}}" />

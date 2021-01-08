@@ -74,6 +74,7 @@
         "name": "screen",
         "pages": [
             "nrs/index",
+            "mna/index",
             "must/index",
             "sga/index",
             "pgsga/index"

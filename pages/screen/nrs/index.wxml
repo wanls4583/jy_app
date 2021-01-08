@@ -21,7 +21,6 @@
 			<view class="label" style="width:7em">体质指数评分</view>
 			<van-radio-group value="{{nrs.bmiLessThan}}">
 				<van-radio name="{{0}}">{{'BMI≥18.5（0分）'}}</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{3}}">{{'BMI<18.5（3分）'}}</van-radio>
 			</van-radio-group>
 		</view>
@@ -31,11 +30,8 @@
 		<view class="flex padding-30">
 			<van-radio-group bind:change="onChange" data-prop="nrs.loseWeight" value="{{nrs.loseWeight}}">
 				<van-radio name="{{0}}">近1月~3月体重无下降（0分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">近3月内体重下降>5%（1分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">近2月内体重下降>5%（2分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{3}}">近1月内体重下降>5%（3分）</van-radio>
 			</van-radio-group>
 		</view>
@@ -45,11 +41,8 @@
 		<view class="flex padding-30">
 			<van-radio-group bind:change="onChange" data-prop="nrs.foodIntake" value="{{nrs.foodIntake}}">
 				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">近一周进食量减少25%~50%（1分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">近一周进食量减少51%~75%（2分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{3}}">近3月内体重下降>15%（3分）</van-radio>
 			</van-radio-group>
 		</view>
@@ -59,11 +52,8 @@
 		<view class="flex padding-30">
 			<van-radio-group bind:change="onChange" data-prop="nrs.needNormal" value="{{nrs.needNormal}}">
 				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">髋骨折、慢性疾病急性发作或有并发症、慢性阻塞性肺病、血液透析、肝硬化、一般恶性肿瘤、糖尿病（1分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">腹部大手术、脑卒中、重度肺炎、血液恶性肿瘤（2分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{3}}">颅脑损伤、骨髓移植、APACHE-II评分>10分ICU患者（3分）</van-radio>
 			</van-radio-group>
 		</view>
@@ -73,7 +63,6 @@
 		<view class="flex padding-30">
 			<van-radio-group value="{{nrs.ageGe70}}">
 				<van-radio name="{{0}}">{{'年龄<70（0分）'}}</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">{{'年龄≥70（1分）'}}</van-radio>
 			</van-radio-group>
 		</view>

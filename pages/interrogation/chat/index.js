@@ -862,6 +862,9 @@ Page({
             case 'MUST':
                 url = '/pages/screen/must/index';
                 break;
+            case 'MNA':
+                url = '/pages/screen/mna/index';
+                break;
         }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({

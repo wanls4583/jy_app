@@ -21,9 +21,7 @@
 			<view class="label" style="width:7em">体质指数评分</view>
 			<van-radio-group value="{{must.bmiScore}}">
 				<van-radio name="{{0}}">{{'BMI≥20.0（0分）'}}</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">{{'18.5<BMI<20.0（1分）'}}</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">{{'BMI≤18.5（2分）'}}</van-radio>
 			</van-radio-group>
 		</view>
@@ -34,9 +32,7 @@
 			<view class="padding-bottom-30">最近体重丢失情况</view>
 			<van-radio-group bind:change="onChange" data-prop="must.weightScore" value="{{must.weightScore}}">
 				<van-radio name="{{0}}">最近3-6个月内体重丢失在5%以内（0分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{1}}">最近3-6个月内体重丢失介于5%-10%（1分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">最近3-6个月内体重丢失10%或以上（2分）</van-radio>
 			</van-radio-group>
 		</view>
@@ -47,7 +43,6 @@
 			<view class="padding-bottom-30">疾病影响情况</view>
 			<van-radio-group bind:change="onChange" data-prop="must.diseaseScore" value="{{must.diseaseScore}}">
 				<van-radio name="{{0}}">无以下情况（0分）</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="{{2}}">因急性疾病导致禁食或摄入不足超过5天（2分）</van-radio>
 			</van-radio-group>
 		</view>
@@ -58,9 +53,7 @@
 			<view class="padding-bottom-30">筛查结果</view>
 			<van-radio-group value="{{must.result}}">
 				<van-radio name="0">0分/低度营养风险；需定期进行重复筛查</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="1">1分/中度营养风险；需记录3天膳食摄入状况并重复筛查</van-radio>
-				<view class="margin-top-20"></view>
 				<van-radio name="2">2分或以上/高度营养风险；需接受营养干预</van-radio>
 			</van-radio-group>
 			<view class="margin-top-30 border-bottom"></view>
