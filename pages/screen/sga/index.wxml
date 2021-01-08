@@ -1,0 +1,126 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{sga.filtrateDate}}" />
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">营养风险评估</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">6个月内体重下降</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.weightLose" value="{{sga.weightLose}}">
+				<van-radio name="A">{{'<5%或5~10%但正在改善'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'持续下降达5~10%'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'持续下降>10%'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">饮食变化</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.dietChange" value="{{sga.dietChange}}">
+				<van-radio name="A">{{'无减小'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'摄食量减少或呈流质饮食'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'摄食严重减少或呈饥饿状态'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">肠胃道症状（持续2周）</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.stomachSymptom" value="{{sga.stomachSymptom}}">
+				<van-radio name="A">{{'无消化道症状'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'轻度消化道症状'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'重度消化道症状'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">活动能力</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.activity" value="{{sga.activity}}">
+				<van-radio name="A">{{'无限制'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'正常活动受限，或虽不能正常活动但卧床或坐椅时间不超过半天'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'活动明显受限，仅能卧床或坐椅子，或大部分时间卧床，很少下床活动'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">应激反应</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.stressReaction" value="{{sga.stressReaction}}">
+				<van-radio name="A">{{'无'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'低度~中度水平（体温37.3~38.9℃）'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'高度水平（体温＞39℃）'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">肌肉萎缩（腓肠肌）</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.muscle" value="{{sga.muscle}}">
+				<van-radio name="A">{{'无'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'轻度~中度'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'重度'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">皮下脂肪丢失（TSF）</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.fatLose" value="{{sga.fatLose}}">
+				<van-radio name="A">{{'无'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'轻度~中度'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'重度'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">踝部水肿</view>
+			<van-radio-group bind:change="onChange" data-prop="sga.edema" value="{{sga.edema}}">
+				<van-radio name="A">{{'无'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="B">{{'轻度~中度'}}</van-radio>
+				<view class="margin-top-20"></view>
+				<van-radio name="C">{{'重度'}}</van-radio>
+			</van-radio-group>
+			<view class="border-bottom margin-top-30"></view>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">筛查结果</view>
+		<readonly-field label="营养评价结果" value="{{sga.result}}" />
+		<readonly-field label="筛查医生" value="{{doctorName}}" />
+		<readonly-field label="填写人" value="{{filtrateByName}}" />
+		<view class="padding-30 gray-color" style="white-space:pre-line">
+			备注：
+			1、应激反应可以影响患者的营养状况，如单纯腹股沟疝而无其他合并症、单纯乳腺纤维瘤等，属于轻度应激；糖尿病合并肺炎、无腹膜炎的急性阑尾炎、肠梗阻等属于中度应激；严重腹膜炎、大面积烧伤、高热、严重多发伤等属于高度应激。
+			2、SGA评分等级：
+			A = 营养良好（至少5项为A）
+			B = 轻~中度营养不良
+			C = 重度营养不良（至少5项为C）
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onSave" class="button primary block">保存</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

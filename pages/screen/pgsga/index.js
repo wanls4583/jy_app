@@ -99,7 +99,6 @@ Page({
                 filtrateByName: option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
-                'pgsga.filtrateId': option.filtrateId,
                 'pgsga.currentStature': patient.height,
                 'pgsga.currentWeight': patient.weight,
             });
@@ -108,6 +107,9 @@ Page({
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'pgsga.filtrateId': option.filtrateId
+        });
     },
     onUnload() {},
     onNext() {
@@ -302,10 +304,10 @@ Page({
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.filtratePgsga = data.filtratePgsga || {};
+            data.filtratePgsga = data.filtratePgsga || this.data.pgsga;
+            data.filtratePgsga.filtrateDate = data.patientFiltrate.filtrateDate;
             data.filtratePgsga.symptom = data.filtratePgsga.symptom && data.filtratePgsga.symptom.split(',') || [];
             data.filtratePgsga.dieteticChange = data.filtratePgsga.dieteticChange && data.filtratePgsga.dieteticChange.split(',') || [];
-            data.filtratePgsga.filtrateDate = data.patientFiltrate.filtrateDate;
             this.setData({
                 pgsga: data.filtratePgsga,
                 patient: data.patientFiltrate,

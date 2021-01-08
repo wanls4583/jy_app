@@ -7,55 +7,41 @@ Page({
     data: {
         patient: {},
         filtrateDate: new Date().getTime(),
-        nrs: {
+        sga: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            bmiLessThan: '',
-            stature: '',
-            weight: '',
-            BMI: '',
-            loseWeight: null,
-            foodIntake: null,
-            needNormal: null,
-            ageGe70: 0,
-            result: 0,
-            resultDescription: '',
+            weightLose: '',
+            dietChange: '',
+            stomachSymptom: '',
+            activity: '',
+            stressReaction: '',
+            muscle: '',
+            fatLose: '',
+            edema: '',
+            result: '',
         },
         dateVisible: false
     },
     onLoad(option) {
-        var patient = wx.jyApp.getTempData('screenPatient') || {};
-        patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
+            var patient = wx.jyApp.getTempData('screenPatient') || {};
+            patient._sex = patient.sex == 1 ? '男' : '女';
             this.setData({
                 filtrateByName: option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
-                'nrs.stature': patient.height,
-                'nrs.weight': patient.weight,
-                'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
             });
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id).then(()=>{
-                if(!this.data.nrs.id) {
-                    this.setData({
-                        'nrs.stature': patient.height,
-                        'nrs.weight': patient.weight,
-                        'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
-                    });
-                    this.setBMI();
-                }
-            });
+            this.loadInfo(option.id);
         }
         this.setData({
-            'nrs.filtrateId': option.filtrateId
+            'sga.filtrateId': option.filtrateId
         });
     },
     onUnload() {},
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
-        this.setBMI();
         this.countScore();
     },
     onShowDate() {
@@ -66,7 +52,7 @@ Page({
     onConfirmDate(e) {
         var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
-            'nrs.filtrateDate': filtrateDate,
+            'sga.filtrateDate': filtrateDate,
             dateVisible: false
         });
     },
@@ -83,13 +69,6 @@ Page({
         this.countScore();
     },
     setBMI() {
-        if (this.data.nrs.stature && this.data.nrs.weight) {
-            var BMI = _getBMI(this.data.nrs.stature, this.data.nrs.weight)
-            this.setData({
-                'nrs.BMI': BMI,
-                'nrs.bmiLessThan': BMI < 18.5 ? 3 : 0
-            });
-        }
         if (this.data.patient.height && this.data.patient.weight) {
             var BMI = _getBMI(this.data.patient.height, this.data.patient.weight)
             this.setData({
@@ -105,29 +84,49 @@ Page({
     },
     //计算总分
     countScore() {
-        var result = [this.data.nrs.bmiLessThan, this.data.nrs.loseWeight, this.data.nrs.foodIntake].sort(function (a, b) {
-            return a - b
-        })[2];
-        result = _getRealNum(result) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
-        this.setData({
-            'nrs.result': result,
-            'nrs.resultDescription': result >= 3 ? '患者有营养风险，需进行营养支持治疗' : '建议每周重新评估患者的营养状况'
-        });
-
-        function _getRealNum(num) {
-            return Number(num > 0 ? num : 0);
+        var scoreMap = {
+            'A': 0,
+            'B': 0,
+            'C': 0
         }
+        var checkPass = true;
+        var prop = ['weightLose', 'dietChange', 'stomachSymptom', 'activity', 'stressReaction', 'muscle', 'fatLose', 'edema'];
+        var result = '';
+        prop.map(item => {
+            if (!this.data.sga[item]) {
+                checkPass = false;
+            }
+        });
+        if (!checkPass) {
+            this.setData({
+                'sga.result': ''
+            });
+            return;
+        }
+        prop.map(item => {
+            scoreMap[this.data.sga[item]]++;
+        });
+        if (scoreMap['A'] >= 5) {
+            result = 'A';
+        } else if (scoreMap['C'] >= 5) {
+            result = 'C';
+        } else {
+            result = 'B';
+        }
+        this.setData({
+            'sga.result': result
+        });
     },
     loadInfo(id) {
-        return wx.jyApp.http({
-            url: `/filtrate/nrs/info/${id}`,
+        wx.jyApp.http({
+            url: `/filtrate/sga/info/${id}`,
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.filtrateNrs = data.filtrateNrs || this.data.nrs;
-            data.filtrateNrs.filtrateDate = data.patientFiltrate.filtrateDate;
+            data.filtrateSga = data.filtrateSga || this.data.sga;
+            data.filtrateSga.filtrateDate = data.patientFiltrate.filtrateDate;
             this.setData({
-                nrs: data.filtrateNrs,
+                sga: data.filtrateSga,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,
@@ -137,10 +136,10 @@ Page({
     },
     onSave() {
         wx.jyApp.http({
-            url: `/filtrate/nrs/${this.data.nrs.id?'update':'save'}`,
+            url: `/filtrate/sga/${this.data.sga.id?'update':'save'}`,
             method: 'post',
             data: {
-                ...this.data.nrs
+                ...this.data.sga
             }
         }).then(() => {
             wx.jyApp.toastBack('保存成功');

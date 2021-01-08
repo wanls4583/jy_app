@@ -7,18 +7,15 @@ Page({
     data: {
         patient: {},
         filtrateDate: new Date().getTime(),
-        nrs: {
+        must: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            bmiLessThan: '',
+            bmiScore: null,
             stature: '',
             weight: '',
             BMI: '',
-            loseWeight: null,
-            foodIntake: null,
-            needNormal: null,
-            ageGe70: 0,
-            result: 0,
-            resultDescription: '',
+            weightScore: '',
+            diseaseScore: '',
+            result: '',
         },
         dateVisible: false
     },
@@ -30,26 +27,25 @@ Page({
                 filtrateByName: option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
-                'nrs.stature': patient.height,
-                'nrs.weight': patient.weight,
-                'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
+                'must.stature': patient.height,
+                'must.weight': patient.weight,
             });
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id).then(()=>{
-                if(!this.data.nrs.id) {
+            this.loadInfo(option.id).then(() => {
+                if (!this.data.must.id) {
                     this.setData({
-                        'nrs.stature': patient.height,
-                        'nrs.weight': patient.weight,
-                        'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
+                        'must.stature': patient.height,
+                        'must.weight': patient.weight,
                     });
                     this.setBMI();
+                    this.countScore();
                 }
             });
         }
         this.setData({
-            'nrs.filtrateId': option.filtrateId
+            'must.filtrateId': option.filtrateId
         });
     },
     onUnload() {},
@@ -66,7 +62,7 @@ Page({
     onConfirmDate(e) {
         var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
         this.setData({
-            'nrs.filtrateDate': filtrateDate,
+            'must.filtrateDate': filtrateDate,
             dateVisible: false
         });
     },
@@ -83,11 +79,11 @@ Page({
         this.countScore();
     },
     setBMI() {
-        if (this.data.nrs.stature && this.data.nrs.weight) {
-            var BMI = _getBMI(this.data.nrs.stature, this.data.nrs.weight)
+        if (this.data.must.stature && this.data.must.weight) {
+            var BMI = _getBMI(this.data.must.stature, this.data.must.weight)
             this.setData({
-                'nrs.BMI': BMI,
-                'nrs.bmiLessThan': BMI < 18.5 ? 3 : 0
+                'must.BMI': BMI,
+                'must.bmiScore': BMI >= 20 ? 0 : (BMI <= 18.5 ? 2 : 1)
             });
         }
         if (this.data.patient.height && this.data.patient.weight) {
@@ -105,29 +101,21 @@ Page({
     },
     //计算总分
     countScore() {
-        var result = [this.data.nrs.bmiLessThan, this.data.nrs.loseWeight, this.data.nrs.foodIntake].sort(function (a, b) {
-            return a - b
-        })[2];
-        result = _getRealNum(result) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
+        var count = (Number(this.data.must.weightScore) || 0) + (Number(this.data.must.bmiScore) || 0) + (Number(this.data.must.diseaseScore) || 0);
         this.setData({
-            'nrs.result': result,
-            'nrs.resultDescription': result >= 3 ? '患者有营养风险，需进行营养支持治疗' : '建议每周重新评估患者的营养状况'
-        });
-
-        function _getRealNum(num) {
-            return Number(num > 0 ? num : 0);
-        }
+            'must.result': count + ''
+        })
     },
     loadInfo(id) {
         return wx.jyApp.http({
-            url: `/filtrate/nrs/info/${id}`,
+            url: `/filtrate/must/info/${id}`,
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.filtrateNrs = data.filtrateNrs || this.data.nrs;
-            data.filtrateNrs.filtrateDate = data.patientFiltrate.filtrateDate;
+            data.filtrateMust = data.filtrateMust || this.data.must;
+            data.filtrateMust.filtrateDate = data.patientFiltrate.filtrateDate;
             this.setData({
-                nrs: data.filtrateNrs,
+                must: data.filtrateMust,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,
@@ -137,10 +125,10 @@ Page({
     },
     onSave() {
         wx.jyApp.http({
-            url: `/filtrate/nrs/${this.data.nrs.id?'update':'save'}`,
+            url: `/filtrate/must/${this.data.must.id?'update':'save'}`,
             method: 'post',
             data: {
-                ...this.data.nrs
+                ...this.data.must
             }
         }).then(() => {
             wx.jyApp.toastBack('保存成功');

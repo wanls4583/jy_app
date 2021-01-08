@@ -671,7 +671,7 @@ Page({
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
                     }
-                    if ([7, 8].indexOf(obj.type) > -1) {
+                    if ([7, 8, 9, 10, 11].indexOf(obj.type) > -1) {
                         _item.filtrateChatVO = _item.orderApplyVO || {};
                         _item.filtrateChatVO.associateId = obj.associateId;
                         _item.filtrateChatVO.filtrateResult = obj.filtrateResult;
@@ -738,7 +738,7 @@ Page({
                     loading: false
                 });
             }, 500);
-            if (/* this.data.status == 1 && */ !this.pollStoped) { //聊天是否未关闭
+            if ( /* this.data.status == 1 && */ !this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
@@ -855,6 +855,12 @@ Page({
                 break;
             case 'PGSGA':
                 url = '/pages/screen/pgsga/index';
+                break;
+            case 'SGA':
+                url = '/pages/screen/sga/index';
+                break;
+            case 'MUST':
+                url = '/pages/screen/must/index';
                 break;
         }
         wx.jyApp.showLoading('加载中...', true);
