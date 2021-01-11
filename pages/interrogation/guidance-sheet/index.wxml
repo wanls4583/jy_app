@@ -7,8 +7,8 @@
 			<view style="flex:1">年龄：{{recipe.detail.age}}</view>
 		</view>
 		<view class="margin-top-30">科室：{{recipe.departmentName}}</view>
-		<view class="margin-top-30">主诉：{{recipe.diseaseDetail}}</view>
-		<view class="margin-top-30 padding-bottom">诊断：{{recipe.detail.diagnosis}}</view>
+		<view class="margin-top-30" style="white-space:pre-line">主诉：{{recipe.diseaseDetail}}</view>
+		<view class="margin-top-30 padding-bottom" style="white-space:pre-line">诊断：{{recipe.detail.diagnosis}}</view>
 		<view class="margin-top-30 border-bottom"></view>
 	</view>
 	<view class="padding-30 margin-top-30">
