@@ -1,6 +1,6 @@
 <!-- index.wxml -->
 <view class="container {{approveStatus&&approveStatus!=1?'padding-bottom-footer':''}}">
-	<view class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{approveStatus==-1}}">本页所有项都为必填项，请输入完整信息</view>
+	<!-- <view class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{approveStatus==-1}}">本页所有项都为必填项，请输入完整信息</view> -->
 	<view class="padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{approveStatus==1}}">资质认证审核中，请耐心等待</view>
 	<view class="padding-top-bottom-20 padding-left-right-30 success-background-color font-small white-color" wx:if="{{approveStatus==2}}">资质认证审核通过</view>
 	<view
