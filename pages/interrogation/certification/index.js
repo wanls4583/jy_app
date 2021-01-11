@@ -14,23 +14,30 @@ Page({
         diseaseVisible: false,
         diseaseList: [],
         workDepartmentName: '',
-        jobDepartmentName: '',
+        workDepartmentId: '',
         onlineDepartmentName: [],
         departmentList: [],
+        workDepartmentList: [],
         workHospitalName: '',
         jobTitle: '',
         cityCode: '',
         provinceCity: '',
         positionVisible: false,
+        departmentVisible: false,
         areaVisible: false,
-        positionList: ['营养师', '主任医师', '副主任医师', '主治医师', '医师'],
         areaList: [],
         progressMap: {},
         approveStatus: 0,
         approveMsg: ''
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['configData'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.loadDepartmentList();
+        this.loadWorkDepartmentList();
         this.setData({
             areaList: area
         });
@@ -52,6 +59,7 @@ Page({
         });
     },
     onHide() {
+        this.storeBindings.destroyStoreBindings();
         this.saveLoaclInfo();
     },
     onUnload() {
@@ -150,6 +158,21 @@ Page({
         }
         this.setData({
             positionVisible: !this.data.positionVisible
+        });
+    },
+    onShowDepartment() {
+        if (!this.checkEdit()) {
+            return;
+        }
+        this.setData({
+            departmentVisible: !this.data.departmentVisible
+        });
+    },
+    onConfirmDepartment(e) {
+        this.setData({
+            workDepartmentName: e.detail.value.departmentName,
+            workDepartmentId: e.detail.value.id,
+            departmentVisible: false
         });
     },
     chooseAvater() {
@@ -326,6 +349,7 @@ Page({
             });
         });
     },
+    //加载营养中心
     loadDepartmentList() {
         wx.jyApp.http({
             url: '/department/list'
@@ -342,6 +366,16 @@ Page({
             });
         })
     },
+    //加载科室列表
+    loadWorkDepartmentList() {
+        wx.jyApp.http({
+            url: '/department/list2'
+        }).then((data) => {
+            this.setData({
+                workDepartmentList: data.list
+            });
+        })
+    },
     getData() {
         return {
             avatar: this.avatar[0],
@@ -352,12 +386,12 @@ Page({
             idNumber: this.data.idNumber,
             introduce: this.data.introduce,
             jobCertificateUrl: this.jobCertificateUrl.join(','),
-            jobDepartmentName: this.data.jobDepartmentName,
             jobTitle: this.data.jobTitle,
             jobTitleCertificateUrl: this.jobTitleCertificateUrl.join(','),
             onlineDepartmentName: this.data.onlineDepartmentName.join(','),
             phone: this.data.phone,
             workDepartmentName: this.data.workDepartmentName,
+            workDepartmentId: this.data.workDepartmentId,
             workHospitalName: this.data.workHospitalName
         }
     },
@@ -399,24 +433,14 @@ Page({
             return;
         }
         if (!this.data.workDepartmentName) {
-            wx.jyApp.toast('就职科室不能为空');
-            return;
-        } else if (this.data.workDepartmentName.length > 20) {
-            wx.jyApp.toast('就职科室不能超过20个字');
-            return;
-        }
-        if (!this.data.jobDepartmentName) {
-            wx.jyApp.toast('执业科室不能为空');
-            return;
-        } else if (this.data.workDepartmentName.length > 20) {
-            wx.jyApp.toast('执业科室不能超过20个字');
+            wx.jyApp.toast('科室不能为空');
             return;
         }
         if (!this.data.workHospitalName) {
-            wx.jyApp.toast('执业医院不能为空');
+            wx.jyApp.toast('医院不能为空');
             return;
         } else if (this.data.workDepartmentName.length > 20) {
-            wx.jyApp.toast('执业医院不能超过20个字');
+            wx.jyApp.toast('医院不能超过20个字');
             return;
         }
         if (!this.data.jobCertificateUrl.length) {
@@ -450,9 +474,13 @@ Page({
                 this.setData({
                     approveStatus: 1
                 });
-                wx.switchTab({ url: '/pages/mine/index' });
+                wx.switchTab({
+                    url: '/pages/mine/index'
+                });
                 setTimeout(() => {
-                    wx.showToast({ title: '提交成功' });
+                    wx.showToast({
+                        title: '提交成功'
+                    });
                 }, 500);
             }).catch(() => {
                 wx.hideLoading();
@@ -464,7 +492,10 @@ Page({
             var data = this.getData();
             data.approveStatus = this.data.approveStatus;
             data.approveMsg = this.data.approveMsg;
-            wx.setStorage({ key: 'approvInfo', data: data });
+            wx.setStorage({
+                key: 'approvInfo',
+                data: data
+            });
         }
     },
     loadLoaclInfo() {
@@ -519,17 +550,26 @@ Page({
             avatar: this.avatar.map((item) => {
                 var id = wx.jyApp.utils.getUUID();
                 this.pciMap[id] = item;
-                return { path: item, id: id }
+                return {
+                    path: item,
+                    id: id
+                }
             })[0],
             jobCertificateUrl: this.jobCertificateUrl.map((item) => {
                 var id = wx.jyApp.utils.getUUID();
                 this.pciMap[id] = item;
-                return { path: item, id: id }
+                return {
+                    path: item,
+                    id: id
+                }
             }),
             jobTitleCertificateUrl: this.jobTitleCertificateUrl.map((item) => {
                 var id = wx.jyApp.utils.getUUID();
                 this.pciMap[id] = item;
-                return { path: item, id: id }
+                return {
+                    path: item,
+                    id: id
+                }
             }),
             diseaseList: this.data.diseaseList.map((item) => {
                 return {

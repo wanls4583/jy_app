@@ -98,7 +98,7 @@
 				class="button primary small margin-bottom-30 margin-left-30 {{jobTitle==item?'':'plain'}}"
 				data-index="{{index}}"
 				style="border-radius:100px"
-				wx:for="{{positionList}}"
+				wx:for="{{configData.jobTitle}}"
 				wx:key="index"
 			>{{item}}</view>
 		</view>

@@ -46,7 +46,6 @@ Page({
             label: '100以上',
             value: 4
         }],
-        positionList: ['营养师', '主任医师', '副主任医师', '主治医师', '医师'],
         areaList: [],
         areaVisible: false,
         screenVisible: false
@@ -175,7 +174,7 @@ Page({
     //选中职称
     onClickPosition(e) {
         var index = e.currentTarget.dataset.index;
-        var position = this.data.positionList[index];
+        var position = this.data.configData.jobTitle[index];
         this.setData({
             jobTitle: position == this.data.jobTitle ? '' : position
         });

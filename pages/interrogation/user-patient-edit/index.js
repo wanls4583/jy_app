@@ -54,7 +54,7 @@ Page({
     },
     onConfirmSex(e) {
         this.setData({
-            'patient.sex': e.detail.index,
+            'patient.sex': e.detail.index == 0 ? 2 : 1,
             'patient._sex': e.detail.value,
             sexVisible: false
         });
@@ -79,8 +79,8 @@ Page({
             data: this.data.patient
         }).then((data) => {
             var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
-            if(page) {
-                page.loadList().then(()=>{
+            if (page) {
+                page.loadList().then(() => {
                     page.setData({
                         selectId: this.data.patient.id || data.id
                     });

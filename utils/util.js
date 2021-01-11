@@ -229,9 +229,11 @@ function getAllConfig() {
         'consultOrderExpireMinute',
         'consultOrderCloseDay',
         'hideCategory',
+        'jobTitle',
         'withdrawType'
     ]).then((data) => {
         data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;
+        data.jobTitle = data.jobTitle && data.jobTitle.split('#') || [];
         wx.jyApp.store.updateConfigData(data);
     });
 }
