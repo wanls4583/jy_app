@@ -12,6 +12,10 @@ Component({
       type: String,
       value: ''
     },
+    poster: {
+      type: String,
+      value: ''
+    }
   },
   data: {
     playVisible: true,
@@ -39,7 +43,7 @@ Component({
       });
       var video = wx.jyApp.getTempData('playedVideoContext');
       wx.jyApp.setTempData('playedVideoContext', this.videoContext);
-      if (video) {
+      if (video && video!=this.videoContext) {
         video.pause();
       }
     },
