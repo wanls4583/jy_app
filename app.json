@@ -79,6 +79,14 @@
             "sga/index",
             "pgsga/index"
         ]
+    }, {
+        "root": "pages/interrogation/guidance-online",
+        "name": "guidance-online",
+        "pages": [
+            "guidance-product/index",
+            "guidance-diagnosis/index",
+            "medical-record/index"
+        ]
     }],
     "window": {
         "backgroundTextStyle": "light",
@@ -97,6 +105,7 @@
         "readonly-field": "/components/readonly-field/index",
         "empty": "/components/empty/index",
         "jy-video": "/components/video/index",
+        "guidance-header": "/components/guidance-header/index",
         "trtc-room": "/components/trtc-room/trtc-room",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",

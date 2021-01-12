@@ -1,0 +1,3 @@
+.order-goods-item .border-bottom {
+    border-style: none;
+}

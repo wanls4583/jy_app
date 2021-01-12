@@ -156,7 +156,7 @@
 											<view
 												bindtap="onGuide"
 												class="button small primary"
-												data-url="/pages/interrogation/guidance-edit/index?id={{consultOrderId}}&type={{consultOrder.type}}"
+												data-url="/pages/interrogation/{{consultOrder.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{consultOrderId}}&type={{consultOrder.type}}"
 											>开营养指导</view>
 										</view>
 									</view>

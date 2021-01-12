@@ -395,5 +395,19 @@ readonly-field:last-child .border-bottom {
 
 .label {
     width: 6.2em;
+    margin-right: 12px;
     color: #646566;
+}
+
+.field-border{
+    position: relative;
+}
+
+.field-border:after {
+    content: "";
+    position: absolute;
+    left: 30rpx;
+    right: 30rpx;
+    bottom: 0;
+    border-bottom: 1rpx solid #ebedf0;
 }

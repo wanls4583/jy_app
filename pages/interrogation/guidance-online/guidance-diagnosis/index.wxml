@@ -1,0 +1,21 @@
+<view class="container padding-bottom-footer">
+	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<view class="margin-top-20 padding-30 white-background-color">
+		<view class="flex--center--between">
+			<text>营养诊断</text>
+			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
+		</view>
+		<textarea
+			adjust-position="{{false}}"
+			bindinput="onInput"
+			class="height-50vw margin-top-20"
+			maxlength="{{1000}}"
+			placeholder="请输入营养诊断信息"
+			value="{{diagnosis}}"
+		></textarea>
+	</view>
+	<view class="footer flex--center--around padding-top-bottom-30">
+		<view bindtap="onPre" class="button primary block plain" style="width:40%">上一页</view>
+		<view bindtap="onNext" class="button primary block" style="width:40%">下一页</view>
+	</view>
+</view>

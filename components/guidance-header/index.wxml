@@ -1,0 +1,19 @@
+<view>
+	<view class="flex--center--between white-background-color" style="padding:30rpx 50rpx 70rpx 50rpx;">
+		<block wx:for="{{titles}}" wx:key="index">
+			<view class="position-relative flex--center--between">
+				<view
+					class="flex--center--center {{step==(index+1)?'primary-background-color white-color':'border gray-border-color gray-color'}} radius-50 font-title font-bold"
+					style="width:70rpx;height:70rpx"
+				>
+					<text>{{index+1}}</text>
+					<view
+						class="position-absolute nowrap font-small {{step==(index+1)?'primary-color':'gray-color'}}"
+						style="bottom:-50rpx;left:50%;font-weight:normal;transform:translateX(-50%)"
+					>{{item}}</view>
+				</view>
+			</view>
+			<view class="flex-grow-1 margin-left-right-20 gray-background-color" style="height:1px" wx:if="{{(index+1)<titles.length}}"></view>
+		</block>
+	</view>
+</view>

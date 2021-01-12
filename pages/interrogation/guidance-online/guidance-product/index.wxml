@@ -1,0 +1,66 @@
+<import src="/template/order-goods-item.wxml" />
+<view class="container padding-bottom-footer">
+	<guidance-header step="{{3}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<view class="padding-30 padding-top-0 margin-top-20 white-background-color">
+		<view class="flex--center--end">
+			<view bindtap="onAddGoods" class="flex--center--center padding-30 primary-color">
+				<van-icon name="add-o" />
+				<text>添加营养指导</text>
+			</view>
+			<view bindtap="onShowAnalize" class="padding-30 padding-right-0 primary-color">营养素分析</view>
+		</view>
+		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养指导”增加套餐或产品</view>
+		<view class="margin-top-20" wx:else>
+			<view class="padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
+				<view>
+					<template data="{{goods:product}}" is="order-goods-item"></template>
+				</view>
+				<view class="gray-color font-small">{{product.usage}}</view>
+				<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+				<view class="flex--center--end padding-top-30">
+					<view bindtap="onDelete" class="button plain gray small" data-index="{{index}}">删除</view>
+					<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{product}}">修改</view>
+				</view>
+			</view>
+			<view class="flex--center--between margin-top-20">
+				<view>
+					<text>配送金额：</text>
+					<text>￥{{configData.deliveryCost}}</text>
+				</view>
+				<view class="primary-color">
+					<text>订单金额：</text>
+					<text>￥{{totalAmount}}</text>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="footer flex--center--around padding-top-bottom-30">
+		<view bindtap="onPre" class="button primary block plain" style="width: 40%">上一步</view>
+		<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
+	</view>
+</view>
+<van-dialog id="van-dialog" />
+<!-- 营养素分析表 -->
+<van-popup bind:click-overlay="onCloseAnalize" bind:close="onCloseAnalize" closeable="{{true}}" position="bottom" show="{{nutritionVisible}}">
+	<view class="flex--center--start padding-30">
+		<text>营养素分析(</text>
+		<text class="primary-color">含所有已添加营养指导</text>
+		<text>)</text>
+	</view>
+	<view class="flex--center--between">
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">营养素</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天推荐值</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">能量占比</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">单餐</view>
+	</view>
+	<view class="flex--center--between" wx:for="{{nutritionlist}}" wx:key="name">
+		<view class="flex--center--center border padding-10 align-center" style="flex:1;height:50px;word-break:break-word">{{item.name}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}</view>
+		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
+	</view>
+</van-popup>

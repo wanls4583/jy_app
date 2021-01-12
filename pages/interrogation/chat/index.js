@@ -325,7 +325,7 @@ Page({
         } else { //医生开指导
             wx.jyApp.setTempData('guidePatient', this.data.patient);
             wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/guidance-edit/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
+                url: `/pages/interrogation/${this.data.consultOrder.type==2?'guidance-edit':'guidance-online/medical-record'}/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
             });
         }
         this.setData({

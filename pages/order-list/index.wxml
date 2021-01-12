@@ -146,7 +146,7 @@
 							<view
 								bindtap="onGoto"
 								class="button primary small"
-								data-url="/pages/interrogation/guidance-edit/index?id={{order.consultOrderId}}&type={{order.type}}"
+								data-url="/pages/interrogation/{{order.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{order.consultOrderId}}&type={{order.type}}"
 							>开营养指导</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">

@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-30 09:33:23
+ * @Description: 
+ */
 Page({
     data: {
         templateList: []
@@ -42,7 +47,7 @@ Page({
         })
     },
     onUse(e) {
-        wx.jyApp.tempData.diagnosisTemplate = e.currentTarget.dataset.content;
+        wx.jyApp.setTempData('diagnosisTemplate', e.currentTarget.dataset.content);
         wx.navigateBack();
     },
     loadList() {

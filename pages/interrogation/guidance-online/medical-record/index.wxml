@@ -1,0 +1,38 @@
+<view class="container padding-bottom-footer">
+	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<view class="white-background-color margin-top-20">
+		<view class="flex padding-30 field-border">
+			<view class="label">就诊人信息</view>
+			<view></view>
+		</view>
+		<view class="flex padding-30 field-border">
+			<view class="label">初始标志</view>
+			<view>
+				<van-radio-group class="flex">
+					<van-radio name="{{0}}">初诊</van-radio>
+					<van-radio name="{{1}}">复诊</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="flex padding-30 field-border">
+			<view class="label">过敏史</view>
+			<view class="flex-grow-1">
+				<van-radio-group class="flex">
+					<van-radio name="{{0}}">无</van-radio>
+					<van-radio name="{{1}}">有</van-radio>
+				</van-radio-group>
+				<view class="margin-top-30">
+					<input placeholder="请填写过敏史" type="text" />
+				</view>
+			</view>
+		</view>
+		<van-field label="主诉" placeholder="请填写主诉"></van-field>
+		<van-field label="现病史" placeholder="请填写现病史"></van-field>
+		<van-field label="既往史" placeholder="请填写既往史"></van-field>
+		<van-field label="门诊症状" placeholder="请填写门诊症状"></van-field>
+		<van-field label="处置计划" placeholder="请填写处置计划"></van-field>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onSave" class="button primary block">下一步</view>
+</view>

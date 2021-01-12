@@ -1,6 +1,5 @@
 Page({
     data: {
-        diagnosis: '',
         goodsList: [],
         nutritionlist: [],
         nutritionVisible: false,
@@ -13,8 +12,9 @@ Page({
             actions: ['updateAllNutritionlist']
         });
         this.storeBindings.updateStoreBindings();
-        this.consultOrderId = option.id;
-        this.type = option.type; //问诊类型
+        this.guidanceData = wx.jyApp.getTempData('guidanceData');
+        this.consultOrderId = this.guidanceData.consultOrderId;
+        this.diagnosis = this.guidanceData.diagnosis;
         this.patitent = wx.jyApp.getTempData('guidePatient');
         this.getAllNutrition();
         this.prop = [
@@ -47,12 +47,6 @@ Page({
         wx.jyApp.clearTempData('guideGoodsList');
     },
     onShow() {
-        var diagnosisTemplate = wx.jyApp.getTempData('diagnosisTemplate', true)
-        if (diagnosisTemplate) { //选择了模板
-            this.setData({
-                diagnosis: diagnosisTemplate
-            });
-        }
         var usageGoods = wx.jyApp.getTempData('usageGoods');
         if (usageGoods) { //添加了商品
             var index = 0;
@@ -80,16 +74,6 @@ Page({
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
-    },
-    onInput(e) {
-        this.setData({
-            diagnosis: e.detail.value
-        });
-    },
-    onClickTemplate() {
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/diagnosis-template/index'
-        });
     },
     onAddGoods() {
         wx.jyApp.diagnosisGoods = wx.jyApp.diagnosisGoods || [];
@@ -134,8 +118,11 @@ Page({
             nutritionVisible: false
         });
     },
+    onPre() {
+        wx.navigateBack();
+    },
     onSave() {
-        if (!this.data.diagnosis && this.type != 2) {
+        if (!this.diagnosis) {
             wx.jyApp.toast('营养诊断不能为空');
             return;
         }
@@ -143,54 +130,49 @@ Page({
             wx.jyApp.toast('营养指导不能为空');
             return;
         }
-        wx.jyApp.dialog.confirm({
-            message: '保存后将发送该营养指导给患者，是否确定保存？'
-        }).then(() => {
-            wx.showLoading({
-                title: '提交中...',
-                mask: true
+        wx.showLoading({
+            title: '提交中...',
+            mask: true
+        });
+        wx.jyApp.http({
+            url: '/nutritionorder/save',
+            method: 'post',
+            data: {
+                consultOrderId: this.consultOrderId,
+                diagnosis: this.diagnosis,
+                totalAmount: this.data.totalAmount,
+                goods: this.data.goodsList.map((item) => {
+                    var days = item.days;
+                    if (item.type == 3) {
+                        days = Number((item.days * item.count).toFixed(2));
+                    }
+                    return {
+                        amount: (item.price * item.count).toFixed(2),
+                        days: days,
+                        frequency: item.frequency,
+                        giveWay: item.giveWay,
+                        goodsId: item.id,
+                        modulateDose: item.modulateDose,
+                        num: item.count,
+                        perUseNum: item.perUseNum,
+                        remark: item.remark
+                    }
+                })
+            }
+        }).then((data) => {
+            var page = wx.jyApp.utils.getPages('pages/order-list/index');
+            if (page) { //申请指导已完成
+                page.loadApplyOrderList(true);
+            }
+            page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
+            if (page) { //开指导已完成，改变申请单详情状态
+                page.loadInfo();
+            }
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
             });
-            wx.jyApp.http({
-                url: '/nutritionorder/save',
-                method: 'post',
-                data: {
-                    consultOrderId: this.consultOrderId,
-                    diagnosis: this.data.diagnosis,
-                    totalAmount: this.data.totalAmount,
-                    goods: this.data.goodsList.map((item) => {
-                        var days = item.days;
-                        if (item.type == 3) {
-                            days = Number((item.days * item.count).toFixed(2));
-                        }
-                        return {
-                            amount: (item.price * item.count).toFixed(2),
-                            days: days,
-                            frequency: item.frequency,
-                            giveWay: item.giveWay,
-                            goodsId: item.id,
-                            modulateDose: item.modulateDose,
-                            num: item.count,
-                            perUseNum: item.perUseNum,
-                            remark: item.remark
-                        }
-                    })
-                }
-            }).then(() => {
-                setTimeout(() => {
-                    wx.jyApp.toast('提交成功');
-                }, 500);
-                wx.navigateBack();
-                var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                if (page) { //已完成
-                    page.loadApplyOrderList(true);
-                }
-                page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
-                if (page) { //已完成
-                    page.loadInfo();
-                }
-            }).finally(() => {
-                wx.hideLoading();
-            });
+        }).finally(() => {
+            wx.hideLoading();
         });
     },
     //计算总金额
