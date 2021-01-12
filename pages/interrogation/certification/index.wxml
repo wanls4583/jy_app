@@ -53,23 +53,31 @@
 					>{{item.departmentName}}</view>
 				</view>
 			</view>
-			<van-field bindtap="onShowDisease" label="擅长" placeholder="请选择擅长疾病或领域" readonly value="{{goodAtDomain}}">
+			<!-- <van-field bindtap="onShowDisease" label="擅长" placeholder="请选择擅长疾病或领域" readonly value="{{goodAtDomain}}">
 				<view class="flex--center--center" slot="right-icon">
 					<van-icon color="#ccc" name="arrow" />
 				</view>
-			</van-field>
+			</van-field>-->
 			<readonly-field
 				autosize
 				bindtap="onInput"
-				border="{{false}}"
 				data-prop="introduce"
 				data-title="个人简介"
 				data-type="textarea"
 				label="个人简介"
 				placeholder="请输入个人简介"
-				readonly
 				type="textarea"
 				value="{{introduce}}"
+			></readonly-field>
+			<readonly-field
+				bindtap="onInput"
+				data-prop="goodAtDomain"
+				data-title="擅长"
+				data-type="textarea"
+				label="擅长"
+				placeholder="请输入擅长"
+				type="textarea"
+				value="{{goodAtDomain}}"
 			></readonly-field>
 		</van-collapse-item>
 		<van-collapse-item name="2" title="执业信息">
@@ -188,7 +196,13 @@
 		<van-picker bind:cancel="onShowPosition" bind:confirm="onConfirmPosition" columns="{{configData.jobTitle}}" show-toolbar="{{true}}"></van-picker>
 	</van-popup>
 	<van-popup bind:click-overlay="onShowDepartment" position="bottom" show="{{departmentVisible}}">
-		<van-picker bind:cancel="onShowDepartment" bind:confirm="onConfirmDepartment" columns="{{workDepartmentList}}" show-toolbar="{{true}}" value-key="departmentName"></van-picker>
+		<van-picker
+			bind:cancel="onShowDepartment"
+			bind:confirm="onConfirmDepartment"
+			columns="{{workDepartmentList}}"
+			show-toolbar="{{true}}"
+			value-key="departmentName"
+		></van-picker>
 	</van-popup>
 	<van-popup position="bottom" show="{{areaVisible}}">
 		<van-area area-list="{{areaList}}" bind:cancel="onCancelArea" bind:confirm="onConfirmArea" columns-num="{{2}}" id="area" value="{{cityCode}}" />

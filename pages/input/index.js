@@ -10,6 +10,7 @@ Page({
     onLoad(option) {
         this.setData({
             type: wx.jyApp.inputParam.type || 'text',
+            maxLength: wx.jyApp.inputParam.maxLength || 500,
             value: wx.jyApp.utils.isNull(wx.jyApp.inputParam.defaultValue) ? '' : wx.jyApp.inputParam.defaultValue
         });
         wx.setNavigationBarTitle({
