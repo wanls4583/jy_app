@@ -2,7 +2,7 @@
 	<view class="padding-30">
 		<view class="font-large font-bold align-center">钜元互联网医院营养处方单</view>
 		<view class="flex--center--between margin-top-30">
-			<view style="flex:2">姓名：{{recipe.detail.patientName}}</view>
+			<view style="flex:1.4">姓名：{{recipe.detail.patientName}}</view>
 			<view style="flex:1">性别：{{recipe.detail._sex}}</view>
 			<view style="flex:1">年龄：{{recipe.detail.age}}</view>
 		</view>
