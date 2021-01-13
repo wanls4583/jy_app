@@ -65,14 +65,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/interrogation/guidance-edit/index",
-          "pathName": "pages/interrogation/guidance-edit/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "guidance-online/guidance-product/index",
-          "pathName": "pages/interrogation/guidance-online/guidance-product/index",
+          "name": "pages/interrogation/guidance-online/examine-list/index",
+          "pathName": "pages/interrogation/guidance-online/examine-list/index",
           "query": "",
           "scene": null
         }

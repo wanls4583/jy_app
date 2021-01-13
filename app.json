@@ -65,6 +65,7 @@
     ],
     "subpackages": [{
         "root": "pages/statistic",
+        "name": "statistic",
         "pages": [
             "summary/index",
             "statistic-detail/index"
@@ -84,6 +85,7 @@
         "root": "pages/interrogation/guidance-online",
         "name": "guidance-online",
         "pages": [
+            "examine-list/index",
             "guidance-product/index",
             "guidance-diagnosis/index",
             "medical-record/index"
