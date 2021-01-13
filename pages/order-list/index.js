@@ -484,7 +484,7 @@ Page({
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
-                item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
+                // item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
                 item.goods.map((_item) => {
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
                     _item._unit = _item.type == 2 ? '份' : wx.jyApp.constData.unitChange[_item.unit];
