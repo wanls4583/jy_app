@@ -39,7 +39,7 @@ Page({
             edemaOfAbdominal: null,
             edemaOfTotalGrade: null,
             integralEvaluation: 'SGA_A',
-            score: 0
+            result: 0
         },
         dateVisible: false,
         step: 1,
@@ -179,7 +179,7 @@ Page({
         var pgsga = this.data.pgsga;
         var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep6() + _countStep8();
         this.setData({
-            'pgsga.score': count
+            'pgsga.result': count
         });
         this.setResult(count);
 

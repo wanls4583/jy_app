@@ -172,7 +172,7 @@ Page({
     blur: function (e) {
         this.setData({
             inputBottom: 0,
-            inputFoucus: falseonGuide
+            inputFoucus: false
         });
     },
     onGoto(e) {
