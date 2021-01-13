@@ -138,8 +138,7 @@ Page({
             url: '/nutritionorder/save',
             method: 'post',
             data: {
-                consultOrderId: this.consultOrderId,
-                diagnosis: this.diagnosis,
+                ...this.guidanceData,
                 totalAmount: this.data.totalAmount,
                 goods: this.data.goodsList.map((item) => {
                     var days = item.days;

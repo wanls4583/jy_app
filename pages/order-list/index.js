@@ -54,6 +54,11 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
+    onGuide(e) {
+        var order = e.currentTarget.dataset.order;
+        wx.jyApp.setTempData('guidePatient', order.patient);
+        wx.jyApp.utils.navigateTo(e, this);
+    },
     //立即接诊
     onRecieve(e) {
         wx.jyApp.tempData.toRecieve = true;

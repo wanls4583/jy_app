@@ -67,7 +67,13 @@
 								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
 							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
-							<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" data-type="{{order.type}}" wx:if="{{order.status==0}}">立即支付</view>
+							<view
+								bindtap="onInterrogationPay"
+								class="margin-left-20 button primary small"
+								data-id="{{order.id}}"
+								data-type="{{order.type}}"
+								wx:if="{{order.status==0}}"
+							>立即支付</view>
 							<view
 								bindtap="onGoto"
 								class="margin-left-20 button primary warn small"
@@ -144,8 +150,9 @@
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
 							<view
-								bindtap="onGoto"
+								bindtap="onGuide"
 								class="button primary small"
+								data-order="{{order}}"
 								data-url="/pages/interrogation/{{order.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{order.consultOrderId}}&type={{order.type}}"
 							>开营养指导</view>
 						</view>

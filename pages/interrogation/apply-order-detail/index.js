@@ -69,6 +69,10 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e, this);
     },
+    onGuide(e) {
+        wx.jyApp.setTempData('guidePatient', this.data.order.patient);
+        wx.jyApp.utils.navigateTo(e, this);
+    },
     //删除问诊订单
     onDelInterrogation(e) {
         wx.showModal({
@@ -151,6 +155,7 @@ Page({
             wx.hideLoading();
             this.loaded = true;
         });
+
         function _initData(data) {
             var todayBegin = Date.prototype.getTodayBegin();
             var aDay = 24 * 60 * 60 * 1000;
