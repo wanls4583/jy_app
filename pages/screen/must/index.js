@@ -103,8 +103,9 @@ Page({
     countScore() {
         var count = (Number(this.data.must.weightScore) || 0) + (Number(this.data.must.bmiScore) || 0) + (Number(this.data.must.diseaseScore) || 0);
         this.setData({
-            'must.result': count + ''
-        })
+            'must.result': count,
+            'must._result': count == 0 ? '0' : (count == 1 ? '1' : '2')
+        });
     },
     loadInfo(id) {
         return wx.jyApp.http({
@@ -114,6 +115,9 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.filtrateMust = data.filtrateMust || this.data.must;
             data.filtrateMust.filtrateDate = data.patientFiltrate.filtrateDate;
+            if (data.filtrateMust.result) {
+                data.filtrateMust._result = data.filtrateMust.result == 0 ? '0' : (data.filtrateMust.result == 1 ? '1' : '2');
+            }
             this.setData({
                 must: data.filtrateMust,
                 patient: data.patientFiltrate,

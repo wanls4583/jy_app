@@ -100,6 +100,7 @@ Page({
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
         this.countScore();
+        this.setBMI();
     },
     onShowDate() {
         // this.setData({
