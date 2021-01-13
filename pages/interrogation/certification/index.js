@@ -443,7 +443,7 @@ Page({
             wx.jyApp.toast('医院不能超过20个字');
             return;
         }
-        if (!this.data.jobCertificateUrl.length) {
+        if (!this.data.jobCertificateUrl.length && ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(this.data.jobTitle) > -1) {
             wx.jyApp.toast('请上传执业证');
             return;
         }
@@ -452,7 +452,7 @@ Page({
             return;
         }
         if (!this.data.jobTitleCertificateUrl.length) {
-            wx.jyApp.toast('请上传职称证');
+            wx.jyApp.toast('请上传资格证');
             return;
         }
         var subIds = [];

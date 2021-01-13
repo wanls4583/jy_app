@@ -131,7 +131,7 @@
 				</view>
 			</view>
 			<view class="padding-top-30 margin-left-30 label-color">
-				<text>职称证书图片</text>
+				<text>资格证书图片</text>
 				<text class="gray-color">(医师和营养师需要上传)</text>
 			</view>
 			<view bindtap="onChoosePositionImage" class="padding-30 white-background-color flex--center--between" wx:if="{{!jobTitleCertificateUrl.length}}">
@@ -139,7 +139,7 @@
 					<text style="font-size:100rpx;margin-top:-30rpx">+</text>
 				</view>
 				<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx">
-					<view class="font-small">请上传职称证书或可以证明该职称的有效证件（最多5张）</view>
+					<view class="font-small">请上传资格证书（最多5张）</view>
 					<view class="gray-color font-small">请上传完整、清晰的彩色照片或扫描件</view>
 				</view>
 			</view>
