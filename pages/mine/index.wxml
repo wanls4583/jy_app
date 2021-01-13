@@ -80,6 +80,14 @@
 				<view
 					bindtap="onGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					data-url="/pages/screen/screen-list/index"
+				>
+					<image mode="aspectFit" src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">筛查报告</view>
+				</view>
+				<view
+					bindtap="onGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/interrogation/user-patient-list/index"
 				>
 					<image mode="aspectFit" src="/image/icon_patient.png" style="width:70rpx;height:70rpx" />

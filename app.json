@@ -73,6 +73,7 @@
         "root": "pages/screen",
         "name": "screen",
         "pages": [
+            "screen-list/index",
             "nrs/index",
             "mna/index",
             "must/index",
