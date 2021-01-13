@@ -165,15 +165,6 @@
 					</view>
 				</view>
 			</view>
-			<!-- <view class="padding-left-right-20 clickable">
-				<view bindtap="onClickPhone" class="flex--center--between padding-top-bottom-30 border-bottom">
-					<text>联系客服</text>
-					<view class="flex--center--center">
-						<text class="primary-color">{{configData.service_phone}}</text>
-						<van-icon color="#ccc" name="arrow" />
-					</view>
-				</view>
-			</view>-->
 			<button class="padding-left-right-20" open-type="contact">
 				<view class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>联系客服</text>
@@ -183,17 +174,25 @@
 					</view>
 				</view>
 			</button>
-			<view class="padding-left-right-20 clickable">
-				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/setting/index">
-					<text>设置</text>
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.orderApproveAuthority==1&&userInfo.role=='DOCTOR'}}">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
+					<text>指导单审核</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
 					</view>
 				</view>
 			</view>
 			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.dataAuthority==1}}">
-				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/statistic/summary/index">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/statistic/summary/index">
 					<text>数据查询</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
+			</view>
+			<view class="padding-left-right-20 clickable">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/setting/index">
+					<text>设置</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
 					</view>

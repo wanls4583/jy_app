@@ -41,5 +41,8 @@ Page({
         wx.navigateBack({
             delta: 4
         });
+        wx.jyApp.clearTempData('guidanceData');
+        wx.jyApp.clearTempData('guidePatient');
+        wx.jyApp.clearTempData('guideOrderDetail');
     }
 })

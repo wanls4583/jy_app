@@ -34,9 +34,15 @@
 			</view>
 		</view>
 	</view>
-	<view class="footer flex--center--around padding-top-bottom-30">
-		<view bindtap="onPre" class="button primary block plain" style="width: 40%">上一步</view>
-		<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
+	<!-- 审核 -->
+	<view class="footer flex--center--between padding-30" wx:if="{{from=='examine'}}">
+		<view bindtap="onPre" class="button primary block plain" style="width:30%;min-width:auto">上一步</view>
+		<view bindtap="onShowReject" class="button primary block plain" style="width:30%;min-width:auto;padding:20rpx 0">审核不通过</view>
+		<view bindtap="onPass" class="button primary block" style="width:30%;min-width:auto">审核通过</view>
+	</view>
+	<view class="footer flex--center--around padding-top-bottom-30" wx:else>
+		<view bindtap="onPre" class="button primary block plain" style="width:40%">上一步</view>
+		<view bindtap="onSave" class="button primary block" style="width:40%">保存</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />
@@ -62,5 +68,15 @@
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}</view>
 		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
+	</view>
+</van-popup>
+<van-popup position="bottom" show="{{rejectVisible}}">
+	<view class="padding-left-right-30">
+		<view class="padding-top-bottom-30 font-bold align-center">审核说明</view>
+		<textarea bindinput="onInput" class="width-100 border" data-prop="approveMsg" maxlength="{{100}}" style="height:200rpx" value="{{approveMsg}}"></textarea>
+		<view class="flex--center--between padding-top-bottom-30">
+			<view bindtap="onCloseReject" class="button primary block plain" style="width: 40%">取消</view>
+			<view bindtap="onReject" class="button primary block" style="width: 40%">审核不通过</view>
+		</view>
 	</view>
 </van-popup>

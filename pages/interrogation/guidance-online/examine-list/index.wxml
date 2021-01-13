@@ -1,25 +1,20 @@
 <view class="container">
-	<pull-scroll-view
-		bindrefresh="onRefresh"
-		bindscrolltolower="onLoadMore"
-		lower-threshold="300px"
-		stop-refresh="{{stopRefresh}}"
-	>
+	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
 		<view class="padding-left-right-30 margin-top-20 white-background-color" wx:for="{{orderList}}" wx:for-item="order" wx:key="id">
 			<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
-				<text class="gray-color">{{order.creatTime}}</text>
+				<text class="gray-color">{{order.orderTime}}</text>
 				<text class="{{order.statusColor}}">{{order._status}}</text>
 			</view>
 			<view catchtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
 				<view class="flex padding-top-bottom-20">
 					<text class="flex-shrink-0">患者信息：</text>
 					<view>
-						<text>{{order.patient.patientName}}</text>
-						<text>，{{order.patient._sex}}</text>
-						<text>，{{order.patient.age}}岁</text>
-						<text wx:if="{{order.patient.height}}">，{{order.patient.height}}cm</text>
-						<text wx:if="{{order.patient.weight}}">，{{order.patient.weight}}kg</text>
-						<text wx:if="{{order.patient.BMI}}">，{{order.patient.BMI}}</text>
+						<text>{{order.patientName}}</text>
+						<text>，{{order._sex}}</text>
+						<text>，{{order.age}}岁</text>
+						<text wx:if="{{order.height}}">，{{order.height}}cm</text>
+						<text wx:if="{{order.weight}}">，{{order.weight}}kg</text>
+						<text wx:if="{{order.BMI}}">，{{order.BMI}}</text>
 					</view>
 				</view>
 				<view class="flex padding-top-bottom-20">
@@ -28,8 +23,8 @@
 				</view>
 			</view>
 			<view class="padding-top-bottom-20 border-top flex--center--end">
-				<view class="margin-left-20 button primary small plain">审核通过</view>
-				<view class="margin-left-20 button primary small">立即审核</view>
+				<view bindtap="onPass" class="margin-left-20 button primary small plain" data-id="{{order.id}}" wx:if="{{order.status==10}}">审核通过</view>
+				<view bindtap="onDetail" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==10}}">立即审核</view>
 			</view>
 		</view>
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>

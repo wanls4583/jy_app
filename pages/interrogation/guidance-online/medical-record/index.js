@@ -15,13 +15,44 @@ Page({
         handlePlan: ''
     },
     onLoad(option) {
+        var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         var patient = wx.jyApp.getTempData('guidePatient');
-        patient._sex = patient.sex == 1 ? '男' : '女';
-        patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
-        patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
-        this.setData({
-            patient: patient
-        });
+        this.from = option.from;
+        this.consultOrderId = option.id;
+        this.id = '';
+        if (this.from == 'examine') { //审核
+            patient = {
+                patientName: guideOrderDetail.patientName,
+                age: guideOrderDetail.age,
+                sex: guideOrderDetail.sex,
+                height: guideOrderDetail.height,
+                weight: guideOrderDetail.weight,
+            }
+            patient._sex = patient.sex == 1 ? '男' : '女';
+            patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
+            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
+            this.setData({
+                isFirst: guideOrderDetail.isFirst,
+                foodSensitive: guideOrderDetail.foodSensitive,
+                hasFoodSensitive: guideOrderDetail.foodSensitive ? 1 : 0,
+                mainSuit: guideOrderDetail.mainSuit,
+                currentDisease: guideOrderDetail.currentDisease,
+                historyDisease: guideOrderDetail.historyDisease,
+                symptom: guideOrderDetail.symptom,
+                handlePlan: guideOrderDetail.handlePlan,
+                patient: patient
+            });
+            this.id = guideOrderDetail.id;
+            this.consultOrderId = guideOrderDetail.consultOrderId;
+            wx.jyApp.setTempData('guidePatient', patient);
+        } else {
+            patient._sex = patient.sex == 1 ? '男' : '女';
+            patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
+            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
+            this.setData({
+                patient: patient
+            });
+        }
         if (patient.foodSensitive) {
             this.setData({
                 hasFoodSensitive: 1,
@@ -29,7 +60,10 @@ Page({
             });
         }
     },
-    onUnload() {},
+    onUnload() {
+        wx.jyApp.clearTempData('guidePatient');
+        wx.jyApp.clearTempData('guideOrderDetail');
+    },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
     },
@@ -45,6 +79,8 @@ Page({
             return;
         }
         wx.jyApp.setTempData('guidanceData', {
+            id: this.id,
+            from: this.from,
             consultOrderId: this.consultOrderId,
             isFirst: this.data.isFirst,
             foodSensitive: this.data.foodSensitive,

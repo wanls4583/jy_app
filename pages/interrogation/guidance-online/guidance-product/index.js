@@ -3,9 +3,12 @@ Page({
         goodsList: [],
         nutritionlist: [],
         nutritionVisible: false,
-        totalAmount: 0
+        totalAmount: 0,
+        rejectVisible: false,
+        approveMsg: ''
     },
     onLoad(option) {
+        var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['configData', 'allNutritionlist'],
@@ -13,9 +16,9 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
+        this.patitent = wx.jyApp.getTempData('guidePatient');
         this.consultOrderId = this.guidanceData.consultOrderId;
         this.diagnosis = this.guidanceData.diagnosis;
-        this.patitent = wx.jyApp.getTempData('guidePatient');
         this.getAllNutrition();
         this.prop = [
             'energy',
@@ -40,10 +43,25 @@ Page({
             'mn',
             'i',
         ]
+        if (guideOrderDetail && this.guidanceData.from == 'examine') { //审核
+            this.setData({
+                from: this.guidanceData.from,
+                goodsList: guideOrderDetail.goods.map((item) => {
+                    item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
+                    item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
+                    item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
+                    if (item.type == 1) {
+                        item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
+                    } else {
+                        item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}份，${Number(item.modulateDose) ? '配制' + item.modulateDose + '毫升，' : ''}${item._giveWay}`;
+                    }
+                    return item;
+                })
+            })
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
-        wx.jyApp.clearTempData('guidePatient');
         wx.jyApp.clearTempData('guideGoodsList');
     },
     onShow() {
@@ -159,18 +177,94 @@ Page({
                 })
             }
         }).then((data) => {
-            var page = wx.jyApp.utils.getPages('pages/order-list/index');
-            if (page) { //申请指导已完成
-                page.loadApplyOrderList(true);
-            }
-            page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
-            if (page) { //开指导已完成，改变申请单详情状态
-                page.loadInfo();
-            }
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
             });
         }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    //通过审核
+    onPass() {
+        this.approve(1);
+    },
+    onReject() {
+        this.approve(0, this.data.approveMsg);
+    },
+    onShowReject() {
+        this.setData({
+            rejectVisible: true
+        });
+    },
+    onCloseReject() {
+        this.setData({
+            rejectVisible: false
+        });
+    },
+    onInput(e) {
+        wx.jyApp.utils.onInput(e, this);
+    },
+    approve(status, approveMsg) {
+        if (!this.diagnosis) {
+            wx.jyApp.toast('营养诊断不能为空');
+            return;
+        }
+        if (!this.data.goodsList.length) {
+            wx.jyApp.toast('营养指导不能为空');
+            return;
+        }
+        wx.showLoading({
+            title: '提交中...',
+            mask: true
+        });
+        wx.jyApp.http({
+            url: '/nutritionorder/approve',
+            method: 'post',
+            data: {
+                ...this.guidanceData,
+                status: status,
+                approveMsg: approveMsg || '',
+                totalAmount: this.data.totalAmount,
+                goods: this.data.goodsList.map((item) => {
+                    var days = item.days;
+                    if (item.type == 3) {
+                        days = Number((item.days * item.count).toFixed(2));
+                    }
+                    return {
+                        amount: (item.price * item.count).toFixed(2),
+                        days: days,
+                        frequency: item.frequency,
+                        giveWay: item.giveWay,
+                        goodsId: item.id,
+                        modulateDose: item.modulateDose,
+                        num: item.count,
+                        perUseNum: item.perUseNum,
+                        remark: item.remark
+                    }
+                })
+            }
+        }).then((data) => {
+            if (status == 1) {
+                var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                if (page) { //申请指导已完成
+                    page.loadApplyOrderList(true);
+                }
+                page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
+                if (page) { //开指导已完成，改变申请单详情状态
+                    page.loadInfo();
+                }
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id
+                });
+            } else {
+                wx.navigateBack({
+                    delta: 3
+                });
+            }
+        }).finally(() => {
+            this.setData({
+                rejectVisible: false
+            });
             wx.hideLoading();
         });
     },
@@ -276,6 +370,10 @@ Page({
             url: '/product/nutritionist/all'
         }).then((data) => {
             this.updateAllNutritionlist(data.list || []);
+            if (this.data.goodsList.length) {
+                this.caculateTotalAmount();
+                this.anlizeNutrition();
+            }
         });
     }
 })

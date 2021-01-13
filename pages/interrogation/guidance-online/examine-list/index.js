@@ -44,13 +44,27 @@ Page({
             }
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
-                item.patient._sex = item.patient.sex == 1 ? '男' : '女';
-                item.patient.BMI = (item.patient.weight) / (item.patient.height * item.patient.height / 10000);
-                item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(2) || '';
+                item._sex = item.sex == 1 ? '男' : '女';
+                item.BMI = (item.weight) / (item.height * item.height / 10000);
+                item.BMI = item.BMI && item.BMI.toFixed(2) || '';
+                item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd HH:mm:ss');
+                switch (item.status) {
+                    case 11:
+                        item._status = '审核不通过';
+                        item.statusColor = 'danger-color';
+                        break;
+                    case 10:
+                        item._status = '待审核';
+                        break;
+                    case 0:
+                        item._status = '审核通过';
+                        item.statusColor = 'success-color';
+                        break;
+                }
             });
             this.data.orderList = this.data.orderList.concat(data.page.list);
             this.setData({
-                list: this.data.orderList,
+                orderList: this.data.orderList,
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,
             });
@@ -64,5 +78,29 @@ Page({
             });
         });
     },
-    onSave() {}
+    onPass(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.dialog.confirm({
+            message: '确定审核通过？'
+        }).then(() => {
+
+        });
+    },
+    onDetail(e) {
+        if (this.holding) {
+            return;
+        }
+        this.holding = true;
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.http({
+            url: '/nutritionorder/info/' + id
+        }).then((data) => {
+            wx.jyApp.setTempData('guideOrderDetail', data.detail);
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/guidance-online/medical-record/index?from=examine'
+            });
+        }).finally((err) => {
+            this.holding = false;
+        });
+    }
 })

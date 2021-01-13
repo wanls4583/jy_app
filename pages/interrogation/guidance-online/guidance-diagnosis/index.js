@@ -7,7 +7,14 @@ Page({
     data: {
         diagnosis: '',
     },
-    onLoad(option) {},
+    onLoad(option) {
+        var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
+        if (guideOrderDetail) {
+            this.setData({
+                diagnosis: guideOrderDetail.diagnosis
+            });
+        }
+    },
     onShow() {
         var diagnosisTemplate = wx.jyApp.getTempData('diagnosisTemplate', true);
         if (diagnosisTemplate) { //选择了模板
