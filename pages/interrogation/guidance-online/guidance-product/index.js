@@ -245,13 +245,9 @@ Page({
             }
         }).then((data) => {
             if (status == 1) {
-                var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                if (page) { //申请指导已完成
-                    page.loadApplyOrderList(true);
-                }
-                page = wx.jyApp.utils.getPages('pages/apply-order-detail/index');
-                if (page) { //开指导已完成，改变申请单详情状态
-                    page.loadInfo();
+                var page = wx.jyApp.utils.getPages('pages/interrogation/guidance-online/guidance-sheet/index');
+                if (page) { //修改审核列表为完成状态
+                    page.updateStatus(this.guidanceData.id, 0);
                 }
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id

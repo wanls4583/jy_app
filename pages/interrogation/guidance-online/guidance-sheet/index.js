@@ -17,7 +17,7 @@ Page({
                 bitText: '返回聊天'
             });
         } else {
-            this.standardUnit({
+            this.setData({
                 bitText: '返回列表'
             });
         }

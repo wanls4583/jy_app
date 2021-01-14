@@ -48,19 +48,7 @@ Page({
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
                 item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
-                switch (item.status) {
-                    case 11:
-                        item._status = '审核不通过';
-                        item.statusColor = 'danger-color';
-                        break;
-                    case 10:
-                        item._status = '待审核';
-                        break;
-                    case 0:
-                        item._status = '审核通过';
-                        item.statusColor = 'success-color';
-                        break;
-                }
+                this.setStatus(item);
             });
             this.data.orderList = this.data.orderList.concat(data.page.list);
             this.setData({
@@ -79,8 +67,7 @@ Page({
         });
     },
     onPass(e) {
-        var item = e.currentTarget.dataset.item;
-        var index = e.currentTarget.dataset.index;
+        var id = e.currentTarget.dataset.id;
         wx.jyApp.dialog.confirm({
             message: '确定通过审核？'
         }).then(() => {
@@ -91,12 +78,7 @@ Page({
                     id: item.id
                 }
             }).then((data) => {
-                item.status = 0;
-                item._status = '审核通过';
-                item.statusColor = 'success-color';
-                this.setData({
-                    [`orderList[${index}]`]: item
-                });
+                this.updateStatus(id);
                 wx.jyApp.toast('操作成功');
             });
         });
@@ -117,5 +99,30 @@ Page({
         }).finally((err) => {
             this.holding = false;
         });
+    },
+    updateStatus(id, status) {
+        this.data.orderList.map((item, index) => {
+            if (id == item.id) {
+                this.setStatus(item);
+                this.setData({
+                    [`orderList[${index}]`]: item
+                });
+            }
+        });
+    },
+    setStatus(item) {
+        switch (item.status) {
+            case 11:
+                item._status = '审核不通过';
+                item.statusColor = 'danger-color';
+                break;
+            case 10:
+                item._status = '待审核';
+                break;
+            case 0:
+                item._status = '审核通过';
+                item.statusColor = 'success-color';
+                break;
+        }
     }
 })

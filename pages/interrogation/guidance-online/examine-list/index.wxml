@@ -23,7 +23,7 @@
 				</view>
 			</view>
 			<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==10}}">
-				<view bindtap="onPass" class="margin-left-20 button primary small plain" data-index="{{index}}" data-item="{{order}}">审核通过</view>
+				<view bindtap="onPass" class="margin-left-20 button primary small plain" data-id="{{order.id}}">审核通过</view>
 				<view bindtap="onDetail" class="margin-left-20 button primary small" data-id="{{order.id}}">立即审核</view>
 			</view>
 		</view>
