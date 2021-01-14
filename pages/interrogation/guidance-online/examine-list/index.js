@@ -111,6 +111,9 @@ Page({
             url: '/nutritionorder/info/' + id
         }).then((data) => {
             wx.jyApp.setTempData('guideOrderDetail', data.detail);
+            data.detail.goods.map((item) => {
+                item.totalAmount = item.price;
+            });
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/medical-record/index?from=examine'
             });
