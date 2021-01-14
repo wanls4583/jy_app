@@ -79,11 +79,26 @@ Page({
         });
     },
     onPass(e) {
-        var id = e.currentTarget.dataset.id;
+        var item = e.currentTarget.dataset.item;
+        var index = e.currentTarget.dataset.index;
         wx.jyApp.dialog.confirm({
-            message: '确定审核通过？'
+            message: '确定通过审核？'
         }).then(() => {
-
+            wx.jyApp.http({
+                url: '/nutritionorder/approve/quick',
+                method: 'post',
+                data: {
+                    id: item.id
+                }
+            }).then((data) => {
+                item.status = 0;
+                item._status = '审核通过';
+                item.statusColor = 'success-color';
+                this.setData({
+                    [`orderList[${index}]`]: item
+                });
+                wx.jyApp.toast('操作成功');
+            });
         });
     },
     onDetail(e) {

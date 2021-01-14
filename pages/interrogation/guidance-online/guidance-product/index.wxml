@@ -80,4 +80,3 @@
 		</view>
 	</view>
 </van-popup>
-<van-dialog id="van-dialog" />
