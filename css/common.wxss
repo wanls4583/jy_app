@@ -358,14 +358,14 @@ checkbox {
 }
 
 .doctor-item:last-of-type .border-bottom {
-	border-style: none;
+    border-style: none;
 }
 
 .product-item:last-of-type .border-bottom {
-	border-style: none;
+    border-style: none;
 }
 
-.order-goods-item:last-child .border-bottom{
+.order-goods-item:last-child .border-bottom {
     border-style: none;
 }
 
@@ -397,9 +397,10 @@ readonly-field:last-child .border-bottom {
     width: 6.2em;
     margin-right: 12px;
     color: #646566;
+    flex-shrink: 0;
 }
 
-.field-border{
+.field-border {
     position: relative;
 }
 
