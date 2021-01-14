@@ -48,7 +48,7 @@ Page({
             data.list = data.list || [];
             data.list.map((item) => {
                 consume += (item.consume || 0);
-                refund += (item.refund || 0);
+                refund += Math.abs(item.refund || 0);
             });
             this.prop.map((item, index) => {
                 ecs[index] = {
@@ -98,7 +98,11 @@ Page({
                 },
                 series: [{
                     data: list.map((item) => {
-                        return item[prop]
+                        if (prop == 'refund') {
+                            return Math.abs(item[prop]) || 0;
+                        } else {
+                            return item[prop];
+                        }
                     }),
                     type: 'bar'
                 }]

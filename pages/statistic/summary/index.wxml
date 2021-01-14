@@ -319,9 +319,9 @@
 		</view>
 	</view>
 </view>
-<van-popup position="bottom" show="{{startDateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelStart" bind:confirm="onConfirmStartDate" title="开始日期" type="date" value="{{now}}" />
+<van-popup bind:click-overlay="onCancelStart" position="bottom" show="{{startDateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelStart" bind:confirm="onConfirmStartDate" title="开始日期" type="date" value="{{startDate}}" />
 </van-popup>
-<van-popup position="bottom" show="{{endDateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelEnd" bind:confirm="onConfirmEndDate" min-date="{{minDate}}" title="结束日期" type="date" value="{{now}}" />
+<van-popup bind:click-overlay="onCancelEnd" position="bottom" show="{{endDateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelEnd" bind:confirm="onConfirmEndDate" min-date="{{startDate}}" title="结束日期" type="date" value="{{endDate}}" />
 </van-popup>
