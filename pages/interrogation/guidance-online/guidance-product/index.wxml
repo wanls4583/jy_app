@@ -73,10 +73,11 @@
 <van-popup position="bottom" show="{{rejectVisible}}">
 	<view class="padding-left-right-30">
 		<view class="padding-top-bottom-30 font-bold align-center">审核说明</view>
-		<textarea bindinput="onInput" class="width-100 border" data-prop="approveMsg" maxlength="{{100}}" style="height:200rpx" value="{{approveMsg}}"></textarea>
+		<textarea bindinput="onInput" class="width-100 padding-20 border" data-prop="approveMsg" maxlength="{{100}}" style="height:200rpx" value="{{approveMsg}}"></textarea>
 		<view class="flex--center--between padding-top-bottom-30">
 			<view bindtap="onCloseReject" class="button primary block plain" style="width: 40%">取消</view>
 			<view bindtap="onReject" class="button primary block" style="width: 40%">审核不通过</view>
 		</view>
 	</view>
 </van-popup>
+<van-dialog id="van-dialog" />
