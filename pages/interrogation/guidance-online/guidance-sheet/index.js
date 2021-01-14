@@ -5,11 +5,22 @@
  */
 Page({
     data: {
-        recipe: {}
+        recipe: {},
+        bitText: '返回'
     },
     onLoad(option) {
         this.id = option.id;
         this.loadInfo();
+        var pages = getCurrentPages();
+        if (pages[pages.length - 5] && pages[pages.length - 5].route == 'pages/interrogation/chat/index') {
+            this.setData({
+                bitText: '返回聊天'
+            });
+        } else {
+            this.standardUnit({
+                bitText: '返回列表'
+            });
+        }
     },
     onUnload() {},
     loadInfo() {

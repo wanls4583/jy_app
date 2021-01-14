@@ -38,5 +38,5 @@
 	</view>
 </view>
 <view class="footer padding-30">
-	<view bindtap="onBack" class="button primary block">完成</view>
+	<view bindtap="onBack" class="button primary block">{{bitText}}</view>
 </view>

@@ -47,7 +47,7 @@ Page({
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
-                item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd HH:mm:ss');
+                item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
                 switch (item.status) {
                     case 11:
                         item._status = '审核不通过';
