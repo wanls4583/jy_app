@@ -408,7 +408,10 @@ Page({
             wx.jyApp.toast('个人头像不能为空');
             return;
         }
-        if (!/^1\d{10}$/.test(this.data.phone)) {
+        if(!this.data.phone) {
+            wx.jyApp.toast('手机号不能为空');
+            return;
+        }else if (!/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('手机号输入错误');
             return;
         }
@@ -420,22 +423,6 @@ Page({
             wx.jyApp.toast('请选择地区');
             return;
         }
-        if (!this.data.onlineDepartmentName.length) {
-            wx.jyApp.toast('请选择营养中心');
-            return;
-        }
-        if (!this.data.goodAtDomain) {
-            wx.jyApp.toast('擅长不能为空');
-            return;
-        }
-        if (!this.data.introduce) {
-            wx.jyApp.toast('个人简介不能为空');
-            return;
-        }
-        if (!this.data.workDepartmentName) {
-            wx.jyApp.toast('科室不能为空');
-            return;
-        }
         if (!this.data.workHospitalName) {
             wx.jyApp.toast('医院不能为空');
             return;
@@ -443,12 +430,28 @@ Page({
             wx.jyApp.toast('医院不能超过20个字');
             return;
         }
-        if (!this.data.jobCertificateUrl.length && ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(this.data.jobTitle) > -1) {
-            wx.jyApp.toast('请上传执业证');
+        if (!this.data.workDepartmentName) {
+            wx.jyApp.toast('科室不能为空');
             return;
         }
         if (!this.data.jobTitle) {
             wx.jyApp.toast('职称不能为空');
+            return;
+        }
+        if (!this.data.onlineDepartmentName.length) {
+            wx.jyApp.toast('请选择营养中心');
+            return;
+        }
+        if (!this.data.introduce) {
+            wx.jyApp.toast('个人简介不能为空');
+            return;
+        }
+        if (!this.data.goodAtDomain) {
+            wx.jyApp.toast('擅长不能为空');
+            return;
+        }
+        if (!this.data.jobCertificateUrl.length && ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(this.data.jobTitle) > -1) {
+            wx.jyApp.toast('请上传执业证');
             return;
         }
         if (!this.data.jobTitleCertificateUrl.length) {
