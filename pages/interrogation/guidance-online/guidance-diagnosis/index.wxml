@@ -10,7 +10,7 @@
 			bindinput="onInput"
 			class="height-50vw margin-top-20"
 			maxlength="{{1000}}"
-			placeholder="请输入营养诊断信息"
+			placeholder="请填写诊断说明，或选择诊断模板"
 			value="{{diagnosis}}"
 		></textarea>
 	</view>

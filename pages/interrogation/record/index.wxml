@@ -99,7 +99,7 @@
 						<view class="flex-shrink-0 align-self-start label label-color">营养诊断：</view>
 						<view>{{item.diagnosis||''}}</view>
 					</view>
-					<view class="label-color margin-top-bottom-20">营养指导内容：</view>
+					<view class="label-color margin-top-bottom-20">营养指导：</view>
 					<view class="border-bottom padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
 						<view class="flex--center--between">
 							<view>{{product.goodsName}}</view>

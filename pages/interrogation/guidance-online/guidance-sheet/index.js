@@ -14,11 +14,13 @@ Page({
         var pages = getCurrentPages();
         if (pages[pages.length - 5] && pages[pages.length - 5].route == 'pages/interrogation/chat/index') {
             this.setData({
-                bitText: '返回聊天'
+                bitText: '返回聊天',
+                tip: '指导单开具完成'
             });
         } else {
             this.setData({
-                bitText: '返回列表'
+                bitText: '返回列表',
+                tip: '指导单审核完成'
             });
         }
     },

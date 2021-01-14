@@ -1,14 +1,19 @@
 <view class="container padding-bottom-footer">
 	<guidance-header step="{{4}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
 	<view class="white-background-color margin-top-20">
-		<view class="padding-30">
-			<view class="font-large font-bold align-center">钜元互联网医院营养处方单</view>
+		<view class="flex--center--center primary-background-color padding-20 white-color">
+			<van-icon name="passed" size="25px" />
+			<text class="margin-left-10 font-bold">{{tip}}</text>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="margin-top-30 font-large font-bold align-center">钜元互联网医院营养指导单</view>
 			<view class="flex--center--between margin-top-30">
 				<view style="flex:1.4">姓名：{{recipe.detail.patientName}}</view>
 				<view style="flex:1">性别：{{recipe.detail._sex}}</view>
 				<view style="flex:1">年龄：{{recipe.detail.age}}</view>
 			</view>
 			<view class="margin-top-30">科室：{{recipe.departmentName}}</view>
+			<view class="margin-top-30">过敏史：{{recipe.detail.foodSensitive || '无'}}</view>
 			<view class="margin-top-30" style="white-space:pre-line">主诉：{{recipe.detail.mainSuit}}</view>
 			<view class="margin-top-30 padding-bottom" style="white-space:pre-line">诊断：{{recipe.detail.diagnosis}}</view>
 			<view class="margin-top-30 border-bottom"></view>
@@ -33,7 +38,7 @@
 				<view>审核医师：{{recipe.approveDoctor}}</view>
 			</view>
 			<view class="margin-top-30">开具日期：{{recipe.detail.orderTime}}</view>
-			<view class="margin-top-30 gray-color">注意：处方有效期为3天，擅自下载打印无效</view>
+			<view class="margin-top-30 gray-color">注意：指导单有效期为3天，擅自下载打印无效</view>
 		</view>
 	</view>
 </view>

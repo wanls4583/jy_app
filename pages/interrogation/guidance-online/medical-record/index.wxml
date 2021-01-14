@@ -29,15 +29,33 @@
 					<van-radio name="{{1}}">有</van-radio>
 				</van-radio-group>
 				<view class="margin-top-30" wx:if="{{hasFoodSensitive==1}}">
-					<input bindinput="onInput" data-prop="foodSensitive" placeholder="请填写过敏史" type="text" value="{{foodSensitive}}" />
+					<textarea auto-height="{{true}}" bindinput="onInput" data-prop="foodSensitive" maxlength="{{200}}" placeholder="请填写过敏史" value="{{foodSensitive}}" />
 				</view>
 			</view>
 		</view>
-		<van-field bindinput="onInput" data-prop="mainSuit" label="主诉" placeholder="请填写主诉" value="{{mainSuit}}"></van-field>
-		<van-field bindinput="onInput" data-prop="currentDisease" label="现病史" placeholder="请填写现病史" value="{{currentDisease}}"></van-field>
-		<van-field bindinput="onInput" data-prop="historyDisease" label="既往史" placeholder="请填写既往史" value="{{historyDisease}}"></van-field>
-		<van-field bindinput="onInput" data-prop="symptom" label="门诊症状" placeholder="请填写门诊症状" value="{{symptom}}"></van-field>
-		<van-field bindinput="onInput" data-prop="handlePlan" label="处置计划" placeholder="请填写处置计划" value="{{handlePlan}}"></van-field>
+		<van-field autosize bindinput="onInput" data-prop="mainSuit" label="主诉" maxlength="{{200}}" placeholder="请填写主诉" type="textarea" value="{{mainSuit}}"></van-field>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="currentDisease"
+			label="现病史"
+			maxlength="{{200}}"
+			placeholder="请填写现病史"
+			type="textarea"
+			value="{{currentDisease}}"
+		></van-field>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="historyDisease"
+			label="既往史"
+			maxlength="{{200}}"
+			placeholder="请填写既往史"
+			type="textarea"
+			value="{{historyDisease}}"
+		></van-field>
+		<van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field>
+		<van-field autosize bindinput="onInput" data-prop="handlePlan" label="处置计划" maxlength="{{200}}" placeholder="请填写处置计划" type="textarea" value="{{handlePlan}}"></van-field>
 	</view>
 </view>
 <view class="footer flex--center--around padding-30">

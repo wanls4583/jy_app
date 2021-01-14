@@ -75,7 +75,7 @@ Page({
     },
     onSave() {
         if (this.data.hasFoodSensitive == 1 && !this.data.foodSensitive) {
-            wx.jyApp.toast('请输入食物史');
+            wx.jyApp.toast('请输入过敏史');
             return;
         }
         wx.jyApp.setTempData('guidanceData', {

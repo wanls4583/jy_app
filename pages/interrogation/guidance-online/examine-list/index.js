@@ -14,6 +14,9 @@ Page({
         this.loadList();
     },
     onUnload() {},
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     onRefresh() {
         this.loadList(true);
     },
