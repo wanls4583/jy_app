@@ -245,7 +245,7 @@ Page({
             }
         }).then((data) => {
             if (status == 1) {
-                var page = wx.jyApp.utils.getPages('pages/interrogation/guidance-online/guidance-sheet/index');
+                var page = wx.jyApp.utils.getPages('pages/interrogation/guidance-online/examine-list/index');
                 if (page) { //修改审核列表为完成状态
                     page.updateStatus(this.guidanceData.id, 0);
                 }
