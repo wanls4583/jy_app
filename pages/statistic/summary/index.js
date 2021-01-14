@@ -7,8 +7,9 @@ Page({
     data: {
         startDateVisible: false,
         endDateVisible: false,
-        now: new Date().getTime(),
-        previous: null
+        previous: null,
+        startDate: new Date().getTime(),
+        endDate: new Date().getTime(),
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -16,8 +17,6 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.startDate = new Date().formatTime('yyyy-MM-dd');
-        this.endDate = this.startDate;
         this.loadData();
     },
     onUnload() {
@@ -36,67 +35,78 @@ Page({
     onChangeTab(e) {
         switch (e.detail.title) {
             case '今天':
-                this.startDate = new Date().formatTime('yyyy-MM-dd');
-                this.endDate = this.startDate;
+                this.setData({
+                    startDate: new Date().getTime(),
+                    endDate: new Date().getTime()
+                });
                 break;
             case '昨天':
-                this.startDate = new Date(new Date().getTime() - 24 * 60 * 60 * 1000).formatTime('yyyy-MM-dd');
-                this.endDate = this.startDate;
+                var startDate = new Date(new Date().getTime() - 24 * 60 * 60 * 1000).getTime();
+                this.setData({
+                    startDate: startDate,
+                    endDate: startDate
+                });
                 break;
             case '本月':
                 var date = new Date();
-                this.startDate = new Date(date.getFullYear(), date.getMonth(), 1).formatTime('yyyy-MM-dd');
+                var startDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
+                var endDate = 0;
                 if (date.getMonth() >= 11) {
-                    this.endDate = new Date(date.getFullYear() + 1, 0, 1);
+                    endDate = new Date(date.getFullYear() + 1, 0, 1).getTime();
                 } else {
-                    this.endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1)
+                    endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).getTime();
                 }
-                this.endDate = new Date(this.endDate.getTime() - 1000).formatTime('yyyy-MM-dd');
+                endDate = new Date(endDate - 1000).getTime();
+                this.setData({
+                    startDate: startDate,
+                    endDate: endDate
+                });
                 break;
             case '上月':
                 var date = new Date();
                 if (date.getMonth() == 0) {
-                    this.startDate = new Date(date.getFullYear() - 1, 11, 1).formatTime('yyyy-MM-dd');
-                    this.endDate = new Date(date.getFullYear() - 1, 11, 31).formatTime('yyyy-MM-dd');
+                    this.setData({
+                        startDate: new Date(date.getFullYear() - 1, 11, 1).getTime(),
+                        endDate: new Date(date.getFullYear() - 1, 11, 31).getTime()
+                    });
                 } else {
-                    this.startDate = new Date(date.getFullYear(), date.getMonth() - 1, 1).formatTime('yyyy-MM-dd');
-                    this.endDate = new Date(date.getFullYear(), date.getMonth(), 1);
-                    this.endDate = new Date(this.endDate.getTime() - 1000).formatTime('yyyy-MM-dd');
+                    var startDate = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+                    var endDate = new Date(date.getFullYear(), date.getMonth(), 1).getTime();
+                    endDate = new Date(endDate - 1000).getTime();
+                    this.setData({
+                        startDate: startDate,
+                        endDate: endDate
+                    });
                 }
                 break;
         }
-        this.loadData();
+        if (e.detail.title != '自定义') {
+            this.loadData();
+        }
     },
     onConfirmStartDate(e) {
-        this.startDate = new Date(e.detail).formatTime('yyyy-MM-dd');
-        this._startDate = e.detail;
         this.setData({
             startDateVisible: false,
             endDateVisible: true,
-            minDate: this._startDate
+            startDate: e.detail
         })
     },
     onCancelStart() {
-        this.startDate = this._startDate || this.data.now;
-        this.startDate = new Date(this.startDate).formatTime('yyyy-MM-dd');
         this.setData({
             startDateVisible: false,
             endDateVisible: true,
-            minDate: this._startDate
         })
     },
     onConfirmEndDate(e) {
-        this.endDate = new Date(e.detail).formatTime('yyyy-MM-dd');
-        this._endDate = e.detail;
         this.setData({
+            endDate: e.detail,
             endDateVisible: false
         })
         this.loadData();
     },
     onCancelEnd() {
-        this.endDate = this._endDate || this.data.now;
-        this.endDate = new Date(this.endDate).formatTime('yyyy-MM-dd');
         this.setData({
+            endDate: this.data.endDate > this.data.startDate ? this.data.endDate : this.data.startDate,
             endDateVisible: false
         })
         this.loadData();
@@ -108,8 +118,10 @@ Page({
             wx.jyApp.toast('暂不支持查看该项详情数据');
             return;
         }
+        var startDate = new Date(this.data.startDate).formatTime('yyyy-MM-dd');
+        var endDate = new Date(this.data.endDate).formatTime('yyyy-MM-dd');
         wx.jyApp.utils.navigateTo({
-            url: `/pages/statistic/statistic-detail/index?indicator=${indicator}&startDate=${this.startDate}&endDate=${this.endDate}&title=${title}`
+            url: `/pages/statistic/statistic-detail/index?indicator=${indicator}&startDate=${startDate}&endDate=${endDate}&title=${title}`
         });
     },
     resetData() {
@@ -164,8 +176,8 @@ Page({
         wx.jyApp.http({
             url: '/statistics/summary',
             data: {
-                startDate: this.startDate,
-                endDate: this.endDate
+                startDate: new Date(this.data.startDate).formatTime('yyyy-MM-dd'),
+                endDate: new Date(this.data.endDate).formatTime('yyyy-MM-dd')
             }
         }).then((data) => {
             data.current = data.current || {};
