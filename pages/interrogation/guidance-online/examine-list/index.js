@@ -39,7 +39,7 @@ Page({
                 this.setData({
                     page: 1,
                     totalPage: -1,
-                    list: []
+                    orderList: []
                 });
             }
             data.page.list = data.page.list || [];
