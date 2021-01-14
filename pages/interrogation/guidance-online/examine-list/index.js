@@ -78,7 +78,7 @@ Page({
                     id: item.id
                 }
             }).then((data) => {
-                this.updateStatus(id);
+                this.updateStatus(id, 0);
                 wx.jyApp.toast('操作成功');
             });
         });
@@ -103,6 +103,7 @@ Page({
     updateStatus(id, status) {
         this.data.orderList.map((item, index) => {
             if (id == item.id) {
+                item.status = status;
                 this.setStatus(item);
                 this.setData({
                     [`orderList[${index}]`]: item
