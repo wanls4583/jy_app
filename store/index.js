@@ -22,7 +22,7 @@ export const store = observable({
         var money = 0;
         this.cart.map((item) => {
             if (item.selected) {
-                money += item.totalAmount;
+                money += item.amount;
             }
         });
         return Number(money.toFixed(2));
@@ -37,12 +37,12 @@ export const store = observable({
         product = Object.assign({}, product || {});
         if (temp.length) {
             temp[0].count++;
-            temp[0].totalAmount = Number((temp[0].price * temp[0].count).toFixed(2));
+            temp[0].amount = Number((temp[0].price * temp[0].count).toFixed(2));
         } else {
             product.firstPic = product.goodsPic && product.goodsPic.split(',')[0];
             product._unit = product.type == 1 ? wx.jyApp.constData.unitChange[product.unit] : '份';
             product._standardUnit = wx.jyApp.constData.unitChange[product.standardUnit];
-            product.totalAmount = product.price;
+            product.amount = product.price;
             product.count = 1;
             this.cart.push(product);
         }
@@ -62,7 +62,7 @@ export const store = observable({
                     this.cart.splice(i, 1);
                 } else {
                     this.cart[i].count = count;
-                    this.cart[i].totalAmount = Number((this.cart[i].price * count).toFixed(2));
+                    this.cart[i].amount = Number((this.cart[i].price * count).toFixed(2));
                 }
                 break;
             }

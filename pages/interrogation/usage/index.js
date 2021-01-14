@@ -9,7 +9,7 @@ Page({
         _frequency: '',
         _giveWay: '',
         giveWay: '',
-        totalAmount: 0,
+        amount: 0,
         count: '',
         days: 7,
         modulateDose: 0,
@@ -47,7 +47,7 @@ Page({
             frequency: goods.frequency || 1,
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1] || wx.jyApp.constData.frequencyArray[0],
             frequencyDefault: goods.frequency - 1 || 0,
-            totalAmount: goods.totalAmount || 0
+            amount: goods.amount || 0
         });
         if (!this.data.count) {
             this.caculateGross();
@@ -118,7 +118,7 @@ Page({
             days: Number(days.toFixed(2))
         });
         this.setData({
-            totalAmount: (this.data.count * this.data.goods.price).toFixed(2)
+            amount: (this.data.count * this.data.goods.price).toFixed(2)
         });
     },
     onDaysPlus(e) {
@@ -208,7 +208,7 @@ Page({
         }
         this.setData({
             count: count,
-            totalAmount: (count * this.data.goods.price).toFixed(2)
+            amount: (count * this.data.goods.price).toFixed(2)
         });
     },
     onChangePerUseNum(e) {
@@ -238,7 +238,7 @@ Page({
         this.data.goods.count = this.data.count;
         this.data.goods.modulateDose = this.data.modulateDose;
         this.data.goods.remark = this.data.remark;
-        this.data.goods.totalAmount = this.data.totalAmount;
+        this.data.goods.amount = this.data.amount;
         if (this.data.goods.type == 1) {
             this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
         } else {

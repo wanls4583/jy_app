@@ -164,7 +164,7 @@ Page({
                         days = Number((item.days * item.count).toFixed(2));
                     }
                     return {
-                        amount: item.totalAmount,
+                        amount: item.amount,
                         days: days,
                         frequency: item.frequency,
                         giveWay: item.giveWay,
@@ -231,7 +231,7 @@ Page({
                         days = Number((item.days * item.count).toFixed(2));
                     }
                     return {
-                        amount: item.totalAmount,
+                        amount: item.amount,
                         days: days,
                         frequency: item.frequency,
                         giveWay: item.giveWay,
@@ -272,9 +272,9 @@ Page({
     caculateTotalAmount() {
         var totalAmount = 0;
         this.data.goodsList.map((item) => {
-            totalAmount += Number(item.totalAmount);
+            totalAmount += Number(item.amount);
         });
-        totalAmount = Number(totalAmount) + (Number(this.data.configData.deliveryCost) || 0);
+        totalAmount += (Number(this.data.configData.deliveryCost) || 0);
         totalAmount = totalAmount.toFixed(2);
         this.setData({
             totalAmount: totalAmount

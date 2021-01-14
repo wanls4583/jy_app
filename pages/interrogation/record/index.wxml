@@ -1,4 +1,3 @@
-<import src="/template/order-goods-item.wxml" />
 <view class="container">
 	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
 		<van-collapse-item name="info" title="患者信息">

@@ -18,7 +18,7 @@
 			<view>{{goods.goodsName}}</view>
 			<view class="flex--center--between width-100">
 				<text class="gray-color">x{{goods.count||goods.num}}{{goods._unit}}</text>
-				<text class>￥{{goods.totalAmount||goods.price}}</text>
+				<text class>￥{{goods.amount}}</text>
 			</view>
 		</view>
 	</view>

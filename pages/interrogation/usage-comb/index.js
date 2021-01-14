@@ -6,7 +6,7 @@ Page({
         _frequency: '',
         _giveWay: '',
         giveWay: '',
-        totalAmount: 0,
+        amount: 0,
         count: '',
         days: '',
         modulateDose: 0,
@@ -41,7 +41,7 @@ Page({
             remark: goods.remark,
             _giveWay: giveWayMap[goods.giveWay],
             _frequency: wx.jyApp.constData.frequencyArray[goods.frequency - 1],
-            totalAmount: goods.totalAmount || goods.price
+            amount: goods.amount || goods.price
         });
         giveWayList.map((item, index) => {
             if (this.data.giveWay == item.value) {
@@ -97,7 +97,7 @@ Page({
         var count = e.detail;
         this.setData({
             count: count,
-            totalAmount: (count * this.data.goods.price).toFixed(2)
+            amount: (count * this.data.goods.price).toFixed(2)
         });
     },
     onShowGiveWay() {
@@ -139,7 +139,7 @@ Page({
         this.data.goods.days = this.data.days;
         this.data.goods.count = this.data.count;
         this.data.goods.remark = this.data.remark;
-        this.data.goods.totalAmount = this.data.totalAmount;
+        this.data.goods.amount = this.data.amount;
         this.data.goods.usage = `${(this.data.days * this.data.count).toFixed(2)}天，${this.data._frequency}，${Number(this.data.goods.modulateDose) ? '配制' + this.data.goods.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
         var pages = getCurrentPages();
         wx.navigateBack({

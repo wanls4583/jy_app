@@ -13,7 +13,7 @@ Page({
             var goods = wx.jyApp.tempData.buyGoods;
             goods.selected = true;
             goods.count = 1;
-            goods.totalAmount = goods.price;
+            goods.amount = goods.price;
             goods.firstPic = goods.goodsPic && goods.goodsPic.split(',')[0] || '';
             this.setData({
                 cart: [goods],
@@ -55,7 +55,7 @@ Page({
         });
         var goods = cart.map((item) => {
             return {
-                amount: item.totalAmount,
+                amount: item.amount,
                 goodsId: item.id,
                 num: item.count
             }
