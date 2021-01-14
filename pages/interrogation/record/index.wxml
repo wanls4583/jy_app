@@ -64,8 +64,37 @@
 			<view class="padding-left-right-30">
 				<view class="padding-top-bottom-20 color-333" wx:for="{{nutritionOrder}}" wx:key="index">
 					<view class="flex--center--start">
-						<view class="flex-shrink-0 label-color">营养指导时间：</view>
+						<view class="flex-shrink-0 label-color">开具时间：</view>
 						<view>{{item.orderTime}}</view>
+					</view>
+					<view class="margin-top-20 font-bold">营养病历</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">初诊标志：</view>
+						<view>{{item.isFirst==1?'初诊':'复诊'}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">过敏史：</view>
+						<view>{{item.foodSensitive||''}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">主诉：</view>
+						<view>{{item.mainSuit||''}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">现病史：</view>
+						<view>{{item.currentDisease||''}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">既往史：</view>
+						<view>{{item.historyDisease||''}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">门诊症状：</view>
+						<view>{{item.symptom||''}}</view>
+					</view>
+					<view class="flex--center--start margin-top-20">
+						<view class="flex-shrink-0 label-color">处置计划：</view>
+						<view>{{item.handlePlan||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 align-self-start label label-color">营养诊断：</view>
