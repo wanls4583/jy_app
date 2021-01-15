@@ -61,6 +61,7 @@ Page({
         }
     },
     onUnload() {
+        wx.jyApp.clearTempData('guidanceData');
         wx.jyApp.clearTempData('guidePatient');
         wx.jyApp.clearTempData('guideOrderDetail');
     },

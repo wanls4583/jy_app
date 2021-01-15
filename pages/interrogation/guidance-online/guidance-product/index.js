@@ -63,9 +63,6 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
         wx.jyApp.clearTempData('guideGoodsList');
-        wx.jyApp.clearTempData('guidanceData');
-        wx.jyApp.clearTempData('guidePatient');
-        wx.jyApp.clearTempData('guideOrderDetail');
     },
     onShow() {
         var usageGoods = wx.jyApp.getTempData('usageGoods');
