@@ -6,16 +6,22 @@
 Page({
     data: {
         recipe: {},
-        bitText: '返回'
+        bitText: '返回',
+        hideTip: false
     },
     onLoad(option) {
         this.id = option.id;
         this.loadInfo();
-        var pages = getCurrentPages();
-        if (pages[pages.length - 5] && pages[pages.length - 5].route == 'pages/interrogation/chat/index') {
+        var route = wx.jyApp.utils.getRouteByLastIndex(5);
+        if (route == 'pages/interrogation/chat/index') {
             this.setData({
                 bitText: '返回聊天',
                 tip: '指导单开具完成'
+            });
+        } else if (route == 'pages/notice-list/index') {
+            this.setData({
+                bitText: '返回',
+                hideTip: true
             });
         } else {
             this.setData({
@@ -51,11 +57,6 @@ Page({
         });
     },
     onBack() {
-        wx.navigateBack({
-            delta: 4
-        });
-        wx.jyApp.clearTempData('guidanceData');
-        wx.jyApp.clearTempData('guidePatient');
-        wx.jyApp.clearTempData('guideOrderDetail');
+        wx.navigateBack();
     }
 })

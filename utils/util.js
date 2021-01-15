@@ -102,6 +102,33 @@ function navigateTo(e) {
     }
 }
 
+function navigateBack(option) {
+    var route = getRouteByLastIndex();
+    var _timer = () => {
+        navigateBack.timer = setTimeout(() => {
+            if (getRouteByLastIndex() != route) {
+                option && option.success && option.success();
+            } else {
+                _timer();
+            }
+        }, 100);
+    }
+    _timer();
+    wx.navigateBack({
+        delta: option && option.delta || 1
+    });
+}
+
+function getRouteByLastIndex(index) {
+    var pages = getCurrentPages();
+    index = index || 1;
+    if (pages[pages.length - index]) {
+        return pages[pages.length - index].route;
+    } else {
+        return '';
+    }
+}
+
 function onInput(e, context) {
     var prop = e.currentTarget.dataset.prop;
     context.setData({
@@ -360,6 +387,8 @@ Date.prototype.countTime = countTime;
 module.exports = {
     emailReg: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
     navigateTo: navigateTo,
+    navigateBack: navigateBack,
+    getRouteByLastIndex: getRouteByLastIndex,
     onInput: onInput,
     onInputNum: onInputNum,
     setText: setText,

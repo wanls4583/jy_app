@@ -63,6 +63,9 @@ Page({
     onUnload() {
         this.storeBindings.destroyStoreBindings();
         wx.jyApp.clearTempData('guideGoodsList');
+        wx.jyApp.clearTempData('guidanceData');
+        wx.jyApp.clearTempData('guidePatient');
+        wx.jyApp.clearTempData('guideOrderDetail');
     },
     onShow() {
         var usageGoods = wx.jyApp.getTempData('usageGoods');
@@ -88,6 +91,7 @@ Page({
             this.caculateTotalAmount();
             this.anlizeNutrition();
         }
+        //供usage页面使用
         wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
     },
     onGoto(e) {
@@ -177,9 +181,14 @@ Page({
                 })
             }
         }).then((data) => {
-            wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
-            });
+            wx.jyApp.utils.navigateBack({
+                delta: 3,
+                success: function () {
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
+                    });
+                }
+            })
         }).finally(() => {
             wx.hideLoading();
         });
@@ -249,10 +258,19 @@ Page({
                 if (page) { //修改审核列表为完成状态
                     page.updateStatus(this.guidanceData.id, 0);
                 }
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id
-                });
+                wx.jyApp.utils.navigateBack({
+                    delta: 3,
+                    success: function () {
+                        wx.jyApp.utils.navigateTo({
+                            url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id
+                        });
+                    }
+                })
             } else {
+                var page = wx.jyApp.utils.getPages('pages/interrogation/guidance-online/examine-list/index');
+                if (page) { //修改审核列表为完成状态
+                    page.updateStatus(this.guidanceData.id, 11);
+                }
                 wx.navigateBack({
                     delta: 3
                 });

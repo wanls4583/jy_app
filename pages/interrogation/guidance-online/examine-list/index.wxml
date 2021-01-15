@@ -29,7 +29,7 @@
 					bindtap="onGoto"
 					class="margin-left-20 button primary small"
 					data-id="{{order.id}}"
-					data-url="/pages/interrogation/guidance-order-detail/index?id={{order.id}}"
+					data-url="/pages/interrogation/guidance-online/guidance-sheet/index?id={{order.id}}"
 					wx:if="{{order.status==0}}"
 				>查看指导单</view>
 			</view>

@@ -117,6 +117,7 @@ export const mallOrderStatusMap = {
   '8': '已完成',
   '9': '发货中',
   '10': '审核中',
+  '11': '审核不通过'
 }
 //问诊订单
 export const interrogationOrderStatusMap = {

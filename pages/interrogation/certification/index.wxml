@@ -53,11 +53,16 @@
 					>{{item.departmentName}}</view>
 				</view>
 			</view>
-			<!-- <van-field bindtap="onShowDisease" label="擅长" placeholder="请选择擅长疾病或领域" readonly value="{{goodAtDomain}}">
-				<view class="flex--center--center" slot="right-icon">
-					<van-icon color="#ccc" name="arrow" />
-				</view>
-			</van-field>-->
+			<readonly-field
+				bindtap="onInput"
+				data-prop="goodAtDomain"
+				data-title="擅长"
+				data-type="textarea"
+				label="擅长"
+				placeholder="请输入擅长"
+				type="textarea"
+				value="{{goodAtDomain}}"
+			></readonly-field>
 			<readonly-field
 				autosize
 				bindtap="onInput"
@@ -68,16 +73,6 @@
 				placeholder="请输入个人简介"
 				type="textarea"
 				value="{{introduce}}"
-			></readonly-field>
-			<readonly-field
-				bindtap="onInput"
-				data-prop="goodAtDomain"
-				data-title="擅长"
-				data-type="textarea"
-				label="擅长"
-				placeholder="请输入擅长"
-				type="textarea"
-				value="{{goodAtDomain}}"
 			></readonly-field>
 		</van-collapse-item>
 		<van-collapse-item name="2" title="执业信息">

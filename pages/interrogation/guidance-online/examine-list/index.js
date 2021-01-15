@@ -78,7 +78,7 @@ Page({
                 url: '/nutritionorder/approve/quick',
                 method: 'post',
                 data: {
-                    id: item.id
+                    id: id
                 }
             }).then((data) => {
                 this.updateStatus(id, 0);
