@@ -157,7 +157,7 @@ Page({
     },
     loadProduct() {
         wx.jyApp.http({
-            url: `/goods/info/${this.data.goods.id}`
+            url: `/goods/info/${this.data.goods.goodsId || this.data.id}`
         }).then((data) => {
             this.setData({
                 productList: data.info.items,

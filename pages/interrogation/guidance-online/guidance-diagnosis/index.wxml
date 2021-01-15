@@ -15,7 +15,7 @@
 		></textarea>
 	</view>
 	<view class="footer flex--center--around padding-top-bottom-30">
-		<view bindtap="onPre" class="button primary block plain" style="width:40%">上一页</view>
-		<view bindtap="onNext" class="button primary block" style="width:40%">下一页</view>
+		<view bindtap="onPre" class="button primary block plain" style="width:40%">上一步</view>
+		<view bindtap="onNext" class="button primary block" style="width:40%">下一步</view>
 	</view>
 </view>

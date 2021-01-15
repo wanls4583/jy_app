@@ -2,8 +2,8 @@
 <view class="container padding-bottom-footer">
 	<guidance-header step="{{3}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
 	<view class="padding-30 padding-top-0 margin-top-20 white-background-color">
-		<view class="flex--center--end">
-			<view bindtap="onAddGoods" class="flex--center--center padding-30 primary-color">
+		<view class="flex--center--between">
+			<view bindtap="onAddGoods" class="flex--center--center padding-30 padding-left-0 primary-color">
 				<van-icon name="add-o" />
 				<text>添加营养指导</text>
 			</view>

@@ -100,7 +100,7 @@
 						<view class="pre-line">{{item.diagnosis||''}}</view>
 					</view>
 					<view class="margin-top-bottom-20 pre-line label">营养指导：</view>
-					<view class="border-bottom padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
+					<view class="padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
 						<view class="flex--center--between">
 							<view>{{product.goodsName}}</view>
 							<view class="flex-shrink-0 gray-color">x{{product.count}}{{product._unit}}</view>

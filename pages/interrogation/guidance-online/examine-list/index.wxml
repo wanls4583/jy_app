@@ -5,7 +5,7 @@
 				<text class="gray-color">{{order.orderTime}}</text>
 				<text class="{{order.statusColor}}">{{order._status}}</text>
 			</view>
-			<view catchtap="onGoto" data-url="/pages/interrogation/apply-order-detail/index?type=interrogation&id={{order.id}}">
+			<view>
 				<view class="flex padding-top-bottom-20">
 					<text class="flex-shrink-0">患者信息：</text>
 					<view>
