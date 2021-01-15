@@ -63,6 +63,10 @@ Page({
                     return item;
                 })
             })
+        } else if (this.guidanceData.goodsList) {
+            this.setData({
+                goodsList: this.guidanceData.goodsList
+            });
         }
     },
     onUnload() {
@@ -95,6 +99,7 @@ Page({
         }
         //供usage页面使用
         wx.jyApp.setTempData('guideGoodsList', this.data.goodsList.concat([]));
+        this.guidanceData.goodsList = this.data.goodsList;
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
@@ -162,7 +167,16 @@ Page({
             url: '/nutritionorder/save',
             method: 'post',
             data: {
-                ...this.guidanceData,
+                consultOrderId: this.guidanceData.consultOrderId,
+                currentDisease: this.guidanceData.currentDisease,
+                diagnosis: this.guidanceData.diagnosis,
+                foodSensitive: this.guidanceData.foodSensitive,
+                handlePlan: this.guidanceData.handlePlan,
+                historyDisease: this.guidanceData.historyDisease,
+                id: this.guidanceData.id,
+                isFirst: this.guidanceData.isFirst,
+                mainSuit: this.guidanceData.mainSuit,
+                symptom: this.guidanceData.symptom,
                 totalAmount: this.data.totalAmount,
                 goods: this.data.goodsList.map((item) => {
                     var days = item.days;
@@ -232,7 +246,16 @@ Page({
             url: '/nutritionorder/approve',
             method: 'post',
             data: {
-                ...this.guidanceData,
+                consultOrderId: this.guidanceData.consultOrderId,
+                currentDisease: this.guidanceData.currentDisease,
+                diagnosis: this.guidanceData.diagnosis,
+                foodSensitive: this.guidanceData.foodSensitive,
+                handlePlan: this.guidanceData.handlePlan,
+                historyDisease: this.guidanceData.historyDisease,
+                id: this.guidanceData.id,
+                isFirst: this.guidanceData.isFirst,
+                mainSuit: this.guidanceData.mainSuit,
+                symptom: this.guidanceData.symptom,
                 status: status,
                 approveMsg: approveMsg || '',
                 totalAmount: this.data.totalAmount,
@@ -264,7 +287,7 @@ Page({
                     delta: 3,
                     success: function () {
                         wx.jyApp.utils.navigateTo({
-                            url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
+                            url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id
                         });
                     }
                 })

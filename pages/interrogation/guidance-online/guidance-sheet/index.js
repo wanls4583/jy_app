@@ -27,11 +27,11 @@ Page({
         } else {
             this.setData({
                 bitText: '返回列表',
-                hideTip: this.guidanceData.from != 'examine',
+                hideTip: option.from != 'examine',
                 tip: '指导单审核完成'
             });
         }
-        if (this.guidanceData.from == 'examine') {
+        if (option.from == 'examine') {
             wx.setNavigationBarTitle({
                 title: '审核营养指导'
             });

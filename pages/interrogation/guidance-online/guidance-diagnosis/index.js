@@ -27,6 +27,10 @@ Page({
             this.setData({
                 diagnosis: diagnosisTemplate
             });
+        } else if (this.guidanceData.diagnosis) {
+            this.setData({
+                diagnosis: this.guidanceData.diagnosis
+            });
         }
     },
     onPre(e) {
