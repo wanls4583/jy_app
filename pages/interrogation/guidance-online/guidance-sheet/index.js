@@ -12,7 +12,7 @@ Page({
     onLoad(option) {
         this.id = option.id;
         this.loadInfo();
-        var route = wx.jyApp.utils.getRouteByLastIndex(5);
+        var route = wx.jyApp.utils.getRouteByLastIndex(2);
         if (route == 'pages/interrogation/chat/index') {
             this.setData({
                 bitText: '返回聊天',

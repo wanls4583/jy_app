@@ -34,7 +34,7 @@ Page({
                 url: '/pages/interrogation/guidance-online/guidance-product/index'
             });
         } else {
-            wx.jyApp.toast('请输入营养诊断');
+            wx.jyApp.toast('请输入营养说明');
         }
     },
     onInput(e) {

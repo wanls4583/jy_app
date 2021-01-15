@@ -73,33 +73,33 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">过敏史：</view>
-						<view>{{item.foodSensitive||''}}</view>
+						<view class="pre-line">{{item.foodSensitive||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">主诉：</view>
-						<view>{{item.mainSuit||''}}</view>
+						<view class="pre-line">{{item.mainSuit||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">现病史：</view>
-						<view>{{item.currentDisease||''}}</view>
+						<view class="pre-line">{{item.currentDisease||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">既往史：</view>
-						<view>{{item.historyDisease||''}}</view>
+						<view class="pre-line">{{item.historyDisease||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">门诊症状：</view>
-						<view>{{item.symptom||''}}</view>
+						<view class="pre-line">{{item.symptom||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label-color">处置计划：</view>
-						<view>{{item.handlePlan||''}}</view>
+						<view class="pre-line">{{item.handlePlan||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 align-self-start label label-color">营养诊断：</view>
-						<view>{{item.diagnosis||''}}</view>
+						<view class="pre-line">{{item.diagnosis||''}}</view>
 					</view>
-					<view class="label-color margin-top-bottom-20">营养指导：</view>
+					<view class="label-color margin-top-bottom-20 pre-line">营养指导：</view>
 					<view class="border-bottom padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
 						<view class="flex--center--between">
 							<view>{{product.goodsName}}</view>

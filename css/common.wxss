@@ -393,6 +393,10 @@ readonly-field:last-child .border-bottom {
     white-space: nowrap;
 }
 
+.pre-line {
+    white-space: pre-line;
+}
+
 .label {
     width: 6.2em;
     margin-right: 12px;
