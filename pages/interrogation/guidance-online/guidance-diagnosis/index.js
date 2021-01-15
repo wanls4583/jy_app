@@ -10,7 +10,7 @@ Page({
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
-        if (guideOrderDetail) {
+        if (guideOrderDetail && !this.guidanceData.diagnosis) {
             this.setData({
                 diagnosis: guideOrderDetail.diagnosis
             });
@@ -36,7 +36,6 @@ Page({
         this.guidanceData.diagnosis = this.data.diagnosis;
     },
     onPre(e) {
-        delete this.guidanceData.diagnosis;
         wx.navigateBack();
     },
     onNext(e) {

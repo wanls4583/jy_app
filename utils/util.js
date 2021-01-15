@@ -107,11 +107,13 @@ function navigateBack(option) {
     var _timer = () => {
         navigateBack.timer = setTimeout(() => {
             if (getPageByLastIndex() != page.route) {
-                option && option.success && option.success();
+                setTimeout(()=>{
+                    option && option.success && option.success();
+                }, 500);
             } else {
                 _timer();
             }
-        }, 100);
+        }, 10);
     }
     _timer();
     wx.navigateBack({

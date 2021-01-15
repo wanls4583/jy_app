@@ -199,6 +199,7 @@ Page({
             wx.jyApp.utils.navigateBack({
                 delta: 3,
                 success: function () {
+                    console.log('/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id);
                     wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
                     });

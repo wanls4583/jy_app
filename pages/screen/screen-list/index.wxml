@@ -1,7 +1,7 @@
 <!-- index.wxml -->
 <view class="container">
 	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
-		<view class="padding-left-right-30 margin-top-20 white-background-color clickable" wx:for="{{list}}" wx:key="id">
+		<view class="padding-left-right-30 margin-top-20 white-background-color" wx:for="{{list}}" wx:key="id">
 			<view class="flex flex-wrap-wrap padding-top-bottom-20 border-bottom">
 				<text>{{item.patientName}}</text>
 				<text>，{{item._sex}}</text>

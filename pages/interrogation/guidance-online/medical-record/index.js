@@ -54,7 +54,7 @@ Page({
             patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
             this.setData({
                 patient: patient,
-                mainSuit: patient.diseaseDetail ||''
+                mainSuit: patient.diseaseDetail || ''
             });
         }
         if (patient.foodSensitive) {
@@ -83,18 +83,20 @@ Page({
             wx.jyApp.toast('请输入过敏史');
             return;
         }
-        wx.jyApp.setTempData('guidanceData', {
-            id: this.id,
-            from: this.from,
-            consultOrderId: this.consultOrderId,
-            isFirst: this.data.isFirst,
-            foodSensitive: this.data.foodSensitive,
-            mainSuit: this.data.mainSuit,
-            currentDisease: this.data.currentDisease,
-            historyDisease: this.data.historyDisease,
-            symptom: this.data.symptom,
-            handlePlan: this.data.handlePlan
-        });
+        if (!wx.jyApp.getTempData('guidanceData')) {
+            wx.jyApp.setTempData('guidanceData', {
+                id: this.id,
+                from: this.from,
+                consultOrderId: this.consultOrderId,
+                isFirst: this.data.isFirst,
+                foodSensitive: this.data.foodSensitive,
+                mainSuit: this.data.mainSuit,
+                currentDisease: this.data.currentDisease,
+                historyDisease: this.data.historyDisease,
+                symptom: this.data.symptom,
+                handlePlan: this.data.handlePlan
+            });
+        }
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/guidance-online/guidance-diagnosis/index'
         });

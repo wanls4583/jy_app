@@ -50,6 +50,11 @@ Page({
             active: e.detail.index
         });
     },
+    onChangeSwiper(e) {
+        this.setData({
+            active: e.detail.current
+        });
+    },
     onRefresh(e) {
         var status = e.currentTarget.dataset.status;
         this.loadList(true, status);
