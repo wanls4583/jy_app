@@ -1,14 +1,36 @@
 <view class="container white-background-color">
 	<view class="padding-30">
-		<view class="font-large font-bold align-center">钜元互联网医院营养处方单</view>
+		<view class="font-large font-bold align-center">钜元互联网医院营养指导单</view>
 		<view class="flex--center--between margin-top-30">
-			<view style="flex:1.4">姓名：{{recipe.detail.patientName}}</view>
-			<view style="flex:1">性别：{{recipe.detail._sex}}</view>
-			<view style="flex:1">年龄：{{recipe.detail.age}}</view>
+			<view style="flex:1.4">
+				<text>姓名：</text>
+				<text>{{recipe.detail.patientName}}</text>
+			</view>
+			<view style="flex:1">
+				<text>性别：</text>
+				<text>{{recipe.detail._sex}}</text>
+			</view>
+			<view style="flex:1">
+				<text>年龄：</text>
+				<text>{{recipe.detail.age}}</text>
+			</view>
 		</view>
-		<view class="margin-top-30">科室：{{recipe.departmentName}}</view>
-		<view class="margin-top-30 pre-line">主诉：{{recipe.diseaseDetail||''}}</view>
-		<view class="margin-top-30 padding-bottom pre-line">诊断：{{recipe.detail.diagnosis||''}}</view>
+		<view class="flex margin-top-30">
+			<text class="label" style="width:4em">科室：</text>
+			<text class="pre-line">{{recipe.departmentName}}</text>
+		</view>
+		<view class="flex margin-top-30">
+			<text class="label" style="width:4em">过敏史：</text>
+			<text class="pre-line">{{recipe.detail.foodSensitive || '无'}}</text>
+		</view>
+		<view class="flex margin-top-30">
+			<text class="label" style="width:4em">主诉：</text>
+			<text class="pre-line">{{recipe.diseaseDetail||''}}</text>
+		</view>
+		<view class="flex margin-top-30 padding-bottom">
+			<text class="label" style="width:4em">诊断：</text>
+			<text class="pre-line">{{recipe.detail.diagnosis||''}}</text>
+		</view>
 	</view>
 	<view class="padding-30 margin-top-30">
 		<view class="font-large font-bold">Rp</view>
