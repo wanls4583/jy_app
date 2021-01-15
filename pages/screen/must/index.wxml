@@ -51,7 +51,7 @@
 		<view class="margin-left-30 pre-vertical-line primary-line-color">筛查结果</view>
 		<view class="padding-30">
 			<view class="padding-bottom-30">筛查结果</view>
-			<van-radio-group value="{{must.result}}">
+			<van-radio-group value="{{must._result}}">
 				<van-radio name="0">0分/低度营养风险；需定期进行重复筛查</van-radio>
 				<van-radio name="1">1分/中度营养风险；需记录3天膳食摄入状况并重复筛查</van-radio>
 				<van-radio name="2">2分或以上/高度营养风险；需接受营养干预</van-radio>

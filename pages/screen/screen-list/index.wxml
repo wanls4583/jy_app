@@ -16,9 +16,9 @@
 			</view>
 			<view class="flex--center--start margin-top-20">
 				<view style="flex:2">筛查医师：{{item.doctorName}}</view>
-				<view style="flex:1.5">筛查结果：{{item.filtrateResult}}</view>
+				<view style="flex:1.5">筛查结果：{{item.filtrateResult||''}}</view>
 			</view>
-			<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription}}</view>
+			<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>
 			<view class="flex--center--end margin-top-20 padding-top-bottom-20 border-top">
 				<view class="button plain gray small">删除</view>
 				<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{item}}">修改</view>

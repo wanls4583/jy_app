@@ -18,7 +18,6 @@ Page({
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
         this.patitent = wx.jyApp.getTempData('guidePatient');
         this.consultOrderId = this.guidanceData.consultOrderId;
-        this.diagnosis = this.guidanceData.diagnosis;
         this.getAllNutrition();
         this.prop = [
             'energy',
@@ -151,7 +150,7 @@ Page({
         wx.navigateBack();
     },
     onSave() {
-        if (!this.diagnosis) {
+        if (!this.guidanceData.diagnosis) {
             wx.jyApp.toast('营养诊断不能为空');
             return;
         }
@@ -230,7 +229,7 @@ Page({
         wx.jyApp.utils.onInput(e, this);
     },
     approve(status, approveMsg) {
-        if (!this.diagnosis) {
+        if (!this.guidanceData.diagnosis) {
             wx.jyApp.toast('营养诊断不能为空');
             return;
         }

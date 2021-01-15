@@ -103,10 +103,10 @@ function navigateTo(e) {
 }
 
 function navigateBack(option) {
-    var route = getRouteByLastIndex();
+    var page = getPageByLastIndex();
     var _timer = () => {
         navigateBack.timer = setTimeout(() => {
-            if (getRouteByLastIndex() != route) {
+            if (getPageByLastIndex() != page.route) {
                 option && option.success && option.success();
             } else {
                 _timer();
@@ -119,13 +119,13 @@ function navigateBack(option) {
     });
 }
 
-function getRouteByLastIndex(index) {
+function getPageByLastIndex(index) {
     var pages = getCurrentPages();
     index = index || 1;
     if (pages[pages.length - index]) {
-        return pages[pages.length - index].route;
+        return pages[pages.length - index];
     } else {
-        return '';
+        return {};
     }
 }
 
@@ -388,7 +388,7 @@ module.exports = {
     emailReg: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
     navigateTo: navigateTo,
     navigateBack: navigateBack,
-    getRouteByLastIndex: getRouteByLastIndex,
+    getPageByLastIndex: getPageByLastIndex,
     onInput: onInput,
     onInputNum: onInputNum,
     setText: setText,

@@ -14,6 +14,7 @@ Page({
             this.setData({
                 diagnosis: guideOrderDetail.diagnosis
             });
+            this.guidanceData.diagnosis = this.data.diagnosis;
         }
         if (this.guidanceData.from == 'examine') {
             wx.setNavigationBarTitle({

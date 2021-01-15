@@ -135,6 +135,10 @@ Page({
                 ...this.data.must
             }
         }).then(() => {
+            var page = wx.jyApp.utils.getPageByLastIndex();
+            if (page.route == 'pages/screen/screen-list/index') {
+                page.onRefresh();
+            }
             wx.jyApp.toastBack('保存成功');
         });
     }

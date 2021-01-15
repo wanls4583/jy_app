@@ -10,16 +10,16 @@ Page({
         hideTip: false
     },
     onLoad(option) {
-        var route = wx.jyApp.utils.getRouteByLastIndex(2);
+        var page = wx.jyApp.utils.getPageByLastIndex(2);
         this.id = option.id;
         this.loadInfo();
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
-        if (route == 'pages/interrogation/chat/index') {
+        if (page && page.route == 'pages/interrogation/chat/index') {
             this.setData({
                 bitText: '返回聊天',
                 tip: '指导单开具完成'
             });
-        } else if (route == 'pages/notice-list/index') {
+        } else if (page && page.route == 'pages/notice-list/index') {
             this.setData({
                 bitText: '返回',
                 hideTip: true
