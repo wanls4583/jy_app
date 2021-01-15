@@ -135,7 +135,7 @@ Page({
                 ...this.data.must
             }
         }).then(() => {
-            var page = wx.jyApp.utils.getPageByLastIndex();
+            var page = wx.jyApp.utils.getPageByLastIndex(2);
             if (page.route == 'pages/screen/screen-list/index') {
                 page.onRefresh();
             }
