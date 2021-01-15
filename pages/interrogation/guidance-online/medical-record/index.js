@@ -53,7 +53,8 @@ Page({
             patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
             patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
             this.setData({
-                patient: patient
+                patient: patient,
+                mainSuit: patient.diseaseDetail ||''
             });
         }
         if (patient.foodSensitive) {

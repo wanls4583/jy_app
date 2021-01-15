@@ -416,3 +416,8 @@ readonly-field:last-child .border-bottom {
     bottom: 0;
     border-bottom: 1rpx solid #ebedf0;
 }
+
+.required::before {
+    content: "* ";
+    color: red;
+}

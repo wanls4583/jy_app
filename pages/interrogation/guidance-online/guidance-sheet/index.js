@@ -14,26 +14,25 @@ Page({
         this.id = option.id;
         this.loadInfo();
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
-        if (page && page.route == 'pages/interrogation/chat/index') {
-            this.setData({
-                bitText: '返回聊天',
-                tip: '指导单开具完成'
-            });
-        } else if (page && page.route == 'pages/notice-list/index') {
-            this.setData({
-                bitText: '返回',
-                hideTip: true
-            });
-        } else {
-            this.setData({
-                bitText: '返回列表',
-                hideTip: option.from != 'examine',
-                tip: '指导单审核完成'
-            });
-        }
         if (option.from == 'examine') {
             wx.setNavigationBarTitle({
                 title: '审核营养指导'
+            });
+            this.setData({
+                tip: '指导单审核完成'
+            })
+        } else {
+            this.setData({
+                tip: '指导单开具完成'
+            });
+        }
+        if (page && page.route == 'pages/interrogation/chat/index') {
+            this.setData({
+                bitText: '返回聊天',
+            });
+        } else {
+            this.setData({
+                bitText: '返回',
             });
         }
     },

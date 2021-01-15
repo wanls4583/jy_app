@@ -61,7 +61,7 @@
 		</van-collapse-item>
 		<van-collapse-item name="guide" title="营养指导" wx:if="{{nutritionOrder.length}}">
 			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-20 color-333" wx:for="{{nutritionOrder}}" wx:key="index">
+				<view class="padding-top-bottom-20 color-333 border-bottom" wx:for="{{nutritionOrder}}" wx:key="index">
 					<view class="flex--center--start">
 						<view class="flex-shrink-0 label">开具时间：</view>
 						<view>{{item.orderTime}}</view>

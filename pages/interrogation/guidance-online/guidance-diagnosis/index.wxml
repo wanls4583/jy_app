@@ -2,13 +2,14 @@
 	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
 	<view class="margin-top-20 padding-30 white-background-color">
 		<view class="flex--center--between">
-			<text>诊断说明</text>
+			<text class="required">诊断说明</text>
 			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
 		</view>
 		<textarea
 			adjust-position="{{false}}"
 			bindinput="onInput"
 			class="width-100 height-50vw margin-top-20"
+			disable-default-padding="{{true}}"
 			maxlength="{{1000}}"
 			placeholder="请填写诊断说明，或选择诊断模板"
 			value="{{diagnosis}}"

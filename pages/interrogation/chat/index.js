@@ -180,6 +180,7 @@ Page({
     },
     //开指导
     onGuide(e) {
+        this.data.patient.diseaseDetail = this.data.consultOrder.diseaseDetail;
         wx.jyApp.setTempData('guidePatient', this.data.patient);
         wx.jyApp.utils.navigateTo(e);
     },
@@ -323,6 +324,7 @@ Page({
                 actionVisible: true
             });
         } else { //医生开指导
+            this.data.patient.diseaseDetail = this.data.consultOrder.diseaseDetail;
             wx.jyApp.setTempData('guidePatient', this.data.patient);
             wx.jyApp.utils.navigateTo({
                 url: `/pages/interrogation/${this.data.consultOrder.type==2?'guidance-edit':'guidance-online/medical-record'}/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
