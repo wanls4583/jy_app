@@ -29,7 +29,17 @@
 					<van-radio name="{{1}}">有</van-radio>
 				</van-radio-group>
 				<view class="margin-top-30" wx:if="{{hasFoodSensitive==1}}">
-					<textarea auto-height="{{true}}" bindinput="onInput" data-prop="foodSensitive" maxlength="{{200}}" placeholder="请填写过敏史" value="{{foodSensitive}}" />
+					<textarea
+						auto-height="{{true}}"
+						bindinput="onInput"
+						class="width-100 padding-0 margin-0"
+						data-prop="foodSensitive"
+						disable-default-padding="{{true}}"
+						maxlength="{{200}}"
+						placeholder="请填写过敏史"
+						placeholder-style="color:#c8c9cc;"
+						value="{{foodSensitive}}"
+					/>
 				</view>
 			</view>
 		</view>
