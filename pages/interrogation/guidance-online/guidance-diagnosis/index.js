@@ -9,9 +9,15 @@ Page({
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
+        this.guidanceData = wx.jyApp.getTempData('guidanceData');
         if (guideOrderDetail) {
             this.setData({
                 diagnosis: guideOrderDetail.diagnosis
+            });
+        }
+        if (this.guidanceData.from == 'examine') {
+            wx.setNavigationBarTitle({
+                title: '审核营养指导'
             });
         }
     },
@@ -24,17 +30,17 @@ Page({
         }
     },
     onPre(e) {
-        delete wx.jyApp.getTempData('guidanceData').diagnosis;
+        delete this.guidanceData.diagnosis;
         wx.navigateBack();
     },
     onNext(e) {
         if (this.data.diagnosis) {
-            wx.jyApp.getTempData('guidanceData').diagnosis = this.data.diagnosis;
+            this.guidanceData.diagnosis = this.data.diagnosis;
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/guidance-product/index'
             });
         } else {
-            wx.jyApp.toast('请输入营养说明');
+            wx.jyApp.toast('请输入诊断说明');
         }
     },
     onInput(e) {

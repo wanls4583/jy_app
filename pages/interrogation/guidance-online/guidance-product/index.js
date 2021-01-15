@@ -44,6 +44,9 @@ Page({
             'i',
         ]
         if (guideOrderDetail && this.guidanceData.from == 'examine') { //审核
+            wx.setNavigationBarTitle({
+                title: '审核营养指导'
+            });
             this.setData({
                 from: this.guidanceData.from,
                 goodsList: guideOrderDetail.goods.map((item) => {
@@ -261,7 +264,7 @@ Page({
                     delta: 3,
                     success: function () {
                         wx.jyApp.utils.navigateTo({
-                            url: '/pages/interrogation/guidance-online/guidance-sheet/index?from=examine&id=' + data.id
+                            url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
                         });
                     }
                 })

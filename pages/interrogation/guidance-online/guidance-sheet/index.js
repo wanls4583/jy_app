@@ -10,9 +10,10 @@ Page({
         hideTip: false
     },
     onLoad(option) {
+        var route = wx.jyApp.utils.getRouteByLastIndex(2);
         this.id = option.id;
         this.loadInfo();
-        var route = wx.jyApp.utils.getRouteByLastIndex(2);
+        this.guidanceData = wx.jyApp.getTempData('guidanceData');
         if (route == 'pages/interrogation/chat/index') {
             this.setData({
                 bitText: '返回聊天',
@@ -26,7 +27,13 @@ Page({
         } else {
             this.setData({
                 bitText: '返回列表',
+                hideTip: this.guidanceData.from != 'examine',
                 tip: '指导单审核完成'
+            });
+        }
+        if (this.guidanceData.from == 'examine') {
+            wx.setNavigationBarTitle({
+                title: '审核营养指导'
             });
         }
     },

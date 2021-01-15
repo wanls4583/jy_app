@@ -21,6 +21,9 @@ Page({
         this.consultOrderId = option.id;
         this.id = '';
         if (this.from == 'examine') { //审核
+            wx.setNavigationBarTitle({
+                title: '审核营养指导'
+            });
             patient = {
                 patientName: guideOrderDetail.patientName,
                 age: guideOrderDetail.age,
