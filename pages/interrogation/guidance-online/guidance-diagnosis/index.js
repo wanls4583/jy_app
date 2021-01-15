@@ -39,7 +39,6 @@ Page({
     },
     onNext(e) {
         if (this.data.diagnosis) {
-            this.guidanceData.diagnosis = this.data.diagnosis;
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/guidance-product/index'
             });
@@ -51,6 +50,7 @@ Page({
         this.setData({
             diagnosis: e.detail.value
         });
+        this.guidanceData.diagnosis = this.data.diagnosis;
     },
     onClickTemplate() {
         wx.jyApp.utils.navigateTo({
