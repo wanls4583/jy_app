@@ -5,44 +5,82 @@
  */
 Page({
     data: {
-        orderList: [],
-        page: 1,
-        totalPage: -1,
-        stopRefresh: false
+        active: 0,
+        statusList: [100, 10, 0, 11],
+        orderListMap: {
+            100: {
+                orderList: [],
+                page: 1,
+                totalPage: -1,
+                stopRefresh: false
+            },
+            10: {
+                orderList: [],
+                page: 1,
+                totalPage: -1,
+                stopRefresh: false
+            },
+            0: {
+                orderList: [],
+                page: 1,
+                totalPage: -1,
+                stopRefresh: false
+            },
+            11: {
+                orderList: [],
+                page: 1,
+                totalPage: -1,
+                stopRefresh: false
+            }
+        },
+
     },
     onLoad(option) {
-        this.loadList();
+        this.loadList(true, 100);
+        this.loadList(true, 10);
+        this.loadList(true, 0);
+        this.loadList(true, 11);
     },
     onUnload() {},
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
-    onRefresh() {
-        this.loadList(true);
+    onChangeTab(e) {
+        this.setData({
+            active: e.detail.index
+        });
     },
-    onLoadMore() {
-        this.loadList()
+    onRefresh(e) {
+        var status = e.currentTarget.dataset.status;
+        this.loadList(true, status);
     },
-    loadList(refresh) {
+    onLoadMore(e) {
+        var status = e.currentTarget.dataset.status;
+        this.loadList(false, status)
+    },
+    loadList(refresh, status) {
         if (refresh) {
-            this.request && this.request.requestTask.abort();
+            this.data.orderListMap[status].request && this.data.orderListMap[status].request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
             return;
         }
         this.loading = true;
-        this.request = wx.jyApp.http({
+        this.data.orderListMap[status].request = wx.jyApp.http({
             url: '/nutritionorder/approve/list',
             data: {
-                page: refresh ? 1 : this.data.page,
+                page: refresh ? 1 : this.data.orderListMap[status].page,
                 limit: 20,
+                status: status == 100 ? '' : status
             }
         });
-        this.request.then((data) => {
+        this.data.orderListMap[status].request.then((data) => {
             if (refresh) {
                 this.setData({
-                    page: 1,
-                    totalPage: -1,
-                    orderList: []
+                    [`orderListMap[${status}]`]: {
+                        page: 1,
+                        totalPage: -1,
+                        orderList: []
+                    }
                 });
             }
             data.page.list = data.page.list || [];
@@ -53,19 +91,19 @@ Page({
                 item.orderTime = new Date(item.orderTime).formatTime('yyyy-MM-dd hh:mm:ss');
                 this.setStatus(item);
             });
-            this.data.orderList = this.data.orderList.concat(data.page.list);
+            this.data.orderListMap[status].orderList = this.data.orderListMap[status].orderList.concat(data.page.list);
             this.setData({
-                orderList: this.data.orderList,
-                page: this.data.page + 1,
-                totalPage: data.page.totalPage,
+                [`orderListMap[${status}].orderList`]: this.data.orderListMap[status].orderList,
+                [`orderListMap[${status}].page`]: this.data.orderListMap[status].page + 1,
+                [`orderListMap[${status}].totalPage`]: this.data.orderListMap[status].totalPage,
             });
         }).catch((err) => {
             console.log(err);
         }).finally(() => {
             this.loading = false;
-            this.request = null;
+            this.data.orderListMap[status].request = null;
             this.setData({
-                stopRefresh: true
+                [`orderListMap[${status}].stopRefresh`]: true
             });
         });
     },
@@ -104,15 +142,22 @@ Page({
         });
     },
     updateStatus(id, status) {
-        this.data.orderList.map((item, index) => {
-            if (id == item.id) {
-                item.status = status;
-                this.setStatus(item);
-                this.setData({
-                    [`orderList[${index}]`]: item
-                });
-            }
-        });
+        this.loadList(true, 100);
+        this.loadList(true, 10);
+        this.loadList(true, 0);
+        this.loadList(true, 11);
+        // for (var key in this.data.orderListMap) {
+        //     var orderList = this.data.orderListMap[key];
+        //     orderList.map((item, index) => {
+        //         if (id == item.id) {
+        //             item.status = status;
+        //             this.setStatus(item);
+        //             this.setData({
+        //                 [`orderListMap[${key}].orderList[${index}]`]: item
+        //             });
+        //         }
+        //     });
+        // }
     },
     setStatus(item) {
         switch (item.status) {

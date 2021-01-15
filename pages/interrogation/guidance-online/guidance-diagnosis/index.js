@@ -33,6 +33,7 @@ Page({
                 diagnosis: this.guidanceData.diagnosis
             });
         }
+        this.guidanceData.diagnosis = this.data.diagnosis;
     },
     onPre(e) {
         delete this.guidanceData.diagnosis;
