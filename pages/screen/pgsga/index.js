@@ -225,7 +225,11 @@ Page({
         }
 
         function _countStep3() {
-            return self.data.symptomScoreMap[pgsga.symptom] || 0;
+            var count = 0;
+            pgsga.symptom.map(item => {
+                count += self.data.symptomScoreMap[item]
+            });
+            return count;
         }
 
         function _countStep4() {
