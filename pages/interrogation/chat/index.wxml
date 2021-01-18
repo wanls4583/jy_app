@@ -375,12 +375,12 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">视频通话</view>
 			</view>
-			<!-- <view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'}}">
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'}}">
 				<view bindtap="onScreen" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<text class="iconfont icon-shaicha" style="font-size:35px"></text>
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">营养筛查</view>
-			</view> -->
+			</view>
 		</view>
 	</view>
 	<view
