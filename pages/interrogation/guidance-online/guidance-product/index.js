@@ -50,6 +50,7 @@ Page({
                 from: this.guidanceData.from,
                 goodsList: guideOrderDetail.goods.map((item) => {
                     item.price = item.price || item.amount / item.count;
+                    item.standardNum = item.standardNum || item.items[0].standardNum;
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                     item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
