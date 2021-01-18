@@ -13,7 +13,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData']
+            fields: ['configData', 'userInfo']
         });
         this.storeBindings.updateStoreBindings();
         this.loadList();
@@ -49,6 +49,23 @@ Page({
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
+        });
+    },
+    onDelete(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.dialog.confirm({
+            message: '确定删除？'
+        }).then(() => {
+            wx.jyApp.http({
+                url: '/patient/filtrate/delete',
+                method: 'post',
+                data: {
+                    id: id
+                }
+            }).then((data) => {
+                wx.jyApp.toast('操作成功');
+                this.onRefresh();
+            });
         });
     },
     loadList(refresh) {

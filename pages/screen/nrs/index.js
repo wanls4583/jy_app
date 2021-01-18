@@ -45,6 +45,7 @@ Page({
                         'nrs.ageGe70': patient.age >= 70 ? 1 : 0,
                     });
                     this.setBMI();
+                    this.countScore();
                 }
             });
         }

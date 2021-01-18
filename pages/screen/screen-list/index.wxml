@@ -10,17 +10,19 @@
 				<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
 				<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
 			</view>
-			<view class="flex--center--start margin-top-20">
-				<view style="flex:2">筛查日期：{{item.filtrateDate}}</view>
-				<view style="flex:1.5">筛查方式：{{item.filtrateType}}</view>
+			<view bindtap="onEdit" class="padding-top-bottom-20 clickable" data-item="{{item}}">
+				<view class="flex--center--start">
+					<view style="flex:2">筛查日期：{{item.filtrateDate}}</view>
+					<view style="flex:1.5">筛查方式：{{item.filtrateType}}</view>
+				</view>
+				<view class="flex--center--start margin-top-20">
+					<view style="flex:2">筛查医师：{{item.doctorName}}</view>
+					<view style="flex:1.5">筛查结果：{{item.filtrateResult||''}}</view>
+				</view>
+				<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>
 			</view>
-			<view class="flex--center--start margin-top-20">
-				<view style="flex:2">筛查医师：{{item.doctorName}}</view>
-				<view style="flex:1.5">筛查结果：{{item.filtrateResult||''}}</view>
-			</view>
-			<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>
-			<view class="flex--center--end margin-top-20 padding-top-bottom-20 border-top">
-				<view class="button plain gray small">删除</view>
+			<view class="flex--center--end padding-top-bottom-20 border-top">
+				<view bindtap="onDelete" class="button plain gray small" data-id="{{item.id}}" wx:if="{{userInfo.role=='USER'}}">删除</view>
 				<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{item}}">修改</view>
 			</view>
 		</view>
@@ -28,3 +30,4 @@
 		<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 	</pull-scroll-view>
 </view>
+<van-dialog id="van-dialog"></van-dialog>

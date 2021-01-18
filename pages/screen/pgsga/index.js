@@ -20,6 +20,7 @@ Page({
             wherePained: '',
             other: '',
             physicalCondition: '',
+            mainDiagnosis: '',
             mainDeseasePeriod: '',
             otherMainDeseasePeriod: '',
             metabolismStatus: null,
@@ -49,7 +50,7 @@ Page({
             'LESS_THAN_BEFORE': 1,
         },
         dieteticChangeScoreMap: {
-            'NORMAL_FEED': 0,
+            'NORMAL_FEED': 1,
             'SOLID_FEED': 2,
             'FLUID_FEED': 3,
             'ONLY_NUTRITION': 3,
@@ -278,7 +279,7 @@ Page({
             muscleCount.sort((arg1, arg2) => {
                 return arg1.num - arg2.num;
             });
-            return muscleCount[3].score;
+            return muscleCount[3].num && muscleCount[3].score || 0;
         }
     },
     setResult(score) {
@@ -304,10 +305,12 @@ Page({
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            if (data.filtratePgsga) {
+                data.filtratePgsga.symptom = data.filtratePgsga.symptom && data.filtratePgsga.symptom.split(',') || [];
+                data.filtratePgsga.dieteticChange = data.filtratePgsga.dieteticChange && data.filtratePgsga.dieteticChange.split(',') || [];
+            }
             data.filtratePgsga = data.filtratePgsga || this.data.pgsga;
             data.filtratePgsga.filtrateDate = data.patientFiltrate.filtrateDate;
-            data.filtratePgsga.symptom = data.filtratePgsga.symptom && data.filtratePgsga.symptom.split(',') || [];
-            data.filtratePgsga.dieteticChange = data.filtratePgsga.dieteticChange && data.filtratePgsga.dieteticChange.split(',') || [];
             this.setData({
                 pgsga: data.filtratePgsga,
                 patient: data.patientFiltrate,

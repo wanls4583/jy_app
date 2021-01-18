@@ -72,7 +72,7 @@
 		<van-field label="总分" value="{{nrs.result}}" />
 		<readonly-field label="筛查医生" value="{{doctorName}}" />
 		<readonly-field label="填写人" value="{{filtrateByName}}" />
-		<van-field autosize label="结果解释" maxlength="{{500}}" type="textarea" value="{{nrs.result}}" />
+		<van-field autosize label="结果解释" maxlength="{{500}}" type="textarea" value="{{nrs.resultDescription}}" />
 		<view class="padding-30 gray-color">
 			<view>{{'总分<3：建议每周重新评估患者的营养状况'}}</view>
 			<view>{{'总分≥3：患者有营养风险，需进行营养支持治疗'}}</view>
