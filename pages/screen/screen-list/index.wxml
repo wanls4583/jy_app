@@ -22,7 +22,7 @@
 				<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>
 			</view>
 			<view class="flex--center--end padding-top-bottom-20 border-top">
-				<view bindtap="onDelete" class="button plain gray small" data-id="{{item.id}}" wx:if="{{userInfo.role=='USER'}}">删除</view>
+				<view bindtap="onDelete" class="button plain gray small" data-id="{{item.id}}">删除</view>
 				<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{item}}">修改</view>
 			</view>
 		</view>

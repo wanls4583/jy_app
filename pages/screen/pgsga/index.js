@@ -106,7 +106,16 @@ Page({
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id);
+            this.loadInfo(option.id).then(() => {
+                if (!this.data.pgsga.id) {
+                    this.setData({
+                        'pgsga.currentStature': patient.height,
+                        'pgsga.currentWeight': patient.weight,
+                    });
+                    this.setBMI();
+                    this.countScore();
+                }
+            });
         }
         this.setData({
             'pgsga.filtrateId': option.filtrateId
@@ -178,7 +187,7 @@ Page({
     countScore() {
         var self = this;
         var pgsga = this.data.pgsga;
-        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep6() + _countStep8();
+        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8();
         this.setData({
             'pgsga.result': count
         });
