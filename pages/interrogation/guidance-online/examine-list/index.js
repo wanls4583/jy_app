@@ -66,7 +66,7 @@ Page({
     loadList(refresh, status) {
         if (refresh) {
             this.data.orderListMap[status].request && this.data.orderListMap[status].request.requestTask.abort();
-        } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
+        } else if (this.loading || this.data.orderListMap[status].totalPage > -1 && this.data.orderListMap[status].page > this.data.orderListMap[status].totalPage) {
             return;
         }
         this.loading = true;
@@ -100,7 +100,7 @@ Page({
             this.setData({
                 [`orderListMap[${status}].orderList`]: this.data.orderListMap[status].orderList,
                 [`orderListMap[${status}].page`]: this.data.orderListMap[status].page + 1,
-                [`orderListMap[${status}].totalPage`]: this.data.orderListMap[status].totalPage,
+                [`orderListMap[${status}].totalPage`]: data.page.totalPage,
             });
         }).catch((err) => {
             console.log(err);
