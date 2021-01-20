@@ -868,25 +868,12 @@ Page({
                 url = '/pages/screen/mna/index';
                 break;
         }
-        wx.jyApp.showLoading('加载中...', true);
-        wx.jyApp.http({
-            url: '/patient/filtrate/save',
-            method: 'post',
-            data: {
-                consultOrderId: this.data.consultOrderId,
-                filtrateType: this.data.filtrateType,
-                isSelf: true,
-            }
-        }).then((data) => {
-            wx.jyApp.setTempData('screenPatient', this.data.patient);
-            wx.jyApp.utils.navigateTo({
-                url: `${url}?filtrateId=${data.filtrateId}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
-            });
-            this.setData({
-                screenVisible: false
-            });
-        }).finally(() => {
-            wx.hideLoading();
+        wx.jyApp.setTempData('screenPatient', this.data.patient);
+        wx.jyApp.utils.navigateTo({
+            url: `${url}?consultOrderId=${this.data.consultOrderId}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+        });
+        this.setData({
+            screenVisible: false
         });
     },
     //发送给患者筛查

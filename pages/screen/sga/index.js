@@ -36,7 +36,9 @@ Page({
             this.loadInfo(option.id);
         }
         this.setData({
-            'sga.filtrateId': option.filtrateId
+            'sga.filtrateId': option.filtrateId,
+            'consultOrderId': option.consultOrderId,
+            'filtrateType': option.filtrateType,
         });
     },
     onUnload() {},
@@ -135,18 +137,43 @@ Page({
         });
     },
     onSave() {
-        wx.jyApp.http({
-            url: `/filtrate/sga/${this.data.sga.id?'update':'save'}`,
-            method: 'post',
-            data: {
-                ...this.data.sga
-            }
-        }).then(() => {
-            var page = wx.jyApp.utils.getPageByLastIndex(2);
-            if (page.route == 'pages/screen/screen-list/index') {
-                page.onRefresh();
-            }
-            wx.jyApp.toastBack('保存成功');
-        });
+        var data = {
+            ...this.data.sga
+        };
+        wx.jyApp.showLoading('加载中...', true);
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: '/patient/filtrate/save',
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                _save.bind(this)();
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            _save.bind(this)();
+        }
+
+        function _save() {
+            wx.jyApp.http({
+                url: `/filtrate/sga/${this.data.sga.id?'update':'save'}`,
+                method: 'post',
+                data: data
+            }).then(() => {
+                var page = wx.jyApp.utils.getPageByLastIndex(2);
+                if (page.route == 'pages/screen/screen-list/index') {
+                    page.onRefresh();
+                }
+                wx.jyApp.toastBack('保存成功');
+            }).finally(() => {
+                wx.hideLoading();
+            });
+        }
     }
 })

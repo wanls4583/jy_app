@@ -37,8 +37,8 @@ Page({
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id).then(()=>{
-                if(!this.data.nrs.id) {
+            this.loadInfo(option.id).then(() => {
+                if (!this.data.nrs.id) {
                     this.setData({
                         'nrs.stature': patient.height,
                         'nrs.weight': patient.weight,
@@ -50,7 +50,9 @@ Page({
             });
         }
         this.setData({
-            'nrs.filtrateId': option.filtrateId
+            'nrs.filtrateId': option.filtrateId,
+            'consultOrderId': option.consultOrderId,
+            'filtrateType': option.filtrateType,
         });
     },
     onUnload() {},
@@ -137,18 +139,43 @@ Page({
         });
     },
     onSave() {
-        wx.jyApp.http({
-            url: `/filtrate/nrs/${this.data.nrs.id?'update':'save'}`,
-            method: 'post',
-            data: {
-                ...this.data.nrs
-            }
-        }).then(() => {
-            var page = wx.jyApp.utils.getPageByLastIndex(2);
-            if (page.route == 'pages/screen/screen-list/index') {
-                page.onRefresh();
-            }
-            wx.jyApp.toastBack('保存成功');
-        });
+        var data = {
+            ...this.data.nrs
+        };
+        wx.jyApp.showLoading('加载中...', true);
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: '/patient/filtrate/save',
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                _save.bind(this)();
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            _save.bind(this)();
+        }
+
+        function _save() {
+            wx.jyApp.http({
+                url: `/filtrate/nrs/${this.data.nrs.id?'update':'save'}`,
+                method: 'post',
+                data: data
+            }).then(() => {
+                var page = wx.jyApp.utils.getPageByLastIndex(2);
+                if (page.route == 'pages/screen/screen-list/index') {
+                    page.onRefresh();
+                }
+                wx.jyApp.toastBack('保存成功');
+            }).finally(() => {
+                wx.hideLoading();
+            });
+        }
     }
 })
