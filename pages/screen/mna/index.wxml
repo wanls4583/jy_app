@@ -36,7 +36,7 @@
 				<van-radio name="{{0}}">大于3kg（0分）</van-radio>
 				<van-radio name="{{1}}">不知道（1分）</van-radio>
 				<van-radio name="{{2}}">1-3kg（2分）</van-radio>
-				<van-radio name="{{3}}">无体重下降（2分）</van-radio>
+				<van-radio name="{{3}}">无体重下降（3分）</van-radio>
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
