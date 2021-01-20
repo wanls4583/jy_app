@@ -56,6 +56,7 @@ Page({
                     item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                     if (item.type == 1) {
+                        item.productId = item.items[0].productId;
                         item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
                     } else {
                         item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}份，${Number(item.modulateDose) ? '配制' + item.modulateDose + '毫升，' : ''}${item._giveWay}`;
@@ -325,6 +326,7 @@ Page({
         var nutritionData = {};
         var goodsList = [];
         if (!this.data.allNutritionlist.length) {
+            console.log('allNutritionlist is empty')
             return;
         }
         this.prop.map(item => {
@@ -410,6 +412,7 @@ Page({
             url: '/product/nutritionist/all'
         }).then((data) => {
             this.updateAllNutritionlist(data.list || []);
+            this.storeBindings.updateStoreBindings();
             if (this.data.goodsList.length) {
                 this.caculateTotalAmount();
                 this.anlizeNutrition();

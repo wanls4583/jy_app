@@ -107,7 +107,7 @@ function navigateBack(option) {
     var _timer = () => {
         navigateBack.timer = setTimeout(() => {
             if (getPageByLastIndex() != page.route) {
-                setTimeout(()=>{
+                setTimeout(() => {
                     option && option.success && option.success();
                 }, 500);
             } else {
@@ -373,7 +373,8 @@ function getSuggestData(name, patientDoc) {
         return null;
     }
     wx.jyApp.constData.yingyangtuijian.map(item => {
-        if (patientDoc.age >= item["maxAge"] && patientDoc.age <= item["minAge"] && patientDoc.sex == item["sex"]) {
+        var sex = patientDoc.sex == 1 ? 1 : 0;
+        if (patientDoc.age >= item["maxAge"] && patientDoc.age <= item["minAge"] && sex == item["sex"]) {
             result = item[name];
         }
     })
