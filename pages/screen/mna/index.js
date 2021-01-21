@@ -53,6 +53,7 @@ Page({
             this.loadInfo(option.id).then(() => {
                 if (!this.data.mna.id) {
                     this.setData({
+                        filtrateByName: option.filtrateByName,
                         'mna.stature': patient.height,
                         'mna.weight': patient.weight,
                     });

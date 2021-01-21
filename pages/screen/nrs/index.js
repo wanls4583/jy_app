@@ -40,6 +40,7 @@ Page({
             this.loadInfo(option.id).then(() => {
                 if (!this.data.nrs.id) {
                     this.setData({
+                        filtrateByName: option.filtrateByName,
                         'nrs.stature': patient.height,
                         'nrs.weight': patient.weight,
                         'nrs.ageGe70': patient.age >= 70 ? 1 : 0,

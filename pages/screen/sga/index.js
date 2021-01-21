@@ -33,7 +33,13 @@ Page({
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id);
+            this.loadInfo(option.id).then(() => {
+                if (!this.data.sga.id) {
+                    this.setData({
+                        filtrateByName: option.filtrateByName,
+                    });
+                }
+            });
         }
         this.setData({
             'sga.filtrateId': option.filtrateId,
@@ -120,7 +126,7 @@ Page({
         });
     },
     loadInfo(id) {
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: `/filtrate/sga/info/${id}`,
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};

@@ -109,6 +109,7 @@ Page({
             this.loadInfo(option.id).then(() => {
                 if (!this.data.pgsga.id) {
                     this.setData({
+                        filtrateByName: option.filtrateByName,
                         'pgsga.currentStature': patient.height,
                         'pgsga.currentWeight': patient.weight,
                     });
