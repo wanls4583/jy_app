@@ -93,9 +93,9 @@ Page({
         }
     },
     onLoad(option) {
+        var patient = wx.jyApp.getTempData('screenPatient') || {};
+        patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
-            var patient = wx.jyApp.getTempData('screenPatient') || {};
-            patient._sex = patient.sex == 1 ? '男' : '女';
             this.setData({
                 filtrateByName: option.filtrateByName,
                 doctorName: option.doctorName,
