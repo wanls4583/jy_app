@@ -902,7 +902,7 @@ Page({
         if (this.data.currentUser.role == 'DOCTOR') {
             url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
         } else {
-            url = `${url}&filtrateByName=${this.data.userInfo.nickname}&doctorName=${this.data.doctorInfo.doctorName}`
+            url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.data.doctorInfo.doctorName}`
         }
         wx.jyApp.utils.navigateTo({
             url: url
