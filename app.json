@@ -121,6 +121,7 @@
         "pgsga": "/pages/clinical-nutrition/pgsga/index",
         "nrs": "/pages/clinical-nutrition/nrs/index",
         "first-consult": "/pages/clinical-nutrition/first-consult/index",
+        "ward-round": "/pages/clinical-nutrition/ward-round/index",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-search": "@vant/weapp/search/index",

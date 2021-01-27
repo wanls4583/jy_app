@@ -1,0 +1,119 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养耐受情况</view>
+		<view class="margin-top-30 padding-left-right-30">
+			<van-checkbox-group bind:change="onChange">
+				<van-checkbox name="正常" shape="square">
+					<view>
+						<view class="flex">
+							<view class="flex-shrink-0 label-color">正常</view>
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<text class="flex-shrink-0">ml/次</text>
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<text class="flex-shrink-0">次/天，</text>
+						</view>
+					</view>
+				</van-checkbox>
+				<van-checkbox name="腹泻" shape="square">
+					<view>
+						<view class="flex">
+							<view class="flex-shrink-0 label-color">腹泻</view>
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<text class="flex-shrink-0">ml/次</text>
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<text class="flex-shrink-0">次/天，</text>
+						</view>
+						<view class="flex margin-top-30">
+							<text>性状</text>
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+						</view>
+					</view>
+				</van-checkbox>
+				<van-checkbox name="呕吐" shape="square">
+					<view class="flex">
+						<view class="flex-shrink-0 label-color">呕吐</view>
+						<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+						<text class="flex-shrink-0">ml/次</text>
+						<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+						<text class="flex-shrink-0">次/天，</text>
+					</view>
+				</van-checkbox>
+				<van-checkbox name="便秘" shape="square">
+					<view class="flex">
+						<view class="flex-shrink-0 label-color">便秘</view>
+						<view class="flex">
+							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<text class="flex-shrink-0">天胃排便</text>
+						</view>
+					</view>
+				</van-checkbox>
+				<van-checkbox name="反流" shape="square">反流</van-checkbox>
+				<van-checkbox name="腹胀" shape="square">腹胀</van-checkbox>
+				<van-checkbox name="口感差" shape="square">口感差</van-checkbox>
+				<van-checkbox name="没有食欲" shape="square">没有食欲</van-checkbox>
+				<van-checkbox name="消化道出血" shape="square">消化道出血</van-checkbox>
+				<van-checkbox name="血糖偏高" shape="square">
+					<view class="flex">
+						<view class="flex-shrink-0 label-color margin-right-30">血糖偏高</view>
+						<view>
+							<view class="flex">
+								<text class="flex-shrink-0">空腹</text>
+								<input bindinput="onInput" class="width-100rpx border-bottom" type="text" />
+								<text>-</text>
+								<input bindinput="onInput" class="width-100rpx border-bottom" type="text" />
+								<text class="flex-shrink-0">mmol/L</text>
+							</view>
+							<view class="flex margin-top-30">
+								<text class="flex-shrink-0">餐后</text>
+								<input bindinput="onInput" class="width-100rpx border-bottom" type="text" />
+								<text>-</text>
+								<input bindinput="onInput" class="width-100rpx border-bottom" type="text" />
+								<text class="flex-shrink-0">mmol/L</text>
+							</view>
+						</view>
+					</view>
+				</van-checkbox>
+				<van-checkbox name="不详" shape="square">
+					<view class="flex">
+						<view class="flex-shrink-0 label-color">不详，原因</view>
+						<input bindinput="onInput" class="border-bottom" type="text" />
+					</view>
+				</van-checkbox>
+			</van-checkbox-group>
+			<view class="padding-bottom-30">备注</view>
+			<textarea class="width-100 padding-30 border"></textarea>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养方案调整</view>
+		<view class="margin-top-30 padding-left-right-30">
+			<van-checkbox-group bind:change="onChange">
+				<van-checkbox name="维持" shape="square">维持</van-checkbox>
+				<van-checkbox name="增量" shape="square">增量</van-checkbox>
+				<van-checkbox name="减量" shape="square">减量</van-checkbox>
+				<van-checkbox name="减轻副反应" shape="square">减轻副反应</van-checkbox>
+			</van-checkbox-group>
+			<view class="padding-bottom-30">备注</view>
+			<textarea class="width-100 padding-30 border"></textarea>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onSave" class="button primary block">保存</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>
