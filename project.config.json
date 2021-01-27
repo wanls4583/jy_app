@@ -65,8 +65,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/interrogation/guidance-online/examine-list/index",
-          "pathName": "pages/interrogation/guidance-online/examine-list/index",
+          "name": "pages/clinical-nutrition/index/index",
+          "pathName": "pages/clinical-nutrition/index/index",
           "query": "",
           "scene": null
         }

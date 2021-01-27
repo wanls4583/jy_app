@@ -1,0 +1,86 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">人体测量</view>
+		<van-field bind:input="onInput" data-prop="nrs.stature" label="身高(cm)" value="{{nrs.stature}}" />
+		<van-field bind:input="onInput" data-prop="nrs.weight" label="体重(kg)" value="{{nrs.weight}}" />
+		<van-field label="体质指数(BMI)" title-width="7em" value="{{nrs.BMI}}" />
+		<view class="flex padding-30">
+			<view class="label" style="width:7em">体质指数评分</view>
+			<van-radio-group value="{{nrs.bmiLessThan}}">
+				<van-radio name="{{0}}">{{'BMI≥18.5（0分）'}}</van-radio>
+				<van-radio name="{{3}}">{{'BMI<18.5（3分）'}}</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">体重状况</view>
+		<view class="flex padding-30">
+			<van-radio-group bind:change="onChange" data-prop="nrs.loseWeight" value="{{nrs.loseWeight}}">
+				<van-radio name="{{0}}">近1月~3月体重无下降（0分）</van-radio>
+				<van-radio name="{{1}}">近3月内体重下降>5%（1分）</van-radio>
+				<van-radio name="{{2}}">近2月内体重下降>5%（2分）</van-radio>
+				<van-radio name="{{3}}">近1月内体重下降>5%（3分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">进食状况</view>
+		<view class="flex padding-30">
+			<van-radio-group bind:change="onChange" data-prop="nrs.foodIntake" value="{{nrs.foodIntake}}">
+				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
+				<van-radio name="{{1}}">近一周进食量减少25%~50%（1分）</van-radio>
+				<van-radio name="{{2}}">近一周进食量减少51%~75%（2分）</van-radio>
+				<van-radio name="{{3}}">近3月内体重下降>15%（3分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">疾病评分</view>
+		<view class="flex padding-30">
+			<van-radio-group bind:change="onChange" data-prop="nrs.needNormal" value="{{nrs.needNormal}}">
+				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
+				<van-radio name="{{1}}">髋骨折、慢性疾病急性发作或有并发症、慢性阻塞性肺病、血液透析、肝硬化、一般恶性肿瘤、糖尿病（1分）</van-radio>
+				<van-radio name="{{2}}">腹部大手术、脑卒中、重度肺炎、血液恶性肿瘤（2分）</van-radio>
+				<van-radio name="{{3}}">颅脑损伤、骨髓移植、APACHE-II评分>10分ICU患者（3分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">年龄评分</view>
+		<view class="flex padding-30">
+			<van-radio-group value="{{nrs.ageGe70}}">
+				<van-radio name="{{0}}">{{'年龄<70（0分）'}}</van-radio>
+				<van-radio name="{{1}}">{{'年龄≥70（1分）'}}</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">筛查结果</view>
+		<readonly-field label="执行人" value="{{doctorName}}" />
+		<van-field label="总分" value="{{nrs.result}}" />
+		<van-field autosize label="结果解释" maxlength="{{500}}" type="textarea" value="{{nrs.resultDescription}}" />
+		<view class="padding-30 gray-color">
+			<view>{{'总分<3：建议每周重新评估患者的营养状况'}}</view>
+			<view>{{'总分≥3：患者有营养风险，需进行营养支持治疗'}}</view>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onSave" class="button primary block">保存</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

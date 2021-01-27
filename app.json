@@ -92,6 +92,12 @@
             "guidance-diagnosis/index",
             "medical-record/index"
         ]
+    }, {
+        "root": "pages/clinical-nutrition",
+        "name": "clinical-nutrition",
+        "pages": [
+            "index/index"
+        ]
     }],
     "window": {
         "backgroundTextStyle": "light",
@@ -112,6 +118,8 @@
         "jy-video": "/components/video/index",
         "guidance-header": "/components/guidance-header/index",
         "trtc-room": "/components/trtc-room/trtc-room",
+        "PGSGA": "/pages/clinical-nutrition/pgsga/index",
+        "NRS": "/pages/clinical-nutrition/nrs/index",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-search": "@vant/weapp/search/index",

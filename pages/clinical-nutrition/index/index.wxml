@@ -1,0 +1,21 @@
+<view class="container">
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="NRS"></van-tab>
+			<van-tab title="PGSGA"></van-tab>
+			<van-tab title="营养指导"></van-tab>
+			<van-tab title="营养病历"></van-tab>
+			<van-tab title="营养查房"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
+			<swiper-item>
+				<NRS></NRS>
+			</swiper-item>
+			<swiper-item>
+				<PGSGA></PGSGA>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>

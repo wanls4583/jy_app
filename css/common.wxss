@@ -22,7 +22,9 @@ radio,
 checkbox {
     transform: scale(0.8);
 }
-
+swiper-item {
+    overflow: auto;
+}
 .container {
     position: relative;
     overflow: auto;
