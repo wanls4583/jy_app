@@ -11,10 +11,13 @@
 	<view class="height-100" style="padding-top:44px">
 		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
 			<swiper-item>
-				<NRS></NRS>
+				<first-consult></first-consult>
 			</swiper-item>
 			<swiper-item>
-				<PGSGA></PGSGA>
+				<nrs></nrs>
+			</swiper-item>
+			<swiper-item>
+				<pgsga></pgsga>
 			</swiper-item>
 		</swiper>
 	</view>

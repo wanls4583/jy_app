@@ -99,3 +99,10 @@ van-field:last-child van-cell:after {
 page .van-popup {
     max-height: 80%;
 }
+
+page .van-checkbox,
+page .van-radio {
+    margin-bottom: 30rpx;
+    margin-right: 30rpx;
+    align-items: flex-start;
+}

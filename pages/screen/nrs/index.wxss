@@ -1,5 +1,0 @@
-.van-checkbox,
-.van-radio {
-    margin-bottom: 20rpx;
-    margin-right: 20rpx;
-}

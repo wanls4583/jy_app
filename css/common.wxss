@@ -22,9 +22,11 @@ radio,
 checkbox {
     transform: scale(0.8);
 }
+
 swiper-item {
     overflow: auto;
 }
+
 .container {
     position: relative;
     overflow: auto;
@@ -61,6 +63,19 @@ swiper-item {
 }
 
 .border-bottom {
+    border-bottom: 1rpx solid #ebedf0;
+}
+
+.border-bottom-after {
+    position: relative;
+}
+
+.border-bottom-after::after {
+    content: "";
+    position: absolute;
+    left: 30rpx;
+    right: 30rpx;
+    bottom: 0;
     border-bottom: 1rpx solid #ebedf0;
 }
 
