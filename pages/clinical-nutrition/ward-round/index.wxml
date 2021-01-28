@@ -12,7 +12,7 @@
 		</view>
 		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养耐受情况</view>
 		<view class="margin-top-30 padding-left-right-30">
 			<van-checkbox-group bind:change="onChange">
@@ -97,7 +97,7 @@
 			<textarea class="width-100 padding-30 border"></textarea>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养方案调整</view>
 		<view class="margin-top-30 padding-left-right-30">
 			<van-checkbox-group bind:change="onChange">

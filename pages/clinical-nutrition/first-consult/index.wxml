@@ -19,7 +19,7 @@
 			<text class="flex-shrink-0 margin-left-10">)个月前</text>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠胃道症状</view>
 		<view class="margin-top-30 padding-left-right-30">
 			<van-checkbox-group bind:change="onChange">
@@ -62,7 +62,7 @@
 			</van-checkbox-group>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养</view>
 		<view class="margin-top-30 padding-left-right-30">
 			<view class="flex">
@@ -118,7 +118,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">临床诊断</view>
 		<van-field label="临床诊断1"></van-field>
 		<van-field label="临床诊断2"></van-field>
@@ -126,7 +126,7 @@
 		<van-field label="临床诊断4"></van-field>
 		<van-field label="临床诊断5"></van-field>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">检验结果</view>
 		<readonly-field label="总蛋白"></readonly-field>
 		<readonly-field label="白蛋白"></readonly-field>
@@ -145,7 +145,7 @@
 		<readonly-field label="Ca/Ci/Na/K"></readonly-field>
 		<readonly-field label="血糖"></readonly-field>
 	</view>
-	<view class="white-background-color padding-top-bottom-30 margin-top-30">
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠外营养</view>
 		<view class="margin-top-30 padding-left-right-30">
 			<view class="flex">

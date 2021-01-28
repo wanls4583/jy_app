@@ -1,0 +1,40 @@
+<view class="container">
+	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" data-type="2" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+		<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
+			<van-collapse-item name="1">
+				<view class="width-100" slot="title">
+					<view class="flex--center--between">
+						<view class="width-33 color-666 font-normal">2020-02-02</view>
+						<view class="width-33 color-666 align-center font-normal">大便白细胞</view>
+						<view class="width-33 color-666 align-center font-normal">阳性</view>
+					</view>
+				</view>
+				<view>
+					<readonly-field label="检查日期"></readonly-field>
+					<readonly-field label="项目类型"></readonly-field>
+					<readonly-field label="项目名称"></readonly-field>
+					<readonly-field label="结果"></readonly-field>
+					<readonly-field label="参考值"></readonly-field>
+					<readonly-field label="异常标志"></readonly-field>
+				</view>
+			</van-collapse-item>
+			<van-collapse-item name="2">
+				<view class="width-100" slot="title">
+					<view class="flex--center--between">
+						<view class="width-33 color-666 font-normal">2020-02-02</view>
+						<view class="width-33 color-666 align-center font-normal">大便白细胞</view>
+						<view class="width-33 color-666 align-center font-normal">阳性</view>
+					</view>
+				</view>
+				<view>
+					<readonly-field label="检查日期"></readonly-field>
+					<readonly-field label="项目类型"></readonly-field>
+					<readonly-field label="项目名称"></readonly-field>
+					<readonly-field label="结果"></readonly-field>
+					<readonly-field label="参考值"></readonly-field>
+					<readonly-field label="异常标志"></readonly-field>
+				</view>
+			</van-collapse-item>
+		</van-collapse>
+	</pull-scroll-view>
+</view>

@@ -1,0 +1,102 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color padding-top-bottom-30">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">基本资料</view>
+		<view class="margin-top-30">
+			<view class="padding-left-right-30">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+			<readonly-field label="住院号"></readonly-field>
+			<readonly-field label="身份证"></readonly-field>
+			<readonly-field label="电话"></readonly-field>
+			<readonly-field label="地址"></readonly-field>
+			<readonly-field label="入院日期"></readonly-field>
+			<readonly-field label="营养治疗开始时间"></readonly-field>
+			<readonly-field label="临床诊断"></readonly-field>
+			<readonly-field label="基本病情"></readonly-field>
+			<readonly-field label="主诉"></readonly-field>
+			<readonly-field label="现病史"></readonly-field>
+			<readonly-field label="营养诊断"></readonly-field>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">营养筛查</view>
+		<view>
+			<view class="margin-top-30 border-bottom">
+				<view class="flex padding-30">
+					<view class="label">筛查日期</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">筛查类型</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">筛查总分</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">处理意见</view>
+					<view></view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养</view>
+		<view>
+			<view class="margin-top-30 border-bottom">
+				<view class="flex padding-30">
+					<view class="label">指导日期</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">制剂名称</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">数量</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">金额</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">营养(医)师</view>
+					<view></view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">病程记录</view>
+		<view>
+			<view class="margin-top-30 border-bottom">
+				<view class="flex padding-30">
+					<view class="label">记录日期</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">病程名称</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">营养(医)师</view>
+					<view></view>
+				</view>
+				<view class="flex padding-30">
+					<view class="label">病程记录</view>
+					<view></view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onSave" class="button primary block">保存</view>
+</view>

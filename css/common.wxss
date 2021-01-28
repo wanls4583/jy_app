@@ -111,12 +111,13 @@ swiper-item {
     text-align: center;
 }
 
-.font-bold {
-    font-weight: bold;
-}
-
 .font-normal {
     font-size: 14px;
+    font-weight: normal;
+}
+
+.font-bold {
+    font-weight: bold;
 }
 
 .font-title {
