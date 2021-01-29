@@ -112,3 +112,4 @@
 		<template is="footer"></template>
 	</pull-scroll-view>
 </view>
+<van-dialog id="van-dialog" />

@@ -16,7 +16,7 @@ Component({
         attached() {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum','videoBookNum'],
+                fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum', 'videoBookNum'],
                 actions: ['updateDoctorInfo'],
             });
             this.storeBindings.updateStoreBindings();
@@ -26,14 +26,30 @@ Component({
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
             }
+            if (!wx.getStorageSync('doctor-first-in')) {
+                wx.showModal({
+                    content: '为了您能实时收到患者问诊订单消息，请允许接收消息通知。',
+                    confirmText: '允许',
+                    success: (res) => {
+                        if (res.confirm) {
+                            var subIds = [];
+                            subIds.push(wx.jyApp.constData.subIds.patientPayMsg);
+                            subIds.push(wx.jyApp.constData.subIds.appointment);
+                            subIds.push(wx.jyApp.constData.subIds.appointmentSuc);
+                            wx.jyApp.utils.requestSubscribeMessage(subIds).finally(() => {
+                                wx.setStorageSync('doctor-first-in', 1);
+                            });
+                        }
+                    }
+                });
+            }
         },
         detached() {
             this.storeBindings.destroyStoreBindings();
         }
     },
     pageLifetimes: {
-        show() {
-        }
+        show() {}
     },
     methods: {
         onGoto(e) {
