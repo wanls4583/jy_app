@@ -64,26 +64,4 @@
 </van-popup>
 <van-dialog id="van-dialog" />
 <!-- 营养素分析表 -->
-<van-popup bind:click-overlay="onCloseAnalize" bind:close="onCloseAnalize" closeable="{{true}}" position="bottom" show="{{nutritionVisible}}">
-	<view class="flex--center--start padding-30">
-		<text>营养素分析(</text>
-		<text class="primary-color">含所有已添加营养指导</text>
-		<text>)</text>
-	</view>
-	<view class="flex--center--between">
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">营养素</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天推荐值</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">每天总量占比</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">能量占比</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">单餐</view>
-	</view>
-	<view class="flex--center--between" wx:for="{{nutritionlist}}" wx:key="name">
-		<view class="flex--center--center border padding-10 align-center" style="flex:1;height:50px;word-break:break-word">{{item.name}}</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.standardData}}</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.gross}}</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.grossPercent}}%</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.energyPercent}}</view>
-		<view class="flex--center--center border padding-10" style="flex:1;height:50px">{{item.singleGross}}</view>
-	</view>
-</van-popup>
+<nutrition-analize goodsList="{{goodsList}}" patient="{{patient}}" visible="{{nutritionVisible}}"></nutrition-analize>

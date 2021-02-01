@@ -118,6 +118,7 @@
         "jy-video": "/components/video/index",
         "guidance-header": "/components/guidance-header/index",
         "trtc-room": "/components/trtc-room/trtc-room",
+        "nutrition-analize": "/components/nutrition-analize/index",
         "van-tabs": "@vant/weapp/tabs/index",
         "van-tab": "@vant/weapp/tab/index",
         "van-search": "@vant/weapp/search/index",
