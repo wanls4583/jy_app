@@ -1,0 +1,62 @@
+<view class="container padding-bottom-footer">
+	<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+		<view class="white-background-color padding-30 border-bottom">
+			<view class="flex--center--between">
+				<text>2021-01-02 09:50</text>
+				<text class="flex-grw-1">临时配制</text>
+				<text class="green-color">新开</text>
+			</view>
+			<view class="margin-top-20 flex--center--between">
+				<view>制剂名称制剂名称制剂名称</view>
+				<view class="primary-color flex-shrink-0">￥20000</view>
+			</view>
+			<view class="margin-top-20 gray-color">
+				<view class="flex--center--between">
+					<view>3天，tid，每次一份，经口饮如</view>
+					<view class="flex-shrink-0">
+						<text>查看更多</text>
+						<van-icon name="arrow-down" />
+					</view>
+				</view>
+				<view>
+					<view class="margin-top-20 border border-top-0">
+						<view class="padding-20 border-top">
+							<view class="flex--center--between">
+								<text>制剂名称制剂名称制剂名称</text>
+								<text class="flex-shrink-0">制剂类型</text>
+							</view>
+							<view class="margin-top-20 flex--center--between">
+								<text>每次100克</text>
+								<text>总量：200克</text>
+								<text>金额：10000</text>
+							</view>
+						</view>
+					</view>
+					<view class="margin-top-20">
+						<view>配制时间：07:30，12:30</view>
+						<view class="margin-top-10">首日量：3</view>
+						<view class="margin-top-10">末日量：3</view>
+						<view class="margin-top-10">配制用量：100毫升</view>
+						<view class="margin-top-10">取货机：不支持</view>
+						<view class="margin-top-10">备注：哈哈哈</view>
+					</view>
+				</view>
+				<view class="margin-top-20 flex--center--between">
+					<label class="flex--center--between">
+						<checkbox checked="{{false}}" />
+						<text>选中</text>
+					</label>
+					<view class="flex">
+						<view class="button small plain gray">删除</view>
+						<view class="margin-left-20 button small primary">修改</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</pull-scroll-view>
+</view>
+<view class="footer flex--center--around padding-20">
+	<view class="primary-color flex-shrink-0">总金额：￥100000</view>
+	<view bindtap="onSave" class="button primary plain" style="padding:20rpx;min-width:auto">营养素分析</view>
+	<view bindtap="onSave" class="margin-left-20 button primary" style="padding:20rpx;min-width:auto">添加营养指导</view>
+</view>
