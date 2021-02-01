@@ -42,12 +42,8 @@ page .van-collapse-item__content {
     font-weight: bold;
 }
 
-.van-collapse-item {
+van-collapse-item.margin-top-20 .van-collapse-item {
     margin-top: 20rpx;
-}
-
-van-collapse-item:first-of-type .van-collapse-item {
-    margin-top: 0;
 }
 
 page .van-picker__confirm {

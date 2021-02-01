@@ -75,7 +75,7 @@
 				value="{{introduce}}"
 			></readonly-field>
 		</van-collapse-item>
-		<van-collapse-item name="2" title="执业信息">
+		<van-collapse-item class="margin-top-20" name="2" title="执业信息">
 			<view class="padding-top-30 margin-left-30 label-color">
 				<text>执业证书图片</text>
 				<text class="gray-color">(医师需要上传)</text>

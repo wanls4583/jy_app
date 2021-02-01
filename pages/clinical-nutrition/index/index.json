@@ -1,3 +1,11 @@
 {
-    "navigationBarTitleText": "NRS筛查"
+    "navigationBarTitleText": "NRS筛查",
+    "usingComponents": {
+        "pgsga": "/pages/clinical-nutrition/pgsga/index",
+        "nrs": "/pages/clinical-nutrition/nrs/index",
+        "first-consult": "/pages/clinical-nutrition/first-consult/index",
+        "ward-round": "/pages/clinical-nutrition/ward-round/index",
+        "medical-record": "/pages/clinical-nutrition/medical-record/index",
+        "biochemical": "/pages/clinical-nutrition/biochemical/index"
+    }
 }
