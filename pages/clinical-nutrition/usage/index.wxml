@@ -1,6 +1,25 @@
 <view class="container padding-bottom-footer">
 	<navigation-bar auto-back="{{false}}" bind:back="onBack" title="用法用量"></navigation-bar>
-	<view class="padding-30 white-background-color">
+	<view class="padding-left-right-30 white-background-color" wx:if="{{goods.isCustom==3}}">
+		<view class="padding-top-bottom-30 border-bottom">
+			<view class="flex--center--between">
+				<view>制剂名称</view>
+				<view class="flex-shrink-0 gray-color">粉剂</view>
+			</view>
+			<view class="margin-top-20 flex--center--between">
+				<view class="flex">
+					<view>每次用量</view>
+					<view class="margin-left-30">20</view>
+				</view>
+				<view>克</view>
+			</view>
+			<view class="margin-top-20 flex--center--between primary-color">
+				<view>总量：90克</view>
+				<view>金额：46</view>
+			</view>
+		</view>
+	</view>
+	<view class="padding-30 white-background-color" wx:else>
 		<view>制剂名称</view>
 		<view class="margin-top-20 flex gray-color">
 			<view class="width-100px">200克/袋</view>
@@ -28,7 +47,7 @@
 			</view>
 		</van-cell>
 		<readonly-field bindtap="onShowFrequency" label="频率" readonly title-width="4.5em" value="{{_frequency}}"></readonly-field>
-		<view class="flex padding-30 padding-bottom-0 border-bottom">
+		<view class="flex padding-top-bottom-30 padding-bottom-0 margin-left-right-30 border-bottom">
 			<view class="label" style="width:4.5em">配制时间</view>
 			<view>
 				<van-checkbox-group bind:change="onChangeExecutiveTime" class="flex flex-wrap-wrap" value="{{executiveTime}}">
