@@ -55,8 +55,10 @@
 		</view>
 	</pull-scroll-view>
 </view>
-<view class="footer flex--center--around padding-20">
+<view class="footer flex--center--between padding-20">
 	<view class="primary-color flex-shrink-0">总金额：￥100000</view>
-	<view bindtap="onSave" class="button primary plain" style="padding:20rpx;min-width:auto">营养素分析</view>
-	<view bindtap="onSave" class="margin-left-20 button primary" style="padding:20rpx;min-width:auto">添加营养指导</view>
+	<view class="flex">
+		<view bindtap="onSave" class="button primary plain" style="padding:20rpx;min-width:auto">营养素分析</view>
+		<view bindtap="onSave" class="margin-left-20 button primary" style="padding:20rpx;min-width:auto">添加营养指导</view>
+	</view>
 </view>

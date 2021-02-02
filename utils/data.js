@@ -56,8 +56,8 @@ export const enternalWayMap = {
   "STOMACH": "胃造瘘"
 }
 export const longOrTemporaryMap = {
-  'TEMPORARY': '临时整取',
   'LONG': '临时配制',
+  'TEMPORARY': '临时整取',
   'LONG_TERM': '长期指导'
 };
 export const longOrTemporaryMapRev = {

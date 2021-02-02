@@ -96,7 +96,9 @@
         "root": "pages/clinical-nutrition",
         "name": "clinical-nutrition",
         "pages": [
-            "index/index"
+            "index/index",
+            "usage/index",
+            "product/index"
         ]
     }],
     "window": {

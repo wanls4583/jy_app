@@ -1,0 +1,76 @@
+<view class="container">
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="营养制剂"></van-tab>
+			<van-tab title="协定套餐"></van-tab>
+			<van-tab title="特配套餐"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100 border-top" current="{{active}}">
+			<swiper-item>
+				<van-search bindtap="onGotoSearch" class="position-absolute top-0 width-100" placeholder="请输入名称搜索" shape="round" />
+				<view class="height-100" style="padding-top:54px">
+					<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+						<view class="white-background-color padding-left-right-30">
+							<view class="flex--center--between padding-top-bottom-30 border-bottom">
+								<view class="flex-grow-1">
+									<view>制剂名称</view>
+									<view class="margin-top-20 flex gray-color font-small">
+										<view style="width:300rpx">200克/袋</view>
+										<view>库存：200袋</view>
+									</view>
+								</view>
+								<view class="flex-shrink-0 margin-left-30">
+									<view class="button small primary">添加</view>
+								</view>
+							</view>
+						</view>
+					</pull-scroll-view>
+				</view>
+			</swiper-item>
+			<swiper-item>
+				<view class="height-100">
+					<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+						<view class="white-background-color padding-left-right-30">
+							<view class="flex--center--between padding-top-bottom-30 border-bottom">
+								<view class="flex-grow-1">
+									<view>制剂名称</view>
+								</view>
+								<view class="flex-shrink-0 margin-left-30">
+									<view class="button small primary">添加</view>
+								</view>
+							</view>
+						</view>
+					</pull-scroll-view>
+				</view>
+			</swiper-item>
+			<swiper-item>
+				<van-search bindtap="onGotoSearch" class="position-absolute top-0 width-100" placeholder="请输入名称搜索" shape="round" />
+				<view class="height-100" style="padding-top:54px;padding-bottom:54px;">
+					<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+						<view class="white-background-color padding-left-right-30">
+							<view class="flex--center--between padding-top-bottom-30 border-bottom">
+								<view class="flex-grow-1">
+									<view>制剂名称</view>
+									<view class="margin-top-20 flex gray-color font-small">
+										<view style="width:300rpx">200克/袋</view>
+										<view>库存：200袋</view>
+									</view>
+								</view>
+								<view class="flex-shrink-0 flex margin-left-30">
+									<checkbox />
+								</view>
+							</view>
+						</view>
+					</pull-scroll-view>
+				</view>
+				<view class="white-background-color padding-20 position-absolute bottom-0 width-100 flex--center--between">
+					<text class="flex-shrink-0">套餐名称</text>
+					<input class="flex-grow-1 border padding-20 margin-left-right-20" style="height:80rpx" type="text" />
+					<view class="flex-shrink-0 button primary" style="min-width:auto">添加</view>
+				</view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>
