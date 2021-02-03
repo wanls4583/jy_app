@@ -1,0 +1,21 @@
+<view class="container">
+	<van-search bindtap="onGotoSearch" class="position-absolute top-0 width-100" placeholder="请输入姓名/住院号/就诊卡号" shape="round" />
+	<view class="height-100" style="padding-top:54px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+			<view class="white-background-color padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<view class="flex">
+						<view style="width:30%">姓名：张三</view>
+						<view style="width:50%">住院号：00254612220</view>
+						<view style="width:20%">年龄：100</view>
+					</view>
+					<view class="margin-top-20 flex">
+						<view style="width:30%">床号：28</view>
+						<view style="width:50%">科室：心血管内科</view>
+						<view style="width:20%">性别：男</view>
+					</view>
+				</view>
+			</view>
+		</pull-scroll-view>
+	</view>
+</view>

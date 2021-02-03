@@ -97,6 +97,8 @@
         "name": "clinical-nutrition",
         "pages": [
             "index/index",
+            "patient-list/index",
+            "login/index",
             "usage/index",
             "product/index"
         ]
