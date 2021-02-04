@@ -10,9 +10,14 @@ function request(obj) {
     if (obj.method && obj.method.toLocaleUpperCase() == 'POST') {
         header['content-type'] = header['content-type'] || 'application/json'
     }
-    header['token'] = wx.getStorageSync('token');
-    header['role'] = wx.getStorageSync('role');
-    header['type'] = wx.getStorageSync('doctorType') == 2 ? 2 : 1;
+    if (obj.type == 'mobile') {
+        header['token'] = wx.getStorageSync('mobileToken');
+        httpHost = 'https://dev.juyuanyingyang.com/order/api';
+    } else {
+        header['token'] = wx.getStorageSync('token');
+        header['role'] = wx.getStorageSync('role');
+        header['type'] = wx.getStorageSync('doctorType') == 2 ? 2 : 1;
+    }
     var userInfo = wx.jyApp.store.userInfo;
     if (userInfo) {
         userInfo = {
@@ -29,7 +34,7 @@ function request(obj) {
         obj.data = obj.data || {};
         obj.data.ts = Date.now();
         requestTask = wx.request({
-            url: (obj.domain || httpHost) + obj.url,
+            url: httpHost + obj.url,
             method: obj.method || 'get',
             header: header,
             data: obj.data,

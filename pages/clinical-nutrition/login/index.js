@@ -38,8 +38,7 @@ Page({
     },
     getHospitalList() {
         wx.jyApp.http({
-            domain: 'https://dev.juyuanyingyang.com/',
-            url: 'order/api/app/hospital/list',
+            url: '/app/hospital/list',
             data: {
                 page: 1,
                 limit: 1000
@@ -67,8 +66,7 @@ Page({
         wx.login({
             success: (res) => {
                 wx.jyApp.http({
-                    domain: 'https://dev.juyuanyingyang.com/',
-                    url: 'order/api/nutrition/user/login',
+                    url: '/nutrition/user/login',
                     method: 'post',
                     data: {
                         password: this.data.password,
@@ -77,7 +75,7 @@ Page({
                         code: res.code
                     }
                 }).then((data) => {
-
+                    wx.setStorageSync('mobileToken', data.token);
                 });
             },
             fail: (err) => {
