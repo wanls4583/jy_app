@@ -29,7 +29,7 @@ function request(obj) {
         obj.data = obj.data || {};
         obj.data.ts = Date.now();
         requestTask = wx.request({
-            url: httpHost + obj.url,
+            url: (obj.domain || httpHost) + obj.url,
             method: obj.method || 'get',
             header: header,
             data: obj.data,

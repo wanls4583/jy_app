@@ -1,10 +1,10 @@
 <view class="container">
 	<van-field bindtap="onShowHospital" label="医院名称" placeholder="请选择医院名称" readonly="{{true}}" value="{{hospitalName}}"></van-field>
-	<van-field label="用户名" placeholder="请输入用户名"></van-field>
-	<van-field label="密码" password="{{true}}" placeholder="请输入密码"></van-field>
+	<van-field bindinput="onInput" data-prop="employeeId" label="用户名" placeholder="请输入用户名"></van-field>
+	<van-field bindinput="onInput" data-prop="password" label="密码" password="{{true}}" placeholder="请输入密码"></van-field>
 	<view class="padding-30 gray-color">为了保障您的账号安全，登录前请联系管理员开通权限</view>
 	<view class="padding-30 padding-top-0">
-		<view class="button primary block">登录</view>
+		<view bindtap="onSubmit" class="button primary block">登录</view>
 	</view>
 </view>
 <van-popup position="bottom" show="{{hospitalVisible}}">
