@@ -6,13 +6,14 @@
 const httpHost = require('../config/index.js').httpHost;
 
 function request(obj) {
+    var url = httpHost;
     var header = obj.header || {};
     if (obj.method && obj.method.toLocaleUpperCase() == 'POST') {
         header['content-type'] = header['content-type'] || 'application/json'
     }
     if (obj.type == 'mobile') {
         header['token'] = wx.getStorageSync('mobileToken');
-        httpHost = 'https://dev.juyuanyingyang.com/order/api';
+        url = 'https://dev.juyuanyingyang.com/order/api';
     } else {
         header['token'] = wx.getStorageSync('token');
         header['role'] = wx.getStorageSync('role');
@@ -34,7 +35,7 @@ function request(obj) {
         obj.data = obj.data || {};
         obj.data.ts = Date.now();
         requestTask = wx.request({
-            url: httpHost + obj.url,
+            url: url + obj.url,
             method: obj.method || 'get',
             header: header,
             data: obj.data,

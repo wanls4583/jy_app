@@ -38,6 +38,7 @@ Page({
     },
     getHospitalList() {
         wx.jyApp.http({
+            type: 'mobile',
             url: '/app/hospital/list',
             data: {
                 page: 1,
@@ -66,6 +67,7 @@ Page({
         wx.login({
             success: (res) => {
                 wx.jyApp.http({
+                    type: 'mobile',
                     url: '/nutrition/user/login',
                     method: 'post',
                     data: {
@@ -76,6 +78,9 @@ Page({
                     }
                 }).then((data) => {
                     wx.setStorageSync('mobileToken', data.token);
+                    wx.jyApp.navigateTo({
+                        url: '/pages/clinical-nutrition/patient-list/index'
+                    });
                 });
             },
             fail: (err) => {
