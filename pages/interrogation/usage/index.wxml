@@ -67,7 +67,7 @@
 <van-popup bind:click-overlay="onCloseAnalize" bind:close="onCloseAnalize" closeable="{{true}}" position="bottom" show="{{nutritionVisible}}">
 	<view class="flex--center--start padding-30">
 		<text>营养素分析(</text>
-		<text class="primary-color">含所有已添加营养指导</text>
+		<text class="primary-color">含所有已添加营养处方</text>
 		<text>)</text>
 	</view>
 	<view class="flex--center--between">

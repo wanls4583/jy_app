@@ -22,7 +22,7 @@ Page({
         this.id = '';
         if (this.from == 'examine') { //审核
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '审核营养处方'
             });
             patient = {
                 patientName: guideOrderDetail.patientName,

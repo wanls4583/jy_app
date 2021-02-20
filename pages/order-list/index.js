@@ -741,7 +741,7 @@ Page({
             applyOrder: this.data.applyOrder
         });
     },
-    //供其他页面删除营养指导订单item
+    //供其他页面删除营养处方订单item
     deleteGuidanceItem(id) {
         this.data.guidanceOrder.orderList = this.data.guidanceOrder.orderList.filter((item) => {
             return item.id != id;

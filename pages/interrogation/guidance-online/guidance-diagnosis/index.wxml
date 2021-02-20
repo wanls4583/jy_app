@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
 	<view class="margin-top-20 padding-30 white-background-color">
 		<view class="flex--center--between">
 			<text class="required">临床诊断</text>

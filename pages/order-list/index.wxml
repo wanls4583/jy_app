@@ -4,7 +4,7 @@
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="问诊订单"></van-tab>
 			<van-tab title="申请订单"></van-tab>
-			<van-tab title="指导订单"></van-tab>
+			<van-tab title="处方订单"></van-tab>
 			<van-tab title="商城订单" wx:if="{{userInfo.role=='USER'}}"></van-tab>
 		</van-tabs>
 	</view>
@@ -154,7 +154,7 @@
 								class="button primary small"
 								data-order="{{order}}"
 								data-url="/pages/interrogation/{{order.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{order.consultOrderId}}&type={{order.type}}"
-							>开营养指导</view>
+							>开处方</view>
 						</view>
 						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">
 							<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>

@@ -30,7 +30,7 @@ Page({
             url: '/pages/mall/address-list/index'
         });
     },
-    //支付营养指导单
+    //支付电子处方
     onGuidanceOrderPay() {
         if (!this.data.contactName && !this.data.selectAddress) {
             wx.jyApp.toast('请先选择收货地址');

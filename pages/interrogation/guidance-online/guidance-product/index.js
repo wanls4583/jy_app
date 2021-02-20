@@ -44,7 +44,7 @@ Page({
         ]
         if (guideOrderDetail && this.guidanceData.from == 'examine') { //审核
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '审核营养处方'
             });
             this.setData({
                 from: this.guidanceData.from,
@@ -157,7 +157,7 @@ Page({
             return;
         }
         if (!this.data.goodsList.length) {
-            wx.jyApp.toast('营养指导不能为空');
+            wx.jyApp.toast('营养处方不能为空');
             return;
         }
         wx.showLoading({
@@ -237,7 +237,7 @@ Page({
             return;
         }
         if (!this.data.goodsList.length) {
-            wx.jyApp.toast('营养指导不能为空');
+            wx.jyApp.toast('营养处方不能为空');
             return;
         }
         wx.showLoading({

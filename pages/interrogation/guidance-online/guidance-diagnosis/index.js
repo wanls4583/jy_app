@@ -20,7 +20,7 @@ Page({
         }
         if (this.guidanceData.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '审核营养处方'
             });
         }
         this.getAllDiagnosisList();

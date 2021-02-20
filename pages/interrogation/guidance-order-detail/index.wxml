@@ -61,7 +61,7 @@
 		</block>
 	</view>
 	<view class="padding-left-right-30 margin-top-20 white-background-color">
-		<view class="padding-top-20">营养指导：</view>
+		<view class="padding-top-20">营养处方：</view>
 		<view class="border-bottom padding-bottom-20" wx:for="{{order.goods}}" wx:for-item="product" wx:key="id">
 			<view>
 				<template data="{{goods:product}}" is="order-goods-item"></template>
@@ -125,10 +125,10 @@
 		<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 		<view bindtap="onGuidanceOrderReturn" class="margin-left-20 danger button small plain" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
 		<view bindtap="onGuidanceOrderPay" class="margin-left-20 button small primary" wx:if="{{order.status==0}}">立即支付</view>
-		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">营养指导单</view>
+		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">电子处方</view>
 	</view>
 	<view class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top" wx:if="{{userInfo.role=='DOCTOR'}}">
 		<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
-		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">营养指导单</view>
+		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">电子处方</view>
 	</view>
 </view>

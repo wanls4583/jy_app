@@ -123,7 +123,7 @@
 				catchtap="onGuide"
 				class="button primary small"
 				data-url="/pages/interrogation/{{order.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{order.consultOrderId}}&type={{order.type}}"
-			>开营养指导</view>
+			>开处方</view>
 		</view>
 		<view
 			class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top"

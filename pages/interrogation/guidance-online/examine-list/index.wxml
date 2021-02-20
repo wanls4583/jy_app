@@ -54,7 +54,7 @@
 					data-id="{{order.id}}"
 					data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}"
 					wx:if="{{order.status!=10}}"
-				>查看指导单</view>
+				>电子处方</view>
 			</view>
 		</view>
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>

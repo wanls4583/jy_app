@@ -40,7 +40,7 @@
 								<view class="flex--center--between width-100">
 									<text class="font-small gray-color" wx:if="{{item.videoBookDateTime}}">{{item.videoBookDateTime}}</text>
 									<text class="font-small gray-color" wx:else>{{item.orderTime}}</text>
-									<text class="tag success" wx:if="{{(status==5||status==3)&&item.makeNutritionOrder==1}}">已开营养指导</text>
+									<text class="tag success" wx:if="{{(status==5||status==3)&&item.makeNutritionOrder==1}}">已开处方</text>
 								</view>
 							</view>
 						</view>

@@ -16,14 +16,14 @@ Page({
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
         if (option.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '审核处方单'
             });
             this.setData({
-                tip: '指导单审核完成'
+                tip: '处方单审核完成'
             })
         } else {
             this.setData({
-                tip: '指导单开具完成'
+                tip: '处方单开具完成'
             });
         }
         if (page && page.route == 'pages/interrogation/chat/index') {

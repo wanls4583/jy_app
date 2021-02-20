@@ -798,7 +798,7 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         });
     },
-    //营养指导详情
+    //营养处方详情
     onGotoGuidanceDetail(e) {
         var id = e.currentTarget.dataset.id
         wx.jyApp.http({

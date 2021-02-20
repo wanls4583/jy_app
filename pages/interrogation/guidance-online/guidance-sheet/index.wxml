@@ -1,12 +1,12 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{4}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<guidance-header step="{{4}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
 	<view class="white-background-color margin-top-20">
 		<view class="flex--center--center primary-background-color padding-20 white-color" wx:if="{{!hideTip}}">
 			<van-icon name="passed" size="25px" />
 			<text class="margin-left-10 font-bold">{{tip}}</text>
 		</view>
 		<view class="padding-30 padding-top-0">
-			<view class="padding-top-30 font-large font-bold align-center">钜元互联网医院营养指导单</view>
+			<view class="padding-top-30 font-large font-bold align-center">钜元互联网医院电子处方单</view>
 			<view class="flex--center--between margin-top-30">
 				<view style="flex:1.4">
 					<text>姓名：</text>
@@ -58,7 +58,7 @@
 				<view style="min-width:7em">审核医师：{{recipe.approveDoctor}}</view>
 			</view>
 			<view class="margin-top-30">开具日期：{{recipe.detail.orderTime}}</view>
-			<view class="margin-top-30 gray-color">注意：指导单有效期为3天，擅自下载打印无效</view>
+			<view class="margin-top-30 gray-color">注意：处方单有效期为3天，擅自下载打印无效</view>
 		</view>
 	</view>
 </view>

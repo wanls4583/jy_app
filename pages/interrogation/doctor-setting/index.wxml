@@ -31,7 +31,7 @@
 	</view>
 	<view bindtap="onClickGuidePrice" class="padding-left-right-30 white-background-color margin-top-20">
 		<view class="flex--center--between padding-top-bottom-30">
-			<text>营养指导诊金</text>
+			<text>营养处方诊金</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">{{nutritionOrderPrice}}</text>
 				<van-icon color="#ccc" name="arrow" />

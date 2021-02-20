@@ -106,13 +106,13 @@ Page({
             return;
         }
         wx.jyApp.utils.setText({
-            title: '营养指导诊金',
+            title: '营养处方诊金',
             defaultValue: this.data.nutritionOrderPrice,
             type: 'number',
             complete: (value) => {
                 if (value < 0 || value > 1000) {
                     setTimeout(() => {
-                        wx.jyApp.toast('营养指导诊金额需在0-100范围内');
+                        wx.jyApp.toast('营养处方诊金额需在0-100范围内');
                     }, 500);
                     return;
                 }

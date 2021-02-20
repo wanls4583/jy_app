@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
 	<view class="white-background-color margin-top-20">
 		<view class="flex padding-30 field-border">
 			<view class="label">就诊人信息</view>

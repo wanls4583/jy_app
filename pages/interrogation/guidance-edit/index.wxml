@@ -16,10 +16,10 @@
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color">
 		<view class="flex--center--between">
-			<text>营养指导</text>
-			<text bindtap="onAddGoods" class="primary-color clickable">添加营养指导</text>
+			<text>营养处方</text>
+			<text bindtap="onAddGoods" class="primary-color clickable">添加营养处方</text>
 		</view>
-		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养指导”增加套餐或产品</view>
+		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养处方”增加套餐或产品</view>
 		<view class="margin-top-20" wx:else>
 			<view class="padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
 				<view>
@@ -60,7 +60,7 @@
 >
 	<view class="flex--center--start padding-30">
 		<text>营养素分析(</text>
-		<text class="primary-color">含所有已添加营养指导</text>
+		<text class="primary-color">含所有已添加营养处方</text>
 		<text>)</text>
 	</view>
 	<view class="flex--center--between">
