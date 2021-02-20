@@ -152,7 +152,7 @@ Page({
         wx.navigateBack();
     },
     onSave() {
-        if (!this.guidanceData.diagnosis) {
+        if (!this.guidanceData.diagnosisArr) {
             wx.jyApp.toast('临床诊断不能为空');
             return;
         }
@@ -170,7 +170,7 @@ Page({
             data: {
                 consultOrderId: this.guidanceData.consultOrderId,
                 currentDisease: this.guidanceData.currentDisease,
-                diagnosis: this.guidanceData.diagnosis,
+                diagnosisArr: this.guidanceData.diagnosisArr,
                 foodSensitive: this.guidanceData.foodSensitive,
                 handlePlan: this.guidanceData.handlePlan,
                 historyDisease: this.guidanceData.historyDisease,
@@ -232,10 +232,6 @@ Page({
         wx.jyApp.utils.onInput(e, this);
     },
     approve(status, approveMsg) {
-        if (!this.guidanceData.diagnosis) {
-            wx.jyApp.toast('临床诊断不能为空');
-            return;
-        }
         if (!this.data.goodsList.length) {
             wx.jyApp.toast('营养处方不能为空');
             return;
@@ -250,7 +246,7 @@ Page({
             data: {
                 consultOrderId: this.guidanceData.consultOrderId,
                 currentDisease: this.guidanceData.currentDisease,
-                diagnosis: this.guidanceData.diagnosis,
+                diagnosisArr: this.guidanceData.diagnosisArr,
                 foodSensitive: this.guidanceData.foodSensitive,
                 handlePlan: this.guidanceData.handlePlan,
                 historyDisease: this.guidanceData.historyDisease,

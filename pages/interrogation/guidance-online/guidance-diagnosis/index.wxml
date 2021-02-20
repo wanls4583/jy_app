@@ -5,8 +5,8 @@
 			<text class="required">临床诊断</text>
 			<text bindtap="onClickTemplate" class="primary-color clickable">添加诊断</text>
 		</view>
-		<view class="gray-color margin-top-20" wx:if="{{!diagnosis.length}}">请添加临床诊断，最多添加5个</view>
-		<view class="flex--center--between padding-20 margin-top-20 border radius-4px" wx:for="{{diagnosis}}" wx:key="diagnosisCode">
+		<view class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view>
+		<view class="flex--center--between padding-20 margin-top-20 border radius-4px" wx:for="{{diagnosisArr}}" wx:key="diagnosisCode">
 			<view>{{item.diagnosisName}}</view>
 			<view class="flex-shrink-0 flex margin-left-30">
 				<van-icon bindtap="onDelete" data-index="{{index}}" name="cross" />

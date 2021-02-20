@@ -182,14 +182,14 @@
 					</view>
 				</view>
 			</button>
-			<!-- <view class="padding-left-right-20 clickable" wx:if="{{userInfo.orderApproveAuthority==1&&userInfo.role=='DOCTOR'}}">
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.orderApproveAuthority==1&&userInfo.role=='DOCTOR'}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
 					<text>指导单审核</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
 					</view>
 				</view>
-			</view> -->
+			</view>
 			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.dataAuthority==1}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/statistic/summary/index">
 					<text>数据查询</text>

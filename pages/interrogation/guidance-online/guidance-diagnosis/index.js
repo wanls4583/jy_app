@@ -5,18 +5,18 @@
  */
 Page({
     data: {
-        diagnosis: [],
+        diagnosisArr: [],
         diagnosisList: [],
         diagnosisVisible: false
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
-        if (guideOrderDetail && !this.guidanceData.diagnosis) {
+        if (guideOrderDetail && !this.guidanceData.diagnosisArr) {
             this.setData({
-                diagnosis: guideOrderDetail.diagnosis
+                diagnosisArr: guideOrderDetail.diagnosisArr
             });
-            this.guidanceData.diagnosis = this.data.diagnosis;
+            this.guidanceData.diagnosisArr = this.data.diagnosisArr;
         }
         if (this.guidanceData.from == 'examine') {
             wx.setNavigationBarTitle({
@@ -32,7 +32,7 @@ Page({
         wx.navigateBack();
     },
     onNext(e) {
-        if (this.data.diagnosis.length) {
+        if (this.data.diagnosisArr.length) {
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/guidance-product/index'
             });
@@ -44,20 +44,20 @@ Page({
         var item = e.currentTarget.dataset.item;
         var index = e.currentTarget.dataset.index;
         item.selected = true;
-        this.data.diagnosis.push(item);
+        this.data.diagnosisArr.push(item);
         this.setData({
             [`diagnosisList[${index}]`]: item,
-            diagnosis: this.data.diagnosis.concat([])
+            diagnosisArr: this.data.diagnosisArr.concat([])
         });
-        this.guidanceData.diagnosis = this.data.diagnosis;
+        this.guidanceData.diagnosisArr = this.data.diagnosisArr;
     },
     onDelete(e) {
         var index = e.currentTarget.dataset.index;
-        this.data.diagnosis.splice(index, 1);
+        this.data.diagnosisArr.splice(index, 1);
         this.setData({
-            diagnosis: this.data.diagnosis.concat([])
+            diagnosisArr: this.data.diagnosisArr.concat([])
         });
-        this.guidanceData.diagnosis = this.data.diagnosis;
+        this.guidanceData.diagnosisArr = this.data.diagnosisArr;
     },
     onInput(e) {
         var text = e.detail.value;
@@ -65,7 +65,7 @@ Page({
         this.setData({
             diagnosisList: this.allDiagnosisList.filter((item) => {
                 if (item.diagnosisName.indexOf(text) > -1) {
-                    this.data.diagnosis.map((_item) => {
+                    this.data.diagnosisArr.map((_item) => {
                         if (item.diagnosisCode == _item.diagnosisCode) {
                             item.selected = true;
                         }
