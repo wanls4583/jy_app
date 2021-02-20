@@ -35,6 +35,7 @@
 						class="width-100 padding-0 margin-0"
 						data-prop="foodSensitive"
 						disable-default-padding="{{true}}"
+						disabled="{{this.from=='examine'}}"
 						maxlength="{{200}}"
 						placeholder="请填写过敏史"
 						placeholder-style="color:#c8c9cc;"
@@ -43,11 +44,22 @@
 				</view>
 			</view>
 		</view>
-		<van-field autosize bindinput="onInput" data-prop="mainSuit" label="主诉" maxlength="{{200}}" placeholder="请填写主诉" type="textarea" value="{{mainSuit}}"></van-field>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="mainSuit"
+			disabled="{{this.from=='examine'}}"
+			label="主诉"
+			maxlength="{{200}}"
+			placeholder="请填写主诉"
+			type="textarea"
+			value="{{mainSuit}}"
+		></van-field>
 		<van-field
 			autosize
 			bindinput="onInput"
 			data-prop="currentDisease"
+			disabled="{{this.from=='examine'}}"
 			label="现病史"
 			maxlength="{{200}}"
 			placeholder="请填写现病史"
@@ -65,7 +77,17 @@
 			value="{{historyDisease}}"
 		></van-field>
 		<!-- <van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field> -->
-		<van-field autosize bindinput="onInput" data-prop="handlePlan" label="处置计划" maxlength="{{200}}" placeholder="请填写处置计划" type="textarea" value="{{handlePlan}}"></van-field>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="handlePlan"
+			disabled="{{this.from=='examine'}}"
+			label="处置计划"
+			maxlength="{{200}}"
+			placeholder="请填写处置计划"
+			type="textarea"
+			value="{{handlePlan}}"
+		></van-field>
 	</view>
 </view>
 <view class="footer flex--center--around padding-30">

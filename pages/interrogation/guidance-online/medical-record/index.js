@@ -20,10 +20,10 @@ Page({
         this.from = option.from;
         this.consultOrderId = option.id;
         this.id = '';
-        if (this.from == 'examine') { //审核
-            wx.setNavigationBarTitle({
-                title: '审核营养处方'
-            });
+        this.setData({
+            from: this.from
+        });
+        if (guideOrderDetail) { //修改
             patient = {
                 patientName: guideOrderDetail.patientName,
                 age: guideOrderDetail.age,
@@ -77,6 +77,10 @@ Page({
         wx.jyApp.utils.onInput(e, this);
     },
     onChange(e) {
+        //审核时禁止修改
+        if(this.from=='examine') {
+            return;
+        }
         var prop = e.currentTarget.dataset.prop;
         this.setData({
             [`${prop}`]: e.detail,

@@ -204,7 +204,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.status==10||order.status==1||order.status==0)&&userInfo.role=='USER'}}"
 						>
 							<view bindtap="onBuyAgain" class="margin-left-20 button primary small" data-order="{{order}}" wx:if="{{order.oneMoreVisible}}">再来一单</view>
 							<view
@@ -219,7 +219,7 @@
 								data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.ticketMoney}}&orderNo={{order.orderNo}}&orderType=3"
 								wx:elif="{{order.applyTicketVisible}}"
 							>申请发票</view>
-							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.status==10}}">删除订单</view>
 							<view bindtap="onGuidanceOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
 							<view
 								bindtap="onGoto"
@@ -228,8 +228,9 @@
 								wx:if="{{order.status==0}}"
 							>立即支付</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.delVisible&&userInfo.role=='DOCTOR'}}">
-							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{(order.status==10||order.status==11)&&userInfo.role=='DOCTOR'}}">
+							<view bindtap="onEditOrder" class="margin-left-20 button small primary" data-id="{{order.id}}" wx:if="{{order.status==10||order.status==11}}">修改订单</view>
+							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}"  wx:if="{{order.status==10||order.status==11}}">删除订单</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>

@@ -7,7 +7,7 @@ Page({
         rejectVisible: false,
         approveMsg: ''
     },
-    onLoad(option) {
+    onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
@@ -42,12 +42,20 @@ Page({
             'mn',
             'i',
         ]
-        if (guideOrderDetail && this.guidanceData.from == 'examine') { //审核
+        this.setData({
+            from: this.guidanceData.from
+        });
+        if (this.data.from == 'examine') {
             wx.setNavigationBarTitle({
                 title: '审核营养处方'
             });
+        }
+        if (this.guidanceData.goodsList) {
             this.setData({
-                from: this.guidanceData.from,
+                goodsList: this.guidanceData.goodsList
+            });
+        } else if (guideOrderDetail) { //修改
+            this.setData({
                 goodsList: guideOrderDetail.goods.map((item) => {
                     item.price = item.price || item.amount / item.count;
                     item.standardNum = item.standardNum || item.items[0].standardNum;
@@ -55,6 +63,7 @@ Page({
                     item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                     item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
+                    item.id = item.goodsId;
                     if (item.type == 1) {
                         item.productId = item.items[0].productId;
                         item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
@@ -64,10 +73,6 @@ Page({
                     return item;
                 })
             })
-        } else if (this.guidanceData.goodsList) {
-            this.setData({
-                goodsList: this.guidanceData.goodsList
-            });
         }
     },
     onUnload() {

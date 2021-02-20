@@ -9,19 +9,21 @@ Page({
         diagnosisList: [],
         diagnosisVisible: false
     },
-    onLoad(option) {
+    onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
-        if (guideOrderDetail && !this.guidanceData.diagnosisArr) {
+        this.setData({
+            from: this.guidanceData.from
+        });
+        if(this.guidanceData.diagnosisArr) {
             this.setData({
-                diagnosisArr: guideOrderDetail.diagnosisArr
+                diagnosisArr: this.guidanceData.diagnosisArr
+            });
+        } else if (guideOrderDetail){
+            this.setData({
+                diagnosisArr: guideOrderDetail.diagnosisArr || []
             });
             this.guidanceData.diagnosisArr = this.data.diagnosisArr;
-        }
-        if (this.guidanceData.from == 'examine') {
-            wx.setNavigationBarTitle({
-                title: '审核营养处方'
-            });
         }
         this.getAllDiagnosisList();
     },
@@ -64,7 +66,7 @@ Page({
         //搜索诊断
         this.setData({
             diagnosisList: this.allDiagnosisList.filter((item) => {
-                if (item.diagnosisName.indexOf(text) > -1) {
+                if (text && item.diagnosisName.indexOf(text) > -1) {
                     this.data.diagnosisArr.map((_item) => {
                         if (item.diagnosisCode == _item.diagnosisCode) {
                             item.selected = true;
