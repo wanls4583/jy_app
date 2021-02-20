@@ -182,7 +182,8 @@
 					</view>
 				</view>
 			</button>
-			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.orderApproveAuthority==1&&userInfo.role=='DOCTOR'}}">
+			<!-- 药师才有审核权限 -->
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole=='PHARMACIST'}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
 					<text>指导单审核</text>
 					<view class="flex--center--center">

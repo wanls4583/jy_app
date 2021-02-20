@@ -13,18 +13,9 @@
 			</view>
 		</view>
 		<view class="flex padding-30 field-border">
-			<view class="label">初诊标志</view>
-			<view>
-				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" value="{{isFirst}}">
-					<van-radio name="{{1}}">初诊</van-radio>
-					<van-radio name="{{0}}">复诊</van-radio>
-				</van-radio-group>
-			</view>
-		</view>
-		<view class="flex padding-30 field-border">
 			<view class="label">过敏史</view>
 			<view class="flex-grow-1">
-				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" value="{{hasFoodSensitive}}">
+				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" disabled="{{this.from=='examine'}}" value="{{hasFoodSensitive}}">
 					<van-radio name="{{0}}">无</van-radio>
 					<van-radio name="{{1}}">有</van-radio>
 				</van-radio-group>
@@ -44,6 +35,26 @@
 				</view>
 			</view>
 		</view>
+		<view class="flex padding-30 field-border">
+			<view class="label">初诊标志</view>
+			<view>
+				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" disabled="{{this.from=='examine'}}" value="{{isFirst}}">
+					<van-radio name="{{1}}">初诊</van-radio>
+					<van-radio name="{{0}}">复诊</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="firstMedicalOrg"
+			disabled="{{this.from=='examine'||isFirst==1}}"
+			label="初诊医疗卫生机构名称"
+			maxlength="{{200}}"
+			placeholder="初诊医疗卫生机构名称"
+			type="textarea"
+			value="{{firstMedicalOrg}}"
+		></van-field>
 		<van-field
 			autosize
 			bindinput="onInput"

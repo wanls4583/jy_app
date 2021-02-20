@@ -12,7 +12,8 @@ Page({
         currentDisease: '',
         historyDisease: '',
         symptom: '',
-        handlePlan: ''
+        handlePlan: '',
+        firstMedicalOrg: '钜元门诊部'
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -64,7 +65,7 @@ Page({
             });
         }
         //预加载临床诊断
-        if(!wx.getStorageSync('diagnosis')) {
+        if (!wx.getStorageSync('diagnosis')) {
             this.loadDiagnosis();
         }
     },
@@ -78,13 +79,18 @@ Page({
     },
     onChange(e) {
         //审核时禁止修改
-        if(this.from=='examine') {
+        if (this.from == 'examine') {
             return;
         }
         var prop = e.currentTarget.dataset.prop;
         this.setData({
             [`${prop}`]: e.detail,
         });
+        if (this.data.isFirst == 1) {
+            this.setData({
+                firstMedicalOrg: '钜元门诊部'
+            });
+        }
     },
     onSave() {
         if (this.data.hasFoodSensitive == 1 && !this.data.foodSensitive) {
@@ -102,7 +108,8 @@ Page({
                 currentDisease: this.data.currentDisease,
                 historyDisease: this.data.historyDisease,
                 symptom: this.data.symptom,
-                handlePlan: this.data.handlePlan
+                handlePlan: this.data.handlePlan,
+                firstMedicalOrg: this.data.firstMedicalOrg
             });
         }
         wx.jyApp.utils.navigateTo({
@@ -111,8 +118,8 @@ Page({
     },
     loadDiagnosis() {
         wx.jyApp.http({
-            url:'/disease/diagnosis'
-        }).then((data)=>{
+            url: '/disease/diagnosis'
+        }).then((data) => {
             wx.setStorageSync('diagnosis', data.list);
         })
     }
