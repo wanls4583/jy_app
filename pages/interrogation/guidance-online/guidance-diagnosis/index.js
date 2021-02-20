@@ -49,6 +49,7 @@ Page({
             [`diagnosisList[${index}]`]: item,
             diagnosis: this.data.diagnosis.concat([])
         });
+        this.guidanceData.diagnosis = this.data.diagnosis;
     },
     onDelete(e) {
         var index = e.currentTarget.dataset.index;
@@ -56,6 +57,7 @@ Page({
         this.setData({
             diagnosis: this.data.diagnosis.concat([])
         });
+        this.guidanceData.diagnosis = this.data.diagnosis;
     },
     onInput(e) {
         var text = e.detail.value;
@@ -77,16 +79,18 @@ Page({
     onClickTemplate() {
         this.setData({
             diagnosisVisible: !this.data.diagnosisVisible,
-            diagnosisList: []
+            diagnosisList: [],
+            text: ''
         });
     },
     getAllDiagnosisList() {
-        wx.jyApp.showLoading('加载中...');
-        _get.bind(this)();
+        var self = this;
+        wx.jyApp.showLoading('加载中...', true);
+        _get();
 
         function _get() {
-            this.allDiagnosisList = wx.getStorageSync('diagnosis');
-            if (!this.allDiagnosisList) {
+            self.allDiagnosisList = wx.getStorageSync('diagnosis');
+            if (!self.allDiagnosisList) {
                 setTimeout(() => {
                     _get();
                 }, 1000);

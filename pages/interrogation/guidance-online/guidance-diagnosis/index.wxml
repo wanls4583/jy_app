@@ -20,7 +20,7 @@
 </view>
 <van-popup bind:click-overlay="onClickTemplate" position="bottom" show="{{diagnosisVisible}}">
 	<view class="padding-20">
-		<input bindinput="onInput" class="width-100 border padding-20" placeholder="请输入诊断名称搜索" style="height:40px" type="text" />
+		<input bindinput="onInput" class="width-100 border padding-20" cursor-spacing="{{1000}}" placeholder="请输入诊断名称搜索" style="height:40px" type="text" value="{{text}}" />
 	</view>
 	<view class="padding-left-right-20">
 		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="diagnosisCode">
