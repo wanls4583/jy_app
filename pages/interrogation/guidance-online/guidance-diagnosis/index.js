@@ -5,7 +5,9 @@
  */
 Page({
     data: {
-        diagnosis: '',
+        diagnosis: [],
+        diagnosisList: [],
+        diagnosisVisible: false
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -21,41 +23,76 @@ Page({
                 title: '审核营养指导'
             });
         }
+        this.getAllDiagnosisList();
     },
     onShow() {
-        var diagnosisTemplate = wx.jyApp.getTempData('diagnosisTemplate', true);
-        if (diagnosisTemplate) { //选择了模板
-            this.setData({
-                diagnosis: diagnosisTemplate
-            });
-        } else if (this.guidanceData.diagnosis) {
-            this.setData({
-                diagnosis: this.guidanceData.diagnosis
-            });
-        }
-        this.guidanceData.diagnosis = this.data.diagnosis;
+
     },
     onPre(e) {
         wx.navigateBack();
     },
     onNext(e) {
-        if (this.data.diagnosis) {
+        if (this.data.diagnosis.length) {
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/guidance-online/guidance-product/index'
             });
         } else {
-            wx.jyApp.toast('请输入诊断说明');
+            wx.jyApp.toast('请添加临床诊断');
         }
     },
-    onInput(e) {
+    onSelect(e) {
+        var item = e.currentTarget.dataset.item;
+        var index = e.currentTarget.dataset.index;
+        item.selected = true;
+        this.data.diagnosis.push(item);
         this.setData({
-            diagnosis: e.detail.value
+            [`diagnosisList[${index}]`]: item,
+            diagnosis: this.data.diagnosis.concat([])
         });
-        this.guidanceData.diagnosis = this.data.diagnosis;
+    },
+    onDelete(e) {
+        var index = e.currentTarget.dataset.index;
+        this.data.diagnosis.splice(index, 1);
+        this.setData({
+            diagnosis: this.data.diagnosis.concat([])
+        });
+    },
+    onInput(e) {
+        var text = e.detail.value;
+        //搜索诊断
+        this.setData({
+            diagnosisList: this.allDiagnosisList.filter((item) => {
+                if (item.diagnosisName.indexOf(text) > -1) {
+                    this.data.diagnosis.map((_item) => {
+                        if (item.diagnosisCode == _item.diagnosisCode) {
+                            item.selected = true;
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            })
+        });
     },
     onClickTemplate() {
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/diagnosis-template/index'
+        this.setData({
+            diagnosisVisible: !this.data.diagnosisVisible,
+            diagnosisList: []
         });
     },
+    getAllDiagnosisList() {
+        wx.jyApp.showLoading('加载中...');
+        _get.bind(this)();
+
+        function _get() {
+            this.allDiagnosisList = wx.getStorageSync('diagnosis');
+            if (!this.allDiagnosisList) {
+                setTimeout(() => {
+                    _get();
+                }, 1000);
+            } else {
+                wx.hideLoading();
+            }
+        }
+    }
 })

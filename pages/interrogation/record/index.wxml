@@ -87,16 +87,16 @@
 						<view class="flex-shrink-0 label">既往史：</view>
 						<view class="pre-line">{{item.historyDisease||''}}</view>
 					</view>
-					<view class="flex--center--start margin-top-20">
+					<!-- <view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label">门诊症状：</view>
 						<view class="pre-line">{{item.symptom||''}}</view>
-					</view>
+					</view> -->
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label">处置计划：</view>
 						<view class="pre-line">{{item.handlePlan||''}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 align-self-start label label">营养诊断：</view>
+						<view class="flex-shrink-0 align-self-start label label">临床诊断：</view>
 						<view class="pre-line">{{item.diagnosis||''}}</view>
 					</view>
 					<view class="margin-top-bottom-20 pre-line label">营养指导：</view>

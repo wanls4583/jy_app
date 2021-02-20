@@ -2,7 +2,7 @@
 <view class="container padding-bottom-footer">
 	<view class="padding-30 white-background-color">
 		<view class="flex--center--between">
-			<text>营养诊断</text>
+			<text>临床诊断</text>
 			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
 		</view>
 		<textarea
@@ -10,7 +10,7 @@
 			bindinput="onInput"
 			class="height-50vw margin-top-20"
 			maxlength="{{1000}}"
-			placeholder="请输入营养诊断信息"
+			placeholder="请输入临床诊断信息"
 			value="{{diagnosis}}"
 		></textarea>
 	</view>

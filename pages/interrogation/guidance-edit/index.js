@@ -136,7 +136,7 @@ Page({
     },
     onSave() {
         if (!this.data.diagnosis && this.type != 2) {
-            wx.jyApp.toast('营养诊断不能为空');
+            wx.jyApp.toast('临床诊断不能为空');
             return;
         }
         if (!this.data.goodsList.length) {

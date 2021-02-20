@@ -64,7 +64,7 @@
 			type="textarea"
 			value="{{historyDisease}}"
 		></van-field>
-		<van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field>
+		<!-- <van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field> -->
 		<van-field autosize bindinput="onInput" data-prop="handlePlan" label="处置计划" maxlength="{{200}}" placeholder="请填写处置计划" type="textarea" value="{{handlePlan}}"></van-field>
 	</view>
 </view>

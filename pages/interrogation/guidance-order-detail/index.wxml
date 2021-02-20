@@ -95,7 +95,7 @@
 		</view>
 	</view>
 	<view class="padding-left-right-30 padding-top-bottom-20 margin-top-20 flex white-background-color">
-		<text class="flex-shrink-0">营养诊断：</text>
+		<text class="flex-shrink-0">临床诊断：</text>
 		<text class="gray-color">{{order.diagnosis}}</text>
 	</view>
 	<view class="padding-30 white-background-color margin-top-20">

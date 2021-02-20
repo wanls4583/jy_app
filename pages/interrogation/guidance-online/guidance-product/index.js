@@ -153,7 +153,7 @@ Page({
     },
     onSave() {
         if (!this.guidanceData.diagnosis) {
-            wx.jyApp.toast('营养诊断不能为空');
+            wx.jyApp.toast('临床诊断不能为空');
             return;
         }
         if (!this.data.goodsList.length) {
@@ -233,7 +233,7 @@ Page({
     },
     approve(status, approveMsg) {
         if (!this.guidanceData.diagnosis) {
-            wx.jyApp.toast('营养诊断不能为空');
+            wx.jyApp.toast('临床诊断不能为空');
             return;
         }
         if (!this.data.goodsList.length) {

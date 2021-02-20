@@ -63,6 +63,10 @@ Page({
                 foodSensitive: patient.foodSensitive
             });
         }
+        //预加载临床诊断
+        if(!wx.getStorageSync('diagnosis')) {
+            this.loadDiagnosis();
+        }
     },
     onUnload() {
         wx.jyApp.clearTempData('guidanceData');
@@ -100,5 +104,12 @@ Page({
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/guidance-online/guidance-diagnosis/index'
         });
+    },
+    loadDiagnosis() {
+        wx.jyApp.http({
+            url:'/disease/diagnosis'
+        }).then((data)=>{
+            wx.setStorageSync('diagnosis', data.list);
+        })
     }
 })
