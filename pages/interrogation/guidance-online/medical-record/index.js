@@ -13,7 +13,9 @@ Page({
         historyDisease: '',
         symptom: '',
         handlePlan: '',
-        firstMedicalOrg: '钜元门诊部'
+        orgList: [],
+        orgVisible: false,
+        firstMedicalOrg: '钜元门诊部',
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -68,6 +70,12 @@ Page({
         if (!wx.jyApp.getTempData('allDiagnosis')) {
             this.loadDiagnosis();
         }
+        //加载医疗结构
+        if (!wx.jyApp.getTempData('allOrg')) {
+            this.loadOrgList();
+        } else {
+            this.allOrg = wx.jyApp.getTempData('allOrg');
+        }
     },
     onUnload() {
         wx.jyApp.clearTempData('guidanceData');
@@ -91,6 +99,38 @@ Page({
                 firstMedicalOrg: '钜元门诊部'
             });
         }
+    },
+    onClickOrg() {
+        this.setData({
+            orgVisible: !this.data.orgVisible,
+            orgText: this.data.firstMedicalOrg,
+            orgList: this.allOrg.filter((item) => {
+                return item.indexOf(this.data.firstMedicalOrg) > -1;
+            })
+        });
+        console.log(this.data.orgList)
+    },
+    onSearch(e) {
+        var text = e.detail.value;
+        this.setData({
+            orgList: this.allOrg.filter((item) => {
+                return item.indexOf(text) > -1
+            })
+        });
+    },
+    onSelect(e) {
+        var item = e.currentTarget.dataset.item;
+        this.setData({
+            orgText: item,
+            firstMedicalOrg: item,
+            orgVisible: false
+        });
+    },
+    onConfrim() {
+        this.setData({
+            firstMedicalOrg: this.data.orgText,
+            orgVisible: false
+        });
     },
     onSave() {
         if (this.data.hasFoodSensitive == 1 && !this.data.foodSensitive) {
@@ -121,6 +161,14 @@ Page({
             url: '/disease/diagnosis'
         }).then((data) => {
             wx.jyApp.setTempData('allDiagnosis', data.list);
+        });
+    },
+    loadOrgList() {
+        wx.jyApp.http({
+            url: '/medical/org/list'
+        }).then((data) => {
+            this.allOrg = data.list;
+            wx.jyApp.setTempData('allOrg', data.list);
         });
     }
 })

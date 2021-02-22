@@ -44,17 +44,7 @@
 				</van-radio-group>
 			</view>
 		</view>
-		<van-field
-			autosize
-			bindinput="onInput"
-			data-prop="firstMedicalOrg"
-			disabled="{{this.from=='examine'||isFirst==1}}"
-			label="初诊医疗卫生机构名称"
-			maxlength="{{200}}"
-			placeholder="初诊医疗卫生机构名称"
-			type="textarea"
-			value="{{firstMedicalOrg}}"
-		></van-field>
+		<readonly-field bindtap="onClickOrg" label="初诊医疗卫生机构名称" placeholder="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}"></readonly-field>
 		<van-field
 			autosize
 			bindinput="onInput"
@@ -104,3 +94,22 @@
 <view class="footer flex--center--around padding-30">
 	<view bindtap="onSave" class="button primary block">下一步</view>
 </view>
+<van-popup bind:click-overlay="onClickOrg" position="bottom" show="{{orgVisible}}">
+	<view class="flex--center--between padding-20">
+		<input
+			bindinput="onSearch"
+			class="border padding-20"
+			cursor-spacing="{{1000}}"
+			placeholder="请输入诊断名称搜索"
+			style="width:570rpx;height:40px"
+			type="text"
+			value="{{orgText}}"
+		/>
+		<view bindtap="onConfirm" class="button primary" style="min-width:auto">确定</view>
+	</view>
+	<view class="padding-left-right-20">
+		<view bindtap="onSelect" class="flex--center--between padding-20 margin-bottom-20 border radius-4px" data-item="{{item}}" wx:for="{{orgList}}" wx:key="id">
+			<view>{{item}}</view>
+		</view>
+	</view>
+</van-popup>
