@@ -18,12 +18,13 @@
 		<view bindtap="onNext" class="button primary block" style="width:40%">下一步</view>
 	</view>
 </view>
-<van-popup bind:click-overlay="onClickTemplate" position="bottom" show="{{diagnosisVisible}}">
+<van-popup bind:click-overlay="onClickTemplate" position="top" show="{{diagnosisVisible}}">
 	<view class="flex--center--end padding-20">
 		<van-icon bindtap="onClickTemplate" name="cross" size="20" />
 	</view>
-	<view class="padding-20">
+	<view class="padding-20 padding-top-0">
 		<input
+			adjust-position="{{false}}"
 			bindinput="onInput"
 			class="width-100 border padding-20"
 			cursor-spacing="{{1000}}"

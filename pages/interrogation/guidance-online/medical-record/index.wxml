@@ -97,6 +97,7 @@
 <van-popup bind:click-overlay="onClickOrg" position="bottom" show="{{orgVisible}}">
 	<view class="flex--center--between padding-20">
 		<input
+			adjust-position="{{false}}"
 			bindinput="onSearch"
 			class="border padding-20"
 			cursor-spacing="{{1000}}"

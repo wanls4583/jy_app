@@ -43,7 +43,7 @@ Page({
         }
     },
     onSelect(e) {
-        if(this.data.diagnosisArr.length > 5) {
+        if(this.data.diagnosisArr.length >= 5) {
             wx.jyApp.toast('最多添加5个临床诊断');
             return;
         }
