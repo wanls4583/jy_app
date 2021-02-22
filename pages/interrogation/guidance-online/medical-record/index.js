@@ -44,7 +44,7 @@ Page({
                 mainSuit: guideOrderDetail.mainSuit,
                 currentDisease: guideOrderDetail.currentDisease,
                 historyDisease: guideOrderDetail.historyDisease,
-                firstMedicalOrg: guideOrderDetail.firstMedicalOrg,
+                firstMedicalOrg: guideOrderDetail.firstMedicalOrg || '',
                 handlePlan: guideOrderDetail.handlePlan,
                 patient: patient
             });
