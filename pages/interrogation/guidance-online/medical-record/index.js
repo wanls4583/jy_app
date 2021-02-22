@@ -44,7 +44,7 @@ Page({
                 mainSuit: guideOrderDetail.mainSuit,
                 currentDisease: guideOrderDetail.currentDisease,
                 historyDisease: guideOrderDetail.historyDisease,
-                symptom: guideOrderDetail.symptom,
+                firstMedicalOrg: guideOrderDetail.firstMedicalOrg,
                 handlePlan: guideOrderDetail.handlePlan,
                 patient: patient
             });
@@ -126,7 +126,7 @@ Page({
             orgVisible: false
         });
     },
-    onConfrim() {
+    onConfirm() {
         this.setData({
             firstMedicalOrg: this.data.orgText,
             orgVisible: false

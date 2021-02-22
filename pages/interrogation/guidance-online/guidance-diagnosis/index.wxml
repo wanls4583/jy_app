@@ -19,6 +19,9 @@
 	</view>
 </view>
 <van-popup bind:click-overlay="onClickTemplate" position="bottom" show="{{diagnosisVisible}}">
+	<view class="flex--center--end padding-20">
+		<van-icon bindtap="onClickTemplate" name="cross" size="20" />
+	</view>
 	<view class="padding-20">
 		<input
 			bindinput="onInput"
