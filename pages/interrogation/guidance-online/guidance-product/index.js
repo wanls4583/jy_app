@@ -170,7 +170,7 @@ Page({
             mask: true
         });
         wx.jyApp.http({
-            url: '/nutritionorder/save',
+            url: `/nutritionorder/${this.guidanceData.id ? 'update' : 'save'}`,
             method: 'post',
             data: {
                 consultOrderId: this.guidanceData.consultOrderId,
@@ -179,10 +179,10 @@ Page({
                 foodSensitive: this.guidanceData.foodSensitive,
                 handlePlan: this.guidanceData.handlePlan,
                 historyDisease: this.guidanceData.historyDisease,
-                id: this.guidanceData.id,
+                id: this.guidanceData.id || '',
                 isFirst: this.guidanceData.isFirst,
                 mainSuit: this.guidanceData.mainSuit,
-                symptom: this.guidanceData.symptom,
+                firstMedicalOrg: this.guidanceData.firstMedicalOrg,
                 totalAmount: this.data.totalAmount,
                 goods: this.data.goodsList.map((item) => {
                     var days = item.days;
@@ -258,7 +258,7 @@ Page({
                 id: this.guidanceData.id,
                 isFirst: this.guidanceData.isFirst,
                 mainSuit: this.guidanceData.mainSuit,
-                symptom: this.guidanceData.symptom,
+                firstMedicalOrg: this.guidanceData.firstMedicalOrg,
                 status: status,
                 approveMsg: approveMsg || '',
                 totalAmount: this.data.totalAmount,
