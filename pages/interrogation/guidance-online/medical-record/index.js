@@ -65,7 +65,7 @@ Page({
             });
         }
         //预加载临床诊断
-        if (!wx.getStorageSync('diagnosis')) {
+        if (!wx.jyApp.getTempData('allDiagnosis')) {
             this.loadDiagnosis();
         }
     },
@@ -120,7 +120,7 @@ Page({
         wx.jyApp.http({
             url: '/disease/diagnosis'
         }).then((data) => {
-            wx.setStorageSync('diagnosis', data.list);
-        })
+            wx.jyApp.setTempData('allDiagnosis', data.list);
+        });
     }
 })

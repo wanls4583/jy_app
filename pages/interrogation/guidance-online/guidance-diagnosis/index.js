@@ -91,7 +91,7 @@ Page({
         _get();
 
         function _get() {
-            self.allDiagnosisList = wx.getStorageSync('diagnosis');
+            self.allDiagnosisList = wx.jyApp.getTempData('allDiagnosis');
             if (!self.allDiagnosisList) {
                 setTimeout(() => {
                     _get();
