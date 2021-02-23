@@ -16,7 +16,7 @@ Page({
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
         if (option.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核处方单'
+                title: '处方审核'
             });
             this.setData({
                 tip: '处方单审核完成'

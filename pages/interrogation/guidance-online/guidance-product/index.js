@@ -47,7 +47,7 @@ Page({
         });
         if (this.data.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养处方'
+                title: '处方审核'
             });
         }
         if (this.guidanceData.goodsList) {

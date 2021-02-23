@@ -16,6 +16,11 @@ Page({
         this.setData({
             from: this.guidanceData.from
         });
+        if (this.data.from == 'examine') {
+            wx.setNavigationBarTitle({
+                title: '处方审核'
+            });
+        }
         if(this.guidanceData.diagnosisArr) {
             this.setData({
                 diagnosisArr: this.guidanceData.diagnosisArr
