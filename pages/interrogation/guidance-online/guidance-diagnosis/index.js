@@ -49,8 +49,15 @@ Page({
         }
         var item = e.currentTarget.dataset.item;
         var index = e.currentTarget.dataset.index;
-        item.selected = true;
-        this.data.diagnosisArr.push(item);
+        if(!item.selected) {
+            item.selected = true;
+            this.data.diagnosisArr.push(item);
+        } else {
+            item.selected = false;
+            this.data.diagnosisArr = this.data.diagnosisArr.filter((_item)=>{
+                return _item.diagnosisName != item.diagnosisName;
+            });
+        }
         this.setData({
             [`diagnosisList[${index}]`]: item,
             diagnosisArr: this.data.diagnosisArr.concat([])
@@ -83,6 +90,9 @@ Page({
         });
     },
     onClickTemplate() {
+        this.allDiagnosisList.map((item)=>{
+            item.selected = false; 
+        });
         this.setData({
             diagnosisVisible: !this.data.diagnosisVisible,
             diagnosisList: [],

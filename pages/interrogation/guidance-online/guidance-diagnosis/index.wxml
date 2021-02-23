@@ -5,7 +5,7 @@
 			<text class="required">临床诊断</text>
 			<text bindtap="onClickTemplate" class="primary-color clickable" wx:if="{{from!='examine'}}">添加诊断</text>
 		</view>
-		<view class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view>
+		<view bindtap="onClickTemplate" class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view>
 		<view class="flex--center--between padding-20 margin-top-20 border radius-4px" wx:for="{{diagnosisArr}}" wx:key="diagnosisCode">
 			<view>{{item.diagnosisName}}</view>
 			<view class="flex-shrink-0 flex margin-left-30" wx:if="{{from!='examine'}}">
@@ -25,6 +25,7 @@
 	<view class="padding-20 padding-top-0">
 		<input
 			adjust-position="{{false}}"
+			auto-focus="{{true}}"
 			bindinput="onInput"
 			class="width-100 border padding-20"
 			cursor-spacing="{{1000}}"
@@ -38,7 +39,7 @@
 		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="id">
 			<view>{{item.diagnosisName}}</view>
 			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small primary" data-index="{{index}}" data-item="{{item}}" wx:if="{{!item.selected}}">添加</view>
-			<view class="flex-shrink-0 margin-left-30 button small plain gray" wx:else>已添加</view>
+			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small plain gray" data-index="{{index}}" data-item="{{item}}" wx:else>已添加</view>
 		</view>
 	</view>
 </van-popup>
