@@ -173,7 +173,7 @@ Page({
             } else if (role == 'USER') {
                 data.info.role = 'USER';
             }
-            if (!role && data.info.switchStatus == 1) {
+            if (!role && data.info.switchStatus == 1 && data.info.originRole == 'USER') {
                 data.info.role = 'DOCTOR';
             }
             if (doctorType == 2) { //线下医生

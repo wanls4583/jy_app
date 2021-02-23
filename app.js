@@ -135,7 +135,7 @@ App({
         if (wx.getStorageSync('token')) {
             //检查用户状态
             wx.jyApp.loginUtil.getUserInfo().then((data) => {
-                if (!wx.getStorageSync('role') && data.info.role == 'USER' && data.info.switchStatus == 1) {
+                if (!wx.getStorageSync('role') && data.info.originRole == 'USER' && data.info.switchStatus == 1) {
                     wx.setStorageSync('role', 'DOCTOR');
                     data.info.role = 'DOCTOR';
                     wx.jyApp.store.updateUserInfo(data.info);
