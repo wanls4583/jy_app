@@ -96,7 +96,7 @@
 <view class="footer flex--center--around padding-30">
 	<view bindtap="onSave" class="button primary block">下一步</view>
 </view>
-<van-popup bind:click-overlay="onClickOrg" position="bottom" show="{{orgVisible}}">
+<van-popup bind:click-overlay="onClickOrg" position="top" show="{{orgVisible}}">
 	<view class="flex--center--between padding-20">
 		<input
 			adjust-position="{{false}}"

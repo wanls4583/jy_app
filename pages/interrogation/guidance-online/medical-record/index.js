@@ -94,6 +94,10 @@ Page({
             this.setData({
                 firstMedicalOrg: '钜元门诊部'
             });
+        } else if(prop == 'isFirst') {
+            this.setData({
+                firstMedicalOrg: ''
+            });
         }
     },
     onClickOrg() {
@@ -104,7 +108,6 @@ Page({
                 return item.indexOf(this.data.firstMedicalOrg) > -1;
             })
         });
-        console.log(this.data.orgList)
     },
     onSearch(e) {
         var text = e.detail.value;
