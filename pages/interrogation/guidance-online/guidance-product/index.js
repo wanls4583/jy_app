@@ -272,7 +272,7 @@ Page({
                         days: days,
                         frequency: item.frequency,
                         giveWay: item.giveWay,
-                        goodsId: item.goodsId || item.id,
+                        goodsId: item.id,
                         modulateDose: item.modulateDose,
                         num: item.count,
                         perUseNum: item.perUseNum,
