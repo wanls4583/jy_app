@@ -21,6 +21,9 @@ function getUserInfo() {
             if (data.info.role != 'DOCTOR') {
                 data.info.role = 'USER';
             }
+            if(data.info.originRole == 'PHARMACIST') {
+                wx.removeStorageSync('role');
+            }
         }
         return data;
     });

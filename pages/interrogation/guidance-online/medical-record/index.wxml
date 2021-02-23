@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
+	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="white-background-color margin-top-20">
 		<view class="flex padding-30 field-border">
 			<view class="label">就诊人信息</view>
@@ -15,7 +15,7 @@
 		<view class="flex padding-30 field-border">
 			<view class="label">过敏史</view>
 			<view class="flex-grow-1">
-				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" disabled="{{this.from=='examine'}}" value="{{hasFoodSensitive}}">
+				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" disabled="{{from=='examine'}}" value="{{hasFoodSensitive}}">
 					<van-radio name="{{0}}">无</van-radio>
 					<van-radio name="{{1}}">有</van-radio>
 				</van-radio-group>
@@ -26,7 +26,7 @@
 						class="width-100 padding-0 margin-0"
 						data-prop="foodSensitive"
 						disable-default-padding="{{true}}"
-						disabled="{{this.from=='examine'}}"
+						disabled="{{from=='examine'}}"
 						maxlength="{{200}}"
 						placeholder="请填写过敏史"
 						placeholder-style="color:#c8c9cc;"
@@ -38,18 +38,19 @@
 		<view class="flex padding-30 field-border">
 			<view class="label">初诊标志</view>
 			<view>
-				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" disabled="{{this.from=='examine'}}" value="{{isFirst}}">
+				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" disabled="{{from=='examine'}}" value="{{isFirst}}">
 					<van-radio name="{{1}}">初诊</van-radio>
 					<van-radio name="{{0}}">复诊</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
-		<readonly-field bindtap="onClickOrg" label="初诊医疗卫生机构名称" placeholder="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}"></readonly-field>
+		<van-field disabled label="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}" wx:if="{{from=='examine'||isFirst==1}}"></van-field>
+		<readonly-field bindtap="onClickOrg" label="初诊医疗卫生机构名称" placeholder="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}" wx:else></readonly-field>
 		<van-field
 			autosize
 			bindinput="onInput"
 			data-prop="mainSuit"
-			disabled="{{this.from=='examine'}}"
+			disabled="{{from=='examine'}}"
 			label="主诉"
 			maxlength="{{200}}"
 			placeholder="请填写主诉"
@@ -60,7 +61,7 @@
 			autosize
 			bindinput="onInput"
 			data-prop="currentDisease"
-			disabled="{{this.from=='examine'}}"
+			disabled="{{from=='examine'}}"
 			label="现病史"
 			maxlength="{{200}}"
 			placeholder="请填写现病史"
@@ -71,6 +72,7 @@
 			autosize
 			bindinput="onInput"
 			data-prop="historyDisease"
+			disabled="{{from=='examine'}}"
 			label="既往史"
 			maxlength="{{200}}"
 			placeholder="请填写既往史"
@@ -82,7 +84,7 @@
 			autosize
 			bindinput="onInput"
 			data-prop="handlePlan"
-			disabled="{{this.from=='examine'}}"
+			disabled="{{from=='examine'}}"
 			label="处置计划"
 			maxlength="{{200}}"
 			placeholder="请填写处置计划"

@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
+	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="margin-top-20 padding-30 white-background-color">
 		<view class="flex--center--between">
 			<text class="required">临床诊断</text>
@@ -25,7 +25,7 @@
 	<view class="padding-20 padding-top-0">
 		<input
 			adjust-position="{{false}}"
-			auto-focus="{{true}}"
+			focus="{{focus}}"
 			bindinput="onInput"
 			class="width-100 border padding-20"
 			cursor-spacing="{{1000}}"

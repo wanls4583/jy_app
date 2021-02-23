@@ -7,7 +7,8 @@ Page({
     data: {
         diagnosisArr: [],
         diagnosisList: [],
-        diagnosisVisible: false
+        diagnosisVisible: false,
+        focus: false
     },
     onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -43,13 +44,13 @@ Page({
         }
     },
     onSelect(e) {
-        if(this.data.diagnosisArr.length >= 5) {
-            wx.jyApp.toast('最多添加5个临床诊断');
-            return;
-        }
         var item = e.currentTarget.dataset.item;
         var index = e.currentTarget.dataset.index;
         if(!item.selected) {
+            if(this.data.diagnosisArr.length >= 5) {
+                wx.jyApp.toast('最多添加5个临床诊断');
+                return;
+            }
             item.selected = true;
             this.data.diagnosisArr.push(item);
         } else {
@@ -97,6 +98,18 @@ Page({
             diagnosisVisible: !this.data.diagnosisVisible,
             diagnosisList: [],
             text: ''
+        }, ()=>{
+            if(this.data.diagnosisVisible) {
+                setTimeout(()=>{
+                    this.setData({
+                        focus: true
+                    });
+                }, 300);
+            } else {
+                this.setData({
+                    focus: false
+                });
+            }
         });
     },
     getAllDiagnosisList() {

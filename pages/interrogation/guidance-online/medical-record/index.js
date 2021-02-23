@@ -66,10 +66,6 @@ Page({
                 foodSensitive: patient.foodSensitive
             });
         }
-        //预加载临床诊断
-        if (!wx.jyApp.getTempData('allDiagnosis')) {
-            this.loadDiagnosis();
-        }
         //加载医疗结构
         if (!wx.jyApp.getTempData('allOrg')) {
             this.loadOrgList();
@@ -113,6 +109,7 @@ Page({
     onSearch(e) {
         var text = e.detail.value;
         this.setData({
+            orgText: text,
             orgList: this.allOrg.filter((item) => {
                 return item.indexOf(text) > -1
             })
@@ -126,7 +123,7 @@ Page({
             orgVisible: false
         });
     },
-    onConfirm() {
+    onConfirm(e) {
         this.setData({
             firstMedicalOrg: this.data.orgText,
             orgVisible: false
@@ -154,13 +151,6 @@ Page({
         }
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/guidance-online/guidance-diagnosis/index'
-        });
-    },
-    loadDiagnosis() {
-        wx.jyApp.http({
-            url: '/disease/diagnosis'
-        }).then((data) => {
-            wx.jyApp.setTempData('allDiagnosis', data.list);
         });
     },
     loadOrgList() {

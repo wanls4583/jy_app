@@ -1,9 +1,9 @@
 <import src="/template/order-goods-item.wxml" />
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{3}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
+	<guidance-header step="{{3}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="padding-30 padding-top-0 margin-top-20 white-background-color">
 		<view class="flex--center--between">
-			<view bindtap="onAddGoods" class="flex--center--center padding-30 padding-left-0 primary-color" wx:if="{{form!='examine'}}">
+			<view bindtap="onAddGoods" class="flex--center--center padding-30 padding-left-0 primary-color" wx:if="{{from!='examine'}}">
 				<van-icon name="add-o" />
 				<text>添加营养处方</text>
 			</view>
@@ -17,7 +17,7 @@
 				</view>
 				<view class="gray-color font-small">{{product.usage}}</view>
 				<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
-				<view class="flex--center--end padding-top-30" wx:if="{{form!='examine'}}">
+				<view class="flex--center--end padding-top-30" wx:if="{{from!='examine'}}">
 					<view bindtap="onDelete" class="button plain gray small" data-index="{{index}}">删除</view>
 					<view bindtap="onEdit" class="button primary small margin-left-30" data-item="{{product}}">修改</view>
 				</view>

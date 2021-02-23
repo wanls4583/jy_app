@@ -182,6 +182,8 @@ Page({
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {
                 this.getCart();
+            } else {
+                this.loadDiagnosis();
             }
             return doctorId;
         });
@@ -275,5 +277,13 @@ Page({
                 this.getRoomInfo();
             }, 2000);
         });
-    }
+    },
+    //预加载所有诊断
+    loadDiagnosis() {
+        wx.jyApp.http({
+            url: '/disease/diagnosis'
+        }).then((data) => {
+            wx.jyApp.setTempData('allDiagnosis', data.list);
+        });
+    },
 })

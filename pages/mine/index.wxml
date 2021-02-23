@@ -134,7 +134,7 @@
 			</block>
 		</view>
 		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
-			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1}}">
+			<view class="padding-left-right-20 clickable" wx:if="{{(userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1)&&userInfo.originRole!='PHARMACIST'}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
@@ -183,9 +183,9 @@
 				</view>
 			</button>
 			<!-- 药师才有审核权限 -->
-			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole=='PHARMACIST'}}">
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.role=='USER'&&userInfo.originRole=='PHARMACIST'}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
-					<text>指导单审核</text>
+					<text>处方单审核</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
 					</view>

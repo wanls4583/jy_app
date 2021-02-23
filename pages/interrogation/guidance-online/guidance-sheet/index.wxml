@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{4}}" titles="{{['编写病历','下达诊断','开具指导单','查看处方单']}}" />
+	<guidance-header step="{{4}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="white-background-color margin-top-20">
 		<view class="flex--center--center primary-background-color padding-20 white-color" wx:if="{{!hideTip}}">
 			<van-icon name="passed" size="25px" />
