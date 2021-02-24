@@ -18,6 +18,11 @@ Page({
         wx.jyApp.utils.onInput(e, this);
         this.onRefresh();
     },
+    onGoto(e) {
+        var item = e.currentTarget.dataset.item;
+        wx.jyApp.setTempData('nutritionPatient', item);
+        wx.jyApp.utils.navigateTo(e);
+    },
     onRefresh() {
         this.getPatientList(true);
     },
@@ -37,11 +42,12 @@ Page({
             data: {
                 method: 'patient',
                 patientId: this.data.patientId,
-                page: refresh ? 1 : this.data.page,
-                limit: 20
+                pageNum: refresh ? 1 : this.data.page,
+                pageSize: 20
             }
         })
         this.request.then((data) => {
+            data = data.result;
             if (refresh) {
                 this.setData({
                     page: 1,
@@ -51,8 +57,8 @@ Page({
             }
             this.setData({
                 page: this.data.page + 1,
-                totalPage: data.page.totalPage,
-                patientList: this.data.patientList.concat(data.page.list)
+                totalPage: data.totalPage,
+                patientList: this.data.patientList.concat(data.rows)
             });
         }).finally(() => {
             this.setData({

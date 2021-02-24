@@ -50,7 +50,7 @@ function request(obj) {
                         }, 300);
                     }
                     reject(res.data);
-                    if (res.data.code == 401 || !wx.jyApp.store.userInfo) { //未登陆
+                    if (res.data.code == 401 || (obj.type != 'mobile' && !wx.jyApp.store.userInfo)) { //未登陆
                         clearTimeout(wx.reLaunchTimer);
                         wx.reLaunchTimer = setTimeout(() => {
                             wx.reLaunch({

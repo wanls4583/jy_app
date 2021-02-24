@@ -3,7 +3,7 @@
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="NRS"></van-tab>
 			<van-tab title="PGSGA"></van-tab>
-			<van-tab title="营养指导"></van-tab>
+			<!-- <van-tab title="营养指导"></van-tab> -->
 			<van-tab title="营养病历"></van-tab>
 			<van-tab title="初次会诊"></van-tab>
 			<van-tab title="营养查房"></van-tab>
@@ -13,25 +13,25 @@
 	<view class="height-100" style="padding-top:44px">
 		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
 			<swiper-item>
-				<guidance></guidance>
+				<nrs patient="{{patient}}"></nrs>
 			</swiper-item>
 			<swiper-item>
-				<biochemical></biochemical>
+				<pgsga></pgsga>
 			</swiper-item>
+			<!-- <swiper-item>
+				<guidance></guidance>
+			</swiper-item> -->
 			<swiper-item>
 				<medical-record></medical-record>
-			</swiper-item>
-			<swiper-item>
-				<ward-round></ward-round>
 			</swiper-item>
 			<swiper-item>
 				<first-consult></first-consult>
 			</swiper-item>
 			<swiper-item>
-				<nrs></nrs>
+				<ward-round></ward-round>
 			</swiper-item>
 			<swiper-item>
-				<pgsga></pgsga>
+				<biochemical></biochemical>
 			</swiper-item>
 		</swiper>
 	</view>
