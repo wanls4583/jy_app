@@ -80,6 +80,11 @@ Page({
         wx.jyApp.clearTempData('guideOrderDetail');
     },
     onInput(e) {
+        if(typeof e.detail == 'string') {
+            e.detail = e.detail.replace(wx.jyApp.constData.emojiReg, '');
+        } else {
+            e.detail.value = e.detail.value.replace(wx.jyApp.constData.emojiReg, '');
+        }
         wx.jyApp.utils.onInput(e, this);
     },
     onChange(e) {

@@ -7,14 +7,6 @@ Component({
             type: Object,
             value: {}
         },
-        inHospitalNumber: {
-            type: String,
-            value: ''
-        },
-        isInpatient: {
-            type: Boolean,
-            value: true
-        }
     },
     data: {
         filtrateDate: new Date().getTime(),
@@ -43,7 +35,9 @@ Component({
     },
     methods: {
         _attached() {
-            this.loadInfo();
+            wx.nextTick(()=>{
+                this.loadInfo();
+            })
         },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
@@ -51,9 +45,9 @@ Component({
             this.countScore();
         },
         onShowDate() {
-            // this.setData({
-            //     dateVisible: true
-            // });
+            this.setData({
+                dateVisible: true
+            });
         },
         onConfirmDate(e) {
             var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
@@ -110,8 +104,8 @@ Component({
                 url: '/app/nutrition/query',
                 data: {
                     method: 'nrs',
-                    inHospitalNumber: this.properties.inHospitalNumber,
-                    isInpatient: this.properties.isInpatient,
+                    inHospitalNumber: this.properties.patient.inHospitalNumber,
+                    isInpatient: this.properties.patient.isInpatient
                 }
             }).then((data) => {
                 data = data.result.rows[0];
@@ -172,8 +166,8 @@ Component({
         getSaveData() {
             var data = {
                 ...this.data.nrs,
-                inHospitalNumber: this.inHospitalNumber,
-                isInpatient: this.isInpatient
+                inHospitalNumber: this.properties.patient.inHospitalNumber,
+                isInpatient: this.properties.patient.isInpatient
             };
             data.bmi = data.BMI;
             data.bmiLessThan = data.bmiLessThan == 3 ? true : false;
@@ -251,9 +245,9 @@ Component({
                     url: '/app/nutrition/saveOrUpdate',
                     data: {
                         method: 'nrs',
-                        params: {
+                        params: JSON.stringify({
                             ...data
-                        }
+                        })
                     }
                 }).then(() => {
                     wx.jyApp.toastBack('保存成功');
