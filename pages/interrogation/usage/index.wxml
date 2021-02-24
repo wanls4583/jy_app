@@ -33,6 +33,7 @@
 					data-prop="days"
 					input-width="300rpx"
 					min="{{0}}"
+					max="{{100}}"
 					value="{{days}}"
 				/>
 				<text>天</text>
