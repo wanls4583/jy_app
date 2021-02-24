@@ -103,7 +103,7 @@
 			bindinput="onSearch"
 			class="border padding-20"
 			cursor-spacing="{{1000}}"
-			placeholder="请输入诊断名称搜索"
+			placeholder="请输入机构名称搜索或新增机构名称"
 			style="width:570rpx;height:40px"
 			type="text"
 			value="{{orgText}}"
