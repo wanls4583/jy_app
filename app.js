@@ -144,7 +144,11 @@ App({
                 if (data.info.doctorId || data.info.offlineDoctorId) {
                     var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
                     wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                        wx.jyApp.store.updateDoctorInfo(data.doctor);
+                        if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                            wx.jyApp.store.updateDoctorInfo(Object.assign({}, data.doctor));
+                        } else {
+                            wx.jyApp.store.updatePharmacistInfo(Object.assign({}, data.doctor));
+                        }
                     });
                 }
             });

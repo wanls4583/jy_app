@@ -9,11 +9,12 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'addCart', 'updateCartNum'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'addCart', 'updateCartNum'],
         });
         this.storeBindings.updateStoreBindings();
         this.checkOption(this.option);
         this.firstLoad = true;
+        this.loadDiagnosis();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -53,7 +54,11 @@ Page({
             });
             this.getUserInfo().then((doctorId) => {
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    if(wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                        this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    } else {
+                        this.updatePharmacistInfo(Object.assign({}, data.doctor));
+                    }
                 });
             }).finally(() => {
                 wx.hideLoading();
@@ -182,8 +187,6 @@ Page({
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {
                 this.getCart();
-            } else {
-                this.loadDiagnosis();
             }
             return doctorId;
         });

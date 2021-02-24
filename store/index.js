@@ -110,6 +110,10 @@ export const store = observable({
     updateDoctorInfo: action(function (doctorInfo) {
         this.doctorInfo = doctorInfo;
     }),
+    pharmacistInfo: null,
+    updatePharmacistInfo: action(function (pharmacistInfo) {
+        this.pharmacistInfo = pharmacistInfo;
+    }),
     noticeCount: 0,
     updateNoticeCount: action(function (noticeCount) {
         this.noticeCount = noticeCount;
