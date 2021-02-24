@@ -72,11 +72,7 @@ Page({
             });
         }
         //加载医疗结构
-        if (!wx.jyApp.getTempData('allOrg')) {
-            this.loadOrgList();
-        } else {
-            this.allOrg = wx.jyApp.getTempData('allOrg');
-        }
+        this.loadOrgList();
     },
     onUnload() {
         wx.jyApp.clearTempData('guidanceData');
@@ -166,7 +162,6 @@ Page({
             url: '/medical/org/list'
         }).then((data) => {
             this.allOrg = data.list;
-            wx.jyApp.setTempData('allOrg', data.list);
         });
     }
 })
