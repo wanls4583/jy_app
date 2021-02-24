@@ -1,5 +1,5 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<guidance-header step="{{1}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="white-background-color margin-top-20">
 		<view class="flex padding-30 field-border">
 			<view class="label">就诊人信息</view>
@@ -13,18 +13,9 @@
 			</view>
 		</view>
 		<view class="flex padding-30 field-border">
-			<view class="label">初诊标志</view>
-			<view>
-				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" value="{{isFirst}}">
-					<van-radio name="{{1}}">初诊</van-radio>
-					<van-radio name="{{0}}">复诊</van-radio>
-				</van-radio-group>
-			</view>
-		</view>
-		<view class="flex padding-30 field-border">
 			<view class="label">过敏史</view>
 			<view class="flex-grow-1">
-				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" value="{{hasFoodSensitive}}">
+				<van-radio-group bind:change="onChange" class="flex" data-prop="hasFoodSensitive" disabled="{{from=='examine'}}" value="{{hasFoodSensitive}}">
 					<van-radio name="{{0}}">无</van-radio>
 					<van-radio name="{{1}}">有</van-radio>
 				</van-radio-group>
@@ -35,6 +26,7 @@
 						class="width-100 padding-0 margin-0"
 						data-prop="foodSensitive"
 						disable-default-padding="{{true}}"
+						disabled="{{from=='examine'}}"
 						maxlength="{{200}}"
 						placeholder="请填写过敏史"
 						placeholder-style="color:#c8c9cc;"
@@ -43,11 +35,33 @@
 				</view>
 			</view>
 		</view>
-		<van-field autosize bindinput="onInput" data-prop="mainSuit" label="主诉" maxlength="{{200}}" placeholder="请填写主诉" type="textarea" value="{{mainSuit}}"></van-field>
+		<view class="flex padding-30 field-border">
+			<view class="label">初诊标志</view>
+			<view>
+				<van-radio-group bind:change="onChange" class="flex" data-prop="isFirst" disabled="{{from=='examine'}}" value="{{isFirst}}">
+					<van-radio name="{{1}}">初诊</van-radio>
+					<van-radio name="{{0}}">复诊</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<van-field disabled label="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}" wx:if="{{from=='examine'||isFirst==1}}"></van-field>
+		<readonly-field bindtap="onClickOrg" label="初诊医疗卫生机构名称" placeholder="初诊医疗卫生机构名称" value="{{firstMedicalOrg}}" wx:else></readonly-field>
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="mainSuit"
+			disabled="{{from=='examine'}}"
+			label="主诉"
+			maxlength="{{200}}"
+			placeholder="请填写主诉"
+			type="textarea"
+			value="{{mainSuit}}"
+		></van-field>
 		<van-field
 			autosize
 			bindinput="onInput"
 			data-prop="currentDisease"
+			disabled="{{from=='examine'}}"
 			label="现病史"
 			maxlength="{{200}}"
 			placeholder="请填写现病史"
@@ -58,16 +72,47 @@
 			autosize
 			bindinput="onInput"
 			data-prop="historyDisease"
+			disabled="{{from=='examine'}}"
 			label="既往史"
 			maxlength="{{200}}"
 			placeholder="请填写既往史"
 			type="textarea"
 			value="{{historyDisease}}"
 		></van-field>
-		<van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field>
-		<van-field autosize bindinput="onInput" data-prop="handlePlan" label="处置计划" maxlength="{{200}}" placeholder="请填写处置计划" type="textarea" value="{{handlePlan}}"></van-field>
+		<!-- <van-field autosize bindinput="onInput" data-prop="symptom" label="门诊症状" maxlength="{{200}}" placeholder="请填写门诊症状" type="textarea" value="{{symptom}}"></van-field> -->
+		<van-field
+			autosize
+			bindinput="onInput"
+			data-prop="handlePlan"
+			disabled="{{from=='examine'}}"
+			label="处置计划"
+			maxlength="{{200}}"
+			placeholder="请填写处置计划"
+			type="textarea"
+			value="{{handlePlan}}"
+		></van-field>
 	</view>
 </view>
 <view class="footer flex--center--around padding-30">
 	<view bindtap="onSave" class="button primary block">下一步</view>
 </view>
+<van-popup bind:click-overlay="onClickOrg" position="top" show="{{orgVisible}}">
+	<view class="flex--center--between padding-20">
+		<input
+			adjust-position="{{false}}"
+			bindinput="onSearch"
+			class="border padding-20"
+			cursor-spacing="{{1000}}"
+			placeholder="请输入机构名称搜索或新增机构名称"
+			style="width:570rpx;height:40px"
+			type="text"
+			value="{{orgText}}"
+		/>
+		<view bindtap="onConfirm" class="button primary" style="min-width:auto">确定</view>
+	</view>
+	<view class="padding-left-right-20">
+		<view bindtap="onSelect" class="flex--center--between padding-20 margin-bottom-20 border radius-4px" data-item="{{item}}" wx:for="{{orgList}}" wx:key="id">
+			<view>{{item}}</view>
+		</view>
+	</view>
+</van-popup>

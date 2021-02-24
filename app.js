@@ -135,7 +135,7 @@ App({
         if (wx.getStorageSync('token')) {
             //检查用户状态
             wx.jyApp.loginUtil.getUserInfo().then((data) => {
-                if (!wx.getStorageSync('role') && data.info.role == 'USER' && data.info.switchStatus == 1) {
+                if (!wx.getStorageSync('role') && data.info.originRole == 'USER' && data.info.switchStatus == 1) {
                     wx.setStorageSync('role', 'DOCTOR');
                     data.info.role = 'DOCTOR';
                     wx.jyApp.store.updateUserInfo(data.info);
@@ -144,7 +144,11 @@ App({
                 if (data.info.doctorId || data.info.offlineDoctorId) {
                     var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
                     wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                        wx.jyApp.store.updateDoctorInfo(data.doctor);
+                        if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                            wx.jyApp.store.updateDoctorInfo(Object.assign({}, data.doctor));
+                        } else {
+                            wx.jyApp.store.updatePharmacistInfo(Object.assign({}, data.doctor));
+                        }
                     });
                 }
             });

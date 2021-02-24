@@ -102,3 +102,11 @@ page .van-radio {
     margin-right: 30rpx;
     align-items: flex-start;
 }
+
+page .van-field__label--disabled {
+    color: #646566;
+}
+
+/* page .van-field__input--disabled {
+    color: #323233;
+} */

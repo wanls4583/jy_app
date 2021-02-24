@@ -1,3 +1,8 @@
+/*
+ * @Author: lisong
+ * @Date: 2020-11-02 15:12:40
+ * @Description: 
+ */
 //更新用户信息
 function updateUserInfo(userInfo) {
     return wx.jyApp.http({
@@ -13,6 +18,12 @@ function getUserInfo() {
     }).then((data) => {
         if (data && data.info) {
             data.info.originRole = data.info.role;
+            if (data.info.role != 'DOCTOR') {
+                data.info.role = 'USER';
+            }
+            if(data.info.originRole == 'PHARMACIST') {
+                wx.removeStorageSync('role');
+            }
         }
         return data;
     });

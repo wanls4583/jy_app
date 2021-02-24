@@ -8,8 +8,8 @@ Page({
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'doctorInfo', 'noticeCount', 'configData'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount'],
+            fields: ['userInfo', 'doctorInfo', 'pharmacistInfo', 'noticeCount', 'configData'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
     },
@@ -133,7 +133,11 @@ Page({
             return this.getUserInfo().then((data) => {
                 var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
                 return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    if(wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                        this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    } else {
+                        this.updatePharmacistInfo(Object.assign({}, data.doctor));
+                    }
                 });
             });
         });

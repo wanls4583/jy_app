@@ -143,7 +143,7 @@
 								<!-- 申请单 -->
 								<view class="position-relative" wx:elif="{{item.type==4}}">
 									<view class="white-background-color border primary-border-color overflow-hidden radius-8rpx" data-id="{{item.orderApplyVO.id}}">
-										<view class="width-100 padding-20 primary-background-color white-color align-center">营养指导申请（{{item.orderApplyVO._status}}）</view>
+										<view class="width-100 padding-20 primary-background-color white-color align-center">营养处方申请（{{item.orderApplyVO._status}}）</view>
 										<view class="padding-30">
 											<text>{{patient.patientName}}，</text>
 											<text>{{patient._sex}}，</text>
@@ -157,14 +157,14 @@
 												bindtap="onGuide"
 												class="button small primary"
 												data-url="/pages/interrogation/{{consultOrder.type==2?'guidance-edit':'guidance-online/medical-record'}}/index?id={{consultOrderId}}&type={{consultOrder.type}}"
-											>开营养指导</view>
+											>新开处方</view>
 										</view>
 									</view>
 								</view>
 								<!-- 指导单 -->
 								<view class="position-relative" wx:elif="{{item.type==5}}">
 									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">营养指导（{{item.nutritionOrderChatVO._status}}）</view>
+										<view class="width-100 padding-20 success-background-color white-color align-center">营养处方（{{item.nutritionOrderChatVO._status}}）</view>
 										<view class="padding-30">
 											<text>{{patient.patientName}}，</text>
 											<text>{{patient._sex}}，</text>
@@ -367,7 +367,7 @@
 				<view bindtap="onClickApply" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="records" size="30px" />
 				</view>
-				<view class="font-small margin-top-20 line-height-1em color-666">{{currentUser.role=='DOCTOR'?'开营养指导':'申请营养指导'}}</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">{{currentUser.role=='DOCTOR'?'新开处方':'申请营养处方'}}</view>
 			</view>
 			<view class="flex--center--between flex-direction-column width-25" wx:if="{{consultOrder.type==3&&currentUser.role=='DOCTOR'}}">
 				<view bindtap="onVideo" class="flex--center--center width-60px height-60px radius-8px white-background-color">
@@ -403,7 +403,7 @@
 	</view>
 	<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
 		<view bindtap="onApply" class="flex--center--center flex-direction-column padding-30 clickable">
-			<text class="font-title">申请营养指导</text>
+			<text class="font-title">申请营养处方</text>
 			<text class="primary-color font-small margin-top-10" wx:if="{{!consultOrder.applyCount}}">首次免诊金</text>
 			<text class="primary-color font-small margin-top-10" wx:else>￥{{talker.nutritionOrderPrice}}/次</text>
 		</view>

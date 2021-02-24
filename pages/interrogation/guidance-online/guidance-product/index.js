@@ -8,7 +8,7 @@ Page({
         approveMsg: '',
         patient: {}
     },
-    onLoad(option) {
+    onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
         var patient = wx.jyApp.getTempData('guidePatient');
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -19,35 +19,20 @@ Page({
         this.storeBindings.updateStoreBindings();
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
         this.consultOrderId = this.guidanceData.consultOrderId;
-        this.prop = [
-            'energy',
-            'protein',
-            'fat',
-            'carbohydrate',
-            'cholesterol',
-            'vitaminB1',
-            'vitaminB2',
-            'niacin',
-            'vitaminC',
-            'vitaminE',
-            'ca',
-            'p',
-            'k',
-            'na',
-            'mg',
-            'fe',
-            'zn',
-            'se',
-            'cu',
-            'mn',
-            'i',
-        ]
-        if (guideOrderDetail && this.guidanceData.from == 'examine') { //审核
+        this.setData({
+            from: this.guidanceData.from
+        });
+        if (this.data.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '处方审核'
             });
+        }
+        if (this.guidanceData.goodsList) {
             this.setData({
-                from: this.guidanceData.from,
+                goodsList: this.guidanceData.goodsList
+            });
+        } else if (guideOrderDetail) { //修改
+            this.setData({
                 goodsList: guideOrderDetail.goods.map((item) => {
                     item.price = item.price || item.amount / item.count;
                     item.standardNum = item.standardNum || item.items[0].standardNum;
@@ -55,6 +40,7 @@ Page({
                     item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                     item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
+                    item.id = item.goodsId;
                     if (item.type == 1) {
                         item.productId = item.items[0].productId;
                         item.usage = `${item.days}天，${item._frequency}，每次${item.perUseNum}${wx.jyApp.constData.unitChange[item.standardUnit]}，${item._giveWay}`;
@@ -64,10 +50,6 @@ Page({
                     return item;
                 })
             })
-        } else if (this.guidanceData.goodsList) {
-            this.setData({
-                goodsList: this.guidanceData.goodsList
-            });
         }
         this.setData({
             patient: patient
@@ -153,12 +135,12 @@ Page({
         wx.navigateBack();
     },
     onSave() {
-        if (!this.guidanceData.diagnosis) {
-            wx.jyApp.toast('营养诊断不能为空');
+        if (!this.guidanceData.diagnosisArr) {
+            wx.jyApp.toast('临床诊断不能为空');
             return;
         }
         if (!this.data.goodsList.length) {
-            wx.jyApp.toast('营养指导不能为空');
+            wx.jyApp.toast('营养处方不能为空');
             return;
         }
         wx.showLoading({
@@ -166,19 +148,19 @@ Page({
             mask: true
         });
         wx.jyApp.http({
-            url: '/nutritionorder/save',
+            url: `/nutritionorder/${this.guidanceData.id ? 'update' : 'save'}`,
             method: 'post',
             data: {
                 consultOrderId: this.guidanceData.consultOrderId,
                 currentDisease: this.guidanceData.currentDisease,
-                diagnosis: this.guidanceData.diagnosis,
+                diagnosisArr: this.guidanceData.diagnosisArr,
                 foodSensitive: this.guidanceData.foodSensitive,
                 handlePlan: this.guidanceData.handlePlan,
                 historyDisease: this.guidanceData.historyDisease,
-                id: this.guidanceData.id,
+                id: this.guidanceData.id || '',
                 isFirst: this.guidanceData.isFirst,
                 mainSuit: this.guidanceData.mainSuit,
-                symptom: this.guidanceData.symptom,
+                firstMedicalOrg: this.guidanceData.firstMedicalOrg,
                 totalAmount: this.data.totalAmount,
                 goods: this.data.goodsList.map((item) => {
                     var days = item.days;
@@ -233,12 +215,8 @@ Page({
         wx.jyApp.utils.onInput(e, this);
     },
     approve(status, approveMsg) {
-        if (!this.guidanceData.diagnosis) {
-            wx.jyApp.toast('营养诊断不能为空');
-            return;
-        }
         if (!this.data.goodsList.length) {
-            wx.jyApp.toast('营养指导不能为空');
+            wx.jyApp.toast('营养处方不能为空');
             return;
         }
         wx.showLoading({
@@ -251,14 +229,14 @@ Page({
             data: {
                 consultOrderId: this.guidanceData.consultOrderId,
                 currentDisease: this.guidanceData.currentDisease,
-                diagnosis: this.guidanceData.diagnosis,
+                diagnosisArr: this.guidanceData.diagnosisArr,
                 foodSensitive: this.guidanceData.foodSensitive,
                 handlePlan: this.guidanceData.handlePlan,
                 historyDisease: this.guidanceData.historyDisease,
                 id: this.guidanceData.id,
                 isFirst: this.guidanceData.isFirst,
                 mainSuit: this.guidanceData.mainSuit,
-                symptom: this.guidanceData.symptom,
+                firstMedicalOrg: this.guidanceData.firstMedicalOrg,
                 status: status,
                 approveMsg: approveMsg || '',
                 totalAmount: this.data.totalAmount,
@@ -272,7 +250,7 @@ Page({
                         days: days,
                         frequency: item.frequency,
                         giveWay: item.giveWay,
-                        goodsId: item.goodsId || item.id,
+                        goodsId: item.id,
                         modulateDose: item.modulateDose,
                         num: item.count,
                         perUseNum: item.perUseNum,

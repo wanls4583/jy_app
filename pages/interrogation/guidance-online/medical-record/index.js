@@ -12,7 +12,10 @@ Page({
         currentDisease: '',
         historyDisease: '',
         symptom: '',
-        handlePlan: ''
+        handlePlan: '',
+        orgList: [],
+        orgVisible: false,
+        firstMedicalOrg: '钜元门诊部',
     },
     onLoad(option) {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -20,10 +23,15 @@ Page({
         this.from = option.from;
         this.consultOrderId = option.id;
         this.id = '';
-        if (this.from == 'examine') { //审核
+        this.setData({
+            from: this.from
+        });
+        if (this.data.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '处方审核'
             });
+        }
+        if (guideOrderDetail) { //修改
             patient = {
                 patientName: guideOrderDetail.patientName,
                 age: guideOrderDetail.age,
@@ -41,7 +49,7 @@ Page({
                 mainSuit: guideOrderDetail.mainSuit,
                 currentDisease: guideOrderDetail.currentDisease,
                 historyDisease: guideOrderDetail.historyDisease,
-                symptom: guideOrderDetail.symptom,
+                firstMedicalOrg: guideOrderDetail.firstMedicalOrg || '',
                 handlePlan: guideOrderDetail.handlePlan,
                 patient: patient
             });
@@ -63,6 +71,8 @@ Page({
                 foodSensitive: patient.foodSensitive
             });
         }
+        //加载医疗结构
+        this.loadOrgList();
     },
     onUnload() {
         wx.jyApp.clearTempData('guidanceData');
@@ -73,9 +83,54 @@ Page({
         wx.jyApp.utils.onInput(e, this);
     },
     onChange(e) {
+        //审核时禁止修改
+        if (this.from == 'examine') {
+            return;
+        }
         var prop = e.currentTarget.dataset.prop;
         this.setData({
             [`${prop}`]: e.detail,
+        });
+        if (this.data.isFirst == 1) {
+            this.setData({
+                firstMedicalOrg: '钜元门诊部'
+            });
+        } else if(prop == 'isFirst') {
+            this.setData({
+                firstMedicalOrg: ''
+            });
+        }
+    },
+    onClickOrg() {
+        this.setData({
+            orgVisible: !this.data.orgVisible,
+            orgText: this.data.firstMedicalOrg,
+            orgList: this.allOrg.filter((item) => {
+                return item.indexOf(this.data.firstMedicalOrg) > -1;
+            })
+        });
+    },
+    onSearch(e) {
+        var text = e.detail.value;
+        this.setData({
+            orgText: text,
+            orgList: this.allOrg.filter((item) => {
+                return item.indexOf(text) > -1
+            })
+        });
+    },
+    onSelect(e) {
+        var item = e.currentTarget.dataset.item;
+        this.setData({
+            orgText: item,
+            firstMedicalOrg: item,
+            orgVisible: false
+        });
+    },
+    onConfirm(e) {
+        this.setData({
+            firstMedicalOrg: this.data.orgText,
+            orgVisible: false
         });
     },
     onSave() {
@@ -94,11 +149,19 @@ Page({
                 currentDisease: this.data.currentDisease,
                 historyDisease: this.data.historyDisease,
                 symptom: this.data.symptom,
-                handlePlan: this.data.handlePlan
+                handlePlan: this.data.handlePlan,
+                firstMedicalOrg: this.data.firstMedicalOrg
             });
         }
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/guidance-online/guidance-diagnosis/index'
+        });
+    },
+    loadOrgList() {
+        wx.jyApp.http({
+            url: '/medical/org/list'
+        }).then((data) => {
+            this.allOrg = data.list;
         });
     }
 })

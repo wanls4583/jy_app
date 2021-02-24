@@ -32,7 +32,9 @@ Component({
                 this.loadDoctor();
                 this.loadDepartmentList();
             }
-            if (this.data.userInfo.role == 'USER' && (this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.switchStatus == 1) && !wx.getStorageSync('switch_role_tip')) {
+            if (this.data.userInfo.role == 'USER' &&
+                (this.data.userInfo.originRole == 'DOCTOR' || this.data.userInfo.originRole == 'USER' && this.data.userInfo.switchStatus == 1) &&
+                !wx.getStorageSync('switch_role_tip')) {
                 this.setData({
                     tipVisible: true
                 });

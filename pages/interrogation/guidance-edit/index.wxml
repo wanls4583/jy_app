@@ -2,7 +2,7 @@
 <view class="container padding-bottom-footer">
 	<view class="padding-30 white-background-color">
 		<view class="flex--center--between">
-			<text>营养诊断</text>
+			<text>临床诊断</text>
 			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
 		</view>
 		<textarea
@@ -10,16 +10,16 @@
 			bindinput="onInput"
 			class="height-50vw margin-top-20"
 			maxlength="{{1000}}"
-			placeholder="请输入营养诊断信息"
+			placeholder="请输入临床诊断信息"
 			value="{{diagnosis}}"
 		></textarea>
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color">
 		<view class="flex--center--between">
-			<text>营养指导</text>
-			<text bindtap="onAddGoods" class="primary-color clickable">添加营养指导</text>
+			<text>营养处方</text>
+			<text bindtap="onAddGoods" class="primary-color clickable">添加营养处方</text>
 		</view>
-		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养指导”增加套餐或产品</view>
+		<view class="margin-top-20 gray-color font-small" wx:if="{{!goodsList.length}}">请点击“添加营养处方”增加套餐或产品</view>
 		<view class="margin-top-20" wx:else>
 			<view class="padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{goodsList}}" wx:for-item="product" wx:key="id">
 				<view>

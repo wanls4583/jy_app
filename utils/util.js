@@ -259,7 +259,8 @@ function getAllConfig() {
         'consultOrderCloseDay',
         'hideCategory',
         'jobTitle',
-        'withdrawType'
+        'withdrawType',
+        'nutritionApproveSwitch'
     ]).then((data) => {
         data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;
         data.jobTitle = data.jobTitle && data.jobTitle.split('#') || [];

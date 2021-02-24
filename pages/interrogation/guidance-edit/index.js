@@ -113,15 +113,15 @@ Page({
     },
     onSave() {
         if (!this.data.diagnosis && this.type != 2) {
-            wx.jyApp.toast('营养诊断不能为空');
+            wx.jyApp.toast('临床诊断不能为空');
             return;
         }
         if (!this.data.goodsList.length) {
-            wx.jyApp.toast('营养指导不能为空');
+            wx.jyApp.toast('营养处方不能为空');
             return;
         }
         wx.jyApp.dialog.confirm({
-            message: '保存后将发送该营养指导给患者，是否确定保存？'
+            message: '保存后将发送该营养处方给患者，是否确定保存？'
         }).then(() => {
             wx.showLoading({
                 title: '提交中...',

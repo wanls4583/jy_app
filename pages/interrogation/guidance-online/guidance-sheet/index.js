@@ -16,14 +16,14 @@ Page({
         this.guidanceData = wx.jyApp.getTempData('guidanceData');
         if (option.from == 'examine') {
             wx.setNavigationBarTitle({
-                title: '审核营养指导'
+                title: '处方审核'
             });
             this.setData({
-                tip: '指导单审核完成'
+                tip: '处方单审核完成'
             })
         } else {
             this.setData({
-                tip: '指导单开具完成'
+                tip: '处方单开具完成'
             });
         }
         if (page && page.route == 'pages/interrogation/chat/index') {
@@ -38,6 +38,7 @@ Page({
     },
     onUnload() {},
     loadInfo() {
+        wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/nutritionorder/recipe/${this.id}`
         }).then((data) => {
@@ -60,6 +61,8 @@ Page({
             this.setData({
                 recipe: recipe
             });
+        }).finally(()=>{
+            wx.hideLoading();
         });
     },
     onBack() {

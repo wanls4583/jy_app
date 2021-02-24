@@ -30,7 +30,7 @@ Page({
             url: '/pages/mall/address-list/index'
         });
     },
-    //支付营养指导单
+    //支付电子处方
     onGuidanceOrderPay() {
         if (!this.data.contactName && !this.data.selectAddress) {
             wx.jyApp.toast('请先选择收货地址');
@@ -174,16 +174,25 @@ Page({
     onGotoSheet(e) {
         this.onGoto(e);
     },
+    //修改处方单
+    onEditOrder(e) {
+        wx.jyApp.setTempData('guideOrderDetail', this.data.order);
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/guidance-online/medical-record/index'
+        });
+    },
     loadInfo() {
         if (wx.jyApp.tempData.guidanceOrderData) {
             _initData.bind(this)(wx.jyApp.tempData.guidanceOrderData);
             delete wx.jyApp.tempData.guidanceOrderData;
             return;
         }
-        !this.loaded && wx.showLoading({
-            title: '加载中...',
-            mask: true
-        });
+        if (!this.loaded) {
+            wx.showLoading({
+                title: '加载中...',
+                mask: true
+            });
+        }
         return wx.jyApp.http({
             url: '/nutritionorder/info/' + this.id
         }).then((data) => {
@@ -192,6 +201,7 @@ Page({
             !this.loaded && wx.hideLoading();
             this.loaded = true;
         });
+
         function _initData(data) {
             var todayBegin = Date.prototype.getTodayBegin();
             var aDay = 24 * 60 * 60 * 1000;
@@ -203,7 +213,7 @@ Page({
             data.detail.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(data.detail.orderTime)) / aDay);
             data.detail.applyTicketVisible = data.detail.ticketDays <= this.data.configData.allowApplyTicketDays && data.detail.totalAmount > 0 && data.detail.status == 8 || false;
             data.detail.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(data.detail.status) > -1;
-            data.detail.delVisible = [0, 4, 6, 8].indexOf(data.detail.status) > -1;
+            data.detail.delVisible = [10, 11].indexOf(data.detail.status) > -1;
             data.detail.goods.map((item) => {
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];

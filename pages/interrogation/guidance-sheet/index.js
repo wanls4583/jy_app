@@ -13,6 +13,7 @@ Page({
     },
     onUnload() {},
     loadInfo() {
+        wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/nutritionorder/recipe/${this.id}`
         }).then((data) => {
@@ -35,6 +36,8 @@ Page({
             this.setData({
                 recipe: recipe
             });
+        }).finally(()=>{
+            wx.hideLoading();
         });
     }
 })

@@ -1,22 +1,45 @@
 <view class="container padding-bottom-footer">
-	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具指导单','查看指导单']}}" />
+	<guidance-header step="{{2}}" titles="{{['编写病历','下达诊断','开具处方单','查看处方单']}}" />
 	<view class="margin-top-20 padding-30 white-background-color">
 		<view class="flex--center--between">
-			<text class="required">诊断说明</text>
-			<text bindtap="onClickTemplate" class="primary-color clickable">诊断模板</text>
+			<text class="required">临床诊断</text>
+			<text bindtap="onClickTemplate" class="primary-color clickable" wx:if="{{from!='examine'}}">添加诊断</text>
 		</view>
-		<textarea
-			adjust-position="{{false}}"
-			bindinput="onInput"
-			class="width-100 height-50vw margin-top-20"
-			disable-default-padding="{{true}}"
-			maxlength="{{1000}}"
-			placeholder="请填写诊断说明，或选择诊断模板"
-			value="{{diagnosis}}"
-		></textarea>
+		<view bindtap="onClickTemplate" class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view>
+		<view class="flex--center--between padding-20 margin-top-20 border radius-4px" wx:for="{{diagnosisArr}}" wx:key="diagnosisCode">
+			<view>{{item.diagnosisName}}</view>
+			<view class="flex-shrink-0 flex margin-left-30" wx:if="{{from!='examine'}}">
+				<van-icon bindtap="onDelete" data-index="{{index}}" name="cross" />
+			</view>
+		</view>
 	</view>
 	<view class="footer flex--center--around padding-top-bottom-30">
 		<view bindtap="onPre" class="button primary block plain" style="width:40%">上一步</view>
 		<view bindtap="onNext" class="button primary block" style="width:40%">下一步</view>
 	</view>
 </view>
+<van-popup bind:click-overlay="onClickTemplate" position="top" show="{{diagnosisVisible}}">
+	<view class="flex--center--end padding-20">
+		<van-icon bindtap="onClickTemplate" name="cross" size="20" />
+	</view>
+	<view class="padding-20 padding-top-0">
+		<input
+			adjust-position="{{false}}"
+			focus="{{focus}}"
+			bindinput="onInput"
+			class="width-100 border padding-20"
+			cursor-spacing="{{1000}}"
+			placeholder="请输入诊断名称搜索"
+			style="height:40px"
+			type="text"
+			value="{{text}}"
+		/>
+	</view>
+	<view class="padding-left-right-20">
+		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="id">
+			<view>{{item.diagnosisName}}</view>
+			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small primary" data-index="{{index}}" data-item="{{item}}" wx:if="{{!item.selected}}">添加</view>
+			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small plain gray" data-index="{{index}}" data-item="{{item}}" wx:else>已添加</view>
+		</view>
+	</view>
+</van-popup>

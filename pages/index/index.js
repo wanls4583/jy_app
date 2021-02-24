@@ -9,11 +9,12 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'addCart', 'updateCartNum'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'addCart', 'updateCartNum'],
         });
         this.storeBindings.updateStoreBindings();
         this.checkOption(this.option);
         this.firstLoad = true;
+        this.loadDiagnosis();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -53,7 +54,11 @@ Page({
             });
             this.getUserInfo().then((doctorId) => {
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    if(wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                        this.updateDoctorInfo(Object.assign({}, data.doctor));
+                    } else {
+                        this.updatePharmacistInfo(Object.assign({}, data.doctor));
+                    }
                 });
             }).finally(() => {
                 wx.hideLoading();
@@ -173,7 +178,7 @@ Page({
             } else if (role == 'USER') {
                 data.info.role = 'USER';
             }
-            if (!role && data.info.switchStatus == 1) {
+            if (!role && data.info.switchStatus == 1 && data.info.originRole == 'USER') {
                 data.info.role = 'DOCTOR';
             }
             if (doctorType == 2) { //线下医生
@@ -275,5 +280,13 @@ Page({
                 this.getRoomInfo();
             }, 2000);
         });
-    }
+    },
+    //预加载所有诊断
+    loadDiagnosis() {
+        wx.jyApp.http({
+            url: '/disease/diagnosis'
+        }).then((data) => {
+            wx.jyApp.setTempData('allDiagnosis', data.list);
+        });
+    },
 })
