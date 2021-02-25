@@ -11,6 +11,7 @@ Page({
         giveWay: '',
         amount: 0,
         count: '',
+        countMax: 0,
         days: 7,
         modulateDose: 0,
         perUseNum: 1,
@@ -106,24 +107,29 @@ Page({
     onCountChang(e) {
         var days = 0;
         var count = e.detail;
+        var countMax = this.data.countMax;
         this.count = count;
         if (count == this.data.count) {
             return;
         }
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
+            countMax = Math.floor(100 * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             if(days > 100) {
                 days = 100;
                 count = Math.floor(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             }
         } else {
             days = count / this.data.frequency;
+            countMax = Math.floor(100 * this.data.frequency);
             if(days > 100) {
+                days = 100;
                 count = Math.floor(days * this.data.frequency);
             }
         }
         this.setData({
             count: count,
+            countMax: countMax,
             days: Number(days.toFixed(2))
         });
         this.setData({
@@ -210,13 +216,17 @@ Page({
     },
     caculateGross() {
         var count = 0;
+        var countMax = this.data.countMax;
         if (this.data.goods.type == 1) {
             count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum) || 0;
+            countMax = Math.floor(100 * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
         } else {
             count = Math.ceil(this.data.days * this.data.frequency) || 0;
+            countMax = Math.ceil(100 * this.data.frequency) || 0;
         }
         this.setData({
             count: count,
+            countMax: countMax,
             amount: (count * this.data.goods.price).toFixed(2)
         });
     },
