@@ -368,6 +368,7 @@ Component({
                 inHospitalNumber: this.properties.patient.inHospitalNumber,
                 isInpatient: this.properties.patient.isInpatient
             };
+            data.score = this.data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.sick = false;
             if(data.symptom.indexOf('恶心') > -1) {

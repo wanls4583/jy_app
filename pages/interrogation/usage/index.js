@@ -13,6 +13,7 @@ Page({
         count: '',
         countMax: 0,
         days: 7,
+        maxDays: 100,
         modulateDose: 0,
         perUseNum: 1,
         frequencyDefault: 0,
@@ -114,14 +115,14 @@ Page({
         }
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
-            countMax = Math.floor(100 * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+            countMax = Math.floor(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             if(days > 100) {
                 days = 100;
                 count = Math.floor(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             }
         } else {
             days = count / this.data.frequency;
-            countMax = Math.floor(100 * this.data.frequency);
+            countMax = Math.floor(this.data.maxDays * this.data.frequency);
             if(days > 100) {
                 days = 100;
                 count = Math.floor(days * this.data.frequency);
@@ -219,10 +220,10 @@ Page({
         var countMax = this.data.countMax;
         if (this.data.goods.type == 1) {
             count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum) || 0;
-            countMax = Math.floor(100 * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+            countMax = Math.floor(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
         } else {
             count = Math.ceil(this.data.days * this.data.frequency) || 0;
-            countMax = Math.ceil(100 * this.data.frequency) || 0;
+            countMax = Math.ceil(this.data.maxDays * this.data.frequency) || 0;
         }
         this.setData({
             count: count,

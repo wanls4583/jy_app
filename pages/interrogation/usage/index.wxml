@@ -32,7 +32,7 @@
 					bind:plus="onDaysPlus"
 					data-prop="days"
 					input-width="300rpx"
-					max="{{100}}"
+					max="{{maxDays}}"
 					min="{{0}}"
 					value="{{days}}"
 				/>
