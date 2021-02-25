@@ -130,7 +130,7 @@ Page({
             this.setData({
                 amount: (this.data.count * this.data.goods.price).toFixed(2)
             });
-        }, 0);
+        }, 100);
     },
     onDaysPlus(e) {
         var days = this.days || this.data.days;
