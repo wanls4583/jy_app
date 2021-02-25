@@ -16,7 +16,7 @@
 				<nrs patient="{{patient}}"></nrs>
 			</swiper-item>
 			<swiper-item>
-				<pgsga></pgsga>
+				<pgsga patient="{{patient}}"></pgsga>
 			</swiper-item>
 			<!-- <swiper-item>
 				<guidance></guidance>

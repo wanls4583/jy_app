@@ -7,10 +7,6 @@ Component({
             type: Object,
             value: {}
         },
-        option: {
-            type: Object,
-            value: {}
-        }
     },
     data: {
         filtrateDate: new Date().getTime(),
@@ -109,35 +105,9 @@ Component({
     },
     methods: {
         _attached() {
-            var option = this.properties.option;
-            var patient = this.properties.patient;
-            patient._sex = patient.sex == 1 ? '男' : '女';
-            if (!option.id) {
-                this.setData({
-                    doctorName: option.doctorName,
-                    patient: patient,
-                    'pgsga.currentStature': patient.height,
-                    'pgsga.currentWeight': patient.weight,
-                });
-                this.setBMI();
-                this.countScore();
-            } else {
-                this.loadInfo(option.id).then(() => {
-                    if (!this.data.pgsga.id) {
-                        this.setData({
-                            'pgsga.currentStature': patient.height,
-                            'pgsga.currentWeight': patient.weight,
-                        });
-                        this.setBMI();
-                        this.countScore();
-                    }
-                });
-            }
-            this.setData({
-                'pgsga.filtrateId': option.filtrateId,
-                'consultOrderId': option.consultOrderId,
-                'filtrateType': option.filtrateType,
-            });
+            wx.nextTick(()=>{
+                this.loadInfo();
+            })
         },
         onNext() {
             this.setData({
@@ -158,9 +128,9 @@ Component({
             this.countScore();
         },
         onShowDate() {
-            // this.setData({
-            //     dateVisible: true
-            // });
+            this.setData({
+                dateVisible: true
+            });
         },
         onConfirmDate(e) {
             var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
@@ -185,20 +155,6 @@ Component({
                 });
             }
             this.countScore();
-        },
-        setBMI() {
-            if (this.data.patient.height && this.data.patient.weight) {
-                var BMI = _getBMI(this.data.patient.height, this.data.patient.weight)
-                this.setData({
-                    'patient.BMI': BMI
-                });
-            }
-
-            function _getBMI(stature, weight) {
-                var BMI = (weight) / (stature * stature / 10000);
-                BMI = BMI && BMI.toFixed(2) || '';
-                return BMI || '';
-            }
         },
         //计算总分
         countScore() {
@@ -329,48 +285,172 @@ Component({
                 });
             }
         },
-        loadInfo(id) {
+        //兼容旧营养系统
+        setInfo(pgsga) {
+            if(!pgsga) {
+                return;
+            }
+            var data = {
+                filtrateDate: pgsga.filtrateDate && new Date(pgsga.filtrateDate).formatTime('yyyy-MM-dd') || '',
+                currentWeight: pgsga.currentWeight,
+                currentStature: pgsga.currentStature,
+                weightOneMouthAgo: pgsga.weightOneMouthAgo,
+                weightSixMouthAgo: pgsga.weightSixMouthAgo,
+                weightChange: pgsga.weightChange,
+                dieteticChange: pgsga.dieteticChange && pgsga.dieteticChange.split(',') || [],
+                appetiteChange: pgsga.appetiteChange,
+                symptom: [],
+                wherePained: pgsga.wherePained,
+                other: pgsga.other,
+                physicalCondition: pgsga.physicalCondition,
+                mainDiagnosis: pgsga.mainDiagnosis,
+                mainDeseasePeriod: pgsga.mainDeseasePeriod,
+                otherMainDeseasePeriod: '',
+                metabolismStatus: isNaN(Number(pgsga.metabolismStatus)) ? '' : Number(pgsga.metabolismStatus),
+                fatOfCheek: isNaN(Number(pgsga.fatOfCheek)) ? '' : Number(pgsga.fatOfCheek),
+                fatOfTriceps: isNaN(Number(pgsga.fatOfTriceps)) ? '' : Number(pgsga.fatOfTriceps),
+                fatOfRib: isNaN(Number(pgsga.fatOfRib)) ? '' : Number(pgsga.fatOfRib),
+                fatOfLack: isNaN(Number(pgsga.fatOfLack)) ? '' : Number(pgsga.fatOfLack),
+                muscleOfTempora: isNaN(Number(pgsga.muscleOfTempora)) ? '' : Number(pgsga.muscleOfTempora),
+                muscleOfCollarbone: isNaN(Number(pgsga.muscleOfCollarbone)) ? '' : Number(pgsga.muscleOfCollarbone),
+                muscleOfShoulder: isNaN(Number(pgsga.muscleOfShoulder)) ? '' : Number(pgsga.muscleOfShoulder),
+                muscleBewteenBones: isNaN(Number(pgsga.muscleBewteenBones)) ? '' : Number(pgsga.muscleBewteenBones),
+                muscleOfScapula: isNaN(Number(pgsga.muscleOfScapula)) ? '' : Number(pgsga.muscleOfScapula),
+                muscleOfThigh: isNaN(Number(pgsga.muscleOfThigh)) ? '' : Number(pgsga.muscleOfThigh),
+                muscleOfTotalGrade: isNaN(Number(pgsga.muscleOfTotalGrade)) ? '' : Number(pgsga.muscleOfTotalGrade),
+                edemaOfAnkle: isNaN(Number(pgsga.edemaOfAnkle)) ? '' : Number(pgsga.edemaOfAnkle),
+                edemaOfShin: isNaN(Number(pgsga.edemaOfShin)) ? '' : Number(pgsga.edemaOfShin),
+                edemaOfAbdominal: isNaN(Number(pgsga.edemaOfAbdominal)) ? '' : Number(pgsga.edemaOfAbdominal),
+                edemaOfTotalGrade: isNaN(Number(pgsga.edemaOfTotalGrade)) ? '' : Number(pgsga.edemaOfTotalGrade),
+                integralEvaluation: pgsga.integralEvaluation,
+                result: pgsga.score
+            };
+            if(pgsga.sick) {
+                data.symptom.push('恶心');
+            }
+            if(pgsga.emesis) {
+                data.symptom.push('呕吐');
+            }
+            if(pgsga.constipation) {
+                data.symptom.push('便秘');
+            }
+            if(pgsga.diarrhea) {
+                data.symptom.push('腹泻');
+            }
+            if(pgsga.pain) {
+                data.symptom.push('痛');
+            }
+            if(pgsga.dry) {
+                data.symptom.push('干');
+            }
+            if(pgsga.swallowHard) {
+                data.symptom.push('吞咽困难');
+            }
+            if(pgsga.feelGlutted) {
+                data.symptom.push('容易饱胀');
+            }
+            if(pgsga.noDieteticProblem) {
+                data.symptom.push('没有饮食方面的问题');
+            }
+            if(pgsga.noAppetite) {
+                data.symptom.push('没有食欲');
+            }
+            if(pgsga.smellly) {
+                data.symptom.push('有怪味困扰着我');
+            }
+            if(pgsga.noTaste) {
+                data.symptom.push('吃起来感觉没有味道');
+            }
+        },
+        getSaveData() {
+            var data = {
+                ...this.data.pgsga,
+                inHospitalNumber: this.properties.patient.inHospitalNumber,
+                isInpatient: this.properties.patient.isInpatient
+            };
+            data.dieteticChange = data.dieteticChange.join(',');
+            data.sick = false;
+            if(data.symptom.indexOf('恶心') > -1) {
+                data.sick = true;
+            }
+            data.emesis = false;
+            if(data.symptom.indexOf('呕吐') > -1) {
+                data.emesis = true;
+            }
+            data.constipation = false;
+            if(data.symptom.indexOf('便秘') > -1) {
+                data.constipation = true;
+            }
+            data.diarrhea = false;
+            if(data.symptom.indexOf('腹泻') > -1) {
+                data.diarrhea = true;
+            }
+            data.pain = false;
+            if(data.symptom.indexOf('痛') > -1) {
+                data.pain = true;
+            }
+            data.dry = false;
+            if(data.symptom.indexOf('干') > -1) {
+                data.dry = true;
+            }
+            data.swallowHard = false;
+            if(data.symptom.indexOf('吞咽困难') > -1) {
+                data.swallowHard = true;
+            }
+            data.feelGlutted = false;
+            if(data.symptom.indexOf('容易饱胀') > -1) {
+                data.feelGlutted = true;
+            }
+            data.noDieteticProblem = false;
+            if(data.symptom.indexOf('没有饮食方面的问题') > -1) {
+                data.noDieteticProblem = true;
+            }
+            data.noAppetite = false;
+            if(data.symptom.indexOf('没有食欲') > -1) {
+                data.noAppetite = true;
+            }
+            data.smellly = false;
+            if(data.symptom.indexOf('有怪味困扰着我') > -1) {
+                data.smellly = true;
+            }
+            data.noTaste = false;
+            if(data.symptom.indexOf('吃起来感觉没有味道') > -1) {
+                data.noTaste = true;
+            }
+            return data;
+        },
+        loadInfo() {
             return wx.jyApp.http({
-                url: `/filtrate/pgsga/info/${id}`,
-            }).then((data) => {
-                data.patientFiltrate = data.patientFiltrate || {};
-                data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-                if (data.filtratePgsga) {
-                    data.filtratePgsga.symptom = data.filtratePgsga.symptom && data.filtratePgsga.symptom.split(',') || [];
-                    data.filtratePgsga.dieteticChange = data.filtratePgsga.dieteticChange && data.filtratePgsga.dieteticChange.split(',') || [];
+                type: 'mobile',
+                url: '/app/nutrition/query',
+                data: {
+                    method: 'pgsga',
+                    inHospitalNumber: this.properties.patient.inHospitalNumber,
+                    isInpatient: this.properties.patient.isInpatient
                 }
-                data.filtratePgsga = data.filtratePgsga || this.data.pgsga;
-                data.filtratePgsga.filtrateDate = data.patientFiltrate.filtrateDate;
-                this.setData({
-                    pgsga: data.filtratePgsga,
-                    patient: data.patientFiltrate,
-                    doctorName: data.patientFiltrate.doctorName,
-                    filtrateDate: data.filtrateNrs.filtrateDate ? Date.prototype.parseDate(data.filtrateNrs.filtrateDate).getTime() : new Date().getTime()
-                });
-                this.setBMI();
-                data.filtratePgsga.id && this.setResult(data.filtratePgsga.score || 0);
+            }).then((data) => {
+                data = data.result.rows[0];
+                this.setInfo(data);
             });
         },
         onSave() {
-            var data = {
-                ...this.data.pgsga
-            };
-            data.symptom = data.symptom.join(',');
-            data.dieteticChange = data.dieteticChange.join(',');
+            var data = this.getSaveData();
             wx.jyApp.showLoading('加载中...', true);
             _save.bind(this)();
 
             function _save() {
                 wx.jyApp.http({
-                    url: `/filtrate/pgsga/${data.id?'update':'save'}`,
+                    type: 'mobile',
                     method: 'post',
-                    data: data
-                }).then(() => {
-                    var page = wx.jyApp.utils.getPageByLastIndex(2);
-                    if (page.route == 'pages/screen/screen-list/index') {
-                        page.onRefresh();
+                    url: '/app/nutrition/saveOrUpdate',
+                    data: {
+                        method: 'pgsga',
+                        params: JSON.stringify({
+                            ...data
+                        })
                     }
-                    wx.jyApp.toastBack('保存成功');
+                }).then(() => {
+                    wx.jyApp.toast('保存成功');
                 }).finally(() => {
                     wx.hideLoading();
                 });

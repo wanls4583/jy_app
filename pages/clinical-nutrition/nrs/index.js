@@ -118,7 +118,7 @@ Component({
                 return;
             }
             var data = {
-                filtrateDate: new Date(nrs.filtratedDate).formatTime('yyyy-MM-dd'),
+                filtrateDate: nrs.filtratedDate && new Date(nrs.filtratedDate).formatTime('yyyy-MM-dd') || '',
                 bmiLessThan: nrs.bmiLessThan ? 3 : 0,
                 stature: nrs.stature,
                 weight: nrs.weight,
@@ -250,7 +250,7 @@ Component({
                         })
                     }
                 }).then(() => {
-                    wx.jyApp.toastBack('保存成功');
+                    wx.jyApp.toast('保存成功');
                 }).finally(() => {
                     wx.hideLoading();
                 });
