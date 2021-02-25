@@ -122,7 +122,7 @@ Page({
                 count = Math.floor(days * this.data.frequency);
             }
         }
-        wx.nextTick(()=>{
+        setTimeout(()=>{
             this.setData({
                 count: count,
                 days: Number(days.toFixed(2))
@@ -130,7 +130,7 @@ Page({
             this.setData({
                 amount: (this.data.count * this.data.goods.price).toFixed(2)
             });
-        })
+        }, 0);
     },
     onDaysPlus(e) {
         var days = this.days || this.data.days;
