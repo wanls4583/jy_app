@@ -122,13 +122,15 @@ Page({
                 count = Math.floor(days * this.data.frequency);
             }
         }
-        this.setData({
-            count: count,
-            days: Number(days.toFixed(2))
-        });
-        this.setData({
-            amount: (this.data.count * this.data.goods.price).toFixed(2)
-        });
+        wx.nextTick(()=>{
+            this.setData({
+                count: count,
+                days: Number(days.toFixed(2))
+            });
+            this.setData({
+                amount: (this.data.count * this.data.goods.price).toFixed(2)
+            });
+        })
     },
     onDaysPlus(e) {
         var days = this.days || this.data.days;
