@@ -25,7 +25,7 @@
 				<medical-record></medical-record>
 			</swiper-item>
 			<swiper-item>
-				<first-consult></first-consult>
+				<first-consult patient="{{patient}}"></first-consult>
 			</swiper-item>
 			<swiper-item>
 				<ward-round></ward-round>

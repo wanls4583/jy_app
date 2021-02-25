@@ -6,9 +6,8 @@
 					<text>{{patient.patientName}}</text>
 					<text>，{{patient._sex}}</text>
 					<text>，{{patient.age}}岁</text>
-					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
-					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+					<text>，{{patient.departmentName}}</text>
+					<text>，{{patient.sickbed}}床</text>
 				</view>
 			</view>
 			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtrateDate}}" />
@@ -290,7 +289,7 @@
 				<van-radio name="SGA_B">中度或可疑营养不良(SGA-B)（4-8分）</van-radio>
 				<van-radio name="SGA_C">严重营养不良(SGA-C)（>8分）</van-radio>
 			</van-radio-group>
-			<view class="padding-top-bottom-30 border-top">执行人：{{doctorName||''}}</view>
+			<view class="padding-top-bottom-30 border-top" wx:if="{{doctorName}}">执行人：{{doctorName||''}}</view>
 		</view>
 	</view>
 </view>

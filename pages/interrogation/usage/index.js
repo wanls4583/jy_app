@@ -13,7 +13,7 @@ Page({
         count: '',
         countMax: 0,
         days: 7,
-        maxDays: 100,
+        maxDays: 99,
         modulateDose: 0,
         perUseNum: 1,
         frequencyDefault: 0,

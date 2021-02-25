@@ -10,13 +10,12 @@ Page({
     onLoad(option) {
         this.inHospitalNumber = option.inHospitalNumber;
         this.isInpatient = option.isInpatient;
-        var patient = wx.jyApp.getTempData('nutritionPatient');
-        var BMI = (patient.weight) / (patient.stature * patient.stature / 10000);
-        BMI = BMI && BMI.toFixed(2) || '';
-        patient._sex = patient.sex == 1 ? '男' : '女';
+        this.patient = wx.jyApp.getTempData('nutritionPatient');
+        this.patient._sex = this.patient.sex == 1 ? '男' : '女';
         this.setData({
-            patient: patient
+            patient: this.patient
         });
+        this.loadPatientDocument();
     },
     onUnload() {},
     onChangeTab(e) {
@@ -29,4 +28,18 @@ Page({
             active: e.detail.current
         });
     },
+    loadPatientDocument() {
+        wx.jyApp.http({
+            type: 'mobile',
+            url: '/app/nutrition/query',
+            data: {
+                method: 'nutritionDocument',
+                inHospitalNumber: this.inHospitalNumber,
+                isInpatient: this.isInpatient
+            }
+        }).then((data) => {
+            data = data.result;
+            wx.jyApp.setTempData('medicalRecord', data);
+        });
+    }
 })

@@ -50,13 +50,18 @@ function request(obj) {
                         }, 300);
                     }
                     reject(res.data);
-                    if (res.data.code == 401 || (obj.type != 'mobile' && !wx.jyApp.store.userInfo)) { //未登陆
+                    if (obj.type != 'mobile' && (res.data.code == 401 || !wx.jyApp.store.userInfo)) { //未登陆
                         clearTimeout(wx.reLaunchTimer);
                         wx.reLaunchTimer = setTimeout(() => {
                             wx.reLaunch({
                                 url: '/pages/index/index'
                             });
                         }, 1000);
+                    }
+                    if(obj.type == 'mobile' && res.data.code == 401) {
+                        wx.reLaunch({
+                            url: '/pages/clinical-nutrition/login/index'
+                        });
                     }
                     wx.jyApp.log.info('服务器错误：', obj.url, obj.data, userInfo, res.data);
                 }

@@ -5,9 +5,8 @@
 				<text>{{patient.patientName}}</text>
 				<text>，{{patient._sex}}</text>
 				<text>，{{patient.age}}岁</text>
-				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
-				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				<text>，{{patient.departmentName}}</text>
+				<text>，{{patient.sickbed}}床</text>
 			</view>
 		</view>
 		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
@@ -69,7 +68,7 @@
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">筛查结果</view>
-		<readonly-field label="执行人" value="{{doctorName}}" />
+		<readonly-field label="执行人" value="{{doctorName}}" wx:if="{{doctorName}}" />
 		<van-field label="总分" value="{{nrs.result}}" />
 		<van-field autosize label="结果解释" maxlength="{{500}}" type="textarea" value="{{nrs.resultDescription}}" />
 		<view class="padding-30 gray-color">

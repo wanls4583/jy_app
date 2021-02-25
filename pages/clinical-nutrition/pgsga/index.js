@@ -361,6 +361,11 @@ Component({
             if(pgsga.noTaste) {
                 data.symptom.push('吃起来感觉没有味道');
             }
+            this.setData({
+                pgsga: data,
+                filtrateDate: pgsga.filtrateDate,
+                doctorName: pgsga.doctorName
+            })
         },
         getSaveData() {
             var data = {
@@ -368,7 +373,7 @@ Component({
                 inHospitalNumber: this.properties.patient.inHospitalNumber,
                 isInpatient: this.properties.patient.isInpatient
             };
-            data.score = this.data.result;
+            data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.sick = false;
             if(data.symptom.indexOf('恶心') > -1) {
@@ -451,6 +456,9 @@ Component({
                         })
                     }
                 }).then(() => {
+                    this.setData({
+                        step: 1
+                    });
                     wx.jyApp.toast('保存成功');
                 }).finally(() => {
                     wx.hideLoading();

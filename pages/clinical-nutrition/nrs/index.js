@@ -159,7 +159,8 @@ Component({
             }
             this.setData({
                 nrs: data,
-                filtrateDate: nrs.filtrateDate
+                filtrateDate: nrs.filtrateDate,
+                doctorName: nrs.doctorName
             });
         },
         //数据转换(兼容营养系统)

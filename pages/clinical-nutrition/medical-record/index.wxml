@@ -3,45 +3,44 @@
 		<view class="margin-left-30 pre-vertical-line primary-line-color">基本资料</view>
 		<view class="margin-top-30">
 			<view class="padding-left-right-30">
-				<text>{{patient.patientName}}</text>
-				<text>，{{patient._sex}}</text>
-				<text>，{{patient.age}}岁</text>
-				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
-				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				<text>{{medicalRecord.patientDocument.patientName}}</text>
+				<text>，{{medicalRecord.patientDocument._sex}}</text>
+				<text>，{{medicalRecord.patientDocument.age}}岁</text>
+				<text>，{{medicalRecord.patientDocument.departmentName}}</text>
+				<text>，{{medicalRecord.patientDocument.sickbed}}床</text>
 			</view>
-			<readonly-field label="住院号"></readonly-field>
-			<readonly-field label="身份证"></readonly-field>
-			<readonly-field label="电话"></readonly-field>
-			<readonly-field label="地址"></readonly-field>
-			<readonly-field label="入院日期"></readonly-field>
-			<readonly-field label="营养治疗开始时间"></readonly-field>
-			<readonly-field label="临床诊断"></readonly-field>
-			<readonly-field label="基本病情"></readonly-field>
-			<readonly-field label="主诉"></readonly-field>
-			<readonly-field label="现病史"></readonly-field>
-			<readonly-field label="营养诊断"></readonly-field>
+			<readonly-field label="住院号" value="{{medicalRecord.patientDocument.inHospitalNumber}}"></readonly-field>
+			<readonly-field label="身份证" value="{{medicalRecord.patientDocument.identityCard}}"></readonly-field>
+			<readonly-field label="电话" value="{{medicalRecord.patientDocument.phoneNumber}}"></readonly-field>
+			<readonly-field label="地址" value="{{medicalRecord.patientDocument.address}}"></readonly-field>
+			<readonly-field label="入院日期" value="{{medicalRecord.patientDocument.hospitalizedDate}}"></readonly-field>
+			<readonly-field label="营养治疗开始时间" value="{{medicalRecord.patientDocument.beginConsultDate}}"></readonly-field>
+			<readonly-field label="临床诊断" value="{{medicalRecord.patientDocument.clinicalDiagnosis}}"></readonly-field>
+			<readonly-field label="基本病情" value="{{medicalRecord.patientDocument.diseaseHistory}}"></readonly-field>
+			<readonly-field label="主诉" value="{{medicalRecord.patientDocument.mainSuit}}"></readonly-field>
+			<readonly-field label="现病史" value="{{medicalRecord.patientDocument.currentlyMedicalHistory}}"></readonly-field>
+			<readonly-field label="营养诊断" value="{{medicalRecord.patientDocument.clinicalDiagnosis}}"></readonly-field>
 		</view>
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">营养筛查</view>
 		<view>
-			<view class="margin-top-30 border-bottom">
+			<view class="margin-top-30 border-bottom" wx:for="{{medicalRecord.filtrate.rows}}" wx:key="id">
 				<view class="flex padding-30">
 					<view class="label">筛查日期</view>
-					<view></view>
+					<view>{{item.filtratedDate}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">筛查类型</view>
-					<view></view>
+					<view>{{item.filtratedMode}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">筛查总分</view>
-					<view></view>
+					<view>{{item.dataSource}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">处理意见</view>
-					<view></view>
+					<view>{{item.recommend}}</view>
 				</view>
 			</view>
 		</view>
@@ -49,26 +48,26 @@
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养</view>
 		<view>
-			<view class="margin-top-30 border-bottom">
+			<view class="margin-top-30 border-bottom" wx:for="{{medicalRecord.nutritionOrder.rows}}" wx:key="id">
 				<view class="flex padding-30">
 					<view class="label">指导日期</view>
-					<view></view>
+					<view>{{item.beginDate}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">制剂名称</view>
-					<view></view>
+					<view>{{item.preparationItemName}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">数量</view>
-					<view></view>
+					<view>{{item.gross}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">金额</view>
-					<view></view>
+					<view>{{item.sumOfMoney}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">营养(医)师</view>
-					<view></view>
+					<view>{{item.doctorName}}</view>
 				</view>
 			</view>
 		</view>
@@ -76,22 +75,22 @@
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">病程记录</view>
 		<view>
-			<view class="margin-top-30 border-bottom">
+			<view class="margin-top-30 border-bottom" wx:for="{{medicalRecord.courseOfDisease.rows}}" wx:key="id">
 				<view class="flex padding-30">
 					<view class="label">记录日期</view>
-					<view></view>
+					<view>{{item.date}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">病程名称</view>
-					<view></view>
+					<view>{{item.nameOfCourse}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">营养(医)师</view>
-					<view></view>
+					<view>{{item.doctorName}}</view>
 				</view>
 				<view class="flex padding-30">
 					<view class="label">病程记录</view>
-					<view></view>
+					<view>{{item.record}}</view>
 				</view>
 			</view>
 		</view>

@@ -1,28 +1,31 @@
 <view class="container padding-bottom-footer">
 	<view class="white-background-color padding-top-bottom-30">
+		<readonly-field bindtap="onShowDate" label="会诊日期" value="{{consult.consultedDate}}"></readonly-field>
+		<readonly-field label="营养(医)师" value="{{consult.doctorName}}"></readonly-field>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">基本资料</view>
 		<view class="padding-30 border-bottom">
 			<text>{{patient.patientName}}</text>
 			<text>，{{patient._sex}}</text>
 			<text>，{{patient.age}}岁</text>
-			<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
-			<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-			<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			<text>，{{patient.departmentName}}</text>
+			<text>，{{patient.sickbed}}床</text>
 		</view>
-		<van-field bind:input="onInput" data-prop="nrs.stature" label="身高(cm)" value="{{nrs.stature}}" />
-		<van-field bind:input="onInput" data-prop="nrs.weight" label="体重(kg)" value="{{nrs.weight}}" />
+		<van-field bind:input="onInput" data-prop="consult.stature" label="身高(cm)" value="{{consult.stature}}" />
+		<van-field bind:input="onInput" data-prop="consult.weight" label="体重(kg)" value="{{consult.weight}}" />
 		<view class="flex padding-30 border-bottom-after">
 			<view class="flex-shrink-0 label-color">既往体重</view>
-			<input type="text" />
+			<input name="weightMonth" type="text" />
 			<text class="flex-shrink-0 margin-left-right-10">(</text>
-			<input type="text" />
+			<input name="month" type="text" />
 			<text class="flex-shrink-0 margin-left-10">)个月前</text>
 		</view>
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠胃道症状</view>
 		<view class="margin-top-30 padding-left-right-30">
-			<van-checkbox-group bind:change="onChange">
+			<van-checkbox-group bind:change="onChange" data-prop="consult.stomachSymptom_select" value="{{consult.stomachSymptom_select}}">
 				<van-checkbox name="反流" shape="square">反流</van-checkbox>
 				<van-checkbox name="腹胀" shape="square">腹胀</van-checkbox>
 				<van-checkbox name="没有食欲" shape="square">没有食欲</van-checkbox>
@@ -30,7 +33,7 @@
 					<view class="flex">
 						<view class="flex-shrink-0 label-color">便秘</view>
 						<view class="flex--center--between">
-							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_day" type="text" value="{{consult.stomachSymptom_day}}" />
 							<text class="flex-shrink-0">次/天</text>
 						</view>
 					</view>
@@ -39,23 +42,41 @@
 					<view>
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">腹泻</view>
-							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<input
+								bindinput="onInput"
+								class="width-100px border-bottom"
+								data-prop="consult.stomachSymptom_count1"
+								type="text"
+								value="{{consult.stomachSymptom_count1}}"
+							/>
 							<text class="flex-shrink-0">次/天，</text>
-							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_ml1" type="text" value="{{consult.stomachSymptom_ml1}}" />
 							<text class="flex-shrink-0">ml/次</text>
 						</view>
 						<view class="flex margin-top-30">
 							<text>性状</text>
-							<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+							<input
+								bindinput="onInput"
+								class="width-100px border-bottom"
+								data-prop="consult.stomachSymptom_xingzhuang"
+								type="text"
+								value="{{consult.stomachSymptom_xingzhuang}}"
+							/>
 						</view>
 					</view>
 				</van-checkbox>
 				<van-checkbox name="呕吐" shape="square">
 					<view class="flex">
 						<view class="flex-shrink-0 label-color">呕吐</view>
-						<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+						<input
+							bindinput="onInput"
+							class="width-100px border-bottom"
+							data-prop="consult.stomachSymptom_count2"
+							type="text"
+							value="{{consult.stomachSymptom_count2}}"
+						/>
 						<text class="flex-shrink-0">次/天，</text>
-						<input bindinput="onInput" class="width-100px border-bottom" type="text" />
+						<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_ml2" type="text" value="{{consult.stomachSymptom_ml2}}" />
 						<text class="flex-shrink-0">ml/次</text>
 					</view>
 				</van-checkbox>
@@ -68,7 +89,7 @@
 			<view class="flex">
 				<view class="flex-shrink-0 label-color">途径：</view>
 				<view>
-					<van-checkbox-group bind:change="onChange">
+					<van-checkbox-group bind:change="onChange" data-prop="consult.pathway" value="{{pathway}}">
 						<van-checkbox name="口服" shape="square">口服</van-checkbox>
 						<van-checkbox name="胃鼻管" shape="square">胃鼻管</van-checkbox>
 						<van-checkbox name="鼻肠管" shape="square">鼻肠管</van-checkbox>
@@ -82,14 +103,14 @@
 				<view>
 					<view class="flex">
 						<text class="flex-shrink-0">一天</text>
-						<input class="width-100px border-bottom" type="text" />
+						<input class="width-100px border-bottom" data-prop="consult.useNum_count" type="text" value="{{consult.useNum_count}}" />
 						<text class="flex-shrink-0">餐，每餐</text>
-						<input class="width-100px border-bottom" type="text" />
+						<input class="width-100px border-bottom" data-prop="consult.useNum_ml" type="text" value="{{consult.useNum_ml}}" />
 						<text class="flex-shrink-0">ml</text>
 					</view>
 					<view class="flex margin-top-30">
 						<text class="flex-shrink-0">密度</text>
-						<input class="width-100px border-bottom" type="text" />
+						<input class="width-100px border-bottom" data-prop="consult.useNum_density" type="text" value="{{consult.useNum_density}}" />
 					</view>
 				</view>
 			</view>
@@ -97,7 +118,7 @@
 				<view class="flex-shrink-0 label-color">泵速：</view>
 				<view>
 					<view class="flex">
-						<input class="width-100px border-bottom" type="text" />
+						<input class="width-100px border-bottom" data-prop="consult.bumpRate" type="text" value="{{consult.bumpRate}}" />
 						<text class="flex-shrink-0">ml/h</text>
 					</view>
 				</view>
@@ -105,7 +126,7 @@
 			<view class="flex margin-top-30">
 				<view class="flex-shrink-0 label-color">种类：</view>
 				<view>
-					<van-checkbox-group bind:change="onChange">
+					<van-checkbox-group bind:change="onChange" data-prop="consult.category_select" value="{{consult.category_select}}">
 						<van-checkbox name="匀浆糖" shape="square">匀浆糖</van-checkbox>
 						<van-checkbox name="整蛋白型" shape="square">整蛋白型</van-checkbox>
 						<van-checkbox name="疾病专用型" shape="square">疾病专用型</van-checkbox>
@@ -120,30 +141,30 @@
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">临床诊断</view>
-		<van-field label="临床诊断1"></van-field>
-		<van-field label="临床诊断2"></van-field>
-		<van-field label="临床诊断3"></van-field>
-		<van-field label="临床诊断4"></van-field>
-		<van-field label="临床诊断5"></van-field>
+		<van-field data-prop="consult.diagnosis1" label="临床诊断1" value="{{consult.diagnosis1}}"></van-field>
+		<van-field data-prop="consult.diagnosis2" label="临床诊断2" value="{{consult.diagnosis2}}"></van-field>
+		<van-field data-prop="consult.diagnosis3" label="临床诊断3" value="{{consult.diagnosis3}}"></van-field>
+		<van-field data-prop="consult.diagnosis4" label="临床诊断4" value="{{consult.diagnosis4}}"></van-field>
+		<van-field data-prop="consult.diagnosis5" label="临床诊断5" value="{{consult.diagnosis5}}"></van-field>
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">检验结果</view>
-		<readonly-field label="总蛋白"></readonly-field>
-		<readonly-field label="白蛋白"></readonly-field>
-		<readonly-field label="ALT"></readonly-field>
-		<readonly-field label="AST"></readonly-field>
-		<readonly-field label="总胆红素"></readonly-field>
-		<readonly-field label="直接胆红素"></readonly-field>
-		<readonly-field label="间接胆红素"></readonly-field>
-		<readonly-field label="糖化血红蛋白"></readonly-field>
-		<readonly-field label="血红蛋白"></readonly-field>
-		<readonly-field label="血小板"></readonly-field>
-		<readonly-field label="白细胞"></readonly-field>
-		<readonly-field label="肌酐"></readonly-field>
-		<readonly-field label="尿素"></readonly-field>
-		<readonly-field label="尿酸"></readonly-field>
-		<readonly-field label="Ca/Ci/Na/K"></readonly-field>
-		<readonly-field label="血糖"></readonly-field>
+		<van-field data-prop="consult.zongdanbai" label="总蛋白" value="{{consult.zongdanbai}}"></van-field>
+		<van-field data-prop="consult.baidanbai" label="白蛋白" value="{{consult.baidanbai}}"></van-field>
+		<van-field data-prop="consult.alt" label="ALT" value="{{consult.alt}}"></van-field>
+		<van-field data-prop="consult.ast" label="AST" value="{{consult.ast}}"></van-field>
+		<van-field data-prop="consult.zongdanhonggsu" label="总胆红素" value="{{consult.zongdanhonggsu}}"></van-field>
+		<van-field data-prop="consult.zhijiedanhongsu" label="直接胆红素" value="{{consult.zhijiedanhongsu}}"></van-field>
+		<van-field data-prop="consult.jianjiedanhongsu" label="间接胆红素" value="{{consult.jianjiedanhongsu}}"></van-field>
+		<van-field data-prop="consult.tanghuaxuehongdanbai" label="糖化血红蛋白" value="{{consult.tanghuaxuehongdanbai}}"></van-field>
+		<van-field data-prop="consult.xuehongdanbai" label="血红蛋白" value="{{consult.xuehongdanbai}}"></van-field>
+		<van-field data-prop="consult.xuexiaoban" label="血小板" value="{{consult.xuexiaoban}}"></van-field>
+		<van-field data-prop="consult.xuexibao" label="白细胞" value="{{consult.xuexibao}}"></van-field>
+		<van-field data-prop="consult.baoxibao" label="肌酐" value="{{consult.baoxibao}}"></van-field>
+		<van-field data-prop="consult.jigan" label="尿素" value="{{consult.jigan}}"></van-field>
+		<van-field data-prop="consult.niaosu" label="尿酸" value="{{consult.niaosu}}"></van-field>
+		<van-field data-prop="consult.ca" label="Ca/Ci/Na/K" value="{{consult.ca}}"></van-field>
+		<van-field data-prop="consult.xuetang" label="血糖" value="{{consult.xuetang}}"></van-field>
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠外营养</view>
@@ -153,11 +174,11 @@
 				<view class="flex-grow-1">
 					<view class="flex">
 						<text class="flex-shrink-0">用量：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.aminoAcid_num" type="text" value="{{consult.aminoAcid_num}}" />
 					</view>
 					<view class="flex margin-top-30">
 						<text class="flex-shrink-0">用法：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.aminoAcid_way" type="text" value="{{consult.aminoAcid_way}}" />
 					</view>
 				</view>
 			</view>
@@ -166,11 +187,11 @@
 				<view class="flex-grow-1">
 					<view class="flex">
 						<text class="flex-shrink-0">用量：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.fat_num" type="text" value="{{consult.fat_num}}" />
 					</view>
 					<view class="flex margin-top-30">
 						<text class="flex-shrink-0">用法：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.fat_way" type="text" value="{{consult.fat_way}}" />
 					</view>
 				</view>
 			</view>
@@ -179,11 +200,11 @@
 				<view class="flex-grow-1">
 					<view class="flex">
 						<text class="flex-shrink-0">用量：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.glucose_num" type="text" value="{{consult.glucose_num}}" />
 					</view>
 					<view class="flex margin-top-30">
 						<text class="flex-shrink-0">用法：</text>
-						<input class="flex-grow-1 border-bottom" type="text" />
+						<input class="flex-grow-1 border-bottom" data-prop="consult.glucose_way" type="text" value="{{consult.glucose_way}}" />
 					</view>
 				</view>
 			</view>
@@ -193,3 +214,6 @@
 <view class="footer flex--center--around padding-30">
 	<view bindtap="onSave" class="button primary block">保存</view>
 </view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{consultedDate}}" />
+</van-popup>
