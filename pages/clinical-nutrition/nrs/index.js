@@ -11,6 +11,7 @@ Component({
     data: {
         filtrateDate: new Date().getTime(),
         nrs: {
+            id: '',
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             bmiLessThan: '',
             stature: '',

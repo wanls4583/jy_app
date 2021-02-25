@@ -28,10 +28,10 @@
 				<first-consult patient="{{patient}}"></first-consult>
 			</swiper-item>
 			<swiper-item>
-				<ward-round></ward-round>
+				<ward-round patient="{{patient}}"></ward-round>
 			</swiper-item>
 			<swiper-item>
-				<biochemical></biochemical>
+				<biochemical patient="{{patient}}"></biochemical>
 			</swiper-item>
 		</swiper>
 	</view>

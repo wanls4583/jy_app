@@ -11,6 +11,7 @@ Component({
     data: {
         filtrateDate: new Date().getTime(),
         pgsga: {
+            id: '',
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             currentWeight: '',
             currentStature: '',
@@ -105,7 +106,7 @@ Component({
     },
     methods: {
         _attached() {
-            wx.nextTick(()=>{
+            wx.nextTick(() => {
                 this.loadInfo();
             })
         },
@@ -287,7 +288,7 @@ Component({
         },
         //兼容旧营养系统
         setInfo(pgsga) {
-            if(!pgsga) {
+            if (!pgsga) {
                 return;
             }
             var data = {
@@ -325,40 +326,40 @@ Component({
                 integralEvaluation: pgsga.integralEvaluation,
                 result: pgsga.score
             };
-            if(pgsga.sick) {
+            if (pgsga.sick) {
                 data.symptom.push('恶心');
             }
-            if(pgsga.emesis) {
+            if (pgsga.emesis) {
                 data.symptom.push('呕吐');
             }
-            if(pgsga.constipation) {
+            if (pgsga.constipation) {
                 data.symptom.push('便秘');
             }
-            if(pgsga.diarrhea) {
+            if (pgsga.diarrhea) {
                 data.symptom.push('腹泻');
             }
-            if(pgsga.pain) {
+            if (pgsga.pain) {
                 data.symptom.push('痛');
             }
-            if(pgsga.dry) {
+            if (pgsga.dry) {
                 data.symptom.push('干');
             }
-            if(pgsga.swallowHard) {
+            if (pgsga.swallowHard) {
                 data.symptom.push('吞咽困难');
             }
-            if(pgsga.feelGlutted) {
+            if (pgsga.feelGlutted) {
                 data.symptom.push('容易饱胀');
             }
-            if(pgsga.noDieteticProblem) {
+            if (pgsga.noDieteticProblem) {
                 data.symptom.push('没有饮食方面的问题');
             }
-            if(pgsga.noAppetite) {
+            if (pgsga.noAppetite) {
                 data.symptom.push('没有食欲');
             }
-            if(pgsga.smellly) {
+            if (pgsga.smellly) {
                 data.symptom.push('有怪味困扰着我');
             }
-            if(pgsga.noTaste) {
+            if (pgsga.noTaste) {
                 data.symptom.push('吃起来感觉没有味道');
             }
             this.setData({
@@ -376,51 +377,51 @@ Component({
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.sick = false;
-            if(data.symptom.indexOf('恶心') > -1) {
+            if (data.symptom.indexOf('恶心') > -1) {
                 data.sick = true;
             }
             data.emesis = false;
-            if(data.symptom.indexOf('呕吐') > -1) {
+            if (data.symptom.indexOf('呕吐') > -1) {
                 data.emesis = true;
             }
             data.constipation = false;
-            if(data.symptom.indexOf('便秘') > -1) {
+            if (data.symptom.indexOf('便秘') > -1) {
                 data.constipation = true;
             }
             data.diarrhea = false;
-            if(data.symptom.indexOf('腹泻') > -1) {
+            if (data.symptom.indexOf('腹泻') > -1) {
                 data.diarrhea = true;
             }
             data.pain = false;
-            if(data.symptom.indexOf('痛') > -1) {
+            if (data.symptom.indexOf('痛') > -1) {
                 data.pain = true;
             }
             data.dry = false;
-            if(data.symptom.indexOf('干') > -1) {
+            if (data.symptom.indexOf('干') > -1) {
                 data.dry = true;
             }
             data.swallowHard = false;
-            if(data.symptom.indexOf('吞咽困难') > -1) {
+            if (data.symptom.indexOf('吞咽困难') > -1) {
                 data.swallowHard = true;
             }
             data.feelGlutted = false;
-            if(data.symptom.indexOf('容易饱胀') > -1) {
+            if (data.symptom.indexOf('容易饱胀') > -1) {
                 data.feelGlutted = true;
             }
             data.noDieteticProblem = false;
-            if(data.symptom.indexOf('没有饮食方面的问题') > -1) {
+            if (data.symptom.indexOf('没有饮食方面的问题') > -1) {
                 data.noDieteticProblem = true;
             }
             data.noAppetite = false;
-            if(data.symptom.indexOf('没有食欲') > -1) {
+            if (data.symptom.indexOf('没有食欲') > -1) {
                 data.noAppetite = true;
             }
             data.smellly = false;
-            if(data.symptom.indexOf('有怪味困扰着我') > -1) {
+            if (data.symptom.indexOf('有怪味困扰着我') > -1) {
                 data.smellly = true;
             }
             data.noTaste = false;
-            if(data.symptom.indexOf('吃起来感觉没有味道') > -1) {
+            if (data.symptom.indexOf('吃起来感觉没有味道') > -1) {
                 data.noTaste = true;
             }
             return data;
