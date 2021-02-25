@@ -42,7 +42,7 @@
 		<van-cell>
 			<view class="flex--center--between">
 				<text>总量</text>
-				<van-stepper bind:change="onCountChang" data-prop="count" input-width="300rpx" integer="{{true}}" min="{{1}}" value="{{count}}" />
+				<van-stepper bind:change="onCountChang" bind:plus="onCountChang" bind:minus="onCountChang" data-prop="count" input-width="300rpx" integer="{{true}}" min="{{1}}" value="{{count}}" />
 				<text>{{goods._unit}}</text>
 			</view>
 		</van-cell>

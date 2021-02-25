@@ -122,15 +122,13 @@ Page({
                 count = Math.floor(days * this.data.frequency);
             }
         }
-        setTimeout(()=>{
-            this.setData({
-                count: count,
-                days: Number(days.toFixed(2))
-            });
-            this.setData({
-                amount: (this.data.count * this.data.goods.price).toFixed(2)
-            });
-        }, 100);
+        this.setData({
+            count: count,
+            days: Number(days.toFixed(2))
+        });
+        this.setData({
+            amount: (this.data.count * this.data.goods.price).toFixed(2)
+        });
     },
     onDaysPlus(e) {
         var days = this.days || this.data.days;
