@@ -10,7 +10,7 @@
 					<text>，{{patient.sickbed}}床</text>
 				</view>
 			</view>
-			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtrateDate}}" />
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtratedDate}}" />
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">人体测量</view>
@@ -79,9 +79,26 @@
 		</view>
 	</view>
 	<view class="white-background-color position-absolute bottom-0 z-index-100 width-100 flex--center--around padding-30">
-		<view bindtap="onSave" class="button primary block">保存</view>
+		<view bindtap="onAdd" class="button primary plain" style="min-width:200rpx">新增</view>
+		<view bindtap="onShowList" class="button primary plain" style="min-width:200rpx">筛查列表</view>
+		<view bindtap="onSave" class="button primary" style="min-width:200rpx">保存</view>
 	</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtratedDate}}" />
+</van-popup>
+<van-popup bind:click-overlay="onShowList" position="bottom" show="{{listVisible}}">
+	<view class="flex padding-30">
+		<view class="flex-grow-1 align-center">筛查列表</view>
+		<van-icon bindtap="onShowList" name="cross" />
+	</view>
+	<view class="padding-left-right-30">
+		<view class="flex--center--between border-bottom" wx:for="{{nrsList}}" wx:key="id">
+			<text>{{item.filtratedDate}}</text>
+			<view class="flex primary-color">
+				<view bindtap="onShowInfo" class="padding-30" data-item="{{item}}">查看</view>
+				<view bindtap="onDelete" class="padding-30" data-id="{{item.id}}">删除</view>
+			</view>
+		</view>
+	</view>
 </van-popup>

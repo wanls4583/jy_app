@@ -20,22 +20,9 @@ Component({
         }
     },
     data: {
-        filtrateDate: new Date().getTime(),
-        nrs: {
-            id: '',
-            filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            bmiLessThan: '',
-            stature: '',
-            weight: '',
-            BMI: '',
-            loseWeight: null,
-            foodIntake: null,
-            needNormal: null,
-            ageGe70: 0,
-            result: 0,
-            resultDescription: '',
-        },
         dateVisible: false,
+        listVisible: false,
+        nrsList: [],
         doctorName: ''
     },
     lifetimes: {
@@ -52,21 +39,46 @@ Component({
             this.setData({
                 'doctorName': userInfo.name
             });
+            this.onAdd();
         },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
             this.setBMI();
             this.countScore();
         },
+        onShowList() {
+            this.setData({
+                listVisible: !this.data.listVisible
+            });
+        },
         onShowDate() {
             this.setData({
                 dateVisible: true
             });
         },
-        onConfirmDate(e) {
-            var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
+        onAdd() {
             this.setData({
-                'nrs.filtrateDate': filtrateDate,
+                filtratedDate: new Date().getTime(),
+                nrs: {
+                    id: '',
+                    filtratedDate: new Date().formatTime('yyyy-MM-dd'),
+                    bmiLessThan: '',
+                    stature: '',
+                    weight: '',
+                    BMI: '',
+                    loseWeight: null,
+                    foodIntake: null,
+                    needNormal: null,
+                    ageGe70: null,
+                    result: 0,
+                    resultDescription: '',
+                }
+            })
+        },
+        onConfirmDate(e) {
+            var filtratedDate = new Date(e.detail).formatTime('yyyy-MM-dd');
+            this.setData({
+                'nrs.filtratedDate': filtratedDate,
                 dateVisible: false
             });
         },
@@ -81,6 +93,44 @@ Component({
                 [`${prop}`]: e.detail,
             });
             this.countScore();
+        },
+        onShowInfo(e) {
+            var item = e.currentTarget.dataset.item;
+            this.setInfo(item);
+            this.setData({
+                listVisible: false
+            });
+        },
+        onDelete(e) {
+            var id = e.currentTarget.dataset.id;
+            wx.jyApp.dialog.confirm({
+                message: '确认删除？'
+            }).then(() => {
+                wx.jyApp.showLoading('删除中...', true);
+                wx.jyApp.http({
+                    type: 'mobile',
+                    method: 'get',
+                    url: '/app/nutrition/delete',
+                    data: {
+                        method: 'nrs',
+                        id: id
+                    }
+                }).then(() => {
+                    wx.jyApp.toast('删除成功');
+                    this.data.nrsList = this.data.nrsList.filter((item) => {
+                        return item.id != id;
+                    });
+                    this.setData({
+                        listVisible: false,
+                        nrsList: this.data.nrsList
+                    });
+                    if (this.nowId == id) {
+                        this.setInfo(this.data.nrsList[0]);
+                    }
+                }).finally(() => {
+                    wx.hideLoading();
+                });
+            });
         },
         setBMI() {
             if (this.data.nrs.stature && this.data.nrs.weight) {
@@ -122,8 +172,14 @@ Component({
                     isInpatient: this.properties.patient.isInpatient
                 }
             }).then((data) => {
-                data = data.result.rows[0];
-                this.setInfo(data);
+                data.result.rows.map((item) => {
+                    item.originDate = item.filtratedDate;
+                    item.filtratedDate = item.filtratedDate && new Date(item.filtratedDate).formatTime('yyyy-MM-dd') || ''
+                });
+                this.setData({
+                    nrsList: data.result.rows
+                });
+                this.setInfo(data.result.rows[0]);
             });
         },
         //数据转换(兼容营养系统)
@@ -131,8 +187,9 @@ Component({
             if (!nrs) {
                 return;
             }
+            this.nowId = nrs.id;
             var data = {
-                filtrateDate: nrs.filtratedDate && new Date(nrs.filtratedDate).formatTime('yyyy-MM-dd') || '',
+                filtratedDate: nrs.filtratedDate,
                 bmiLessThan: nrs.bmiLessThan ? 3 : 0,
                 stature: nrs.stature,
                 weight: nrs.weight,
@@ -173,7 +230,7 @@ Component({
             }
             this.setData({
                 nrs: data,
-                filtrateDate: nrs.filtrateDate,
+                filtratedDate: nrs.originDate,
                 doctorName: nrs.doctorName
             });
         },
