@@ -11,7 +11,7 @@
 						<text>，{{patient.sickbed}}床</text>
 					</view>
 				</view>
-				<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtrateDate}}" />
+				<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtratedDate}}" />
 			</view>
 			<view class="white-background-color padding-top-bottom-30 margin-top-20">
 				<view class="margin-left-30 pre-vertical-line primary-line-color">体重变化</view>
@@ -301,5 +301,5 @@
 	</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtratedDate}}" />
 </van-popup>

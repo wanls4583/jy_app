@@ -20,10 +20,10 @@ Component({
         }
     },
     data: {
-        filtrateDate: new Date().getTime(),
+        filtratedDate: new Date().getTime(),
         pgsga: {
             id: '',
-            filtrateDate: new Date().formatTime('yyyy-MM-dd'),
+            filtratedDate: new Date().formatTime('yyyy-MM-dd'),
             currentWeight: '',
             currentStature: '',
             weightOneMouthAgo: '',
@@ -141,9 +141,9 @@ Component({
             });
         },
         onConfirmDate(e) {
-            var filtrateDate = new Date(e.detail).formatTime('yyyy-MM-dd');
+            var filtratedDate = new Date(e.detail).formatTime('yyyy-MM-dd');
             this.setData({
-                'pgsga.filtrateDate': filtrateDate,
+                'pgsga.filtratedDate': filtratedDate,
                 dateVisible: false
             });
         },
@@ -299,7 +299,8 @@ Component({
                 return;
             }
             var data = {
-                filtrateDate: pgsga.filtrateDate && new Date(pgsga.filtrateDate).formatTime('yyyy-MM-dd') || '',
+                id: pgsga.id,
+                filtratedDate: pgsga.filtratedDate && new Date(pgsga.filtratedDate).formatTime('yyyy-MM-dd') || '',
                 currentWeight: pgsga.currentWeight,
                 currentStature: pgsga.currentStature,
                 weightOneMouthAgo: pgsga.weightOneMouthAgo,
@@ -371,7 +372,7 @@ Component({
             }
             this.setData({
                 pgsga: data,
-                filtrateDate: pgsga.filtrateDate,
+                filtratedDate: pgsga.filtratedDate,
                 doctorName: pgsga.doctorName
             })
         },
