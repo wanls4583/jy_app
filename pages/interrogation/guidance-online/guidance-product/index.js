@@ -51,6 +51,9 @@ Page({
                 })
             })
         }
+        if(this.data.goodsList.length) {
+            this.caculateTotalAmount();
+        }
         this.setData({
             patient: patient
         });
@@ -184,7 +187,14 @@ Page({
             wx.jyApp.utils.navigateBack({
                 delta: 3,
                 success: function () {
-                    console.log('/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id);
+                    var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                    if (page) { //修改了订单，刷新订单列表
+                        page.onGuidanceOrderRefresh();
+                    }
+                    page = wx.jyApp.utils.getPages('pages/interrogation/guidance-order-detail/index');
+                    if(page) { //修改了订单，刷新订单详情页
+                        page.loadInfo();
+                    }
                     wx.jyApp.utils.navigateTo({
                         url: '/pages/interrogation/guidance-online/guidance-sheet/index?id=' + data.id
                     });
