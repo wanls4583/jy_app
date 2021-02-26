@@ -128,13 +128,48 @@
 					<view class="flex-shrink-0 label-color">种类：</view>
 					<view>
 						<van-checkbox-group bind:change="onChange" data-prop="consult.category_select" value="{{consult.category_select}}">
-							<van-checkbox name="匀浆糖" shape="square">匀浆糖</van-checkbox>
-							<van-checkbox name="整蛋白型" shape="square">整蛋白型</van-checkbox>
-							<van-checkbox name="疾病专用型" shape="square">疾病专用型</van-checkbox>
-							<van-checkbox name="短肽类" shape="square">短肽类</van-checkbox>
-							<van-checkbox name="氨基酸型" shape="square">氨基酸型</van-checkbox>
-							<van-checkbox name="自备匀浆膳" shape="square">自备匀浆膳</van-checkbox>
-							<van-checkbox name="日常饭菜" shape="square">日常饭菜</van-checkbox>
+							<van-checkbox name="匀浆糖" shape="square">
+								<view class="flex">
+									<text>匀浆糖</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input1" type="text" value="{{consult.category_input1}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="整蛋白型" shape="square">
+								<view class="flex">
+									<text>整蛋白型</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input2" type="text" value="{{consult.category_input2}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="疾病专用型" shape="square">
+								<view class="flex">
+									<text>疾病专用型</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input3" type="text" value="{{consult.category_input3}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="短肽类" shape="square">
+								<view class="flex">
+									<text>短肽类</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input4" type="text" value="{{consult.category_input4}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="氨基酸型" shape="square">
+								<view class="flex">
+									<text>氨基酸型</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input5" type="text" value="{{consult.category_input5}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="自备匀浆膳" shape="square">
+								<view class="flex">
+									<text>自备匀浆膳</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input6" type="text" value="{{consult.category_input6}}" />
+								</view>
+							</van-checkbox>
+							<van-checkbox name="日常饭菜" shape="square">
+								<view class="flex">
+									<text>日常饭菜</text>
+									<input bindinput="onInput" class="margin-left-20 border-bottom inline-block" data-prop="consult.category_input7" type="text" value="{{consult.category_input7}}" />
+								</view>
+							</van-checkbox>
 						</van-checkbox-group>
 					</view>
 				</view>
