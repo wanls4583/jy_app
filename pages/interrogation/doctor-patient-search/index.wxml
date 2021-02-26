@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="position-fixed top-0 z-index-100 width-100">
 		<van-search
-			bind:input="onInput"
+			bind:change="onInput"
 			bind:search="onSearch"
 			class="padding-top-0"
 			data-prop="searchText"
