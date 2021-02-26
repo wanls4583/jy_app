@@ -29,7 +29,7 @@ Component({
         stopRefresh: false,
         page: 1,
         totalPage: -1,
-        lisResult: []
+        lisList: []
     },
     lifetimes: {
         attached() {
@@ -75,11 +75,7 @@ Component({
                 }
             })
             this.request.then((data) => {
-                var activeNames = [];
                 data = data.result;
-                data.rows.map((item, index) => {
-                    activeNames.push(index);
-                });
                 if (refresh) {
                     this.setData({
                         page: 1,
@@ -91,7 +87,6 @@ Component({
                     page: this.data.page + 1,
                     totalPage: data.totalPage,
                     lisList: this.data.lisList.concat(data.rows),
-                    activeNames: activeNames,
                 });
             }).finally(() => {
                 this.setData({

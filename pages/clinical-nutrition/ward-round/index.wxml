@@ -16,7 +16,7 @@
 			<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养耐受情况</view>
 			<view class="margin-top-30 padding-left-right-30">
 				<van-checkbox-group bind:change="onChange" data-prop="ward.tolerance_select" value="{{ward.tolerance_select}}">
-					<van-checkbox name="正常" shape="square">
+					<van-checkbox label-disabled name="正常" shape="square">
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">正常</view>
@@ -27,7 +27,7 @@
 							</view>
 						</view>
 					</van-checkbox>
-					<van-checkbox name="腹泻" shape="square">
+					<van-checkbox label-disabled name="腹泻" shape="square">
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">腹泻</view>
@@ -42,7 +42,7 @@
 							</view>
 						</view>
 					</van-checkbox>
-					<van-checkbox name="呕吐" shape="square">
+					<van-checkbox label-disabled name="呕吐" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">呕吐</view>
 							<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_count3" type="text" value="{{ward.tolerance_count3}}" />
@@ -51,7 +51,7 @@
 							<text class="flex-shrink-0">次/天，</text>
 						</view>
 					</van-checkbox>
-					<van-checkbox name="便秘" shape="square">
+					<van-checkbox label-disabled name="便秘" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">便秘</view>
 							<view class="flex">
@@ -65,7 +65,7 @@
 					<van-checkbox name="口感差" shape="square">口感差</van-checkbox>
 					<van-checkbox name="没有食欲" shape="square">没有食欲</van-checkbox>
 					<van-checkbox name="消化道出血" shape="square">消化道出血</van-checkbox>
-					<van-checkbox name="血糖偏高" shape="square">
+					<van-checkbox label-disabled name="血糖偏高" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color margin-right-30">血糖偏高</view>
 							<view>
@@ -86,7 +86,7 @@
 							</view>
 						</view>
 					</van-checkbox>
-					<van-checkbox name="不详" shape="square">
+					<van-checkbox label-disabled name="不详" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">不详，原因</view>
 							<input bindinput="onInput" class="border-bottom" data-prop="ward.tolerance_reason" type="text" value="{{ward.tolerance_reason}}" />
