@@ -292,11 +292,11 @@
 			<view class="padding-top-bottom-30 border-top" wx:if="{{doctorName}}">执行人：{{doctorName||''}}</view>
 		</view>
 	</view>
-</view>
-<view class="footer flex--center--around padding-30">
-	<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
-	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<10}}">下一页</view>
-	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==10}}">保存</view>
+	<view class="white-background-color position-absolute bottom-0 width-100 flex--center--around padding-30">
+		<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
+		<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<10}}">下一页</view>
+		<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==10}}">保存</view>
+	</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />

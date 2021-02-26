@@ -109,9 +109,9 @@
 			<textarea class="width-100 padding-30 border" data-prop="ward.changePlan_remark" value="{{ward.changePlan_remark}}"></textarea>
 		</view>
 	</view>
-</view>
-<view class="footer flex--center--around padding-30">
-	<view bindtap="onSave" class="button primary block">保存</view>
+	<view class="white-background-color position-absolute bottom-0 width-100 flex--center--around padding-30">
+		<view bindtap="onSave" class="button primary block">保存</view>
+	</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{checkDate}}" />

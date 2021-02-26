@@ -96,6 +96,3 @@
 		</view>
 	</view>
 </view>
-<view class="footer flex--center--around padding-30">
-	<view bindtap="onSave" class="button primary block">保存</view>
-</view>
