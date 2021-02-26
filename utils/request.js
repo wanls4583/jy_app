@@ -44,7 +44,7 @@ function request(obj) {
                     obj.success && obj.success(res.data);
                     resolve(res.data);
                 } else {
-                    if (!obj.hideTip) {
+                    if (!obj.hideTip && res.data.code != 401) {
                         setTimeout(() => { //延时提示，防止hideLoading干扰
                             res.data.msg && wx.jyApp.toast(res.data.msg);
                         }, 300);

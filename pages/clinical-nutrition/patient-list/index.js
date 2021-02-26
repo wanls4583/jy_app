@@ -12,7 +12,6 @@ Page({
         stopRefresh: false
     },
     onLoad() {
-        this.getPatientList();
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
@@ -42,7 +41,8 @@ Page({
                 method: 'patient',
                 patientId: this.data.patientId,
                 pageNum: refresh ? 1 : this.data.page,
-                pageSize: 20
+                pageSize: 20,
+                isInpatient: true
             }
         })
         this.request.then((data) => {

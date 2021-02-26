@@ -57,6 +57,7 @@ Component({
             integralEvaluation: 'SGA_A',
             result: 0
         },
+        doctorName: '',
         dateVisible: false,
         step: 1,
         weightChangeScoreMap: {
@@ -116,7 +117,12 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {},
+        _attached() {
+            var userInfo = wx.getStorageSync('mobileUserInfo');
+            this.setData({
+                'doctorName': userInfo.name
+            });
+        },
         onNext() {
             this.setData({
                 step: this.data.step + 1

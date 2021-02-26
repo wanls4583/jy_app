@@ -1,5 +1,5 @@
 {
-    "navigationBarTitleText": "NRS筛查",
+    "navigationBarTitleText": "NRS",
     "usingComponents": {
         "guidance": "/pages/clinical-nutrition/guidance/index",
         "pgsga": "/pages/clinical-nutrition/pgsga/index",

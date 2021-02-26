@@ -1,36 +1,36 @@
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
-			<van-tab title="NRS"></van-tab>
-			<van-tab title="PGSGA"></van-tab>
+			<van-tab title="NRS" wx:if="{{role=='医生'||role=='护士'}}"></van-tab>
+			<van-tab title="PGSGA" wx:if="{{role=='医生'}}"></van-tab>
 			<!-- <van-tab title="营养指导"></van-tab> -->
-			<van-tab title="营养病历"></van-tab>
-			<van-tab title="初次会诊"></van-tab>
-			<van-tab title="营养查房"></van-tab>
-			<van-tab title="生化检查"></van-tab>
+			<van-tab title="营养病历" wx:if="{{role=='医生'}}"></van-tab>
+			<van-tab title="初次会诊" wx:if="{{role=='医生'}}"></van-tab>
+			<van-tab title="营养查房" wx:if="{{role=='医生'}}"></van-tab>
+			<van-tab title="生化检查" wx:if="{{role=='医生'}}"></van-tab>
 		</van-tabs>
 	</view>
 	<view class="height-100" style="padding-top:44px">
 		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
-			<swiper-item item-id="nrs">
+			<swiper-item item-id="nrs" wx:if="{{role=='医生'||role=='护士'}}">
 				<nrs patient="{{patient}}" show="{{nrs}}"></nrs>
 			</swiper-item>
-			<swiper-item item-id="pgsga">
+			<swiper-item item-id="pgsga" wx:if="{{role=='医生'}}">
 				<pgsga patient="{{patient}}" show="{{pgsga}}"></pgsga>
 			</swiper-item>
-			<!-- <swiper-item>
+			<!-- <swiper-item wx:if="{{role=='医生'}}">
 				<guidance></guidance>
 			</swiper-item>-->
-			<swiper-item item-id="medicalRecord">
+			<swiper-item item-id="medicalRecord" wx:if="{{role=='医生'}}">
 				<medical-record show="{{medicalRecord}}"></medical-record>
 			</swiper-item>
-			<swiper-item item-id="firstConsult">
+			<swiper-item item-id="firstConsult" wx:if="{{role=='医生'}}">
 				<first-consult patient="{{patient}}" show="{{firstConsult}}"></first-consult>
 			</swiper-item>
-			<swiper-item item-id="wardRound">
+			<swiper-item item-id="wardRound" wx:if="{{role=='医生'}}">
 				<ward-round patient="{{patient}}" show="{{wardRound}}"></ward-round>
 			</swiper-item>
-			<swiper-item item-id="biochemical">
+			<swiper-item item-id="biochemical" wx:if="{{role=='医生'}}">
 				<biochemical patient="{{patient}}" show="{{biochemical}}"></biochemical>
 			</swiper-item>
 		</swiper>

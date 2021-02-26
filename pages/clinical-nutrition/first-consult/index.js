@@ -25,10 +25,10 @@ Component({
         }
     },
     data: {
+        doctorName: '',
         consult: {
             id: '',
             consultedDate: '',
-            doctorName: '',
             stature: '',
             weight: '',
             stomachSymptom_select: [],
@@ -91,7 +91,12 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {},
+        _attached() {
+            var userInfo = wx.getStorageSync('mobileUserInfo');
+            this.setData({
+                'doctorName': userInfo.name
+            });
+        },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
         },

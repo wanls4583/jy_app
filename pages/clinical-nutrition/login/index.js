@@ -56,11 +56,11 @@ Page({
             return;
         }
         if (!this.data.employeeId) {
-            wx.jyApp.toast('账号不能为空')
+            wx.jyApp.toast('请输入用户名')
             return;
         }
         if (!this.data.password) {
-            wx.jyApp.toast('密码不能为空')
+            wx.jyApp.toast('请输入密码')
             return;
         }
         wx.jyApp.showLoading('登录中...', true);
@@ -78,6 +78,7 @@ Page({
                     }
                 }).then((data) => {
                     wx.setStorageSync('mobileToken', data.token);
+                    wx.setStorageSync('mobileUserInfo', data.info);
                     wx.jyApp.utils.navigateTo({
                         url: '/pages/clinical-nutrition/patient-list/index'
                     });

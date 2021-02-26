@@ -2,7 +2,7 @@
 	<view class="position-absolute top-0 bottom-0 width-100 overflow-auto" style="bottom:140rpx">
 		<view class="white-background-color padding-top-bottom-30">
 			<readonly-field bindtap="onShowDate" label="会诊日期" value="{{consult.consultedDate}}"></readonly-field>
-			<readonly-field label="营养(医)师" value="{{consult.doctorName}}"></readonly-field>
+			<readonly-field label="营养(医)师" value="{{doctorName}}"></readonly-field>
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">基本资料</view>

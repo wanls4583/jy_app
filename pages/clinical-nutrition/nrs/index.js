@@ -35,7 +35,8 @@ Component({
             result: 0,
             resultDescription: '',
         },
-        dateVisible: false
+        dateVisible: false,
+        doctorName: ''
     },
     lifetimes: {
         attached() {
@@ -46,7 +47,12 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {},
+        _attached() {
+            var userInfo = wx.getStorageSync('mobileUserInfo');
+            this.setData({
+                'doctorName': userInfo.name
+            });
+        },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
             this.setBMI();
