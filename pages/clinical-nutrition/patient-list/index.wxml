@@ -1,5 +1,12 @@
 <view class="container">
-	<van-search bindtap="onGotoSearch" class="position-absolute top-0 width-100" data-prop="patientId" placeholder="请输入姓名/住院号/就诊卡号" shape="round" />
+	<van-search
+		bind:change="onInput"
+		bind:search="onRefresh"
+		class="position-absolute top-0 width-100"
+		data-prop="patientId"
+		placeholder="请输入姓名/住院号/就诊卡号"
+		shape="round"
+	/>
 	<view class="height-100" style="padding-top:54px">
 		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
 			<view class="white-background-color padding-left-right-30">

@@ -14,9 +14,8 @@ Page({
     onLoad() {
         this.getPatientList();
     },
-    onGotoSearch() {
+    onInput(e) {
         wx.jyApp.utils.onInput(e, this);
-        this.onRefresh();
     },
     onGoto(e) {
         var item = e.currentTarget.dataset.item;

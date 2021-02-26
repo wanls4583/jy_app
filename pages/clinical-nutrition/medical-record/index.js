@@ -7,6 +7,28 @@ Component({
     options: {
         styleIsolation: 'apply-shared'
     },
+    properties: {
+        show: {
+            type: Boolean,
+            value: false,
+            observer: function (newVal, oldVal) {
+                if (newVal) {
+                    var self = this;
+                    _waitData();
+
+                    function _waitData() {
+                        if (wx.jyApp.getTempData('medicalRecord')) {
+                            self.loadData();
+                        } else {
+                            setTimeout(() => {
+                                _waitData();
+                            }, 100);
+                        }
+                    }
+                }
+            }
+        }
+    },
     data: {
         medicalRecord: null
     },
@@ -19,20 +41,7 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {
-            var self = this;
-            _waitData();
-
-            function _waitData() {
-                if (wx.jyApp.getTempData('medicalRecord')) {
-                    self.loadData();
-                } else {
-                    setTimeout(() => {
-                        _waitData();
-                    }, 100);
-                }
-            }
-        },
+        _attached() {},
         loadData() {
             var medicalRecord = wx.jyApp.getTempData('medicalRecord');
             for (var key in medicalRecord) {

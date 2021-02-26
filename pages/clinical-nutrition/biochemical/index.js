@@ -12,6 +12,17 @@ Component({
             type: Object,
             value: {}
         },
+        show: {
+            type: Boolean,
+            value: false,
+            observer: function (newVal, oldVal) {
+                if (newVal) {
+                    wx.nextTick(() => {
+                        this.loadList();
+                    });
+                }
+            }
+        }
     },
     data: {
         activeNames: [],
@@ -29,11 +40,7 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {
-            wx.nextTick(()=>{
-                this.loadList();
-            });
-        },
+        _attached() {},
         onCollapseChange(event) {
             var activeNames = event.detail;
             if (activeNames.length) {

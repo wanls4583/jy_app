@@ -6,6 +6,12 @@
 Page({
     data: {
         active: 0,
+        nrs: true,
+        pgsga: false,
+        medicalRecord: false,
+        firstConsult: false,
+        wardRound: false,
+        biochemical: false,
     },
     onLoad(option) {
         this.inHospitalNumber = option.inHospitalNumber;
@@ -25,7 +31,8 @@ Page({
     },
     onChangeSwiper(e) {
         this.setData({
-            active: e.detail.current
+            active: e.detail.current,
+            [e.detail.currentItemId]: true
         });
     },
     loadPatientDocument() {

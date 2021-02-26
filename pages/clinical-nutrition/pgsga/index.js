@@ -7,6 +7,17 @@ Component({
             type: Object,
             value: {}
         },
+        show: {
+            type: Boolean,
+            value: false,
+            observer: function (newVal, oldVal) {
+                if (newVal) {
+                    wx.nextTick(() => {
+                        this.loadInfo();
+                    });
+                }
+            }
+        }
     },
     data: {
         filtrateDate: new Date().getTime(),
@@ -105,11 +116,7 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {
-            wx.nextTick(() => {
-                this.loadInfo();
-            })
-        },
+        _attached() {},
         onNext() {
             this.setData({
                 step: this.data.step + 1
