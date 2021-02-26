@@ -25,7 +25,7 @@
 			</view>
 			<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>
 			<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
-				<empty description="暂无消息通知" />
+				<empty description="暂无患者" />
 			</view>
 			<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 		</pull-scroll-view>

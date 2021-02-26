@@ -9,7 +9,7 @@
 				<text>，{{patient.sickbed}}床</text>
 			</view>
 		</view>
-		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{ward.checkDate}}" />
+		<readonly-field bindtap="onShowDate" label="查房时间" value="{{ward.checkDate}}" />
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养耐受情况</view>
