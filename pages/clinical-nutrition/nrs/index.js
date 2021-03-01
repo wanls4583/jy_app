@@ -215,6 +215,11 @@ Component({
                     'nrs.BMI': BMI,
                     'nrs.bmiLessThan': BMI < 18.5 ? 3 : 0
                 });
+            } else {
+                this.setData({
+                    'nrs.BMI': '',
+                    'nrs.bmiLessThan': null
+                });
             }
 
             function _getBMI(stature, weight) {
@@ -272,7 +277,7 @@ Component({
             var data = {
                 id: nrs.id,
                 filtratedDate: nrs.filtratedDate,
-                bmiLessThan: nrs.bmi && nrs.bmiLessThan ? 3 : 0,
+                bmiLessThan: null,
                 stature: nrs.stature,
                 weight: nrs.weight,
                 BMI: nrs.bmi,
@@ -282,6 +287,9 @@ Component({
                 ageGe70: nrs.ageGe70 ? 1 : 0,
                 result: nrs.score,
                 resultDescription: nrs.handle,
+            }
+            if (nrs.bmi) {
+                data.bmiLessThan = nrs.bmiLessThan ? 3 : 0;
             }
             if (nrs.foodIntake) {
                 data.foodIntake = 0;
@@ -402,7 +410,7 @@ Component({
         },
         save() {
             var data = this.getSaveData();
-            if(!data.filtratedDate) {
+            if (!data.filtratedDate) {
                 wx.jyApp.toast('请填写筛查日期');
                 return;
             }
@@ -430,7 +438,7 @@ Component({
                         this.nowId = _data.result.data;
                     }
                     this.loadList();
-                }).catch(()=>{
+                }).catch(() => {
                     wx.hideLoading();
                 }).finally(() => {
                     this.sendRiskNotice = false;
