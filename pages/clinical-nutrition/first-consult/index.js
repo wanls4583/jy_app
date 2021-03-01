@@ -260,7 +260,9 @@ Component({
                         })
                     }
                 }).then(() => {
-                    wx.jyApp.toast('保存成功');
+                    setTimeout(()=>{
+                        wx.jyApp.toast('保存成功');
+                    });
                 }).finally(() => {
                     wx.hideLoading();
                 });

@@ -220,7 +220,9 @@ Component({
                         })
                     }
                 }).then((_data) => {
-                    wx.jyApp.toast('保存成功');
+                    setTimeout(()=>{
+                        wx.jyApp.toast('保存成功');
+                    });
                     if (!data.id) {
                         this.setData({
                             'ward.id': _data.result.data
