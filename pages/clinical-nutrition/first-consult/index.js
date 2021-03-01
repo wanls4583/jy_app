@@ -124,6 +124,7 @@ Component({
             });
         },
         loadInfo() {
+            wx.jyApp.showLoading('加载中...', true);
             return wx.jyApp.http({
                 type: 'mobile',
                 url: '/app/nutrition/query',
@@ -133,8 +134,12 @@ Component({
                     isInpatient: this.properties.patient.isInpatient
                 }
             }).then((data) => {
-                data = data.result;
-                this.setInfo(data);
+                if (data.result) {
+                    data = data.result;
+                    this.setInfo(data);
+                }
+            }).finally(()=>{
+                wx.hideLoading();
             });
         },
         setInfo(consult) {

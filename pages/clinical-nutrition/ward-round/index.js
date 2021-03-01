@@ -18,36 +18,19 @@ Component({
             observer: function (newVal, oldVal) {
                 if (newVal) {
                     wx.nextTick(() => {
-                        this.loadInfo();
+                        this.onAdd();
+                        this.loadList(true);
                     });
                 }
             }
         }
     },
     data: {
-        checkDate: new Date().getTime(),
         dateVisible: false,
-        ward: {
-            id: '',
-            checkDate: new Date().formatTime('yyyy-MM-dd'),
-            tolerance_select: [],
-            tolerance_count1: '',
-            tolerance_count2: '',
-            tolerance_count3: '',
-            tolerance_ml1: '',
-            tolerance_ml2: '',
-            tolerance_ml3: '',
-            tolerance_xingzhuang: '',
-            tolerance_day: '',
-            tolerance_mmol1: '',
-            tolerance_mmol2: '',
-            tolerance_mmol3: '',
-            tolerance_mmol3: '',
-            tolerance_reason: '',
-            tolerance_remark: '',
-            changePlan_select: [],
-            changePlan_remark: ''
-        }
+        checkDate: 0,
+        ward: {},
+        listVisible: false,
+        dataList: [],
     },
     lifetimes: {
         attached() {
@@ -62,6 +45,11 @@ Component({
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
         },
+        onShowList() {
+            this.setData({
+                listVisible: !this.data.listVisible
+            });
+        },
         onShowDate() {
             this.setData({
                 dateVisible: true
@@ -70,7 +58,7 @@ Component({
         onConfirmDate(e) {
             var checkDate = new Date(e.detail).formatTime('yyyy-MM-dd');
             this.setData({
-                'nrs.checkDate': checkDate,
+                'ward.checkDate': checkDate,
                 dateVisible: false
             });
         },
@@ -85,7 +73,72 @@ Component({
                 [`${prop}`]: e.detail,
             });
         },
-        loadInfo(id) {
+        onAdd() {
+            this.setData({
+                checkDate: new Date().getTime(),
+                ward: {
+                    id: '',
+                    checkDate: new Date().formatTime('yyyy-MM-dd'),
+                    tolerance_select: [],
+                    tolerance_count1: '',
+                    tolerance_count2: '',
+                    tolerance_count3: '',
+                    tolerance_ml1: '',
+                    tolerance_ml2: '',
+                    tolerance_ml3: '',
+                    tolerance_xingzhuang: '',
+                    tolerance_day: '',
+                    tolerance_mmol1: '',
+                    tolerance_mmol2: '',
+                    tolerance_mmol3: '',
+                    tolerance_mmol3: '',
+                    tolerance_reason: '',
+                    tolerance_remark: '',
+                    changePlan_select: [],
+                    changePlan_remark: ''
+                },
+            })
+        },
+        onSetInfo(e) {
+            var item = e.currentTarget.dataset.item;
+            this.setInfo(item);
+            this.setData({
+                listVisible: false
+            });
+        },
+        onDelete(e) {
+            var id = e.currentTarget.dataset.id;
+            wx.jyApp.dialog.confirm({
+                message: '确认删除？'
+            }).then(() => {
+                wx.jyApp.showLoading('删除中...', true);
+                wx.jyApp.http({
+                    type: 'mobile',
+                    method: 'get',
+                    url: '/app/nutrition/delete',
+                    data: {
+                        method: 'checkWard',
+                        id: id
+                    }
+                }).then(() => {
+                    wx.jyApp.toast('删除成功');
+                    this.data.dataList = this.data.dataList.filter((item) => {
+                        return item.id != id;
+                    });
+                    this.setData({
+                        listVisible: false,
+                        dataList: this.data.dataList
+                    });
+                    if (this.nowId == id) {
+                        this.setInfo(this.data.dataList[0]);
+                    }
+                }).finally(() => {
+                    wx.hideLoading();
+                });
+            });
+        },
+        loadList(refresh) {
+            refresh && wx.jyApp.showLoading('加载中', true);
             return wx.jyApp.http({
                 type: 'mobile',
                 url: '/app/nutrition/query',
@@ -95,11 +148,18 @@ Component({
                     isInpatient: this.properties.patient.isInpatient
                 }
             }).then((data) => {
-                data = data.result.rows[0];
-                this.setInfo(data);
+                this.setData({
+                    dataList: data.result.rows
+                });
+                if (!this.nowId) {
+                    this.setInfo(data.result.rows[0]);
+                }
+            }).finally(() => {
+                refresh && wx.hideLoading();
             });
         },
         setInfo(ward) {
+            this.nowId = ward.id;
             var data = Object.assign({}, ward);
             var tolerance = JSON.parse(data.tolerance);
             var changePlan = JSON.parse(data.changePlan);
@@ -159,8 +219,15 @@ Component({
                             ...data
                         })
                     }
-                }).then(() => {
+                }).then((_data) => {
                     wx.jyApp.toast('保存成功');
+                    if (!data.id) {
+                        this.setData({
+                            'ward.id': _data.result.data
+                        });
+                        this.nowId = _data.result.data;
+                        this.loadList();
+                    }
                 }).finally(() => {
                     wx.hideLoading();
                 });

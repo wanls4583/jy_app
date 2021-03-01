@@ -51,6 +51,7 @@ function request(obj) {
                     }
                     reject(res.data);
                     if (obj.type != 'mobile' && (res.data.code == 401 || !wx.jyApp.store.userInfo)) { //未登陆
+                        wx.removeStorageSync('token');
                         clearTimeout(wx.reLaunchTimer);
                         wx.reLaunchTimer = setTimeout(() => {
                             wx.reLaunch({
@@ -58,7 +59,8 @@ function request(obj) {
                             });
                         }, 1000);
                     }
-                    if(obj.type == 'mobile' && res.data.code == 401) {
+                    if (obj.type == 'mobile' && res.data.code == 401) {
+                        wx.removeStorageSync('mobileToken');
                         wx.reLaunch({
                             url: '/pages/clinical-nutrition/login/index'
                         });

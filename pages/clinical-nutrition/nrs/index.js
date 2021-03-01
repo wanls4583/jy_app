@@ -56,25 +56,6 @@ Component({
                 dateVisible: true
             });
         },
-        onAdd() {
-            this.setData({
-                filtratedDate: new Date().getTime(),
-                nrs: {
-                    id: '',
-                    filtratedDate: new Date().formatTime('yyyy-MM-dd'),
-                    bmiLessThan: '',
-                    stature: '',
-                    weight: '',
-                    BMI: '',
-                    loseWeight: null,
-                    foodIntake: null,
-                    needNormal: null,
-                    ageGe70: this.properties.patient.age >= 70 ? 1 : 0,
-                    result: this.properties.patient.age >= 70 ? 1 : 0,
-                    resultDescription: '建议每周重新评估患者的营养状况',
-                }
-            });
-        },
         onConfirmDate(e) {
             var filtratedDate = new Date(e.detail).formatTime('yyyy-MM-dd');
             this.setData({
@@ -93,6 +74,25 @@ Component({
                 [`${prop}`]: e.detail,
             });
             this.countScore();
+        },
+        onAdd() {
+            this.setData({
+                filtratedDate: new Date().getTime(),
+                nrs: {
+                    id: '',
+                    filtratedDate: new Date().formatTime('yyyy-MM-dd'),
+                    bmiLessThan: '',
+                    stature: '',
+                    weight: '',
+                    BMI: '',
+                    loseWeight: null,
+                    foodIntake: null,
+                    needNormal: null,
+                    ageGe70: this.properties.patient.age >= 70 ? 1 : 0,
+                    result: this.properties.patient.age >= 70 ? 1 : 0,
+                    resultDescription: '建议每周重新评估患者的营养状况',
+                }
+            });
         },
         onSetInfo(e) {
             var item = e.currentTarget.dataset.item;
@@ -196,7 +196,7 @@ Component({
             var data = {
                 id: nrs.id,
                 filtratedDate: nrs.filtratedDate,
-                bmiLessThan: nrs.bmiLessThan ? 3 : 0,
+                bmiLessThan: nrs.bmi && nrs.bmiLessThan ? 3 : 0,
                 stature: nrs.stature,
                 weight: nrs.weight,
                 BMI: nrs.bmi,

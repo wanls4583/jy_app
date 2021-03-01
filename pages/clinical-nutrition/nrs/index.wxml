@@ -9,7 +9,7 @@
 			<view class="margin-left-30 pre-vertical-line primary-line-color">人体测量</view>
 			<van-field bind:input="onInput" data-prop="nrs.stature" label="身高(cm)" value="{{nrs.stature}}" />
 			<van-field bind:input="onInput" data-prop="nrs.weight" label="体重(kg)" value="{{nrs.weight}}" />
-			<van-field label="体质指数(BMI)" title-width="7em" value="{{nrs.BMI}}" />
+			<readonly-field label="体质指数(BMI)" title-width="7em" value="{{nrs.BMI}}" />
 			<view class="flex padding-30">
 				<view class="label" style="width:7em">体质指数评分</view>
 				<van-radio-group value="{{nrs.bmiLessThan}}">
@@ -95,3 +95,4 @@
 		</view>
 	</view>
 </van-popup>
+<van-dialog id="van-dialog"></van-dialog>

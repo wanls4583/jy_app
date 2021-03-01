@@ -33,7 +33,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/clinical-nutrition/patient-list/index">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/clinical-nutrition/login/index">
 				<text>营养系统</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />

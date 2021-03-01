@@ -143,13 +143,6 @@ Component({
             }
             this.countScore();
         },
-        onSetInfo(e) {
-            var item = e.currentTarget.dataset.item;
-            this.setInfo(item);
-            this.setData({
-                listVisible: false
-            });
-        },
         onAdd() {
             this.setData({
                 filtratedDate: new Date().getTime(),
@@ -189,6 +182,13 @@ Component({
                     integralEvaluation: 'SGA_A',
                     result: 0
                 }
+            });
+        },
+        onSetInfo(e) {
+            var item = e.currentTarget.dataset.item;
+            this.setInfo(item);
+            this.setData({
+                listVisible: false
             });
         },
         onDelete(e) {
