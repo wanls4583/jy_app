@@ -51,7 +51,7 @@
 		<view class="margin-left-30 pre-vertical-line primary-line-color">疾病评分</view>
 		<view class="flex padding-30">
 			<van-radio-group bind:change="onChange" data-prop="nrs.needNormal" value="{{nrs.needNormal}}">
-				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
+				<van-radio name="{{0}}">无以下疾病（0分）</van-radio>
 				<van-radio name="{{1}}">髋骨折、慢性疾病急性发作或有并发症、慢性阻塞性肺病、血液透析、肝硬化、一般恶性肿瘤、糖尿病（1分）</van-radio>
 				<van-radio name="{{2}}">腹部大手术、脑卒中、重度肺炎、血液恶性肿瘤（2分）</van-radio>
 				<van-radio name="{{3}}">颅脑损伤、骨髓移植、APACHE-II评分>10分ICU患者（3分）</van-radio>
