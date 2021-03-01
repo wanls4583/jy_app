@@ -226,8 +226,8 @@ Component({
                             'ward.id': _data.result.data
                         });
                         this.nowId = _data.result.data;
-                        this.loadList();
                     }
+                    this.loadList();
                 }).finally(() => {
                     wx.hideLoading();
                 });

@@ -428,8 +428,8 @@ Component({
                             'nrs.id': _data.result.data
                         });
                         this.nowId = _data.result.data;
-                        this.loadList();
                     }
+                    this.loadList();
                 }).catch(()=>{
                     wx.hideLoading();
                 }).finally(() => {
