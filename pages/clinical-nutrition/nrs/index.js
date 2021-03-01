@@ -23,7 +23,7 @@ Component({
     data: {
         dateVisible: false,
         listVisible: false,
-        nrsList: [],
+        dataList: [],
         doctorName: ''
     },
     lifetimes: {
@@ -94,7 +94,7 @@ Component({
             });
             this.countScore();
         },
-        onShowInfo(e) {
+        onSetInfo(e) {
             var item = e.currentTarget.dataset.item;
             this.setInfo(item);
             this.setData({
@@ -117,15 +117,15 @@ Component({
                     }
                 }).then(() => {
                     wx.jyApp.toast('删除成功');
-                    this.data.nrsList = this.data.nrsList.filter((item) => {
+                    this.data.dataList = this.data.dataList.filter((item) => {
                         return item.id != id;
                     });
                     this.setData({
                         listVisible: false,
-                        nrsList: this.data.nrsList
+                        dataList: this.data.dataList
                     });
                     if (this.nowId == id) {
-                        this.setInfo(this.data.nrsList[0]);
+                        this.setInfo(this.data.dataList[0]);
                     }
                 }).finally(() => {
                     wx.hideLoading();
@@ -178,7 +178,7 @@ Component({
                     item.filtratedDate = item.filtratedDate && new Date(item.filtratedDate).formatTime('yyyy-MM-dd') || ''
                 });
                 this.setData({
-                    nrsList: data.result.rows
+                    dataList: data.result.rows
                 });
                 if (!this.nowId) {
                     this.setInfo(data.result.rows[0]);

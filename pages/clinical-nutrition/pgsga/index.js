@@ -13,52 +13,20 @@ Component({
             observer: function (newVal, oldVal) {
                 if (newVal) {
                     wx.nextTick(() => {
-                        this.loadInfo();
+                        this.onAdd();
+                        this.loadList(true);
                     });
                 }
             }
         }
     },
     data: {
-        filtratedDate: new Date().getTime(),
-        pgsga: {
-            id: '',
-            filtratedDate: new Date().formatTime('yyyy-MM-dd'),
-            currentWeight: '',
-            currentStature: '',
-            weightOneMouthAgo: '',
-            weightSixMouthAgo: '',
-            weightChange: '',
-            dieteticChange: [],
-            appetiteChange: '',
-            symptom: [],
-            wherePained: '',
-            other: '',
-            physicalCondition: '',
-            mainDiagnosis: '',
-            mainDeseasePeriod: '',
-            otherMainDeseasePeriod: '',
-            metabolismStatus: null,
-            fatOfCheek: null,
-            fatOfTriceps: null,
-            fatOfRib: null,
-            fatOfLack: null,
-            muscleOfTempora: null,
-            muscleOfCollarbone: null,
-            muscleOfShoulder: null,
-            muscleBewteenBones: null,
-            muscleOfScapula: null,
-            muscleOfThigh: null,
-            muscleOfTotalGrade: null,
-            edemaOfAnkle: null,
-            edemaOfShin: null,
-            edemaOfAbdominal: null,
-            edemaOfTotalGrade: null,
-            integralEvaluation: 'SGA_A',
-            result: 0
-        },
+        filtratedDate: null,
+        pgsga: {},
+        dataList: [],
         doctorName: '',
         dateVisible: false,
+        listVisible: false,
         step: 1,
         weightChangeScoreMap: {
             'NO_CHANGE': 0,
@@ -141,6 +109,11 @@ Component({
             wx.jyApp.utils.onInputNum(e, this);
             this.countScore();
         },
+        onShowList() {
+            this.setData({
+                listVisible: !this.data.listVisible
+            });
+        },
         onShowDate() {
             this.setData({
                 dateVisible: true
@@ -169,6 +142,85 @@ Component({
                 });
             }
             this.countScore();
+        },
+        onSetInfo(e) {
+            var item = e.currentTarget.dataset.item;
+            this.setInfo(item);
+            this.setData({
+                listVisible: false
+            });
+        },
+        onAdd() {
+            this.setData({
+                filtratedDate: new Date().getTime(),
+                pgsga: {
+                    id: '',
+                    filtratedDate: new Date().formatTime('yyyy-MM-dd'),
+                    currentWeight: '',
+                    currentStature: '',
+                    weightOneMouthAgo: '',
+                    weightSixMouthAgo: '',
+                    weightChange: '',
+                    dieteticChange: [],
+                    appetiteChange: '',
+                    symptom: [],
+                    wherePained: '',
+                    other: '',
+                    physicalCondition: '',
+                    mainDiagnosis: '',
+                    mainDeseasePeriod: '',
+                    otherMainDeseasePeriod: '',
+                    metabolismStatus: null,
+                    fatOfCheek: null,
+                    fatOfTriceps: null,
+                    fatOfRib: null,
+                    fatOfLack: null,
+                    muscleOfTempora: null,
+                    muscleOfCollarbone: null,
+                    muscleOfShoulder: null,
+                    muscleBewteenBones: null,
+                    muscleOfScapula: null,
+                    muscleOfThigh: null,
+                    muscleOfTotalGrade: null,
+                    edemaOfAnkle: null,
+                    edemaOfShin: null,
+                    edemaOfAbdominal: null,
+                    edemaOfTotalGrade: null,
+                    integralEvaluation: 'SGA_A',
+                    result: 0
+                }
+            });
+        },
+        onDelete(e) {
+            var id = e.currentTarget.dataset.id;
+            wx.jyApp.dialog.confirm({
+                message: '确认删除？'
+            }).then(() => {
+                wx.jyApp.showLoading('删除中...', true);
+                wx.jyApp.http({
+                    type: 'mobile',
+                    method: 'get',
+                    url: '/app/nutrition/delete',
+                    data: {
+                        method: 'pgsga',
+                        id: id
+                    }
+                }).then(() => {
+                    wx.jyApp.toast('删除成功');
+                    this.data.dataList = this.data.dataList.filter((item) => {
+                        return item.id != id;
+                    });
+                    this.setData({
+                        listVisible: false,
+                        dataList: this.data.dataList
+                    });
+                    if (this.nowId == id) {
+                        this.setInfo(this.data.dataList[0]);
+                    }
+                }).finally(() => {
+                    wx.hideLoading();
+                });
+            });
         },
         //计算总分
         countScore() {
@@ -304,9 +356,10 @@ Component({
             if (!pgsga) {
                 return;
             }
+            this.nowId = pgsga.id;
             var data = {
                 id: pgsga.id,
-                filtratedDate: pgsga.filtratedDate && new Date(pgsga.filtratedDate).formatTime('yyyy-MM-dd') || '',
+                filtratedDate: pgsga.filtratedDate,
                 currentWeight: pgsga.currentWeight,
                 currentStature: pgsga.currentStature,
                 weightOneMouthAgo: pgsga.weightOneMouthAgo,
@@ -378,7 +431,7 @@ Component({
             }
             this.setData({
                 pgsga: data,
-                filtratedDate: pgsga.filtratedDate,
+                filtratedDate: pgsga.originDate,
                 doctorName: pgsga.doctorName
             })
         },
@@ -440,18 +493,31 @@ Component({
             }
             return data;
         },
-        loadInfo() {
+        loadList(refresh) {
+            refresh && wx.jyApp.showLoading('加载中', true);
             return wx.jyApp.http({
                 type: 'mobile',
                 url: '/app/nutrition/query',
                 data: {
                     method: 'pgsga',
                     inHospitalNumber: this.properties.patient.inHospitalNumber,
-                    isInpatient: this.properties.patient.isInpatient
+                    isInpatient: this.properties.patient.isInpatient,
+                    pageNum: 1,
+                    pageSize: 1000
                 }
             }).then((data) => {
-                data = data.result.rows[0];
-                this.setInfo(data);
+                data.result.rows.map((item) => {
+                    item.originDate = item.filtratedDate;
+                    item.filtratedDate = item.filtratedDate && new Date(item.filtratedDate).formatTime('yyyy-MM-dd') || ''
+                });
+                this.setData({
+                    dataList: data.result.rows || []
+                });
+                if (!this.nowId) {
+                    this.setInfo(data.result.rows[0]);
+                }
+            }).finally(() => {
+                refresh && wx.hideLoading();
             });
         },
         onSave() {
@@ -470,11 +536,18 @@ Component({
                             ...data
                         })
                     }
-                }).then(() => {
+                }).then((_data) => {
                     this.setData({
                         step: 1
                     });
                     wx.jyApp.toast('保存成功');
+                    if (!data.id) {
+                        this.setData({
+                            'pgsga.id': _data.result.data
+                        });
+                        this.nowId = _data.result.data;
+                        this.loadList();
+                    }
                 }).finally(() => {
                     wx.hideLoading();
                 });

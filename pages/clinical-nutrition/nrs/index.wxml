@@ -86,10 +86,10 @@
 		<van-icon bindtap="onShowList" name="cross" />
 	</view>
 	<view class="padding-left-right-30">
-		<view class="flex--center--between border-bottom" wx:for="{{nrsList}}" wx:key="id">
+		<view class="flex--center--between border-bottom" wx:for="{{dataList}}" wx:key="id">
 			<text>{{item.filtratedDate}}</text>
 			<view class="flex primary-color">
-				<view bindtap="onShowInfo" class="padding-30" data-item="{{item}}">查看</view>
+				<view bindtap="onSetInfo" class="padding-30" data-item="{{item}}">查看</view>
 				<view bindtap="onDelete" class="padding-30" data-id="{{item.id}}">删除</view>
 			</view>
 		</view>
