@@ -22,6 +22,9 @@ Page({
             detail._sex = detail.sex == 1 ? '男' : '女';
             detail.orderTime = detail.orderTime && detail.orderTime.slice(0, 10);
             detail.goods && detail.goods.map((item) => {
+                if(item.type == 1) {
+                    item.goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
+                }
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                 item._unit = wx.jyApp.constData.giveWayMap[item.giveWay];

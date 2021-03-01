@@ -34,6 +34,9 @@ Page({
         } else if (guideOrderDetail) { //修改
             this.setData({
                 goodsList: guideOrderDetail.goods.map((item) => {
+                    if(item.type == 1) {
+                        item.goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
+                    }
                     item.price = item.price || item.amount / item.count;
                     item.standardNum = item.standardNum || item.items[0].standardNum;
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
@@ -69,6 +72,9 @@ Page({
             var arr = this.data.goodsList.filter((item) => {
                 return item.type == usageGoods.type && item.id == usageGoods.id;
             });
+            if(usageGoods.type == 1) {
+                usageGoods.goodsName = `${usageGoods.goodsName}(${usageGoods.standardNum}${wx.jyApp.constData.unitChange[usageGoods.standardUnit]}/${wx.jyApp.constData.unitChange[usageGoods.unit]})`;
+            }
             if (!arr.length) {
                 this.data.goodsList.push(usageGoods);
             } else {

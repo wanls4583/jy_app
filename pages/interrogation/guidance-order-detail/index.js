@@ -215,6 +215,9 @@ Page({
             data.detail.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(data.detail.status) > -1;
             data.detail.delVisible = [10, 11].indexOf(data.detail.status) > -1;
             data.detail.goods.map((item) => {
+                if(item.type == 1) {
+                    item.goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
+                }
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];
                 item._giveWay = wx.jyApp.constData.giveWayMap[item.giveWay];
                 item._unit = wx.jyApp.constData.giveWayMap[item.giveWay];
