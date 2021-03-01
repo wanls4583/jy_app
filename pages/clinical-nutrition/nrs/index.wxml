@@ -1,15 +1,8 @@
+<import src="../template/patient.wxml" />
 <view class="container">
 	<view class="position-absolute top-0 bottom-0 width-100 overflow-auto" style="bottom:140rpx">
 		<view class="white-background-color">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-30 border-bottom">
-					<text>{{patient.patientName}}</text>
-					<text>，{{patient._sex}}</text>
-					<text>，{{patient.age}}岁</text>
-					<text>，{{patient.departmentName}}</text>
-					<text>，{{patient.sickbed}}床</text>
-				</view>
-			</view>
+			<template is="patient" data="{{patient:patient}}"></template>
 			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtratedDate}}" />
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">

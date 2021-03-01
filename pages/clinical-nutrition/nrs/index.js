@@ -13,7 +13,8 @@ Component({
             observer: function (newVal, oldVal) {
                 if (newVal) {
                     wx.nextTick(() => {
-                        this.loadInfo();
+                        this.onAdd();
+                        this.loadList(true);
                     });
                 }
             }
@@ -39,7 +40,6 @@ Component({
             this.setData({
                 'doctorName': userInfo.name
             });
-            this.onAdd();
         },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
@@ -69,11 +69,11 @@ Component({
                     loseWeight: null,
                     foodIntake: null,
                     needNormal: null,
-                    ageGe70: null,
-                    result: 0,
-                    resultDescription: '',
+                    ageGe70: this.properties.patient.age >= 70 ? 1 : 0,
+                    result: this.properties.patient.age >= 70 ? 1 : 0,
+                    resultDescription: '建议每周重新评估患者的营养状况',
                 }
-            })
+            });
         },
         onConfirmDate(e) {
             var filtratedDate = new Date(e.detail).formatTime('yyyy-MM-dd');
@@ -162,7 +162,8 @@ Component({
                 return Number(num > 0 ? num : 0);
             }
         },
-        loadInfo(id) {
+        loadList(refresh) {
+            refresh && wx.jyApp.showLoading('加载中', true);
             return wx.jyApp.http({
                 type: 'mobile',
                 url: '/app/nutrition/query',
@@ -179,7 +180,11 @@ Component({
                 this.setData({
                     nrsList: data.result.rows
                 });
-                this.setInfo(data.result.rows[0]);
+                if (!this.nowId) {
+                    this.setInfo(data.result.rows[0]);
+                }
+            }).finally(() => {
+                refresh && wx.hideLoading();
             });
         },
         //数据转换(兼容营养系统)
@@ -189,6 +194,7 @@ Component({
             }
             this.nowId = nrs.id;
             var data = {
+                id: nrs.id,
                 filtratedDate: nrs.filtratedDate,
                 bmiLessThan: nrs.bmiLessThan ? 3 : 0,
                 stature: nrs.stature,
@@ -321,8 +327,15 @@ Component({
                             ...data
                         })
                     }
-                }).then(() => {
+                }).then((_data) => {
                     wx.jyApp.toast('保存成功');
+                    if (!data.id) {
+                        this.setData({
+                            'nrs.id': _data.result.data
+                        });
+                        this.nowId = _data.result.data;
+                        this.loadList();
+                    }
                 }).finally(() => {
                     wx.hideLoading();
                 });
