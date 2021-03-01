@@ -30,7 +30,8 @@ Component({
         }
     },
     data: {
-        medicalRecord: null
+        medicalRecord: null,
+        activeNames: ['1', '2', '3', '4']
     },
     lifetimes: {
         attached() {
@@ -42,6 +43,11 @@ Component({
     },
     methods: {
         _attached() {},
+        onCollapseChange(event) {
+            this.setData({
+                activeNames: event.detail,
+            });
+        },
         loadData() {
             var medicalRecord = wx.jyApp.getTempData('medicalRecord');
             for (var key in medicalRecord) {
