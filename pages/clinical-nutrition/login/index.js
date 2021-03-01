@@ -97,7 +97,7 @@ Page({
                 }).then((data) => {
                     wx.setStorageSync('mobileToken', data.token);
                     wx.setStorageSync('mobileUserInfo', data.info);
-                    wx.jyApp.utils.navigateTo({
+                    wx.redirectTo({
                         url: '/pages/clinical-nutrition/patient-list/index'
                     });
                 }).finally(() => {
