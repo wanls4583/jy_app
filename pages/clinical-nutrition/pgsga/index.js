@@ -27,6 +27,17 @@ Component({
         doctorName: '',
         dateVisible: false,
         listVisible: false,
+        choiceVisible: false,
+        departVisible: false,
+        userVisible: false,
+        departmentList: [],
+        userList: [],
+        receiveDepartmentName: '',
+        receiveDepartment: '',
+        receiverName: '',
+        receiver: '',
+        defaultDepartmentindex: 0,
+        defaultUserindex: 0,
         step: 1,
         weightChangeScoreMap: {
             'NO_CHANGE': 0,
@@ -87,9 +98,24 @@ Component({
     methods: {
         _attached() {
             var userInfo = wx.getStorageSync('mobileUserInfo');
+            this.userInfo = userInfo;
             this.setData({
-                'doctorName': userInfo.name
+                doctorName: userInfo.name,
+                receiveDepartmentName: userInfo.departmentName,
+                receiveDepartment: userInfo.department,
+                receiverName: userInfo.name,
+                receiver: userInfo.id,
+                // departmentList: [{
+                //     id: userInfo.department,
+                //     departmentName: userInfo.departmentName
+                // }],
+                // userList: [{
+                //     id: userInfo.id,
+                //     name: userInfo.name
+                // }]
             });
+            this.getDepartmentList();
+            this.getUserList(true);
         },
         onNext() {
             this.setData({
@@ -142,6 +168,56 @@ Component({
                 });
             }
             this.countScore();
+        },
+        onShowUserChoice() {
+            this.setData({
+                choiceVisible: !this.data.choiceVisible,
+            });
+        },
+        onShowDepartment() {
+            this.setData({
+                departVisible: !this.data.departVisible,
+            });
+        },
+        onShowUser() {
+            this.setData({
+                userVisible: !this.data.userVisible,
+            });
+        },
+        onConfirmDepartment(e) {
+            this.setData({
+                receiveDepartmentName: e.detail.value.departmentName,
+                receiveDepartment: e.detail.value.id,
+                departVisible: false
+            });
+            this.getUserList();
+        },
+        onConfirmUser(e) {
+            this.setData({
+                receiverName: e.detail.value.name,
+                receiver: e.detail.value.id,
+                userVisible: false
+            });
+        },
+        onCancelDepUser() {
+            this.setData({
+                departVisible: false,
+                userVisible: false
+            });
+        },
+        onConfirmChoice() {
+            this.setData({
+                choiceVisible: false,
+            });
+            this.sendRiskNotice = true;
+            this.save();
+        },
+        onCancelChoice() {
+            this.setData({
+                choiceVisible: false,
+            });
+            this.sendRiskNotice = false;
+            this.save();
         },
         onAdd() {
             this.setData({
@@ -441,6 +517,12 @@ Component({
                 inHospitalNumber: this.properties.patient.inHospitalNumber,
                 isInpatient: this.properties.patient.isInpatient
             };
+            if (this.sendRiskNotice) {
+                data.receiveDepartment = this.data.receiveDepartment;
+                data.receiveDepartmentName = this.data.receiveDepartmentName;
+                data.receiverName = this.data.receiverName;
+                data.receiver = this.data.receiver;
+            }
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.sick = false;
@@ -521,7 +603,18 @@ Component({
             });
         },
         onSave() {
+            if (this.data.pgsga.result > 2) {
+                this.onShowUserChoice();
+            } else {
+                this.save();
+            }
+        },
+        save() {
             var data = this.getSaveData();
+            if (!data.filtratedDate) {
+                wx.jyApp.toast('请填写筛查日期');
+                return;
+            }
             wx.jyApp.showLoading('加载中...', true);
             _save.bind(this)();
 
@@ -540,6 +633,7 @@ Component({
                     this.setData({
                         step: 1
                     });
+                    wx.hideLoading();
                     wx.jyApp.toast('保存成功');
                     if (!data.id) {
                         this.setData({
@@ -548,10 +642,70 @@ Component({
                         this.nowId = _data.result.data;
                         this.loadList();
                     }
-                }).finally(() => {
+                }).catch(() => {
                     wx.hideLoading();
+                }).finally(() => {
+                    this.sendRiskNotice = false;
                 });
             }
+        },
+        getDepartmentList() {
+            return wx.jyApp.http({
+                type: 'mobile',
+                url: '/app/nutrition/query',
+                data: {
+                    method: 'department',
+                    pageNum: 1,
+                    pageSize: 1000
+                }
+            }).then((data) => {
+                var defaultDepartmentindex = 0;
+                data.result.rows = data.result.rows || [];
+                data.result.rows.map((item, index) => {
+                    if (item.id == this.userInfo.department) {
+                        defaultDepartmentindex = index;
+                    }
+                });
+                this.setData({
+                    departmentList: data.result.rows,
+                    defaultDepartmentindex: defaultDepartmentindex
+                });
+            });
+        },
+        getUserList(isDefault) {
+            return wx.jyApp.http({
+                type: 'mobile',
+                url: '/app/nutrition/query',
+                data: {
+                    method: 'doctor',
+                    departmentId: this.data.receiveDepartment,
+                    pageNum: 1,
+                    pageSize: 1000
+                }
+            }).then((data) => {
+                data.result.rows = data.result.rows || [];
+                if (!isDefault) {
+                    this.setData({
+                        receiverName: data.result.rows.length && this.data.userList[0].name || '',
+                        receiver: data.result.rows.length && this.data.userList[0].id || '',
+                    });
+                    this.setData({
+                        userList: data.result.rows,
+                        defaultUserindex: 0
+                    });
+                } else {
+                    var defaultUserindex = 0;
+                    data.result.rows.map((item, index) => {
+                        if (item.id == this.userInfo.id) {
+                            defaultUserindex = index;
+                        }
+                    });
+                    this.setData({
+                        userList: data.result.rows,
+                        defaultUserindex: defaultUserindex
+                    });
+                }
+            });
         }
     }
 })

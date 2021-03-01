@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="position-absolute top-0 bottom-0 width-100 overflow-auto" style="bottom:140rpx">
 		<view class="white-background-color">
-			<template is="patient" data="{{patient:patient}}"></template>
+			<template data="{{patient:patient}}" is="patient"></template>
 			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{nrs.filtratedDate}}" />
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
@@ -95,4 +95,35 @@
 		</view>
 	</view>
 </van-popup>
-<van-dialog id="van-dialog"></van-dialog>
+<!-- 风险通知弹框 -->
+<van-popup round show="{{choiceVisible}}" z-index="{{100}}">
+	<view style="width:700rpx">
+		<view class="padding-30 padding-bottom-0">该患者出现营养风险，是否向以下医师发送风险通知？</view>
+		<readonly-field bindtap="onShowDepartment" label="通知科室" value="{{receiveDepartmentName}}"></readonly-field>
+		<readonly-field bindtap="onShowUser" label="通知医生" value="{{receiverName}}"></readonly-field>
+		<view class="flex">
+			<view bindtap="onCancelChoice" class="flex--center--center flex-1 padding-30 gray-color border-right clickable">取消</view>
+			<view bindtap="onConfirmChoice" class="flex--center--center flex-1 padding-30 primary-color clickable">确定</view>
+		</view>
+	</view>
+</van-popup>
+<van-popup position="bottom" show="{{departVisible}}" z-index="{{101}}">
+	<van-picker
+		bind:cancel="onCancelDepUser"
+		bind:confirm="onConfirmDepartment"
+		columns="{{departmentList}}"
+		default-index="{{defaultDepartmentindex}}"
+		show-toolbar
+		value-key="departmentName"
+	></van-picker>
+</van-popup>
+<van-popup position="bottom" show="{{userVisible}}" z-index="{{102}}">
+	<van-picker
+		bind:cancel="onCancelDepUser"
+		bind:confirm="onConfirmUser"
+		columns="{{userList}}"
+		default-index="{{defaultUserindex}}"
+		show-toolbar
+		value-key="name"
+	></van-picker>
+</van-popup>
