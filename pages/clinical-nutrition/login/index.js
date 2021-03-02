@@ -60,7 +60,8 @@ Page({
             url: '/app/hospital/list',
             data: {
                 page: 1,
-                limit: 1000
+                limit: 1000,
+                status: 1
             }
         }).then((data) => {
             this.setData({
