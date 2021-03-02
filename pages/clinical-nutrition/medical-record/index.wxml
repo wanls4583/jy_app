@@ -9,7 +9,7 @@
 					<text>，{{medicalRecord.patientDocument.departmentName}}</text>
 					<text>，{{medicalRecord.patientDocument.sickbed}}床</text>
 				</view>
-				<readonly-field label="住院号" value="{{medicalRecord.patientDocument.inHospitalNumber}}"></readonly-field>
+				<readonly-field label="住院号" value="{{medicalRecord.patientDocument.patientId}}"></readonly-field>
 				<readonly-field label="身份证" value="{{medicalRecord.patientDocument.identityCard}}"></readonly-field>
 				<readonly-field label="电话" value="{{medicalRecord.patientDocument.phoneNumber}}"></readonly-field>
 				<readonly-field label="地址" value="{{medicalRecord.patientDocument.address}}"></readonly-field>
@@ -35,7 +35,7 @@
 					</view>
 					<view class="flex padding-30">
 						<view class="label">筛查总分</view>
-						<view>{{item.dataSource}}</view>
+						<view>{{item.filtratedResult}}</view>
 					</view>
 					<view class="flex padding-30">
 						<view class="label">处理意见</view>

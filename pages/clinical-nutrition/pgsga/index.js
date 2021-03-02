@@ -105,14 +105,6 @@ Component({
                 receiveDepartment: userInfo.department,
                 receiverName: userInfo.name,
                 receiver: userInfo.id,
-                // departmentList: [{
-                //     id: userInfo.department,
-                //     departmentName: userInfo.departmentName
-                // }],
-                // userList: [{
-                //     id: userInfo.id,
-                //     name: userInfo.name
-                // }]
             });
             this.getDepartmentList();
             this.getUserList(true);
@@ -251,6 +243,10 @@ Component({
                 filtratedDate: new Date().getTime(),
                 pgsga: {
                     id: '',
+                    aGrade: '',
+                    bGrade: '',
+                    cGrade: '',
+                    dGrade: '',
                     filtratedDate: new Date().formatTime('yyyy-MM-dd'),
                     currentWeight: this.properties.patient.weight || '',
                     currentStature: this.properties.patient.stature || '',
@@ -329,9 +325,17 @@ Component({
         countScore() {
             var self = this;
             var pgsga = this.data.pgsga;
-            var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8();
+            var aGrade = _countStep1() + _countStep2() + _countStep3() + _countStep4();
+            var bGrade = _countStep5();
+            var cGrade = _countStep6();
+            var dGrade = _countStep8();
+            var count = aGrade + bGrade + cGrade + dGrade;
             this.setData({
-                'pgsga.result': count
+                'pgsga.result': count,
+                'pgsga.aGrade': aGrade,
+                'pgsga.bGrade': bGrade,
+                'pgsga.cGrade': cGrade,
+                'pgsga.dGrade': dGrade,
             });
             this.setResult(count);
 
@@ -462,6 +466,10 @@ Component({
             this.nowId = pgsga.id;
             var data = {
                 id: pgsga.id,
+                aGrade: pgsga.aGrade,
+                bGrade: pgsga.bGrade,
+                cGrade: pgsga.cGrade,
+                dGrade: pgsga.dGrade,
                 filtratedDate: pgsga.filtratedDate,
                 currentWeight: pgsga.currentWeight,
                 currentStature: pgsga.currentStature,
@@ -498,24 +506,24 @@ Component({
             };
             switch (Number(pgsga.mainDeseasePeriod)) {
                 case 1:
-                    pgsga.mainDeseasePeriod = '1级';
-                    pgsga.otherMainDeseasePeriod = 1;
+                    data.mainDeseasePeriod = '1级';
+                    data.otherMainDeseasePeriod = 1;
                     break;
                 case 2:
-                    pgsga.mainDeseasePeriod = '2级';
-                    pgsga.otherMainDeseasePeriod = 2;
+                    data.mainDeseasePeriod = '2级';
+                    data.otherMainDeseasePeriod = 2;
                     break;
                 case 3:
-                    pgsga.mainDeseasePeriod = '3级';
-                    pgsga.otherMainDeseasePeriod = 3;
+                    data.mainDeseasePeriod = '3级';
+                    data.otherMainDeseasePeriod = 3;
                     break;
                 case 4:
-                    pgsga.mainDeseasePeriod = '4级';
-                    pgsga.otherMainDeseasePeriod = 4;
+                    data.mainDeseasePeriod = '4级';
+                    data.otherMainDeseasePeriod = 4;
                     break;
                 default:
-                    pgsga.otherMainDeseasePeriod = isNaN(Number(pgsga.mainDeseasePeriod)) ? '' : Number(pgsga.mainDeseasePeriod);
-                    pgsga.mainDeseasePeriod = '其他';
+                    data.otherMainDeseasePeriod = isNaN(Number(data.mainDeseasePeriod)) ? '' : Number(data.mainDeseasePeriod);
+                    data.mainDeseasePeriod = '其他';
                     break;
             }
             if (pgsga.sick) {
@@ -574,7 +582,7 @@ Component({
             }
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
-            data.pgsga.mainDeseasePeriod = this.data.mainDeseasePeriodMap[data.pgsga.mainDeseasePeriod] || this.data.otherMainDeseasePeriod;
+            data.mainDeseasePeriod = this.data.mainDeseasePeriodMap[this.data.pgsga.mainDeseasePeriod] || this.data.pgsga.otherMainDeseasePeriod;
             data.sick = false;
             if (data.symptom.indexOf('恶心') > -1) {
                 data.sick = true;
