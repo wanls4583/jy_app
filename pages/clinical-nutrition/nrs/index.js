@@ -336,11 +336,11 @@ Component({
             data.ageGe70 = data.ageGe70 == 1 ? true : false;
             data.score = data.result;
             data.handle = data.resultDescription;
+            var foodIntake = data.foodIntake;
             data.foodIntake = false;
             data.foodIntake1 = false;
             data.foodIntake2 = false;
             data.foodIntake3 = false;
-            var foodIntake = data.foodIntake;
             switch (foodIntake) {
                 case 0:
                     data.foodIntake = true;
