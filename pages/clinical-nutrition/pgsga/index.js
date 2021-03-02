@@ -134,6 +134,33 @@ Component({
         onInputNum(e) {
             wx.jyApp.utils.onInputNum(e, this);
             this.countScore();
+            switch (Number(this.data.pgsga.otherMainDeseasePeriod)) {
+                case 1:
+                    this.setData({
+                        'pgsga.mainDeseasePeriod': '1级'
+                    })
+                    break;
+                case 2:
+                    this.setData({
+                        'pgsga.mainDeseasePeriod': '2级'
+                    })
+                    break;
+                case 3:
+                    this.setData({
+                        'pgsga.mainDeseasePeriod': '3级'
+                    })
+                    break;
+                case 4:
+                    this.setData({
+                        'pgsga.mainDeseasePeriod': '4级'
+                    })
+                    break;
+                default:
+                    this.setData({
+                        'pgsga.mainDeseasePeriod': '其他'
+                    })
+                    break;
+            }
         },
         onShowList() {
             this.setData({
