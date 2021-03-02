@@ -55,14 +55,6 @@ Component({
                 receiveDepartment: userInfo.department,
                 receiverName: userInfo.name,
                 receiver: userInfo.id,
-                // departmentList: [{
-                //     id: userInfo.department,
-                //     departmentName: userInfo.departmentName
-                // }],
-                // userList: [{
-                //     id: userInfo.id,
-                //     name: userInfo.name
-                // }]
             });
             this.getDepartmentList();
             this.getUserList(true);
@@ -158,8 +150,8 @@ Component({
                     id: '',
                     filtratedDate: new Date().formatTime('yyyy-MM-dd'),
                     bmiLessThan: '',
-                    stature: '',
-                    weight: '',
+                    stature: this.properties.patient.stature || '',
+                    weight: this.properties.patient.weight || '',
                     BMI: '',
                     loseWeight: null,
                     foodIntake: null,
@@ -169,6 +161,8 @@ Component({
                     resultDescription: '建议每周重新评估患者的营养状况',
                 }
             });
+            this.setBMI();
+            this.countScore();
         },
         onSetInfo(e) {
             var item = e.currentTarget.dataset.item;
@@ -218,7 +212,7 @@ Component({
             } else {
                 this.setData({
                     'nrs.BMI': '',
-                    'nrs.bmiLessThan': null
+                    'nrs.bmiLessThan': ''
                 });
             }
 

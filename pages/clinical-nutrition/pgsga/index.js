@@ -225,8 +225,8 @@ Component({
                 pgsga: {
                     id: '',
                     filtratedDate: new Date().formatTime('yyyy-MM-dd'),
-                    currentWeight: '',
-                    currentStature: '',
+                    currentWeight: this.properties.patient.weight || '',
+                    currentStature: this.properties.patient.stature || '',
                     weightOneMouthAgo: '',
                     weightSixMouthAgo: '',
                     weightChange: '',

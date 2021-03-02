@@ -80,6 +80,11 @@ Page({
         }).then((data) => {
             data = data.result;
             wx.jyApp.setTempData('medicalRecord', data);
+            this.patient.stature = data.patientDocument.data.stature;
+            this.patient.weight = data.patientDocument.data.weight;
+            this.setData({
+                patient: this.patient,
+            });
         });
     }
 })
