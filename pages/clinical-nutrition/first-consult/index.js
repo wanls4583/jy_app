@@ -10,7 +10,19 @@ Component({
     properties: {
         patient: {
             type: Object,
-            value: {}
+            value: {},
+            observer: function (newVal, oldVal) {
+                if (newVal) {
+                    if(!this.data.consult.stature && !this.data.consult.weight) {
+                        this.setData({
+                            'consult.stature': newVal.stature || ''
+                        });
+                        this.setData({
+                            'consult.weight': newVal.weight || ''
+                        });
+                    }
+                }
+            }
         },
         show: {
             type: Boolean,
@@ -28,7 +40,7 @@ Component({
         doctorName: '',
         consult: {
             id: '',
-            consultedDate: '',
+            consultedDate: new Date().formatTime('yyyy-MM-dd'),
             stature: '',
             weight: '',
             stomachSymptom_select: [],
