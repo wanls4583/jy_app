@@ -34,7 +34,7 @@
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">便秘</view>
 							<view class="flex--center--between">
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_day" type="text" value="{{consult.stomachSymptom_day}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="consult.stomachSymptom_day" type="text" value="{{consult.stomachSymptom_day}}" />
 								<text class="flex-shrink-0">次/天</text>
 							</view>
 						</view>
@@ -45,20 +45,20 @@
 								<view class="flex-shrink-0 label-color">腹泻</view>
 								<input
 									bindinput="onInput"
-									class="width-100px border-bottom"
+									class="width-100px padding-left-right-20 border-bottom"
 									data-prop="consult.stomachSymptom_count1"
 									type="text"
 									value="{{consult.stomachSymptom_count1}}"
 								/>
 								<text class="flex-shrink-0">次/天，</text>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_ml1" type="text" value="{{consult.stomachSymptom_ml1}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="consult.stomachSymptom_ml1" type="text" value="{{consult.stomachSymptom_ml1}}" />
 								<text class="flex-shrink-0">ml/次</text>
 							</view>
 							<view class="flex margin-top-30">
 								<text>性状</text>
 								<input
 									bindinput="onInput"
-									class="width-100px border-bottom"
+									class="width-100px padding-left-right-20 border-bottom"
 									data-prop="consult.stomachSymptom_xingzhuang"
 									type="text"
 									value="{{consult.stomachSymptom_xingzhuang}}"
@@ -71,13 +71,13 @@
 							<view class="flex-shrink-0 label-color">呕吐</view>
 							<input
 								bindinput="onInput"
-								class="width-100px border-bottom"
+								class="width-100px padding-left-right-20 border-bottom"
 								data-prop="consult.stomachSymptom_count2"
 								type="text"
 								value="{{consult.stomachSymptom_count2}}"
 							/>
 							<text class="flex-shrink-0">次/天，</text>
-							<input bindinput="onInput" class="width-100px border-bottom" data-prop="consult.stomachSymptom_ml2" type="text" value="{{consult.stomachSymptom_ml2}}" />
+							<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="consult.stomachSymptom_ml2" type="text" value="{{consult.stomachSymptom_ml2}}" />
 							<text class="flex-shrink-0">ml/次</text>
 						</view>
 					</van-checkbox>
@@ -104,14 +104,14 @@
 					<view>
 						<view class="flex">
 							<text class="flex-shrink-0">一天</text>
-							<input class="width-100px border-bottom" data-prop="consult.useNum_count" type="text" value="{{consult.useNum_count}}" />
+							<input class="width-100px padding-left-right-20 border-bottom" data-prop="consult.useNum_count" type="text" value="{{consult.useNum_count}}" />
 							<text class="flex-shrink-0">餐，每餐</text>
-							<input class="width-100px border-bottom" data-prop="consult.useNum_ml" type="text" value="{{consult.useNum_ml}}" />
+							<input class="width-100px padding-left-right-20 border-bottom" data-prop="consult.useNum_ml" type="text" value="{{consult.useNum_ml}}" />
 							<text class="flex-shrink-0">ml</text>
 						</view>
 						<view class="flex margin-top-30">
 							<text class="flex-shrink-0">密度</text>
-							<input class="width-100px border-bottom" data-prop="consult.useNum_density" type="text" value="{{consult.useNum_density}}" />
+							<input class="width-100px padding-left-right-20 border-bottom" data-prop="consult.useNum_density" type="text" value="{{consult.useNum_density}}" />
 						</view>
 					</view>
 				</view>
@@ -119,7 +119,7 @@
 					<view class="flex-shrink-0 label-color">泵速：</view>
 					<view>
 						<view class="flex">
-							<input class="width-100px border-bottom" data-prop="consult.bumpRate" type="text" value="{{consult.bumpRate}}" />
+							<input class="width-100px padding-left-right-20 border-bottom" data-prop="consult.bumpRate" type="text" value="{{consult.bumpRate}}" />
 							<text class="flex-shrink-0">ml/h</text>
 						</view>
 					</view>

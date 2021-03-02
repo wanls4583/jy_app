@@ -64,13 +64,13 @@
 					<van-checkbox name="何处疼痛" shape="square">
 						<view class="flex--center--between">
 							<text>疼痛；何处（3分）</text>
-							<input bindinput="onInput" class="border" data-prop="pgsga.wherePained" placeholder="疼痛；何处" type="text" value="{{pgsga.wherePained}}" />
+							<input bindinput="onInput" class="margin-left-20 border" data-prop="pgsga.wherePained" placeholder="疼痛；何处" type="text" value="{{pgsga.wherePained}}" />
 						</view>
 					</van-checkbox>
 					<van-checkbox name="其他" shape="square">
 						<view class="flex--center--between">
 							<text>其他（1分）</text>
-							<input bindinput="onInput" class="border" data-prop="pgsga.other" placeholder="其他" type="text" value="{{pgsga.other}}" />
+							<input bindinput="onInput" class="margin-left-20 border" data-prop="pgsga.other" placeholder="其他" type="text" value="{{pgsga.other}}" />
 						</view>
 					</van-checkbox>
 				</van-checkbox-group>
@@ -105,7 +105,7 @@
 							<text>其他</text>
 							<input
 								bindinput="onInputNum"
-								class="border"
+								class="margin-left-20 border"
 								data-prop="pgsga.otherMainDeseasePeriod"
 								placeholder="具体分数"
 								type="text"

@@ -448,7 +448,7 @@ Component({
                 other: pgsga.other,
                 physicalCondition: pgsga.physicalCondition,
                 mainDiagnosis: pgsga.mainDiagnosis,
-                mainDeseasePeriod: pgsga.mainDeseasePeriod,
+                mainDeseasePeriod: '',
                 otherMainDeseasePeriod: '',
                 metabolismStatus: isNaN(Number(pgsga.metabolismStatus)) ? '' : Number(pgsga.metabolismStatus),
                 fatOfCheek: isNaN(Number(pgsga.fatOfCheek)) ? '' : Number(pgsga.fatOfCheek),
@@ -469,6 +469,28 @@ Component({
                 integralEvaluation: pgsga.integralEvaluation,
                 result: pgsga.score
             };
+            switch (Number(pgsga.mainDeseasePeriod)) {
+                case 1:
+                    pgsga.mainDeseasePeriod = '1级';
+                    pgsga.otherMainDeseasePeriod = 1;
+                    break;
+                case 2:
+                    pgsga.mainDeseasePeriod = '2级';
+                    pgsga.otherMainDeseasePeriod = 2;
+                    break;
+                case 3:
+                    pgsga.mainDeseasePeriod = '3级';
+                    pgsga.otherMainDeseasePeriod = 3;
+                    break;
+                case 4:
+                    pgsga.mainDeseasePeriod = '4级';
+                    pgsga.otherMainDeseasePeriod = 4;
+                    break;
+                default:
+                    pgsga.otherMainDeseasePeriod = isNaN(Number(pgsga.mainDeseasePeriod)) ? '' : Number(pgsga.mainDeseasePeriod);
+                    pgsga.mainDeseasePeriod = '其他';
+                    break;
+            }
             if (pgsga.sick) {
                 data.symptom.push('恶心');
             }
@@ -525,6 +547,7 @@ Component({
             }
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
+            data.pgsga.mainDeseasePeriod = this.data.mainDeseasePeriodMap[data.pgsga.mainDeseasePeriod] || this.data.otherMainDeseasePeriod;
             data.sick = false;
             if (data.symptom.indexOf('恶心') > -1) {
                 data.sick = true;

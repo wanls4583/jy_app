@@ -20,9 +20,9 @@
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">正常</view>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_count1" type="text" value="{{ward.tolerance_count1}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count1" type="text" value="{{ward.tolerance_count1}}" />
 								<text class="flex-shrink-0">ml/次</text>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_ml1" type="text" value="{{ward.tolerance_ml1}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml1" type="text" value="{{ward.tolerance_ml1}}" />
 								<text class="flex-shrink-0">次/天，</text>
 							</view>
 						</view>
@@ -31,23 +31,23 @@
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">腹泻</view>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_count2" type="text" value="{{ward.tolerance_count2}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count2" type="text" value="{{ward.tolerance_count2}}" />
 								<text class="flex-shrink-0">ml/次</text>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_ml2" type="text" value="{{ward.tolerance_ml2}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml2" type="text" value="{{ward.tolerance_ml2}}" />
 								<text class="flex-shrink-0">次/天，</text>
 							</view>
 							<view class="flex margin-top-30">
 								<text>性状</text>
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_xingzhuang" type="text" value="{{ward.tolerance_xingzhuang}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_xingzhuang" type="text" value="{{ward.tolerance_xingzhuang}}" />
 							</view>
 						</view>
 					</van-checkbox>
 					<van-checkbox label-disabled name="呕吐" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">呕吐</view>
-							<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_count3" type="text" value="{{ward.tolerance_count3}}" />
+							<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count3" type="text" value="{{ward.tolerance_count3}}" />
 							<text class="flex-shrink-0">ml/次</text>
-							<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_ml3" type="text" value="{{ward.tolerance_ml3}}" />
+							<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml3" type="text" value="{{ward.tolerance_ml3}}" />
 							<text class="flex-shrink-0">次/天，</text>
 						</view>
 					</van-checkbox>
@@ -55,7 +55,7 @@
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">便秘</view>
 							<view class="flex">
-								<input bindinput="onInput" class="width-100px border-bottom" data-prop="ward.tolerance_day" type="text" value="{{ward.tolerance_day}}" />
+								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_day" type="text" value="{{ward.tolerance_day}}" />
 								<text class="flex-shrink-0">天胃排便</text>
 							</view>
 						</view>
