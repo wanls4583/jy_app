@@ -156,6 +156,7 @@ Component({
                     loseWeight: null,
                     foodIntake: null,
                     needNormal: null,
+                    needAddition: null,
                     ageGe70: this.properties.patient.age >= 70 ? 1 : 0,
                     result: this.properties.patient.age >= 70 ? 1 : 0,
                     resultDescription: '建议每周重新评估患者的营养状况',
@@ -228,6 +229,9 @@ Component({
                 return a - b
             })[2];
             result = _getRealNum(result) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
+            if(!_getRealNum(this.data.nrs.needNormal)) {
+                result += _getRealNum(this.data.nrs.needAddition);
+            }
             this.setData({
                 'nrs.result': result,
                 'nrs.resultDescription': result >= 3 ? '患者有营养风险，需进行营养支持治疗' : '建议每周重新评估患者的营养状况'
@@ -278,6 +282,7 @@ Component({
                 loseWeight: null,
                 foodIntake: null,
                 needNormal: null,
+                needAddition: null,
                 ageGe70: nrs.ageGe70 ? 1 : 0,
                 result: nrs.score,
                 resultDescription: nrs.handle,

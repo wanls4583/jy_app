@@ -25,7 +25,7 @@
 		</view>
 		<view class="flex margin-top-30">
 			<text class="label" style="width:4em">主诉：</text>
-			<text class="pre-line">{{recipe.diseaseDetail||''}}</text>
+			<text class="pre-line">{{recipe.detail.mainSuit||recipe.diseaseDetail||''}}</text>
 		</view>
 		<view class="flex margin-top-30 padding-bottom">
 			<text class="label" style="width:4em">诊断：</text>

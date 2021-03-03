@@ -31,11 +31,11 @@
 			</view>
 			<view class="flex margin-top-30">
 				<text class="label" style="width:4em">主诉：</text>
-				<text class="pre-line">{{recipe.detail.mainSuit}}</text>
+				<text class="pre-line">{{recipe.detail.mainSuit||''}}</text>
 			</view>
 			<view class="flex margin-top-30 padding-bottom">
 				<text class="label" style="width:4em">诊断：</text>
-				<text class="pre-line">{{recipe.detail.diagnosis}}</text>
+				<text class="pre-line">{{recipe.detail.diagnosis||''}}</text>
 			</view>
 		</view>
 		<view class="padding-30 margin-top-30">

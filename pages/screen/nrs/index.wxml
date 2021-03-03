@@ -59,6 +59,17 @@
 		</view>
 	</view>
 	<view class="white-background-color padding-top-bottom-30 margin-top-20">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">对于没有明确列出诊断的疾病参考以下标准，进行疾病严重程度评分</view>
+		<view class="flex padding-30">
+			<van-radio-group bind:change="onChange" data-prop="nrs.needAddition" value="{{nrs.needAddition}}">
+				<van-radio name="{{0}}">正常营养需求量（0分）</van-radio>
+				<van-radio name="{{1}}">慢性病患者因出现并发症而住院治疗，患者虚弱但无需卧床，蛋白质需要略有增加，但 可以通过口服和补充来弥补（1分）</van-radio>
+				<van-radio name="{{2}}">由于疾病如大手术或感染，患者卧床，蛋白质需求增加，但仍可通过人工营养满足（2分）</van-radio>
+				<van-radio name="{{3}}">接受呼吸机支持、血管活性药物等治疗的重症患者，蛋白质需求明显增加，且无法通过 人工营养满足，但营养支持可以减缓蛋白质分解及氮消耗（3分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-bottom-30 margin-top-20">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">年龄评分</view>
 		<view class="flex padding-30">
 			<van-radio-group value="{{nrs.ageGe70}}">
