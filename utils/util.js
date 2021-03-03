@@ -32,11 +32,11 @@ function parseDate(str) {
 
 function parseDateTime(str) {
     var dateReg = /\d{4}-\d{1,2}-\d{1,2}/.exec(str);
-    var timeReg = /\d{1,2}:\d{1,2}:\d{1,2}/.exec(str);
+    var timeReg = /\d{1,2}:\d{1,2}(:\d{1,2})?/.exec(str);
     if (dateReg && timeReg) {
         var arr1 = dateReg[0].split('-');
         var arr2 = timeReg[0].split(':');
-        return new Date(Number(arr1[0]), Number(arr1[1]) - 1, Number(arr1[2]), Number(arr2[0]), Number(arr2[1]), Number(arr2[2]));
+        return new Date(Number(arr1[0]), Number(arr1[1]) - 1, Number(arr1[2]), Number(arr2[0]), Number(arr2[1]), Number(arr2[2]) || 0);
     } else if (dateReg) {
         return parseDate(str);
     }

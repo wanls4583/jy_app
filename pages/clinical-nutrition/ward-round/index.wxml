@@ -11,6 +11,7 @@
 				</view>
 			</view>
 			<readonly-field bindtap="onShowDate" label="查房时间" value="{{ward.checkDate}}" />
+			<readonly-field label="营养(医)师" value="{{doctorName}}" />
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">肠内营养耐受情况</view>
@@ -20,9 +21,21 @@
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">正常</view>
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count1" type="text" value="{{ward.tolerance_count1}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_count1"
+									type="text"
+									value="{{ward.tolerance_count1}}"
+								/>
 								<text class="flex-shrink-0">ml/次</text>
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml1" type="text" value="{{ward.tolerance_ml1}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_ml1"
+									type="text"
+									value="{{ward.tolerance_ml1}}"
+								/>
 								<text class="flex-shrink-0">次/天，</text>
 							</view>
 						</view>
@@ -31,23 +44,53 @@
 						<view>
 							<view class="flex">
 								<view class="flex-shrink-0 label-color">腹泻</view>
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count2" type="text" value="{{ward.tolerance_count2}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_count2"
+									type="text"
+									value="{{ward.tolerance_count2}}"
+								/>
 								<text class="flex-shrink-0">ml/次</text>
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml2" type="text" value="{{ward.tolerance_ml2}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_ml2"
+									type="text"
+									value="{{ward.tolerance_ml2}}"
+								/>
 								<text class="flex-shrink-0">次/天，</text>
 							</view>
 							<view class="flex margin-top-30">
 								<text>性状</text>
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_xingzhuang" type="text" value="{{ward.tolerance_xingzhuang}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_xingzhuang"
+									type="text"
+									value="{{ward.tolerance_xingzhuang}}"
+								/>
 							</view>
 						</view>
 					</van-checkbox>
 					<van-checkbox label-disabled name="呕吐" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">呕吐</view>
-							<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_count3" type="text" value="{{ward.tolerance_count3}}" />
+							<input
+								bindinput="onInput"
+								class="width-100px padding-left-right-20 border-bottom"
+								data-prop="ward.tolerance_count3"
+								type="text"
+								value="{{ward.tolerance_count3}}"
+							/>
 							<text class="flex-shrink-0">ml/次</text>
-							<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_ml3" type="text" value="{{ward.tolerance_ml3}}" />
+							<input
+								bindinput="onInput"
+								class="width-100px padding-left-right-20 border-bottom"
+								data-prop="ward.tolerance_ml3"
+								type="text"
+								value="{{ward.tolerance_ml3}}"
+							/>
 							<text class="flex-shrink-0">次/天，</text>
 						</view>
 					</van-checkbox>
@@ -55,7 +98,13 @@
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">便秘</view>
 							<view class="flex">
-								<input bindinput="onInput" class="width-100px padding-left-right-20 border-bottom" data-prop="ward.tolerance_day" type="text" value="{{ward.tolerance_day}}" />
+								<input
+									bindinput="onInput"
+									class="width-100px padding-left-right-20 border-bottom"
+									data-prop="ward.tolerance_day"
+									type="text"
+									value="{{ward.tolerance_day}}"
+								/>
 								<text class="flex-shrink-0">天胃排便</text>
 							</view>
 						</view>
@@ -71,16 +120,16 @@
 							<view>
 								<view class="flex">
 									<text class="flex-shrink-0">空腹</text>
-									<input bindinput="onInput" class="width-100rpx border-bottom" data-prop="ward.tolerance_mmol1" type="text" value="{{ward.tolerance_mmol1}}" />
+									<input bindinput="onInput" class="width-120rpx padding-left-right-20 border-bottom" data-prop="ward.tolerance_mmol1" type="text" value="{{ward.tolerance_mmol1}}" />
 									<text>-</text>
-									<input bindinput="onInput" class="width-100rpx border-bottom" data-prop="ward.tolerance_mmol2" type="text" value="{{ward.tolerance_mmol2}}" />
+									<input bindinput="onInput" class="width-120rpx padding-left-right-20 border-bottom" data-prop="ward.tolerance_mmol2" type="text" value="{{ward.tolerance_mmol2}}" />
 									<text class="flex-shrink-0">mmol/L</text>
 								</view>
 								<view class="flex margin-top-30">
 									<text class="flex-shrink-0">餐后</text>
-									<input bindinput="onInput" class="width-100rpx border-bottom" data-prop="ward.tolerance_mmol3" type="text" value="{{ward.tolerance_mmol3}}" />
+									<input bindinput="onInput" class="width-120rpx padding-left-right-20 border-bottom" data-prop="ward.tolerance_mmol3" type="text" value="{{ward.tolerance_mmol3}}" />
 									<text>-</text>
-									<input bindinput="onInput" class="width-100rpx border-bottom" data-prop="ward.tolerance_mmol4" type="text" value="{{ward.tolerance_mmol4}}" />
+									<input bindinput="onInput" class="width-120rpx padding-left-right-20 border-bottom" data-prop="ward.tolerance_mmol4" type="text" value="{{ward.tolerance_mmol4}}" />
 									<text class="flex-shrink-0">mmol/L</text>
 								</view>
 							</view>
@@ -89,12 +138,12 @@
 					<van-checkbox label-disabled name="不详" shape="square">
 						<view class="flex">
 							<view class="flex-shrink-0 label-color">不详，原因</view>
-							<input bindinput="onInput" class="border-bottom" data-prop="ward.tolerance_reason" type="text" value="{{ward.tolerance_reason}}" />
+							<input bindinput="onInput" class="padding-left-20 border-bottom" data-prop="ward.tolerance_reason" type="text" value="{{ward.tolerance_reason}}" />
 						</view>
 					</van-checkbox>
 				</van-checkbox-group>
 				<view class="padding-bottom-30">备注</view>
-				<textarea class="width-100 padding-30 border" data-prop="ward.tolerance_remark" value="{{ward.tolerance_remark}}"></textarea>
+				<textarea bindinput="onInput" class="width-100 padding-30 border" data-prop="ward.tolerance_remark" value="{{ward.tolerance_remark}}"></textarea>
 			</view>
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
@@ -107,7 +156,7 @@
 					<van-checkbox name="减轻副反应" shape="square">减轻副反应</van-checkbox>
 				</van-checkbox-group>
 				<view class="padding-bottom-30">备注</view>
-				<textarea class="width-100 padding-30 border" data-prop="ward.changePlan_remark" value="{{ward.changePlan_remark}}"></textarea>
+				<textarea bindinput="onInput" class="width-100 padding-30 border" data-prop="ward.changePlan_remark" value="{{ward.changePlan_remark}}"></textarea>
 			</view>
 		</view>
 	</view>
@@ -118,7 +167,7 @@
 	</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{checkDate}}" />
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="datetime" value="{{checkDate}}" />
 </van-popup>
 <van-popup bind:click-overlay="onShowList" position="bottom" show="{{listVisible}}">
 	<view class="flex padding-30">

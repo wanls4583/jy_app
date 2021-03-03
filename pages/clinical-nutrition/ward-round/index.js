@@ -41,7 +41,12 @@ Component({
         this._attached();
     },
     methods: {
-        _attached() {},
+        _attached() {
+            var userInfo = wx.getStorageSync('mobileUserInfo');
+            this.setData({
+                doctorName: userInfo.name,
+            });
+        },
         onInput(e) {
             wx.jyApp.utils.onInput(e, this);
         },
@@ -56,7 +61,7 @@ Component({
             });
         },
         onConfirmDate(e) {
-            var checkDate = new Date(e.detail).formatTime('yyyy-MM-dd');
+            var checkDate = new Date(e.detail).formatTime('yyyy-MM-dd hh:mm');
             this.setData({
                 'ward.checkDate': checkDate,
                 dateVisible: false
@@ -78,7 +83,7 @@ Component({
                 checkDate: new Date().getTime(),
                 ward: {
                     id: '',
-                    checkDate: new Date().formatTime('yyyy-MM-dd'),
+                    checkDate: new Date().formatTime('yyyy-MM-dd hh:mm'),
                     tolerance_select: [],
                     tolerance_count1: '',
                     tolerance_count2: '',
@@ -91,7 +96,7 @@ Component({
                     tolerance_mmol1: '',
                     tolerance_mmol2: '',
                     tolerance_mmol3: '',
-                    tolerance_mmol3: '',
+                    tolerance_mmol4: '',
                     tolerance_reason: '',
                     tolerance_remark: '',
                     changePlan_select: [],
@@ -171,7 +176,7 @@ Component({
             }
             this.setData({
                 ward: data,
-                checkDate: Date.prototype.parseDate(ward.checkDate).getTime()
+                checkDate: Date.prototype.parseDateTime(ward.checkDate).getTime()
             });
         },
         getSaveData() {
@@ -193,7 +198,7 @@ Component({
                 tolerance_mmol1: data.tolerance_mmol1,
                 tolerance_mmol2: data.tolerance_mmol2,
                 tolerance_mmol3: data.tolerance_mmol3,
-                tolerance_mmol3: data.tolerance_mmol3,
+                tolerance_mmol4: data.tolerance_mmol4,
                 tolerance_reason: data.tolerance_reason,
                 tolerance_remark: data.tolerance_remark
             });
