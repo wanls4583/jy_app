@@ -4,7 +4,7 @@
  * @Description: 
  */
 module.exports = {
-    // httpHost: 'https://dev.juyuanyingyang.com/ihospital/app/api',
-    httpHost: 'https://dev.juyuanmenzhenbu.com/ihospital/app/api',
+    httpHost: 'https://dev.juyuanyingyang.com/ihospital/app/api',
+    // httpHost: 'https://dev.juyuanmenzhenbu.com/ihospital/app/api',
     // httpHost: 'https://juyuanmenzhenbu.com/ihospital/app/api',
 }
