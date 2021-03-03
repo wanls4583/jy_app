@@ -105,7 +105,7 @@
 									type="text"
 									value="{{ward.tolerance_day}}"
 								/>
-								<text class="flex-shrink-0">天胃排便</text>
+								<text class="flex-shrink-0">天未排便</text>
 							</view>
 						</view>
 					</van-checkbox>
