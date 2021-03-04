@@ -45,7 +45,6 @@ Page({
             perUseNum: goods.perUseNum || 1,
             days: goods.days || 7,
             count: goods.count || '',
-            countMax: goods.countMax || 0,
             modulateDose: goods.modulateDose || 0,
             giveWay: goods.giveWay || giveWayList[0].value,
             remark: goods.remark,
@@ -55,9 +54,7 @@ Page({
             frequencyDefault: goods.frequency - 1 || 0,
             amount: goods.amount || 0
         });
-        if (!this.data.count) {
-            this.caculateGross();
-        }
+        this.caculateGross();
         giveWayList.map((item, index) => {
             if (this.data.giveWay == item.value) {
                 this.setData({
@@ -257,7 +254,6 @@ Page({
         this.data.goods.days = this.data.days;
         this.data.goods.perUseNum = this.data.perUseNum;
         this.data.goods.count = this.data.count;
-        this.data.goods.countMax = this.data.countMax;
         this.data.goods.modulateDose = this.data.modulateDose;
         this.data.goods.remark = this.data.remark;
         this.data.goods.amount = this.data.amount;
