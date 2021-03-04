@@ -114,15 +114,15 @@ Page({
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
             countMax = Math.floor(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
-            if(days > 100) {
-                days = 100;
+            if(days > this.data.maxDays) {
+                days = this.data.maxDays;
                 count = Math.floor(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             }
         } else {
             days = count / this.data.frequency;
             countMax = Math.floor(this.data.maxDays * this.data.frequency);
-            if(days > 100) {
-                days = 100;
+            if(days > this.data.maxDays) {
+                days = this.data.maxDays;
                 count = Math.floor(days * this.data.frequency);
             }
         }
