@@ -41,7 +41,7 @@
 									type="text"
 									value="{{consult.stomachSymptom_day}}"
 								/>
-								<text class="flex-shrink-0">次/天</text>
+								<text class="flex-shrink-0">天1次</text>
 							</view>
 						</view>
 					</van-checkbox>
