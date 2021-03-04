@@ -35,7 +35,9 @@ Page({
             this.setData({
                 goodsList: guideOrderDetail.goods.map((item) => {
                     if(item.type == 1) {
-                        item.goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
+                        item._goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
+                    } else {
+                        item._goodsName = item.goodsName;
                     }
                     item.price = item.price || item.amount / item.count;
                     item.standardNum = item.standardNum || item.items[0].standardNum;
@@ -73,7 +75,9 @@ Page({
                 return item.type == usageGoods.type && item.id == usageGoods.id;
             });
             if(usageGoods.type == 1) {
-                usageGoods.goodsName = `${usageGoods.goodsName}(${usageGoods.standardNum}${wx.jyApp.constData.unitChange[usageGoods.standardUnit]}/${wx.jyApp.constData.unitChange[usageGoods.unit]})`;
+                usageGoods._goodsName = `${usageGoods.goodsName}(${usageGoods.standardNum}${wx.jyApp.constData.unitChange[usageGoods.standardUnit]}/${wx.jyApp.constData.unitChange[usageGoods.unit]})`;
+            } else {
+                usageGoods._goodsName = usageGoods.goodsName;
             }
             if (!arr.length) {
                 this.data.goodsList.push(usageGoods);
