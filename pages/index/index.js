@@ -256,6 +256,10 @@ Page({
     },
     //获取视频通话信息
     getRoomInfo() {
+        if(this.getRoomInfo.loading) {
+            return;
+        }
+        this.getRoomInfo.loading = true;
         wx.jyApp.room.getRoomInfo().then((data) => {
             try {
                 if (data.data) {
@@ -275,6 +279,7 @@ Page({
 
             }
         }).finally(() => {
+            this.getRoomInfo.loading = false;
             clearTimeout(this.getRoomInfo.timer)
             this.getRoomInfo.timer = setTimeout(() => {
                 this.getRoomInfo();
