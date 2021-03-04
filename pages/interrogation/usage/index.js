@@ -127,7 +127,7 @@ Page({
             }
         }
         this.setData({
-            count: count,
+            count: count || 1,
             countMax: countMax,
             days: Number(days.toFixed(2))
         });
