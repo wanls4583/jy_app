@@ -164,9 +164,9 @@
 					<view class="flex-shrink-0 label-color">种类：</view>
 					<view>
 						<van-checkbox-group bind:change="onChange" data-prop="consult.category_select" value="{{consult.category_select}}">
-							<van-checkbox label-disabled name="匀浆糖" shape="square">
+							<van-checkbox label-disabled name="匀浆膳" shape="square">
 								<view class="flex">
-									<text>匀浆糖</text>
+									<text>匀浆膳</text>
 									<input
 										bindinput="onInput"
 										class="margin-left-20 border-bottom inline-block"

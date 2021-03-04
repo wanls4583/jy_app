@@ -104,6 +104,7 @@
 			class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top"
 			wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.delVisible)&&userInfo.role=='USER'}}"
 		>
+			<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 			<view
 				catchtap="onGoto"
 				class="margin-left-20 button small primary"
@@ -116,7 +117,6 @@
 				data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.price}}&orderNo={{order.orderNo}}&orderType=2"
 				wx:elif="{{order.applyTicketVisible}}"
 			>申请发票</view>
-			<view bindtap="onDelApplyOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 		</view>
 		<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{order.status==1&&userInfo.role=='DOCTOR'}}">
 			<view

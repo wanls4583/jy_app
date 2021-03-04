@@ -64,12 +64,12 @@ Page({
                 patient: patient,
                 mainSuit: patient.diseaseDetail || ''
             });
-        }
-        if (patient.foodSensitive) {
-            this.setData({
-                hasFoodSensitive: 1,
-                foodSensitive: patient.foodSensitive
-            });
+            if (patient.foodSensitive) {
+                this.setData({
+                    hasFoodSensitive: 1,
+                    foodSensitive: patient.foodSensitive
+                });
+            }
         }
         //加载医疗结构
         this.loadOrgList();
@@ -111,7 +111,7 @@ Page({
             orgVisible: !this.data.orgVisible,
             orgText: this.data.firstMedicalOrg,
             orgList: this.allOrg.filter((item) => {
-                return item.indexOf(this.data.firstMedicalOrg) > -1;
+                return item && item.indexOf(this.data.firstMedicalOrg) > -1;
             })
         });
     },
@@ -120,7 +120,7 @@ Page({
         this.setData({
             orgText: text,
             orgList: this.allOrg.filter((item) => {
-                return item.indexOf(text) > -1
+                return item && item.indexOf(text) > -1
             })
         });
     },
@@ -149,7 +149,7 @@ Page({
                 from: this.from,
                 consultOrderId: this.consultOrderId,
                 isFirst: this.data.isFirst,
-                foodSensitive: this.data.foodSensitive,
+                foodSensitive: this.data.hasFoodSensitive == 1  && this.data.foodSensitive || '',
                 mainSuit: this.data.mainSuit,
                 currentDisease: this.data.currentDisease,
                 historyDisease: this.data.historyDisease,

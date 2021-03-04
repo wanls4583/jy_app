@@ -498,6 +498,7 @@ Page({
                 item._status = wx.jyApp.constData.mallOrderStatusMap[item.status];
                 item.applyTicketVisible = item.ticketDays <= this.data.configData.allowApplyTicketDays && item.totalAmount > 0 && item.status == 8 || false;
                 item.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(item.status) > -1;
+                item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
