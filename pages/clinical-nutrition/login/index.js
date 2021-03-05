@@ -14,21 +14,21 @@ Page({
     },
     onLoad(option) {
         if (wx.getStorageSync('mobileToken')) {
-            wx.jyApp.http({
-                type: 'mobile',
-                url: '/app/nutrition/query',
-                data: {
-                    method: 'patient',
-                    patientId: '',
-                    pageNum: 1,
-                    pageSize: 1,
-                    isInpatient: true
-                }
-            }).then(() => {
+            // wx.jyApp.http({
+            //     type: 'mobile',
+            //     url: '/app/nutrition/query',
+            //     data: {
+            //         method: 'patient',
+            //         patientId: '',
+            //         pageNum: 1,
+            //         pageSize: 1,
+            //         isInpatient: true
+            //     }
+            // }).then(() => {
                 wx.redirectTo({
                     url: '/pages/clinical-nutrition/patient-list/index'
                 });
-            });
+            // });
         } else {
             this.getHospitalList();
         }
