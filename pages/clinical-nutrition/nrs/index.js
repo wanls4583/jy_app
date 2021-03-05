@@ -282,7 +282,7 @@ Component({
                 loseWeight: null,
                 foodIntake: null,
                 needNormal: null,
-                needAddition: null,
+                needAddition: nrs.needAddition,
                 ageGe70: nrs.ageGe70 ? 1 : 0,
                 result: nrs.score,
                 resultDescription: nrs.handle,

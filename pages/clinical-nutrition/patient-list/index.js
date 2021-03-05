@@ -28,6 +28,12 @@ Page({
         this.getPatientList();
     },
     getPatientList(refresh) {
+        if(!this.data.patientId) {
+            this.setData({
+                stopRefresh: true
+            });
+            return;
+        }
         if (refresh) {
             this.request && this.request.requestTask.abort();
         } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {

@@ -61,7 +61,7 @@ Page({
             data: {
                 page: 1,
                 limit: 1000,
-                status: 1,
+                // status: 1,
                 mobileStatus: 1
             }
         }).then((data) => {
