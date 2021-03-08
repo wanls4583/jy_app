@@ -166,11 +166,13 @@
 						<van-checkbox-group bind:change="onChange" data-prop="consult.category_select" value="{{consult.category_select}}">
 							<van-checkbox label-disabled name="匀浆膳" shape="square">
 								<view class="flex">
-									<text>匀浆膳</text>
-									<input
+									<text class="flex-shrink-0">匀浆膳</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input1"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input1}}"
 									/>
@@ -178,11 +180,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="整蛋白型" shape="square">
 								<view class="flex">
-									<text>整蛋白型</text>
-									<input
+									<text class="flex-shrink-0">整蛋白型</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input2"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input2}}"
 									/>
@@ -190,11 +194,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="疾病专用型" shape="square">
 								<view class="flex">
-									<text>疾病专用型</text>
-									<input
+									<text class="flex-shrink-0">疾病专用型</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input3"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input3}}"
 									/>
@@ -202,11 +208,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="短肽类" shape="square">
 								<view class="flex">
-									<text>短肽类</text>
-									<input
+									<text class="flex-shrink-0">短肽类</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input4"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input4}}"
 									/>
@@ -214,11 +222,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="氨基酸型" shape="square">
 								<view class="flex">
-									<text>氨基酸型</text>
-									<input
+									<text class="flex-shrink-0">氨基酸型</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input5"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input5}}"
 									/>
@@ -226,11 +236,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="自备匀浆膳" shape="square">
 								<view class="flex">
-									<text>自备匀浆膳</text>
-									<input
+									<text class="flex-shrink-0">自备匀浆膳</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input6"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input6}}"
 									/>
@@ -238,11 +250,13 @@
 							</van-checkbox>
 							<van-checkbox label-disabled name="日常饭菜" shape="square">
 								<view class="flex">
-									<text>日常饭菜</text>
-									<input
+									<text class="flex-shrink-0">日常饭菜</text>
+									<textarea
+										auto-height="{{true}}"
 										bindinput="onInput"
-										class="margin-left-20 border-bottom inline-block"
+										class="margin-left-20 border inline-block"
 										data-prop="consult.category_input7"
+										style="width:400rpx"
 										type="text"
 										value="{{consult.category_input7}}"
 									/>

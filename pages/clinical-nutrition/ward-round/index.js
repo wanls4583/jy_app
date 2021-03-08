@@ -99,7 +99,7 @@ Component({
                     tolerance_mmol4: '',
                     tolerance_reason: '',
                     tolerance_remark: '',
-                    changePlan_select: [],
+                    changePlan_select: '',
                     changePlan_remark: ''
                 },
             })
@@ -153,6 +153,9 @@ Component({
                     isInpatient: this.properties.patient.isInpatient
                 }
             }).then((data) => {
+                data.result.rows.sort((a, b)=>{
+                    return b.checkDate - a.checkDate
+                });
                 this.setData({
                     dataList: data.result.rows
                 });

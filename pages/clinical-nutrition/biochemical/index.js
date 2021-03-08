@@ -83,6 +83,9 @@ Component({
                         lisList: []
                     });
                 }
+                data.rows.map((item)=>{
+                    item.checkoutRptTime = new Date(item.checkoutRptTime).formatTime('yyyy-MM-dd');
+                });
                 this.setData({
                     page: this.data.page + 1,
                     totalPage: data.totalPage,
