@@ -335,6 +335,7 @@ Component({
                 data.receiveDepartmentName = this.data.receiveDepartmentName;
                 data.receiverName = this.data.receiverName;
                 data.receiver = this.data.receiver;
+                data.sendNotification = true;
             }
             data.bmi = data.BMI;
             data.bmiLessThan = data.bmiLessThan == 3 ? true : false;

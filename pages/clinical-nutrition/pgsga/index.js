@@ -120,7 +120,7 @@ Component({
             });
         },
         onInput(e) {
-            wx.jyApp.utils.onInput(e, this);
+            wx.jyApp.utils.onInputPlainText(e, this);
             this.countScore();
         },
         onInputNum(e) {
@@ -579,6 +579,7 @@ Component({
                 data.receiveDepartmentName = this.data.receiveDepartmentName;
                 data.receiverName = this.data.receiverName;
                 data.receiver = this.data.receiver;
+                data.sendNotification = true;
             }
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');

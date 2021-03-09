@@ -110,7 +110,7 @@ Component({
             });
         },
         onInput(e) {
-            wx.jyApp.utils.onInput(e, this);
+            wx.jyApp.utils.onInputPlainText(e, this);
         },
         onChange(e) {
             var prop = e.currentTarget.dataset.prop;

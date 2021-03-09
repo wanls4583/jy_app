@@ -269,11 +269,11 @@
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">临床诊断</view>
-			<van-field bind:input="onInput" data-prop="consult.diagnosis1" label="临床诊断1" value="{{consult.diagnosis1}}"></van-field>
-			<van-field bind:input="onInput" data-prop="consult.diagnosis2" label="临床诊断2" value="{{consult.diagnosis2}}"></van-field>
-			<van-field bind:input="onInput" data-prop="consult.diagnosis3" label="临床诊断3" value="{{consult.diagnosis3}}"></van-field>
-			<van-field bind:input="onInput" data-prop="consult.diagnosis4" label="临床诊断4" value="{{consult.diagnosis4}}"></van-field>
-			<van-field bind:input="onInput" data-prop="consult.diagnosis5" label="临床诊断5" value="{{consult.diagnosis5}}"></van-field>
+			<van-field autosize bind:input="onInput" data-prop="consult.diagnosis1" label="临床诊断1" type="textarea" value="{{consult.diagnosis1}}"></van-field>
+			<van-field autosize bind:input="onInput" data-prop="consult.diagnosis2" label="临床诊断2" type="textarea" value="{{consult.diagnosis2}}"></van-field>
+			<van-field autosize bind:input="onInput" data-prop="consult.diagnosis3" label="临床诊断3" type="textarea" value="{{consult.diagnosis3}}"></van-field>
+			<van-field autosize bind:input="onInput" data-prop="consult.diagnosis4" label="临床诊断4" type="textarea" value="{{consult.diagnosis4}}"></van-field>
+			<van-field autosize bind:input="onInput" data-prop="consult.diagnosis5" label="临床诊断5" type="textarea" value="{{consult.diagnosis5}}"></van-field>
 		</view>
 		<view class="white-background-color padding-top-bottom-30 margin-top-20">
 			<view class="margin-left-30 pre-vertical-line primary-line-color">检验结果</view>

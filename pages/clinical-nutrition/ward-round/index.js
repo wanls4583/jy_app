@@ -48,7 +48,7 @@ Component({
             });
         },
         onInput(e) {
-            wx.jyApp.utils.onInput(e, this);
+            wx.jyApp.utils.onInputPlainText(e, this);
         },
         onShowList() {
             this.setData({

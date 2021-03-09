@@ -138,6 +138,18 @@ function onInput(e, context) {
     });
 }
 
+function onInputPlainText(e, context) {
+    if (typeof e.detail == 'string') {
+        e.detail = e.detail.replace(wx.jyApp.constData.emojiReg, '');
+    } else {
+        e.detail.value = e.detail.value.replace(wx.jyApp.constData.emojiReg, '');
+    }
+    var prop = e.currentTarget.dataset.prop;
+    context.setData({
+        [prop]: typeof e.detail == 'string' ? e.detail : e.detail.value
+    });
+}
+
 function onInputNum(e, context, dot) {
     var prop = e.currentTarget.dataset.prop;
     var value = typeof e.detail == 'object' ? e.detail.value : e.detail;
@@ -394,6 +406,7 @@ module.exports = {
     navigateBack: navigateBack,
     getPageByLastIndex: getPageByLastIndex,
     onInput: onInput,
+    onInputPlainText: onInputPlainText,
     onInputNum: onInputNum,
     setText: setText,
     pay: pay,
