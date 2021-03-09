@@ -6,6 +6,7 @@
 Page({
     data: {
         patientId: '',
+        confirmPatientId: '',
         patientList: [],
         page: 1,
         totalPage: -1,
@@ -21,6 +22,12 @@ Page({
         wx.jyApp.setTempData('nutritionPatient', item);
         wx.jyApp.utils.navigateTo(e);
     },
+    onSearch() {
+        this.setData({
+            confirmPatientId: this.data.patientId
+        });
+        this.getPatientList(true);
+    },
     onRefresh() {
         this.getPatientList(true);
     },
@@ -28,7 +35,7 @@ Page({
         this.getPatientList();
     },
     getPatientList(refresh) {
-        if(!this.data.patientId) {
+        if(!this.data.confirmPatientId) {
             this.setData({
                 stopRefresh: true
             });
@@ -45,7 +52,7 @@ Page({
             url: '/app/nutrition/query',
             data: {
                 method: 'patient',
-                patientId: this.data.patientId,
+                patientId: this.data.confirmPatientId,
                 pageNum: refresh ? 1 : this.data.page,
                 pageSize: 20,
                 isInpatient: true
