@@ -28,6 +28,13 @@ Page({
         });
         this.getPatientList(true);
     },
+    //退出
+    onExit() {
+        wx.removeStorageSync('mobileToken');
+        wx.redirectTo({
+            url: '/pages/clinical-nutrition/login/index'
+        });
+    },
     onRefresh() {
         this.getPatientList(true);
     },
