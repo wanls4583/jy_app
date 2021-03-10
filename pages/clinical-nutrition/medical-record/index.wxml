@@ -19,12 +19,12 @@
 				<readonly-field label="基本病情" value="{{medicalRecord.patientDocument.diseaseHistory}}"></readonly-field>
 				<readonly-field label="主诉" value="{{medicalRecord.patientDocument.mainSuit}}"></readonly-field>
 				<readonly-field label="现病史" value="{{medicalRecord.patientDocument.currentlyMedicalHistory}}"></readonly-field>
-				<readonly-field label="营养诊断" value="{{medicalRecord.patientDocument.clinicalDiagnosis}}"></readonly-field>
+				<!-- <readonly-field label="营养诊断" value="{{medicalRecord.patientDocument.clinicalDiagnosis}}"></readonly-field> -->
 			</view>
 		</van-collapse-item>
 		<van-collapse-item class="margin-top-20" name="2" title="营养筛查">
 			<view>
-				<view class="border-bottom" wx:for="{{medicalRecord.filtrate.rows}}" wx:key="id">
+				<view class="border-bottom" wx:for="{{medicalRecord.filtrate.rows}}" wx:if="{{index<filtrateNum}}" wx:key="id">
 					<view class="flex padding-30">
 						<view class="label">筛查日期</view>
 						<view>{{item.filtratedDate}}</view>
@@ -42,11 +42,18 @@
 						<view>{{item.recommend}}</view>
 					</view>
 				</view>
+				<view
+					bindtap="onLoadMore"
+					class="flex--center--center padding-30 primary-color clickable"
+					data-max="{{medicalRecord.filtrate.rows.length}}"
+					data-prop="filtrateNum"
+					wx:if="{{filtrateNum<medicalRecord.filtrate.rows.length}}"
+				>加载更多</view>
 			</view>
 		</van-collapse-item>
 		<van-collapse-item class="margin-top-20" name="3" title="肠内营养">
 			<view>
-				<view class="border-bottom" wx:for="{{medicalRecord.nutritionOrder.rows}}" wx:key="id">
+				<view class="border-bottom" wx:for="{{medicalRecord.nutritionOrder.rows}}" wx:if="{{index<nutritionOrderNum}}" wx:key="id">
 					<view class="flex padding-30">
 						<view class="label">指导日期</view>
 						<view>{{item.beginDate}}</view>
@@ -68,11 +75,18 @@
 						<view>{{item.doctorName}}</view>
 					</view>
 				</view>
+				<view
+					bindtap="onLoadMore"
+					class="flex--center--center padding-30 primary-color clickable"
+					data-max="{{medicalRecord.nutritionOrder.rows.length}}"
+					data-prop="nutritionOrderNum"
+					wx:if="{{nutritionOrderNum<medicalRecord.nutritionOrder.rows.length}}"
+				>加载更多</view>
 			</view>
 		</van-collapse-item>
 		<van-collapse-item class="margin-top-20" name="4" title="病程记录">
 			<view>
-				<view class="border-bottom" wx:for="{{medicalRecord.courseOfDisease.rows}}" wx:key="id">
+				<view class="border-bottom" wx:for="{{medicalRecord.courseOfDisease.rows}}" wx:if="{{index<courseOfDiseaseNum}}" wx:key="id">
 					<view class="flex padding-30">
 						<view class="label">记录日期</view>
 						<view>{{item.date}}</view>
@@ -90,6 +104,13 @@
 						<view>{{item.record}}</view>
 					</view>
 				</view>
+				<view
+					bindtap="onLoadMore"
+					class="flex--center--center padding-30 primary-color clickable"
+					data-max="{{medicalRecord.courseOfDisease.rows.length}}"
+					data-prop="courseOfDiseaseNum"
+					wx:if="{{courseOfDiseaseNum<medicalRecord.courseOfDisease.rows.length}}"
+				>加载更多</view>
 			</view>
 		</van-collapse-item>
 	</van-collapse>

@@ -93,7 +93,7 @@
 			<view class="margin-left-30 pre-vertical-line primary-line-color">疾病与营养需求的关系</view>
 			<view class="padding-30">
 				<view>主要相关诊断：</view>
-				<textarea bindinput="onInput" class="width-100 margin-top-30 border" data-prop="pgsga.mainDiagnosis" value="{{pgsga.mainDiagnosis}}"></textarea>
+				<textarea bindinput="onInput" class="width-100 margin-top-30 border" data-prop="pgsga.mainDiagnosis" maxlength="{{200}}" value="{{pgsga.mainDiagnosis}}"></textarea>
 				<view class="margin-top-bottom-30">主要疾病分期(选择你知道或者适当的等级)：</view>
 				<van-radio-group bind:change="onChange" data-prop="pgsga.mainDeseasePeriod" value="{{pgsga.mainDeseasePeriod}}">
 					<van-radio name="1级">1级（1分）</van-radio>

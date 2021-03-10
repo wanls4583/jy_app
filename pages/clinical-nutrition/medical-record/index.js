@@ -31,7 +31,10 @@ Component({
     },
     data: {
         medicalRecord: null,
-        activeNames: ['1', '2', '3', '4']
+        activeNames: ['1', '2', '3', '4'],
+        filtrateNum: 3,
+        nutritionOrderNum: 3,
+        courseOfDiseaseNum: 3,
     },
     lifetimes: {
         attached() {
@@ -74,6 +77,18 @@ Component({
             }
             this.setData({
                 medicalRecord: medicalRecord
+            });
+        },
+        onLoadMore(e) {
+            var prop = e.currentTarget.dataset.prop;
+            var max = e.currentTarget.dataset.max;
+            var num = this.data[prop];
+            if (num < max) {
+                num += 5;
+            }
+            num = num > max ? max : num;
+            this.setData({
+                [`${prop}`]: num
             });
         }
     }
