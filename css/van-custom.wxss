@@ -111,10 +111,10 @@ page .van-field__label--disabled {
     color: #323233;
 } */
 
-.van-ellipsis.van-tab {
+.van-tab.van-ellipsis {
     overflow: visible;
 }
 
-.van-ellipsis.van-tab .van-ellipsis {
+.van-tab.van-ellipsis .van-ellipsis {
     overflow: visible;
 }
