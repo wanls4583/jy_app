@@ -387,7 +387,7 @@ function getSuggestData(name, patientDoc) {
     }
     wx.jyApp.constData.yingyangtuijian.map(item => {
         var sex = patientDoc.sex == 1 ? 1 : 0;
-        if (patientDoc.age >= item["maxAge"] && patientDoc.age <= item["minAge"] && sex == item["sex"]) {
+        if (patientDoc.age >= item["minAge"] && patientDoc.age <= item["maxAge"] && sex == item["sex"]) {
             result = item[name];
         }
     })
