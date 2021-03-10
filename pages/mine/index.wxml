@@ -205,7 +205,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.nutritionSwitch==1}}">
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.nutritionSwitch==1}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/clinical-nutrition/login/index">
 					<text>营养系统</text>
 					<view class="flex--center--center">
