@@ -110,3 +110,11 @@ page .van-field__label--disabled {
 /* page .van-field__input--disabled {
     color: #323233;
 } */
+
+.van-ellipsis.van-tab {
+    overflow: visible;
+}
+
+.van-ellipsis.van-tab .van-ellipsis {
+    overflow: visible;
+}
