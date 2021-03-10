@@ -25,7 +25,10 @@
 			</view>
 		</view>
 		<!-- 未认证医生 -->
-		<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:elif="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.authStatus!=1)}}">
+		<view
+			class="flex--center--between background-gradient padding-30 padding-top-0"
+			wx:elif="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.authStatus!=1)}}"
+		>
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 					<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -134,7 +137,10 @@
 			</block>
 		</view>
 		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
-			<view class="padding-left-right-20 clickable" wx:if="{{(userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1)&&userInfo.originRole!='PHARMACIST'}}">
+			<view
+				class="padding-left-right-20 clickable"
+				wx:if="{{(userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1)&&userInfo.originRole!='PHARMACIST'}}"
+			>
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
@@ -194,6 +200,14 @@
 			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.dataAuthority==1}}">
 				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/statistic/summary/index">
 					<text>数据查询</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
+				</view>
+			</view>
+			<view class="padding-left-right-30 clickable" wx:if="{{userInfo.nutritionSwitch==1}}">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/clinical-nutrition/login/index">
+					<text>营养系统</text>
 					<view class="flex--center--center">
 						<van-icon color="#ccc" name="arrow" />
 					</view>
