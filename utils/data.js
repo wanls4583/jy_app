@@ -155,6 +155,7 @@ export const dayArr = ['星期天', '星期一', '星期二', '星期三', '星�
 export const nutritionNameMap = {
   'ca': '钙(mg)',
   'carbohydrate': '碳水化合物(g)',
+  'dietaryFiber': '膳食纤维(g)',
   'cholesterol': '胆固醇(mg)',
   'cu': '铜(mg)',
   'energy': '能量(kcal)',

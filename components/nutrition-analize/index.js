@@ -53,6 +53,7 @@ Component({
         'protein',
         'fat',
         'carbohydrate',
+        'dietaryFiber',
         'cholesterol',
         'vitaminB1',
         'vitaminB2',

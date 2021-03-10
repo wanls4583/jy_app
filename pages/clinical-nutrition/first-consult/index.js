@@ -271,10 +271,15 @@ Component({
                             ...data
                         })
                     }
-                }).then(() => {
+                }).then((_data) => {
                     setTimeout(()=>{
                         wx.jyApp.toast('保存成功');
                     });
+                    if (!data.id) {
+                        this.setData({
+                            'consult.id': _data.result.data
+                        });
+                    }
                 }).finally(() => {
                     wx.hideLoading();
                 });
