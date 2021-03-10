@@ -6,4 +6,6 @@
 module.exports = {
     httpHost: 'https://dev.juyuanmenzhenbu.com/ihospital/app/api',
     // httpHost: 'https://juyuanmenzhenbu.com/ihospital/app/api',
+    mobileHttpHost: 'https://dev.juyuanyingyang.com/order/api',
+    // mobileHttpHost: 'https://juyuanyingyang.com/order/api',
 }

@@ -4,6 +4,7 @@
  * @Description: 
  */
 const httpHost = require('../config/index.js').httpHost;
+const mobileHttpHost = require('../config/index.js').mobileHttpHost;
 
 function request(obj) {
     var url = httpHost;
@@ -13,7 +14,7 @@ function request(obj) {
     }
     if (obj.type == 'mobile') {
         header['token'] = wx.getStorageSync('mobileToken');
-        url = 'https://dev.juyuanyingyang.com/order/api';
+        url = mobileHttpHost;
     } else {
         header['token'] = wx.getStorageSync('token');
         header['role'] = wx.getStorageSync('role');
