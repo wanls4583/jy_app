@@ -101,10 +101,12 @@ Page({
                                 if (tabs.indexOf(url) > -1) {
                                     type = 'tab';
                                 }
-                                if (url.indexOf('?') > -1) {
-                                    url += '&doctorId=' + this.inviteDoctorId;
-                                } else {
-                                    url += '?doctorId=' + this.inviteDoctorId;
+                                if(type != 'tab') {
+                                    if (url.indexOf('?') > -1) {
+                                        url += '&doctorId=' + this.inviteDoctorId;
+                                    } else {
+                                        url += '?doctorId=' + this.inviteDoctorId;
+                                    }
                                 }
                                 wx.jyApp.utils.navigateTo({
                                     url: url,
