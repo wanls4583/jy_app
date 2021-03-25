@@ -186,13 +186,13 @@ Page({
             success(res) {
                 var files = [];
                 res.tempFiles.map((item) => {
-                    // if (item.size < 1024 * 1024) {
+                    // if (item.size < 1024 * 300) {
                     files.push({
                         path: item.path,
                         id: wx.jyApp.utils.getUUID()
                     });
                     // } else {
-                    //     wx.jyApp.toast('部分文件大于1M，已取消');
+                    //     wx.jyApp.toast('部分文件大于300K，已取消');
                     // }
                 });
                 if (files) {
@@ -219,13 +219,13 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 1024) {
+                        if (item.size < 1024 * 300) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
                         } else {
-                            wx.jyApp.toast('部分文件大于1M，已取消');
+                            wx.jyApp.toast('部分文件大于300K，已取消');
                         }
                     }
                 });
@@ -262,13 +262,13 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobTitleCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 1024) {
+                        if (item.size < 1024 * 300) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
                         } else {
-                            wx.jyApp.toast('部分文件大于1M，已取消');
+                            wx.jyApp.toast('部分文件大于300K，已取消');
                         }
                     }
                 });
@@ -324,6 +324,7 @@ Page({
                         data = JSON.parse(res.data);
                     } catch (e) {
                         wx.jyApp.log.info('上传失败', res.data);
+                        wx.jyApp.toast('上传失败');
                     }
                     delete self.taskMap[item.id];
                     if (data.url) {
@@ -332,6 +333,7 @@ Page({
                         self.data.progressMap[item.id] = 101;
                     } else {
                         self.data.progressMap[item.id] = -1
+                        wx.jyApp.toast(data.message);
                     }
                     self.setData({
                         progressMap: self.data.progressMap
