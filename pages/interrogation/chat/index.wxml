@@ -12,12 +12,14 @@
 			<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
 			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 		</view>
-		<!-- 医生可转诊 -->
-		<view bindtap="onReferral" class="button small primary" wx:if="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status!=8&&!consultOrder.transferFlag}}">转诊</view>
-		<!-- 转诊中 -->
-		<view class="button small primary disabled" wx:elif="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status==8}}">转诊中</view>
-		<!-- 医生已转诊 -->
-		<view class="button small primary disabled" wx:elif="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status==9}}">已转诊</view>
+		<block wx:if="{{currentUser.role=='DOCTOR'&&status==1}}">
+			<!-- 医生可转诊 -->
+			<view bindtap="onReferral" class="button small primary" wx:if="{{consultOrder.status!=8&&!consultOrder.transferFlag}}">转诊</view>
+			<!-- 转诊中 -->
+			<view class="button small primary disabled" wx:elif="{{consultOrder.status==8}}">转诊中</view>
+			<!-- 医生已转诊 -->
+			<view class="button small primary disabled" wx:elif="{{consultOrder.status==9}}">已转诊</view>
+		</block>
 	</view>
 	<view
 		bindtap="onClickChatBlock"
