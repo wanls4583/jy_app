@@ -36,7 +36,7 @@
 									<text>，{{item.age}}岁</text>
 									<text wx:if="{{item.height}}">，{{item.height}}cm</text>
 									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
-									<text class="tag hollow warn" wx:if="{{item.status==8||item.status==9}}">转诊</text>
+									<text class="tag hollow warn" wx:if="{{item.transferFlag}}">转诊</text>
 									<text class="tag hollow" wx:if="{{item.type==3}}">视频</text>
 								</view>
 								<view class="flex--center--between width-100">
