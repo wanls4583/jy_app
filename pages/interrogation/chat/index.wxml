@@ -1,15 +1,21 @@
 <view class="container">
 	<view
-		class="position-absolute top-0 flex--center--start width-100 height-50px white-background-color border-top border-bottom gray-color"
+		class="position-absolute top-0 flex--center--between width-100 height-50px white-background-color border-top border-bottom gray-color"
 		style="padding:15px;"
 		wx:if="{{roomId}}"
 	>
-		<text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
-		<text decode="{{true}}">{{patient._sex}}&nbsp;&nbsp;</text>
-		<text decode="{{true}}">{{patient.age}}岁&nbsp;&nbsp;</text>
-		<text decode="{{true}}" wx:if="{{patient.height}}">{{patient.height}}cm&nbsp;&nbsp;</text>
-		<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
-		<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+		<view class="flex">
+			<text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
+			<text decode="{{true}}">{{patient._sex}}&nbsp;&nbsp;</text>
+			<text decode="{{true}}">{{patient.age}}岁&nbsp;&nbsp;</text>
+			<text decode="{{true}}" wx:if="{{patient.height}}">{{patient.height}}cm&nbsp;&nbsp;</text>
+			<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
+			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+		</view>
+		<!-- 医生可转诊 -->
+		<view bindtap="onReferral" class="button small primary" wx:if="{{talker.role=='DOCTOR'&&status==1&&consultOrder.status!=8}}">转诊</view>
+		<!-- 医生已转诊 -->
+		<view class="button small primary disabled" wx:elif="{{talker.role=='DOCTOR'&&status==1&&consultOrder.status==8}}">转诊中</view>
 	</view>
 	<view
 		bindtap="onClickChatBlock"
@@ -332,6 +338,7 @@
 			</view>
 		</scroll-view>
 	</view>
+	<!-- 底部输入框 -->
 	<view
 		class="position-absolute width-100 border-top border-color-ddd"
 		style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;"
@@ -383,6 +390,7 @@
 			</view>
 		</view>
 	</view>
+	<!-- 问诊结束，用户端显示咨询栏 -->
 	<view
 		class="position-absolute bottom-0 flex--center--between width-100 height-60px padding-left-right-30 border-top border-color-ddd white-background-color"
 		wx:elif="{{roomId&&currentUser.role!='DOCTOR'}}"
@@ -426,3 +434,4 @@
 		<view bindtap="onSendScreen" class="primary-color padding-30 align-center border-top clickable" style="flex:1">发送给患者</view>
 	</view>
 </van-popup>
+<van-dialog id="van-dialog" />

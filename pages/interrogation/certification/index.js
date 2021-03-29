@@ -333,7 +333,7 @@ Page({
                         self.data.progressMap[item.id] = 101;
                     } else {
                         self.data.progressMap[item.id] = -1
-                        wx.jyApp.toast(data.message);
+                        wx.jyApp.toast(data.msg);
                     }
                     self.setData({
                         progressMap: self.data.progressMap

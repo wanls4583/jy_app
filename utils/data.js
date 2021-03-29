@@ -128,7 +128,9 @@ export const interrogationOrderStatusMap = {
   '4': '已失效',
   '5': '就诊中',
   '6': '退费中',
-  '7': '已退费'
+  '7': '已退费',
+  '8': '转诊中',
+  '9': '已接诊'
 }
 //申请指导订单
 export const applyOrderStatusMap = {

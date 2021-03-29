@@ -149,6 +149,12 @@ Page({
             consultOrder: data.consultOrder,
             consultOrderId: data.chatRoom.consultOrderId
         });
+        //转诊中或已转诊状态，医生底部的工具栏要隐藏掉
+        if((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.talker.role == 'DOCTOR') {
+            this.setData({
+                inputHeight: 0
+            });
+        }
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });
@@ -197,6 +203,25 @@ Page({
     onInput(e) {
         this.setData({
             inputValue: e.detail.value
+        });
+    },
+    //转诊
+    onReferral() {
+        wx.jyApp.dialog.confirm({
+            message: '确定邀请营养师会诊？'
+        }).then(()=>{
+            wx.jyApp.http({
+                url: '/consultorder/transfer',
+                method: 'post',
+                data: {
+                    id: this.data.consultOrderId
+                }
+            }).then(()=>{
+                this.setData({
+                    'consultOrder.status': 8,
+                    inputHeight: 0
+                });
+            });
         });
     },
     //发文字消息

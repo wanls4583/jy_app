@@ -3,11 +3,18 @@ Page({
         statusList: [1, 5, 3],
         statusActiveMap: {
             1: 0,
-            5: 1,
-            3: 2
+            8: 1,
+            5: 2,
+            3: 3
         },
         dataMap: {
             1: {
+                patientList: [],
+                stopRefresh: false,
+                totalPage: -1,
+                page: 1,
+            },
+            8: {
                 patientList: [],
                 stopRefresh: false,
                 totalPage: -1,
@@ -38,6 +45,7 @@ Page({
         this.loading = {};
         this.request = {};
         this.loadList(true, 1);
+        this.loadList(true, 8);
         this.loadList(true, 3);
         this.loadList(true, 5);
         this.setData({
@@ -66,13 +74,35 @@ Page({
         });
     },
     onClickPatient(e) {
-        var roomId = e.currentTarget.dataset.roomid;
-        if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
+        var item = e.currentTarget.dataset.item;
+        if (!wx.jyApp.utils.checkDoctor({
+                checkStatus: true
+            })) {
             return;
         }
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/chat/index?roomId=' + roomId
-        });
+        if (item.status == 8) {
+            wx.jyApp.dialog.confirm({
+                message: '确定对转诊订单进行接诊？'
+            }).then(() => {
+                wx.jyApp.http({
+                    url: '/consultorder/transfer/accept',
+                    method: 'post',
+                    data: {
+                        id: item.consultOrderId
+                    }
+                }).then(() => {
+                    this.loadList(true, 8);
+                    this.loadList(true, 3);
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/interrogation/chat/index?roomId=' + item.roomId
+                    });
+                });
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/chat/index?roomId=' + item.roomId
+            });
+        }
     },
     onClickPhone() {
         wx.makePhoneCall({
@@ -99,7 +129,7 @@ Page({
         }
         this.loading[status] = true;
         this.request[status] = wx.jyApp.http({
-            url: '/consultorder/service/list',
+            url: status == 8 ? '/consultorder/transfering/query' : '/consultorder/service/list',
             data: {
                 page: refresh ? 1 : this.data.dataMap[status].page,
                 limit: 20,
@@ -117,7 +147,7 @@ Page({
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
-                if(item.videoBookDateTime) {
+                if (item.videoBookDateTime) {
                     item.videoBookDateTime = new Date(item.videoBookDateTime);
                     item.videoBookDateTime = item.videoBookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[item.videoBookDateTime.getDay()] + '&nbsp;' + item.videoBookDateTime.formatTime('hh:mm')
                 }

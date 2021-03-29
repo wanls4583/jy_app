@@ -3,6 +3,7 @@
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="待接诊"></van-tab>
+			<van-tab title="转诊中" wx:if="{{doctorInfo.acceptTransferSwitch==1}}"></van-tab>
 			<van-tab title="问诊中"></van-tab>
 			<van-tab title="已服务"></van-tab>
 		</van-tabs>
@@ -20,7 +21,7 @@
 					<view
 						bindtap="onClickPatient"
 						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
-						data-roomid="{{item.roomId}}"
+						data-item="{{item}}"
 						wx:for="{{dataMap[status].patientList}}"
 						wx:key="id"
 					>
@@ -35,6 +36,7 @@
 									<text>，{{item.age}}岁</text>
 									<text wx:if="{{item.height}}">，{{item.height}}cm</text>
 									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+									<text class="tag hollow warn" wx:if="{{item.status==8||item.status==9}}">转诊</text>
 									<text class="tag hollow" wx:if="{{item.type==3}}">视频</text>
 								</view>
 								<view class="flex--center--between width-100">
@@ -67,3 +69,4 @@
 		</swiper>
 	</view>
 </view>
+<van-dialog id="van-dialog"></van-dialog>
