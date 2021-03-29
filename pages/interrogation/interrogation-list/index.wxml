@@ -3,7 +3,7 @@
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="待接诊"></van-tab>
-			<van-tab title="转诊中" wx:if="{{doctorInfo.acceptTransferSwitch==1}}"></van-tab>
+			<van-tab title="转诊中" hidden="{{doctorInfo.acceptTransferSwitch!=1}}"></van-tab>
 			<van-tab title="问诊中"></van-tab>
 			<van-tab title="已服务"></van-tab>
 		</van-tabs>
