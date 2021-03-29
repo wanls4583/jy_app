@@ -80,7 +80,7 @@ Page({
             })) {
             return;
         }
-        if (item.status == 8) {
+        if (item.transferFlag) {
             wx.jyApp.dialog.confirm({
                 message: '确定对转诊订单进行接诊？'
             }).then(() => {

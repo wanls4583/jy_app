@@ -13,9 +13,11 @@
 			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 		</view>
 		<!-- 医生可转诊 -->
-		<view bindtap="onReferral" class="button small primary" wx:if="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status!=8}}">转诊</view>
-		<!-- 医生已转诊 -->
+		<view bindtap="onReferral" class="button small primary" wx:if="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status!=8&&!consultOrder.transferFlag}}">转诊</view>
+		<!-- 转诊中 -->
 		<view class="button small primary disabled" wx:elif="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status==8}}">转诊中</view>
+		<!-- 医生已转诊 -->
+		<view class="button small primary disabled" wx:elif="{{currentUser.role=='DOCTOR'&&status==1&&consultOrder.status==9}}">已转诊</view>
 	</view>
 	<view
 		bindtap="onClickChatBlock"
@@ -342,7 +344,7 @@
 	<view
 		class="position-absolute width-100 border-top border-color-ddd"
 		style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;"
-		wx:if="{{status==1||(currentUser.role=='DOCTOR'&&consultOrder.status!=8&&consultOrder.status!=9)}}"
+		wx:if="{{status==1&&currentUser.role=='USER'||(currentUser.role=='DOCTOR'&&consultOrder.status!=8&&consultOrder.status!=9)}}"
 	>
 		<view class="flex--center--between height-60px padding-left-20">
 			<input
