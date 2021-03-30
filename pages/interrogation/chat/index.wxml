@@ -12,7 +12,7 @@
 			<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
 			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 		</view>
-		<block wx:if="{{currentUser.role=='DOCTOR'&&status==1}}">
+		<block wx:if="{{currentUser.role=='DOCTOR'&&currentUser.acceptTransferSwitch==1&&status==1}}">
 			<!-- 医生可转诊 -->
 			<view bindtap="onReferral" class="button small primary" wx:if="{{consultOrder.status!=8&&!consultOrder.transferFlag}}">转诊</view>
 			<!-- 转诊中 -->
