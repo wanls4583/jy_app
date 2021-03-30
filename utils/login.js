@@ -24,6 +24,10 @@ function getUserInfo() {
             if(data.info.originRole == 'PHARMACIST') {
                 wx.removeStorageSync('role');
             }
+            //后台删除医生后前端也需要删除医生信息
+            if(!data.info.doctorId) {
+                wx.jyApp.store.updateDoctorInfo(null);
+            }
         }
         return data;
     });

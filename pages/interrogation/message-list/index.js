@@ -13,6 +13,8 @@ Page({
             actions: ['updateNoticeCount', 'updateMsgCount'],
         });
         this.storeBindings.updateStoreBindings();
+        //未读消息数量
+        this.msgCount = -1;
     },
     onShow() {
         this.getMessageCount().then(() => {

@@ -107,7 +107,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的订单</view>
 				</view>
 				<view
-					bindtap="onGoto"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/screen/screen-list/index"
 				>
