@@ -67,7 +67,7 @@ Component({
         onRefresh(e) {
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),
-                this.loadBaner,
+                this.loadBaner(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({

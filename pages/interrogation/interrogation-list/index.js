@@ -1,6 +1,6 @@
 Page({
     data: {
-        statusList: [1, 8, 5, 3],
+        statusList: [1, 5, 3],
         statusActiveMap: {
             1: 0,
             8: 1,
@@ -45,9 +45,14 @@ Page({
         this.loading = {};
         this.request = {};
         this.loadList(true, 1);
-        this.loadList(true, 8);
         this.loadList(true, 3);
         this.loadList(true, 5);
+        if(this.data.doctorInfo.acceptTransferSwitch == 1) {
+            this.setData({
+                statusList: [1, 8, 5, 3]
+            })
+            this.loadList(true, 8);
+        }
         this.setData({
             active: this.data.statusActiveMap[this.status]
         });

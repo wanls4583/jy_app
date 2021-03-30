@@ -15,12 +15,15 @@ Page({
         this.storeBindings.updateStoreBindings();
         //未读消息数量
         this.msgCount = -1;
+        this.firstLoad = true;
     },
     onShow() {
         this.getMessageCount().then(() => {
-            if (!this.checkMsgCount()) {
+            if (!this.checkMsgCount() && !this.firstLoad) {
                 this.checkMsgLength();
             }
+        }).finally(()=>{
+            this.firstLoad = false;
         });
     },
     onClickMsg(e) {
@@ -110,6 +113,7 @@ Page({
             url: '/systemnotice/totalNotRead',
             hideTip: true
         }).then((data) => {
+            data.msgTotalNotRead = data.msgTotalNotRead || 0;
             if (data.msgTotalNotRead) {
                 wx.setTabBarBadge({
                     index: 2,

@@ -78,6 +78,7 @@ Page({
         });
     },
     onSave() {
+        wx.jyApp.showLoading('提交中...', true);
         wx.jyApp.http({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
             method: 'post',
@@ -91,12 +92,10 @@ Page({
                     });
                 });
             }
-            wx.navigateBack();
-            setTimeout(() => {
-                wx.showToast({
-                    title: '操作成功'
-                });
-            }, 500);
+            wx.hideLoading();
+            wx.jyApp.toastBack('保存成功');
+        }).catch(()=>{
+            wx.hideLoading();
         });
     },
     loadInfo(id) {
