@@ -150,7 +150,7 @@ Page({
             consultOrderId: data.chatRoom.consultOrderId
         });
         //转诊中或已转诊状态，医生底部的工具栏要隐藏掉
-        if((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.talker.role == 'DOCTOR') {
+        if ((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.talker.role == 'DOCTOR') {
             this.setData({
                 inputHeight: 0
             });
@@ -209,14 +209,14 @@ Page({
     onReferral() {
         wx.jyApp.dialog.confirm({
             message: '确定邀请营养师会诊？'
-        }).then(()=>{
+        }).then(() => {
             wx.jyApp.http({
                 url: '/consultorder/transfer',
                 method: 'post',
                 data: {
                     id: this.data.consultOrderId
                 }
-            }).then(()=>{
+            }).then(() => {
                 this.setData({
                     'consultOrder.status': 8,
                     inputHeight: 0
@@ -658,6 +658,7 @@ Page({
             }
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
+                item.doctorId = this.data.consultOrder.acceptDoctorId || this.data.consultOrder.doctorId;
                 if (item.type == 4 && item.orderApplyVO) {
                     item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[item.orderApplyVO.status];
                     item.orderApplyVO.status = item.orderApplyVO.status;
@@ -665,12 +666,23 @@ Page({
                 if (item.type == 5 && item.nutritionOrderChatVO) {
                     item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[item.nutritionOrderChatVO.status];
                 }
+                //已转诊医生的聊天记录
+                if (item.sender && item.sender != this.data.currentUser.id && item.sender != this.data.talker.id) {
+                    if (this.data.currentUser.role == 'DOCTOR') {
+                        item.sender = this.data.currentUser.id;
+                    } else {
+                        item.sender = this.data.talker.id;
+                    }
+                    item.doctorId = this.data.consultOrder.doctorId;
+                }
             });
             list.map((item) => {
                 if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
                     var obj = null
                     try {
                         obj = JSON.parse(item.txt);
+                        //状态消息需要从消息列表中删除
+                        item.del = true;
                     } catch (e) {
                         obj = {};
                     }
@@ -682,8 +694,6 @@ Page({
                     list.map((_item) => {
                         _updateStatus(_item, item, obj);
                     });
-                    //状态消息需要从消息列表中删除
-                    item.del = true;
                 }
             });
             //通过动态消息更新申请单和指导单的状态

@@ -84,9 +84,9 @@
 									<image
 										bindtap="onGoto"
 										class="width-100 height-100 radius-8rpx"
-										data-url="/pages/interrogation/doctor-detail/index?doctorId={{consultOrder.doctorId}}"
+										data-url="/pages/interrogation/doctor-detail/index?doctorId={{item.doctorId}}"
 										mode="scaleToFill"
-										src="{{talker.avatarUrl}}"
+										src="{{item.userInfo.avatar}}"
 										wx:if="{{talker.role=='DOCTOR'}}"
 									/>
 									<image
@@ -320,9 +320,9 @@
 									<image
 										bindtap="onGoto"
 										class="width-100 height-100 radius-8rpx"
-										data-url="/pages/interrogation/doctor-detail/index?doctorId={{consultOrder.doctorId}}"
+										data-url="/pages/interrogation/doctor-detail/index?doctorId={{item.doctorId}}"
 										mode="scaleToFill"
-										src="{{currentUser.avatarUrl}}"
+										src="{{item.userInfo.avatar}}"
 										wx:if="{{currentUser.role=='DOCTOR'}}"
 									/>
 									<image
