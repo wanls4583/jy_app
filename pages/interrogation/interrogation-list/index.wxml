@@ -27,6 +27,7 @@
 						bindtap="onClickPatient"
 						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
 						data-item="{{item}}"
+						data-status="{{status}}"
 						wx:for="{{dataMap[status].patientList}}"
 						wx:key="id"
 					>

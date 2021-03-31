@@ -80,12 +80,13 @@ Page({
     },
     onClickPatient(e) {
         var item = e.currentTarget.dataset.item;
+        var status = e.currentTarget.dataset.status;
         if (!wx.jyApp.utils.checkDoctor({
                 checkStatus: true
             })) {
             return;
         }
-        if (item.transferFlag) {
+        if (item.transferFlag && status == 8) {
             wx.jyApp.dialog.confirm({
                 message: '确定对转诊订单进行接诊？'
             }).then(() => {

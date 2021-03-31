@@ -239,6 +239,13 @@ Page({
                 sendTime: new Date().getTime(),
                 domId: 'id-' + id
             };
+            if(this.data.doctorInfo) {
+                chat.doctorId = this.data.doctorInfo.id;
+                chat.userInfo = {
+                    avatar: this.data.doctorInfo.avatar,
+                    name: this.data.doctorInfo.doctorName
+                }
+            }
             this.addLocalChat(chat);
             this.setData({
                 inputValue: ''
@@ -273,6 +280,13 @@ Page({
                             sendTime: new Date().getTime(),
                             domId: 'id-' + id
                         };
+                        if(self.data.doctorInfo) {
+                            chat.doctorId = self.data.doctorInfo.id;
+                            chat.userInfo = {
+                                avatar: self.data.doctorInfo.avatar,
+                                name: self.data.doctorInfo.doctorName
+                            }
+                        }
                         self.addLocalChat(obj);
                         uploadingChats.push(obj);
                     });
