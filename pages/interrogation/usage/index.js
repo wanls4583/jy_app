@@ -11,7 +11,7 @@ Page({
         giveWay: '',
         amount: 0,
         count: '',
-        countMax: 0,
+        countMax: Infinity,
         days: 7,
         maxDays: 99,
         modulateDose: 0,
@@ -113,17 +113,25 @@ Page({
         }
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
-            countMax = Math.floor(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+            countMax = Math.ceil(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
             if(days > this.data.maxDays) {
                 days = this.data.maxDays;
-                count = Math.floor(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+                count = Math.ceil(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+                var _days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
+                if(_days <= days) {
+                    days = _days;
+                }
             }
         } else {
             days = count / this.data.frequency;
-            countMax = Math.floor(this.data.maxDays * this.data.frequency);
+            countMax = Math.ceil(this.data.maxDays * this.data.frequency);
             if(days > this.data.maxDays) {
                 days = this.data.maxDays;
-                count = Math.floor(days * this.data.frequency);
+                count = Math.ceil(days * this.data.frequency);
+                var _days = count / this.data.frequency;
+                if(_days <= days) {
+                    days = _days;
+                }
             }
         }
         this.setData({
@@ -135,46 +143,11 @@ Page({
             amount: (this.data.count * this.data.goods.price).toFixed(2)
         });
     },
-    onDaysPlus(e) {
-        var days = this.days || this.data.days;
-        if (!this.inputDays) {
-            days += 1;
-        }
-        e.detail = {
-            value: Math.floor(days) || 1
-        };
-        this.days = 0;
-        setTimeout(() => {
-            this.onDaysBlur(e);
-        }, 0);
-    },
-    onDaysMinus(e) {
-        var days = this.days || this.data.days;
-        if (!this.inputDays) {
-            days -= 1;
-        }
-        e.detail = {
-            value: Math.ceil(days) || 1
-        };
-        this.days = 0;
-        setTimeout(() => {
-            this.onDaysBlur(e);
-        }, 0);
-    },
     onDaysChange(e) {
-        this.days = e.detail;
-        this.inputDays = true;
-    },
-    onDaysBlur(e) {
-        if (e.detail.value == this.data.days) {
-            return;
-        }
-        this.days = e.detail.value;
         this.setData({
-            days: Number(e.detail.value) || 1
+            days: Number(e.detail) || 1
         });
         this.caculateGross();
-        this.inputDays = false;
     },
     //输入数字
     onInputNum(e) {
@@ -218,7 +191,7 @@ Page({
         var countMax = this.data.countMax;
         if (this.data.goods.type == 1) {
             count = Math.ceil(this.data.perUseNum * this.data.frequency * this.data.days / this.data.goods.standardNum) || 0;
-            countMax = Math.floor(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
+            countMax = Math.ceil(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
         } else {
             count = Math.ceil(this.data.days * this.data.frequency) || 0;
             countMax = Math.ceil(this.data.maxDays * this.data.frequency) || 0;

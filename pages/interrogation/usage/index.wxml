@@ -26,10 +26,7 @@
 			<view class="flex--center--between">
 				<text>天数</text>
 				<van-stepper
-					bind:blur="onDaysBlur"
 					bind:change="onDaysChange"
-					bind:minus="onDaysMinus"
-					bind:plus="onDaysPlus"
 					data-prop="days"
 					input-width="300rpx"
 					max="{{maxDays}}"
