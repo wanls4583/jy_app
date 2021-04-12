@@ -689,6 +689,11 @@ Page({
                     }
                     item.doctorId = this.data.consultOrder.doctorId;
                 }
+                if(!item.userInfo) {
+                    item.userInfo = {
+                        avatar: item.sender == this.data.currentUser.id ? this.data.currentUser.avatarUrl : this.data.talker.avatarUrl
+                    }
+                }
             });
             list.map((item) => {
                 if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
