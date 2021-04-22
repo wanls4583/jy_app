@@ -270,7 +270,7 @@ Page({
                 if (res.errMsg == 'chooseImage:ok') {
                     res.tempFilePaths.map((item) => {
                         var id = wx.jyApp.utils.getUUID();
-                        var obj = {
+                        var chat = {
                             id: id,
                             sender: self.data.currentUser.id,
                             type: 2,
@@ -287,8 +287,8 @@ Page({
                                 name: self.data.doctorInfo.doctorName
                             }
                         }
-                        self.addLocalChat(obj);
-                        uploadingChats.push(obj);
+                        self.addLocalChat(chat);
+                        uploadingChats.push(chat);
                     });
                     self.scrollToBottom();
                     self.uploadingFiles(uploadingChats);
@@ -689,7 +689,7 @@ Page({
                     }
                     item.doctorId = this.data.consultOrder.doctorId;
                 }
-                if(!item.userInfo) {
+                if(item.sender && !item.userInfo) {
                     item.userInfo = {
                         avatar: item.sender == this.data.currentUser.id ? this.data.currentUser.avatarUrl : this.data.talker.avatarUrl
                     }
