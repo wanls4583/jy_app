@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<view class="container padding-bottom-footer" wx:if="{{configData.showDoctor==1}}">
+<view class="container padding-bottom-footer" wx:if="{{configData.hideDoctor!=1}}">
 	<view class="flex--center--center flex-direction-column padding-30 white-background-color">
 		<view class="font-large font-bold {{order.statusColor}}">{{order._status}}</view>
 		<view class="gray-color margin-top-10" wx:if="{{order.status==0||order.status==4}}">超过{{configData.consultOrderExpireMinute}}分钟未支付，订单自动失效</view>

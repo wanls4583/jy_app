@@ -7,13 +7,13 @@
 				bindtap="onGoto"
 				class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center"
 				data-type="1"
-				data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
+				data-url="/pages/mall/search/index?showDoctor={{configData.hideDoctor!=1?1:''}}"
 				style="padding:0 {{menuRect.marginRight}}px"
 				wx:if="{{scrollTop>44}}"
 			>
 				<view class="flex--center--center width-100 padding-left-right-20 white-background-color radius-100px" style="height:{{menuRect.height}}px">
 					<van-icon color="#666" name="search" size="16"></van-icon>
-					<text class="margin-left-10 gray-color">请输入{{configData.showDoctor==1?'医生/':''}}产品</text>
+					<text class="margin-left-10 gray-color">请输入{{configData.hideDoctor!=1?'医生/':''}}产品</text>
 				</view>
 			</view>
 		</view>
@@ -26,14 +26,14 @@
 				<view
 					bindtap="onSearch"
 					data-type="2"
-					data-url="/pages/mall/search/index?showDoctor={{configData.showDoctor==1?1:''}}"
+					data-url="/pages/mall/search/index?showDoctor={{configData.hideDoctor!=1?1:''}}"
 					style="padding:0 {{menuRect.marginRight}}px"
 				>
 					<van-search
 						background="transparent"
 						class="nav-search width-100"
 						disabled="{{true}}"
-						placeholder="请输入{{configData.showDoctor==1?'医生/':''}}产品"
+						placeholder="请输入{{configData.hideDoctor!=1?'医生/':''}}产品"
 						shape="round"
 					/>
 				</view>
@@ -64,7 +64,7 @@
 						bindtap="onGoto"
 						class="flex-direction-column flex--center--between width-33 padding-30 clickable"
 						data-url="/pages/interrogation/illness-edit/index"
-						wx:if="{{configData.showDoctor==1}}"
+						wx:if="{{configData.hideDoctor!=1}}"
 					>
 						<view style="width:70rpx;height:70rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_wenzhen.png" />
@@ -76,7 +76,7 @@
 						bindtap="onGoto"
 						class="flex-direction-column flex--center--between width-33 padding-30 clickable"
 						data-url="/pages/mall/search-doctor/index"
-						wx:if="{{configData.showDoctor==1}}"
+						wx:if="{{configData.hideDoctor!=1}}"
 					>
 						<view style="width:70rpx;height:70rpx">
 							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_doctor.png" />
@@ -97,7 +97,7 @@
 						<text class="font-small color-666">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{departmentList.length&&configData.showDoctor==1}}">
+				<view class="white-background-color margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{departmentList.length&&configData.hideDoctor!=1}}">
 					<view class="font-title font-bold padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view
@@ -116,7 +116,7 @@
 				</view>
 				<view
 					class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px shadow"
-					wx:if="{{doctorList.length&&configData.showDoctor==1}}"
+					wx:if="{{doctorList.length&&configData.hideDoctor!=1}}"
 				>
 					<view class="flex--center--between">
 						<text class="font-title font-bold">推荐医生</text>

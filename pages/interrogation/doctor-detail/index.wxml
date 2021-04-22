@@ -1,4 +1,4 @@
-<view class="container white-background-color" wx:if="{{configData.showDoctor==1}}">
+<view class="container white-background-color" wx:if="{{configData.hideDoctor!=1}}">
 	<navigation-bar background="#2aafff" color="white" holder="{{true}}" title="医生详情"></navigation-bar>
 	<view class="padding-30" style="background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 		<view class="position-relative">

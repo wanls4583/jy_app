@@ -261,7 +261,7 @@ function getAllConfig() {
         'activity_rule_url',
         'h5_code_share_url',
         'consult_shop_url',
-        'showDoctor',
+        'hideDoctor',
         'hideAllBanner',
         'showInvite',
         'allowApplyTicketDays',
