@@ -272,6 +272,7 @@ function getAllConfig() {
         'hideCategory',
         'jobTitle',
         'withdrawType',
+        'doctorSwitch',
         'nutritionApproveSwitch'
     ]).then((data) => {
         data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;

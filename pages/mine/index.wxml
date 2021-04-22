@@ -139,7 +139,7 @@
 		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
 			<view
 				class="padding-left-right-20 clickable"
-				wx:if="{{(userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1)&&userInfo.originRole!='PHARMACIST'}}"
+				wx:if="{{configData.doctorSwitch==1||(userInfo.role=='DOCTOR'||userInfo.originRole=='DOCTOR'||userInfo.switchStatus==1)&&userInfo.originRole!='PHARMACIST'}}"
 			>
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
