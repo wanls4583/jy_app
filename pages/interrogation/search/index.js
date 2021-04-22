@@ -21,13 +21,7 @@ Page({
         },
         searched: false
     },
-    onLoad(option) {
-        if (option && option.showDoctor) {
-            this.setData({
-                doctorVisible: true
-            });
-        }
-    },
+    onLoad() {},
     onAddTaocan(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
         item.type = 2;

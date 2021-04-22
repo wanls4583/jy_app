@@ -7,7 +7,7 @@
 				bindtap="onGoto"
 				class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center"
 				data-type="1"
-				data-url="/pages/mall/search/index?showDoctor={{configData.hideDoctor!=1?1:''}}"
+				data-url="/pages/mall/search/index?hideDoctor={{configData.hideDoctor==1?1:''}}"
 				style="padding:0 {{menuRect.marginRight}}px"
 				wx:if="{{scrollTop>44}}"
 			>
@@ -26,7 +26,7 @@
 				<view
 					bindtap="onSearch"
 					data-type="2"
-					data-url="/pages/mall/search/index?showDoctor={{configData.hideDoctor!=1?1:''}}"
+					data-url="/pages/mall/search/index?hideDoctor={{configData.hideDoctor==1?1:''}}"
 					style="padding:0 {{menuRect.marginRight}}px"
 				>
 					<van-search

@@ -27,7 +27,7 @@ Page({
         searched: false
     },
     onLoad(option) {
-        if (option && option.showDoctor) {
+        if (option && option.hideDoctor != 1) {
             this.setData({
                 doctorVisible: true
             });
