@@ -228,7 +228,14 @@ Page({
                 ids: this.data.goods.id
             }
         }).then((data) => {
-            return data[this.data.goods.id].availNum >= this.data.count;
+            data = data[this.data.goods.id];
+            if(!data) {
+                wx.jyApp.toast(`${this.data.goods.productName}库存查询失败`);
+            }
+            if (data.availNum < this.data.goods.count) {
+                wx.jyApp.toast(`${data.productName}太热销啦，仅剩下${data.availNum}${wx.jyApp.constData.unitChange[data.useUnit]}`);
+            }
+            return data.availNum >= this.data.goods.count;
         }).then((enough) => {
             if (enough) {
                 this.saved = true;

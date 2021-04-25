@@ -142,14 +142,22 @@ Page({
                 ids: this.data.goods.id
             }
         }).then((data) => {
+            var tiped = false;
             return data[this.data.goods.id].items.every((item) => {
                 for (var i = 0; i < this.data.productList.length; i++) {
                     var obj = this.data.productList[i];
                     if (obj.id == item.id) {
-                        return item.availNum > obj.gross
+                        if (item.availNum < obj.gross && !tiped) {
+                            wx.jyApp.toast(`${item.productName}太热销啦，仅剩下${item.availNum}${wx.jyApp.constData.unitChange[item.useUnit]}`);
+                            tiped = true;
+                        }
+                        return item.availNum >= obj.gross
                     }
                 }
-                return item.gross;
+                if(!tiped) {
+                    wx.jyApp.toast(`${item.productName}库存查询失败`);
+                    tiped = true;
+                }
             });
         }).then((enough) => {
             if (enough) {
@@ -165,6 +173,8 @@ Page({
                 wx.navigateBack({
                     delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
                 });
+            } else {
+                wx.jyApp.toast('库存不足');
             }
         });
     },
