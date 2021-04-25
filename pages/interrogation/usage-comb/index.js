@@ -143,19 +143,23 @@ Page({
             }
         }).then((data) => {
             var tiped = false;
-            return data[this.data.goods.id].items.every((item) => {
+            if(!data.list[0]) {
+                wx.jyApp.toast(`${this.data.goods.goodsName}库存查询失败`);
+                return;
+            }
+            return data.list[0].items.every((item) => {
                 for (var i = 0; i < this.data.productList.length; i++) {
                     var obj = this.data.productList[i];
+                    var count = this.data.count * obj.goods;
                     if (obj.id == item.id) {
-                        if (item.availNum < obj.gross && !tiped) {
+                        if (item.availNum < count && !tiped) {
                             wx.jyApp.toast(`${item.productName}太热销啦，仅剩下${item.availNum}${wx.jyApp.constData.unitChange[item.useUnit]}`);
                             tiped = true;
                         }
-                        return item.availNum >= obj.gross
+                        return item.availNum >= count
                     }
                 }
                 if(!tiped) {
-                    wx.jyApp.toast(`${item.productName}库存查询失败`);
                     tiped = true;
                 }
             });
