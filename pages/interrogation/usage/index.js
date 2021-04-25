@@ -114,22 +114,22 @@ Page({
         if (this.data.goods.type == 1) {
             days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
             countMax = Math.ceil(this.data.maxDays * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
-            if(days > this.data.maxDays) {
+            if (days > this.data.maxDays) {
                 days = this.data.maxDays;
                 count = Math.ceil(days * this.data.frequency * this.data.perUseNum / this.data.goods.standardNum);
                 var _days = count * this.data.goods.standardNum / this.data.perUseNum / this.data.frequency;
-                if(_days <= days) {
+                if (_days <= days) {
                     days = _days;
                 }
             }
         } else {
             days = count / this.data.frequency;
             countMax = Math.ceil(this.data.maxDays * this.data.frequency);
-            if(days > this.data.maxDays) {
+            if (days > this.data.maxDays) {
                 days = this.data.maxDays;
                 count = Math.ceil(days * this.data.frequency);
                 var _days = count / this.data.frequency;
-                if(_days <= days) {
+                if (_days <= days) {
                     days = _days;
                 }
             }
@@ -221,23 +221,35 @@ Page({
             wx.jyApp.toast('请输入每次用量');
             return;
         }
-        this.saved = true;
-        this.data.goods.frequency = this.data.frequency;
-        this.data.goods.giveWay = this.data.giveWay;
-        this.data.goods.days = this.data.days;
-        this.data.goods.perUseNum = this.data.perUseNum;
-        this.data.goods.count = this.data.count;
-        this.data.goods.modulateDose = this.data.modulateDose;
-        this.data.goods.remark = this.data.remark;
-        this.data.goods.amount = this.data.amount;
-        if (this.data.goods.type == 1) {
-            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
-        } else {
-            this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，${Number(this.data.modulateDose) ? '配制' + this.data.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
-        }
-        var pages = getCurrentPages();
-        wx.navigateBack({
-            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
+        //检查库存
+        wx.jyApp.http({
+            url: '/goods/queryStock',
+            data: {
+                ids: this.data.goods.id
+            }
+        }).then((data) => {
+            return data[this.data.goods.id].availNum >= this.data.count;
+        }).then((enough) => {
+            if (enough) {
+                this.saved = true;
+                this.data.goods.frequency = this.data.frequency;
+                this.data.goods.giveWay = this.data.giveWay;
+                this.data.goods.days = this.data.days;
+                this.data.goods.perUseNum = this.data.perUseNum;
+                this.data.goods.count = this.data.count;
+                this.data.goods.modulateDose = this.data.modulateDose;
+                this.data.goods.remark = this.data.remark;
+                this.data.goods.amount = this.data.amount;
+                if (this.data.goods.type == 1) {
+                    this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
+                } else {
+                    this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，${Number(this.data.modulateDose) ? '配制' + this.data.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
+                }
+                var pages = getCurrentPages();
+                wx.navigateBack({
+                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
+                });
+            }
         });
     },
     onBack() {

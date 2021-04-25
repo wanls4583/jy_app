@@ -135,17 +135,31 @@ Page({
         });
     },
     onSave() {
-        this.saved = true;
-        this.data.goods.perUseNum = 1;
-        this.data.goods.giveWay = this.data.giveWay;
-        this.data.goods.days = this.data.days;
-        this.data.goods.count = this.data.count;
-        this.data.goods.remark = this.data.remark;
-        this.data.goods.amount = this.data.amount;
-        this.data.goods.usage = `${(this.data.days * this.data.count).toFixed(2)}天，${this.data._frequency}，${Number(this.data.goods.modulateDose) ? '配制' + this.data.goods.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
-        var pages = getCurrentPages();
-        wx.navigateBack({
-            delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
+        //检查库存
+        wx.jyApp.http({
+            url: '/goods/queryStock',
+            data: {
+                ids: this.data.goods.id
+            }
+        }).then((data) => {
+            return data[this.data.goods.id].items.every((item) => {
+                return true;
+            });
+        }).then((enough) => {
+            if (enough) {
+                this.saved = true;
+                this.data.goods.perUseNum = 1;
+                this.data.goods.giveWay = this.data.giveWay;
+                this.data.goods.days = this.data.days;
+                this.data.goods.count = this.data.count;
+                this.data.goods.remark = this.data.remark;
+                this.data.goods.amount = this.data.amount;
+                this.data.goods.usage = `${(this.data.days * this.data.count).toFixed(2)}天，${this.data._frequency}，${Number(this.data.goods.modulateDose) ? '配制' + this.data.goods.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
+                var pages = getCurrentPages();
+                wx.navigateBack({
+                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
+                });
+            }
         });
     },
     onBack() {
