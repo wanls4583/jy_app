@@ -143,7 +143,13 @@ Page({
             }
         }).then((data) => {
             return data[this.data.goods.id].items.every((item) => {
-                return true;
+                for (var i = 0; i < this.data.productList.length; i++) {
+                    var obj = this.data.productList[i];
+                    if (obj.id == item.id) {
+                        return item.availNum > obj.gross
+                    }
+                }
+                return item.gross;
             });
         }).then((enough) => {
             if (enough) {
