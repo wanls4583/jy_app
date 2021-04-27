@@ -99,12 +99,14 @@ Page({
                             item.items.map((_item) => {
                                 productIdCountMap[_item.productId] = productIdCountMap[_item.productId] || 0;
                                 productIdCountMap[_item.productId] += _item.gross * item.count;
-                                if(storeProductIdCountMap[_item.productId] === undefined) {
-                                    resolve(false);
+                                if (storeProductIdCountMap[_item.productId] === undefined) {
+                                    pass = false;
+                                    wx.hideLoading();
                                     wx.jyApp.toast(item.goodsName + '库存查询失败');
                                     return;
                                 }
                                 if (pass && productIdCountMap[_item.productId] > storeProductIdCountMap[_item.productId]) {
+                                    wx.hideLoading();
                                     wx.jyApp.toast(item.goodsName + '库存不足');
                                     pass = false;
                                 }
@@ -112,18 +114,19 @@ Page({
                         } else {
                             productIdCountMap[item.productId] = productIdCountMap[item.productId] || 0;
                             productIdCountMap[item.productId] += item.count;
-                            if(storeProductIdCountMap[item.productId] === undefined) {
-                                resolve(false);
+                            if (storeProductIdCountMap[item.productId] === undefined) {
+                                pass = false;
+                                wx.hideLoading();
                                 wx.jyApp.toast(item.goodsName + '库存查询失败');
                                 return;
                             }
-                            if (productIdCountMap[item.productId] > storeProductIdCountMap[item.productId]) {
+                            if (pass && productIdCountMap[item.productId] > storeProductIdCountMap[item.productId]) {
+                                wx.hideLoading();
                                 wx.jyApp.toast(`${item.goodsName}太热销啦，仅剩下${storeProductIdCountMap[item.productId]}${wx.jyApp.constData.unitChange[item.useUnit]}`);
                                 pass = false;
                             }
                         }
                         if (!pass) {
-                            wx.hideLoading();
                             resolve(false);
                             return;
                         }
