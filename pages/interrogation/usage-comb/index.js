@@ -150,8 +150,8 @@ Page({
             return data.list[0].items.every((item) => {
                 for (var i = 0; i < this.data.productList.length; i++) {
                     var obj = this.data.productList[i];
-                    var count = this.data.count * obj.goods;
-                    if (obj.id == item.id) {
+                    var count = this.data.count * obj.gross;
+                    if (obj.productId == item.productId) {
                         if (item.availNum < count && !tiped) {
                             wx.jyApp.toast(`${item.productName}太热销啦，仅剩下${item.availNum}${wx.jyApp.constData.unitChange[item.useUnit]}`);
                             tiped = true;
@@ -177,8 +177,6 @@ Page({
                 wx.navigateBack({
                     delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
                 });
-            } else {
-                wx.jyApp.toast('库存不足');
             }
         });
     },

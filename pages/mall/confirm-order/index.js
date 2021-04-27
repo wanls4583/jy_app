@@ -50,10 +50,17 @@ Page({
             wx.jyApp.toast('购物车为空');
             return;
         }
-        var cart = this.data.cart.filter((item)=>{
+        var cart = this.data.cart.filter((item) => {
             return item.selected;
         });
+        var ids = [];
+        var idProductIdMap = {}; //商品id与productId的对应关系
+        var productIdCountMap = {}; //productId与数量的对应关系
         var goods = cart.map((item) => {
+            ids.push(item.id);
+            if (!item.items) {
+                idProductIdMap[item.id] = item.productId;
+            }
             return {
                 amount: item.amount,
                 goodsId: item.id,
@@ -61,42 +68,109 @@ Page({
             }
         });
         wx.jyApp.showLoading('支付中...', true);
-        wx.jyApp.http({
-            url: '/order/save',
-            method: 'post',
-            data: {
-                addressId: this.data.selectAddress.id,
-                totalAmount: this.data.totalMoney,
-                goods: goods
-            }
-        }).then((data) => {
-            wx.hideLoading();
-            wx.jyApp.utils.pay(data.params).then(() => {
-                setTimeout(() => {
-                    wx.showToast({
-                        title: '支付成功'
-                    });
-                }, 500);
-            }).catch(() => {
-                setTimeout(() => {
-                    wx.jyApp.toast('支付失败');
-                }, 500);
-            }).finally(() => {
-                setTimeout(() => {
-                    this.clearCart();
-                    this.updateSelectAddress(null);
-                }, 500);
-                wx.redirectTo({
-                    url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
-                });
-                var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                if (page) {
-                    page.loadMallOrderList(true);
-                }
-            });
-        }).catch(() => {
-            wx.hideLoading();
+        _checkStore().then((pass) => {
+            pass && _submit.bind(this)();
         });
+        // 检查库存
+        function _checkStore() {
+            return new Promise((resolve) => {
+                wx.jyApp.http({
+                    url: '/goods/queryStock',
+                    data: {
+                        ids: ids.join(',')
+                    }
+                }).then((data) => {
+                    var storeProductIdCountMap = {};
+                    data = data.list;
+                    data.map((item) => {
+                        if (item.items && item.items.length) {
+                            item.items.map((_item) => {
+                                storeProductIdCountMap[_item.productId] = _item.availNum;
+                            });
+                        } else {
+                            var productId = idProductIdMap[item.id];
+                            storeProductIdCountMap[productId] = item.availNum;
+                        }
+                    });
+                    for (var i = 0; i < cart.length; i++) {
+                        var item = cart[i];
+                        var pass = true;
+                        if (item.items && item.items.length) {
+                            item.items.map((_item) => {
+                                productIdCountMap[_item.productId] = productIdCountMap[_item.productId] || 0;
+                                productIdCountMap[_item.productId] += _item.gross * item.count;
+                                if(storeProductIdCountMap[_item.productId] === undefined) {
+                                    resolve(false);
+                                    wx.jyApp.toast(item.goodsName + '库存查询失败');
+                                    return;
+                                }
+                                if (pass && productIdCountMap[_item.productId] > storeProductIdCountMap[_item.productId]) {
+                                    wx.jyApp.toast(item.goodsName + '库存不足');
+                                    pass = false;
+                                }
+                            });
+                        } else {
+                            productIdCountMap[item.productId] = productIdCountMap[item.productId] || 0;
+                            productIdCountMap[item.productId] += item.count;
+                            if(storeProductIdCountMap[item.productId] === undefined) {
+                                resolve(false);
+                                wx.jyApp.toast(item.goodsName + '库存查询失败');
+                                return;
+                            }
+                            if (productIdCountMap[item.productId] > storeProductIdCountMap[item.productId]) {
+                                wx.jyApp.toast(`${item.goodsName}太热销啦，仅剩下${storeProductIdCountMap[item.productId]}${wx.jyApp.constData.unitChange[item.useUnit]}`);
+                                pass = false;
+                            }
+                        }
+                        if (!pass) {
+                            wx.hideLoading();
+                            resolve(false);
+                            return;
+                        }
+                    }
+                    resolve(true);
+                });
+            });
+        }
+        // 提交
+        function _submit() {
+            wx.jyApp.http({
+                url: '/order/save',
+                method: 'post',
+                data: {
+                    addressId: this.data.selectAddress.id,
+                    totalAmount: this.data.totalMoney,
+                    goods: goods
+                }
+            }).then((data) => {
+                wx.hideLoading();
+                wx.jyApp.utils.pay(data.params).then(() => {
+                    setTimeout(() => {
+                        wx.showToast({
+                            title: '支付成功'
+                        });
+                    }, 500);
+                }).catch(() => {
+                    setTimeout(() => {
+                        wx.jyApp.toast('支付失败');
+                    }, 500);
+                }).finally(() => {
+                    setTimeout(() => {
+                        this.clearCart();
+                        this.updateSelectAddress(null);
+                    }, 500);
+                    wx.redirectTo({
+                        url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
+                    });
+                    var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                    if (page) {
+                        page.loadMallOrderList(true);
+                    }
+                });
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        }
     },
     loadAddressList() {
         wx.jyApp.http({

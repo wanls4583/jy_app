@@ -232,8 +232,8 @@ Page({
             if(!data) {
                 wx.jyApp.toast(`${this.data.goods.goodsName}库存查询失败`);
             }
-            if (data.availNum < this.data.goods.count) {
-                wx.jyApp.toast(`${data.productName}太热销啦，仅剩下${data.availNum}${wx.jyApp.constData.unitChange[data.useUnit]}`);
+            if (data.availNum < this.data.count) {
+                wx.jyApp.toast(`${data.goodsName}太热销啦，仅剩下${data.availNum}${wx.jyApp.constData.unitChange[data.useUnit]}`);
             }
             return data.availNum >= this.data.count;
         }).then((enough) => {
