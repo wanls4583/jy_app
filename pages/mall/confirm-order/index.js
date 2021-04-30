@@ -42,6 +42,10 @@ Page({
         });
     },
     onSubmit() {
+        if(this.onSubmit.loading) {
+            return;
+        }
+        this.onSubmit.loading = true;
         if (!this.data.selectAddress) {
             wx.jyApp.toast('请先选择地址');
             return;
@@ -62,11 +66,13 @@ Page({
         });
         wx.jyApp.showLoading('支付中...', true);
         this.checkStore().then(() => {
-            _submit.bind(this)();
+            return _submit.bind(this)();
+        }).finally(()=>{
+            this.onSubmit.loading = false;
         });
         // 提交
         function _submit() {
-            wx.jyApp.http({
+            return wx.jyApp.http({
                 url: '/order/save',
                 method: 'post',
                 data: {

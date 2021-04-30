@@ -18,10 +18,16 @@ Page({
     },
     onPay() {
         if (this.data.cartSelectedNum > 0) {
+            if(this.onPay.loading) {
+                return;
+            }
+            this.onPay.loading = true;
             this.checkStore().then(() => {
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/confirm-order/index'
                 });
+            }).finally(()=>{
+                this.onPay.loading = false;
             });
         } else {
             wx.jyApp.toast('请先选择商品');
