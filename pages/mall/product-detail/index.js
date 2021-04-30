@@ -142,9 +142,11 @@ Page({
     },
     //立即购买
     onBuy() {
-        wx.jyApp.tempData.buyGoods = Object.assign({}, this.data.productInfo);
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/mall/confirm-order/index'
+        this.checkStore().then(() => {
+            wx.jyApp.tempData.buyGoods = Object.assign({}, this.data.productInfo);
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/mall/confirm-order/index'
+            });
         });
     },
     //获取商品购买数量
@@ -160,5 +162,9 @@ Page({
                 count: count
             });
         });
+    },
+    // 检查库存
+    checkStore() {
+        return wx.jyApp.utils.checkStore([this.data.productInfo]);
     },
 })
