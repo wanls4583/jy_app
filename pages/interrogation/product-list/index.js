@@ -130,9 +130,9 @@ Page({
         //获取item的高度
         function _getItemHeight() {
             if (self.hasGetItemHeight) {
-                return Promise.resolve(self.itemHeight);
+                return wx.jyApp.Promise.resolve(self.itemHeight);
             }
-            return new Promise((resolve) => {
+            return new wx.jyApp.Promise((resolve) => {
                 var query = wx.createSelectorQuery()
                 query.select('.product-item').boundingClientRect()
                 query.exec(function (rect) {

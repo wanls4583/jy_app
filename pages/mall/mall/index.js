@@ -62,7 +62,7 @@ Component({
             });
             //获取item的高度
             function _getTop() {
-                return new Promise((resolve) => {
+                return new wx.jyApp.Promise((resolve) => {
                     var query = self.createSelectorQuery()
                     query.select('#product-container').boundingClientRect()
                     query.exec(function (rect) {

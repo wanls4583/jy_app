@@ -200,7 +200,7 @@ Page({
             wx.jyApp.pollCountTimer = setTimeout(() => {
                 this.getMessageCount();
             }, 5000);
-            return Promise.resolve();
+            return wx.jyApp.Promise.resolve();
         }
         return wx.jyApp.http({
             url: '/systemnotice/totalNotRead',

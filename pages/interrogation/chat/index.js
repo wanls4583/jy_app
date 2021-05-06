@@ -509,9 +509,9 @@ Page({
         }
         this.gettingPageHeight[pageId] = true;
         if (this.data.pageHeightMap[pageId]) {
-            return Promise.resolve(this.data.pageHeightMap[pageId]);
+            return wx.jyApp.Promise.resolve(this.data.pageHeightMap[pageId]);
         }
-        return new Promise((resolve) => {
+        return new wx.jyApp.Promise((resolve) => {
             var query = wx.createSelectorQuery()
             query.select('#page-id-' + pageId).boundingClientRect()
             query.exec(function (rect) {

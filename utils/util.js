@@ -328,7 +328,7 @@ function checkStore(cart) {
             idProductIdMap[item.id] = item.productId;
         }
     });
-    return new Promise((resolve) => {
+    return new wx.jyApp.Promise((resolve, reject) => {
         wx.jyApp.http({
             url: '/goods/queryStock',
             data: {
@@ -358,7 +358,6 @@ function checkStore(cart) {
                             pass = false;
                             wx.hideLoading();
                             wx.jyApp.toast(item.goodsName + '库存查询失败');
-                            return;
                         }
                         if (pass && productIdCountMap[_item.productId] > storeProductIdCountMap[_item.productId]) {
                             wx.hideLoading();
@@ -373,11 +372,10 @@ function checkStore(cart) {
                         pass = false;
                         wx.hideLoading();
                         wx.jyApp.toast(item.goodsName + '库存查询失败');
-                        return;
                     }
                     if (pass && productIdCountMap[item.productId] > storeProductIdCountMap[item.productId]) {
                         wx.hideLoading();
-                        if(storeProductIdCountMap[item.productId]) {
+                        if (storeProductIdCountMap[item.productId]) {
                             wx.jyApp.toast(`${item.goodsName}太热销啦，仅剩下${storeProductIdCountMap[item.productId]}${wx.jyApp.constData.unitChange[item.useUnit]}`);
                         } else {
                             wx.jyApp.toast(item.goodsName + '库存不足');

@@ -94,9 +94,9 @@ Page({
         //获取item的高度
         function _getItemHeight() {
             if (self.hasGetItemHeight) {
-                return Promise.resolve(self.itemHeight);
+                return wx.jyApp.Promise.resolve(self.itemHeight);
             }
-            return new Promise((resolve) => {
+            return new wx.jyApp.Promise((resolve) => {
                 var query = wx.createSelectorQuery()
                 query.select('.product-item').boundingClientRect()
                 query.exec(function (rect) {
@@ -144,7 +144,7 @@ Page({
         var page = 0;
         if (type == 2) {
             if (this.data.taocanData.loading || !refresh && this.data.taocanData.totalPage > -1 && this.data.taocanData.page > this.data.taocanData.totalPage) {
-                return Promise.reject();
+                return wx.jyApp.Promise.reject();
             }
             this.data.taocanData.loading = true;
             var page = refresh ? 1 : this.data.taocanData.page;
@@ -190,7 +190,7 @@ Page({
             return this.request2;
         } else {
             if (this.data.productData.loading || !refresh && this.data.productData.totalPage > -1 && this.data.productData.page > this.data.productData.totalPage) {
-                return Promise.reject();
+                return wx.jyApp.Promise.reject();
             }
             this.data.productData.loading = true;
             var page = refresh ? 1 : this.data.productData.page;

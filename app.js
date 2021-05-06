@@ -191,6 +191,15 @@ Number.prototype.toFixed = function (n, addZero) {
     return des
 }
 
+Promise.prototype.finally = function (callback) {
+    'use strict';
+    let P = this.constructor;
+    return this.then(
+        value => P.resolve(callback(value)),
+        err => P.resolve(callback(err))
+    );
+};
+
 if (!wx.nextTick) {
     wx.nextTick = function (cb) {
         setTimeout(() => {
