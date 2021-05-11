@@ -148,6 +148,11 @@ Page({
         wx.navigateBack();
     },
     onSave() {
+        this.checkStore().then(()=>{
+            this.save();
+        });
+    },
+    save() {
         if (!this.guidanceData.diagnosisArr) {
             wx.jyApp.toast('临床诊断不能为空');
             return;
@@ -213,6 +218,10 @@ Page({
         }).finally(() => {
             wx.hideLoading();
         });
+    },
+    // 检查库存
+    checkStore() {
+        return wx.jyApp.utils.checkStore(this.data.goodsList);
     },
     //通过审核
     onPass() {

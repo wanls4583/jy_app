@@ -135,50 +135,26 @@ Page({
         });
     },
     onSave() {
-        //检查库存
-        wx.jyApp.http({
-            url: '/goods/queryStock',
-            data: {
-                ids: this.data.goods.id
-            }
-        }).then((data) => {
-            var tiped = false;
-            if(!data.list[0]) {
-                wx.jyApp.toast(`${this.data.goods.goodsName}库存查询失败`);
-                return;
-            }
-            return data.list[0].items.every((item) => {
-                for (var i = 0; i < this.data.productList.length; i++) {
-                    var obj = this.data.productList[i];
-                    var count = this.data.count * obj.gross;
-                    if (obj.productId == item.productId) {
-                        if (item.availNum < count && !tiped) {
-                            wx.jyApp.toast(`${item.productName}太热销啦，仅剩下${item.availNum}${wx.jyApp.constData.unitChange[item.useUnit]}`);
-                            tiped = true;
-                        }
-                        return item.availNum >= count
-                    }
-                }
-                if(!tiped) {
-                    tiped = true;
-                }
+        this.checkStore().then(() => {
+            this.saved = true;
+            this.data.goods.perUseNum = 1;
+            this.data.goods.giveWay = this.data.giveWay;
+            this.data.goods.days = this.data.days;
+            this.data.goods.count = this.data.count;
+            this.data.goods.remark = this.data.remark;
+            this.data.goods.amount = this.data.amount;
+            this.data.goods.usage = `${(this.data.days * this.data.count).toFixed(2)}天，${this.data._frequency}，${Number(this.data.goods.modulateDose) ? '配制' + this.data.goods.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
+            var pages = getCurrentPages();
+            wx.navigateBack({
+                delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
             });
-        }).then((enough) => {
-            if (enough) {
-                this.saved = true;
-                this.data.goods.perUseNum = 1;
-                this.data.goods.giveWay = this.data.giveWay;
-                this.data.goods.days = this.data.days;
-                this.data.goods.count = this.data.count;
-                this.data.goods.remark = this.data.remark;
-                this.data.goods.amount = this.data.amount;
-                this.data.goods.usage = `${(this.data.days * this.data.count).toFixed(2)}天，${this.data._frequency}，${Number(this.data.goods.modulateDose) ? '配制' + this.data.goods.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
-                var pages = getCurrentPages();
-                wx.navigateBack({
-                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
-                });
-            }
         });
+    },
+    // 检查库存
+    checkStore() {
+        return wx.jyApp.utils.checkStore([Object.assign({
+            count: this.data.count
+        }, this.data.goods)]);
     },
     onBack() {
         if (!this.saved) {

@@ -221,43 +221,32 @@ Page({
             wx.jyApp.toast('请输入每次用量');
             return;
         }
-        //检查库存
-        wx.jyApp.http({
-            url: '/goods/queryStock',
-            data: {
-                ids: this.data.goods.id
+        this.checkStore().then(() => {
+            this.saved = true;
+            this.data.goods.frequency = this.data.frequency;
+            this.data.goods.giveWay = this.data.giveWay;
+            this.data.goods.days = this.data.days;
+            this.data.goods.perUseNum = this.data.perUseNum;
+            this.data.goods.count = this.data.count;
+            this.data.goods.modulateDose = this.data.modulateDose;
+            this.data.goods.remark = this.data.remark;
+            this.data.goods.amount = this.data.amount;
+            if (this.data.goods.type == 1) {
+                this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
+            } else {
+                this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，${Number(this.data.modulateDose) ? '配制' + this.data.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
             }
-        }).then((data) => {
-            data = data.list[0];
-            if(!data) {
-                wx.jyApp.toast(`${this.data.goods.goodsName}库存查询失败`);
-            }
-            if (data.availNum < this.data.count) {
-                wx.jyApp.toast(`${data.goodsName}太热销啦，仅剩下${data.availNum}${wx.jyApp.constData.unitChange[data.useUnit]}`);
-            }
-            return data.availNum >= this.data.count;
-        }).then((enough) => {
-            if (enough) {
-                this.saved = true;
-                this.data.goods.frequency = this.data.frequency;
-                this.data.goods.giveWay = this.data.giveWay;
-                this.data.goods.days = this.data.days;
-                this.data.goods.perUseNum = this.data.perUseNum;
-                this.data.goods.count = this.data.count;
-                this.data.goods.modulateDose = this.data.modulateDose;
-                this.data.goods.remark = this.data.remark;
-                this.data.goods.amount = this.data.amount;
-                if (this.data.goods.type == 1) {
-                    this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}${this.data.unitChange[this.data.goods.standardUnit]}，${this.data._giveWay}`;
-                } else {
-                    this.data.goods.usage = `${this.data.days}天，${this.data._frequency}，每次${this.data.perUseNum}份，${Number(this.data.modulateDose) ? '配制' + this.data.modulateDose + '毫升，' : ''}${this.data._giveWay}`;
-                }
-                var pages = getCurrentPages();
-                wx.navigateBack({
-                    delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
-                });
-            }
+            var pages = getCurrentPages();
+            wx.navigateBack({
+                delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
+            });
         });
+    },
+    // 检查库存
+    checkStore() {
+        return wx.jyApp.utils.checkStore([Object.assign({
+            count: this.data.count
+        }, this.data.goods)]);
     },
     onBack() {
         if (!this.saved) {
