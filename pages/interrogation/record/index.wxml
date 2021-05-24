@@ -9,6 +9,7 @@
 			<readonly-field label="BMI" value="{{patientDocument.BMI}}"></readonly-field>
 			<readonly-field label="食物过敏史" value="{{patientDocument.foodSensitive}}"></readonly-field>
 		</van-collapse-item>
+		<van-collapse-item name="screen" title="营养筛查" wx:if="{{filtrate.length}}"></van-collapse-item>
 		<van-collapse-item name="type1" title="图文问诊" wx:if="{{consultOrder[1].length}}">
 			<view class="padding-left-right-30">
 				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[1]}}" wx:key="index">
@@ -90,7 +91,7 @@
 					<!-- <view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label">门诊症状：</view>
 						<view class="pre-line">{{item.symptom||''}}</view>
-					</view> -->
+					</view>-->
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label">处置计划：</view>
 						<view class="pre-line">{{item.handlePlan||''}}</view>

@@ -46,9 +46,8 @@ Page({
                     type: this.type,
                     bookDateTime: this.bookDateTime
                 }
-                wx.jyApp.selectPatientFlag = true;
                 wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/user-patient-list/index?selectPatient=1'
+                    url: '/pages/interrogation/user-patient-list/index?select=true'
                 });
             }
         });

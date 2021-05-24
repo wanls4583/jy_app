@@ -5,14 +5,13 @@
  */
 Page({
     data: {
-        activeNames: ['info', 'type1', 'type3', 'guide']
+        activeNames: ['info', 'screen', 'type1', 'type3', 'guide']
     },
     onLoad(option) {
         this.patientId = option.patientId;
         this.getInfo();
     },
-    onUnload() {
-    },
+    onUnload() {},
     onCollapseChange(e) {
         this.setData({
             activeNames: e.detail,
@@ -55,10 +54,12 @@ Page({
                     }
                 });
             });
+            data.filtrate = data.filtrate || [];
             this.setData({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,
                 consultOrder: data.consultOrder,
+                filtrate: data.filtrate
             });
         });
     }

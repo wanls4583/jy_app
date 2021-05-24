@@ -5,15 +5,17 @@ Page({
         ifSelect: false
     },
     onLoad(option) {
+        // 患者从医生详情页的筛查按钮跳转过来
+        this.doctorId = option.doctorId;
+        this.doctorName = option.doctorName;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['configData']
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            ifSelect: wx.jyApp.selectPatientFlag || false
+            ifSelect: option.select || false
         });
-        wx.jyApp.selectPatientFlag = false;
         this.loadList();
     },
     onUnload() {
@@ -22,15 +24,17 @@ Page({
     onOpenWebview(e) {
         wx.jyApp.utils.openWebview(e);
     },
-    selectPatient(e) {
-        var id = e.currentTarget.dataset.id;
-        this.setData({
-            selectId: id
-        });
-    },
     onSave() {
         if (!this.data.selectId) {
             wx.jyApp.toast('请选择患者');
+            return;
+        }
+        // 跳转到nrs筛查页面
+        if (this.doctorId) {
+            wx.jyApp.setTempData('screenPatient', this.data.patient);
+            wx.redirectTo({
+                url: `/pages/screen/nrs/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
+            });
             return;
         }
         if (wx.jyApp.tempData.illness.type == 3) {
@@ -57,7 +61,8 @@ Page({
     onChange(e) {
         var item = e.currentTarget.dataset.item;
         this.setData({
-            selectId: item.id
+            selectId: item.id,
+            patient: item
         });
     },
     onDetail(e) {

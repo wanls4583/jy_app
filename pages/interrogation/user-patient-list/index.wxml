@@ -1,7 +1,11 @@
 <!-- index.wxml -->
 <view class="container" style="{{ifSelect?'padding-bottom:204rpx':''}}">
 	<radio-group>
-		<view class="position-relative white-background-color padding-left-right-30 {{ifSelect?'':'padding-top-bottom-20 border-bottom'}}" wx:for="{{patientList}}" wx:key="id">
+		<view
+			class="position-relative white-background-color padding-left-right-30 {{ifSelect?'':'padding-top-bottom-20 border-bottom'}}"
+			wx:for="{{patientList}}"
+			wx:key="id"
+		>
 			<view bindtap="onChange" class="flex--center--between" data-item="{{item}}">
 				<view class="flex-shrink-0 radio-wrap" wx:if="{{ifSelect}}">
 					<radio checked="{{selectId==item.id}}" color="rgb(42, 175, 255)" value="{{item.id}}" />
@@ -25,7 +29,10 @@
 	<view class="padding-30">
 		<view catchtap="onAdd" class="button plain primary block">+ 添加患者</view>
 	</view>
-	<view class="footer padding-30" wx:if="{{ifSelect}}">
+	<view class="footer padding-30" wx:if="{{patientList.length}}">
+		<view bindtap="onSave" class="margin-top-30 button primary block">确定</view>
+	</view>
+	<view class="footer padding-30" wx:elif="{{ifSelect}}">
 		<view class="font-small gray-color align-center">
 			<text>开始问诊即代表已阅读并同意</text>
 			<text bindtap="onOpenWebview" class="primary-color clickable" data-url="{{configData.informed_consent_url}}">《知情同意书》</text>

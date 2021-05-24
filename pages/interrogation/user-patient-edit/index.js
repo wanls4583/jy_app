@@ -12,7 +12,8 @@ Page({
             height: '',
             weight: '',
             BMI: '',
-            foodSensitive: ''
+            foodSensitive: '',
+            phone: ''
         },
         minDate: new Date(1900, 0, 1).getTime(),
         maxDate: new Date().getTime(),
@@ -21,6 +22,9 @@ Page({
         birthday: new Date().getTime()
     },
     onLoad(option) {
+        // 是否从医生详情页跳过来的
+        this.doctorId = option.doctorId;
+        this.doctorName = option.doctorName;
         if (option.id) {
             this.loadInfo(option.id);
             wx.setNavigationBarTitle({
@@ -33,7 +37,7 @@ Page({
         }
     },
     onInput(e) {
-        if(typeof e.detail == 'string') {
+        if (typeof e.detail == 'string') {
             e.detail = e.detail.replace(wx.jyApp.constData.emojiReg, '');
         } else {
             e.detail.value = e.detail.value.replace(wx.jyApp.constData.emojiReg, '');
@@ -78,23 +82,47 @@ Page({
         });
     },
     onSave() {
+        if (!this.data.patient.patientName) {
+            wx.jyApp.toast('请填写患者姓名');
+            return;
+        }
+        if (!this.data.patient.sex) {
+            wx.jyApp.toast('请填写性别');
+            return;
+        }
+        if (!this.data.patient.birthday) {
+            wx.jyApp.toast('请填出生日期');
+            return;
+        }
+        if (!/1\d{10}/.test(this.data.patient.phone)) {
+            wx.jyApp.toast('请填写手机号');
+            return;
+        }
         wx.jyApp.showLoading('提交中...', true);
         wx.jyApp.http({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
             method: 'post',
             data: this.data.patient
         }).then((data) => {
-            var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
-            if (page) {
-                page.loadList().then(() => {
-                    page.setData({
-                        selectId: this.data.patient.id || data.id
+            wx.hideLoading();
+            if (!this.doctorId) {
+                var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
+                if (page) {
+                    page.loadList().then(() => {
+                        page.setData({
+                            selectId: this.data.patient.id || data.id
+                        });
                     });
+                }
+                wx.jyApp.toastBack('保存成功');
+            } else {
+                this.data.patient.id = data.id;
+                wx.jyApp.setTempData('screenPatient', this.data.patient);
+                wx.redirectTo({
+                    url: `/pages/screen/nrs/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
                 });
             }
-            wx.hideLoading();
-            wx.jyApp.toastBack('保存成功');
-        }).catch(()=>{
+        }).catch(() => {
             wx.hideLoading();
         });
     },

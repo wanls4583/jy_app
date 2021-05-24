@@ -22,6 +22,10 @@ Component({
     fontColor: {
       type: String,
       value: '#333'
+    },
+    required: {
+      type: Boolean,
+      value: false
     }
   },
   data: {

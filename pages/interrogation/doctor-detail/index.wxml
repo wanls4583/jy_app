@@ -113,6 +113,13 @@
 		</view>
 	</view>
 </view>
+<text
+	bindtap="onGoto"
+	class="position-fixed flex radius-50 font-small clickable"
+	data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
+	decode="{{true}}"
+	style="bottom:30rpx;right:30rpx;line-height:1em;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd;text-align:center;"
+>营养\n筛查</text>
 <van-dialog id="van-dialog" />
 <van-popup bind:close="onShowDetail" closeable position="bottom" show="{{detailVisble}}">
 	<view class="padding-30">

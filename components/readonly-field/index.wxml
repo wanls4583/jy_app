@@ -1,7 +1,7 @@
 <view class="padding-left-right-30 white-background-color">
 	<view class="flex--center--start padding-top-bottom-30 border-bottom font-normal">
-		<view style="flex:1;min-width:{{titleWidth}};max-width:{{titleWidth}};margin-right:12px;color:#646566">{{label}}</view>
-		<view class style="color:{{fontColor}};flex:1" wx:if="{{value!==''}}">{{value}}</view>
+		<view style="flex:1;position:relative;min-width:{{titleWidth}};max-width:{{titleWidth}};margin-right:12px;color:#646566"><text wx:if="{{required!==false}}" style="position:absolute;right:100%;color:red">*</text>{{label}}</view>
+		<view class style="flex:1;color:{{fontColor}};" wx:if="{{value!==''}}">{{value}}</view>
 		<view class="gray-color" style="flex:1" wx:else>{{placeholder}}</view>
 	</view>
 </view>

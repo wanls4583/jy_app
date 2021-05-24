@@ -25,10 +25,13 @@ Page({
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        // 患者通过医生详情下的筛查按钮进入
+        this.doctorId = option.doctorId;
+        this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
-                filtrateByName: option.filtrateByName,
+                filtrateByName: this.doctorId ? patient.patientName : option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'nrs.stature': patient.height,
@@ -114,7 +117,7 @@ Page({
             return a - b
         })[2];
         result = _getRealNum(result) + _getRealNum(this.data.nrs.needNormal) + _getRealNum(this.data.nrs.ageGe70);
-        if(!_getRealNum(this.data.nrs.needNormal)) {
+        if (!_getRealNum(this.data.nrs.needNormal)) {
             result += _getRealNum(this.data.nrs.needAddition);
         }
         this.setData({
@@ -148,23 +151,37 @@ Page({
             ...this.data.nrs
         };
         wx.jyApp.showLoading('加载中...', true);
-        if (!data.filtrateId) {
-            wx.jyApp.http({
-                url: '/patient/filtrate/save',
-                method: 'post',
-                data: {
-                    consultOrderId: this.data.consultOrderId,
-                    filtrateType: this.data.filtrateType,
-                    isSelf: true,
-                }
-            }).then((_data) => {
-                data.filtrateId = _data.filtrateId;
+        if (!this.doctorId) {
+            if (!data.filtrateId) {
+                wx.jyApp.http({
+                    url: '/patient/filtrate/save',
+                    method: 'post',
+                    data: {
+                        consultOrderId: this.data.consultOrderId,
+                        filtrateType: this.data.filtrateType,
+                        isSelf: true,
+                    }
+                }).then((_data) => {
+                    data.filtrateId = _data.filtrateId;
+                    _save.bind(this)();
+                }).catch(() => {
+                    wx.hideLoading();
+                });
+            } else {
                 _save.bind(this)();
-            }).catch(() => {
+            }
+        } else {
+            data.patientId = this.patient.id;
+            data.doctorId = this.doctorId;
+            wx.jyApp.http({
+                url: `/filtrate/nrs/public/save`,
+                method: 'post',
+                data: data
+            }).then(() => {
+                wx.jyApp.toastBack('保存成功');
+            }).finally(() => {
                 wx.hideLoading();
             });
-        } else {
-            _save.bind(this)();
         }
 
         function _save() {

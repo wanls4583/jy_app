@@ -4,6 +4,7 @@ Page({
         doctor: {},
         appraiseNum: 0,
         appraiseList: [],
+        patientList: [],
         detailVisble: false
     },
     onLoad(option) {
@@ -18,6 +19,7 @@ Page({
         });
         this.getDoctorInfo();
         this.getAppraiseList();
+        this.getPatient();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -127,13 +129,26 @@ Page({
             data.page.list.map((item) => {
                 if (item.type == 1) {
                     item._type = '图文问诊';
-                } else if(item.type == 3) {
+                } else if (item.type == 3) {
                     item._type = '视频问诊';
                 }
             });
             this.setData({
                 appraiseNum: data.page.totalCount,
                 appraiseList: data.page.list
+            });
+        });
+    },
+    getPatient() {
+        wx.jyApp.http({
+            url: '/patientdocument/list',
+            data: {
+                page: 1,
+                limit: 1000
+            }
+        }).then((data) => {
+            this.setData({
+                patientList: data.list || []
             });
         });
     },
