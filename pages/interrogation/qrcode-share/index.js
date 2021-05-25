@@ -50,7 +50,9 @@ Page({
     },
     // 领取二维码
     onReceive() {
-
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/receive-select/index'
+        });
     },
     //下载图片
     downloadImg() {

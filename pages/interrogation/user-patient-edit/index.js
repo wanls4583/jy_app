@@ -1,4 +1,3 @@
-import area from '../../../data/area.js';
 const app = getApp()
 
 Page({

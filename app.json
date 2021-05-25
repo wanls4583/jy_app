@@ -62,6 +62,8 @@
         "pages/interrogation/appointment-setting/index",
         "pages/interrogation/appointment-select/index",
         "pages/interrogation/guidance-sheet/index",
+        "pages/interrogation/receive-select/index",
+        "pages/interrogation/receive/index",
         "pages/mall/search-doctor/index"
     ],
     "subpackages": [{

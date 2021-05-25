@@ -1,0 +1,11 @@
+.van-step--vertical:after {
+    border-style: none !important;
+}
+
+.van-step:nth-child(1) .van-step__title view:nth-child(2) {
+    color: #999;
+}
+
+.van-step:nth-child(2) .van-step__title view:nth-child(2) {
+    color: #999;
+}
