@@ -82,7 +82,7 @@ Page({
                                 '/pages/tab-bar-first/index',
                                 '/pages/tab-bar-second/index',
                                 '/pages/interrogation/message-list/index',
-                                '/pages/min/index',
+                                '/pages/mine/index',
                             ]
                             switch (data.doctor.barcodePath) {
                                 case '/pages/tab-bar-first/index':
