@@ -16,19 +16,19 @@
 						<view class="flex-shrink-0 label label-color">筛查日期：</view>
 						<view>{{item.filtrateDate}}</view>
 					</view>
-					<view class="flex--center--start">
+					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查方式：</view>
 						<view>{{item.filtrateType}}</view>
 					</view>
-					<view class="flex--center--start">
+					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查医师：</view>
 						<view>{{item.doctorName||''}}</view>
 					</view>
-					<view class="flex--center--start">
+					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查结果：</view>
 						<view>{{item.filtrateResult}}</view>
 					</view>
-					<view class="flex--center--start">
+					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">结果解释：</view>
 						<view>{{item.resultDescription}}</view>
 					</view>
