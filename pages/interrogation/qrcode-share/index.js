@@ -48,6 +48,10 @@ Page({
             this.saveImageToPhotos(url);
         });
     },
+    // 领取二维码
+    onReceive() {
+
+    },
     //下载图片
     downloadImg() {
         return new wx.jyApp.Promise((resolve, reject) => {
@@ -101,7 +105,9 @@ Page({
                 filePath: filePath, // 此为图片路径
                 success: (res) => {
                     console.log(res)
-                    wx.showToast({ title: '保存成功' })
+                    wx.showToast({
+                        title: '保存成功'
+                    })
                 },
                 fail: (err) => {
                     console.log(err)
@@ -113,10 +119,18 @@ Page({
     getQrCode() {
         var to = 2;
         switch (this.source) {
-            case 'CARD': to = 1; break;
-            case 'INDEX': to = 2; break;
-            case 'EMALL': to = 3; break;
-            case 'SIMPLE_CONSULT': to = 4; break;
+            case 'CARD':
+                to = 1;
+                break;
+            case 'INDEX':
+                to = 2;
+                break;
+            case 'EMALL':
+                to = 3;
+                break;
+            case 'SIMPLE_CONSULT':
+                to = 4;
+                break;
         }
         wx.jyApp.http({
             url: '/wx/share/barcodeUrl',

@@ -1,13 +1,17 @@
-<view class="container white-background-color" style="padding-bottom:60px">
+<view class="container white-background-color" style="padding:50px 0 60px 0">
 	<view class="height-100" style="padding:60px">
 		<van-image fit="contain" height="100%" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="100%">
 			<van-loading size="20" slot="loading" type="spinner" vertical />
 			<text slot="error">图片加载失败</text>
 		</van-image>
 	</view>
+	<view class="position-fixed top-0 z-index-100 width-100 padding-30 white-color primary-background-color" style="opacity: 0.8">
+		<text>将二维码展示给患者，扫码后可进行线上问诊</text>
+	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
-		<view bindtap="onShare" class="button primary">分享</view>
-		<view bindtap="onSave" class="button primary">保存</view>
+		<view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view>
+		<view bindtap="onSave" class="button primary plain" style="min-width:90px">保存</view>
+		<view bindtap="onReceive" class="button primary" style="min-width:90px">领取二维码</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />
