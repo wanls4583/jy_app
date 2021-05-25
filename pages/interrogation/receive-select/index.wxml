@@ -5,7 +5,13 @@
 			<view class="flex-shrink-0 width-150rpx height-150rpx gray-background-color"></view>
 			<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx margin-left-20">
 				<view>门诊/病房会诊时，将二维码名片展示给患者，让患者扫码</view>
-				<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/receive/index?type=1" style="align-self:flex-end">免费领取</view>
+				<view
+					bindtap="onReceive"
+					class="button primary small"
+					data-type="1"
+					data-url="/pages/interrogation/receive/index?type=1"
+					style="align-self:flex-end"
+				>{{typeMap[1]==2?'已寄出':'免费领取'}}</view>
 			</view>
 		</view>
 	</view>
@@ -15,7 +21,13 @@
 			<view class="flex-shrink-0 width-150rpx height-150rpx gray-background-color"></view>
 			<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx margin-left-20">
 				<view>放在诊室桌上或贴在门上，让患者扫码</view>
-				<view bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/receive/index?type=2" style="align-self:flex-end">免费领取</view>
+				<view
+					bindtap="onReceive"
+					class="button primary small"
+					data-type="2"
+					data-url="/pages/interrogation/receive/index?type=2"
+					style="align-self:flex-end"
+				>{{typeMap[1]==2?'已寄出':'免费领取'}}</view>
 			</view>
 		</view>
 	</view>

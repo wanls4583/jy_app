@@ -4,8 +4,8 @@ const app = getApp()
 Page({
     data: {
         contact: {
-            name: '',
-            phone: '',
+            contactName: '',
+            contactPhone: '',
             provinceCity: '',
             cityCode: '',
             address: ''
@@ -13,6 +13,7 @@ Page({
         areaVisible: false
     },
     onLoad(option) {
+        this.type = option.type;
         this.setData({
             areaList: area
         });
@@ -48,24 +49,35 @@ Page({
         });
     },
     onSave() {
-        if (!this.data.contact.name) {
+        if (!this.data.contact.contactName) {
             wx.jyApp.toast('请填写联系人');
             return;
         }
-        if (!/1\d{10}/.test(this.data.contact.phone)) {
+        if (!/1\d{10}/.test(this.data.contact.contactPhone)) {
             wx.jyApp.toast('请填写手机号');
             return;
         }
+        if (!this.data.contact.cityCode) {
+            wx.jyApp.toast('请选择地区');
+            return;
+        }
+        if (!this.data.contact.address) {
+            wx.jyApp.toast('请填写详细地址');
+            return;
+        }
         wx.jyApp.showLoading('提交中...', true);
-        // wx.jyApp.http({
-        //     url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
-        //     method: 'post',
-        //     data: this.data.patient
-        // }).then((data) => {
-        //     wx.hideLoading();
-        //     wx.jyApp.toastBack('保存成功');
-        // }).catch(() => {
-        //     wx.hideLoading();
-        // });
+        wx.jyApp.http({
+            url: `/doctorapplybarcode/save`,
+            method: 'post',
+            data: {
+                ...this.data.contact,
+                type: this.type,
+            }
+        }).then((data) => {
+            wx.hideLoading();
+            wx.jyApp.toastBack('保存成功');
+        }).catch(() => {
+            wx.hideLoading();
+        });
     },
 })
