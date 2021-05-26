@@ -24,6 +24,11 @@ Page({
         // 是否从医生详情页跳过来的
         this.doctorId = option.doctorId;
         this.doctorName = option.doctorName;
+        if(this.doctorId) {
+            this.setData({
+                saveText: '下一页'
+            });
+        }
         if (option.id) {
             this.loadInfo(option.id);
             wx.setNavigationBarTitle({
@@ -94,7 +99,7 @@ Page({
             return;
         }
         if (!/1\d{10}/.test(this.data.patient.phone)) {
-            wx.jyApp.toast('请填写手机号');
+            wx.jyApp.toast('手机号格式不正确');
             return;
         }
         wx.jyApp.showLoading('提交中...', true);

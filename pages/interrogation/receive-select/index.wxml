@@ -16,7 +16,7 @@
 		</view>
 	</view>
 	<view class="padding-left-right-30 white-background-color margin-top-20">
-		<view class="padding-top-bottom-20 border-bottom font-bold">二维塑封卡</view>
+		<view class="padding-top-bottom-20 border-bottom font-bold">二维码塑封卡</view>
 		<view class="padding-top-bottom-30 flex--center--between">
 			<view class="flex-shrink-0 width-150rpx height-150rpx gray-background-color"></view>
 			<view class="flex-grow-1 flex--start--between flex-direction-column height-150rpx margin-left-20">

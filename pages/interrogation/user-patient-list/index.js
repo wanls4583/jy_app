@@ -124,7 +124,8 @@ Page({
             });
             this.setData({
                 patientList: data.list || [],
-                selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0)
+                selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0),
+                patient: this.data.patient || (data.list.length ? data.list[0] : null)
             });
         }).finally(() => {
             wx.hideLoading();

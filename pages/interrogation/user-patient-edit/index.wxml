@@ -1,10 +1,10 @@
 <!-- index.wxml -->
 <view class="container">
 	<van-cell-group>
-		<van-field bind:input="onInput" data-prop="patient.patientName" label="患者姓名" placeholder="请填写真实姓名" value="{{patient.patientName}}" required/>
-		<readonly-field bindtap="onShowSex" label="性别" placeholder="性别" readonly value="{{patient._sex}}" required/>
-		<readonly-field bindtap="onShowBirthday" label="出生日期" placeholder="出生日期" readonly value="{{patient.birthday}}" required/>
-		<van-field bind:input="onInputNum" data-prop="patient.phone" label="手机号" placeholder="手机号" value="{{patient.phone}}" required/>
+		<van-field bind:input="onInput" data-prop="patient.patientName" label="患者姓名" placeholder="请填写真实姓名" required value="{{patient.patientName}}" />
+		<readonly-field bindtap="onShowSex" label="性别" placeholder="性别" readonly required value="{{patient._sex}}" />
+		<readonly-field bindtap="onShowBirthday" label="出生日期" placeholder="出生日期" readonly required value="{{patient.birthday}}" />
+		<van-field bind:input="onInputNum" data-prop="patient.phone" label="手机号" placeholder="手机号" required value="{{patient.phone}}" />
 		<van-field bind:input="onInputNum" data-prop="patient.height" label="身高" placeholder="身高" value="{{patient.height}}">
 			<view slot="right-icon">cm</view>
 		</van-field>
@@ -19,12 +19,12 @@
 			label="食物过敏史"
 			maxlength="{{50}}"
 			placeholder="请填写食物过敏史"
-			value="{{patient.foodSensitive}}"
 			type="textarea"
+			value="{{patient.foodSensitive}}"
 		/>
 	</van-cell-group>
 	<view class="padding-left-right-30 margin-top-bottom-30">
-		<view bindtap="onSave" class="button primary block">保存</view>
+		<view bindtap="onSave" class="button primary block">{{saveText||'保存'}}</view>
 	</view>
 	<van-popup position="bottom" show="{{sexVisible}}">
 		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmSex" columns="{{['女','男']}}" default-index="{{patient._sex=='男'?1:0}}" show-toolbar="{{true}}"></van-picker>
