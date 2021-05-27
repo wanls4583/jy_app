@@ -95,12 +95,6 @@ Component({
                 tipVisible: false
             });
         },
-        onClickDoctor(e) {
-            var id = e.currentTarget.dataset.id;
-            wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/doctor-detail/index?doctorId=' + id
-            });
-        },
         onClickBanner(e) {
             var item = e.currentTarget.dataset.item;
             if (item.linkUrl && item.type != 2) {

@@ -1,5 +1,9 @@
 <template name="doctor-item">
-	<view bindtap="onClickDoctor" class="doctor-item flex--start--between white-background-color" data-id="{{doctor.id}}">
+	<view
+		bindtap="onGoto"
+		class="doctor-item flex--start--between white-background-color"
+		data-url="/pages/interrogation/doctor-detail/index?doctorId={{doctor.id}}"
+	>
 		<view class="radius-8px overflow-hidden width-100rpx height-100rpx margin-top-30 gray-background-color">
 			<image class="width-100 height-100" mode="aspectFill" src="{{doctor.avatar}}" />
 		</view>

@@ -8,6 +8,9 @@ Page({
     onRefresh() {
         this.loadList();
     },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
     //加载医生列表
     loadList() {
         if (this.loading) {

@@ -5,7 +5,8 @@ Page({
         appraiseNum: 0,
         appraiseList: [],
         patientList: [],
-        detailVisble: false
+        detailVisble: false,
+        screenVisible: false
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -20,6 +21,11 @@ Page({
         this.getDoctorInfo();
         this.getAppraiseList();
         this.getPatient();
+        if(option.from == 'barcode') {
+            this.setData({
+                screenVisible: true
+            });
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

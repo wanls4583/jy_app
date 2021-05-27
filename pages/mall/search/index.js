@@ -75,12 +75,6 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
-    onClickDoctor(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/doctor-detail/index?doctorId=' + id
-        });
-    },
     search() {
         wx.jyApp.showLoading('搜索中...', true);
         wx.jyApp.Promise.all([this.loadDoctor(true), this.loadProduct(true), this.loadToacan(true)]).then(() => {

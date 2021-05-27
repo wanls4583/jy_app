@@ -48,13 +48,14 @@ Page({
             wx.hideLoading();
             wx.jyApp.toast('登录失败');
         });
+
         function _getInfo() {
             wx.showLoading({
                 title: '加载中...'
             });
             this.getUserInfo().then((doctorId) => {
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    if(wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                    if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
                     } else {
                         this.updatePharmacistInfo(Object.assign({}, data.doctor));
@@ -93,19 +94,19 @@ Page({
                                         this.updateUserInfo(Object.assign({}, this.data.userInfo));
                                         wx.setStorageSync('role', 'USER');
                                     }
-                                default:
-                                    url = data.doctor.barcodePath;
+                                    default:
+                                        url = data.doctor.barcodePath;
                             }
                             var type = '';
                             if (url.slice(0, 6) == '/pages') {
                                 if (tabs.indexOf(url) > -1) {
                                     type = 'tab';
                                 }
-                                if(type != 'tab') {
+                                if (type != 'tab') {
                                     if (url.indexOf('?') > -1) {
-                                        url += '&doctorId=' + this.inviteDoctorId;
+                                        url += '&doctorId=' + this.inviteDoctorId + '&from=barcode';
                                     } else {
-                                        url += '?doctorId=' + this.inviteDoctorId;
+                                        url += '?doctorId=' + this.inviteDoctorId + '&from=barcode';
                                     }
                                 }
                                 wx.jyApp.utils.navigateTo({
@@ -116,7 +117,9 @@ Page({
                                 wx.jyApp.utils.openWebview(url);
                             }
                         }).catch(() => {
-                            wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                            wx.switchTab({
+                                url: '/pages/tab-bar-first/index'
+                            });
                         });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
@@ -127,10 +130,14 @@ Page({
                             url: '/pages/mall/product-detail/index?id=' + this.productId
                         });
                     } else {
-                        wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                        wx.switchTab({
+                            url: '/pages/tab-bar-first/index'
+                        });
                     }
                 } else {
-                    wx.switchTab({ url: '/pages/tab-bar-first/index' });
+                    wx.switchTab({
+                        url: '/pages/tab-bar-first/index'
+                    });
                 }
                 this.firstLoad = false;
             }).catch((e) => {
@@ -214,12 +221,12 @@ Page({
                 wx.setTabBarBadge({
                     index: 2,
                     text: String(data.msgTotalNotRead),
-                    fail() { }
+                    fail() {}
                 });
             } else {
                 wx.removeTabBarBadge({
                     index: 2,
-                    fail() { }
+                    fail() {}
                 });
             }
         }).finally(() => {
@@ -258,7 +265,7 @@ Page({
     },
     //获取视频通话信息
     getRoomInfo() {
-        if(this.getRoomInfo.loading) {
+        if (this.getRoomInfo.loading) {
             return;
         }
         this.getRoomInfo.loading = true;

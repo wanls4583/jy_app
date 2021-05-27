@@ -209,11 +209,8 @@ Page({
     onLoadMore() {
         this.loadList();
     },
-    onClickDoctor(e) {
-        var id = e.currentTarget.dataset.id;
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/doctor-detail/index?doctorId=' + id
-        });
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
     //获取科室列表
     loadDepartmentList() {
