@@ -1,5 +1,7 @@
 Page({
     data: {
+        statusList1: [1, 8, 5, 3],
+        statusList2: [1, 5, 3],
         statusList: [1, 5, 3],
         statusActiveMap: {
             1: 0,
