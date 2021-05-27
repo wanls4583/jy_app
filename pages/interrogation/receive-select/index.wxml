@@ -11,7 +11,7 @@
 					data-type="1"
 					data-url="/pages/interrogation/receive/index?type=1"
 					style="align-self:flex-end"
-				>{{typeMap[1]==2?'已寄出':(typeMap[1]==1?'申请中':'免费领取')}}</view>
+				>{{typeNameMap[typeMap[1]]}}</view>
 			</view>
 		</view>
 	</view>
@@ -27,7 +27,7 @@
 					data-type="2"
 					data-url="/pages/interrogation/receive/index?type=2"
 					style="align-self:flex-end"
-				>{{typeMap[2]==2?'已寄出':(typeMap[1]==1?'申请中':'免费领取')}}</view>
+				>{{typeNameMap[typeMap[2]]}}</view>
 			</view>
 		</view>
 	</view>

@@ -2,7 +2,13 @@ Page({
     data: {
         barcodeUrl: '',
         type: '',
-        typeMap: {}
+        typeMap: {},
+        typeNameMap: {
+            '-1': '免费领取',
+            1: '申请中',
+            2: '已寄出',
+            3: '已拒绝'
+        }
     },
     onLoad(option) {},
     onShow() {
