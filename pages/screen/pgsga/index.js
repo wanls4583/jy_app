@@ -233,7 +233,10 @@ Page({
                     count = self.data.dieteticChangeScoreMap[item];
                 }
             });
-            return count + (self.data.appetiteChangeScoreMap[pgsga.appetiteChange] || 0);
+            if(count <= self.data.appetiteChangeScoreMap[pgsga.appetiteChange]) {
+                count = self.data.appetiteChangeScoreMap[pgsga.appetiteChange];
+            }
+            return count;
         }
 
         function _countStep3() {
