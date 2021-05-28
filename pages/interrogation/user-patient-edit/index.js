@@ -118,7 +118,7 @@ Page({
                         });
                     });
                 }
-                wx.jyApp.toastBack('保存成功');
+                wx.jyApp.toastBack('保存成功', true);
             } else {
                 this.data.patient.id = data.id;
                 wx.jyApp.setTempData('screenPatient', this.data.patient);

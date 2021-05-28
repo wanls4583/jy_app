@@ -1,6 +1,6 @@
 <view class="container white-background-color" style="padding:50px 0 60px 0">
-	<view class="height-100" style="padding:60px">
-		<van-image fit="contain" height="100%" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="100%">
+	<view class="flex--center--center height-100">
+		<van-image class="border" fit="contain" height="60vw" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="60vw">
 			<van-loading size="20" slot="loading" type="spinner" vertical />
 			<text slot="error">图片加载失败</text>
 		</van-image>

@@ -178,7 +178,7 @@ Page({
                 method: 'post',
                 data: data
             }).then(() => {
-                wx.jyApp.toastBack('保存成功');
+                wx.jyApp.toastBack('保存成功', true);
             }).finally(() => {
                 wx.hideLoading();
             });

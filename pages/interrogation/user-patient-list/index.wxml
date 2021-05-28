@@ -29,7 +29,7 @@
 	<view class="padding-30">
 		<view catchtap="onAdd" class="button plain primary block">+ 添加患者</view>
 	</view>
-	<view class="footer padding-30" wx:if="{{patientList.length}}">
+	<view class="footer padding-30" wx:if="{{ifSelect&&patientList.length}}">
 		<view bindtap="onSave" class="margin-top-30 button primary block">确定</view>
 	</view>
 	<view class="footer padding-30" wx:elif="{{ifSelect}}">

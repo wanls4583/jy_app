@@ -54,7 +54,7 @@ Page({
             return;
         }
         if (!/1\d{10}/.test(this.data.contact.contactPhone)) {
-            wx.jyApp.toast('请填写手机号');
+            wx.jyApp.toast('手机号格式不正确');
             return;
         }
         if (!this.data.contact.cityCode) {

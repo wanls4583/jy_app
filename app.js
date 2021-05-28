@@ -39,12 +39,13 @@ App({
                 icon: 'none'
             });
         }
-        wx.jyApp.toastBack = (msg) => {
+        wx.jyApp.toastBack = (msg, mask) => {
             var nowPage = getCurrentPages();
             nowPage = nowPage[nowPage.length - 1].route;
             wx.showToast({
                 title: msg,
-                icon: 'none'
+                icon: 'none',
+                mask: Boolean(mask)
             });
             clearTimeout(wx.jyApp.toastBack.timer);
             wx.jyApp.toastBack.timer = setTimeout(() => {
