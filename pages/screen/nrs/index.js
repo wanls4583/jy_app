@@ -194,7 +194,7 @@ Page({
                 if (page.route == 'pages/screen/screen-list/index') {
                     page.onRefresh();
                 }
-                wx.jyApp.toastBack('保存成功');
+                wx.jyApp.toastBack('保存成功', true);
             }).finally(() => {
                 wx.hideLoading();
             });
