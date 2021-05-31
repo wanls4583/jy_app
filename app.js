@@ -34,6 +34,7 @@ App({
         wx.jyApp.room = room;
         wx.jyApp.Promise = Promise;
         wx.jyApp.toast = (msg) => {
+            wx.hideLoading();
             wx.showToast({
                 title: msg,
                 icon: 'none'
@@ -42,6 +43,7 @@ App({
         wx.jyApp.toastBack = (msg, mask) => {
             var nowPage = getCurrentPages();
             nowPage = nowPage[nowPage.length - 1].route;
+            wx.hideLoading();
             wx.showToast({
                 title: msg,
                 icon: 'none',
@@ -57,6 +59,7 @@ App({
             }, 1500);
         }
         wx.jyApp.showLoading = (title, mask) => {
+            wx.hideLoading();
             wx.showLoading({
                 title: title,
                 mask: Boolean(mask)

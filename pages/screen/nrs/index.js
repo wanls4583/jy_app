@@ -179,7 +179,7 @@ Page({
                 data: data
             }).then(() => {
                 wx.jyApp.toastBack('保存成功', true);
-            }).finally(() => {
+            }).catch(() => {
                 wx.hideLoading();
             });
         }
@@ -195,7 +195,7 @@ Page({
                     page.onRefresh();
                 }
                 wx.jyApp.toastBack('保存成功', true);
-            }).finally(() => {
+            }).catch(() => {
                 wx.hideLoading();
             });
         }
