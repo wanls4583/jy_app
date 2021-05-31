@@ -18,7 +18,7 @@ Page({
     onReceive(e) {
         var type = e.currentTarget.dataset.type;
         var url = e.currentTarget.dataset.url;
-        if (this.data.typeMap[type] != -1) {
+        if (this.data.typeMap[type] != -1 && this.data.typeMap[type] != 3) {
             wx.jyApp.toast('30天内只允许领取一次');
             return;
         }

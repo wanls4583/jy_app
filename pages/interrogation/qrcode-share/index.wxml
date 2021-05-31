@@ -1,9 +1,11 @@
 <view class="container white-background-color" style="padding:50px 0 60px 0">
 	<view class="flex--center--center height-100">
-		<van-image class="border" fit="contain" height="60vw" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="60vw">
-			<van-loading size="20" slot="loading" type="spinner" vertical />
-			<text slot="error">图片加载失败</text>
-		</van-image>
+		<view class="padding-30 border">
+			<van-image fit="contain" height="60vw" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="60vw">
+				<van-loading size="20" slot="loading" type="spinner" vertical />
+				<text slot="error">图片加载失败</text>
+			</van-image>
+		</view>
 	</view>
 	<view class="position-fixed top-0 z-index-100 width-100 padding-30 white-color primary-background-color" style="opacity: 0.8">
 		<text>将二维码展示给患者，扫码后可进行线上问诊</text>

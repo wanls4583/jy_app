@@ -86,6 +86,10 @@ Page({
         });
     },
     onSave() {
+        if(this.onSave.loading) {
+            return;
+        }
+        this.onSave.loading = true;
         if (!this.data.patient.patientName) {
             wx.jyApp.toast('请填写患者姓名');
             return;
@@ -108,7 +112,6 @@ Page({
             method: 'post',
             data: this.data.patient
         }).then((data) => {
-            wx.hideLoading();
             if (!this.doctorId) {
                 var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
                 if (page) {
@@ -127,6 +130,7 @@ Page({
                 });
             }
         }).catch(() => {
+            this.onSave.loading = false;
             wx.hideLoading();
         });
     },
