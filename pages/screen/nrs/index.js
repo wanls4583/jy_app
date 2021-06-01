@@ -25,13 +25,14 @@ Page({
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过医生详情下的筛查按钮进入
-        this.doctorId = option.doctorId;
+        // 患者通过筛查选择页面进入
+        this.from = option.from;
+        this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
-                filtrateByName: this.doctorId ? patient.patientName : option.filtrateByName,
+                filtrateByName: this.from == 'screen' ? patient.patientName : option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'nrs.stature': patient.height,
@@ -151,7 +152,25 @@ Page({
             ...this.data.nrs
         };
         wx.jyApp.showLoading('加载中...', true);
-        if (!this.doctorId) {
+        if (this.from == 'screen') {
+            data.patientId = this.patient.id;
+            data.doctorId = this.doctorId;
+            wx.jyApp.http({
+                url: `/filtrate/nrs/public/save`,
+                method: 'post',
+                data: data
+            }).then(() => {
+                wx.jyApp.toastBack('保存成功', true, () => {
+                    setTimeout(() => {
+                        wx.jyApp.utils.navigateTo({
+                            url: `/pages/screen/screen-result/index?result=${data.result>3?1:0}`
+                        });
+                    }, 500);
+                });
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
             if (!data.filtrateId) {
                 wx.jyApp.http({
                     url: '/patient/filtrate/save',
@@ -170,18 +189,6 @@ Page({
             } else {
                 _save.bind(this)();
             }
-        } else {
-            data.patientId = this.patient.id;
-            data.doctorId = this.doctorId;
-            wx.jyApp.http({
-                url: `/filtrate/nrs/public/save`,
-                method: 'post',
-                data: data
-            }).then(() => {
-                wx.jyApp.toastBack('保存成功', true);
-            }).catch(() => {
-                wx.hideLoading();
-            });
         }
 
         function _save() {

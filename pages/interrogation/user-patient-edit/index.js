@@ -22,8 +22,9 @@ Page({
     },
     onLoad(option) {
         // 是否从医生详情页跳过来的
-        this.doctorId = option.doctorId;
-        this.doctorName = option.doctorName;
+        this.screen = option.screen;
+        this.doctorId = option.doctorId || '';
+        this.doctorName = option.doctorName || '';
         if (this.doctorId) {
             this.setData({
                 saveText: '下一页'
@@ -108,7 +109,7 @@ Page({
             method: 'post',
             data: this.data.patient
         }).then((data) => {
-            if (!this.doctorId) {
+            if (!this.screen) {
                 var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
                 wx.jyApp.toastBack('保存成功', true, () => {
                     if (page) {
@@ -120,10 +121,11 @@ Page({
                     }
                 });
             } else {
+                // 筛查页面
                 this.data.patient.id = data.id;
                 wx.jyApp.setTempData('screenPatient', this.data.patient);
                 wx.redirectTo({
-                    url: `/pages/screen/nrs/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
+                    url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
                 });
             }
         }).catch(() => {

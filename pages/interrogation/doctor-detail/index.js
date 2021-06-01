@@ -4,7 +4,6 @@ Page({
         doctor: {},
         appraiseNum: 0,
         appraiseList: [],
-        patientList: [],
         detailVisble: false,
         screenVisible: false
     },
@@ -20,7 +19,6 @@ Page({
         });
         this.getDoctorInfo();
         this.getAppraiseList();
-        this.getPatient();
         if(option.from == 'barcode') {
             this.setData({
                 screenVisible: true
@@ -142,19 +140,6 @@ Page({
             this.setData({
                 appraiseNum: data.page.totalCount,
                 appraiseList: data.page.list
-            });
-        });
-    },
-    getPatient() {
-        wx.jyApp.http({
-            url: '/patientdocument/list',
-            data: {
-                page: 1,
-                limit: 1000
-            }
-        }).then((data) => {
-            this.setData({
-                patientList: data.list || []
             });
         });
     },

@@ -65,8 +65,8 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/clinical-nutrition/patient-list/index",
-          "pathName": "pages/clinical-nutrition/patient-list/index",
+          "name": "pages/screen/screen-result/index",
+          "pathName": "pages/screen/screen-result/index",
           "query": "",
           "scene": null
         },

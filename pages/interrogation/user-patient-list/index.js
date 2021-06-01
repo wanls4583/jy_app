@@ -5,9 +5,9 @@ Page({
         ifSelect: false
     },
     onLoad(option) {
-        // 患者从医生详情页的筛查按钮跳转过来
-        this.doctorId = option.doctorId;
-        this.doctorName = option.doctorName;
+        this.screen = option.screen;
+        this.doctorId = option.doctorId || '';
+        this.doctorName = option.doctorName || '';
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['configData']
@@ -29,11 +29,11 @@ Page({
             wx.jyApp.toast('请选择患者');
             return;
         }
-        // 跳转到nrs筛查页面
-        if (this.doctorId) {
+        // 跳转到筛查页面
+        if (this.screen) {
             wx.jyApp.setTempData('screenPatient', this.data.patient);
             wx.redirectTo({
-                url: `/pages/screen/nrs/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
+                url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
             });
             return;
         }

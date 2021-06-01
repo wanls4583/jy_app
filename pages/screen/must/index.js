@@ -21,10 +21,14 @@ Page({
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        // 患者通过筛查选择页面进入
+        this.from = option.from;
+        this.doctorId = option.doctorId || '';
+        this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
-                filtrateByName: option.filtrateByName,
+                filtrateByName: this.from == 'screen' ? patient.patientName : option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'must.stature': patient.height,
@@ -135,23 +139,50 @@ Page({
             ...this.data.must
         }
         wx.jyApp.showLoading('加载中...', true);
-        if (!data.filtrateId) {
+        if (this.from == 'screen') {
+            data.patientId = this.patient.id;
+            data.doctorId = this.doctorId;
             wx.jyApp.http({
-                url: '/patient/filtrate/save',
+                url: `/filtrate/must/public/save`,
                 method: 'post',
-                data: {
-                    consultOrderId: this.data.consultOrderId,
-                    filtrateType: this.data.filtrateType,
-                    isSelf: true,
-                }
-            }).then((_data) => {
-                data.filtrateId = _data.filtrateId;
-                _save.bind(this)();
+                data: data
+            }).then(() => {
+                wx.jyApp.toastBack('保存成功', true, () => {
+                    var result = 0;
+                    if (data._result == '1') {
+                        result = 1;
+                    }
+                    if (data._result == '2') {
+                        result = 2;
+                    }
+                    setTimeout(() => {
+                        wx.jyApp.utils.navigateTo({
+                            url: `/pages/screen/screen-result/index?result=${result}`
+                        });
+                    }, 500);
+                });
             }).catch(() => {
                 wx.hideLoading();
             });
         } else {
-            _save.bind(this)();
+            if (!data.filtrateId) {
+                wx.jyApp.http({
+                    url: '/patient/filtrate/save',
+                    method: 'post',
+                    data: {
+                        consultOrderId: this.data.consultOrderId,
+                        filtrateType: this.data.filtrateType,
+                        isSelf: true,
+                    }
+                }).then((_data) => {
+                    data.filtrateId = _data.filtrateId;
+                    _save.bind(this)();
+                }).catch(() => {
+                    wx.hideLoading();
+                });
+            } else {
+                _save.bind(this)();
+            }
         }
 
         function _save() {

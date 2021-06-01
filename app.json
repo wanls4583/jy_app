@@ -79,6 +79,8 @@
         "name": "screen",
         "pages": [
             "screen-list/index",
+            "screen-select/index",
+            "screen-result/index",
             "nrs/index",
             "mna/index",
             "must/index",

@@ -1,0 +1,79 @@
+<view class="container">
+	<view class="white-background-color">
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+			>
+				<view>
+					<text>NRS 2002</text>
+					<text class="gray-color">（适用于住院患者、大多数人群）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+			>
+				<view>
+					<text>PG-SGA</text>
+					<text class="gray-color">（适用于肿瘤患者）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?screen=sga&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+			>
+				<view>
+					<text>SGA</text>
+					<text class="gray-color">（适用于并发症患者）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?screen=must&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+			>
+				<view>
+					<text>MUST</text>
+					<text class="gray-color">（适用于所有住院患者）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length?'user-patient-list':'user-patient-edit'}}/index?screen=mna&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+			>
+				<view>
+					<text>MNA</text>
+					<text class="gray-color">（适用于老年人、社区人群）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>	
+	</view>
+</view>
