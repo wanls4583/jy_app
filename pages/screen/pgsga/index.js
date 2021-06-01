@@ -233,7 +233,7 @@ Page({
                     count = self.data.dieteticChangeScoreMap[item];
                 }
             });
-            if(count <= self.data.appetiteChangeScoreMap[pgsga.appetiteChange]) {
+            if (count <= self.data.appetiteChangeScoreMap[pgsga.appetiteChange]) {
                 count = self.data.appetiteChangeScoreMap[pgsga.appetiteChange];
             }
             return count;
@@ -373,13 +373,12 @@ Page({
                 data: data
             }).then(() => {
                 var page = wx.jyApp.utils.getPageByLastIndex(2);
-                if (page.route == 'pages/screen/screen-list/index') {
-                    page.onRefresh();
-                }
-                wx.jyApp.toastBack('保存成功');
-            }).finally(() => {
-                wx.hideLoading();
-            }).finally(() => {
+                wx.jyApp.toastBack('保存成功', true, () => {
+                    if (page.route == 'pages/screen/screen-list/index') {
+                        page.onRefresh();
+                    }
+                });
+            }).catch(() => {
                 wx.hideLoading();
             });
         }

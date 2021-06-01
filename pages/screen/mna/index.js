@@ -250,6 +250,7 @@ Page({
         } else {
             _save.bind(this)();
         }
+
         function _save() {
             wx.jyApp.http({
                 url: `/filtrate/mna/${data.id?'update':'save'}`,
@@ -257,11 +258,12 @@ Page({
                 data: data
             }).then(() => {
                 var page = wx.jyApp.utils.getPageByLastIndex(2);
-                if (page.route == 'pages/screen/screen-list/index') {
-                    page.onRefresh();
-                }
-                wx.jyApp.toastBack('保存成功');
-            }).finally(() => {
+                wx.jyApp.toastBack('保存成功', true, () => {
+                    if (page.route == 'pages/screen/screen-list/index') {
+                        page.onRefresh();
+                    }
+                });
+            }).catch(() => {
                 wx.hideLoading();
             });
         }
