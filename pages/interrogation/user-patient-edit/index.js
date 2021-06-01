@@ -24,7 +24,7 @@ Page({
         // 是否从医生详情页跳过来的
         this.doctorId = option.doctorId;
         this.doctorName = option.doctorName;
-        if(this.doctorId) {
+        if (this.doctorId) {
             this.setData({
                 saveText: '下一页'
             });
@@ -86,10 +86,6 @@ Page({
         });
     },
     onSave() {
-        if(this.onSave.loading) {
-            return;
-        }
-        this.onSave.loading = true;
         if (!this.data.patient.patientName) {
             wx.jyApp.toast('请填写患者姓名');
             return;
@@ -114,14 +110,15 @@ Page({
         }).then((data) => {
             if (!this.doctorId) {
                 var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
-                if (page) {
-                    page.loadList().then(() => {
-                        page.setData({
-                            selectId: this.data.patient.id || data.id
+                wx.jyApp.toastBack('保存成功', true, () => {
+                    if (page) {
+                        page.loadList().then(() => {
+                            page.setData({
+                                selectId: this.data.patient.id || data.id
+                            });
                         });
-                    });
-                }
-                wx.jyApp.toastBack('保存成功', true);
+                    }
+                });
             } else {
                 this.data.patient.id = data.id;
                 wx.jyApp.setTempData('screenPatient', this.data.patient);
@@ -130,7 +127,6 @@ Page({
                 });
             }
         }).catch(() => {
-            this.onSave.loading = false;
             wx.hideLoading();
         });
     },
