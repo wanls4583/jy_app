@@ -58,7 +58,7 @@ Page({
         return {
             title: this.data.doctorInfo.doctorName || '医生',
             path: '/pages/index/index?type=-1&url=' + url,
-            imageUrl: this.data.barcodeUrl || this.data.doctorInfo.avatar || '/image/logo.png'
+            imageUrl: this.data.doctorInfo.avatar || '/image/logo.png'
         }
     },
     //保存二维码
