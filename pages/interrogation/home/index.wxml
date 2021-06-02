@@ -41,10 +41,10 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex white-background-color margin-20 radius-8px overflow-hidden shadow">
+			<view class="flex flex-wrap-wrap white-background-color margin-20 padding-bottom-30 radius-8px overflow-hidden shadow">
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/appointment/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
@@ -60,7 +60,7 @@
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/screen/screen-select/index?doctorId={{doctorInfo.id}}&doctorName={{doctorInfo.doctorName}}"
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
@@ -68,7 +68,7 @@
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/order-list/index"
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
@@ -76,7 +76,7 @@
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/invite/index"
 					wx:if="{{configData.showInvite==1}}"
 				>
@@ -85,7 +85,7 @@
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 				>
 					<image src="/image/icon_qrcode.png" style="width:70rpx;height:70rpx" />
@@ -93,7 +93,7 @@
 				</view>
 				<view
 					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/doctor-setting/index"
 					wx:if="{{doctorInfo.type==1}}"
 				>
