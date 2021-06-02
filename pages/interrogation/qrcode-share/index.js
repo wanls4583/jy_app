@@ -49,10 +49,15 @@ Page({
     onShareAppMessage: function (res) {
         var url = getCurrentPages();
         var url = url[url.length - 1];
+        var options = url.options;
+        url = '/' + url.route + '?';
+        for (var key in options) {
+            url += key + '=' + options[key] + '&';
+        }
         url = encodeURIComponent(url);
         return {
             title: this.data.doctorInfo.doctorName || '医生',
-            path: '/pages/index/index?url=' + url,
+            path: '/pages/index/index?type=-1&url=' + url,
             imageUrl: this.data.barcodeUrl || this.data.doctorInfo.avatar || '/image/logo.png'
         }
     },
