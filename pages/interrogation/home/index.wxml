@@ -61,6 +61,14 @@
 				<view
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+					data-url="/pages/screen/screen-select/index?doctorId={{doctorInfo.id}}&doctorName={{doctorInfo.doctorName}}"
+				>
+					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">营养筛查</view>
+				</view>
+				<view
+					bindtap="onCheckGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-url="/pages/order-list/index"
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />

@@ -6,7 +6,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData'],
+            fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.dId = option.dId;
@@ -41,6 +41,16 @@ Page({
                 }
             });
         });
+    },
+    onShareAppMessage: function (res) {
+        var url = getCurrentPages();
+        var url = url[url.length - 1];
+        url = encodeURIComponent(url);
+        return {
+            title: this.data.doctorInfo.doctorName || '医生',
+            path: '/pages/index/index?url=' + url,
+            imageUrl: this.data.barcodeUrl || this.data.doctorInfo.avatar || '/image/logo.png'
+        }
     },
     //保存二维码
     onSave() {

@@ -11,7 +11,8 @@
 		<text>将二维码展示给患者，扫码后可进行线上问诊</text>
 	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
-		<view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view>
+		<!-- <view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view> -->
+		<button class="button primary plain" open-type="share" style="min-width:90px">分享</button>
 		<view bindtap="onSave" class="button primary plain" style="min-width:90px">保存</view>
 		<view bindtap="onReceive" class="button primary" style="min-width:90px">领取二维码</view>
 	</view>
