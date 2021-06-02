@@ -14,7 +14,7 @@
 		<!-- <view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view> -->
 		<button class="button primary plain" open-type="share" style="min-width:90px">分享</button>
 		<view bindtap="onSave" class="button primary plain" style="min-width:90px">保存</view>
-		<view bindtap="onReceive" class="button primary" style="min-width:90px">领取二维码</view>
+		<view bindtap="onReceive" class="button primary" style="min-width:90px" wx:if="{{from!='screen'}}">领取二维码</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />

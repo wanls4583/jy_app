@@ -20,6 +20,10 @@ Page({
         dateVisible: false
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
         this.from = option.from;
@@ -55,7 +59,9 @@ Page({
             'filtrateType': option.filtrateType,
         });
     },
-    onUnload() {},
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
         this.setBMI();
@@ -155,11 +161,13 @@ Page({
                     if (data._result == '2') {
                         result = 2;
                     }
-                    setTimeout(() => {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}`
-                        });
-                    }, 500);
+                    if (this.data.userInfo.role != 'DOCTOR') {
+                        setTimeout(() => {
+                            wx.jyApp.utils.navigateTo({
+                                url: `/pages/screen/screen-result/index?result=${result}`
+                            });
+                        }, 500);
+                    }
                 });
             }).catch(() => {
                 wx.hideLoading();

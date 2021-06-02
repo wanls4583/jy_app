@@ -1,7 +1,8 @@
 Page({
     data: {
         barcodeUrl: '',
-        type: ''
+        type: '',
+        from: ''
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -22,6 +23,9 @@ Page({
         } else {
             wx.jyApp.toast('参数错误');
         }
+        this.setData({
+            from: option.from
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

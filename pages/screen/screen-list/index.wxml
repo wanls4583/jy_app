@@ -16,7 +16,7 @@
 					<view style="flex:1.5">筛查方式：{{item.filtrateType}}</view>
 				</view>
 				<view class="flex--center--start margin-top-20">
-					<view style="flex:2">筛查医师：{{item.doctorName}}</view>
+					<view style="flex:2">筛查医师：{{item.doctorName||''}}</view>
 					<view style="flex:1.5">筛查结果：{{item.filtrateResult||''}}</view>
 				</view>
 				<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>

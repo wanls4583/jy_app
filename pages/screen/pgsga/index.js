@@ -93,6 +93,10 @@ Page({
         }
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
         this.from = option.from;
@@ -128,7 +132,9 @@ Page({
             'filtrateType': option.filtrateType,
         });
     },
-    onUnload() {},
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     onNext() {
         this.setData({
             step: this.data.step + 1
@@ -367,11 +373,13 @@ Page({
                     if (data.integralEvaluation == 'SGA_C') {
                         result = 2;
                     }
-                    setTimeout(() => {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}`
-                        });
-                    }, 500);
+                    if (this.data.userInfo.role != 'DOCTOR') {
+                        setTimeout(() => {
+                            wx.jyApp.utils.navigateTo({
+                                url: `/pages/screen/screen-result/index?result=${result}`
+                            });
+                        }, 500);
+                    }
                 });
             }).catch(() => {
                 wx.hideLoading();

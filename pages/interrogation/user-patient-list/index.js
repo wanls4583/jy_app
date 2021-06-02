@@ -16,6 +16,11 @@ Page({
         this.setData({
             ifSelect: option.select || false
         });
+        if(this.screen) {
+            this.setData({
+                btnText: '下一页'
+            });
+        }
         this.loadList();
     },
     onUnload() {

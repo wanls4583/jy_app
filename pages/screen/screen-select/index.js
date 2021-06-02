@@ -33,7 +33,7 @@ Page({
     onConfirm(e) {
         if (e.detail.value.value == 1) {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/qrcode-share/index?barcodeUrl=' + this.data.doctorInfo.barcodeUrl
+                url: '/pages/interrogation/qrcode-share/index?from=screen&barcodeUrl=' + this.data.doctorInfo.barcodeUrl
             });
         } else if (e.detail.value.value == 2) {
             wx.jyApp.utils.navigateTo({
