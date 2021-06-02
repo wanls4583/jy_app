@@ -74,9 +74,16 @@
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</view>
-		</view>	
+		</view>
 	</view>
 </view>
 <van-popup position="bottom" show="{{wayVisible}}">
-	<van-picker bind:cancel="onCancel" bind:confirm="onConfirm" columns="{{[{label:'筛查二维码',value:1},{label:'自己筛查',value:2}]}}" show-toolbar value-key="label"></van-picker>
+	<van-picker
+		bind:cancel="onCancel"
+		bind:confirm="onConfirm"
+		columns="{{[{label:'筛查二维码',value:1},{label:'自己筛查',value:2}]}}"
+		show-toolbar
+		value-key="label"
+		visible-item-count="{{3}}"
+	></van-picker>
 </van-popup>
