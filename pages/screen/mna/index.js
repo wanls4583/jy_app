@@ -265,6 +265,8 @@ Page({
                                 url: `/pages/screen/screen-result/index?result=${result}`
                             });
                         }, 500);
+                    } else {
+                        wx.navigateBack();
                     }
                 });
             }).catch(() => {

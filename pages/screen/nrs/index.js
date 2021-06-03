@@ -173,6 +173,8 @@ Page({
                                 url: `/pages/screen/screen-result/index?result=${data.result>=3?1:0}`
                             });
                         }, 500);
+                    } else {
+                        wx.navigateBack();
                     }
                 });
             }).catch(() => {

@@ -26,6 +26,11 @@ Page({
         this.setData({
             from: option.from
         });
+        if(option.from == 'screen') {
+            wx.setNavigationBarTitle({
+                title: '筛查二维码'
+            });
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
