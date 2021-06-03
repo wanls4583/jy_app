@@ -18,7 +18,7 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查方式：</view>
-						<view>{{item.filtrateType}}</view>
+						<view>{{item._filtrateType}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查医师：</view>

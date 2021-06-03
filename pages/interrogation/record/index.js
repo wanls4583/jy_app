@@ -55,6 +55,15 @@ Page({
                 });
             });
             data.filtrate = data.filtrate || [];
+            data.filtrate.map((item) => {
+                item._filtrateType = item.filtrateType
+                if (item.filtrateType == 'NRS2000') {
+                    item._filtrateType = 'NRS 2002'
+                }
+                if (item.filtrateType == 'PGSGA') {
+                    item._filtrateType = 'PG-SGA'
+                }
+            });
             this.setData({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,

@@ -95,6 +95,13 @@ Page({
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
+                item._filtrateType = item.filtrateType;
+                if(item.filtrateType == 'NRS2000') {
+                    item._filtrateType = 'NRS 2002'
+                }
+                if(item.filtrateType == 'PGSGA') {
+                    item._filtrateType = 'PG-SGA'
+                }
             });
             this.data.list = this.data.list.concat(data.page.list);
             this.setData({

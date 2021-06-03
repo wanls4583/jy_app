@@ -49,7 +49,7 @@ Page({
                 title = 'NRS';
                 break;
             case 'pgsga':
-                title = 'PGSGA';
+                title = 'PG-SGA';
                 break;
             case 'medicalRecord':
                 title = '营养病历';

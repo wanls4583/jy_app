@@ -196,7 +196,7 @@
 								<!-- NRS2000 -->
 								<view class="position-relative" wx:elif="{{item.type==7}}">
 									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">NRS2000（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="width-100 padding-20 success-background-color white-color align-center">NRS2002（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
 										<view class="padding-30">
 											<text>{{patient.patientName}}，</text>
 											<text>{{patient._sex}}，</text>

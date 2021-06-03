@@ -13,7 +13,7 @@
 			<view bindtap="onEdit" class="padding-top-bottom-20 clickable" data-item="{{item}}">
 				<view class="flex--center--start">
 					<view style="flex:2">筛查日期：{{item.filtrateDate}}</view>
-					<view style="flex:1.5">筛查方式：{{item.filtrateType}}</view>
+					<view style="flex:1.5">筛查方式：{{item._filtrateType}}</view>
 				</view>
 				<view class="flex--center--start margin-top-20">
 					<view style="flex:2">筛查医师：{{item.doctorName||''}}</view>

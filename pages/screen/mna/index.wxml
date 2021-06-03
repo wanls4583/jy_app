@@ -55,7 +55,7 @@
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">5、神经心里问题</view>
+			<view class="padding-bottom-30">5、神经心理问题</view>
 			<van-radio-group bind:change="onChange" data-prop="mna.q5" value="{{mna.q5}}">
 				<van-radio name="{{0}}">严重智力减退或抑郁（0分）</van-radio>
 				<van-radio name="{{1}}">轻度智力减退（1分）</van-radio>
