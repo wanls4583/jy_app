@@ -59,7 +59,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="flex--center--between margin-20 margin-bottom-0 overflow-hidden">
+				<view class="flex--center--between margin-left-right-20 margin-top-30 overflow-hidden">
 					<view
 						bindtap="onGoto"
 						class="flex-direction-column flex--center--between width-25 clickable"
@@ -109,7 +109,7 @@
 						<text class="font-small color-666">快速送货上门</text>
 					</view>
 				</view>
-				<view class="white-background-color margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{departmentList.length&&configData.hideDoctor!=1}}">
+				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow" wx:if="{{departmentList.length&&configData.hideDoctor!=1}}">
 					<view class="font-title font-bold padding-20">营养中心</view>
 					<view class="flex flex-wrap-wrap">
 						<view

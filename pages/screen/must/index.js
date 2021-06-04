@@ -170,7 +170,7 @@ Page({
                         if (this.data.userInfo.role != 'DOCTOR') {
                             setTimeout(() => {
                                 wx.jyApp.utils.navigateTo({
-                                    url: `/pages/screen/screen-result/index?result=${result}&_resul=${_resul}`
+                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}`
                                 });
                             }, 500);
                         }

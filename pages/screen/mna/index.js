@@ -256,19 +256,19 @@ Page({
                     delta: 2,
                     complete: () => {
                         var result = 0;
-                        var _resul = '营养状况良好'
+                        var _result = '营养状况良好'
                         if (data._result == 'B') {
                             result = 1;
-                            _resul = '存在营养不良的风险';
+                            _result = '存在营养不良的风险';
                         }
                         if (data._result == 'C') {
                             result = 2;
-                            _resul = '明确为营养不良';
+                            _result = '明确为营养不良';
                         }
                         if (this.data.userInfo.role != 'DOCTOR') {
                             setTimeout(() => {
                                 wx.jyApp.utils.navigateTo({
-                                    url: `/pages/screen/screen-result/index?result=${result}&_resul=${_resul}`
+                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}`
                                 });
                             }, 500);
                         }
