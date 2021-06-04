@@ -165,22 +165,27 @@ Page({
                 method: 'post',
                 data: data
             }).then(() => {
-                wx.jyApp.toastBack('保存成功', true, () => {
-                    var result = 0;
-                    if (data.result == 'B') {
-                        result = 1;
-                    }
-                    if (data.result == 'C') {
-                        result = 2;
-                    }
-                    if (this.data.userInfo.role != 'DOCTOR') {
-                        setTimeout(() => {
-                            wx.jyApp.utils.navigateTo({
-                                url: `/pages/screen/screen-result/index?result=${result}`
-                            });
-                        }, 500);
-                    } else {
-                        wx.navigateBack();
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true,
+                    delta: 2,
+                    complete: () => {
+                        var result = 0;
+                        var _result = '营养良好';
+                        if (data.result == 'B') {
+                            result = 1;
+                            _result = '轻~中度营养不良';
+                        }
+                        if (data.result == 'C') {
+                            result = 2;
+                            _result = '重度营养不良';
+                        }
+                        if (this.data.userInfo.role != 'DOCTOR') {
+                            setTimeout(() => {
+                                wx.jyApp.utils.navigateTo({
+                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}`
+                                });
+                            }, 500);
+                        }
                     }
                 });
             }).catch(() => {
@@ -214,9 +219,12 @@ Page({
                 data: data
             }).then(() => {
                 var page = wx.jyApp.utils.getPageByLastIndex(2);
-                wx.jyApp.toastBack('保存成功', true, () => {
-                    if (page.route == 'pages/screen/screen-list/index') {
-                        page.onRefresh();
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true,
+                    complete: () => {
+                        if (page.route == 'pages/screen/screen-list/index') {
+                            page.onRefresh();
+                        }
                     }
                 });
             }).catch(() => {

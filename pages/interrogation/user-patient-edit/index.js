@@ -111,21 +111,24 @@ Page({
         }).then((data) => {
             if (!this.screen) {
                 var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
-                wx.jyApp.toastBack('保存成功', true, () => {
-                    if (page) {
-                        page.loadList().then(() => {
-                            page.setData({
-                                selectId: this.data.patient.id || data.id
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true,
+                    complete: () => {
+                        if (page) {
+                            page.loadList().then(() => {
+                                page.setData({
+                                    selectId: this.data.patient.id || data.id
+                                });
                             });
-                        });
+                        }
                     }
-                });
+                })
             } else {
                 // 筛查页面
                 this.data.patient.id = data.id;
                 wx.jyApp.setTempData('screenPatient', this.data.patient);
                 wx.redirectTo({
-                    url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}`
+                    url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
                 });
             }
         }).catch(() => {

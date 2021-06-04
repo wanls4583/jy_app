@@ -60,9 +60,9 @@ Page({
             });
         }
         this.setData({
-            'nrs.filtrateId': option.filtrateId,
-            'consultOrderId': option.consultOrderId,
-            'filtrateType': option.filtrateType,
+            'nrs.filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'filtrateType': option.filtrateType || '',
         });
     },
     onUnload() {
@@ -166,15 +166,22 @@ Page({
                 method: 'post',
                 data: data
             }).then(() => {
-                wx.jyApp.toastBack('保存成功', true, () => {
-                    if (this.data.userInfo.role != 'DOCTOR') {
-                        setTimeout(() => {
-                            wx.jyApp.utils.navigateTo({
-                                url: `/pages/screen/screen-result/index?result=${data.result>=3?1:0}`
-                            });
-                        }, 500);
-                    } else {
-                        wx.navigateBack();
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true,
+                    delta: 2,
+                    complete: () => {
+                        var result = data.result >= 3 ? 2 : 0;
+                        var _result = '每周重新评估患者的营养状况';
+                        if (result == 2) {
+                            _result = '有营养风险，需进行营养支持治疗';
+                        }
+                        if (this.data.userInfo.role != 'DOCTOR') {
+                            setTimeout(() => {
+                                wx.jyApp.utils.navigateTo({
+                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}`
+                                });
+                            }, 500);
+                        }
                     }
                 });
             }).catch(() => {
@@ -211,7 +218,9 @@ Page({
                 if (page.route == 'pages/screen/screen-list/index') {
                     page.onRefresh();
                 }
-                wx.jyApp.toastBack('保存成功', true);
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true
+                });
             }).catch(() => {
                 wx.hideLoading();
             });

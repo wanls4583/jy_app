@@ -74,7 +74,6 @@ Page({
                 type: this.type,
             }
         }).then((data) => {
-            wx.hideLoading();
             wx.jyApp.toastBack('保存成功');
         }).catch(() => {
             wx.hideLoading();

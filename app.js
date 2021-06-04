@@ -39,22 +39,25 @@ App({
                 icon: 'none'
             });
         }
-        wx.jyApp.toastBack = (msg, mask, callback) => {
+        wx.jyApp.toastBack = (msg, option) => {
             var nowPage = getCurrentPages();
+            option = option || {}
             nowPage = nowPage[nowPage.length - 1].route;
             wx.showToast({
                 title: msg,
                 icon: 'none',
-                mask: Boolean(mask)
+                mask: Boolean(option.mask)
             });
             clearTimeout(wx.jyApp.toastBack.timer);
             wx.jyApp.toastBack.timer = setTimeout(() => {
                 var page = getCurrentPages();
                 page = page[page.length - 1].route;
                 if (nowPage == page) {
-                    wx.navigateBack();
+                    wx.navigateBack({
+                        delta: option.delta || 1
+                    });
                 }
-                callback && callback();
+                option.complete && option.complete();
             }, 1500);
         }
         wx.jyApp.showLoading = (title, mask) => {
