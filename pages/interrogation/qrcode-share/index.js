@@ -10,10 +10,10 @@ Page({
             fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.dId = option.dId;
-        this.uId = option.uId;
-        this.type = option.type;
         this.source = option.source;
+        this.uId = this.data.userInfo && this.data.userInfo.id || '';
+        this.dId = this.data.doctorInfo && this.data.doctorInfo.id || '';
+        this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
         if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
@@ -26,7 +26,7 @@ Page({
         this.setData({
             from: option.from
         });
-        if(option.from == 'screen') {
+        if (option.from == 'screen') {
             wx.setNavigationBarTitle({
                 title: '筛查二维码'
             });
@@ -51,18 +51,16 @@ Page({
             });
         });
     },
-    onShareAppMessage: function (res) {
-        var url = getCurrentPages();
-        var url = url[url.length - 1];
-        var options = url.options;
-        url = '/' + url.route + '?';
-        for (var key in options) {
-            url += key + '=' + options[key] + '&';
+    onShareAppMessage: function () {
+        var path = '/pages/index/index?type=2&dId=' + this.dId;
+        if (this.data.from == 'screen') {
+            var url = `/pages/screen/screen-select/index?doctorId=${this.uId}&doctorName=${this.dName}`;
+            url = encodeURIComponent(url);
+            path = '/pages/index/index?type=-1&url=' + url;
         }
-        url = encodeURIComponent(url);
         return {
-            title: this.data.doctorInfo.doctorName || '医生',
-            path: '/pages/index/index?type=-1&url=' + url,
+            title: this.dName || '医生',
+            path: path,
             imageUrl: this.data.doctorInfo.avatar || '/image/logo.png'
         }
     },
@@ -163,7 +161,7 @@ Page({
             data: {
                 page: 'pages/index/index',
                 source: this.source,
-                scene: `type=1,dId=${this.dId || ''},uId=${this.uId || ''},to=${to}`
+                scene: `type=1,dId=${this.dId},uId=${this.uId}`
             }
         }).then((data) => {
             this.setData({

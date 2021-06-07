@@ -8,7 +8,7 @@
 		</view>
 	</view>
 	<view class="position-fixed top-0 z-index-100 width-100 padding-30 white-color primary-background-color" style="opacity: 0.8">
-		<text>将二维码展示给患者，扫码后可进行线上问诊</text>
+		<text>{{from=='screen'?'将二维码展示给患者，扫码后可进行营养师筛查':'将二维码展示给患者，扫码后可进行线上问诊'}}</text>
 	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
 		<!-- <view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view> -->

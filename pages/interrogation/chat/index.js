@@ -88,12 +88,12 @@ Page({
             loading: true, //上翻页加载中状态
             screenVisible: false,
             screenList: [{
-                name: 'NRS 2000',
-                filtrateType: 'NRS2000',
+                name: 'NRS 2002',
+                filtrateType: 'NRS 2002',
                 selected: true
             }, {
-                name: 'PGSGA',
-                filtrateType: 'PGSGA'
+                name: 'PG-SGA',
+                filtrateType: 'PG-SGA'
             }, {
                 name: 'SGA',
                 filtrateType: 'SGA'
@@ -104,7 +104,7 @@ Page({
                 name: 'MNA',
                 filtrateType: 'MNA'
             }],
-            filtrateType: 'NRS2000'
+            filtrateType: 'NRS 2002'
         });
         wx.showLoading({
             title: '加载中...',
@@ -906,10 +906,10 @@ Page({
     onSelfScreen(e) {
         var url = '';
         switch (this.data.filtrateType) {
-            case 'NRS2000':
+            case 'NRS 2002':
                 url = '/pages/screen/nrs/index';
                 break;
-            case 'PGSGA':
+            case 'PG-SGA':
                 url = '/pages/screen/pgsga/index';
                 break;
             case 'SGA':

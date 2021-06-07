@@ -31,9 +31,11 @@ Page({
         var item = e.currentTarget.dataset.item;
         var url = '';
         switch (item.filtrateType) {
-            case 'NRS2000':
+            case 'NRS 2002':
+            case 'NRS2002':
                 url = '/pages/screen/nrs/index';
                 break;
+            case 'PG-SGA':
             case 'PGSGA':
                 url = '/pages/screen/pgsga/index';
                 break;
@@ -96,12 +98,6 @@ Page({
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
                 item._filtrateType = item.filtrateType;
-                if(item.filtrateType == 'NRS2000') {
-                    item._filtrateType = 'NRS 2002'
-                }
-                if(item.filtrateType == 'PGSGA') {
-                    item._filtrateType = 'PG-SGA'
-                }
             });
             this.data.list = this.data.list.concat(data.page.list);
             this.setData({

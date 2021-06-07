@@ -30,7 +30,6 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             if (data.doctorStatus == 3) {
-                this.to = 2;
                 wx.showModal({
                     title: '提示',
                     content: '医生已暂停服务，你可以去首页看看！',
@@ -149,7 +148,6 @@ Page({
     checkOption(option) {
         console.log('检查启动参数');
         //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
-        //to:{1:医生详情页,2:首页,3:商城页,4:门诊患者页}
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
             this.routeType = option.routeType || 'navigateTo';

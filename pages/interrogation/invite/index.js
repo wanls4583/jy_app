@@ -51,7 +51,7 @@ Page({
     },
     onQrcode(e) {
         wx.jyApp.utils.navigateTo({
-            url: `/pages/interrogation/qrcode-share/index?source=INDEX&uId=${this.data.userInfo.id}&did=${this.data.doctorInfo.id}`
+            url: `/pages/interrogation/qrcode-share/index?source=INDEX`
         });
         this.setData({
             shareVisble: false

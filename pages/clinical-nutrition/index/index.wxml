@@ -2,7 +2,7 @@
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="NRS" wx:if="{{role=='医生'||role=='护士'}}"></van-tab>
-			<van-tab title="PGSGA" wx:if="{{role=='医生'}}"></van-tab>
+			<van-tab title="PG-SGA" wx:if="{{role=='医生'}}"></van-tab>
 			<!-- <van-tab title="营养指导"></van-tab> -->
 			<van-tab title="营养病历" wx:if="{{role=='医生'}}"></van-tab>
 			<van-tab title="初次会诊" wx:if="{{role=='医生'}}"></van-tab>
