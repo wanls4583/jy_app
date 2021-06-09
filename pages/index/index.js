@@ -120,15 +120,19 @@ Page({
                                 url: '/pages/tab-bar-first/index'
                             });
                         });
-                    } else if (this.screenDoctorId) {
+                    } else if (this.inviteWay == 1) { //医生邀请分享
+                        wx.jyApp.utils.navigateTo({
+                            url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.inviteDoctorId
+                        });
+                    } else if (this.screenDoctorId) { //扫医生筛查二维码进入
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId
                         });
-                    } else if (this.doctorId) {
+                    } else if (this.doctorId) { //医生主页
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.doctorId
                         });
-                    } else if (this.productId) {
+                    } else if (this.productId) { //产品主页
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/mall/product-detail/index?id=' + this.productId
                         });
@@ -155,9 +159,8 @@ Page({
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
             this.routeType = option.routeType || 'navigateTo';
-        } else if (option.type == 1 && option.dId) { //医生通过好友分享邀请
+        } else if (option.type == 1 && option.dId) { //医生邀请分享
             this.inviteDoctorId = option.dId;
-            this.doctorId = option.dId;
             this.inviteWay = 1;
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
@@ -169,9 +172,11 @@ Page({
             if (param.type == 1 && param.dId) { //医生通过二维码或名片分享邀请
                 this.inviteWay = 2;
                 this.inviteDoctorId = param.dId;
-                this.doctorId = param.dId;
             } else if (param.type == 2 && param.dId) { //医生筛查二维码
                 this.screenDoctorId = param.dId;
+            } else if (param.type == 3 && param.dId) { //医生邀请二维码分享
+                this.inviteDoctorId = param.dId;
+                this.inviteWay = 1;
             }
         }
     },

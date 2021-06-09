@@ -7,7 +7,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData', 'doctorInfo'],
+            fields: ['configData', 'userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.uId = this.data.userInfo && this.data.userInfo.id || '';
@@ -22,6 +22,8 @@ Page({
             })
         } else if (option.from == 'screen') {
             this.getQrCode(2);
+        } else if (option.from == 'invite') {
+            this.getQrCode(3);
         } else {
             wx.jyApp.toast('参数错误');
         }
