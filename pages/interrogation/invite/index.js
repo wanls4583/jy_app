@@ -51,7 +51,7 @@ Page({
     },
     onQrcode(e) {
         wx.jyApp.utils.navigateTo({
-            url: `/pages/interrogation/qrcode-share/index?source=INDEX`
+            url: `/pages/interrogation/qrcode-share/index?from=invite`
         });
         this.setData({
             shareVisble: false

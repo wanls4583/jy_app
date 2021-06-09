@@ -14,10 +14,10 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.getPatient();
-        this.setData({
-            doctorId: option.doctorId || '',
-            doctorName: option.doctorName || '',
-        });
+        this.doctorId = option.doctorId;
+        if (option.doctorId) {
+            this.getDoctorInfo();
+        }
     },
     onGoto(e) {
         // 医生角色
@@ -26,14 +26,14 @@ Page({
             this.setData({
                 wayVisible: true
             });
-        } else {
+        } else if (!this.doctorId || this.data.doctor) {
             wx.jyApp.utils.navigateTo(e);
         }
     },
     onConfirm(e) {
         if (e.detail.value.value == 1) {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/qrcode-share/index?from=screen&barcodeUrl=' + this.data.doctorInfo.barcodeUrl
+                url: '/pages/interrogation/qrcode-share/index?from=screen'
             });
         } else if (e.detail.value.value == 2) {
             wx.jyApp.utils.navigateTo({
@@ -59,6 +59,13 @@ Page({
         }).then((data) => {
             this.setData({
                 patientList: data.list || []
+            });
+        });
+    },
+    getDoctorInfo() {
+        wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
+            this.setData({
+                doctor: data.doctor
             });
         });
     },

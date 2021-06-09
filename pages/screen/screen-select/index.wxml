@@ -4,7 +4,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
 					<text>NRS 2002</text>
@@ -19,7 +19,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
 					<text>PG-SGA</text>
@@ -34,7 +34,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=sga&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=sga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
 					<text>SGA</text>
@@ -49,7 +49,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=must&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=must&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
 					<text>MUST</text>
@@ -64,7 +64,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=mna&doctorId={{doctorId}}&doctorName={{doctorName}}&select=true"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=mna&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
 					<text>MNA</text>

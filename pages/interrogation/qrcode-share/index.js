@@ -10,22 +10,21 @@ Page({
             fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.source = option.source;
         this.uId = this.data.userInfo && this.data.userInfo.id || '';
         this.dId = this.data.doctorInfo && this.data.doctorInfo.id || '';
         this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
+        this.setData({
+            from: option.from
+        });
         if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
             })
-        } else if (this.source) {
-            this.getQrCode();
+        } else if (option.from == 'screen') {
+            this.getQrCode(2);
         } else {
             wx.jyApp.toast('参数错误');
         }
-        this.setData({
-            from: option.from
-        });
         if (option.from == 'screen') {
             wx.setNavigationBarTitle({
                 title: '筛查二维码'
@@ -140,36 +139,16 @@ Page({
             })
         }
     },
-    getQrCode() {
-        var to = 2;
-        switch (this.source) {
-            case 'CARD':
-                to = 1;
-                break;
-            case 'INDEX':
-                to = 2;
-                break;
-            case 'EMALL':
-                to = 3;
-                break;
-            case 'SIMPLE_CONSULT':
-                to = 4;
-                break;
-        }
+    getQrCode(type) {
         wx.jyApp.http({
-            url: '/wx/share/barcodeUrl',
+            url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                source: this.source,
-                scene: `type=1,dId=${this.dId},uId=${this.uId}`
+                scene: `type=${type},dId=${this.dId},uId=${this.uId}`
             }
         }).then((data) => {
             this.setData({
-                barcodeUrl: data.barcodeUrl
-            });
-        }).catch(() => {
-            this.setData({
-                barcodeUrl: 'https://juyuanyingyang.com'
+                barcodeUrl: data.barcode
             });
         });
     }

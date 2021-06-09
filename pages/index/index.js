@@ -120,6 +120,10 @@ Page({
                                 url: '/pages/tab-bar-first/index'
                             });
                         });
+                    } else if (this.screenDoctorId) {
+                        wx.jyApp.utils.navigateTo({
+                            url: '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId
+                        });
                     } else if (this.doctorId) {
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.doctorId
@@ -166,6 +170,8 @@ Page({
                 this.inviteWay = 2;
                 this.inviteDoctorId = param.dId;
                 this.doctorId = param.dId;
+            } else if (param.type == 2 && param.dId) { //医生筛查二维码
+                this.screenDoctorId = param.dId;
             }
         }
     },
