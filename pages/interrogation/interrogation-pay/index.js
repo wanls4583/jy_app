@@ -42,7 +42,7 @@ Page({
         wx.jyApp.utils.requestSubscribeMessage(subIds).finally(() => {
             wx.jyApp.showLoading('支付中...', true);
             wx.jyApp.http({
-                url: wx.jyApp.tempData.illness.type == 3 ? '/consultorder/video/save' : '/consultorder/save',
+                url: wx.jyApp.tempData.illness.type == 3 ? '/consultorder/video/save' : (wx.jyApp.tempData.illness.type == 4 ? '/consultorder/phone/save' : '/consultorder/save'),
                 method: 'post',
                 data: {
                     'bookDateTime': bookDateTime,
