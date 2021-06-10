@@ -27,7 +27,7 @@
 	<view class="padding-30 margin-top-20 white-background-color">
 		<view class="font-bold align-center">服务说明</view>
 		<view class="gray-color" style="white-space:pre-line">
-			1、患者预约后，我们将发送预约通知给您，请在约定时间主动向患者发起视频通话，为患者提供视频问诊服务。
+			1、患者预约后，我们将发送预约通知给您，请在约定时间主动向患者发起电话/视频通话，为患者提供电话/视频问诊服务。
 			2、患者可能无法及时接听视频，您可在问诊中使用文字与患者约定其他时间进行视频。
 			3、一次视频服务时间为15分钟，请您注意沟通时间。
 			4、若您未在约定时间主动向患者发起视频，订单将全额退款给患者。

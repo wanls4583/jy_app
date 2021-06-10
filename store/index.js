@@ -134,6 +134,10 @@ export const store = observable({
     updateVideoBookNum: action(function (videoBookNum) {
         this.videoBookNum = videoBookNum;
     }),
+    phoneBookNum: 0,
+    updatePhoneBookNum: action(function (phoneBookNum) {
+        this.phoneBookNum = phoneBookNum;
+    }),
     allNutritionlist: [],
     updateAllNutritionlist: action(function (allNutritionlist) {
         this.allNutritionlist = allNutritionlist;

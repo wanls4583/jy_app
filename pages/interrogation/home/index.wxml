@@ -45,18 +45,36 @@
 				<view
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
-					data-url="/pages/interrogation/appointment/index"
+					data-url="/pages/interrogation/appointment/index?type=4"
+					wx:if="{{doctorInfo.type==1}}"
+				>
+					<view class="position-relative flex" style="margin-top:-4rpx">
+						<image src="/image/icon_phone.png" style="width:66rpx;height:66rpx" />
+						<view
+							class="position-absolute radius-50 white-color font-mini"
+							style="right:-10px;top:-10px;min-width:15px;height:15px;line-height:15px;background-color:red;"
+							wx:if="{{phoneBookNum}}"
+						>{{phoneBookNum}}</view>
+					</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">电话预约</view>
+				</view>
+				<view
+					bindtap="onCheckGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
+					data-url="/pages/interrogation/appointment/index?type=3"
 					wx:if="{{doctorInfo.type==1}}"
 				>
 					<view class="position-relative">
-						<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
+						<view class="flex" style="padding:4rpx">
+							<image src="/image/icon_shipin.png" style="width:58rpx;height:58rpx" />
+						</view>
 						<view
 							class="position-absolute radius-50 white-color font-mini"
 							style="right:-10px;top:-10px;min-width:15px;height:15px;line-height:15px;background-color:red;"
 							wx:if="{{videoBookNum}}"
 						>{{videoBookNum}}</view>
 					</view>
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">视频预约</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">视频预约</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
@@ -64,7 +82,7 @@
 					data-url="/pages/screen/screen-select/index?doctorId={{doctorInfo.id}}&doctorName={{doctorInfo.doctorName}}"
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">营养筛查</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">营养筛查</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
@@ -72,15 +90,11 @@
 					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 				>
 					<image src="/image/icon_qrcode.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">二维码名片</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">二维码名片</view>
 				</view>
-				<view
-					bindtap="onCheckGoto"
-					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
-					data-url="/pages/order-list/index"
-				>
+				<view bindtap="onCheckGoto" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/order-list/index">
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">订单列表</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">订单列表</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
@@ -89,7 +103,7 @@
 					wx:if="{{configData.showInvite==1}}"
 				>
 					<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">邀请医生</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">邀请医生</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
@@ -98,7 +112,7 @@
 					wx:if="{{doctorInfo.type==1}}"
 				>
 					<image src="/image/icon_setting.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">服务设置</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">服务设置</view>
 				</view>
 			</view>
 			<view class="position-relative radius-8px" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">

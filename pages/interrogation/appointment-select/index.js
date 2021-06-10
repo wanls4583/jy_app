@@ -15,15 +15,19 @@ Page({
     },
     onLoad(option) {
         this.doctorId = option.doctorId;
+        // 预约类型{3:'视频问诊',4:'电话问诊'}
+        this.type = option.type;
         this.initTitle();
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([this.getDoctorInfo(this.doctorId), this.getBookedTimes(this.doctorId)]).then(() => {
             wx.hideLoading();
             this.initData();
         });
+        this.setData({
+            ordreType: this.type
+        });
     },
-    onUnload() {
-    },
+    onUnload() {},
     initTitle() {
         var nowDay = new Date().getDay();
         var title = _getTitle();
@@ -42,11 +46,17 @@ Page({
         this.setData({
             timeArr: timeArr
         });
+
         function _getTitle() {
             var title = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
             var now = new Date();
             var day = now.getDay();
-            var dateTitle = [{ dateStr: '今天', dayStr: title[day], day: day || 7, value: now.getTime() }];
+            var dateTitle = [{
+                dateStr: '今天',
+                dayStr: title[day],
+                day: day || 7,
+                value: now.getTime()
+            }];
             var oneDay = 24 * 60 * 60 * 1000;
             now = now.getTime();
             for (var i = 1; i <= 6; i++) {
@@ -72,20 +82,20 @@ Page({
         for (var i = 0; i < 7; i++) {
             timeArr[i] = {
                 morning: morning.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
                 afternoon: afternoon.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
                 night: night.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
@@ -113,9 +123,15 @@ Page({
             return;
         }
         switch (type) {
-            case 'morning': timeTitle += '上午'; break;
-            case 'afternoon': timeTitle += '下午'; break;
-            case 'night': timeTitle += '晚上'; break;
+            case 'morning':
+                timeTitle += '上午';
+                break;
+            case 'afternoon':
+                timeTitle += '下午';
+                break;
+            case 'night':
+                timeTitle += '晚上';
+                break;
         }
         this.setData({
             slectTimes: itemObj[type].map((item) => {
@@ -146,13 +162,13 @@ Page({
             url: '/consultorder/book/check',
             data: {
                 doctorId: this.doctorId,
-                type: 3,
+                type: this.type,
                 bookDateTime: date.formatTime('yyyy-MM-dd ') + itemObj.time
             }
-        }).then(()=>{
+        }).then(() => {
             wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
             wx.redirectTo({
-                url: '/pages/interrogation/illness-edit/index?type=3&doctorId=' + this.doctorId
+                url: `/pages/interrogation/illness-edit/index?type=${this.type}&doctorId=${this.doctorId}`
             });
         });
     },
@@ -163,19 +179,19 @@ Page({
                 doctorId: doctorId
             }
         }).then((data) => {
-            this.bookedTimes = data.bookedTimes;
+            this.bookedTimes = this.type == 3 ? data.bookedTimes : data.phoneBookedTimes;
             for (var day in this.bookedTimes) {
                 var item = this.bookedTimes[day];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item.patientName;
                     //某些已预约的时间点被医生取消，需要去并集显示已取消的点
-                    if (this.videoServiceTime) {
-                        if (!this.videoServiceTime[day]) {
-                            this.videoServiceTime[day] = [_item.time];
+                    if (this.serviceTime) {
+                        if (!this.serviceTime[day]) {
+                            this.serviceTime[day] = [_item.time];
                         } else {
-                            this.videoServiceTime[day].push(_item.time);
-                            this.videoServiceTime[day].sort();
+                            this.serviceTime[day].push(_item.time);
+                            this.serviceTime[day].sort();
                         }
                     }
                 });
@@ -186,21 +202,21 @@ Page({
     },
     getDoctorInfo(doctorId) {
         return wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-            this.videoServiceTime = data.doctor.videoServiceTime;
+            this.serviceTime = this.type == 3 ? data.doctor.videoServiceTime : data.doctor.phoneServiceTime;
             //某些已预约的时间点被医生取消，需要去并集显示已取消的点
             if (this.bookedTimes) {
                 for (var day in this.bookedTimes) {
                     for (var time in this.bookedTimes[day]) {
-                        if (!this.videoServiceTime[day]) {
-                            this.videoServiceTime[day] = [time];
+                        if (!this.serviceTime[day]) {
+                            this.serviceTime[day] = [time];
                         } else {
-                            this.videoServiceTime[day].push(time);
-                            this.videoServiceTime[day].sort();
+                            this.serviceTime[day].push(time);
+                            this.serviceTime[day].sort();
                         }
                     }
                 }
             }
-            return data.doctor.videoServiceTime;
+            return data.doctor.serviceTime;
         });
     }
 })

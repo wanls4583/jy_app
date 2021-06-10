@@ -44,6 +44,7 @@
 									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
 									<text class="tag hollow warn" wx:if="{{item.transferFlag}}">转诊</text>
 									<text class="tag hollow" wx:if="{{item.type==3}}">视频</text>
+									<text class="tag hollow success" wx:if="{{item.type==4}}">电话</text>
 								</view>
 								<view class="flex--center--between width-100">
 									<text class="font-small gray-color" wx:if="{{item.videoBookDateTime}}">{{item.videoBookDateTime}}</text>

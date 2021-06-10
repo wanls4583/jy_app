@@ -70,6 +70,32 @@
 		</view>
 		<view class="flex--center--between padding-30 margin-top-30 gray-background-color radius-8rpx">
 			<view class="flex--center--between height-80rpx">
+				<view class="width-80rpx height-100 radius-8rpx overflow-hidden">
+					<image class="width-100 height-100" mode="aspectFit" src="/image/icon_phone.png" />
+				</view>
+				<view class="flex--start--between flex-direction-column height-100 margin-left-30">
+					<text>电话问诊</text>
+					<text class="font-small">￥{{doctor.phoneOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
+				</view>
+			</view>
+			<block wx:if="{{doctor.phoneOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
+				<button
+					bindgetphonenumber="getPhoneNumber"
+					bindtap="onSub"
+					class="button primary small"
+					data-type="4"
+					hover-class="none"
+					open-type="getPhoneNumber"
+					wx:if="{{!userInfo.phone}}"
+				>
+					<text>去咨询</text>
+				</button>
+				<view bindtap="onConsult" class="button primary small" data-url="/pages/interrogation/appointment-select/index?doctorId={{doctorId}}&type=4" wx:else>去咨询</view>
+			</block>
+			<view class="button primary small disabled" wx:else>未开通</view>
+		</view>
+		<view class="flex--center--between padding-30 margin-top-30 gray-background-color radius-8rpx">
+			<view class="flex--center--between height-80rpx">
 				<view class="width-80rpx height-100 radius-8rpx overflow-hidden" style="padding:5rpx">
 					<image class="width-100 height-100" mode="aspectFit" src="/image/icon_shipin.png" />
 				</view>

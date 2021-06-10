@@ -9,7 +9,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'doctorInfo'],
-            actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'addCart', 'updateCartNum'],
+            actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'updatePhoneBookNum', 'addCart', 'updateCartNum'],
         });
         this.storeBindings.updateStoreBindings();
         this.checkOption(this.option);
@@ -225,6 +225,7 @@ Page({
             this.updateNoticeCount(data.totalNotRead || 0);
             this.updateMsgCount(data.msgTotalNotRead || 0);
             this.updateVideoBookNum(data.videoBookNum || 0);
+            this.updatePhoneBookNum(data.phoneBookNum || 0);
             this.updateConsultNum(data.consultNum);
             if (data.msgTotalNotRead) {
                 wx.setTabBarBadge({

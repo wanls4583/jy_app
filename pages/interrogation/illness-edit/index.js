@@ -42,7 +42,7 @@ Page({
                     picUrls: this.data.picUrls,
                     doctorId: this.doctorId,
                     doctorName: this.data.doctor.doctorName,
-                    consultOrderPrice: this.type == 3 ? this.data.doctor.videoOrderPrice : this.data.doctor.consultOrderPrice,
+                    consultOrderPrice: this.type == 3 ? this.data.doctor.videoOrderPrice : (this.type == 4 ? this.data.doctor.phoneOrderPrice : this.data.doctor.consultOrderPrice),
                     type: this.type,
                     bookDateTime: this.bookDateTime
                 }

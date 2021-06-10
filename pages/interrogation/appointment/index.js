@@ -19,7 +19,9 @@ Page({
             fields: ['doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.videoServiceTime = JSON.parse(JSON.stringify(this.data.doctorInfo.videoServiceTime));
+        // 预约类型{3:'视频问诊',4:'电话问诊'}
+        this.type = option.type;
+        this.serviceTime = JSON.parse(JSON.stringify(this.type == 3 ? this.data.doctorInfo.videoServiceTime : this.data.doctorInfo.phoneServiceTime));
         this.initTitle();
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([this.getBookedTimes(this.data.doctorInfo.id)]).then(() => {
@@ -29,8 +31,7 @@ Page({
             console.log(e);
         });
     },
-    onUnload() {
-    },
+    onUnload() {},
     initTitle() {
         var nowDay = new Date().getDay();
         var title = _getTitle();
@@ -52,11 +53,17 @@ Page({
         this.setData({
             timeArr: timeArr
         });
+
         function _getTitle() {
             var title = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
             var now = new Date();
             var day = now.getDay();
-            var dateTitle = [{ dateStr: '今天', dayStr: title[day], day: day || 7, value: now.getTime() }];
+            var dateTitle = [{
+                dateStr: '今天',
+                dayStr: title[day],
+                day: day || 7,
+                value: now.getTime()
+            }];
             var oneDay = 24 * 60 * 60 * 1000;
             now = now.getTime();
             for (var i = 1; i <= 6; i++) {
@@ -82,20 +89,20 @@ Page({
         for (var i = 0; i < 7; i++) {
             timeArr[i] = {
                 morning: morning.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
                 afternoon: afternoon.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
                 night: night.filter((item) => {
-                    if (this.videoServiceTime && this.videoServiceTime[i + 1]) {
-                        return this.videoServiceTime[i + 1].indexOf(item) > -1;
+                    if (this.serviceTime && this.serviceTime[i + 1]) {
+                        return this.serviceTime[i + 1].indexOf(item) > -1;
                     }
                     return false;
                 }),
@@ -135,9 +142,15 @@ Page({
             return;
         }
         switch (type) {
-            case 'morning': timeTitle += '上午'; break;
-            case 'afternoon': timeTitle += '下午'; break;
-            case 'night': timeTitle += '晚上'; break;
+            case 'morning':
+                timeTitle += '上午';
+                break;
+            case 'afternoon':
+                timeTitle += '下午';
+                break;
+            case 'night':
+                timeTitle += '晚上';
+                break;
         }
         this.setData({
             slectTimes: itemObj[type].map((item) => {
@@ -168,18 +181,18 @@ Page({
                 doctorId: doctorId
             }
         }).then((data) => {
-            this.bookedTimes = data.bookedTimes;
+            this.bookedTimes = this.type == 3 ? data.bookedTimes : data.phoneBookedTimes;
             this.bookedTimesNameMap = {};
             for (var day in this.bookedTimes) {
                 var item = this.bookedTimes[day];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item;
-                    if (!this.videoServiceTime[day]) {
-                        this.videoServiceTime[day] = [_item.time];
+                    if (!this.serviceTime[day]) {
+                        this.serviceTime[day] = [_item.time];
                     } else {
-                        this.videoServiceTime[day].push(_item.time);
-                        this.videoServiceTime[day].sort();
+                        this.serviceTime[day].push(_item.time);
+                        this.serviceTime[day].sort();
                     }
                 });
                 this.bookedTimesNameMap[day] = timeMap;

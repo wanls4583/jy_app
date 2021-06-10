@@ -1,6 +1,6 @@
 <view class="container">
 	<view class="padding-30 white-background-color">
-		<view class="margin-bottom-30 font-bold align-center">您可预约医生7天内的视频问诊时间</view>
+		<view class="margin-bottom-30 font-bold align-center">您可预约医生7天内的{{orderType==3?'视频':'电话'}}问诊时间</view>
 		<view class="flex--center--between border font-small">
 			<view class="flex--center--between flex-direction-column" style="flex:1">
 				<view class="flex--center--center width-100 border" style="height:80rpx"></view>
@@ -29,11 +29,17 @@
 	</view>
 	<view class="padding-30 margin-top-20 white-background-color">
 		<view class="font-bold align-center">服务说明</view>
-		<view class="gray-color" style="white-space:pre-line">
+		<view class="gray-color" style="white-space:pre-line" wx:if="{{orderType==3}}">
 			1、医生确认后，我们将发送确认通知给您，医生将在约定时间给您发起视频，请在约定时间前打开问诊页面等待，否则无法接听视频；
 			2、若您无法及时接听视频，您可在问诊中使用文字与医生约定其他时间进行视频。
 			3、一次视频服务时间为15分钟，请您注意沟通时间。
 			4、若医生未在约定时间主动向您发起视频，导致您等待时间过长，您可以联系客服取消订单，我们将为您全额退款。
+		</view>
+		<view class="gray-color" style="white-space:pre-line" wx:if="{{orderType==4}}">
+			1、医生确认后，我们将发送确认通知给您，医生将在约定时间给您发起电话，请在约定时间前打开问诊页面等待，否则无法接听电话；
+			2、若您无法及时接听电话，您可在问诊中使用文字与医生约定其他时间进行电话。
+			3、一次电话服务时间为15分钟，请您注意沟通时间。
+			4、若医生未在约定时间主动向您发起电话，导致您等待时间过长，您可以联系客服取消订单，我们将为您全额退款。
 		</view>
 	</view>
 </view>

@@ -19,7 +19,7 @@ Page({
         });
         this.getDoctorInfo();
         this.getAppraiseList();
-        if(option.from == 'barcode') {
+        if (option.from == 'barcode') {
             this.setData({
                 screenVisible: true
             });
@@ -159,13 +159,13 @@ Page({
             }).finally(() => {
                 this.hasPhone = true;
                 this.subed && wx.jyApp.utils.navigateTo({
-                    url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+                    url: `/pages/interrogation/${type == 3 || type == 4 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
                 });
             });
         } else {
             this.hasPhone = true;
             this.subed && wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+                url: `/pages/interrogation/${type == 3 || type == 4 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }
     }

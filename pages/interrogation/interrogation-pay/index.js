@@ -14,6 +14,10 @@ Page({
             goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '视频问诊';
             bookDateTime = wx.jyApp.tempData.illness.bookDateTime;
             bookDateTime = bookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[bookDateTime.getDay()] + '&nbsp;' + bookDateTime.formatTime('hh:mm')
+        } else if (wx.jyApp.tempData.illness.type == 4) {
+            goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '电话问诊';
+            bookDateTime = wx.jyApp.tempData.illness.bookDateTime;
+            bookDateTime = bookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[bookDateTime.getDay()] + '&nbsp;' + bookDateTime.formatTime('hh:mm')
         } else {
             goodsName = wx.jyApp.tempData.illness.doctorName + '-' + '图文问诊';
         }
