@@ -179,10 +179,17 @@ Page({
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/appointment-setting/index'
         });
-        wx.jyApp.tempData.setTimeCallback = (videoServiceTime) => {
-            this.setData({
-                videoServiceTime: videoServiceTime
-            });
+        wx.jyApp.tempData.setTimeCallback = (videoServiceTime, phoneServiceTime) => {
+            if (videoServiceTime) {
+                this.setData({
+                    videoServiceTime: videoServiceTime
+                });
+            }
+            if (phoneServiceTime) {
+                this.setData({
+                    phoneServiceTime: phoneServiceTime,
+                });
+            }
             this.submit();
         };
     },

@@ -5,13 +5,11 @@
  */
 Page({
     data: {
-        timeArr: [],
-        morning: [],
-        afternoon: [],
-        night: [],
-        slectTimes: [],
-        timeVisible: false,
-        timeTitle: ''
+        bookedTimes: {},
+        phoneBookedTimes: {},
+        videoServiceTime: null,
+        phoneServiceTime: null,
+        orderType: 4
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -19,134 +17,58 @@ Page({
             fields: ['doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.getBookedTimes(this.data.doctorInfo.id);
-        var morning = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30'];
-        var afternoon = ['12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-        var night = ['18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30'];
-        var title = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-        var timeArr = [];
-        this.title = title;
-        for (var i = 0; i < 7; i++) {
-            timeArr[i] = {
-                title: title[i],
-                morning: morning.filter((item) => {
-                    var videoServiceTime = this.data.doctorInfo.videoServiceTime;
-                    if (videoServiceTime && videoServiceTime[i + 1]) {
-                        return videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
-                afternoon: afternoon.filter((item) => {
-                    var videoServiceTime = this.data.doctorInfo.videoServiceTime;
-                    if (videoServiceTime && videoServiceTime[i + 1]) {
-                        return videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
-                night: night.filter((item) => {
-                    var videoServiceTime = this.data.doctorInfo.videoServiceTime;
-                    if (videoServiceTime && videoServiceTime[i + 1]) {
-                        return videoServiceTime[i + 1].indexOf(item) > -1;
-                    }
-                    return false;
-                }),
-            }
-        }
-        this.setData({
-            timeArr: timeArr,
-            morning: morning.map((item) => {
-                return {
-                    time: item,
-                    checked: false
-                }
-            }),
-            afternoon: afternoon.map((item) => {
-                return {
-                    time: item,
-                    checked: false
-                }
-            }),
-            night: night.map((item) => {
-                return {
-                    time: item,
-                    checked: false
-                }
-            })
-        });
     },
     onUnload() {
         if (wx.jyApp.tempData.setTimeCallback) {
-            var videoServiceTime = {};
-            this.data.timeArr.map((item, index) => {
-                videoServiceTime[index + 1] = [];
-                item.morning && item.morning.map((time) => {
-                    videoServiceTime[index + 1].push(time);
-                });
-                item.afternoon && item.afternoon.map((time) => {
-                    videoServiceTime[index + 1].push(time);
-                });
-                item.night && item.night.map((time) => {
-                    videoServiceTime[index + 1].push(time);
-                });
-            });
-            wx.jyApp.tempData.setTimeCallback(videoServiceTime);
+            wx.jyApp.tempData.setTimeCallback(this.data.videoServiceTime, this.data.phoneServiceTime);
             delete wx.jyApp.tempData.setTimeCallback;
         }
         this.storeBindings.destroyStoreBindings();
     },
-    onShowTime() {
-        this.setData({
-            timeVisible: !this.data.timeVisible
+    onChageVideoTime(e) {
+        var timeArr = e.detail;
+        var videoServiceTime = {};
+        timeArr.map((item, index) => {
+            videoServiceTime[index + 1] = [];
+            item.morning && item.morning.map((time) => {
+                videoServiceTime[index + 1].push(time);
+            });
+            item.afternoon && item.afternoon.map((time) => {
+                videoServiceTime[index + 1].push(time);
+            });
+            item.night && item.night.map((time) => {
+                videoServiceTime[index + 1].push(time);
+            });
         });
+        this.setData({
+            videoServiceTime: videoServiceTime
+        });
+        console.log(this.data.videoServiceTime);
     },
-    onClickTime(e) {
-        var type = e.currentTarget.dataset.type;
-        var index = e.currentTarget.dataset.index;
-        var itemObj = e.currentTarget.dataset.item;
-        var timeTitle = this.title[index];
-        this.timeArrType = type;
-        this.timeArrIndex = index;
-        switch (type) {
-            case 'morning': timeTitle += '上午'; break;
-            case 'afternoon': timeTitle += '下午'; break;
-            case 'night': timeTitle += '晚上'; break;
-        }
-        this.setData({
-            slectTimes: this.data[type].map((item) => {
-                return {
-                    day: index + 1,
-                    time: item.time,
-                    checked: itemObj[type].indexOf(item.time) > -1
-                }
-            }),
-            timeTitle: timeTitle
+    onChagePhoneTime(e) {
+        var timeArr = e.detail;
+        var phoneServiceTime = {};
+        timeArr.map((item, index) => {
+            phoneServiceTime[index + 1] = [];
+            item.morning && item.morning.map((time) => {
+                phoneServiceTime[index + 1].push(time);
+            });
+            item.afternoon && item.afternoon.map((time) => {
+                phoneServiceTime[index + 1].push(time);
+            });
+            item.night && item.night.map((time) => {
+                phoneServiceTime[index + 1].push(time);
+            });
         });
-        this.onShowTime();
+        this.setData({
+            phoneServiceTime: phoneServiceTime
+        });
+        console.log(this.data.phoneServiceTime);
     },
-    onCheckedTime(e) {
-        var index = e.currentTarget.dataset.index;
-        var day = e.currentTarget.dataset.day;
-        var time = this.data.slectTimes[index].time;
-        if (!this.bookedTimes) {
-            return;
-        }
-        // if (this.bookedTimes[day] && this.bookedTimes[day][time]) {
-        //     wx.jyApp.toast('该时间点已有人预约，不允许取消');
-        //     return;
-        // }
+    onChange(e) {
+        var orderType = e.currentTarget.dataset.orderType;
         this.setData({
-            [`slectTimes[${index}]`]: {
-                time: this.data.slectTimes[index].time,
-                checked: !this.data.slectTimes[index].checked
-            }
-        });
-        var arr = this.data.slectTimes.filter((item) => {
-            return item.checked;
-        }).map((item) => {
-            return item.time;
-        });
-        this.setData({
-            [`timeArr[${this.timeArrIndex}].${this.timeArrType}`]: arr
+            orderType: orderType,
         });
     },
     getBookedTimes(doctorId) {
@@ -156,16 +78,28 @@ Page({
                 doctorId: doctorId
             }
         }).then((data) => {
-            this.bookedTimes = data.bookedTimes || {};
-            for (var key in this.bookedTimes) {
-                var item = this.bookedTimes[key];
+            var bookedTimes = data.bookedTimes || {};
+            var phoneBookedTimes = data.phoneBookedTimes || {};
+            for (var key in bookedTimes) {
+                var item = bookedTimes[key];
                 var timeMap = {};
                 item.map((_item) => {
                     timeMap[_item.time] = _item;
                 });
-                this.bookedTimes[key] = timeMap;
+                bookedTimes[key] = timeMap;
             }
-            return data.bookedTimes;
+            for (var key in phoneBookedTimes) {
+                var item = phoneBookedTimes[key];
+                var timeMap = {};
+                item.map((_item) => {
+                    timeMap[_item.time] = _item;
+                });
+                phoneBookedTimes[key] = timeMap;
+            }
+            this.setData({
+                bookedTimes: bookedTimes,
+                phoneBookedTimes: phoneBookedTimes
+            });
         });
     },
 })

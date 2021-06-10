@@ -1,3 +1,6 @@
 {
-    "navigationBarTitleText": "预约时间设置"
+    "navigationBarTitleText": "预约时间设置",
+    "usingComponents": {
+        "time-select": "time-select/index"
+    }
 }

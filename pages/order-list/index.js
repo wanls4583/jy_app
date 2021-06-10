@@ -435,6 +435,7 @@ Page({
                 item.ticketDays = Math.ceil((todayBegin - item.orderTime) / aDay);
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
                 item.recieveAble = item.status == 1;
+                // {1:'图文问诊',2:'简版问诊',3:'视频问诊',4:'电话问诊'}
                 if (item.type == 3) {
                     item.recieveAble = item.recieveAble && (item.videoBookDateTime - now) < 5 * 60 * 1000;
                 }
