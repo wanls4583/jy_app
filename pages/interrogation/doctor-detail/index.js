@@ -100,7 +100,7 @@ Page({
         wx.jyApp.utils.requestSubscribeMessage([wx.jyApp.constData.subIds.doctorReciveMsg]).finally(() => {
             this.subed = true;
             this.hasPhone && wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/${type == 3 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
+                url: `/pages/interrogation/${type == 3 || type == 4 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         });
     },

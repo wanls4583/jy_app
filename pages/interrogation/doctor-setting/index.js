@@ -25,6 +25,7 @@ Page({
         this.setData({
             consultOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.consultOrderPrice || 0,
             videoOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.videoOrderPrice || 0,
+            phoneOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.phoneOrderPrice || 0,
             nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.nutritionOrderPrice || 0,
             consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
             videoOrderSwitch: this.data.doctorInfo.videoOrderSwitch,
