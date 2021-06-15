@@ -20,6 +20,10 @@
 						<text>图文问诊</text>
 						<text class="danger-color margin-left-10">￥{{doctor.consultOrderPrice}}</text>
 					</block>
+					<block wx:if="{{doctor.phoneOrderSwitch==1}}">
+						<text class="margin-left-20">电话问诊</text>
+						<text class="danger-color margin-left-10">￥{{doctor.phoneOrderPrice}}</text>
+					</block>
 					<block wx:if="{{doctor.videoOrderSwitch==1}}">
 						<text class="margin-left-20">视频问诊</text>
 						<text class="danger-color margin-left-10">￥{{doctor.videoOrderPrice}}</text>

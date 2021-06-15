@@ -24,7 +24,10 @@ Page({
             this.initData();
         });
         this.setData({
-            ordreType: this.type
+            orderType: this.type
+        });
+        wx.setNavigationBarTitle({
+            title: this.type == 3 ? '视频问诊' : '电话问诊'
         });
     },
     onUnload() {},

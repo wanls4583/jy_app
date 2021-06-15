@@ -78,7 +78,7 @@
 					<text class="font-small">￥{{doctor.phoneOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
 				</view>
 			</view>
-			<block wx:if="{{doctor.phoneOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
+			<block wx:if="{{doctor.setedPhoneTime&&doctor.phoneOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
 				<button
 					bindgetphonenumber="getPhoneNumber"
 					bindtap="onSub"
@@ -104,7 +104,7 @@
 					<text class="font-small">￥{{doctor.videoOrderPrice}}/{{configData.consultOrderCloseHours}}小时</text>
 				</view>
 			</view>
-			<block wx:if="{{doctor.videoOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
+			<block wx:if="{{doctor.setedVideoTime&&doctor.videoOrderSwitch==1&&doctor.authStatus==1&&doctor.status==1}}">
 				<button
 					bindgetphonenumber="getPhoneNumber"
 					bindtap="onSub"

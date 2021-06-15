@@ -106,15 +106,25 @@ Page({
     },
     getDoctorInfo() {
         wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorId).then((data) => {
-            var setedTime = false;
+            var setedVideoTime = false;
             if (data.doctor && data.doctor.videoServiceTime) {
                 for (var key in data.doctor.videoServiceTime) {
                     if (data.doctor.videoServiceTime[key].length) {
-                        setedTime = true;
+                        setedVideoTime = true;
                         break;
                     }
                 }
-                data.doctor.setedTime = setedTime;
+                data.doctor.setedVideoTime = setedVideoTime;
+            }
+            setedVideoTime = false;
+            if (data.doctor && data.doctor.phoneServiceTime) {
+                for (var key in data.doctor.phoneServiceTime) {
+                    if (data.doctor.phoneServiceTime[key].length) {
+                        setedVideoTime = true;
+                        break;
+                    }
+                }
+                data.doctor.setedPhoneTime = setedVideoTime;
             }
             this.setData({
                 doctor: data.doctor

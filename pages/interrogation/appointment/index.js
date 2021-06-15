@@ -29,7 +29,6 @@ Page({
         wx.setNavigationBarTitle({
             title: this.type == 3 ? '视频预约' : '电话预约'
         });
-        if (this.type == 4) {}
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([this.getBookedTimes(this.data.doctorInfo.id)]).then(() => {
             wx.hideLoading();

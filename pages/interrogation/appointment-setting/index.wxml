@@ -16,7 +16,7 @@
 			</view>
 		</view>
 		<view class="margin-bottom-30 danger-color">注：选中问诊类型后，可在下方设置该问诊类型的问诊时间</view>
-		<view class="margin-bottom-30 font-bold align-center">请设置每周的{{orderType==4?'电话问诊':'视频问诊'}}问诊预约时间</view>
+		<view class="margin-bottom-30 font-bold align-center">请设置每周的{{orderType==4?'电话':'视频'}}问诊预约时间</view>
 		<view hidden="{{orderType!=3}}">
 			<time-select bindchange="onChageVideoTime" bookedTimes="{{bookedTimes}}" serviceTime="{{doctorInfo.videoServiceTime}}"></time-select>
 		</view>

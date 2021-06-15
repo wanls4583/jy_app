@@ -28,6 +28,7 @@ Page({
             nutritionOrderPrice: this.data.doctorInfo.incomeSwitch == 1 && this.data.doctorInfo.nutritionOrderPrice || 0,
             consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
             videoOrderSwitch: this.data.doctorInfo.videoOrderSwitch,
+            phoneOrderSwitch: this.data.doctorInfo.phoneOrderSwitch,
             status: this.data.doctorInfo.status,
             videoServiceTime: this.data.doctorInfo.videoServiceTime,
             phoneServiceTime: this.data.doctorInfo.phoneServiceTime,
@@ -213,10 +214,12 @@ Page({
             if (this.data.doctorInfo.incomeSwitch == 1) {
                 this.data.doctorInfo.consultOrderPrice = Number(this.data.consultOrderPrice) || 0
                 this.data.doctorInfo.videoOrderPrice = Number(this.data.videoOrderPrice) || 0
+                this.data.doctorInfo.phoneOrderPrice = Number(this.data.phoneOrderPrice) || 0
                 this.data.doctorInfo.nutritionOrderPrice = Number(this.data.nutritionOrderPrice) || 0
             }
             this.data.doctorInfo.consultOrderSwitch = this.data.consultOrderSwitch
             this.data.doctorInfo.videoOrderSwitch = this.data.videoOrderSwitch
+            this.data.doctorInfo.phoneOrderSwitch = this.data.phoneOrderSwitch
             this.data.doctorInfo.status = this.data.status
             this.data.doctorInfo.videoServiceTime = this.data.videoServiceTime
             this.data.doctorInfo.phoneServiceTime = this.data.phoneServiceTime
