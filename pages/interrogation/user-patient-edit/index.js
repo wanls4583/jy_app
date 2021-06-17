@@ -36,11 +36,11 @@ Page({
         if (option.id) {
             this.loadInfo(option.id);
             wx.setNavigationBarTitle({
-                title: '编辑患者'
+                title: '编辑成员'
             });
         } else {
             wx.setNavigationBarTitle({
-                title: '添加患者'
+                title: '添加成员'
             });
         }
     },
@@ -91,7 +91,7 @@ Page({
     },
     onSave() {
         if (!this.data.patient.patientName) {
-            wx.jyApp.toast('请填写患者姓名');
+            wx.jyApp.toast('请填写成员姓名');
             return;
         }
         if (!this.data.patient.sex) {

@@ -94,7 +94,7 @@
 					data-url="/pages/interrogation/user-patient-list/index"
 				>
 					<image mode="aspectFit" src="/image/icon_patient.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">问诊患者</view>
+					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">问诊成员</view>
 				</view>
 				<view
 					bindtap="onGoto"

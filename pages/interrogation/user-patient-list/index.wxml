@@ -27,7 +27,7 @@
 		</view>
 	</radio-group>
 	<view class="padding-30">
-		<view catchtap="onAdd" class="button plain primary block">+ 添加患者</view>
+		<view catchtap="onAdd" class="button plain primary block">+ 添加成员</view>
 	</view>
 	<view class="footer padding-30" wx:if="{{ifSelect&&patientList.length}}">
 		<view bindtap="onSave" class="margin-top-30 button primary block">{{btnText||'确定'}}</view>
