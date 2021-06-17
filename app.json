@@ -85,7 +85,9 @@
             "mna/index",
             "must/index",
             "sga/index",
-            "pgsga/index"
+            "pgsga/index",
+            "fat/index",
+            "fat-result/index"
         ]
     }, {
         "root": "pages/interrogation/guidance-online",
