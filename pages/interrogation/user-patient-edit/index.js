@@ -25,10 +25,12 @@ Page({
         this.screen = option.screen;
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
+        this.setData({
+            screen: this.screen
+        });
         if (this.doctorId) {
             this.setData({
                 saveText: '下一页',
-                screen: this.screen
             });
         }
         if (option.id) {
@@ -100,7 +102,7 @@ Page({
             wx.jyApp.toast('请填出生日期');
             return;
         }
-        if (!/1\d{10}/.test(this.data.patient.phone)) {
+        if (this.screen != 'FAT' && !/1\d{10}/.test(this.data.patient.phone)) {
             wx.jyApp.toast('手机号格式不正确');
             return;
         }
