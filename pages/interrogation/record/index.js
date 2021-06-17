@@ -55,6 +55,12 @@ Page({
                 });
             });
             data.filtrate = data.filtrate || [];
+            data.filtrate.map((item) => {
+                item._filtrateType = item.filtrateType;
+                if (item.filtrateType == 'FATA') {
+                    item._filtrateType = '超重与肥胖'
+                }
+            });
             this.setData({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,

@@ -27,7 +27,8 @@ Page({
         this.doctorName = option.doctorName || '';
         if (this.doctorId) {
             this.setData({
-                saveText: '下一页'
+                saveText: '下一页',
+                screen: this.screen
             });
         }
         if (option.id) {

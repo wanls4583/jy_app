@@ -75,6 +75,22 @@
 				</view>
 			</view>
 		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=fat&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
+				wx:if="{{userInfo.role=='USER'}}"
+			>
+				<view>
+					<text>超重和肥胖筛查</text>
+					<text class="gray-color">（适用于青少年）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
 	</view>
 </view>
 <van-popup position="bottom" show="{{wayVisible}}">

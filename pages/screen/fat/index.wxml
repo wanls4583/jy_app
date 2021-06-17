@@ -1,0 +1,22 @@
+<!-- index.wxml -->
+<view class="container">
+	<van-cell-group>
+		<readonly-field bindtap="onShowDate" label="筛查日期" placeholder="筛查日期" readonly required value="{{filtrateFat.filtrateDate}}" />
+		<readonly-field bindtap="onShowSex" label="性别" placeholder="请选择性别" readonly required value="{{filtrateFat._sex}}" />
+		<van-field bind:input="onInputNum" data-prop="filtrateFat.age" label="年龄" placeholder="请输入年龄" required value="{{filtrateFat.age}}" />
+		<van-field bind:input="onInputNum" data-prop="filtrateFat.stature" label="身高(cm)" placeholder="请输入身高" required value="{{filtrateFat.stature}}" />
+		<van-field bind:input="onInputNum" data-prop="filtrateFat.weight" label="体重(kg)" placeholder="请输入体重" required value="{{filtrateFat.weight}}" />
+		<van-field bind:input="onInputNum" data-prop="filtrateFat.waist" label="腰围(cm)" placeholder="请输入腰围" value="{{filtrateFat.waist}}" />
+		<readonly-field label="体质指数(BMI)" placeholder="自动计算" value="{{filtrateFat.BMI}}" />
+		<readonly-field label="腰围身高比(WHtR)" placeholder="自动计算" value="{{filtrateFat.WHtR}}" />
+	</van-cell-group>
+	<view class="padding-left-right-30 margin-top-bottom-30">
+		<view bindtap="onSave" class="button primary block">提交</view>
+	</view>
+	<van-popup position="bottom" show="{{sexVisible}}">
+		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmSex" columns="{{['女','男']}}" default-index="{{filtrateFat._sex=='男'?1:0}}" show-toolbar="{{true}}"></van-picker>
+	</van-popup>
+	<van-popup position="bottom" show="{{dateVisible}}">
+		<van-datetime-picker bind:cancel="onCancel" bind:confirm="onConfirmDate" max-date="{{maxDate}}" min-date="{{minDate}}" type="date" value="{{filtrateDate}}" />
+	</van-popup>
+</view>

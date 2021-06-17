@@ -48,6 +48,9 @@ Page({
             case 'MNA':
                 url = '/pages/screen/mna/index';
                 break;
+            case 'FAT':
+                url = '/pages/screen/fat/index';
+                break;
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
@@ -98,6 +101,9 @@ Page({
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
                 item._filtrateType = item.filtrateType;
+                if(item.filtrateType == 'FAT') {
+                    item._filtrateType = '超重和肥胖'
+                }
             });
             this.data.list = this.data.list.concat(data.page.list);
             this.setData({
