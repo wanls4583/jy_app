@@ -16,7 +16,7 @@ Page({
         this.setData({
             ifSelect: option.select || false
         });
-        if(this.screen) {
+        if (this.screen) {
             this.setData({
                 btnText: '下一页'
             });
@@ -42,26 +42,20 @@ Page({
             });
             return;
         }
-        if (wx.jyApp.tempData.illness.type == 3) {
+        wx.jyApp.http({
+            url: '/consultorder/book/check',
+            data: {
+                patientId: this.data.selectId,
+                doctorId: wx.jyApp.tempData.illness.doctorId,
+                type: wx.jyApp.tempData.illness.type,
+                bookDateTime: wx.jyApp.tempData.illness.bookDateTime.formatTime('yyyy-MM-dd hh:mm')
+            }
+        }).then(() => {
             wx.jyApp.tempData.illness.patientId = this.data.selectId;
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/interrogation-pay/index'
             });
-        } else {
-            wx.jyApp.http({
-                url: '/consultorder/book/check',
-                data: {
-                    patientId: this.data.selectId,
-                    doctorId: wx.jyApp.tempData.illness.doctorId,
-                    type: 1,
-                }
-            }).then(() => {
-                wx.jyApp.tempData.illness.patientId = this.data.selectId;
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/interrogation-pay/index'
-                });
-            });
-        }
+        });
     },
     onChange(e) {
         var item = e.currentTarget.dataset.item;
