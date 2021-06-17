@@ -14,7 +14,8 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            ifSelect: option.select || false
+            ifSelect: option.select || false,
+            screen: this.screen
         });
         if (this.screen) {
             this.setData({
@@ -100,7 +101,7 @@ Page({
     },
     onAdd(e) {
         wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/user-patient-edit/index'
+            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}`
         });
     },
     loadList() {
