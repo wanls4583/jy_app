@@ -83,7 +83,7 @@
 				wx:if="{{userInfo.role=='USER'}}"
 			>
 				<view>
-					<text>超重和肥胖筛查</text>
+					<text>超重与肥胖筛查</text>
 					<text class="gray-color">（适用于青少年）</text>
 				</view>
 				<view class="flex--center--center">

@@ -102,7 +102,7 @@ Page({
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
                 item._filtrateType = item.filtrateType;
                 if(item.filtrateType == 'FAT') {
-                    item._filtrateType = '超重和肥胖'
+                    item._filtrateType = '超重与肥胖'
                 }
             });
             this.data.list = this.data.list.concat(data.page.list);

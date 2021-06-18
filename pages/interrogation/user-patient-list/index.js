@@ -43,13 +43,14 @@ Page({
             });
             return;
         }
+        var bookDateTime = wx.jyApp.tempData.illness.bookDateTime;
         wx.jyApp.http({
             url: '/consultorder/book/check',
             data: {
                 patientId: this.data.selectId,
                 doctorId: wx.jyApp.tempData.illness.doctorId,
                 type: wx.jyApp.tempData.illness.type,
-                bookDateTime: wx.jyApp.tempData.illness.bookDateTime.formatTime('yyyy-MM-dd hh:mm')
+                bookDateTime: bookDateTime && bookDateTime.formatTime('yyyy-MM-dd hh:mm') || ''
             }
         }).then(() => {
             wx.jyApp.tempData.illness.patientId = this.data.selectId;

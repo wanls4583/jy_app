@@ -128,10 +128,11 @@ Page({
                 })
             } else {
                 // 筛查页面
-                this.data.patient.id = data.id;
-                wx.jyApp.setTempData('screenPatient', this.data.patient);
-                wx.redirectTo({
-                    url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+                this.loadInfo(data.id).then(()=>{
+                    wx.jyApp.setTempData('screenPatient', this.data.patient);
+                    wx.redirectTo({
+                        url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+                    });
                 });
             }
         }).catch(() => {
@@ -139,7 +140,7 @@ Page({
         });
     },
     loadInfo(id) {
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: `/patientdocument/info/${id}`
         }).then((data) => {
             var patient = data.patientDocument;

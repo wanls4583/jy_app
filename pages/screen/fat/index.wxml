@@ -1,9 +1,9 @@
 <!-- index.wxml -->
 <view class="container">
 	<van-cell-group>
-		<readonly-field label="筛查日期" placeholder="筛查日期" readonly required value="{{filtrateFat.filtrateDate}}" />
-		<readonly-field bindtap="onShowSex" label="性别" placeholder="请选择性别" readonly required value="{{filtrateFat._sex}}" />
-		<van-field bind:input="onInputNum" data-prop="filtrateFat.age" label="年龄" placeholder="请输入年龄" required value="{{filtrateFat.age}}" />
+		<readonly-field label="筛查日期" readonly required value="{{filtrateFat.filtrateDate}}" />
+		<readonly-field label="性别" readonly required value="{{filtrateFat._sex}}" />
+		<readonly-field label="年龄" readonly required value="{{filtrateFat.age}}" />
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.stature" label="身高(cm)" placeholder="请输入身高" required value="{{filtrateFat.stature}}" />
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.weight" label="体重(kg)" placeholder="请输入体重" required value="{{filtrateFat.weight}}" />
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.waist" label="腰围(cm)" placeholder="请输入腰围" value="{{filtrateFat.waist}}" />

@@ -56,6 +56,7 @@ Page({
         for (var i = 0; i < wx.jyApp.constData.overWeight.length; i++) {
             var item = wx.jyApp.constData.overWeight[i];
             if (this.data.filtrateFat.age >= item[0]) {
+                result1 = 1;
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.BMI >= item[1]) {
                         result1 = 2
@@ -71,12 +72,15 @@ Page({
                         result1 = 3
                     }
                 }
+            } else {
+                break;
             }
         }
         // 方式二
         for (var i = 0; i < wx.jyApp.constData.waist.length; i++) {
             var item = wx.jyApp.constData.waist[i];
             if (this.data.filtrateFat.age >= item[0]) {
+                result2 = 1
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.waist >= item[1]) {
                         result2 = 2
@@ -92,6 +96,8 @@ Page({
                         result2 = 3
                     }
                 }
+            } else {
+                break;
             }
         }
         // 方式三
