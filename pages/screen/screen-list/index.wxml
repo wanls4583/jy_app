@@ -17,7 +17,10 @@
 				</view>
 				<view class="flex--center--start margin-top-20">
 					<view style="flex:2">筛查医师：{{item.doctorName||''}}</view>
-					<view style="flex:1.5">筛查结果：{{item.filtrateResult||''}}</view>
+					<view class="flex--center--start" style="flex:1.5">
+						<text class="flex-shrink-0">筛查结果：</text>
+						<text>{{item._filtrateResult||''}}</text>
+					</view>
 				</view>
 				<view class="flex--center--start margin-top-20">结果解释：{{item.resultDescription||''}}</view>
 			</view>

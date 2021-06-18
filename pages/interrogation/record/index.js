@@ -57,8 +57,23 @@ Page({
             data.filtrate = data.filtrate || [];
             data.filtrate.map((item) => {
                 item._filtrateType = item.filtrateType;
-                if (item.filtrateType == '超重和肥胖') {
+                if (item.filtrateType == 'FAT') {
                     item._filtrateType = '超重与肥胖'
+                    if(item.filtrateResult == 1) {
+                        item._filtrateResult = '体重正常';
+                    }
+                    if (item.filtrateResult == 2) {
+                        item._filtrateResult = '超重';
+                    }
+                    if (item.filtrateResult == 3) {
+                        item._filtrateResult = '肥胖';
+                    }
+                    if (item.filtrateResult == 4) {
+                        item._filtrateResult = '中心性肥胖（BMI超重）';
+                    }
+                    if (item.filtrateResult == 5) {
+                        item._filtrateResult = '中心性肥胖（BMI肥胖）';
+                    }
                 }
             });
             this.setData({

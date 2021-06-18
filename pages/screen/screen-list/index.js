@@ -101,8 +101,24 @@ Page({
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
                 item._filtrateType = item.filtrateType;
+                item._filtrateResult = item.filtrateResult;
                 if(item.filtrateType == 'FAT') {
-                    item._filtrateType = '超重与肥胖'
+                    item._filtrateType = '超重与肥胖';
+                    if(item.filtrateResult == 1) {
+                        item._filtrateResult = '体重正常';
+                    }
+                    if (item.filtrateResult == 2) {
+                        item._filtrateResult = '超重';
+                    }
+                    if (item.filtrateResult == 3) {
+                        item._filtrateResult = '肥胖';
+                    }
+                    if (item.filtrateResult == 4) {
+                        item._filtrateResult = '中心性肥胖（BMI超重）';
+                    }
+                    if (item.filtrateResult == 5) {
+                        item._filtrateResult = '中心性肥胖（BMI肥胖）';
+                    }
                 }
             });
             this.data.list = this.data.list.concat(data.page.list);

@@ -26,7 +26,7 @@
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">筛查结果：</view>
-						<view>{{item.filtrateResult}}</view>
+						<view>{{item._filtrateResult}}</view>
 					</view>
 					<view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label label-color">结果解释：</view>
