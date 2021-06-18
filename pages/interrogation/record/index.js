@@ -57,7 +57,7 @@ Page({
             data.filtrate = data.filtrate || [];
             data.filtrate.map((item) => {
                 item._filtrateType = item.filtrateType;
-                if (item.filtrateType == 'FATA') {
+                if (item.filtrateType == '超重和肥胖') {
                     item._filtrateType = '超重与肥胖'
                 }
             });

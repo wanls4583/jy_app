@@ -83,16 +83,10 @@ Page({
                 result2 = 1
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.waist >= item[1]) {
-                        result2 = 2
-                    }
-                    if (this.data.filtrateFat.waist >= item[2]) {
                         result2 = 3
                     }
                 } else {
                     if (this.data.filtrateFat.waist >= item[3]) {
-                        result2 = 2
-                    }
-                    if (this.data.filtrateFat.waist >= item[4]) {
                         result2 = 3
                     }
                 }
