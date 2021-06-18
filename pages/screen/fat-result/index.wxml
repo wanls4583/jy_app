@@ -20,7 +20,7 @@
 		</block>
 	</view>
 </view>
-<view class="footer flex--center--around padding-30">
+<view class="footer flex--center--around padding-30 background-color-transparent">
 	<view bindtap="onBack" class="button primary plain" wx:if="{{from=='screen'}}">返回首页</view>
 	<view class="button primary">进一步评估</view>
 </view>
