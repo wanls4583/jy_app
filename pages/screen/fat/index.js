@@ -31,6 +31,7 @@ Page({
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
+                'filtrateFat.filtrateDate': new Date().formatTime('yyyy-MM-dd'),
                 'filtrateFat.patientId': patient.id,
                 'filtrateFat.sex': patient.sex,
                 'filtrateFat._sex': patient._sex,
@@ -72,12 +73,6 @@ Page({
                 }
             }
         }
-        if (result1 == 3) {
-            this.setData({
-                result: 3
-            });
-            return;
-        }
         // 方式二
         for (var i = 0; i < wx.jyApp.constData.waist.length; i++) {
             var item = wx.jyApp.constData.waist[i];
@@ -99,18 +94,25 @@ Page({
                 }
             }
         }
-        if (result2 == 3) {
-            this.setData({
-                result: 3
-            });
-            return;
-        }
         // 方式三
         if (this.data.filtrateFat.WHtR >= 0.48) {
             result3 = 3;
         }
+        var result = result1;
+        if (result1 == 2 && result2 != 3 && result3 != 3) {
+            result = 2;
+        }
+        if (result1 == 2 && (result2 == 3 || result3 == 3)) {
+            result = 4;
+        }
+        if (result1 == 3 && result2 != 3 && result3 != 3) {
+            result = 3;
+        }
+        if (result1 == 3 && (result2 == 3 || result3 == 3)) {
+            result = 5;
+        }
         this.setData({
-            result: (result1 > result2 ? (result1 > result3 ? result1 : result3) : (result2 > result3 ? result2 : result3))
+            'filtrateFat.result': result
         });
     },
     setBMI() {
@@ -124,6 +126,7 @@ Page({
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
         this.setBMI();
+        this.countScore();
     },
     onShowDate() {
         this.setData({
@@ -176,6 +179,10 @@ Page({
             wx.jyApp.toast('请填写体重');
             return;
         }
+        if (!(this.data.filtrateFat.age >= 6 && this.data.filtrateFat.age <= 18)) {
+            wx.jyApp.toast('本筛查适用年龄为6-18岁');
+            return;
+        }
         wx.jyApp.showLoading('提交中...', true);
         wx.jyApp.http({
             url: `/filtrate/fat/${this.data.filtrateFat.id ? 'update' : 'save'}`,
@@ -195,10 +202,16 @@ Page({
                     var result = this.data.filtrateFat.result;
                     var _result = '体重正常';
                     if (result == 2) {
-                        _result = '体重超重';
+                        _result = '超重';
                     }
-                    if (result == 2) {
-                        _result = '体重肥胖';
+                    if (result == 3) {
+                        _result = '肥胖';
+                    }
+                    if (result == 4) {
+                        _result = '中心性肥胖（BMI超重）';
+                    }
+                    if (result == 5) {
+                        _result = '中心性肥胖（BMI肥胖）';
                     }
                     if (this.data.userInfo.role != 'DOCTOR') {
                         setTimeout(() => {
