@@ -118,13 +118,13 @@ Page({
             return;
         }
         wx.jyApp.utils.setText({
-            title: '视频问诊每次金额',
+            title: '电话问诊每次金额',
             defaultValue: this.data.phoneOrderPrice,
             type: 'int',
             complete: (value) => {
                 if (value < 0 || value > 1000) {
                     setTimeout(() => {
-                        wx.jyApp.toast('视频问诊金额需在0-1000范围内');
+                        wx.jyApp.toast('电话问诊金额需在0-1000范围内');
                     }, 500);
                     return;
                 }
