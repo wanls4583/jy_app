@@ -7,8 +7,8 @@
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.stature" label="身高(cm)" placeholder="请输入身高" required value="{{filtrateFat.stature}}" />
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.weight" label="体重(kg)" placeholder="请输入体重" required value="{{filtrateFat.weight}}" />
 		<van-field bind:input="onInputNum" data-prop="filtrateFat.waist" label="腰围(cm)" placeholder="请输入腰围" value="{{filtrateFat.waist}}" />
-		<readonly-field label="体质指数(BMI)" placeholder="自动计算" value="{{filtrateFat.BMI}}" />
-		<readonly-field label="腰围身高比(WHtR)" placeholder="自动计算" value="{{filtrateFat.WHtR}}" />
+		<readonly-field label="体质指数\n(BMI)" placeholder="自动计算" value="{{filtrateFat.BMI}}" />
+		<readonly-field label="腰围身高比\n(WHtR)" placeholder="自动计算" value="{{filtrateFat.WHtR}}" />
 	</van-cell-group>
 	<view class="padding-left-right-30 margin-top-bottom-30">
 		<view bindtap="onSave" class="button primary block">提交</view>

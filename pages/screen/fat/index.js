@@ -37,7 +37,7 @@ Page({
                 'filtrateFat._sex': patient._sex,
                 'filtrateFat.stature': patient.height,
                 'filtrateFat.weight': patient.weight,
-                'filtrateFat.age': patient.age,
+                'filtrateFat.age': patient.birthday ? this.getAge(patient.birthday) : '',
             });
             this.setBMI();
             this.countScore();
@@ -47,6 +47,30 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+    },
+    getAge(birthday) {
+        birthday = birthday.split('-');
+        var year = Number(birthday[0]);
+        var month = Number(birthday[1]);
+        var date = Number(birthday[2]);
+        var now = new Date();
+        var nowYear = now.getFullYear();
+        var nowMonth = now.getMonth() + 1;
+        var nowDate = now.getDate();
+        var age = nowYear - year;
+        if (nowMonth == month) {
+            if (nowDate < date) {
+                age -= 0.5;
+            }
+        } else if (nowMonth < month) {
+            age--;
+            if (12 - month + nowMonth > 6 || 12 - month + nowMonth == 6 && nowDate >= date) {
+                age += 0.5;
+            }
+        } else if (nowMonth - month > 6 || nowMonth - month == 6 && nowDate >= date) {
+            age += 0.5;
+        }
+        return age;
     },
     countScore() {
         var result1 = 1;
@@ -119,8 +143,8 @@ Page({
         var BMI = (this.data.filtrateFat.weight) / (this.data.filtrateFat.stature * this.data.filtrateFat.stature / 10000);
         var WHtR = this.data.filtrateFat.waist / this.data.filtrateFat.stature
         this.setData({
-            'filtrateFat.BMI': BMI && BMI.toFixed(1) || '',
-            'filtrateFat.WHtR': WHtR && WHtR.toFixed(1) || ''
+            'filtrateFat.BMI': BMI && isFinite(BMI) && BMI.toFixed(1) || '',
+            'filtrateFat.WHtR': WHtR && isFinite(WHtR) && WHtR.toFixed(1) || ''
         });
     },
     onInputNum(e) {
@@ -165,10 +189,6 @@ Page({
         }
         if (!this.data.filtrateFat.sex) {
             wx.jyApp.toast('请填写性别');
-            return;
-        }
-        if (!this.data.filtrateFat.age) {
-            wx.jyApp.toast('请填写年龄');
             return;
         }
         if (!this.data.filtrateFat.stature) {
