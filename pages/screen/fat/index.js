@@ -234,11 +234,11 @@ Page({
                     if (result == 5) {
                         _result = '中心性肥胖（BMI肥胖）';
                     }
-                    if (this.data.userInfo.role != 'DOCTOR') {
+                    // if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.utils.navigateTo({
                             url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}`
                         });
-                    }
+                    // }
                 }
             });
         }).catch(() => {
