@@ -25,6 +25,7 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo'],
         });
+        this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patient = patient;
         this.from = option.from;

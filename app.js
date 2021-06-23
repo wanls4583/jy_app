@@ -53,11 +53,13 @@ App({
                 var page = getCurrentPages();
                 page = page[page.length - 1].route;
                 if (nowPage == page) {
-                    wx.navigateBack({
-                        delta: option.delta || 1
+                    wx.jyApp.utils.navigateBack({
+                        delta: option.delta || 1,
+                        success: () => {
+                            option.complete && option.complete();
+                        }
                     });
                 }
-                option.complete && option.complete();
             }, 1500);
         }
         wx.jyApp.showLoading = (title, mask) => {

@@ -28,6 +28,7 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo'],
         });
+        this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
         this.from = option.from;
