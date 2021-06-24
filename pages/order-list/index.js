@@ -503,7 +503,6 @@ Page({
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(2) || '';
-                // item.age = new Date().getFullYear() - Date.prototype.parseDate(item.birthday).getFullYear();
                 item.goods.map((_item) => {
                     if(_item.type == 1) {
                         _item.goodsName = `${_item.goodsName}(${_item.items[0].standardNum}${wx.jyApp.constData.unitChange[_item.items[0].standardUnit]}/${wx.jyApp.constData.unitChange[_item.unit]})`;

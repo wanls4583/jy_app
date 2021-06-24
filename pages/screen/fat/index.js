@@ -104,7 +104,7 @@ Page({
         // 方式二
         for (var i = 0; i < wx.jyApp.constData.waist.length; i++) {
             var item = wx.jyApp.constData.waist[i];
-            if (this.data.filtrateFat.age >= item[0]) {
+            if (Math.floor(this.data.filtrateFat.age) >= item[0]) {
                 result2 = 1
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.waist >= item[1]) {
@@ -235,9 +235,9 @@ Page({
                         _result = '中心性肥胖（BMI肥胖）';
                     }
                     // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}`
-                        });
+                    wx.jyApp.utils.navigateTo({
+                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                    });
                     // }
                 }
             });
