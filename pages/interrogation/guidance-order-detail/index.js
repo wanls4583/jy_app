@@ -207,7 +207,7 @@ Page({
             var aDay = 24 * 60 * 60 * 1000;
             data.detail._sex = data.detail.sex == 1 ? '男' : '女';
             data.detail.BMI = (data.detail.weight) / (data.detail.height * data.detail.height / 10000);
-            data.detail.BMI = data.detail.BMI && data.detail.BMI.toFixed(2) || '';
+            data.detail.BMI = data.detail.BMI && data.detail.BMI.toFixed(1) || '';
             data.detail._status = wx.jyApp.constData.mallOrderStatusMap[data.detail.status];
             data.detail.ticketMoney = Number((data.detail.totalAmount - data.detail.deliveryCost).toFixed(2));
             data.detail.ticketDays = Math.ceil((todayBegin - Date.prototype.parseDateTime(data.detail.orderTime)) / aDay);

@@ -41,7 +41,7 @@ Page({
             }
             patient._sex = patient.sex == 1 ? '男' : '女';
             patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
-            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
+            patient.BMI = patient.BMI && patient.BMI.toFixed(1) || '';
             this.setData({
                 isFirst: guideOrderDetail.isFirst,
                 foodSensitive: guideOrderDetail.foodSensitive,
@@ -59,7 +59,7 @@ Page({
         } else {
             patient._sex = patient.sex == 1 ? '男' : '女';
             patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
-            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
+            patient.BMI = patient.BMI && patient.BMI.toFixed(1) || '';
             this.setData({
                 patient: patient,
                 mainSuit: patient.diseaseDetail || ''

@@ -56,7 +56,7 @@ Page({
         wx.jyApp.utils.onInputNum(e, this);
         var BMI = (this.data.patient.weight) / (this.data.patient.height * this.data.patient.height / 10000);
         this.setData({
-            'patient.BMI': BMI && BMI.toFixed(2) || ''
+            'patient.BMI': BMI && BMI.toFixed(1) || ''
         });
     },
     onShowBirthday() {
@@ -144,7 +144,7 @@ Page({
             var patient = data.patientDocument;
             patient._sex = patient.sex == 1 ? '男' : '女';
             patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
-            patient.BMI = patient.BMI && patient.BMI.toFixed(2) || '';
+            patient.BMI = patient.BMI && patient.BMI.toFixed(1) || '';
             this.data.birthday = Date.prototype.parseDate(patient.birthday).getTime();
             this.setData({
                 patient: patient,

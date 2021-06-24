@@ -444,7 +444,7 @@ Page({
                 item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 item.patient.BMI = (item.patient.weight) / (item.patient.height * item.patient.height / 10000);
-                item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(2) || '';
+                item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(1) || '';
                 if (item.videoBookDateTime) {
                     item.videoBookDateTime = new Date(item.videoBookDateTime);
                     item.videoBookDateTime = item.videoBookDateTime.formatTime('yyyy-MM-dd') + '&nbsp;' + wx.jyApp.constData.dayArr[item.videoBookDateTime.getDay()] + '&nbsp;' + item.videoBookDateTime.formatTime('hh:mm')
@@ -502,7 +502,7 @@ Page({
                 item.delVisible = [0, 4, 6, 8].indexOf(item.status) > -1;
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
-                item.BMI = item.BMI && item.BMI.toFixed(2) || '';
+                item.BMI = item.BMI && item.BMI.toFixed(1) || '';
                 item.goods.map((_item) => {
                     if(_item.type == 1) {
                         _item.goodsName = `${_item.goodsName}(${_item.items[0].standardNum}${wx.jyApp.constData.unitChange[_item.items[0].standardUnit]}/${wx.jyApp.constData.unitChange[_item.unit]})`;
@@ -561,7 +561,7 @@ Page({
                 item.delVisible = [2, 5].indexOf(item.status) > -1;
                 item.patient._sex = item.patient.sex == 1 ? '男' : '女';
                 item.patient.BMI = (item.patient.weight) / (item.patient.height * item.patient.height / 10000);
-                item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(2) || '';
+                item.patient.BMI = item.patient.BMI && item.patient.BMI.toFixed(1) || '';
                 this.setStatusColor(item, 'apply');
             });
             this.setData({

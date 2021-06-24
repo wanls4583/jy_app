@@ -108,7 +108,7 @@ Page({
 
         function _getBMI(stature, weight) {
             var BMI = (weight) / (stature * stature / 10000);
-            BMI = BMI && BMI.toFixed(2) || '';
+            BMI = BMI && BMI.toFixed(1) || '';
             return BMI || '';
         }
     },

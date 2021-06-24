@@ -5,7 +5,7 @@ Page({
         ifSelect: false
     },
     onLoad(option) {
-        this.screen = option.screen;
+        this.screen = option.screen || '';
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -120,7 +120,7 @@ Page({
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
-                item.BMI = item.BMI && item.BMI.toFixed(2) || '';
+                item.BMI = item.BMI && item.BMI.toFixed(1) || '';
             });
             this.setData({
                 patientList: data.list || [],

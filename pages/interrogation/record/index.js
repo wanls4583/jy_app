@@ -32,7 +32,7 @@ Page({
         }).then((data) => {
             data.patientDocument._sex = data.patientDocument.sex == 1 ? '男' : '女';
             data.patientDocument.BMI = (data.patientDocument.weight) / (data.patientDocument.height * data.patientDocument.height / 10000);
-            data.patientDocument.BMI = data.patientDocument.BMI && data.patientDocument.BMI.toFixed(2) || '';
+            data.patientDocument.BMI = data.patientDocument.BMI && data.patientDocument.BMI.toFixed(1) || '';
             for (var key in data.consultOrder) {
                 data.consultOrder[key].map((item) => {
                     item.picUrls = item.picUrls && item.picUrls.split(',') || [];
