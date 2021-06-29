@@ -106,7 +106,7 @@ function navigateBack(option) {
     var page = getPageByLastIndex();
     var _timer = () => {
         navigateBack.timer = setTimeout(() => {
-            if (getPageByLastIndex() != page.route) {
+            if (getPageByLastIndex().route != page.route) {
                 setTimeout(() => {
                     option && option.success && option.success();
                 }, 500);
