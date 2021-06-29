@@ -107,11 +107,11 @@ Page({
             if (Math.floor(this.data.filtrateFat.age) >= item[0]) {
                 result2 = 1
                 if (this.data.filtrateFat.sex == 1) {
-                    if (this.data.filtrateFat.waist >= item[1]) {
+                    if (this.data.filtrateFat.waist >= item[2]) {
                         result2 = 3
                     }
                 } else {
-                    if (this.data.filtrateFat.waist >= item[3]) {
+                    if (this.data.filtrateFat.waist >= item[4]) {
                         result2 = 3
                     }
                 }
@@ -130,12 +130,12 @@ Page({
         if (result1 == 2 && (result2 == 3 || result3 == 3)) {
             result = 4;
         }
-        if (result1 == 3 && result2 != 3 && result3 != 3) {
-            result = 3;
-        }
-        if (result1 == 3 && (result2 == 3 || result3 == 3)) {
-            result = 5;
-        }
+        // if (result1 == 3 && result2 != 3 && result3 != 3) {
+        //     result = 3;
+        // }
+        // if (result1 == 3 && (result2 == 3 || result3 == 3)) {
+        //     result = 5;
+        // }
         this.setData({
             'filtrateFat.result': result
         });
