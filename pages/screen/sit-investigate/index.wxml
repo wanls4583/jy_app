@@ -1,0 +1,118 @@
+<view class="container padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">1、平均而言，你每天大约连续有多少小时做以下事情？（屏前久坐行为：看电视、玩手机、玩电脑游戏、上网等）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==2}}">
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">2、平均而言，你每天大约连续有多少小时做以下事情？（社交型久坐行为：电脑、手机聊天、坐着或躺着打电话、短信等）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==3}}">
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">3、平均而言，你每天大约连续有多少小时做以下事情？（通勤型久坐行为：坐公交车、私家车、地铁等）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==4}}">
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">4、平均而言，你每天大约连续有多少小时做以下事情？（教育型久坐行为：作业、辅导班等）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==5}}">
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">5、平均而言，你每天大约连续有多少小时做以下事情？（课余爱好、兴趣久坐行为：阅读、艺术类、玩具、卡牌、棋牌等）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==6}}">
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">6、平均而言，你每天大约连续有多少小时做以下事情？（其他类型久坐行为）</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+					<van-radio name="{{0}}">0小时</van-radio>
+					<van-radio name="{{0.5}}">半小时</van-radio>
+					<van-radio name="{{1}}">1小时</van-radio>
+					<van-radio name="{{2}}">2小时</van-radio>
+					<van-radio name="{{3}}">3小时</van-radio>
+					<van-radio name="{{4}}">4小时</van-radio>
+					<van-radio name="{{5}}">5小时及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+</view>
+<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+	<view bindtap="onBack" class="button primary plain">上一页</view>
+</view>
+<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/6</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

@@ -16,68 +16,6 @@ Page({
         result: [],
         filtrateDate: new Date().getTime(),
         dateVisible: false,
-        resultMap: [{
-            0: '粗粮类食物摄入不足，主食品种单一',
-            1: '粗粮类食物摄入不足'
-        }, {
-            0: '粗粮类食物摄入不足，主食品种单一'
-        }, {
-            0: '粗粮类食物摄入不足，主食品种单一'
-        }, {
-            0: '禽肉类摄入量不足'
-        }, {
-            0: '海鲜类食物摄入严重不足',
-            1: '海鲜类食物摄入不足'
-        }, {
-            0: '蔬菜摄入量严重不足',
-            1: '蔬菜摄入种类单一'
-        }, {
-            0: '深色叶类蔬菜摄入量严重不足',
-            2: '深色叶类蔬菜摄入量不足'
-        }, {
-            0: '蛋类摄入量严重不足',
-            2: '蛋类摄入量不足'
-        }, {
-            0: '水果摄入严重不足',
-            2: '水果摄入不足'
-        }, {
-            0: '水果摄入严重不足',
-            2: '水果摄入不足'
-        }, {
-            0: '奶类及乳制品摄入频率严重不足',
-            1: '奶类及乳制品摄入频率不足'
-        }, {
-            0: '奶类及乳制品摄入量不足'
-        }, {
-            2: '含糖饮食摄入量较高',
-            0: '含糖饮食摄入量过高'
-        }, {
-            2: '含糖饮食摄入量较高',
-            0: '含糖饮食摄入量过高'
-        }, {
-            2: '含糖饮食摄入量较高',
-            0: '含糖饮食摄入量过高'
-        }, {
-            2: '甜食摄入频率较高',
-            0: '甜食摄入频率过高'
-        }, {
-            0: '含糖饮食摄入频率较高'
-        }, {
-            0: '含糖饮食摄入频率较高'
-        }, {
-            2: '低营养高能量饮食摄入量较高',
-            0: '低营养高能量饮食摄入量过高'
-        }, {
-            0: '低营养高能量饮食摄入量过高'
-        }, {
-            0: '低营养高盐饮食摄入量过高'
-        }, {
-            0: '低营养高脂肪食物摄入频率过高'
-        }, {
-            0: '饱和脂肪酸摄入量过高'
-        }, {
-            0: '饱和脂肪酸摄入量过高'
-        }]
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -132,7 +70,7 @@ Page({
             [`${prop}`]: e.detail,
         });
         setTimeout(() => {
-            if (step == 24) {
+            if (step == 6) {
                 this.onSave();
             } else {
                 this.setData({
@@ -144,14 +82,31 @@ Page({
     countScore() {
         var score = 0;
         var result = [];
-        this.data.answers.q.map((item, i) => {
+        var q = this.data.answers.q;
+        q.map((item, i) => {
             if (item !== undefined) {
                 score += item;
-                if (this.data.resultMap[i][item] && result.indexOf(this.data.resultMap[i][item]) == -1) {
-                    result.push(this.data.resultMap[i][item]);
-                }
             }
         });
+        if(q[0] >= 2) {
+            result.push('有屏前久坐行为');
+        }
+        if(q[1] >= 2) {
+            result.push('有社交型久坐行为');
+        }
+        if(q[2] >= 2) {
+            result.push('有通勤型久坐行为');
+        }
+        if(q[3] >= 2) {
+            result.push('有教育型久坐行为');
+        }
+        if(q[4] >= 2) {
+            result.push('有兴趣久坐行为');
+        }
+        if(q[5] >= 2) {
+            result.push('有其他类型久坐行为');
+        }
+
         this.setData({
             score: score,
             result: result
@@ -196,18 +151,14 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    var _result = '膳食营养无风险';
-                    if (this.data.score <= 75) {
+                    var _result = '无久坐行为';
+                    if (this.data.score >= 8 || this.data.result.length) {
                         result = 2;
-                        _result = '膳食营养风险可疑';
+                        _result = '有久坐行为';
                     }
-                    if (this.data.score < 60) {
-                        result = 3
-                        _result = '膳食营养有风险';
-                    }
-                    wx.jyApp.setTempData('food-results', this.data.result);
+                    wx.jyApp.setTempData('sit-results', this.data.result);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/food-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/sit-result/index?result=${result}&_result=${_result}&from=${this.from}`
                     });
                 }
             });
