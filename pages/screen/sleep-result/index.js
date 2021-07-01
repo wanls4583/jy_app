@@ -10,7 +10,7 @@ Page({
         color: ''
     },
     onLoad(option) {
-        var results = wx.jyApp.getTempData('sit-results') || [];
+        var results = wx.jyApp.getTempData('sleep-results') || [];
         var result = option.result;
         var _result = option._result;
         var color = 'rgb(126,210,107)';

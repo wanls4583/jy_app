@@ -150,7 +150,7 @@ Page({
                     }
                     wx.jyApp.setTempData('sleep-results', this.data.result);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/sit-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/sleep-result/index?result=${result}&_result=${_result}&from=${this.from}`
                     });
                 }
             });
