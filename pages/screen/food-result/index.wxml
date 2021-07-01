@@ -9,6 +9,6 @@
 	</view>
 </view>
 <view class="footer flex--center--around padding-30 background-color-transparent" wx:if="{{from=='screen'}}">
-	<view bindtap="onBack" class="button primary" wx:if="{{from=='screen'}}">返回首页</view>
-	<!-- <view class="button primary">进一步评估</view> -->
+	<view bindtap="onBack" class="button primary">返回</view>
+	<view class="button primary">进一步评估</view>
 </view>

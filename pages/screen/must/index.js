@@ -155,7 +155,7 @@ Page({
             }).then(() => {
                 wx.jyApp.toastBack('保存成功', {
                     mask: true,
-                    delta: 2,
+                    delta: 1,
                     complete: () => {
                         var result = 0;
                         var _result = '低度营养风险';

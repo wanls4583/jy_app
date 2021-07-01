@@ -8,7 +8,7 @@
 		<view>肥胖已经导致了内分泌或代谢功能的紊乱，或者疑似为继发性的肥胖，需要到医院的儿童内分泌科进一步评估</view>
 	</view>
 </view>
-<view class="footer flex--center--around padding-30 background-color-transparent" wx:if="{{from=='screen'}}">
-	<view bindtap="onBack" class="button primary" wx:if="{{from=='screen'}}">返回首页</view>
-	<!-- <view class="button primary">进一步评估</view> -->
+<view class="footer flex--center--around padding-30 background-color-transparent">
+	<view bindtap="onBack" class="button primary">返回</view>
+	<view class="button primary">进一步评估</view>
 </view>

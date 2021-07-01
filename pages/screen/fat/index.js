@@ -218,7 +218,7 @@ Page({
             }
             wx.jyApp.toastBack('保存成功', {
                 mask: true,
-                delta: this.from == 'screen' ? 2 : 1,
+                delta: 1,
                 complete: () => {
                     var result = this.data.filtrateFat.result;
                     var _result = '体重正常';

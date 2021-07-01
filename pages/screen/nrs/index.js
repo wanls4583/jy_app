@@ -169,7 +169,7 @@ Page({
             }).then(() => {
                 wx.jyApp.toastBack('保存成功', {
                     mask: true,
-                    delta: 2,
+                    delta: 1,
                     complete: () => {
                         var result = data.result >= 3 ? 2 : 0;
                         var _result = '每周重新评估患者的营养状况';
