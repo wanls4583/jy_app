@@ -1,0 +1,36 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-top-bottom-30">
+			<viwe class="padding-left-30 font-bold">1、超重或肥胖史</viwe>
+			<readonly-field bindtap="onShowBeginTime" label="其实时间" value="{{answers.beginTime}}" />
+			<readonly-field bindtap="onShowContinuTime" label="持续时间" value="{{answers.continueTime}}" />
+		</view>
+		<view class="padding-top-bottom-30">
+			<viwe class="padding-left-30 font-bold">2、减重史</viwe>
+			<van-field bind:input="onInput" data-prop="answers.way" label="减重方法" value="{{answers.way}}" />
+			<readonly-field bindtap="onShowContinuTime1" label="持续时间" value="{{answers.continueTime1}}" />
+			<van-field bind:input="onInput" data-prop="answers.count" label="减重次数" value="{{answers.count}}" />
+			<van-field bind:input="onInput" data-prop="answers.effect" label="减重效果" value="{{answers.effect}}" />
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onBack" class="button primary plain">返回</view>
+	<view bindtap="onSave" class="button primary">提交</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{date}}" />
+</van-popup>

@@ -85,6 +85,12 @@
             "mna/index",
             "must/index",
             "sga/index",
+            "fat-assess/index",
+            "birth-history/index",
+            "family-history/index",
+            "disease-history/index",
+            "disease-result/index",
+            "fat-history/index",
             "pgsga/index",
             "fat/index",
             "fat-result/index"

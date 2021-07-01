@@ -103,6 +103,12 @@ page .van-radio {
     align-items: flex-start;
 }
 
+.margin-top .van-checkbox,
+.margin-top .van-radio {
+    margin-bottom: 0;
+    margin-top: 30rpx;
+}
+
 page .van-field__label--disabled {
     color: #646566;
 }

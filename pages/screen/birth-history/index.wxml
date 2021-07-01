@@ -1,0 +1,69 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">1、出生体质量</viwe>
+			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.weight" value="{{answers.weight}}">
+				<van-radio name="{{1}}">{{'(2.5kg≤出生体质量≤4.0kg)'}}</van-radio>
+				<van-radio name="{{2}}">{{'(出生体质量<2.5kg)'}}</van-radio>
+				<van-radio name="{{3}}">{{'(出生体质量>4kg)'}}</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">2、6个月赡养方式</viwe>
+			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.weight" value="{{answers.eat}}">
+				<van-radio name="{{1}}">母乳喂养</van-radio>
+				<van-radio name="{{2}}">奶粉喂养</van-radio>
+				<van-radio name="{{3}}">混合喂养</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">3、是否早产</viwe>
+			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.weight" value="{{answers.prematureBirth}}">
+				<van-radio name="{{1}}">足月</van-radio>
+				<van-radio name="{{2}}">早产</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">4、青春期性成熟</viwe>
+			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.weight" value="{{answers.precocious}}">
+				<van-radio name="{{1}}">提前</van-radio>
+				<viwe class="gray-color">
+					<view>男生：9岁出现性发育征象</view>
+					<view>女士：8岁前出现性发育征象或10周岁以前出现月经</view>
+				</viwe>
+				<van-radio name="{{2}}">正常</van-radio>
+				<van-radio name="{{3}}">延迟</van-radio>
+				<view class="gray-color">
+					<view>男生：14岁前无睾丸增大、生殖器的开始发育和完全生长的间隔>5年</view>
+					<view>女士：13岁以前没有乳房发育、从乳腺生长开始和月经初期相隔>5年、16岁前未见月经</view>
+				</view>
+			</van-radio-group>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onBack" class="button primary plain">返回</view>
+	<view bindtap="onSave" class="button primary">提交</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

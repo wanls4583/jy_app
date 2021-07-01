@@ -1,0 +1,47 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">1、请选择符合的选项</viwe>
+			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q1" value="{{answers.q1}}">
+				<van-checkbox name="{{1}}" shape="square">5岁前开始肥胖或快速发展，尤其是与遗传相关的情况（认知发育延迟、畸形等）。</van-checkbox>
+				<van-checkbox name="{{2}}" shape="square">持续或快速的体重增加与降低的生长速度或身材矮小相关。</van-checkbox>
+				<van-checkbox name="{{3}}" shape="square">使用导致食欲亢进的药物（即皮质类固醇、兵戎酸钠、利培酮、吩噻嗪、环丙他定）。</van-checkbox>
+				<van-checkbox name="{{4}}" shape="square">黑辣皮病、紫纹、眼睑水肿等。</van-checkbox>
+				<van-checkbox name="{{5}}" shape="square">男生乳房发育、女生月经缭乱、多毛</van-checkbox>
+				<van-checkbox name="{{6}}" shape="square">无以上情况</van-checkbox>
+			</van-checkbox-group>
+		</view>
+		<view class="padding-30">
+			<viwe class="font-bold">2、是否有以下疾病？</viwe>
+			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q2" value="{{answers.q2}}">
+				<van-radio name="{{1}}" shape="square">脂肪肝</van-radio>
+				<van-radio name="{{2}}" shape="square">高血压</van-radio>
+				<van-radio name="{{3}}" shape="square">高血脂</van-radio>
+				<van-radio name="{{4}}" shape="square">高尿酸</van-radio>
+				<van-radio name="{{5}}" shape="square">睡眠呼吸暂停综合征</van-radio>
+				<van-radio name="{{6}}" shape="square">食欲异常亢进</van-radio>
+				<van-radio name="{{7}}" shape="square">无以上情况</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onBack" class="button primary plain">返回</view>
+	<view bindtap="onSave" class="button primary">提交</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

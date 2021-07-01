@@ -1,0 +1,45 @@
+<view class="container padding-bottom-footer">
+	<view class="white-background-color">
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<text>{{patient.patientName}}</text>
+				<text>，{{patient._sex}}</text>
+				<text>，{{patient.age}}岁</text>
+				<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+				<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+				<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+			</view>
+		</view>
+		<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+	</view>
+	<view class="white-background-color margin-top-20">
+		<view class="padding-30">
+			<viwe class="font-bold">1、家族成员中是否有超重或肥胖史？</viwe>
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q1" value="{{answers.q1}}">
+				<van-radio name="{{1}}">是</van-radio>
+				<van-radio name="{{2}}">否</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<viwe class="font-bold">2、家族成员中是否有超重或肥胖相关疾病情况？</viwe>
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q2" value="{{answers.q2}}">
+				<van-radio name="{{1}}">是</van-radio>
+				<van-radio name="{{2}}">否</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<viwe class="font-bold">3、家族成员中是否有继发性超重或肥胖病史？</viwe>
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q3" value="{{answers.q3}}">
+				<van-radio name="{{1}}">是</van-radio>
+				<van-radio name="{{2}}">否</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onBack" class="button primary plain">返回</view>
+	<view bindtap="onSave" class="button primary">提交</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

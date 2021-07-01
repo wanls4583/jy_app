@@ -403,9 +403,9 @@ swiper-item {
     border-style: none;
 }
 
-readonly-field:last-child .border-bottom {
+/* readonly-field:last-child .border-bottom {
     border-style: none;
-}
+} */
 
 .pre-vertical-line {
     position: relative;
