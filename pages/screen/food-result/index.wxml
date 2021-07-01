@@ -1,0 +1,14 @@
+<view class="container padding-bottom-footer">
+	<view class="flex--center--between flex-direction-column" style="padding:30px 0;background-color:{{color}}">
+		<view class="white-color font-bold font-title">筛查结果</view>
+		<view class="font-bold" style="margin-top:30px;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
+	</view>
+	<view class="white-background-color" style="padding:20px 40px;line-height:24px">
+		<view>结果解释：</view>
+		<view wx:for="{{results}}">{{index+1}}、{{item}}</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30 background-color-transparent" wx:if="{{from=='screen'}}">
+	<view bindtap="onBack" class="button primary" wx:if="{{from=='screen'}}">返回首页</view>
+	<!-- <view class="button primary">进一步评估</view> -->
+</view>

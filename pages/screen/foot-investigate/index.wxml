@@ -1,0 +1,320 @@
+<view class="container padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">1、您早餐吃粗粮类食物的频率是多少（早餐燕麦片，或糙米、玉米、小米、高粱、荞麦、薯类等）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+					<van-radio name="{{1}}">从不</van-radio>
+					<van-radio name="{{2}}">每周少于1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{4}}">每周3~5次</van-radio>
+					<van-radio name="{{5}}">每天或几乎每天</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==2}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">2、您中晚餐吃到粗粮类食物的频率是多少（燕麦片，或糙米、玉米、小米、高粱、荞麦、薯类等）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{5}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==3}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">3、三餐之外，您吃其他各类粗粮制品的频率是多少（如粗粮饼干、燕麦、麦麸片、玉米、豌豆、蚕豆、全麦面包等）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{5}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==4}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">4、您多久吃一次鸡鸭等家禽肉类？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{5}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==5}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">5、您多久吃一次鱼或海鲜（非油炸）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{1}}">每周少于1次</van-radio>
+					<van-radio name="{{3}}">每周1次</van-radio>
+					<van-radio name="{{5}}">每周1次以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==6}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">6、您在一天的主餐中通常吃多少种不同的蔬菜？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+					<van-radio name="{{0}}">无</van-radio>
+					<van-radio name="{{1}}">1种</van-radio>
+					<van-radio name="{{5}}">2种</van-radio>
+					<van-radio name="{{7}}">3种及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==7}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">7、您多久吃一次胡萝卜、西兰花、菠菜或其他深色叶类蔬菜？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[6]" value="{{answers.q[6]}}">
+					<van-radio name="{{0}}">从不</van-radio>
+					<van-radio name="{{2}}">每周少于1次</van-radio>
+					<van-radio name="{{6}}">每周1~2次</van-radio>
+					<van-radio name="{{8}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==8}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">8、您食用鸡蛋的频率是？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[7]" value="{{answers.q[7]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{4}}">每周3~5次</van-radio>
+					<van-radio name="{{5}}">每天或几乎每天</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==9}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">9、三餐之中，您食用水果的频率是？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[8]" value="{{answers.q[8]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{4}}">每周3~5次</van-radio>
+					<van-radio name="{{5}}">每天或几乎每天</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==10}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">10、三餐之外，您食用水果作为零食的频率是？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[9]" value="{{answers.q[9]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周少于1次</van-radio>
+					<van-radio name="{{4}}">每周1~2次</van-radio>
+					<van-radio name="{{5}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==11}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">11、您多久喝一杯牛奶？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[10]" value="{{answers.q[10]}}">
+					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{1}}">每周1~2次</van-radio>
+					<van-radio name="{{3}}">每周3~5次</van-radio>
+					<van-radio name="{{4}}">每天或几乎每天</van-radio>
+					<van-radio name="{{5}}">每天1次以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==12}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">12、您通常每天吃多少份牛奶/酸奶或奶酪（1份=200 ml 牛奶/酸奶，25 g奶酪）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[11]" value="{{answers.q[11]}}">
+					<van-radio name="{{0}}">无</van-radio>
+					<van-radio name="{{3}}">1份</van-radio>
+					<van-radio name="{{5}}">2份及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==13}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">13、您多久吃一次含糖速冲糊粉，如芝麻糊、核桃粉、豆浆粉、藕粉、魔芋粉等？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[12]" value="{{answers.q[12]}}">
+					<van-radio name="{{4}}">从不</van-radio>
+					<van-radio name="{{3}}">每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==14}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">14、您多久吃一次糖果或甜巧克力？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[13]" value="{{answers.q[13]}}">
+					<van-radio name="{{4}}">从不</van-radio>
+					<van-radio name="{{3}}">每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==15}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">15、您多久吃一次蛋糕、冰激凌、派等甜品？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[14]" value="{{answers.q[14]}}">
+					<van-radio name="{{4}}">从不</van-radio>
+					<van-radio name="{{3}}">每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==16}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">16、您多久吃一次果脯或蜜饯（果脯蜜饯指的是经加工过的水果，未经加工的水果干不算在内）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[15]" value="{{answers.q[15]}}">
+					<van-radio name="{{4}}">从不</van-radio>
+					<van-radio name="{{3}}">每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==17}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">17、您是否经常喝含糖饮料如碳酸饮料（可乐、雪碧）、果汁饮料等（或者喝水等时加糖或蜂蜜）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[16]" value="{{answers.q[16]}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==18}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">18、您是否经常喝奶茶？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[17]" value="{{answers.q[17]}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==19}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">19、您多久吃一次饼干、薯条或爆米花？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[18]" value="{{answers.q[18]}}">
+					<van-radio name="{{4}}">从不</van-radio>
+					<van-radio name="{{3}}">每周不到1次</van-radio>
+					<van-radio name="{{2}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==20}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">20、您多久吃一次西式快餐（麦当劳、肯德基、德克士等）？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[19]" value="{{answers.q[19]}}">
+					<van-radio name="{{5}}">从不或每周少于1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==21}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">21、您多久吃一次腌肉、火腿、培根或香肠？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[20]" value="{{answers.q[20]}}">
+					<van-radio name="{{5}}">从不或每周少于1次</van-radio>
+					<van-radio name="{{3}}">每周1~2次</van-radio>
+					<van-radio name="{{0}}">每周3次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==22}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">22、您经常食用油炸食物，包括方便面、炸薯片/条等食品吗?</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[21]" value="{{answers.q[21]}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==23}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">23、您常吃动物油（猪油、鸡油、鸭油等）炒的蔬菜吗？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[22]" value="{{answers.q[22]}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==24}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">24、您常吃肥肉或动物内脏吗？</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[23]" value="{{answers.q[23]}}">
+					<van-radio name="{{0}}">是</van-radio>
+					<van-radio name="{{1}}">否</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+</view>
+<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+	<view bindtap="onBack" class="button primary plain">上一页</view>
+</view>
+<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/24</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

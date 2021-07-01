@@ -26,15 +26,15 @@
 		</view>
 		<view class="padding-30">
 			<viwe class="font-bold">2、是否有以下疾病？</viwe>
-			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q2" value="{{answers.q2}}">
-				<van-radio name="{{1}}" shape="square">脂肪肝</van-radio>
-				<van-radio name="{{2}}" shape="square">高血压</van-radio>
-				<van-radio name="{{3}}" shape="square">高血脂</van-radio>
-				<van-radio name="{{4}}" shape="square">高尿酸</van-radio>
-				<van-radio name="{{5}}" shape="square">睡眠呼吸暂停综合征</van-radio>
-				<van-radio name="{{6}}" shape="square">食欲异常亢进</van-radio>
-				<van-radio name="{{7}}" shape="square">无以上情况</van-radio>
-			</van-radio-group>
+			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q2" value="{{answers.q2}}">
+				<van-checkbox name="{{1}}" shape="square">脂肪肝</van-checkbox>
+				<van-checkbox name="{{2}}" shape="square">高血压</van-checkbox>
+				<van-checkbox name="{{3}}" shape="square">高血脂</van-checkbox>
+				<van-checkbox name="{{4}}" shape="square">高尿酸</van-checkbox>
+				<van-checkbox name="{{5}}" shape="square">睡眠呼吸暂停综合征</van-checkbox>
+				<van-checkbox name="{{6}}" shape="square">食欲异常亢进</van-checkbox>
+				<van-checkbox name="{{7}}" shape="square">无以上情况</van-checkbox>
+			</van-checkbox-group>
 		</view>
 	</view>
 </view>
