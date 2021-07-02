@@ -99,7 +99,7 @@ Page({
         this.countResult();
         var data = {
             id: this.data.id,
-            patientId: this.patient.id,
+            patientId: this.data.patient.patientId || this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
             type: 'FAT-DISEASE'

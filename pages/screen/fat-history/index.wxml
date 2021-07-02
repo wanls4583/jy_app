@@ -16,12 +16,12 @@
 		<view class="padding-top-bottom-30">
 			<view class="padding-left-30 font-bold">1、超重或肥胖史</view>
 			<readonly-field bindtap="onShowBeginTime" label="起始时间" value="{{answers.beginTime}}" />
-			<van-field bindtap="onInput" label="持续时间" value="{{answers.continueTime1}}" />
+			<van-field bindtap="onInput" data-prop="answers.continueTime1" label="持续时间" value="{{answers.continueTime1}}" />
 		</view>
 		<view class="padding-top-bottom-30">
 			<view class="padding-left-30 font-bold">2、减重史</view>
 			<van-field bind:input="onInput" data-prop="answers.way" label="减重方法" value="{{answers.way}}" />
-			<van-field bindtap="onInput" label="持续时间" value="{{answers.continueTime2}}" />
+			<van-field bindtap="onInput" data-prop="answers.continueTime2" label="持续时间" value="{{answers.continueTime2}}" />
 			<van-field bind:input="onInputNum" data-prop="answers.count" label="减重次数" value="{{answers.count}}" />
 			<van-field bind:input="onInput" data-prop="answers.effect" label="减重效果" value="{{answers.effect}}" />
 		</view>
