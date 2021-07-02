@@ -12,8 +12,8 @@ Page({
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             q: [],
         },
-        results: 0,
-        result: [],
+        result: '',
+        resultDescription: '',
         filtrateDate: new Date().getTime(),
         dateVisible: false,
     },
@@ -24,8 +24,6 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过筛查选择页面进入
-        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -81,7 +79,7 @@ Page({
     },
     countScore() {
         var result = '';
-        var results = [];
+        var resultDescription = [];
         var q = this.data.answers.q;
         if (q[12] = 1) {
             result = '几乎没有任何体力活动';
@@ -112,32 +110,32 @@ Page({
             }
         }
         if (q[2] == 1) {
-            results.push('体育课活动时间不足');
+            resultDescription.push('体育课活动时间不足');
         }
         if (q[4] == 1) {
-            results.push('课间操活动时间不足');
+            resultDescription.push('课间操活动时间不足');
         }
         if (q[5] == 1) {
-            results.push('社会支持不足');
+            resultDescription.push('社会支持不足');
         }
-        if (q[8] == 1 || q[8] == 2 && results.indexOf('体育活动时间不足') == 1) {
-            results.push('体育活动时间不足');
+        if (q[8] == 1 || q[8] == 2 && resultDescription.indexOf('体育活动时间不足') == 1) {
+            resultDescription.push('体育活动时间不足');
         }
-        if (q[9] == 3 || q[9] == 4 && results.indexOf('社会支持不足') == 1) {
-            results.push('社会支持不足');
+        if (q[9] == 3 || q[9] == 4 && resultDescription.indexOf('社会支持不足') == 1) {
+            resultDescription.push('社会支持不足');
         }
-        if (q[10] == 1 && results.indexOf('社会支持不足') == 1) {
-            results.push('社会支持不足');
+        if (q[10] == 1 && resultDescription.indexOf('社会支持不足') == 1) {
+            resultDescription.push('社会支持不足');
         }
         if ((q[1] == 4 || q[1] == 5) &&
             (q[6] == 1 || q[6] == 2) &&
             (q[7] == 4 || q[7] == 5) &&
             (q[11] == 4 || q[11] == 5)) {
-            results.push('运动意愿不强烈');
+            resultDescription.push('运动意愿不强烈');
         }
         this.setData({
             result: result,
-            results: results
+            resultDescription: resultDescription.join(';')
         });
     },
     loadInfo(id) {
@@ -164,9 +162,10 @@ Page({
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY',
-            result: this.data.result
+            answers: JSON.stringify(this.data.answers),
+            type: 'FAT-ACTION',
+            result: this.data.result,
+            resultDescription: this.data.resultDescription
         };
         if(this.data.answers.q[15] === undefined) {
             wx.jyApp.toast('请填写锻炼年数');
@@ -174,7 +173,7 @@ Page({
         }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
@@ -193,9 +192,9 @@ Page({
                     if (str == '几乎') {
                         result = 4;
                     }
-                    wx.jyApp.setTempData('act-results', this.data.results);
+                    wx.jyApp.setTempData('act-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/act-result/index?result=${result}&_result=${this.data.result}&from=${this.from}`
+                        url: `/pages/screen/act-result/index?result=${result}&_result=${this.data.result}`
                     });
                 }
             });
