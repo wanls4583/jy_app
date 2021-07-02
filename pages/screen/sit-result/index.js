@@ -22,7 +22,6 @@ Page({
             results: results,
             _result: _result,
             color: color,
-            from: option.from
         });
     },
     onGoto(e) {

@@ -12,8 +12,8 @@ Page({
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             q: [],
         },
-        score: 0,
-        result: [],
+        result: '',
+        resultDescription: [],
         filtrateDate: new Date().getTime(),
         dateVisible: false,
     },
@@ -79,37 +79,40 @@ Page({
             }
         }, 500);
     },
-    countScore() {
+    countResult() {
         var score = 0;
-        var result = [];
+        var resultDescription = [];
         var q = this.data.answers.q;
         q.map((item, i) => {
             if (item !== undefined) {
                 score += item;
             }
         });
-        if(q[0] >= 2) {
-            result.push('有屏前久坐行为');
+        if (q[0] >= 2) {
+            resultDescription.push('有屏前久坐行为');
         }
-        if(q[1] >= 2) {
-            result.push('有社交型久坐行为');
+        if (q[1] >= 2) {
+            resultDescription.push('有社交型久坐行为');
         }
-        if(q[2] >= 2) {
-            result.push('有通勤型久坐行为');
+        if (q[2] >= 2) {
+            resultDescription.push('有通勤型久坐行为');
         }
-        if(q[3] >= 2) {
-            result.push('有教育型久坐行为');
+        if (q[3] >= 2) {
+            resultDescription.push('有教育型久坐行为');
         }
-        if(q[4] >= 2) {
-            result.push('有兴趣久坐行为');
+        if (q[4] >= 2) {
+            resultDescription.push('有兴趣久坐行为');
         }
-        if(q[5] >= 2) {
-            result.push('有其他类型久坐行为');
+        if (q[5] >= 2) {
+            resultDescription.push('有其他类型久坐行为');
         }
-
+        var result = '无久坐行为';
+        if(score >= 8 || resultDescription.length) {
+            result = '有久坐行为';
+        }
         this.setData({
-            score: score,
-            result: result
+            result: result,
+            resultDescription: resultDescription.join(';')
         });
     },
     loadInfo(id) {
@@ -132,13 +135,14 @@ Page({
         });
     },
     onSave() {
-        this.countScore();
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY',
-            result: this.data.result
+            answers: JSON.stringify(this.data.answers),
+            type: 'FAT-SIT',
+            result: this.data.result,
+            resultDescription: this.data.resultDescription
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
@@ -151,14 +155,12 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    var _result = '无久坐行为';
-                    if (this.data.score >= 8 || this.data.result.length) {
+                    if (this.data.result == '有久坐行为') {
                         result = 2;
-                        _result = '有久坐行为';
                     }
-                    wx.jyApp.setTempData('sit-results', this.data.result);
+                    wx.jyApp.setTempData('sit-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/sit-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/sit-result/index?result=${result}&_result=${this.data.result}`
                     });
                 }
             });
