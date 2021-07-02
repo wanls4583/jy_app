@@ -5,7 +5,10 @@
  */
 Page({
     data: {
-        activeNames: ['info', 'screen', 'type1', 'type3', 'guide']
+        active: 0,
+        fatActiveNames: ['FAT-GROW', 'FAT-HOME', 'FAT-DISEASE', 'FAT-TREAT', 'FAT-DIET', 'FAT-SIT', 'FAT-SLEEP', 'FAT-ACTION', 'FAT-HEART'],
+        activeNames: ['info', 'screen', 'type1', 'type3', 'guide'],
+        fatData: {}
     },
     onLoad(option) {
         this.patientId = option.patientId;
@@ -15,6 +18,21 @@ Page({
     onCollapseChange(e) {
         this.setData({
             activeNames: e.detail,
+        });
+    },
+    onFatCollapseChange(e) {
+        this.setData({
+            fatActiveNames: e.detail,
+        });
+    },
+    onChangeSwiper(e) {
+        this.setData({
+            active: e.detail.current
+        });
+    },
+    onChangeTab(e) {
+        this.setData({
+            active: e.detail.index
         });
     },
     //点击图片放大
@@ -55,11 +73,17 @@ Page({
                 });
             });
             data.filtrate = data.filtrate || [];
+            data.fatFiltrate = data.filtrate.filter((item) => {
+                return item.filtrateType.slice(0, 4) == 'FAT-';
+            });
+            data.filtrate = data.filtrate.filter((item) => {
+                return item.filtrateType.slice(0, 4) != 'FAT-';
+            });
             data.filtrate.map((item) => {
                 item._filtrateType = item.filtrateType;
                 if (item.filtrateType == 'FAT') {
                     item._filtrateType = '超重与肥胖'
-                    if(item.filtrateResult == 1) {
+                    if (item.filtrateResult == 1) {
                         item._filtrateResult = '体重正常';
                     }
                     if (item.filtrateResult == 2) {
@@ -74,6 +98,33 @@ Page({
                     if (item.filtrateResult == 5) {
                         item._filtrateResult = '中心性肥胖（BMI肥胖）';
                     }
+                }
+            });
+            var fatData = {};
+            data.fatFiltrate.map((item) => {
+                if (item.filtrateType == 'FAT-GROW') {
+                    item._filtrateType = '出生、喂养史、发育史';
+                }
+                if (item.filtrateType == 'FAT-HOME') {
+                    item._filtrateType = '家族史'
+                }
+                if (item.filtrateType == 'FAT-DISEASE') {
+                    item._filtrateType = '疾病史'
+                }
+                if (item.filtrateType == 'FAT-TREAT') {
+                    item._filtrateType = '肥胖和治疗史'
+                }
+                if (item.filtrateType == 'FAT-DIET') {
+                    item._filtrateType = '膳食调查'
+                }
+                if (item.filtrateType == 'FAT-SIT') {
+                    item._filtrateType = '久坐行为调查'
+                }
+                if (item.filtrateType == 'FAT-SLEEP') {
+                    item._filtrateType = '睡眠评估'
+                }
+                if (item.filtrateType == 'FAT-ACTION') {
+                    item._filtrateType = '身体活动水平评估'
                 }
             });
             this.setData({

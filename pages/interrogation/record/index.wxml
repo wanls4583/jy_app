@@ -1,141 +1,153 @@
 <view class="container">
-	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
-		<van-collapse-item name="info" title="患者信息">
-			<readonly-field label="姓名" value="{{patientDocument.patientName}}"></readonly-field>
-			<readonly-field label="性别" value="{{patientDocument._sex}}"></readonly-field>
-			<readonly-field label="年龄" value="{{patientDocument.age}}"></readonly-field>
-			<readonly-field label="身高" value="{{patientDocument.height?patientDocument.height+'cm':''}}"></readonly-field>
-			<readonly-field label="体重" value="{{patientDocument.weight?patientDocument.weight+'kg':''}}"></readonly-field>
-			<readonly-field label="BMI" value="{{patientDocument.BMI}}"></readonly-field>
-			<readonly-field label="食物过敏史" value="{{patientDocument.foodSensitive}}"></readonly-field>
-		</van-collapse-item>
-		<van-collapse-item name="screen" title="营养筛查" wx:if="{{filtrate.length}}">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{filtrate}}" wx:key="index">
-					<view class="flex--center--start">
-						<view class="flex-shrink-0 label label-color">筛查日期：</view>
-						<view>{{item.filtrateDate}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label label-color">筛查方式：</view>
-						<view>{{item._filtrateType}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label label-color">筛查医师：</view>
-						<view>{{item.doctorName||''}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label label-color">筛查结果：</view>
-						<view>{{item._filtrateResult}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label label-color">结果解释：</view>
-						<view>{{item.resultDescription}}</view>
-					</view>
-				</view>
-			</view>
-		</van-collapse-item>
-		<van-collapse-item name="type1" title="图文问诊" wx:if="{{consultOrder[1].length}}">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[1]}}" wx:key="index">
-					<view class="flex--center--start">
-						<view class="flex-shrink-0 label label-color">问诊时间：</view>
-						<view>{{item.orderTime}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 align-self-start label label-color">病情描述：</view>
-						<view>{{item.diseaseDetail||''}}</view>
-					</view>
-					<view class="flex flex-wrap-wrap margin-top-20" wx:if="{{item.picUrls.length}}">
-						<view
-							class="border gray-background-color margin-right-30 margin-bottom-20"
-							style="width:150rpx;height:150rpx;"
-							wx:for="{{item.picUrls}}"
-							wx:for-item="pic"
-							wx:key="item"
-						>
-							<image bindtap="onClickImg" class="width-100 height-100" data-pic-urls="{{item.picUrls}}" data-src="{{pic}}" mode="aspectFill" src="{{pic}}" />
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="营养病历"></van-tab>
+			<van-tab title="减重报告"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="position-absolute bottom-0 width-100" style="top:44px">
+		<swiper bindchange="onChangeSwiper" class="widht-100 height-100" current="{{active}}">
+			<swiper-item>
+				<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
+					<van-collapse-item name="info" title="患者信息">
+						<readonly-field label="姓名" value="{{patientDocument.patientName}}"></readonly-field>
+						<readonly-field label="性别" value="{{patientDocument._sex}}"></readonly-field>
+						<readonly-field label="年龄" value="{{patientDocument.age}}"></readonly-field>
+						<readonly-field label="身高" value="{{patientDocument.height?patientDocument.height+'cm':''}}"></readonly-field>
+						<readonly-field label="体重" value="{{patientDocument.weight?patientDocument.weight+'kg':''}}"></readonly-field>
+						<readonly-field label="BMI" value="{{patientDocument.BMI}}"></readonly-field>
+						<readonly-field label="食物过敏史" value="{{patientDocument.foodSensitive}}"></readonly-field>
+					</van-collapse-item>
+					<van-collapse-item name="screen" title="营养筛查" wx:if="{{filtrate.length}}">
+						<view class="padding-left-right-30">
+							<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{filtrate}}" wx:key="index">
+								<view class="flex--center--start">
+									<view class="flex-shrink-0 label label-color">筛查日期：</view>
+									<view>{{item.filtrateDate || ''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label label-color">筛查方式：</view>
+									<view>{{item._filtrateType}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label label-color">筛查医师：</view>
+									<view>{{item.doctorName||''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label label-color">筛查结果：</view>
+									<view>{{item._filtrateResult || ''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label label-color">结果解释：</view>
+									<view>{{item.resultDescription || ''}}</view>
+								</view>
+							</view>
 						</view>
-					</view>
-				</view>
-			</view>
-		</van-collapse-item>
-		<van-collapse-item name="type3" title="视频问诊" wx:if="{{consultOrder[3].length}}">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[3]}}" wx:key="index">
-					<view class="flex--center--start">
-						<view class="flex-shrink-0 label">问诊时间：</view>
-						<view>{{item.orderTime}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 align-self-start label">病情描述：</view>
-						<view>{{item.diseaseDetail||''}}</view>
-					</view>
-					<view class="flex flex-wrap-wrap margin-top-20" wx:if="{{item.picUrls.length}}">
-						<view
-							class="border gray-background-color margin-right-30 margin-bottom-20"
-							style="width:150rpx;height:150rpx;"
-							wx:for="{{item.picUrls}}"
-							wx:for-item="pic"
-							wx:key="item"
-						>
-							<image bindtap="onClickImg" class="width-100 height-100" data-pic-urls="{{item.picUrls}}" data-src="{{pic}}" mode="aspectFill" src="{{pic}}" />
+					</van-collapse-item>
+					<van-collapse-item name="type1" title="图文问诊" wx:if="{{consultOrder[1].length}}">
+						<view class="padding-left-right-30">
+							<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[1]}}" wx:key="index">
+								<view class="flex--center--start">
+									<view class="flex-shrink-0 label label-color">问诊时间：</view>
+									<view>{{item.orderTime}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 align-self-start label label-color">病情描述：</view>
+									<view>{{item.diseaseDetail||''}}</view>
+								</view>
+								<view class="flex flex-wrap-wrap margin-top-20" wx:if="{{item.picUrls.length}}">
+									<view
+										class="border gray-background-color margin-right-30 margin-bottom-20"
+										style="width:150rpx;height:150rpx;"
+										wx:for="{{item.picUrls}}"
+										wx:for-item="pic"
+										wx:key="item"
+									>
+										<image bindtap="onClickImg" class="width-100 height-100" data-pic-urls="{{item.picUrls}}" data-src="{{pic}}" mode="aspectFill" src="{{pic}}" />
+									</view>
+								</view>
+							</view>
 						</view>
-					</view>
-				</view>
-			</view>
-		</van-collapse-item>
-		<van-collapse-item name="guide" title="营养处方" wx:if="{{nutritionOrder.length}}">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-20 color-333 border-bottom" wx:for="{{nutritionOrder}}" wx:key="index">
-					<view class="flex--center--start">
-						<view class="flex-shrink-0 label">开具时间：</view>
-						<view>{{item.orderTime}}</view>
-					</view>
-					<view class="margin-top-20 font-bold">营养病历</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">初诊标志：</view>
-						<view>{{item.isFirst==1?'初诊':'复诊'}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">过敏史：</view>
-						<view class="pre-line">{{item.foodSensitive||''}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">主诉：</view>
-						<view class="pre-line">{{item.mainSuit||''}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">现病史：</view>
-						<view class="pre-line">{{item.currentDisease||''}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">既往史：</view>
-						<view class="pre-line">{{item.historyDisease||''}}</view>
-					</view>
-					<!-- <view class="flex--center--start margin-top-20">
+					</van-collapse-item>
+					<van-collapse-item name="type3" title="视频问诊" wx:if="{{consultOrder[3].length}}">
+						<view class="padding-left-right-30">
+							<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{consultOrder[3]}}" wx:key="index">
+								<view class="flex--center--start">
+									<view class="flex-shrink-0 label">问诊时间：</view>
+									<view>{{item.orderTime}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 align-self-start label">病情描述：</view>
+									<view>{{item.diseaseDetail||''}}</view>
+								</view>
+								<view class="flex flex-wrap-wrap margin-top-20" wx:if="{{item.picUrls.length}}">
+									<view
+										class="border gray-background-color margin-right-30 margin-bottom-20"
+										style="width:150rpx;height:150rpx;"
+										wx:for="{{item.picUrls}}"
+										wx:for-item="pic"
+										wx:key="item"
+									>
+										<image bindtap="onClickImg" class="width-100 height-100" data-pic-urls="{{item.picUrls}}" data-src="{{pic}}" mode="aspectFill" src="{{pic}}" />
+									</view>
+								</view>
+							</view>
+						</view>
+					</van-collapse-item>
+					<van-collapse-item name="guide" title="营养处方" wx:if="{{nutritionOrder.length}}">
+						<view class="padding-left-right-30">
+							<view class="padding-top-bottom-20 color-333 border-bottom" wx:for="{{nutritionOrder}}" wx:key="index">
+								<view class="flex--center--start">
+									<view class="flex-shrink-0 label">开具时间：</view>
+									<view>{{item.orderTime}}</view>
+								</view>
+								<view class="margin-top-20 font-bold">营养病历</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">初诊标志：</view>
+									<view>{{item.isFirst==1?'初诊':'复诊'}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">过敏史：</view>
+									<view class="pre-line">{{item.foodSensitive||''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">主诉：</view>
+									<view class="pre-line">{{item.mainSuit||''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">现病史：</view>
+									<view class="pre-line">{{item.currentDisease||''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">既往史：</view>
+									<view class="pre-line">{{item.historyDisease||''}}</view>
+								</view>
+								<!-- <view class="flex--center--start margin-top-20">
 						<view class="flex-shrink-0 label">门诊症状：</view>
 						<view class="pre-line">{{item.symptom||''}}</view>
-					</view>-->
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">处置计划：</view>
-						<view class="pre-line">{{item.handlePlan||''}}</view>
-					</view>
-					<view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 align-self-start label label">临床诊断：</view>
-						<view class="pre-line">{{item.diagnosis||''}}</view>
-					</view>
-					<view class="margin-top-bottom-20 pre-line label">营养处方：</view>
-					<view class="padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
-						<view class="flex--center--between">
-							<view>{{product.goodsName}}</view>
-							<view class="flex-shrink-0 gray-color">x{{product.count}}{{product._unit}}</view>
+								</view>-->
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 label">处置计划：</view>
+									<view class="pre-line">{{item.handlePlan||''}}</view>
+								</view>
+								<view class="flex--center--start margin-top-20">
+									<view class="flex-shrink-0 align-self-start label label">临床诊断：</view>
+									<view class="pre-line">{{item.diagnosis||''}}</view>
+								</view>
+								<view class="margin-top-bottom-20 pre-line label">营养处方：</view>
+								<view class="padding-bottom-20" wx:for="{{item.goods}}" wx:for-item="product" wx:key="id">
+									<view class="flex--center--between">
+										<view>{{product.goodsName}}</view>
+										<view class="flex-shrink-0 gray-color">x{{product.count}}{{product._unit}}</view>
+									</view>
+									<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
+									<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+								</view>
+							</view>
 						</view>
-						<view class="margin-top-20 gray-color font-small">{{product.usage}}</view>
-						<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
-					</view>
-				</view>
-			</view>
-		</van-collapse-item>
-	</van-collapse>
+					</van-collapse-item>
+				</van-collapse>
+			</swiper-item>
+		</swiper>
+	</view>
 </view>
