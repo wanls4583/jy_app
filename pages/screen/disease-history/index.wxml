@@ -15,7 +15,7 @@
 	<view class="white-background-color margin-top-20">
 		<view class="padding-30">
 			<viwe class="font-bold">1、请选择符合的选项</viwe>
-			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q1" value="{{answers.q1}}">
+			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 				<van-checkbox name="{{1}}" shape="square">5岁前开始肥胖或快速发展，尤其是与遗传相关的情况（认知发育延迟、畸形等）。</van-checkbox>
 				<van-checkbox name="{{2}}" shape="square">持续或快速的体重增加与降低的生长速度或身材矮小相关。</van-checkbox>
 				<van-checkbox name="{{3}}" shape="square">使用导致食欲亢进的药物（即皮质类固醇、兵戎酸钠、利培酮、吩噻嗪、环丙他定）。</van-checkbox>
@@ -26,7 +26,7 @@
 		</view>
 		<view class="padding-30">
 			<viwe class="font-bold">2、是否有以下疾病？</viwe>
-			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q2" value="{{answers.q2}}">
+			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 				<van-checkbox name="{{1}}" shape="square">脂肪肝</van-checkbox>
 				<van-checkbox name="{{2}}" shape="square">高血压</van-checkbox>
 				<van-checkbox name="{{3}}" shape="square">高血脂</van-checkbox>

@@ -12,8 +12,8 @@ Page({
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             q: [],
         },
-        score: 0,
-        result: [],
+        result: '',
+        resultDescription: '',
         filtrateDate: new Date().getTime(),
         dateVisible: false,
         resultMap: [{
@@ -80,14 +80,7 @@ Page({
         }]
     },
     onLoad(option) {
-        this.storeBindings = wx.jyApp.createStoreBindings(this, {
-            store: wx.jyApp.store,
-            fields: ['userInfo'],
-        });
-        this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过筛查选择页面进入
-        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -99,9 +92,6 @@ Page({
         } else {
             this.loadInfo(option.id);
         }
-    },
-    onUnload() {
-        this.storeBindings.destroyStoreBindings();
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
@@ -141,20 +131,27 @@ Page({
             }
         }, 500);
     },
-    countScore() {
+    countResult() {
         var score = 0;
-        var result = [];
+        var resultDescription = [];
         this.data.answers.q.map((item, i) => {
             if (item !== undefined) {
                 score += item;
-                if (this.data.resultMap[i][item] && result.indexOf(this.data.resultMap[i][item]) == -1) {
-                    result.push(this.data.resultMap[i][item]);
+                if (this.data.resultMap[i][item] && resultDescription.indexOf(this.data.resultMap[i][item]) == -1) {
+                    resultDescription.push(this.data.resultMap[i][item]);
                 }
             }
         });
+        var result = '膳食营养无风险';
+        if (score <= 75) {
+            result = '膳食营养风险可疑';
+        }
+        if (score < 60) {
+            result = '膳食营养有风险';
+        }
         this.setData({
-            score: score,
-            result: result
+            result: result,
+            resultDescription: resultDescription.join(';')
         });
     },
     loadInfo(id) {
@@ -177,17 +174,18 @@ Page({
         });
     },
     onSave() {
-        this.countScore();
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY',
-            result: this.data.result
+            answers: JSON.stringify(this.data.answers),
+            type: 'FAT-DIET',
+            result: this.data.result,
+            resultDescription: this.data.resultDescription
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
@@ -196,18 +194,15 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    var _result = '膳食营养无风险';
-                    if (this.data.score <= 75) {
+                    if (this.data.result == '膳食营养风险可疑') {
                         result = 2;
-                        _result = '膳食营养风险可疑';
                     }
-                    if (this.data.score < 60) {
+                    if (this.data.result == '膳食营养有风险') {
                         result = 3
-                        _result = '膳食营养有风险';
                     }
-                    wx.jyApp.setTempData('food-results', this.data.result);
+                    wx.jyApp.setTempData('food-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/food-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/food-result/index?result=${result}&_result=${this.data.result}`
                     });
                 }
             });

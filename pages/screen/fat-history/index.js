@@ -9,9 +9,13 @@ Page({
         patient: {},
         answers: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            q1: '',
-            q2: '',
-            q3: '',
+            beginTime: '',
+            continueTime1: '',
+            way: '',
+            continueTime2: '',
+            way: '',
+            count: '',
+            effect: '',
         },
         result: '',
         dateVisible: false
@@ -23,8 +27,6 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过筛查选择页面进入
-        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -42,7 +44,9 @@ Page({
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
-        this.setBMI();
+    },
+    onInputNum(e) {
+        wx.jyApp.utils.onInputNum(e, this);
     },
     onShowDate() {
         this.dateProp = 'filtrateDate';
@@ -55,20 +59,6 @@ Page({
         this.dateProp = 'beginTime';
         this.setData({
             date: this.data.answers.beginTime ? Date.prototype.parseDate(this.data.answers.beginTime) : new Date().getTime(),
-            dateVisible: true
-        });
-    },
-    onShowContinuTime() {
-        this.dateProp = 'continueTime';
-        this.setData({
-            date: this.data.answers.continueTime ? Date.prototype.parseDate(this.data.answers.continueTime) : new Date().getTime(),
-            dateVisible: true
-        });
-    },
-    onShowContinuTime1() {
-        this.dateProp = 'continueTime1';
-        this.setData({
-            date: this.data.answers.continueTime1 ? Date.prototype.parseDate(this.data.answers.continueTime1) : new Date().getTime(),
             dateVisible: true
         });
     },
@@ -104,22 +94,38 @@ Page({
             });
         });
     },
+    countResult() {
+        var result = '无肥胖治疗史';
+        if (this.data.answers.way || this.data.answers.continueTime2 || this.data.answers.count || this.data.answers.effect) {
+            result = '有肥胖治疗史'
+        }
+        this.setData({
+            result: result
+        });
+    },
     onSave() {
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY'
+            answers: JSON.stringify(this.data.answers),
+            result: this.data.result,
+            type: 'FAT-TREAT'
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
             wx.jyApp.toastBack('保存成功', {
                 mask: true,
-                delta: 1
+                delta: 1,
+                complete: () => {
+                    wx.jyApp.utils.navigateTo({
+                        url: '/pages/screen/food-investigate/index'
+                    });
+                }
             });
         }).catch(() => {
             wx.hideLoading();

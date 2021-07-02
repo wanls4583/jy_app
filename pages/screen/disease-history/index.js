@@ -9,8 +9,7 @@ Page({
         patient: {},
         answers: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            q1: [],
-            q2: [],
+            q: [],
         },
         result: '',
         filtrateDate: new Date().getTime(),
@@ -86,16 +85,28 @@ Page({
             }
         });
     },
+    countResult() {
+        var result = '正常';
+        var q = this.data.answers.q;
+        if (q[0] && q[0].length && q[0][0] != 6 || q[1] && q[1].length && q[1][0] != 7) {
+            result = '异常';
+        }
+        this.setData({
+            result: result
+        });
+    },
     onSave() {
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY'
+            answers: JSON.stringify(this.data.answers),
+            result: this.data.result,
+            type: 'FAT-DISEASE'
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
@@ -103,12 +114,12 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    if (this.data.answers.q1 && this.data.answers.q1 < 6 || this.data.answers.q2 && this.data.answers.q2 < 6) {
-                        wx.jyApp.navigateTo({
+                    if (this.data.result == '异常') {
+                        wx.jyApp.utils.navigateTo({
                             url: '/pages/screen/disease-result/index'
                         });
                     } else {
-                        wx.jyApp.navigateTo({
+                        wx.jyApp.utils.navigateTo({
                             url: '/pages/screen/fat-history/index'
                         });
                     }

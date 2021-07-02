@@ -14,15 +14,15 @@
 	</view>
 	<view class="white-background-color margin-top-20">
 		<view class="padding-top-bottom-30">
-			<viwe class="padding-left-30 font-bold">1、超重或肥胖史</viwe>
-			<readonly-field bindtap="onShowBeginTime" label="其实时间" value="{{answers.beginTime}}" />
-			<readonly-field bindtap="onShowContinuTime" label="持续时间" value="{{answers.continueTime}}" />
+			<view class="padding-left-30 font-bold">1、超重或肥胖史</view>
+			<readonly-field bindtap="onShowBeginTime" label="起始时间" value="{{answers.beginTime}}" />
+			<van-field bindtap="onInput" label="持续时间" value="{{answers.continueTime1}}" />
 		</view>
 		<view class="padding-top-bottom-30">
-			<viwe class="padding-left-30 font-bold">2、减重史</viwe>
+			<view class="padding-left-30 font-bold">2、减重史</view>
 			<van-field bind:input="onInput" data-prop="answers.way" label="减重方法" value="{{answers.way}}" />
-			<readonly-field bindtap="onShowContinuTime1" label="持续时间" value="{{answers.continueTime1}}" />
-			<van-field bind:input="onInput" data-prop="answers.count" label="减重次数" value="{{answers.count}}" />
+			<van-field bindtap="onInput" label="持续时间" value="{{answers.continueTime2}}" />
+			<van-field bind:input="onInputNum" data-prop="answers.count" label="减重次数" value="{{answers.count}}" />
 			<van-field bind:input="onInput" data-prop="answers.effect" label="减重效果" value="{{answers.effect}}" />
 		</view>
 	</view>

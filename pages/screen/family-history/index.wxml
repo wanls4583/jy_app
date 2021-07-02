@@ -15,21 +15,21 @@
 	<view class="white-background-color margin-top-20">
 		<view class="padding-30">
 			<viwe class="font-bold">1、家族成员中是否有超重或肥胖史？</viwe>
-			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q1" value="{{answers.q1}}">
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 				<van-radio name="{{1}}">是</van-radio>
 				<van-radio name="{{2}}">否</van-radio>
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
 			<viwe class="font-bold">2、家族成员中是否有超重或肥胖相关疾病情况？</viwe>
-			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q2" value="{{answers.q2}}">
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 				<van-radio name="{{1}}">是</van-radio>
 				<van-radio name="{{2}}">否</van-radio>
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
 			<viwe class="font-bold">3、家族成员中是否有继发性超重或肥胖病史？</viwe>
-			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q3" value="{{answers.q3}}">
+			<van-radio-group bind:change="onChange" class="flex margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 				<van-radio name="{{1}}">是</van-radio>
 				<van-radio name="{{2}}">否</van-radio>
 			</van-radio-group>

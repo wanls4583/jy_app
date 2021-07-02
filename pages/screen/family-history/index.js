@@ -9,9 +9,7 @@ Page({
         patient: {},
         answers: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
-            q1: '',
-            q2: '',
-            q3: '',
+            q: []
         },
         result: '',
         filtrateDate: new Date().getTime(),
@@ -24,8 +22,6 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过筛查选择页面进入
-        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -87,24 +83,36 @@ Page({
             }
         });
     },
+    countResult() {
+        var result = '正常';
+        var q = this.data.answers.q;
+        if (q[2] == 1) {
+            result = '异常';
+        }
+        this.setData({
+            result: result
+        });
+    },
     onSave() {
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY'
+            answers: JSON.stringify(this.data.answers),
+            result: this.data.result,
+            type: 'FAT-HOME'
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
             wx.jyApp.toastBack('保存成功', {
                 mask: true,
                 delta: 1,
-                complete:()=>{
-                    wx.jyApp.navigateTo({
+                complete: () => {
+                    wx.jyApp.utils.navigateTo({
                         url: '/pages/screen/disease-history/index'
                     });
                 }
