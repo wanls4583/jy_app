@@ -12,7 +12,8 @@ Page({
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
             q: [],
         },
-        result: [],
+        result: '',
+        resultDescription: '',
         filtrateDate: new Date().getTime(),
         dateVisible: false,
     },
@@ -23,8 +24,6 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        // 患者通过筛查选择页面进入
-        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -78,30 +77,35 @@ Page({
             }
         }, 500);
     },
-    countScore() {
-        var result = [];
+    countResult() {
+        var result = '睡眠正常';
+        var resultDescription = [];
         var q = this.data.answers.q;
         if (q[0] == 1) {
-            result.push('入睡潜伏期延长');
+            resultDescription.push('入睡潜伏期延长');
         }
         if (q[1] == 1) {
-            result.push('白天瞌睡');
+            resultDescription.push('白天瞌睡');
         }
         if (q[2] == 1) {
-            result.push('存在夜醒及再入睡困难');
+            resultDescription.push('存在夜醒及再入睡困难');
         }
         if (q[3] == 1) {
-            result.push('睡眠不足');
+            resultDescription.push('睡眠不足');
         }
         if (q[3] == 3) {
-            result.push('睡眠时间过长');
+            resultDescription.push('睡眠时间过长');
         }
         if (q[4] == 1) {
-            result.push('存在睡眠呼吸障碍');
+            resultDescription.push('存在睡眠呼吸障碍');
+        }
+        if (resultDescription.length) {
+            result = '睡眠异常';
         }
 
         this.setData({
-            result: result
+            result: result,
+            resultDescription: resultDescription.join(';')
         });
     },
     loadInfo(id) {
@@ -124,17 +128,18 @@ Page({
         });
     },
     onSave() {
-        this.countScore();
+        this.countResult();
         var data = {
             id: this.data.id,
             patientId: this.patient.id,
-            answers: this.data.answers,
-            type: 'BIRTH-HISTORY',
-            result: this.data.result
+            answers: JSON.stringify(this.data.answers),
+            type: 'FAT-SLEEP',
+            result: this.data.result,
+            resultDescription: this.data.resultDescription
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
-            url: `/fatevaluate/save`,
+            url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
         }).then(() => {
@@ -143,14 +148,12 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    var _result = '睡眠正常';
-                    if (this.data.result.length) {
+                    if (this.data.result == '睡眠异常') {
                         result = 2;
-                        _result = '睡眠异常';
                     }
-                    wx.jyApp.setTempData('sleep-results', this.data.result);
+                    wx.jyApp.setTempData('sleep-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/sleep-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/sleep-result/index?result=${result}&_result=${this.data.result}`
                     });
                 }
             });

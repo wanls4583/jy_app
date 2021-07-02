@@ -13,7 +13,7 @@ Page({
             q: [],
         },
         result: '',
-        resultDescription: [],
+        resultDescription: '',
         filtrateDate: new Date().getTime(),
         dateVisible: false,
     },
