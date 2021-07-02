@@ -6,6 +6,7 @@
 Page({
     data: {
         id: '',
+        filtrateId: '',
         patient: {},
         answers: {
             filtrateDate: new Date().formatTime('yyyy-MM-dd'),
@@ -75,6 +76,7 @@ Page({
             data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
             this.setData({
                 id: data.fatEvaluate.id || '',
+                filtrateId: data.fatEvaluate.filtrateId || '',
                 answers: data.fatEvaluate.answers,
                 patient: data.patientFiltrate
             });
@@ -99,6 +101,7 @@ Page({
         this.countResult();
         var data = {
             id: this.data.id,
+            filtrateId: this.data.filtrateId,
             patientId: this.data.patient.patientId || this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,

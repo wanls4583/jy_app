@@ -64,7 +64,7 @@ Page({
                 url = '/pages/screen/fat-history/index';
                 break;
             case 'FAT-DIET':
-                url = '/pages/screen/foot-investigate/index';
+                url = '/pages/screen/food-investigate/index';
                 break;
             case 'FAT-SIT':
                 url = '/pages/screen/sit-investigate/index';

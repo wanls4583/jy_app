@@ -54,7 +54,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/foot-investigate/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/food-investigate/index?doctorId=doctorId&doctorName=doctorName"
 			>
 				<text>膳食调查</text>
 				<view class="flex--center--center">
