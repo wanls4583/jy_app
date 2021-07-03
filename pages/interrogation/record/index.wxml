@@ -148,6 +148,22 @@
 					</van-collapse-item>
 				</van-collapse>
 			</swiper-item>
+			<swiper-item>
+				<van-collapse bind:change="onFatCollapseChange" value="{{fatActiveNames}}">
+					<van-collapse-item name="FAT-GROW" title="{{fatData['FAT-GROW']._filtrateType}}" wx:if="{{fatData['FAT-GROW']}}">
+						<view>出生体质量：{{fatData['FAT-GROW'].answers[0]}}</view>
+						<view>6个月内喂养方式：{{fatData['FAT-GROW'].answers[1]}}</view>
+						<view>是否早产：{{fatData['FAT-GROW'].answers[2]}}</view>
+						<view>青春期性成熟：{{fatData['FAT-GROW'].answers[3]}}</view>
+					</van-collapse-item>
+					<van-collapse-item name="FAT-HOME" title="{{fatData['FAT-HOME']._filtrateType}}" wx:if="{{fatData['FAT-HOME']}}">
+						<view wx:for="{{fatData['FAT-GROW'].resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+					</van-collapse-item>
+					<van-collapse-item name="FAT-DISEASE" title="{{fatData['FAT-DISEASE']._filtrateType}}" wx:if="{{fatData['FAT-DISEASE']}}">
+						<view wx:for="{{fatData['FAT-DISEASE'].resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+					</van-collapse-item>
+				</van-collapse>
+			</swiper-item>
 		</swiper>
 	</view>
 </view>

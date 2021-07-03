@@ -16,9 +16,9 @@
 		<view class="padding-30">
 			<viwe class="font-bold">1、出生体质量</viwe>
 			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
-				<van-radio name="{{1}}">{{'(2.5kg≤出生体质量≤4.0kg)'}}</van-radio>
-				<van-radio name="{{2}}">{{'(出生体质量<2.5kg)'}}</van-radio>
-				<van-radio name="{{3}}">{{'(出生体质量>4kg)'}}</van-radio>
+				<van-radio name="{{1}}">{{'正常(2.5kg≤出生体质量≤4.0kg)'}}</van-radio>
+				<van-radio name="{{2}}">{{'低出生体质量(出生体质量<2.5kg)'}}</van-radio>
+				<van-radio name="{{3}}">{{'巨大儿(出生体质量>4kg)'}}</van-radio>
 			</van-radio-group>
 		</view>
 	</view>

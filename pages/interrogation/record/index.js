@@ -102,8 +102,19 @@ Page({
             });
             var fatData = {};
             data.fatFiltrate.map((item) => {
+                item.answers = item.answers && JSON.parse(item.answers) || {};
+                item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
+                fatData[item.filtrateType] = item;
                 if (item.filtrateType == 'FAT-GROW') {
                     item._filtrateType = '出生、喂养史、发育史';
+                    switch (item.answers[0]) {
+                        case 1:
+                            item.answers[0] == '正常';
+                        case 2:
+                            item.answers[0] == '低出生体质量';
+                        case 3:
+                            item.answers[0] == '巨大儿';
+                    }
                 }
                 if (item.filtrateType == 'FAT-HOME') {
                     item._filtrateType = '家族史'
@@ -131,7 +142,8 @@ Page({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,
                 consultOrder: data.consultOrder,
-                filtrate: data.filtrate
+                filtrate: data.filtrate,
+                fatData: fatData
             });
         });
     }
