@@ -122,10 +122,6 @@
 									<view class="flex-shrink-0 label">既往史：</view>
 									<view class="pre-line">{{item.historyDisease||''}}</view>
 								</view>
-								<!-- <view class="flex--center--start margin-top-20">
-						<view class="flex-shrink-0 label">门诊症状：</view>
-						<view class="pre-line">{{item.symptom||''}}</view>
-								</view>-->
 								<view class="flex--center--start margin-top-20">
 									<view class="flex-shrink-0 label">处置计划：</view>
 									<view class="pre-line">{{item.handlePlan||''}}</view>
