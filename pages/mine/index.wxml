@@ -86,7 +86,7 @@
 					data-url="/pages/screen/screen-list/index"
 				>
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">筛查报告</view>
+					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">筛查评估报告</view>
 				</view>
 				<view
 					bindtap="onGoto"
@@ -120,7 +120,7 @@
 					data-url="/pages/screen/screen-list/index"
 				>
 					<image mode="aspectFit" src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">筛查报告</view>
+					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">筛查评估报告</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"

@@ -5,7 +5,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/birth-history/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/birth-history/index"
 			>
 				<text>出生、喂养史、发育史</text>
 				<view class="flex--center--center">
@@ -17,7 +17,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/family-history/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/family-history/index"
 			>
 				<text>家族史</text>
 				<view class="flex--center--center">
@@ -29,7 +29,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/disease-history/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/disease-history/index"
 			>
 				<text>疾病史</text>
 				<view class="flex--center--center">
@@ -41,9 +41,9 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/fat-history/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/fat-history/index"
 			>
-				<text>肥胖和治疗史</text>
+				<text>肥胖治疗史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
 				</view>
@@ -54,7 +54,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/food-investigate/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/food-investigate/index"
 			>
 				<text>膳食调查</text>
 				<view class="flex--center--center">
@@ -66,7 +66,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/sit-investigate/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/sit-investigate/index"
 			>
 				<text>久坐行为调查</text>
 				<view class="flex--center--center">
@@ -78,7 +78,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/sleep-assess/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/sleep-assess/index"
 			>
 				<text>睡眠评估</text>
 				<view class="flex--center--center">
@@ -91,9 +91,9 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/act-assess/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/act-assess/index"
 			>
-				<text>身体活动水平评估</text>
+				<text>活动水平评估</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
 				</view>
@@ -103,7 +103,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30"
-				data-url="/pages/screen/heart-assess/index?doctorId=doctorId&doctorName=doctorName"
+				data-url="/pages/screen/heart-assess/index"
 			>
 				<text>心肺功能评估</text>
 				<view class="flex--center--center">

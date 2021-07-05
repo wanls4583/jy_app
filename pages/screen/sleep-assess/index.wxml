@@ -11,7 +11,7 @@
 					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
 				</view>
 			</view>
-			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
@@ -82,7 +82,7 @@
 					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
 				</view>
 			</view>
-			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">

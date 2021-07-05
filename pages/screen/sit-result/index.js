@@ -30,4 +30,9 @@ Page({
     onBack() {
         wx.navigateBack();
     },
+    onNext() {
+        wx.redirectTo({
+            url: '/pages/screen/sleep-assess/index'
+        });
+    }
 })

@@ -72,8 +72,22 @@ Page({
             if (step == 16) {
                 this.onSave();
             } else {
+                if (step == 13) {
+                    var anser = this.data.answers[12];
+                    if (anser == 1 || anser == 2) {
+                        step = 16
+                    } else if (anser = 3) {
+                        step++;
+                    } else {
+                        step += 2;
+                    }
+                } else if (step == 14) {
+                    step += 2;
+                } else {
+                    step++;
+                }
                 this.setData({
-                    step: step + 1
+                    step: step
                 });
             }
         }, 500);
@@ -170,7 +184,7 @@ Page({
             result: this.data.result,
             resultDescription: this.data.resultDescription
         };
-        if(this.data.answers.q[15] === undefined) {
+        if (this.data.answers.q[15] === undefined) {
             wx.jyApp.toast('请填写锻炼年数');
             return;
         }

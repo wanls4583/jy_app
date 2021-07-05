@@ -11,7 +11,7 @@
 					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
 				</view>
 			</view>
-			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{answers.filtrateDate}}" />
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
@@ -57,7 +57,7 @@
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
 					<van-radio name="{{3}}">每周1~2次</van-radio>
-					<van-radio name="{{5}}">每周3次及以上</van-radio>
+					<van-radio name="{{5}}">每周超过3次</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
@@ -67,7 +67,7 @@
 			<view class="padding-30">
 				<viwe class="font-bold">5、您多久吃一次鱼或海鲜（非油炸）？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
-					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{0}}">从不</van-radio>
 					<van-radio name="{{1}}">每周少于1次</van-radio>
 					<van-radio name="{{3}}">每周1次</van-radio>
 					<van-radio name="{{5}}">每周1次以上</van-radio>
