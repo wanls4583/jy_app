@@ -150,17 +150,87 @@
 			</swiper-item>
 			<swiper-item>
 				<van-collapse bind:change="onFatCollapseChange" value="{{fatActiveNames}}">
-					<van-collapse-item name="FAT-GROW" title="{{fatData['FAT-GROW']._filtrateType}}" wx:if="{{fatData['FAT-GROW']}}">
-						<view>出生体质量：{{fatData['FAT-GROW'].answers[0]}}</view>
-						<view>6个月内喂养方式：{{fatData['FAT-GROW'].answers[1]}}</view>
-						<view>是否早产：{{fatData['FAT-GROW'].answers[2]}}</view>
-						<view>青春期性成熟：{{fatData['FAT-GROW'].answers[3]}}</view>
-					</van-collapse-item>
-					<van-collapse-item name="FAT-HOME" title="{{fatData['FAT-HOME']._filtrateType}}" wx:if="{{fatData['FAT-HOME']}}">
-						<view wx:for="{{fatData['FAT-GROW'].resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
-					</van-collapse-item>
-					<van-collapse-item name="FAT-DISEASE" title="{{fatData['FAT-DISEASE']._filtrateType}}" wx:if="{{fatData['FAT-DISEASE']}}">
-						<view wx:for="{{fatData['FAT-DISEASE'].resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+					<van-collapse-item name="{{item.filtrateType}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
+						<view class="width-100" slot="title">
+							<view class="flex--center--between">
+								<view class="color-666 font-normal">{{item._filtrateType}}</view>
+								<view class="color-666 align-center font-normal">{{item.answers.filtrateDate}}</view>
+							</view>
+						</view>
+						<view class="padding-30">
+							<!-- 出生史 -->
+							<block wx:if="{{item.filtrateType=='FAT-GROW'}}">
+								<view class="flex">
+									<text class="flex-shrink-0">出生体质量：</text>
+									<text>{{item.answers.q[0]}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">6个月内喂养方式：</text>
+									<text>{{item.answers.q[1]}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">是否早产：</text>
+									<text>{{item.answers.q[2]}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">青春期性成熟：</text>
+									<text>{{item.answers.q[3]}}</text>
+								</view>
+							</block>
+							<!-- 家族史 -->
+							<block wx:if="{{item.filtrateType=='FAT-HOME'}}">
+								<view wx:for="{{item.answers.q}}" wx:key="index">{{index+1}}、{{item}}</view>
+							</block>
+							<!-- 疾病史 -->
+							<block wx:if="{{item.filtrateType=='FAT-DISEASE'}}">
+								<view wx:for="{{item.answers.q[0]}}" wx:key="index">{{index+1}}、{{item}}</view>
+								<view wx:if="{{item.answers.q[1] && item.answers.q[1].length}}">
+									<text>{{item.answers.q[0].length+1}}、有以下疾病：</text>
+									<text>{{item.answers.q[1]}}</text>
+								</view>
+							</block>
+							<!-- 肥胖治疗 -->
+							<block wx:if="{{item.filtrateType=='FAT-TREAT'}}">
+								<view>1、超重或肥胖史</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">起始时间：</text>
+									<text>{{item.answers.beginTime}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">持续时间：</text>
+									<text>{{item.answers.continueTime1}}</text>
+								</view>
+								<view class="margin-top-20">2、减重史</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">减重方法：</text>
+									<text>{{item.answers.way}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">持续时间：</text>
+									<text>{{item.answers.continueTime2}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">减重次数：</text>
+									<text>{{item.answers.count}}</text>
+								</view>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">减重效果：</text>
+									<text>{{item.answers.effect}}</text>
+								</view>
+							</block>
+							<!-- 膳食调查 -->
+							<!-- 久坐行为调查 -->
+							<!-- 睡眠评估 -->
+							<!-- 活动水平评估 -->
+							<block wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'}}">
+								<view class="flex">
+									<text class="flex-shrink-0">评估结果：</text>
+									<text>{{item.filtrateResult}}</text>
+								</view>
+								<view class="margin-top-20">结果解释：</view>
+								<view class="margin-top-20" wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+							</block>
+						</view>
 					</van-collapse-item>
 				</van-collapse>
 			</swiper-item>

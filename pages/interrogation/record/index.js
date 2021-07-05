@@ -8,7 +8,48 @@ Page({
         active: 0,
         fatActiveNames: ['FAT-GROW', 'FAT-HOME', 'FAT-DISEASE', 'FAT-TREAT', 'FAT-DIET', 'FAT-SIT', 'FAT-SLEEP', 'FAT-ACTION', 'FAT-HEART'],
         activeNames: ['info', 'screen', 'type1', 'type3', 'guide'],
-        fatData: {}
+        fatData: {},
+        answersMap: {
+            'FAT-GROW': [{
+                1: '正常',
+                2: '低出生体质量',
+                3: '巨大儿'
+            }, {
+                1: '母乳喂养',
+                2: '奶粉喂养',
+                3: '混合喂养',
+            }, {
+                1: '足月',
+                2: '早产'
+            }, {
+                1: '提前',
+                2: '正常',
+                3: '延迟'
+            }],
+            'FAT-HOME': [{
+                1: '家族成员中是有超重或肥胖史'
+            }, {
+                1: '家族成员中有超重或肥胖相关疾病情况'
+            }, {
+                1: '家族成员中有继发性超重或肥胖病史'
+            }],
+            'FAT-DISEASE': [{
+                    1: '5岁前开始肥胖或快速发展，尤其是与遗传相关的情况（认知发育延迟、畸形等）。',
+                    2: '持续或快速的体重增加与降低的生长速度或身材矮小相关。',
+                    3: '使用导致食欲亢进的药物（即皮质类固醇、兵戎酸钠、利培酮、吩噻嗪、环丙他定）。',
+                    4: '黑辣皮病、紫纹、眼睑水肿等。',
+                    5: '男生乳房发育、女生月经缭乱、多毛',
+                },
+                {
+                    1: '脂肪肝',
+                    2: '高血压',
+                    3: '高血脂',
+                    4: '高尿酸',
+                    5: '睡眠呼吸暂停综合征',
+                    6: '食欲异常亢进',
+                }
+            ]
+        }
     },
     onLoad(option) {
         this.patientId = option.patientId;
@@ -100,30 +141,65 @@ Page({
                     }
                 }
             });
-            var fatData = {};
+            var fatTypes = [];
+            var fatData = [];
             data.fatFiltrate.map((item) => {
+                item.visible = true;
                 item.answers = item.answers && JSON.parse(item.answers) || {};
                 item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
-                fatData[item.filtrateType] = item;
+                if (fatTypes.indexOf(item.filtrateType) == -1) {
+                    fatTypes.push(item.filtrateType);
+                }
                 if (item.filtrateType == 'FAT-GROW') {
                     item._filtrateType = '出生、喂养史、发育史';
-                    switch (item.answers[0]) {
-                        case 1:
-                            item.answers[0] == '正常';
-                        case 2:
-                            item.answers[0] == '低出生体质量';
-                        case 3:
-                            item.answers[0] == '巨大儿';
+                    if (!item.answers.q || !item.answers.q.length) {
+                        item.visible = false;
+                    } else {
+                        item.answers.q.map((_item, i) => {
+                            if (_item) {
+                                item.answers.q[i] = this.data.answersMap['FAT-GROW'][i][_item];
+                            }
+                        });
                     }
                 }
                 if (item.filtrateType == 'FAT-HOME') {
-                    item._filtrateType = '家族史'
+                    item._filtrateType = '家族史';
+                    if (!item.answers.q || item.answers.q.indexOf(1) == -1) {
+                        item.visible = false;
+                    } else {
+                        var q = [];
+                        item.answers.q.map((_item, i) => {
+                            if (_item == 1) {
+                                q.push(this.data.answersMap['FAT-HOME'][i][_item]);
+                            }
+                        });
+                        item.answers.q = q;
+                    }
                 }
                 if (item.filtrateType == 'FAT-DISEASE') {
-                    item._filtrateType = '疾病史'
+                    item._filtrateType = '疾病史';
+                    item.visible = false;
+                    if (!item.answers.q || !item.answers.q.length) {
+                        item.visible = false;
+                    } else if (item.answers.q[0] >= 1 && item.answers.q[0] <= 5 ||
+                        item.answers.q[1] >= 1 && item.answers.q[0] <= 6) {
+                        item.visible = true;
+                        item.answers.q.map((_item, i) => {
+                            if (_item) {
+                                var arr = [];
+                                _item.map((obj, _i) => {
+                                    var ansewer = this.data.answersMap['FAT-DISEASE'][i];
+                                    ansewer = ansewer && ansewer[obj] || '';
+                                    arr.push(ansewer);
+                                });
+                                item.answers.q[i] = arr;
+                            }
+                        });
+                        item.answers.q[1] = item.answers.q[1] && item.answers.q[1].join('、');
+                    }
                 }
                 if (item.filtrateType == 'FAT-TREAT') {
-                    item._filtrateType = '肥胖和治疗史'
+                    item._filtrateType = '肥胖和治疗史';
                 }
                 if (item.filtrateType == 'FAT-DIET') {
                     item._filtrateType = '膳食调查'
@@ -138,6 +214,12 @@ Page({
                     item._filtrateType = '身体活动水平评估'
                 }
             });
+            fatTypes.map((item) => {
+                fatData = fatData.concat(data.fatFiltrate.filter((_item) => {
+                    return _item.filtrateType == item;
+                }));
+            });
+            console.log(fatData)
             this.setData({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,
