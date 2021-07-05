@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
-			<van-tab title="营养病历"></van-tab>
+			<van-tab title="门诊病历"></van-tab>
 			<van-tab title="减重报告"></van-tab>
 		</van-tabs>
 	</view>
@@ -101,7 +101,7 @@
 									<view class="flex-shrink-0 label">开具时间：</view>
 									<view>{{item.orderTime}}</view>
 								</view>
-								<view class="margin-top-20 font-bold">营养病历</view>
+								<view class="margin-top-20 font-bold">门诊病历</view>
 								<view class="flex--center--start margin-top-20">
 									<view class="flex-shrink-0 label">初诊标志：</view>
 									<view>{{item.isFirst==1?'初诊':'复诊'}}</view>

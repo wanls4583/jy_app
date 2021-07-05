@@ -396,7 +396,7 @@
 				<view bindtap="onClickAvatar" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="notes-o" size="30px" />
 				</view>
-				<view class="font-small margin-top-20 line-height-1em color-666">营养病历</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">门诊病历</view>
 			</view>
 		</view>
 	</view>
