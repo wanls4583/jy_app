@@ -29,7 +29,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==2}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、平均而言，你每天大约连续有多少小时做以下事情？（社交型久坐行为：电脑、手机聊天、坐着或躺着打电话、短信等）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
@@ -45,7 +45,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==3}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">3、平均而言，你每天大约连续有多少小时做以下事情？（通勤型久坐行为：坐公交车、私家车、地铁等）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
@@ -61,7 +61,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==4}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">4、平均而言，你每天大约连续有多少小时做以下事情？（教育型久坐行为：作业、辅导班等）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
@@ -77,7 +77,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==5}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">5、平均而言，你每天大约连续有多少小时做以下事情？（课余爱好、兴趣久坐行为：阅读、艺术类、玩具、卡牌、棋牌等）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
@@ -93,7 +93,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==6}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">6、平均而言，你每天大约连续有多少小时做以下事情？（其他类型久坐行为）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[5]" value="{{answers.q[5]}}">
@@ -109,10 +109,10 @@
 		</view>
 	</block>
 </view>
-<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
-</view>
-<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/6</view>
+</footer>
+<footer-text>{{step}}/6</footer-text>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

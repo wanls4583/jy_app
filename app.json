@@ -132,6 +132,8 @@
     "style": "v2",
     "sitemapLocation": "sitemap.json",
     "usingComponents": {
+        "footer": "/components/footer/index",
+        "footer-text": "/components/footer-text/index",
         "user-home": "/pages/mall/home/index",
         "doctor-home": "/pages/interrogation/home/index",
         "user-mall": "/pages/mall/mall/index",

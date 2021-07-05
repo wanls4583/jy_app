@@ -311,10 +311,10 @@
 		</view>
 	</block>
 </view>
-<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
-</view>
-<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/24</view>
+</footer>
+<footer-text>{{step}}24</footer-text>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

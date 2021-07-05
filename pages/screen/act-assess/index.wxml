@@ -27,7 +27,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==2}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、你喜欢上体育课吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
@@ -41,7 +41,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==3}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">3、你们学校是否存在“挤占”或“不上”体育课的现象？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
@@ -53,7 +53,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==4}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">4、你上体育课时，经常会感觉到：</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
@@ -66,7 +66,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==5}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">5、你平均每天上几次课间操？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
@@ -80,7 +80,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==6}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">6、最近一学年，学校共组织了几次运动会？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[5]" value="{{answers.q[5]}}">
@@ -93,7 +93,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==7}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">7、你认真做课间操吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[6]" value="{{answers.q[6]}}">
@@ -106,7 +106,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==8}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">8、愿意参加学校组织的课外体育活动吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[7]" value="{{answers.q[7]}}">
@@ -120,7 +120,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==9}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">9、你每天平均用于体育锻炼的时间是？（体育锻炼是指学生在校期间参加的所有体育活动，主要包括课间操、体育课和课外体育活动）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[8]" value="{{answers.q[8]}}">
@@ -133,7 +133,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==10}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">10、你的父母支持你在课余时间内参加体育活动吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[9]" value="{{answers.q[9]}}">
@@ -146,7 +146,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==11}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">11、你的父母亲在业余时间里喜欢参加体育活动吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[10]" value="{{answers.q[10]}}">
@@ -159,7 +159,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==12}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">12、你愿意参加长跑锻炼吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[11]" value="{{answers.q[11]}}">
@@ -173,7 +173,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==13}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">13、请在以下问题中选出与你最相符的：</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[12]" value="{{answers.q[12]}}">
@@ -186,7 +186,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==14}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">13.1、有中等强度体育锻炼：（运动过程中呼吸加快到尚能整句说话，但已不能唱歌：比如快走），做上述运动的时长为：</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[13]" value="{{answers.q[13]}}">
@@ -198,7 +198,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==15}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">13.2、有高强度体育锻炼：（运动过程中呼吸急促到已不能整句说话，比如跑步、快速骑车或者进行羽毛球、篮球、足球比赛等），做上述运动的时间为：</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[14]" value="{{answers.q[14]}}">
@@ -210,7 +210,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==16}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="flex font-bold">
 					<text>14、你坚持锻炼多少年</text>
@@ -221,11 +221,11 @@
 		</view>
 	</block>
 </view>
-<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
 	<view bindtap="onSave" class="button primary primary" wx:if="{{step==16}}">提交</view>
-</view>
-<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/16</view>
+</footer>
+<footer-text>{{step}}/16</footer-text>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

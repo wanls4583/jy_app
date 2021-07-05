@@ -24,7 +24,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==2}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、你白天会感到非常疲惫吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
@@ -35,7 +35,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==3}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
@@ -46,7 +46,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==4}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">4、你通常晚上睡多长时间？（请在家长协助下填写）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
@@ -58,7 +58,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==5}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">5、你夜间大声打鼾，每夜都打鼾，或者呼吸困难吗？（请在家长协助下填写）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
@@ -95,7 +95,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==2}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、你白天经常感到困倦吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
@@ -106,7 +106,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==3}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
@@ -117,7 +117,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==4}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">4、你通常晚上睡多长时间？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
@@ -129,7 +129,7 @@
 		</view>
 	</block>
 	<block wx:if="{{step==5}}">
-		<view class="white-background-color margin-top-20">
+		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">5、你夜间大声打鼾或者每夜都打鼾吗？（请在家长协助下填写）</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
@@ -140,10 +140,10 @@
 		</view>
 	</block>
 </view>
-<view class="footer flex--center--around padding-30" style="padding-bottom:40rpx" wx:if="{{step>1}}">
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
-</view>
-<view class="position-absolute bottom-0 width-100 gray-color font-small align-center" style="z-index:101">{{step}}/5</view>
+</footer>
+<footer-text>{{step}}/5</footer-text>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>
