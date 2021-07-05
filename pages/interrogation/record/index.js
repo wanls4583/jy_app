@@ -6,7 +6,7 @@
 Page({
     data: {
         active: 0,
-        fatActiveNames: ['FAT-GROW', 'FAT-HOME', 'FAT-DISEASE', 'FAT-TREAT', 'FAT-DIET', 'FAT-SIT', 'FAT-SLEEP', 'FAT-ACTION', 'FAT-HEART'],
+        fatActiveNames: [],
         activeNames: ['info', 'screen', 'type1', 'type3', 'guide'],
         fatData: {},
         answersMap: {
@@ -143,7 +143,8 @@ Page({
             });
             var fatTypes = [];
             var fatData = [];
-            data.fatFiltrate.map((item) => {
+            var fatActiveNames = [];
+            data.fatFiltrate.map((item, index) => {
                 item.visible = true;
                 item.answers = item.answers && JSON.parse(item.answers) || {};
                 item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
@@ -213,19 +214,23 @@ Page({
                 if (item.filtrateType == 'FAT-ACTION') {
                     item._filtrateType = '身体活动水平评估'
                 }
+                if(item.visible) {
+                    item.activeName = index;
+                    fatActiveNames.push(index);
+                }
             });
             fatTypes.map((item) => {
                 fatData = fatData.concat(data.fatFiltrate.filter((_item) => {
                     return _item.filtrateType == item;
                 }));
             });
-            console.log(fatData)
             this.setData({
                 patientDocument: data.patientDocument,
                 nutritionOrder: data.nutritionOrder,
                 consultOrder: data.consultOrder,
                 filtrate: data.filtrate,
-                fatData: fatData
+                fatData: fatData,
+                fatActiveNames: fatActiveNames
             });
         });
     }

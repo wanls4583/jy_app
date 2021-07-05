@@ -150,7 +150,7 @@
 			</swiper-item>
 			<swiper-item>
 				<van-collapse bind:change="onFatCollapseChange" value="{{fatActiveNames}}">
-					<van-collapse-item name="{{item.filtrateType}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
+					<van-collapse-item name="{{item.activeName}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
 						<view class="width-100" slot="title">
 							<view class="flex--center--between">
 								<view class="color-666 font-normal">{{item._filtrateType}}</view>
