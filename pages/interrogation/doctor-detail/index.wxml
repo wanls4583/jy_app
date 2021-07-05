@@ -142,7 +142,7 @@
 <text
 	bindtap="onGoto"
 	class="position-fixed flex radius-50 font-small clickable"
-	data-url="/pages/screen/screen-select/index?doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}"
+	data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 	decode="{{true}}"
 	style="bottom:30rpx;right:30rpx;line-height:1em;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd;text-align:center;"
 	wx:if="{{screenVisible}}"

@@ -20,6 +20,7 @@ Page({
         }
     },
     onGoto(e) {
+        this.stype = e.currentTarget.dataset.type;
         // 医生角色
         if (this.data.userInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus == 1) {
             this.url = e.currentTarget.dataset.url;
@@ -33,7 +34,7 @@ Page({
     onConfirm(e) {
         if (e.detail.value.value == 1) {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/qrcode-share/index?from=screen'
+                url: `/pages/interrogation/qrcode-share/index?from=screen&stype=${this.stype}`
             });
         } else if (e.detail.value.value == 2) {
             wx.jyApp.utils.navigateTo({

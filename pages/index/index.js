@@ -125,9 +125,51 @@ Page({
                             url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.inviteDoctorId
                         });
                     } else if (this.screenDoctorId) { //扫医生筛查二维码进入
-                        wx.jyApp.utils.navigateTo({
-                            url: '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId
-                        });
+                        var sUrl = '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId;
+                        var screen = '';
+                        switch (Number(this.screenType)) {
+                            case 1:
+                                screen = 'nrs';
+                                break;
+                            case 2:
+                                screen = 'pgsga'
+                                break;
+                            case 3:
+                                screen = 'sga'
+                                break;
+                            case 4:
+                                screen = 'must'
+                                break;
+                            case 5:
+                                screen = 'mna'
+                                break;
+                        }
+                        if (screen) { //跳转到具体的筛查页
+                            wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
+                                var doctor = data.doctor;
+                                if (this.data.userInfo.role == 'USER') {
+                                    this.getPatient().then((data) => {
+                                        if (data.list && data.list.length) {
+                                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                                        } else {
+                                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                                        }
+                                        wx.jyApp.utils.navigateTo({
+                                            url: sUrl
+                                        });
+                                    });
+                                } else {
+                                    sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                                    wx.jyApp.utils.navigateTo({
+                                        url: sUrl
+                                    });
+                                }
+                            });
+                        } else {
+                            wx.jyApp.utils.navigateTo({
+                                url: sUrl
+                            });
+                        }
                     } else if (this.doctorId) { //医生主页
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/doctor-detail/index?doctorId=' + this.doctorId
@@ -174,6 +216,7 @@ Page({
                 this.inviteDoctorId = param.dId;
             } else if (param.type == 2 && param.dId) { //医生筛查二维码
                 this.screenDoctorId = param.dId;
+                this.screenType = param.stype;
             } else if (param.type == 3 && param.dId) { //医生邀请二维码分享
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 1;
@@ -311,6 +354,15 @@ Page({
             url: '/disease/diagnosis'
         }).then((data) => {
             wx.jyApp.setTempData('allDiagnosis', data.list);
+        });
+    },
+    getPatient() {
+        return wx.jyApp.http({
+            url: '/patientdocument/list',
+            data: {
+                page: 1,
+                limit: 1
+            }
         });
     },
 })

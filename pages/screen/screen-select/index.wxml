@@ -4,6 +4,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{1}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
@@ -19,6 +20,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{2}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
@@ -34,6 +36,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{3}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=sga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
@@ -49,6 +52,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{4}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=must&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
@@ -64,6 +68,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{5}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=mna&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
@@ -79,6 +84,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{6}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=fat&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 				wx:if="{{userInfo.role=='USER'}}"
 			>
@@ -95,6 +101,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{7}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=fat-assess&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 				wx:if="{{userInfo.role=='USER'}}"
 			>

@@ -13,6 +13,7 @@ Page({
         this.uId = this.data.userInfo && this.data.userInfo.id || '';
         this.dId = this.data.doctorInfo && this.data.doctorInfo.id || '';
         this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
+        this.stype = option.stype; //要调转的具体筛查方式
         this.setData({
             from: option.from
         });
@@ -20,7 +21,7 @@ Page({
             this.setData({
                 barcodeUrl: option.barcodeUrl
             })
-        } else if (option.from == 'screen') {
+        } else if (option.from == 'screen') { //调转到筛查页面
             this.getQrCode(2);
         } else if (option.from == 'invite') {
             this.getQrCode(3);
@@ -55,7 +56,7 @@ Page({
     onShareAppMessage: function () {
         var path = '/pages/index/index?type=2&dId=' + this.dId;
         if (this.data.from == 'screen') {
-            var url = `/pages/screen/screen-select/index?doctorId=${this.uId}&doctorName=${this.dName}`;
+            var url = `/pages/screen/screen-select/index?doctorId=${this.dId}&doctorName=${this.dName}`;
             url = encodeURIComponent(url);
             path = '/pages/index/index?type=-1&url=' + url;
         }
@@ -146,7 +147,7 @@ Page({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                scene: `type=${type},dId=${this.dId},uId=${this.uId}`
+                scene: `type=${type},dId=${this.dId},uId=${this.uId}${type==2&&this.stype?',stype='+this.stype:''}`
             }
         }).then((data) => {
             this.setData({

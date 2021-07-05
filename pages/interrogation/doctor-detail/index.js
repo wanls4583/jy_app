@@ -19,6 +19,7 @@ Page({
         });
         this.getDoctorInfo();
         this.getAppraiseList();
+        this.getPatient();
         if (option.from == 'barcode') {
             this.setData({
                 screenVisible: true
@@ -178,5 +179,18 @@ Page({
                 url: `/pages/interrogation/${type == 3 || type == 4 ? 'appointment-select' : 'illness-edit'}/index?doctorId=${this.data.doctorId}&type=${type}`
             });
         }
-    }
+    },
+    getPatient() {
+        wx.jyApp.http({
+            url: '/patientdocument/list',
+            data: {
+                page: 1,
+                limit: 1
+            }
+        }).then((data) => {
+            this.setData({
+                patientList: data.list || []
+            });
+        });
+    },
 })
