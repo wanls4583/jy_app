@@ -132,7 +132,7 @@
 			<view class="padding-30">
 				<viwe class="font-bold">10、三餐之外，您食用水果作为零食的频率是？</viwe>
 				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[9]" value="{{answers.q[9]}}">
-					<van-radio name="{{0}}">从不或每周不到1次</van-radio>
+					<van-radio name="{{0}}">从不</van-radio>
 					<van-radio name="{{2}}">每周少于1次</van-radio>
 					<van-radio name="{{4}}">每周1~2次</van-radio>
 					<van-radio name="{{5}}">每周3次及以上</van-radio>
