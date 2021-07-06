@@ -21,7 +21,7 @@
 		<view class="padding-top-bottom-30">
 			<view class="padding-left-30 font-bold">2、减重史</view>
 			<van-field bind:input="onInput" data-prop="answers.way" label="减重方法" placeholder="请输入减重方法" value="{{answers.way}}" />
-			<van-field bind:input="onInput" data-prop="answers.continueTime2" label="持续时间" placeholder="请输入减重持续时" value="{{answers.continueTime2}}" />
+			<van-field bind:input="onInput" data-prop="answers.continueTime2" label="持续时间" placeholder="请输入减重持续时间" value="{{answers.continueTime2}}" />
 			<van-field bind:input="onInputNum" data-prop="answers.count" label="减重次数" placeholder="请输入减重次数" value="{{answers.count}}" />
 			<van-field bind:input="onInput" data-prop="answers.effect" label="减重效果" placeholder="请输入减重效果" value="{{answers.effect}}" />
 		</view>

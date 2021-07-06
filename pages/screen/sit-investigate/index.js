@@ -107,9 +107,11 @@ Page({
         if (q[5] >= 2) {
             resultDescription.push('有其他类型久坐行为');
         }
-        var result = '无久坐行为';
+        var result = '';
         if(score >= 8 || resultDescription.length) {
             result = '有久坐行为';
+        } else if(q.length) {
+            result = '无久坐行为';
         }
         this.setData({
             result: result,

@@ -143,17 +143,18 @@ Page({
                 }
             }
         });
-        var result = '膳食营养无风险';
-        if (score <= 75) {
-            result = '膳食营养风险可疑';
-        }
+        var result = '';
         if (score < 60) {
             result = '膳食营养有风险';
+        } else if (score <= 75) {
+            result = '膳食营养风险可疑';
+        } else if (this.data.answers.q.length) {
+            result = '膳食营养无风险';
         }
         this.setData({
             result: result,
             resultDescription: resultDescription.join(';'),
-            isRisk: result != '膳食营养无风险',
+            isRisk: result && result != '膳食营养无风险',
         });
     },
     loadInfo(id) {

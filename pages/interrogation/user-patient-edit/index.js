@@ -128,6 +128,12 @@ Page({
                 // 筛查页面
                 this.loadInfo(data.id).then(() => {
                     wx.jyApp.setTempData('screenPatient', this.data.patient);
+                    if (this.screen == 'fat' || this.screen == 'fat-assess') {
+                        if (!(this.data.patient.age >= 6 && this.data.patient.age <= 6)) {
+                            wx.jyApp.toast('本项适用年龄为6-18岁');
+                            return;
+                        }
+                    }
                     wx.redirectTo({
                         url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
                     });

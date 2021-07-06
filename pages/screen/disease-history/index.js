@@ -89,10 +89,12 @@ Page({
         });
     },
     countResult() {
-        var result = '正常';
+        var result = '';
         var q = this.data.answers.q;
         if (q[0] && q[0].length && q[0][0] != 6 || q[1] && q[1].length && q[1][0] != 7) {
             result = '异常';
+        } else if(q.length) {
+            result = '正常';
         }
         this.setData({
             result: result,

@@ -88,9 +88,11 @@ Page({
     },
     countResult() {
         var q = this.data.answers.q;
-        var result = '正常';
+        var result = '';
         if ((q[0] == 2 || q[0] == 3) || (q[1] == 2 || q[1] == 3) || (q[2] == 2) || (q[3] == 1 || q[3] == 3)) {
             result = '异常';
+        } else if(q.length) {
+            result = '正常';
         }
         this.setData({
             result: result,

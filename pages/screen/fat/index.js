@@ -200,10 +200,6 @@ Page({
             wx.jyApp.toast('请填写体重');
             return;
         }
-        if (!(this.data.filtrateFat.age >= 6 && this.data.filtrateFat.age <= 18)) {
-            wx.jyApp.toast('本筛查适用年龄为6-18岁');
-            return;
-        }
         wx.jyApp.showLoading('提交中...', true);
         wx.jyApp.http({
             url: `/filtrate/fat/${this.data.filtrateFat.id ? 'update' : 'save'}`,

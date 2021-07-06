@@ -79,7 +79,7 @@ Page({
         }, 500);
     },
     countResult() {
-        var result = '睡眠正常';
+        var result = '';
         var resultDescription = [];
         var q = this.data.answers.q;
         if (q[0] == 1) {
@@ -102,6 +102,8 @@ Page({
         }
         if (resultDescription.length) {
             result = '睡眠异常';
+        } else if(q.length) {
+            result = '睡眠正常';
         }
 
         this.setData({

@@ -180,10 +180,9 @@ Page({
                 if (item.filtrateType == 'FAT-DISEASE') {
                     item._filtrateType = '疾病史';
                     item.visible = false;
-                    if (!item.answers.q || !item.answers.q.length) {
-                        item.visible = false;
-                    } else if (item.answers.q[0] >= 1 && item.answers.q[0] <= 5 ||
-                        item.answers.q[1] >= 1 && item.answers.q[0] <= 6) {
+                    if (item.answers.q.length &&
+                        (item.answers.q[0] && String(item.answers.q[0]) != 6 ||
+                            item.answers.q[1] && String(item.answers.q[1]) != 7)) {
                         item.visible = true;
                         item.answers.q.map((_item, i) => {
                             if (_item) {
@@ -217,7 +216,7 @@ Page({
                 if (item.filtrateType == 'FAT-BODY') {
                     item._filtrateType = '体脂肪含量测量'
                 }
-                if(item.visible) {
+                if (item.visible) {
                     item.activeName = index;
                     fatActiveNames.push(index);
                 }

@@ -1,7 +1,7 @@
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
-			<van-tab title="门诊病历"></van-tab>
+			<van-tab title="营养病历"></van-tab>
 			<van-tab title="减重报告"></van-tab>
 		</van-tabs>
 	</view>
