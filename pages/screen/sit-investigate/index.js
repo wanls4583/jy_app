@@ -124,6 +124,7 @@ Page({
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: data.fatEvaluate.filtrateId || '',
@@ -142,7 +143,7 @@ Page({
         var data = {
             id: this.data.id,
             filtrateId: this.data.filtrateId,
-            patientId: this.data.patient.patientId || this.data.patient.id,
+            patientId: this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             type: 'FAT-SIT',
             result: this.data.result,

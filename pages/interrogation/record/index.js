@@ -214,6 +214,9 @@ Page({
                 if (item.filtrateType == 'FAT-ACTION') {
                     item._filtrateType = '身体活动水平评估'
                 }
+                if (item.filtrateType == 'FAT-BODY') {
+                    item._filtrateType = '体脂肪含量测量'
+                }
                 if(item.visible) {
                     item.activeName = index;
                     fatActiveNames.push(index);

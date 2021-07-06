@@ -218,7 +218,7 @@
 							<!-- 久坐行为调查 -->
 							<!-- 睡眠评估 -->
 							<!-- 活动水平评估 -->
-							<block wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'}}">
+							<block wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'||item.filtrateType=='FAT-BODY'}}">
 								<view class="flex">
 									<text class="flex-shrink-0">评估结果：</text>
 									<text>{{item.filtrateResult}}</text>

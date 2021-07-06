@@ -1,0 +1,3 @@
+.van-radio__label--right {
+    flex-grow: 1;
+}

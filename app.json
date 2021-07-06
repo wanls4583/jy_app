@@ -99,6 +99,8 @@
             "sleep-result/index",
             "act-assess/index",
             "act-result/index",
+            "body-fat/index",
+            "body-result/index",
             "pgsga/index",
             "fat/index",
             "fat-result/index"

@@ -234,7 +234,7 @@
 		</view>
 	</block>
 </view>
-<footer style="padding-bottom:40rpx" wx:if="{{step>-1}}">
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
 	<view bindtap="onSave" class="button primary primary" wx:if="{{step==17}}">提交</view>
 </footer>

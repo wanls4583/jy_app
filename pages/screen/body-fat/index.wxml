@@ -1,0 +1,37 @@
+<view class="container padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">1、请选择你的体脂肪含量（测量方法：生物电阻抗法（BIA））</viwe>
+				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+					<van-radio name="{{1}}">20%以下</van-radio>
+					<van-radio name="{{2}}">20%-25%</van-radio>
+					<van-radio name="{{3}}">25%-30%</van-radio>
+					<van-radio name="{{4}}">30%-35%</van-radio>
+					<van-radio name="{{5}}">35%-40%</van-radio>
+					<van-radio name="{{6}}">40%以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+</view>
+<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
+	<view bindtap="onBack" class="button primary plain">上一页</view>
+</footer>
+<footer-text>{{step}}/1</footer-text>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

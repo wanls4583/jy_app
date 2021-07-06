@@ -69,100 +69,66 @@ Page({
             [`${prop}`]: e.detail,
         });
         setTimeout(() => {
-            if (step == 17) {
+            if (step == 1) {
                 this.onSave();
             } else {
-                if (step == 14) {
-                    var anser = this.data.answers[13];
-                    if (anser == 1 || anser == 2) {
-                        step = 17
-                    } else if (anser = 3) {
-                        step++;
-                    } else {
-                        step += 2;
-                    }
-                } else if (step == 15) {
-                    step += 2;
-                } else {
-                    step++;
-                }
                 this.setData({
-                    step: step
+                    step: step + 1
                 });
             }
         }, 500);
     },
     countScore() {
         var result = '';
-        var resultDescription = [];
         var q = this.data.answers.q;
-        var isRisk = false;
-        if (q[13] = 1) {
-            result = '几乎没有任何体力活动';
-            isRisk = true;
-        }
-        if (q[13] == 2) {
-            result = '有很少的体力活动';
-            isRisk = true;
-        }
-        if (q[13 == 3]) {
-            if (q[14] == 1) {
-                result = '中等强度体力活动不足';
-                isRisk = true;
+        if (this.data.patient.sex == 1) {
+            if (q[0] == 1) {
+                result = '体脂肪含量正常';
             }
-            if (q[14] == 2) {
-                result = '中等强度体力活动适宜';
+            if (q[0] = 2) {
+                result = '轻度肥胖';
             }
-            if (q[14] == 3) {
-                result = '中等强度体力活动充足';
+            if (q[0] = 3) {
+                result = '中度肥胖';
+            }
+            if (q[0] = 4 || q[0] == 5 || q[0] == 6) {
+                result = '重度肥胖';
+            }
+        } else {
+            if (this.data.patient.age >= 6 && this.data.patient.age <= 14) {
+                if (q[0] == 1 || q[0] == 2) {
+                    result = '体脂肪含量正常';
+                }
+                if (q[0] = 3) {
+                    result = '轻度肥胖';
+                }
+                if (q[0] == 4) {
+                    result = '中度肥胖';
+                }
+                if (q[0] == 5 || q[0] == 6) {
+                    result = '重度肥胖';
+                }
+            }
+            if (this.data.patient.age >= 15 && this.data.patient.age <= 18) {
+                if (q[0] == 1 || q[0] == 2 || q[0] == 3) {
+                    result = '体脂肪含量正常';
+                }
+                if (q[0] = 4) {
+                    result = '轻度肥胖';
+                }
+                if (q[0] == 5) {
+                    result = '中度肥胖';
+                }
+                if (q[0] == 6) {
+                    result = '重度肥胖';
+                }
             }
         }
-        if (q[13] == 4) {
-            if (q[15] == 1) {
-                result = '高强度体力活动不足';
-                isRisk = true;
-            }
-            if (q[15] == 2) {
-                result = '高强度体力活动适宜';
-            }
-            if (q[15] == 1) {
-                result = '高强度体力活动充足';
-            }
-        }
-        if (q[0] == 1 && q[1] < 5 || (q[0] == 2 || q[0] == 3) && q[1] < 4 || q[0] == 4 && q[1] < 3) {
-            resultDescription.push('体育课活动时间不足');
-        }
-        if (q[3] == 1 && resultDescription.indexOf('体育课活动时间不足') == -1) {
-            resultDescription.push('体育课活动时间不足');
-        }
-        if (q[5] == 1) {
-            resultDescription.push('课间操活动时间不足');
-        }
-        if (q[6] == 1) {
-            resultDescription.push('社会支持不足');
-        }
-        if (q[9] == 1 || q[9] == 2) {
-            resultDescription.push('体育活动时间不足');
-        }
-        if (q[10] == 3 || q[10] == 4 && resultDescription.indexOf('社会支持不足') == 1) {
-            resultDescription.push('社会支持不足');
-        }
-        if (q[11] == 1 && resultDescription.indexOf('社会支持不足') == 1) {
-            resultDescription.push('社会支持不足');
-        }
-        if ((q[2] == 4 || q[2] == 5) &&
-            (q[7] == 1 || q[7] == 2) &&
-            (q[8] == 4 || q[8] == 5) &&
-            (q[12] == 4 || q[21] == 5)) {
-            resultDescription.push('运动意愿不强烈');
-        }
-        if (resultDescription.length) {
-            isRisk = true;
-        }
+
         this.setData({
             result: result,
-            resultDescription: resultDescription.join(';'),
-            isRisk: isRisk,
+            resultDescription: result == '体脂肪含量正常' ? '未发现存在体脂肪含量问题' : result,
+            isRisk: result != '体脂肪含量正常',
         });
     },
     loadInfo(id) {
@@ -193,15 +159,11 @@ Page({
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
-            type: 'FAT-ACTION',
+            type: 'FAT-BODY',
             result: this.data.result,
             resultDescription: this.data.resultDescription,
             isRisk: this.data.isRisk
         };
-        if (this.data.answers.q[15] === undefined) {
-            wx.jyApp.toast('请填写锻炼年数');
-            return;
-        }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/fatevaluate/${data.id?'update':'save'}`,
@@ -213,19 +175,18 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    var str = this.data.result.slice(0, 2);
-                    if (str == '中等') {
+                    if(this.data.result == '轻度肥胖') {
                         result = 2;
                     }
-                    if (str == '有很') {
+                    if(this.data.result == '中度肥胖') {
                         result = 3;
                     }
-                    if (str == '几乎') {
+                    if(this.data.result == '重度肥胖') {
                         result = 4;
                     }
-                    wx.jyApp.setTempData('act-results', this.data.resultDescription.split(';'));
+                    wx.jyApp.setTempData('body-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/act-result/index?result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/body-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patient.id}`
                     });
                 }
             });

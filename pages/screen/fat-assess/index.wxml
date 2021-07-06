@@ -103,9 +103,9 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30"
-				data-url="/pages/screen/heart-assess/index"
+				data-url="/pages/screen/body-fat/index"
 			>
-				<text>心肺功能评估</text>
+				<text>体脂肪含量测量</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
 				</view>

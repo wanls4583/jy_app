@@ -75,6 +75,9 @@ Page({
             case 'FAT-ACTION':
                 url = '/pages/screen/act-assess/index';
                 break;
+            case 'FAT-BODY':
+                url = '/pages/screen/body-fat/index';
+                break;
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
@@ -174,6 +177,10 @@ Page({
                 }
                 if (item.filtrateType == 'FAT-ACTION') {
                     item._filtrateType = '身体活动水平评估'
+                    item.label = '评估';
+                }
+                if (item.filtrateType == 'FAT-BODY') {
+                    item._filtrateType = '体脂肪含量测量'
                     item.label = '评估';
                 }
             });
