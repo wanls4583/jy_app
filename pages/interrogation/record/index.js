@@ -200,7 +200,7 @@ Page({
                     }
                 }
                 if (item.filtrateType == 'FAT-TREAT') {
-                    item._filtrateType = '肥胖和治疗史';
+                    item._filtrateType = '肥胖治疗史';
                 }
                 if (item.filtrateType == 'FAT-DIET') {
                     item._filtrateType = '膳食调查'

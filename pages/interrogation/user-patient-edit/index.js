@@ -102,7 +102,7 @@ Page({
             wx.jyApp.toast('请填出生日期');
             return;
         }
-        if (this.screen != 'fat' && !/1\d{10}/.test(this.data.patient.phone)) {
+        if (this.screen != 'fat' && this.screen != 'fat-assess' && !/1\d{10}/.test(this.data.patient.phone)) {
             wx.jyApp.toast('手机号格式不正确');
             return;
         }

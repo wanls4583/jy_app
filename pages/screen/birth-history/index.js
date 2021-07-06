@@ -88,11 +88,12 @@ Page({
     countResult() {
         var q = this.data.answers.q;
         var result = '正常';
-        if ((q[0] == 2 || q[0] == 3) || (q[1] == 2 || q[1] == 3) || (q[2] == 2) || (q[3] == 1 || q[3] == c)) {
-            result = '异常'
+        if ((q[0] == 2 || q[0] == 3) || (q[1] == 2 || q[1] == 3) || (q[2] == 2) || (q[3] == 1 || q[3] == 3)) {
+            result = '异常';
         }
         this.setData({
-            result: result
+            result: result,
+            isRisk: result == '异常'
         });
     },
     onSave() {
@@ -103,7 +104,8 @@ Page({
             patientId: this.data.patient.patientId || this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
-            type: 'FAT-GROW'
+            type: 'FAT-GROW',
+            isRisk: this.data.isRisk
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({

@@ -98,11 +98,12 @@ Page({
     },
     countResult() {
         var result = '无肥胖治疗史';
-        if (this.data.answers.way || this.data.answers.continueTime2 || this.data.answers.count || this.data.answers.effect) {
+        if (this.data.answers.way || this.data.answers.continueTime1 || this.data.answers.continueTime2 || this.data.answers.count || this.data.answers.effect) {
             result = '有肥胖治疗史'
         }
         this.setData({
-            result: result
+            result: result,
+            isRisk: result == '有肥胖治疗史'
         });
     },
     onSave() {
@@ -113,6 +114,7 @@ Page({
             patientId: this.data.patient.patientId || this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
+            isRisk: this.data.isRisk,
             type: 'FAT-TREAT'
         };
         wx.jyApp.showLoading('加载中...', true);

@@ -96,15 +96,19 @@ Page({
         var result = '';
         var resultDescription = [];
         var q = this.data.answers.q;
+        var isRisk = false;
         if (q[12] = 1) {
             result = '几乎没有任何体力活动';
+            isRisk = true;
         }
         if (q[12] == 2) {
             result = '有很少的体力活动';
+            isRisk = true;
         }
         if (q[12 == 3]) {
             if (q[13] == 1) {
                 result = '中等强度体力活动不足';
+                isRisk = true;
             }
             if (q[13] == 2) {
                 result = '中等强度体力活动适宜';
@@ -116,6 +120,7 @@ Page({
         if (q[12] == 4) {
             if (q[14] == 1) {
                 result = '高强度体力活动不足';
+                isRisk = true;
             }
             if (q[14] == 2) {
                 result = '高强度体力活动适宜';
@@ -148,9 +153,13 @@ Page({
             (q[11] == 4 || q[11] == 5)) {
             resultDescription.push('运动意愿不强烈');
         }
+        if(resultDescription.length) {
+            isRisk = true;
+        }
         this.setData({
             result: result,
-            resultDescription: resultDescription.join(';')
+            resultDescription: resultDescription.join(';'),
+            isRisk: isRisk,
         });
     },
     loadInfo(id) {
@@ -182,7 +191,8 @@ Page({
             answers: JSON.stringify(this.data.answers),
             type: 'FAT-ACTION',
             result: this.data.result,
-            resultDescription: this.data.resultDescription
+            resultDescription: this.data.resultDescription,
+            isRisk: this.data.isRisk
         };
         if (this.data.answers.q[15] === undefined) {
             wx.jyApp.toast('请填写锻炼年数');

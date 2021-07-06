@@ -145,28 +145,36 @@ Page({
                     }
                 }
                 if (item.filtrateType == 'FAT-GROW') {
-                    item._filtrateType = '出生、喂养史、发育史'
+                    item._filtrateType = '出生、喂养史、发育史';
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-HOME') {
                     item._filtrateType = '家族史'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-DISEASE') {
                     item._filtrateType = '疾病史'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-TREAT') {
-                    item._filtrateType = '肥胖和治疗史'
+                    item._filtrateType = '肥胖治疗史'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-DIET') {
                     item._filtrateType = '膳食调查'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-SIT') {
                     item._filtrateType = '久坐行为调查'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-SLEEP') {
                     item._filtrateType = '睡眠评估'
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-ACTION') {
                     item._filtrateType = '身体活动水平评估'
+                    item.label = '评估';
                 }
             });
             this.data.list = this.data.list.concat(data.page.list);

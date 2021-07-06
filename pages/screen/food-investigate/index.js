@@ -152,7 +152,8 @@ Page({
         }
         this.setData({
             result: result,
-            resultDescription: resultDescription.join(';')
+            resultDescription: resultDescription.join(';'),
+            isRisk: result != '膳食营养无风险',
         });
     },
     loadInfo(id) {
@@ -184,7 +185,8 @@ Page({
             answers: JSON.stringify(this.data.answers),
             type: 'FAT-DIET',
             result: this.data.result,
-            resultDescription: this.data.resultDescription
+            resultDescription: this.data.resultDescription,
+            isRisk: this.data.isRisk
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({

@@ -113,7 +113,8 @@ Page({
         }
         this.setData({
             result: result,
-            resultDescription: resultDescription.join(';')
+            resultDescription: resultDescription.join(';'),
+            isRisk: result == '有久坐行为'
         });
     },
     loadInfo(id) {
@@ -145,7 +146,8 @@ Page({
             answers: JSON.stringify(this.data.answers),
             type: 'FAT-SIT',
             result: this.data.result,
-            resultDescription: this.data.resultDescription
+            resultDescription: this.data.resultDescription,
+            isRisk: this.data.isRisk
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({

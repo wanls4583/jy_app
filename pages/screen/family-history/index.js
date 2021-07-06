@@ -92,7 +92,8 @@ Page({
             result = '异常';
         }
         this.setData({
-            result: result
+            result: result,
+            isRisk: result == '异常'
         });
     },
     onSave() {
@@ -103,6 +104,7 @@ Page({
             patientId: this.data.patient.patientId || this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
+            isRisk: this.data.isRisk,
             type: 'FAT-HOME'
         };
         wx.jyApp.showLoading('加载中...', true);
