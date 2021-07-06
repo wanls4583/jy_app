@@ -36,7 +36,7 @@ Page({
     },
     onNext() {
         wx.redirectTo({
-            url: `/pages/interrogation/record/index?patientId=${this.patientId}`
+            url: `/pages/interrogation/record/index?active=1&patientId=${this.patientId}`
         });
     }
 })

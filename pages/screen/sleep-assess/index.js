@@ -104,6 +104,7 @@ Page({
             result = '睡眠异常';
         } else if(q.length) {
             result = '睡眠正常';
+            resultDescription = ['未发现存在睡眠问题'];
         }
 
         this.setData({

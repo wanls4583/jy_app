@@ -15,7 +15,7 @@ Page({
         var _result = option._result;
         var color = 'rgb(126,210,107)';
         if (result == 2) {
-            color = 'rgb(240,139,72)';
+            color = 'rgb(236,76,23)';
         }
         this.setData({
             result: result,

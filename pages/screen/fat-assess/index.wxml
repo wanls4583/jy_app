@@ -1,12 +1,8 @@
-<view class="container">
-	<view class="white-background-color">
+<view class="container padding-bottom-footer">
+	<view class="white-background-color" wx:if="{{active==0}}">
 		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">询问调查</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/birth-history/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/birth-history/index">
 				<text>出生、喂养史、发育史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -14,11 +10,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/family-history/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/family-history/index">
 				<text>家族史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -26,11 +18,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/disease-history/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/disease-history/index">
 				<text>疾病史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -38,11 +26,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/fat-history/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/fat-history/index">
 				<text>肥胖治疗史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -51,11 +35,7 @@
 		</view>
 		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">膳食状况评估</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/food-investigate/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/food-investigate/index">
 				<text>膳食调查</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -63,11 +43,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/sit-investigate/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/sit-investigate/index">
 				<text>久坐行为调查</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -75,11 +51,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/sleep-assess/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/sleep-assess/index">
 				<text>睡眠评估</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -88,11 +60,7 @@
 		</view>
 		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">身体活动评估</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-url="/pages/screen/act-assess/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/act-assess/index">
 				<text>活动水平评估</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -100,11 +68,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view
-				bindtap="onGoto"
-				class="flex--center--between padding-top-bottom-30"
-				data-url="/pages/screen/body-fat/index"
-			>
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/screen/body-fat/index">
 				<text>体脂肪含量测量</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -112,4 +76,96 @@
 			</view>
 		</view>
 	</view>
+	<view class="white-background-color" wx:if="{{active==1}}">
+		<van-collapse bind:change="onFatCollapseChange" value="{{fatActiveNames}}">
+			<van-collapse-item name="{{item.activeName}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
+				<view class="width-100" slot="title">
+					<view class="flex--center--between">
+						<view class="color-666 font-normal">{{item._filtrateType}}</view>
+						<view class="color-666 align-center font-normal">{{item.answers.filtrateDate}}</view>
+					</view>
+				</view>
+				<view class="padding-30">
+					<!-- 出生史 -->
+					<block wx:if="{{item.filtrateType=='FAT-GROW'}}">
+						<view class="flex">
+							<text class="flex-shrink-0">出生体质量：</text>
+							<text>{{item.answers.q[0]}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">6个月内喂养方式：</text>
+							<text>{{item.answers.q[1]}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">是否早产：</text>
+							<text>{{item.answers.q[2]}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">青春期性成熟：</text>
+							<text>{{item.answers.q[3]}}</text>
+						</view>
+					</block>
+					<!-- 家族史 -->
+					<block wx:if="{{item.filtrateType=='FAT-HOME'}}">
+						<view wx:for="{{item.answers.q}}" wx:key="index">{{index+1}}、{{item}}</view>
+					</block>
+					<!-- 疾病史 -->
+					<block wx:if="{{item.filtrateType=='FAT-DISEASE'}}">
+						<view wx:for="{{item.answers.q[0]}}" wx:key="index">{{index+1}}、{{item}}</view>
+						<view wx:if="{{item.answers.q[1] && item.answers.q[1].length}}">
+							<text>{{item.answers.q[0].length+1}}、有以下疾病：</text>
+							<text>{{item.answers.q[1]}}</text>
+						</view>
+					</block>
+					<!-- 肥胖治疗 -->
+					<block wx:if="{{item.filtrateType=='FAT-TREAT'}}">
+						<view>1、超重或肥胖史</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">起始时间：</text>
+							<text>{{item.answers.beginTime}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">持续时间：</text>
+							<text>{{item.answers.continueTime1}}</text>
+						</view>
+						<view class="margin-top-20">2、减重史</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">减重方法：</text>
+							<text>{{item.answers.way}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">持续时间：</text>
+							<text>{{item.answers.continueTime2}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">减重次数：</text>
+							<text>{{item.answers.count}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">减重效果：</text>
+							<text>{{item.answers.effect}}</text>
+						</view>
+					</block>
+					<!-- 膳食调查 -->
+					<!-- 久坐行为调查 -->
+					<!-- 睡眠评估 -->
+					<!-- 活动水平评估 -->
+					<block
+						wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'||item.filtrateType=='FAT-BODY'}}"
+					>
+						<view class="flex">
+							<text class="flex-shrink-0">评估结果：</text>
+							<text>{{item.filtrateResult}}</text>
+						</view>
+						<view class="margin-top-20">结果解释：</view>
+						<view class="margin-top-20" wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+					</block>
+				</view>
+			</van-collapse-item>
+		</van-collapse>
+	</view>
 </view>
+<footer style="padding:0">
+	<view bindtap="onSwitch" class="width-50 padding-30 border align-center {{active==0?'primary-color':''}}" data-active="{{0}}">评估问卷</view>
+	<view bindtap="onSwitch" class="width-50 padding-30 border border-left-0 align-center {{active==1?'primary-color':''}}" data-active="{{1}}">查看报告</view>
+</footer>

@@ -73,10 +73,10 @@ Page({
                 this.onSave();
             } else {
                 if (step == 14) {
-                    var anser = this.data.answers[13];
-                    if (anser == 1 || anser == 2) {
+                    var answer = this.data.answers.q[13];
+                    if (answer == 1 || answer == 2) {
                         step = 17
-                    } else if (anser = 3) {
+                    } else if (answer = 3) {
                         step++;
                     } else {
                         step += 2;
@@ -97,13 +97,16 @@ Page({
         var resultDescription = [];
         var q = this.data.answers.q;
         var isRisk = false;
+        this.result = 1;
         if (q[13] = 1) {
             result = '几乎没有任何体力活动';
             isRisk = true;
+            this.result = 3;
         }
         if (q[13] == 2) {
             result = '有很少的体力活动';
             isRisk = true;
+            this.result = 2;
         }
         if (q[13 == 3]) {
             if (q[14] == 1) {
@@ -212,20 +215,9 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = 1;
-                    var str = this.data.result.slice(0, 2);
-                    if (str == '中等') {
-                        result = 2;
-                    }
-                    if (str == '有很') {
-                        result = 3;
-                    }
-                    if (str == '几乎') {
-                        result = 4;
-                    }
                     wx.jyApp.setTempData('act-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/act-result/index?result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/act-result/index?result=${this.result}&_result=${this.data.result}`
                     });
                 }
             });
@@ -234,8 +226,22 @@ Page({
         });
     },
     onBack() {
+        var step = this.data.step
+        if (step == 16) {
+            step = 14;
+        } else if (step == 17) {
+            if (this.data.answers.q[13] == 1 || this.data.answers.q[13] == 2) {
+                step = 14;
+            } else if (this.data.answers.q[13] == 3) {
+                step = 15;
+            } else {
+                step--;
+            }
+        } else {
+            step--;
+        }
         this.setData({
-            step: this.data.step - 1
+            step: step
         });
     }
 })

@@ -54,6 +54,9 @@ Page({
     onLoad(option) {
         this.patientId = option.patientId;
         this.getInfo();
+        this.setData({
+            active: option.active || 0
+        });
     },
     onUnload() {},
     onCollapseChange(e) {

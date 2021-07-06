@@ -112,6 +112,7 @@ Page({
             result = '有久坐行为';
         } else if(q.length) {
             result = '无久坐行为';
+            resultDescription = ['未发现存在久坐行为'];
         }
         this.setData({
             result: result,
