@@ -129,7 +129,10 @@ Page({
                 result = '高强度体力活动充足';
             }
         }
-        if (q[2] == 1) {
+        if (q[16] == 1 && q[0] < 5 || (q[16] == 2 || q[16] == 3) && q[0] < 4 || q[16] == 4 && q[0] < 3) {
+            resultDescription.push('体育课活动时间不足');
+        }
+        if (q[2] == 1 && resultDescription.indexOf('体育课活动时间不足') == -1) {
             resultDescription.push('体育课活动时间不足');
         }
         if (q[4] == 1) {
@@ -138,7 +141,7 @@ Page({
         if (q[5] == 1) {
             resultDescription.push('社会支持不足');
         }
-        if (q[8] == 1 || q[8] == 2 && resultDescription.indexOf('体育活动时间不足') == 1) {
+        if (q[8] == 1 || q[8] == 2) {
             resultDescription.push('体育活动时间不足');
         }
         if (q[9] == 3 || q[9] == 4 && resultDescription.indexOf('社会支持不足') == 1) {
@@ -153,7 +156,7 @@ Page({
             (q[11] == 4 || q[11] == 5)) {
             resultDescription.push('运动意愿不强烈');
         }
-        if(resultDescription.length) {
+        if (resultDescription.length) {
             isRisk = true;
         }
         this.setData({
