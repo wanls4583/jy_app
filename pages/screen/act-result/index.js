@@ -33,4 +33,9 @@ Page({
     onBack() {
         wx.navigateBack();
     },
+    onNext() {
+        wx.redirectTo({
+            url: '/pages/screen/body-fat/index'
+        });
+    }
 })

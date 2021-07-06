@@ -14,6 +14,7 @@ Page({
         var result = option.result;
         var _result = option._result;
         var color = 'rgb(126,210,107)';
+        this.patientId = option.patientId
         if (result == 2 || result == 3) {
             color = 'rgb(240,139,72)';
         }
@@ -25,7 +26,6 @@ Page({
             results: results,
             _result: _result,
             color: color,
-            patientId: option.patientId
         });
     },
     onGoto(e) {
@@ -34,4 +34,9 @@ Page({
     onBack() {
         wx.navigateBack();
     },
+    onNext() {
+        wx.redirectTo({
+            url: `/pages/interrogation/record/index?patientId=${this.patientId}`
+        });
+    }
 })
