@@ -120,7 +120,7 @@ Page({
             }
         }
         // 方式三
-        if (this.data.filtrateFat.WHtR >= 0.48) {
+        if (this.data.filtrateFat.WHtR >= 0.5) {
             result3 = 3;
         }
         var result = result1;
