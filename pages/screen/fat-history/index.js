@@ -14,7 +14,6 @@ Page({
             continueTime1: '',
             way: '',
             continueTime2: '',
-            way: '',
             count: '',
             effect: '',
         },
@@ -99,7 +98,7 @@ Page({
     },
     countResult() {
         var result = '无肥胖治疗史';
-        if (this.data.answers.way || this.data.answers.continueTime1 || this.data.answers.continueTime2 || this.data.answers.count || this.data.answers.effect) {
+        if (this.data.answers.way || this.data.answers.continueTime2 || this.data.answers.count || this.data.answers.effect) {
             result = '有肥胖治疗史'
         }
         this.setData({
