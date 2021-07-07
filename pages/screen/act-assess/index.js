@@ -76,7 +76,7 @@ Page({
                     var answer = this.data.answers.q[13];
                     if (answer == 1 || answer == 2) {
                         step = 17
-                    } else if (answer = 3) {
+                    } else if (answer == 3) {
                         step++;
                     } else {
                         step += 2;
