@@ -16,20 +16,24 @@ Page({
         //未读消息数量
         this.msgCount = -1;
         this.firstLoad = true;
+        var today = new Date();
+        this.today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
     },
     onShow() {
         this.getMessageCount().then(() => {
             if (!this.checkMsgCount() && !this.firstLoad) {
                 this.checkMsgLength();
             }
-        }).finally(()=>{
+        }).finally(() => {
             this.firstLoad = false;
         });
     },
     onClickMsg(e) {
         var id = e.currentTarget.dataset.id;
         var roomId = e.currentTarget.dataset.roomid;
-        if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
+        if (!wx.jyApp.utils.checkDoctor({
+                checkStatus: true
+            })) {
             return;
         }
         wx.jyApp.utils.navigateTo({
@@ -39,11 +43,11 @@ Page({
             var item = this.data.messageList[i];
             if (item.id == id) {
                 if (item.notReadNum) {
-                    item.notReadNum = 0;
                     var msgCount = wx.jyApp.store.msgCount;
                     if (msgCount > 0) {
-                        this.updateMsgCount(wx.jyApp.store.msgCount - 1);
+                        this.updateMsgCount(wx.jyApp.store.msgCount - item.notReadNum);
                     }
+                    item.notReadNum = 0;
                 }
                 this.setData({
                     [`messageList[${i}]`]: item
@@ -81,16 +85,10 @@ Page({
                     scrollTop: true
                 });
             }
-            var today = new Date();
-            today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
             data.page.list = data.page.list || [];
             data.page.list.map((item) => {
-                // item.updateTime = item.updateTime * 1000;
-                if (item.updateTime > today) {
-                    item.updateTime = new Date(item.updateTime).formatTime('hh:mm');
-                } else {
-                    item.updateTime = new Date(item.updateTime).formatTime('yyyy-MM-dd hh:mm');
-                }
+                item.originTime = item.updateTime;
+                item.updateTime = this.getFormatTime(item.updateTime);
             });
             this.setData({
                 page: this.data.page + 1,
@@ -107,6 +105,14 @@ Page({
         });
         return this.request;
     },
+    getFormatTime(time) {
+        if (time > this.today) {
+            time = new Date(time).formatTime('hh:mm');
+        } else {
+            time = new Date(time).formatTime('yyyy-MM-dd hh:mm');
+        }
+        return time;
+    },
     //未读消息总数量
     getMessageCount() {
         return wx.jyApp.http({
@@ -118,12 +124,12 @@ Page({
                 wx.setTabBarBadge({
                     index: 2,
                     text: String(data.msgTotalNotRead),
-                    fail() { }
+                    fail() {}
                 });
             } else {
                 wx.removeTabBarBadge({
                     index: 2,
-                    fail() { }
+                    fail() {}
                 });
             }
             if (data.msgTotalNotRead != this.msgCount) {
@@ -132,6 +138,18 @@ Page({
             this.updateNoticeCount(data.totalNotRead || 0);
             this.updateMsgCount(data.msgTotalNotRead || 0);
             this.msgCount = (data.msgTotalNotRead || 0);
+        });
+    },
+    updateLastMessage(roomId, lastMessage, time) {
+        this.data.messageList.map((item, i) => {
+            if (item.roomId == roomId && time != item.originTime) {
+                item.lastMessage = lastMessage;
+                item.updateTime = this.getFormatTime(time);
+                item.originTime = time;
+                this.setData({
+                    [`messageList[${i}]`]: item
+                })
+            }
         });
     },
     //检查未读消息是否有变化

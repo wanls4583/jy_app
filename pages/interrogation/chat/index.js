@@ -239,7 +239,7 @@ Page({
                 sendTime: new Date().getTime(),
                 domId: 'id-' + id
             };
-            if(this.data.doctorInfo) {
+            if (this.data.doctorInfo) {
                 chat.doctorId = this.data.doctorInfo.id;
                 chat.userInfo = {
                     avatar: this.data.doctorInfo.avatar,
@@ -280,7 +280,7 @@ Page({
                             sendTime: new Date().getTime(),
                             domId: 'id-' + id
                         };
-                        if(self.data.doctorInfo) {
+                        if (self.data.doctorInfo) {
                             chat.doctorId = self.data.doctorInfo.id;
                             chat.userInfo = {
                                 avatar: self.data.doctorInfo.avatar,
@@ -649,6 +649,9 @@ Page({
                 return;
             }
             var list = data.page.list;
+            if (!ifPre) {
+                this.updateLastMessage(list);
+            }
             list.reverse();
             if (list.length) {
                 if (!ifPre) {
@@ -689,7 +692,7 @@ Page({
                     }
                     item.doctorId = this.data.consultOrder.doctorId;
                 }
-                if(item.sender && !item.userInfo) {
+                if (item.sender && !item.userInfo) {
                     item.userInfo = {
                         avatar: item.sender == this.data.currentUser.id ? this.data.currentUser.avatarUrl : this.data.talker.avatarUrl
                     }
@@ -802,6 +805,17 @@ Page({
             }
         });
         return this.request;
+    },
+    updateLastMessage(list) {
+        var page = wx.jyApp.utils.getPages('pages/interrogation/message-list/index');
+        if (page) { //已接诊
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].type != 0) {
+                    page.updateLastMessage(this.data.roomId, list[i].text, list[i].sendTime);
+                    break;
+                }
+            }
+        }
     },
     //计算发送时间的显示
     caculateSendTime() {
