@@ -5,7 +5,7 @@
 	</view>
 	<view class="white-background-color" style="padding:20px 40px;line-height:24px">
 		<view>结果解释：</view>
-		<view wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 0 ? index+1+'、':''}}{{item}}</view>
+		<view wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>
 	</view>
 </view>
 <view class="footer flex--center--around padding-30 background-color-transparent">

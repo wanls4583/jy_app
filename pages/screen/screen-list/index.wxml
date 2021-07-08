@@ -30,7 +30,7 @@
 				<view class="flex margin-top-10">
 					<text class="flex-shrink-0 label-color">结果解释：</text>
 					<view>
-						<view wx:for="{{item.resultDescription}}">{{item||''}}</view>
+						<view wx:for="{{item.resultDescription}}" wx:key="index">{{item||''}}</view>
 					</view>
 				</view>
 			</view>

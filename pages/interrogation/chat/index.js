@@ -811,7 +811,7 @@ Page({
         if (page) { //已接诊
             for (var i = 0; i < list.length; i++) {
                 if (list[i].type != 0) {
-                    page.updateLastMessage(this.data.roomId, list[i].text, list[i].sendTime);
+                    page.updateLastMessage(this.data.roomId, list[i].txt, list[i].sendTime);
                     break;
                 }
             }

@@ -16,7 +16,9 @@ Page({
             fields: ['configData', 'userInfo']
         });
         this.storeBindings.updateStoreBindings();
-        this.loadList();
+    },
+    onShow() {
+        this.loadList(true);
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

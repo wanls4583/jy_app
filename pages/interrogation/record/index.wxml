@@ -150,7 +150,7 @@
 						<view class="width-100" slot="title">
 							<view class="flex--center--between">
 								<view class="color-666 font-bond">{{item._filtrateType}}</view>
-								<view class="color-666 align-center font-normal">{{item.answers.filtrateDate}}</view>
+								<view class="color-666 align-center font-normal">{{item.filtrateDate}}</view>
 							</view>
 						</view>
 						<view class="padding-30">
