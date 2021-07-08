@@ -341,3 +341,15 @@
 .padding-bottom-footer {
     padding-bottom: 190rpx;
 }
+
+.split-10 {
+    height: 10rpx;
+}
+
+.split-20 {
+    height: 20rpx;
+}
+
+.split-30 {
+    height: 30rpx;
+}

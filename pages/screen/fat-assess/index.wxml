@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/fat-history/index">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/screen/fat-history/index">
 				<text>肥胖治疗史</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -51,7 +51,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/sleep-assess/index">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/screen/sleep-assess/index">
 				<text>睡眠评估</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -68,7 +68,7 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30" data-url="/pages/screen/body-fat/index">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/body-fat/index">
 				<text>体脂肪含量测量</text>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />

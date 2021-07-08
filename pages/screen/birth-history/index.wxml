@@ -48,7 +48,7 @@
 				<van-radio name="{{1}}">提前</van-radio>
 				<viwe class="gray-color" style="display:block;margin-left:60rpx">
 					<view>男生：9岁前出现性发育征象</view>
-					<view>女士：8岁前出现性发育征象或10周岁以前出现月经</view>
+					<view>女生：8岁前出现性发育征象或10周岁以前出现月经</view>
 				</viwe>
 				<van-radio name="{{2}}">正常</van-radio>
 				<van-radio name="{{3}}">延迟</van-radio>

@@ -225,8 +225,8 @@
 									<text class="flex-shrink-0">评估结果：</text>
 									<text>{{item.filtrateResult}}</text>
 								</view>
-								<view class="flex">
-									<text class="flex-shrink-0 margin-top-20">结果解释：</text>
+								<view class="flex margin-top-20">
+									<text class="flex-shrink-0">结果解释：</text>
 									<view>
 										<view wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
 									</view>
