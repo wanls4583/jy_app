@@ -101,7 +101,7 @@
 									<view class="flex-shrink-0 label">开具时间：</view>
 									<view>{{item.orderTime}}</view>
 								</view>
-								<view class="margin-top-20 font-bold">门诊病历</view>
+								<view class="margin-top-20 font-bold">问诊病历</view>
 								<view class="flex--center--start margin-top-20">
 									<view class="flex-shrink-0 label">初诊标志：</view>
 									<view>{{item.isFirst==1?'初诊':'复诊'}}</view>
@@ -149,7 +149,7 @@
 					<van-collapse-item name="{{item.activeName}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
 						<view class="width-100" slot="title">
 							<view class="flex--center--between">
-								<view class="color-666 font-normal">{{item._filtrateType}}</view>
+								<view class="color-666 font-bond">{{item._filtrateType}}</view>
 								<view class="color-666 align-center font-normal">{{item.answers.filtrateDate}}</view>
 							</view>
 						</view>
@@ -218,13 +218,19 @@
 							<!-- 久坐行为调查 -->
 							<!-- 睡眠评估 -->
 							<!-- 活动水平评估 -->
-							<block wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'||item.filtrateType=='FAT-BODY'}}">
+							<block
+								wx:if="{{item.filtrateType=='FAT-DIET'||item.filtrateType=='FAT-SIT'||item.filtrateType=='FAT-SLEEP'||item.filtrateType=='FAT-ACTION'||item.filtrateType=='FAT-BODY'}}"
+							>
 								<view class="flex">
 									<text class="flex-shrink-0">评估结果：</text>
 									<text>{{item.filtrateResult}}</text>
 								</view>
-								<view class="margin-top-20">结果解释：</view>
-								<view class="margin-top-20" wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+								<view class="flex">
+									<text class="flex-shrink-0 margin-top-20">结果解释：</text>
+									<view>
+										<view wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+									</view>
+								</view>
 							</block>
 						</view>
 					</van-collapse-item>

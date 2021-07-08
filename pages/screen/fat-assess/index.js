@@ -25,7 +25,7 @@ Page({
                 3: '延迟'
             }],
             'FAT-HOME': [{
-                1: '家族成员中是有超重或肥胖史'
+                1: '家族成员中有超重或肥胖史'
             }, {
                 1: '家族成员中有超重或肥胖相关疾病情况'
             }, {
@@ -51,14 +51,20 @@ Page({
     },
     onLoad(option) {
         this.setData({
+            active: option.active || 0,
             doctorId: option.doctorId || '',
             doctorName: option.doctorName || ''
         });
-        var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.patientId = patient.id;
+        if (option.patientId) {
+            this.patientId = option.patientId;
+            this.getPatient();
+        } else {
+            var patient = wx.jyApp.getTempData('screenPatient') || {};
+            this.patientId = patient.id;
+        }
     },
     onSwitch(e) {
-        var active = e.currentTarget.dataset.active;
+        var active = typeof e == 'number' ? e : e.currentTarget.dataset.active;
         this.setData({
             active: active
         });
@@ -72,6 +78,14 @@ Page({
             });
             this.getInfo();
         }
+    },
+    switchTab(active) {
+        this.onSwitch(active);
+    },
+    onFatCollapseChange(e) {
+        this.setData({
+            fatActiveNames: e.detail,
+        });
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
@@ -177,5 +191,12 @@ Page({
                 fatActiveNames: fatActiveNames
             });
         });
-    }
+    },
+    getPatient() {
+        wx.jyApp.http({
+            url: `/patientdocument/info/${this.patientId}`
+        }).then((data) => {
+            this.patient = data.patientDocument;
+        });
+    },
 })

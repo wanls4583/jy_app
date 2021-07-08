@@ -12,39 +12,39 @@
 		</view>
 		<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
 	</view>
-	<view class="white-background-color margin-top-20">
-		<view class="padding-30">
+	<view class="white-background-color padding-30 margin-top-20">
+		<view>
 			<viwe class="font-bold">1、出生体质量</viwe>
-			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
-				<van-radio name="{{1}}">{{'正常(2.5kg≤出生体质量≤4.0kg)'}}</van-radio>
-				<van-radio name="{{2}}">{{'低出生体质量(出生体质量<2.5kg)'}}</van-radio>
-				<van-radio name="{{3}}">{{'巨大儿(出生体质量>4kg)'}}</van-radio>
+			<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+				<van-radio name="{{1}}">{{'正常（2.5kg≤出生体质量≤4.0kg）'}}</van-radio>
+				<van-radio name="{{2}}">{{'低出生体质量（出生体质量<2.5kg）'}}</van-radio>
+				<van-radio name="{{3}}">{{'巨大儿（出生体质量>4kg）'}}</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
-	<view class="white-background-color margin-top-20">
-		<view class="padding-30">
+	<view class="white-background-color padding-30 padding-top-0">
+		<view class="padding-top-30 border-top">
 			<viwe class="font-bold">2、6个月内喂养方式</viwe>
-			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+			<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 				<van-radio name="{{1}}">母乳喂养</van-radio>
 				<van-radio name="{{2}}">奶粉喂养</van-radio>
 				<van-radio name="{{3}}">混合喂养</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
-	<view class="white-background-color margin-top-20">
-		<view class="padding-30">
+	<view class="white-background-color padding-30 padding-top-0">
+		<view class="padding-top-30 border-top">
 			<viwe class="font-bold">3、是否早产</viwe>
-			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+			<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 				<van-radio name="{{1}}">{{'足月（37周≤胎龄<42周）'}}</van-radio>
 				<van-radio name="{{2}}">{{'早产（28周≤胎龄<37周）'}}</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
-	<view class="white-background-color margin-top-20">
-		<view class="padding-30">
+	<view class="white-background-color padding-30 padding-top-0">
+		<view class="padding-top-30 border-top">
 			<viwe class="font-bold">4、青春期性成熟</viwe>
-			<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+			<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 				<van-radio name="{{1}}">提前</van-radio>
 				<viwe class="gray-color" style="display:block;margin-left:60rpx">
 					<view>男生：9岁前出现性发育征象</view>
@@ -54,7 +54,7 @@
 				<van-radio name="{{3}}">延迟</van-radio>
 				<view class="gray-color" style="display:block;margin-left:60rpx">
 					<view>男生：14岁前无睾丸增大、生殖器的开始发育和完全生长的间隔>5年</view>
-					<view>女士：13岁以前没有乳房发育、从乳腺生长开始和月经初潮相隔>5年、16岁前未见月经</view>
+					<view>女生：13岁以前没有乳房发育、从乳腺生长开始和月经初潮相隔>5年、16岁前未见月经</view>
 				</view>
 			</van-radio-group>
 		</view>

@@ -20,7 +20,7 @@
 				</view>
 			</view>
 			<view class="flex--center--end margin-top-20" wx:if="{{!ifSelect}}">
-				<view bindtap="onDetail" class="margin-left-20 button small primary" data-id="{{item.id}}">门诊病历</view>
+				<view bindtap="onDetail" class="margin-left-20 button small primary" data-id="{{item.id}}">问诊病历</view>
 				<view bindtap="onEdit" class="margin-left-20 button small primary" data-id="{{item.id}}">编辑</view>
 				<view bindtap="onDelete" class="margin-left-20 button small danger" data-id="{{item.id}}">删除</view>
 			</view>

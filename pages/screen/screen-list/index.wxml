@@ -11,11 +11,28 @@
 				<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
 			</view>
 			<view bindtap="onEdit" class="padding-top-bottom-20 clickable" data-item="{{item}}">
-				<view class="flex"><text class="flex-shrink-0 label-color">{{item.label||'筛查'}}日期：</text><text>{{item.filtrateDate}}</text></view>
-				<view class="flex margin-top-10"><text class="flex-shrink-0 label-color">{{item.label||'筛查'}}方式：</text><text>{{item._filtrateType}}</text></view>
-				<view class="flex margin-top-10"><text class="flex-shrink-0 label-color">{{item.label||'筛查'}}医师：</text><text>{{item.doctorName||''}}</text></view>
-				<view class="flex margin-top-10"><text class="flex-shrink-0 label-color">{{item.label||'筛查'}}结果：</text><text>{{item._filtrateResult||''}}</text></view>
-				<view class="flex margin-top-10"><text class="flex-shrink-0 label-color">结果解释：</text><text>{{item.resultDescription||''}}</text></view>
+				<view class="flex">
+					<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}日期：</text>
+					<text>{{item.filtrateDate}}</text>
+				</view>
+				<view class="flex margin-top-10">
+					<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}方式：</text>
+					<text>{{item._filtrateType}}</text>
+				</view>
+				<view class="flex margin-top-10">
+					<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}医师：</text>
+					<text>{{item.doctorName||''}}</text>
+				</view>
+				<view class="flex margin-top-10">
+					<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}结果：</text>
+					<text>{{item._filtrateResult||''}}</text>
+				</view>
+				<view class="flex margin-top-10">
+					<text class="flex-shrink-0 label-color">结果解释：</text>
+					<view>
+						<view wx:for="{{item.resultDescription}}">{{item||''}}</view>
+					</view>
+				</view>
 			</view>
 			<view class="flex--center--end padding-top-bottom-20 border-top">
 				<view bindtap="onDelete" class="button plain gray small" data-id="{{item.id}}">删除</view>

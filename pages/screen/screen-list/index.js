@@ -129,6 +129,7 @@ Page({
                 item.BMI = item.BMI && item.BMI.toFixed(1) || '';
                 item._filtrateType = item.filtrateType;
                 item._filtrateResult = item.filtrateResult;
+                item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
                 if (item.filtrateType == 'FAT') {
                     item._filtrateType = '超重与肥胖';
                     if (item.filtrateResult == 1) {

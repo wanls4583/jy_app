@@ -16,7 +16,7 @@
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
 				<viwe class="font-bold">1、平均而言，你每天大约连续有多少小时做以下事情？（屏前久坐行为：看电视、玩手机、玩电脑游戏、上网等）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -32,7 +32,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、平均而言，你每天大约连续有多少小时做以下事情？（社交型久坐行为：电脑、手机聊天、坐着或躺着打电话、短信等）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -48,7 +48,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">3、平均而言，你每天大约连续有多少小时做以下事情？（通勤型久坐行为：坐公交车、私家车、地铁等）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -64,7 +64,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">4、平均而言，你每天大约连续有多少小时做以下事情？（教育型久坐行为：作业、辅导班等）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -80,7 +80,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">5、平均而言，你每天大约连续有多少小时做以下事情？（课余爱好、兴趣久坐行为：阅读、艺术类、玩具、卡牌、棋牌等）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -96,7 +96,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">6、平均而言，你每天大约连续有多少小时做以下事情？（其他类型久坐行为）</viwe>
-				<van-radio-group bind:change="onChange" class="margin-top" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+				<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
 					<van-radio name="{{1}}">1小时</van-radio>
@@ -109,7 +109,7 @@
 		</view>
 	</block>
 </view>
-<footer style="padding-bottom:40rpx" wx:if="{{step>1}}">
+<footer wx:if="{{step>1}}">
 	<view bindtap="onBack" class="button primary plain">上一页</view>
 </footer>
 <footer-text>{{step}}/6</footer-text>

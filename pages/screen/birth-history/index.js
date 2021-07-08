@@ -110,6 +110,10 @@ Page({
             type: 'FAT-GROW',
             isRisk: this.data.isRisk
         };
+        if(!this.data.answers.q.length) {
+            wx.jyApp.toast('请至少选择一道题目的选项');
+            return;
+        }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/fatevaluate/${data.id?'update':'save'}`,

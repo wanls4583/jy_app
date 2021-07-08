@@ -1,6 +1,6 @@
 <view class="container white-background-color padding-bottom-footer">
 	<view wx:if="{{active==0}}">
-		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">询问调查</view>
+		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color font-bold">询问调查</view>
 		<view class="padding-left-right-30 clickable">
 			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/birth-history/index">
 				<text>出生、喂养史、发育史</text>
@@ -33,7 +33,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">膳食状况评估</view>
+		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color font-bold">膳食状况评估</view>
 		<view class="padding-left-right-30 clickable">
 			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/food-investigate/index">
 				<text>膳食调查</text>
@@ -58,7 +58,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color">身体活动评估</view>
+		<view class="padding-left-right-30 padding-top-bottom-20 gray-background-color font-bold">身体活动评估</view>
 		<view class="padding-left-right-30 clickable">
 			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/screen/act-assess/index">
 				<text>活动水平评估</text>
@@ -81,7 +81,7 @@
 			<van-collapse-item name="{{item.activeName}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
 				<view class="width-100" slot="title">
 					<view class="flex--center--between">
-						<view class="color-666 font-normal">{{item._filtrateType}}</view>
+						<view class="color-666 font-bold">{{item._filtrateType}}</view>
 						<view class="color-666 align-center font-normal">{{item.answers.filtrateDate}}</view>
 					</view>
 				</view>
@@ -157,8 +157,12 @@
 							<text class="flex-shrink-0">评估结果：</text>
 							<text>{{item.filtrateResult}}</text>
 						</view>
-						<view class="margin-top-20">结果解释：</view>
-						<view class="margin-top-20" wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">结果解释：</text>
+							<view>
+								<view wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+							</view>
+						</view>
 					</block>
 				</view>
 			</van-collapse-item>
@@ -168,7 +172,7 @@
 		</view>
 	</view>
 </view>
-<footer style="padding:0">
+<footer style="padding:0;background-color:#fff">
 	<view bindtap="onSwitch" class="width-50 padding-30 border align-center {{active==0?'primary-color':''}}" data-active="{{0}}">评估问卷</view>
 	<view bindtap="onSwitch" class="width-50 padding-30 border border-left-0 align-center {{active==1?'primary-color':''}}" data-active="{{1}}">查看报告</view>
 </footer>

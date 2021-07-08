@@ -93,7 +93,7 @@ Page({
         var q = this.data.answers.q;
         if (q[0] && q[0].length && q[0][0] != 6 || q[1] && q[1].length && q[1][0] != 7) {
             result = '异常';
-        } else if(q.length) {
+        } else if (q.length && (q[0] && q[0].length || q[1] && q[1].length)) {
             result = '正常';
         }
         this.setData({
@@ -112,6 +112,11 @@ Page({
             isRisk: this.data.isRisk,
             type: 'FAT-DISEASE'
         };
+        var q = this.data.answers.q;
+        if (!q.length || ((!q[0] || !q[0].length) && (!q[1] || !q[1].length))) {
+            wx.jyApp.toast('请至少选择一道题目的选项');
+            return;
+        }
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: `/fatevaluate/${data.id?'update':'save'}`,

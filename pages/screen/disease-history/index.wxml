@@ -38,10 +38,10 @@
 		</view>
 	</view>
 </view>
-<view class="footer flex--center--around padding-30">
+<footer>
 	<view bindtap="onBack" class="button primary plain">返回</view>
 	<view bindtap="onSave" class="button primary">提交</view>
-</view>
+</footer>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>

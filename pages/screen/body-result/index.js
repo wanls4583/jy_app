@@ -35,8 +35,17 @@ Page({
         wx.navigateBack();
     },
     onNext() {
-        wx.redirectTo({
-            url: `/pages/interrogation/record/index?active=1&patientId=${this.patientId}`
-        });
+        var page = wx.jyApp.utils.getPageByLastIndex(2);
+        if (page.route == 'pages/screen/fat-assess/index') {
+            wx.jyApp.utils.navigateBack({
+                success: function () {
+                    page.switchTab(1);
+                }
+            })
+        } else {
+            wx.redirectTo({
+                url: `/pages/screen/fat-assess/index?active=1&patientId=${this.patientId}`
+            });
+        }
     }
 })

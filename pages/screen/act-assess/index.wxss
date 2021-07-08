@@ -1,3 +1,17 @@
 .van-radio__label--right {
     flex-grow: 1;
+    padding: 30rpx 0;
+}
+
+.van-radio__icon-wrap {
+    padding: 30rpx 0;
+}
+
+.van-radio {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.van-radio:first-child {
+    margin-top: 20rpx !important;
 }

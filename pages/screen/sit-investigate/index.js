@@ -102,7 +102,7 @@ Page({
             resultDescription.push('有教育型久坐行为');
         }
         if (q[4] >= 2) {
-            resultDescription.push('有兴趣久坐行为');
+            resultDescription.push('有课余爱好、兴趣久坐行为');
         }
         if (q[5] >= 2) {
             resultDescription.push('有其他类型久坐行为');
