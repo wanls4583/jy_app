@@ -6,6 +6,7 @@
 Page({
     data: {
         active: 0,
+        fatData: [],
         answersMap: {
             'FAT-GROW': [{
                 1: '正常',
@@ -55,13 +56,22 @@ Page({
         });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patientId = patient.id;
-        this.getInfo();
     },
     onSwitch(e) {
         var active = e.currentTarget.dataset.active;
         this.setData({
             active: active
         });
+        if (active == 0) {
+            wx.setNavigationBarTitle({
+                title: '超重与肥胖评估'
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: '减重报告'
+            });
+            this.getInfo();
+        }
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);

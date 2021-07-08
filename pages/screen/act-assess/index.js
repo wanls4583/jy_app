@@ -201,7 +201,7 @@ Page({
             resultDescription: this.data.resultDescription,
             isRisk: this.data.isRisk
         };
-        if (this.data.answers.q[15] === undefined) {
+        if (this.data.answers.q[16] === undefined) {
             wx.jyApp.toast('请填写锻炼年数');
             return;
         }
