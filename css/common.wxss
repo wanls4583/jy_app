@@ -39,7 +39,7 @@ swiper-item {
     bottom: 0;
     width: 100%;
     z-index: 100;
-    background: #fff;
+    background-color: #f6f6f6;
 }
 
 .border {
