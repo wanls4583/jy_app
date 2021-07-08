@@ -159,11 +159,14 @@ Page({
                     if (!item.answers.q || !item.answers.q.length) {
                         item.visible = false;
                     } else {
+                        var q = [];
                         item.answers.q.map((_item, i) => {
                             if (_item) {
-                                item.answers.q[i] = this.data.answersMap['FAT-GROW'][i][_item];
+                                _item = this.data.answersMap['FAT-GROW'][i][_item] || '';
+                                _item && q.push(_item);
                             }
                         });
+                        item.answers.q = q;
                     }
                 }
                 if (item.filtrateType == 'FAT-HOME') {
@@ -184,20 +187,22 @@ Page({
                     item._filtrateType = '疾病史';
                     item.visible = false;
                     if (item.answers.q.length &&
-                        (item.answers.q[0] && String(item.answers.q[0]) != 6 ||
-                            item.answers.q[1] && String(item.answers.q[1]) != 7)) {
+                        (item.answers.q[0] && item.answers.q[0].length && String(item.answers.q[0]) != 6 ||
+                            item.answers.q[1] && item.answers.q[1].length && String(item.answers.q[1]) != 7)) {
                         item.visible = true;
+                        var q = [];
                         item.answers.q.map((_item, i) => {
                             if (_item) {
                                 var arr = [];
                                 _item.map((obj, _i) => {
                                     var ansewer = this.data.answersMap['FAT-DISEASE'][i];
                                     ansewer = ansewer && ansewer[obj] || '';
-                                    arr.push(ansewer);
+                                    ansewer && arr.push(ansewer);
                                 });
-                                item.answers.q[i] = arr;
+                                arr.length && q.push(arr);
                             }
                         });
+                        item.answers.q = q;
                         item.answers.q[1] = item.answers.q[1] && item.answers.q[1].join('、');
                     }
                 }

@@ -113,8 +113,7 @@
 					<block wx:if="{{item.filtrateType=='FAT-DISEASE'}}">
 						<view wx:for="{{item.answers.q[0]}}" wx:key="index">{{index+1}}、{{item}}</view>
 						<view wx:if="{{item.answers.q[1] && item.answers.q[1].length}}">
-							<text>{{item.answers.q[0].length+1}}、有以下疾病：</text>
-							<text>{{item.answers.q[1]}}</text>
+							<text>有以下疾病：{{item.answers.q[1]}}</text>
 						</view>
 					</block>
 					<!-- 肥胖治疗 -->
