@@ -17,8 +17,8 @@
 			<view class="padding-30">
 				<viwe class="font-bold">1、您早餐吃粗粮类食物的频率是多少（早餐燕麦片，或糙米、玉米、小米、高粱、荞麦、薯类等）？</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
-					<van-radio name="{{1}}">从不</van-radio>
-					<van-radio name="{{2}}">每周少于1次</van-radio>
+					<van-radio name="{{0}}">从不</van-radio>
+					<van-radio name="{{1}}">每周少于1次</van-radio>
 					<van-radio name="{{3}}">每周1~2次</van-radio>
 					<van-radio name="{{4}}">每周3~5次</van-radio>
 					<van-radio name="{{5}}">每天或几乎每天</van-radio>
