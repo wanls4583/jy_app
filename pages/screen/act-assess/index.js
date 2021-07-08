@@ -147,10 +147,10 @@ Page({
         if (q[9] == 1 || q[9] == 2) {
             resultDescription.push('体育活动时间不足');
         }
-        if (q[10] == 3 || q[10] == 4 && resultDescription.indexOf('社会支持不足') == 1) {
+        if (q[10] == 3 || q[10] == 4 && resultDescription.indexOf('社会支持不足') == -1) {
             resultDescription.push('社会支持不足');
         }
-        if (q[11] == 1 && resultDescription.indexOf('社会支持不足') == 1) {
+        if (q[11] == 1 && resultDescription.indexOf('社会支持不足') == -1) {
             resultDescription.push('社会支持不足');
         }
         if ((q[2] == 4 || q[2] == 5) &&
