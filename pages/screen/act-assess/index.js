@@ -98,7 +98,7 @@ Page({
         var q = this.data.answers.q;
         var isRisk = false;
         this.result = 1;
-        if (q[13] = 1) {
+        if (q[13] == 1) {
             result = '几乎没有任何体力活动';
             isRisk = true;
             this.result = 3;
