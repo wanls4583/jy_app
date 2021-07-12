@@ -110,6 +110,7 @@ Page({
         if (q[13] == 3) {
             if (q[14] == 1) {
                 result = '中等强度体力活动不足';
+                this.result = 2;
                 isRisk = true;
             }
             if (q[14] == 2) {
@@ -122,6 +123,7 @@ Page({
         if (q[13] == 4) {
             if (q[15] == 1) {
                 result = '高强度体力活动不足';
+                this.result = 2;
                 isRisk = true;
             }
             if (q[15] == 2) {
@@ -160,8 +162,9 @@ Page({
         }
         if (resultDescription.length) {
             isRisk = true;
+        } else if (this.result == 1) {
+            resultDescription.push('未发现存在活动水平问题');
         }
-        console.log(q);
         this.setData({
             result: result,
             resultDescription: resultDescription.join(';'),
