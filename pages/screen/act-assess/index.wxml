@@ -215,7 +215,7 @@
 			<view class="padding-30">
 				<viwe class="font-bold">14.2、有高强度体育锻炼：（运动过程中呼吸急促到已不能整句说话，比如跑步、快速骑车或者进行羽毛球、篮球、足球比赛等），做上述运动的时间为：</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[15]" value="{{answers.q[15]}}">
-					<van-radio name="{{1}}">每每周＜30 min</van-radio>
+					<van-radio name="{{1}}">每周＜30 min</van-radio>
 					<van-radio name="{{2}}">每周75~150 min</van-radio>
 					<van-radio name="{{3}}">每周＞150min</van-radio>
 				</van-radio-group>

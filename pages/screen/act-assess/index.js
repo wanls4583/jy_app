@@ -42,7 +42,6 @@ Page({
     },
     onInputNum(e) {
         wx.jyApp.utils.onInputNum(e, this);
-        this.countScore();
     },
     onShowDate() {
         this.setData({
@@ -108,7 +107,7 @@ Page({
             isRisk = true;
             this.result = 2;
         }
-        if (q[13 == 3]) {
+        if (q[13] == 3) {
             if (q[14] == 1) {
                 result = '中等强度体力活动不足';
                 isRisk = true;
@@ -128,7 +127,7 @@ Page({
             if (q[15] == 2) {
                 result = '高强度体力活动适宜';
             }
-            if (q[15] == 1) {
+            if (q[15] == 3) {
                 result = '高强度体力活动充足';
             }
         }
@@ -156,12 +155,13 @@ Page({
         if ((q[2] == 4 || q[2] == 5) &&
             (q[7] == 1 || q[7] == 2) &&
             (q[8] == 4 || q[8] == 5) &&
-            (q[12] == 4 || q[21] == 5)) {
+            (q[12] == 4 || q[12] == 5)) {
             resultDescription.push('运动意愿不强烈');
         }
         if (resultDescription.length) {
             isRisk = true;
         }
+        console.log(q);
         this.setData({
             result: result,
             resultDescription: resultDescription.join(';'),
