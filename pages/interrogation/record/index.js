@@ -161,10 +161,8 @@ Page({
                     } else {
                         var q = [];
                         item.answers.q.map((_item, i) => {
-                            if (_item) {
-                                _item = this.data.answersMap['FAT-GROW'][i][_item] || '';
-                                _item && q.push(_item);
-                            }
+                            _item = _item && this.data.answersMap['FAT-GROW'][i][_item] || '';
+                            q.push(_item);
                         });
                         item.answers.q = q;
                     }

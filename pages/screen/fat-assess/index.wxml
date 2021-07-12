@@ -81,7 +81,7 @@
 			<van-collapse-item name="{{item.activeName}}" wx:for="{{fatData}}" wx:if="{{item.visible}}" wx:key="index">
 				<view class="width-100" slot="title">
 					<view class="flex--center--between">
-						<view class="color-666 font-bold">{{item._filtrateType}}</view>
+						<view class="font-bold">{{item._filtrateType}}</view>
 						<view class="color-666 align-center font-normal">{{item.filtrateDate}}</view>
 					</view>
 				</view>
