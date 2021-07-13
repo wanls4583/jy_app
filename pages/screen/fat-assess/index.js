@@ -62,6 +62,9 @@ Page({
             var patient = wx.jyApp.getTempData('screenPatient') || {};
             this.patientId = patient.id;
         }
+        if (option.active == 1) {
+            this.getInfo();
+        }
     },
     onSwitch(e) {
         var active = typeof e == 'number' ? e : e.currentTarget.dataset.active;
@@ -76,8 +79,8 @@ Page({
             wx.setNavigationBarTitle({
                 title: '减重报告'
             });
-            this.getInfo();
         }
+        this.getInfo();
     },
     switchTab(active) {
         this.onSwitch(active);

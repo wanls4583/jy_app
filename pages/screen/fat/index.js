@@ -145,7 +145,7 @@ Page({
         var WHtR = this.data.filtrateFat.waist / this.data.filtrateFat.stature
         this.setData({
             'filtrateFat.BMI': BMI && isFinite(BMI) && BMI.toFixed(1) || '',
-            'filtrateFat.WHtR': WHtR && isFinite(WHtR) && WHtR.toFixed(1) || ''
+            'filtrateFat.WHtR': WHtR && isFinite(WHtR) && WHtR.toFixed(2) || ''
         });
     },
     onInputNum(e) {
