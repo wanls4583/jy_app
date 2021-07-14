@@ -234,6 +234,9 @@
 						</view>
 					</van-collapse-item>
 				</van-collapse>
+				<view class="padding-30 gray-color align-center font-small" wx:if="{{!fatData.length}}">
+					<empty description="暂无减重报告" />
+				</view>
 			</swiper-item>
 		</swiper>
 	</view>
