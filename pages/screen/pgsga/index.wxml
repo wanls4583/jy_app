@@ -77,7 +77,7 @@
 				</van-checkbox>
 				<van-checkbox name="其他" shape="square">
 					<view class="flex--center--between">
-						<text>其他（如抑郁，经济， 牙齿）（1分）</text>
+						<text class="flex-shrink-0">其他（如抑郁，经济， 牙齿）（1分）</text>
 						<input bindinput="onInput" class="border" data-prop="pgsga.other" placeholder="其他" type="text" value="{{pgsga.other}}" />
 					</view>
 				</van-checkbox>
