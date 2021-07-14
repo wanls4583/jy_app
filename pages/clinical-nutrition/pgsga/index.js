@@ -45,6 +45,7 @@ Component({
             'LESS_THAN_BEFORE': 1,
         },
         dieteticChangeScoreMap: {
+            'FEED_NORMAL': 0,
             'NORMAL_FEED': 1,
             'SOLID_FEED': 2,
             'FLUID_FEED': 3,
@@ -62,13 +63,13 @@ Component({
             '呕吐': 3,
             '便秘': 1,
             '腹泻': 3,
-            '痛': 2,
-            '干': 1,
+            '口腔溃疡': 2,
+            '口干': 1,
             '吞咽困难': 2,
             '容易饱胀': 1,
             '没有饮食方面的问题': 0,
             '没有食欲': 3,
-            '有怪味困扰着我': 2,
+            '有怪味困扰着我': 1,
             '吃起来感觉没有味道': 1,
             '何处疼痛': 3,
             '其他': 1,
@@ -273,6 +274,7 @@ Component({
                     muscleBewteenBones: null,
                     muscleOfScapula: null,
                     muscleOfThigh: null,
+                    muscleOfLowerLeg: null,
                     muscleOfTotalGrade: null,
                     edemaOfAnkle: null,
                     edemaOfShin: null,
@@ -434,6 +436,9 @@ Component({
                 if (muscleCount[pgsga.muscleOfThigh]) {
                     muscleCount[pgsga.muscleOfThigh].num++;
                 }
+                if (muscleCount[pgsga.muscleOfLowerLeg]) {
+                    muscleCount[pgsga.muscleOfLowerLeg].num++;
+                }
                 if (muscleCount[pgsga.muscleOfTotalGrade]) {
                     muscleCount[pgsga.muscleOfTotalGrade].num++;
                 }
@@ -499,6 +504,7 @@ Component({
                 muscleBewteenBones: isNaN(Number(pgsga.muscleBewteenBones)) ? '' : Number(pgsga.muscleBewteenBones),
                 muscleOfScapula: isNaN(Number(pgsga.muscleOfScapula)) ? '' : Number(pgsga.muscleOfScapula),
                 muscleOfThigh: isNaN(Number(pgsga.muscleOfThigh)) ? '' : Number(pgsga.muscleOfThigh),
+                muscleOfLowerLeg: isNaN(Number(pgsga.muscleOfLowerLeg)) ? '' : Number(pgsga.muscleOfLowerLeg),
                 muscleOfTotalGrade: isNaN(Number(pgsga.muscleOfTotalGrade)) ? '' : Number(pgsga.muscleOfTotalGrade),
                 edemaOfAnkle: isNaN(Number(pgsga.edemaOfAnkle)) ? '' : Number(pgsga.edemaOfAnkle),
                 edemaOfShin: isNaN(Number(pgsga.edemaOfShin)) ? '' : Number(pgsga.edemaOfShin),

@@ -34,6 +34,7 @@ Page({
             muscleBewteenBones: null,
             muscleOfScapula: null,
             muscleOfThigh: null,
+            muscleOfLowerLeg: null,
             muscleOfTotalGrade: null,
             edemaOfAnkle: null,
             edemaOfShin: null,
@@ -50,6 +51,7 @@ Page({
             'LESS_THAN_BEFORE': 1,
         },
         dieteticChangeScoreMap: {
+            'FEED_NORMAL': 0,
             'NORMAL_FEED': 1,
             'SOLID_FEED': 2,
             'FLUID_FEED': 3,
@@ -67,13 +69,13 @@ Page({
             '呕吐': 3,
             '便秘': 1,
             '腹泻': 3,
-            '痛': 2,
-            '干': 1,
+            '口腔溃疡': 2,
+            '口干': 1,
             '吞咽困难': 2,
             '容易饱胀': 1,
             '没有饮食方面的问题': 0,
             '没有食欲': 3,
-            '有怪味困扰着我': 2,
+            '有怪味困扰着我': 1,
             '吃起来感觉没有味道': 1,
             '何处疼痛': 3,
             '其他': 1,
@@ -300,6 +302,9 @@ Page({
             }
             if (muscleCount[pgsga.muscleOfThigh]) {
                 muscleCount[pgsga.muscleOfThigh].num++;
+            }
+            if (muscleCount[pgsga.muscleOfLowerLeg]) {
+                muscleCount[pgsga.muscleOfLowerLeg].num++;
             }
             if (muscleCount[pgsga.muscleOfTotalGrade]) {
                 muscleCount[pgsga.muscleOfTotalGrade].num++;

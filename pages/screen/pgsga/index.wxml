@@ -34,12 +34,13 @@
 		<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
 			<view class="padding-bottom-30">我现在只吃：</view>
 			<van-checkbox-group bind:change="onChange" data-prop="pgsga.dieteticChange" value="{{pgsga.dieteticChange}}">
+				<van-checkbox name="FEED_NORMAL" shape="square">正常（0分）</van-checkbox>
 				<van-checkbox name="NORMAL_FEED" shape="square">比正常量少的一般食物（1分）</van-checkbox>
 				<van-checkbox name="SOLID_FEED" shape="square">一点固体食物（2分）</van-checkbox>
 				<van-checkbox name="FLUID_FEED" shape="square">只有流质饮食（3分）</van-checkbox>
 				<van-checkbox name="ONLY_NUTRITION" shape="square">只有营养补充品（3分）</van-checkbox>
 				<van-checkbox name="LITTLE_FEED" shape="square">非常少的任何食物（4分）</van-checkbox>
-				<van-checkbox name="INJECTABLE_FEED" shape="square">管罐喂食或由静脉注射营养（0分）</van-checkbox>
+				<van-checkbox name="INJECTABLE_FEED" shape="square">通过管饲进食或由静脉注射营养（0分）</van-checkbox>
 			</van-checkbox-group>
 		</view>
 		<view class="padding-30">
@@ -60,13 +61,13 @@
 				<van-checkbox name="呕吐" shape="square">呕吐（3分）</van-checkbox>
 				<van-checkbox name="便秘" shape="square">便秘（1分）</van-checkbox>
 				<van-checkbox name="腹泻" shape="square">腹泻（3分）</van-checkbox>
-				<van-checkbox name="痛" shape="square">痛（2分）</van-checkbox>
-				<van-checkbox name="干" shape="square">干（1分）</van-checkbox>
+				<van-checkbox name="口腔溃疡" shape="square">口腔溃疡（2分）</van-checkbox>
+				<van-checkbox name="口干" shape="square">口干（1分）</van-checkbox>
 				<van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
 				<van-checkbox name="容易饱胀" shape="square">容易饱胀（1分）</van-checkbox>
 				<van-checkbox name="没有饮食方面的问题" shape="square">没有饮食方面的问题（0分）</van-checkbox>
 				<van-checkbox name="没有食欲" shape="square">没有食欲，就是不想吃（3分）</van-checkbox>
-				<van-checkbox name="有怪味困扰着我" shape="square">有怪味困扰着我（2分）</van-checkbox>
+				<van-checkbox name="有怪味困扰着我" shape="square">有怪味困扰着我（1分）</van-checkbox>
 				<van-checkbox name="吃起来感觉没有味道" shape="square">吃起来感觉没有味道，或者变得奇怪（1分）</van-checkbox>
 				<van-checkbox name="何处疼痛" shape="square">
 					<view class="flex--center--between">
@@ -76,7 +77,7 @@
 				</van-checkbox>
 				<van-checkbox name="其他" shape="square">
 					<view class="flex--center--between">
-						<text>其他（1分）</text>
+						<text>其他（如抑郁，经济， 牙齿）（1分）</text>
 						<input bindinput="onInput" class="border" data-prop="pgsga.other" placeholder="其他" type="text" value="{{pgsga.other}}" />
 					</view>
 				</van-checkbox>
@@ -139,7 +140,7 @@
 		<view class="margin-left-30 pre-vertical-line primary-line-color">体格检查</view>
 		<view class="padding-30">过去三个月来，身体脂肪存储情况：</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">颊部脂肪垫</view>
+			<view class="padding-bottom-30">眼眶脂肪垫</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.fatOfCheek" value="{{pgsga.fatOfCheek}}">
 				<van-radio name="{{0}}">没有异常（0分）</van-radio>
 				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
@@ -215,7 +216,7 @@
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">肩胛部(北阔肌，斜方肌，三角肌)</view>
+			<view class="padding-bottom-30">肩胛部(背阔肌，斜方肌，三角肌)</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.muscleOfScapula" value="{{pgsga.muscleOfScapula}}">
 				<van-radio name="{{0}}">没有异常（0分）</van-radio>
 				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
@@ -226,6 +227,15 @@
 		<view class="padding-30">
 			<view class="padding-bottom-30">大腿(四头肌)</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.muscleOfThigh" value="{{pgsga.muscleOfThigh}}">
+				<van-radio name="{{0}}">没有异常（0分）</van-radio>
+				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
+				<van-radio name="{{2}}">中度异常（2分）</van-radio>
+				<van-radio name="{{3}}">严重异常（3分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">小腿(腓肠肌)</view>
+			<van-radio-group bind:change="onChange" data-prop="pgsga.muscleOfLowerLeg" value="{{pgsga.muscleOfLowerLeg}}">
 				<van-radio name="{{0}}">没有异常（0分）</van-radio>
 				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
 				<van-radio name="{{2}}">中度异常（2分）</van-radio>
@@ -255,7 +265,7 @@
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">胫骨水肿</view>
+			<view class="padding-bottom-30">骶部水肿</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.edemaOfShin" value="{{pgsga.edemaOfShin}}">
 				<van-radio name="{{0}}">没有异常（0分）</van-radio>
 				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
@@ -273,7 +283,7 @@
 			</van-radio-group>
 		</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">总体水分评分</view>
+			<view class="padding-bottom-30">总体水肿程度评分</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.edemaOfTotalGrade" value="{{pgsga.edemaOfTotalGrade}}">
 				<van-radio name="{{0}}">没有异常（0分）</van-radio>
 				<van-radio name="{{1}}">轻度异常（1分）</van-radio>
