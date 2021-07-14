@@ -27,7 +27,7 @@
 			<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
 				<view class="padding-bottom-30">我现在只吃：</view>
 				<van-checkbox-group bind:change="onChange" data-prop="pgsga.dieteticChange" value="{{pgsga.dieteticChange}}">
-					<van-checkbox name="FEED_NORMAL" shape="square">正常（0分）</van-checkbox>
+					<van-checkbox name="FEED_NORMAL" shape="square">正常饮食（0分）</van-checkbox>
 					<van-checkbox name="NORMAL_FEED" shape="square">比正常量少的一般食物（1分）</van-checkbox>
 					<van-checkbox name="SOLID_FEED" shape="square">一点固体食物（2分）</van-checkbox>
 					<van-checkbox name="FLUID_FEED" shape="square">只有流质饮食（3分）</van-checkbox>
