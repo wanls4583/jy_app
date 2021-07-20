@@ -240,8 +240,18 @@ Page({
                     data.info.role = 'DOCTOR';
                 }
             } else {
-                wx.setStorageSync('role', data.info.role);
                 doctorId = data.info.doctorId || data.info.offlineDoctorId;
+                if(doctorId) {
+                    data.info.role = 'DOCTOR';
+                    if(data.info.doctorId) {
+                        wx.setStorageSync('role', 'DOCTOR');
+                    } else {
+                        wx.setStorageSync('role', 'DOCTOR_OFFLINE');
+                    }
+                } else {
+                    data.info.role = 'USER';
+                    wx.setStorageSync('role', 'USER');
+                }
             }
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {
