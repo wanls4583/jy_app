@@ -241,6 +241,7 @@ Page({
                 }
             } else {
                 wx.setStorageSync('role', data.info.role);
+                doctorId = data.info.doctorId || data.info.offlineDoctorId;
             }
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {

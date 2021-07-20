@@ -3,7 +3,8 @@ Page({
         settlementUrl: '',
         stopRefresh: false,
         userInfoButtonVisible: true,
-        actionVisible: false
+        actionVisible: false,
+        canIUseGetUserProfile: wx.getUserProfile ? true : false
     },
     onLoad() {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -112,10 +113,22 @@ Page({
             }
         })
     },
+    getUserProfile(e) {
+        wx.getUserProfile({
+            desc: '用于完善个人资料',
+            success: (res) => {
+                this.getWxUserInfo({
+                    detail: {
+                        userInfo: res.userInfo
+                    }
+                })
+            }
+        })
+    },
     getWxUserInfo(e) {
         var userInfo = e.detail.userInfo;
-        if (userInfo && !this.data.userInfo.avatarUrl) {
-            userInfo.sex = userInfo.gender == 1 ? 1 : 0;
+        if (userInfo && this.data.userInfoButtonVisible) {
+            userInfo.sex = userInfo.gender == 1 ? 1 : 2;
             userInfo.nickname = userInfo.nickName;
             wx.showLoading({
                 title: '更新资料中...',

@@ -56,11 +56,20 @@
 				<text class="white-color">{{userInfo.nickname || '--'}}</text>
 			</view>
 			<button
+				bindtap="getUserProfile"
+				class="flex-shrink-0 flex--center--center white-color padding-10 padding-right-0 clickable"
+				hover-class="none"
+				wx:if="{{canIUseGetUserProfile&&userInfoButtonVisible}}"
+			>
+				<text>个人资料</text>
+				<van-icon color="#fff" name="arrow" />
+			</button>
+			<button
 				bindgetuserinfo="getWxUserInfo"
 				class="flex-shrink-0 flex--center--center white-color padding-10 padding-right-0 clickable"
 				hover-class="none"
 				open-type="getUserInfo"
-				wx:if="{{userInfoButtonVisible}}"
+				wx:elif="{{userInfoButtonVisible}}"
 			>
 				<text>个人资料</text>
 				<van-icon color="#fff" name="arrow" />
