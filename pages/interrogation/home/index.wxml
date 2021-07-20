@@ -46,7 +46,7 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/appointment/index?type=4"
-					wx:if="{{doctorInfo.type==1}}"
+					wx:if="{{userInfo.role=='DOCTOR'}}"
 				>
 					<view class="position-relative flex" style="margin-top:-4rpx">
 						<image src="/image/icon_phone.png" style="width:66rpx;height:66rpx" />
@@ -62,7 +62,7 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/appointment/index?type=3"
-					wx:if="{{doctorInfo.type==1}}"
+					wx:if="{{userInfo.role=='DOCTOR'}}"
 				>
 					<view class="position-relative">
 						<view class="flex" style="padding:4rpx">
@@ -109,7 +109,7 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/doctor-setting/index"
-					wx:if="{{doctorInfo.type==1}}"
+					wx:if="{{userInfo.role=='DOCTOR'}}"
 				>
 					<image src="/image/icon_setting.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">服务设置</view>

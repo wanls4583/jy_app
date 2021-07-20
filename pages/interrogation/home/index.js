@@ -83,8 +83,7 @@ Component({
         },
         //获取医生信息
         getDoctorInfo() {
-            var doctorId = wx.getStorageSync('doctorType') == 2 ? this.data.userInfo.offlineDoctorId : this.data.userInfo.doctorId;
-            return wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
+            return wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.currentDoctorId).then((data) => {
                 if (data.doctor) {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 }

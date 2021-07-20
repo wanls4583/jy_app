@@ -70,16 +70,11 @@ Page({
             });
         } else {
             wx.setStorageSync('role', 'DOCTOR');
-            if (this.data.userInfo.doctorId && this.data.userInfo.offlineDoctorId) {
+            if (this.data.userInfo.doctorId && this.data.userInfo.offlineDoctorId || this.data.userInfo.offlineDoctorId) {
                 this.setData({
                     actionVisible: true
                 });
             } else {
-                if (this.data.userInfo.offlineDoctorId) {
-                    wx.setStorageSync('doctorType', 2);
-                } else {
-                    wx.setStorageSync('doctorType', 1);
-                }
                 wx.reLaunch({
                     url: '/pages/index/index'
                 });
@@ -87,8 +82,6 @@ Page({
         }
     },
     onSelectDoctorType(e) {
-        var type = e.currentTarget.dataset.type;
-        wx.setStorageSync('doctorType', type);
         wx.reLaunch({
             url: '/pages/index/index'
         });
@@ -121,19 +114,23 @@ Page({
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }).finally(() => {
                 wx.hideLoading();
-                wx.jyApp.utils.navigateTo({ url: '/pages/user/index' });
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/user/index'
+                });
             });
         } else {
-            wx.jyApp.utils.navigateTo({ url: '/pages/user/index' });
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/user/index'
+            });
         }
     },
     //重新登录
     reLogin() {
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
-                var doctorId = wx.getStorageSync('doctorType') == 2 ? data.info.offlineDoctorId : data.info.doctorId;
+                var doctorId = data.info.currentDoctorId;
                 return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    if(wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                    if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
                     } else {
                         this.updatePharmacistInfo(Object.assign({}, data.doctor));

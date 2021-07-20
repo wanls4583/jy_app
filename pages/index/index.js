@@ -232,8 +232,7 @@ Page({
                 });
             }
             var role = wx.getStorageSync('role');
-            var doctorType = wx.getStorageSync('doctorType');
-            var doctorId = data.info.doctorId;
+            var doctorId = data.info.currentDoctorId;
             if (role == 'DOCTOR') {
                 data.info.role = 'DOCTOR';
             } else if (role == 'USER') {
@@ -241,9 +240,6 @@ Page({
             }
             if (!role && data.info.switchStatus == 1 && data.info.originRole == 'USER') {
                 data.info.role = 'DOCTOR';
-            }
-            if (doctorType == 2) { //线下医生
-                doctorId = data.info.offlineDoctorId
             }
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {
