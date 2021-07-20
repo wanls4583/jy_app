@@ -134,7 +134,7 @@ Component({
             //     wx.jyApp.toast('该时间点已有人预约，不允许取消');
             //     return;
             // }
-            if (this.properties.unServiceTime[day] && this.properties.unServiceTime[day].indexOf(time) > -1) {
+            if (this.properties.unServiceTime && this.properties.unServiceTime[day] && this.properties.unServiceTime[day].indexOf(time) > -1) {
                 wx.jyApp.toast(`该时间点已被${this.properties.orderType==3?'电话':'视频'}问诊设置`);
                 return;
             }
