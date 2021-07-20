@@ -233,13 +233,14 @@ Page({
             }
             var role = wx.getStorageSync('role');
             var doctorId = data.info.currentDoctorId;
-            if (role == 'DOCTOR') {
-                data.info.role = 'DOCTOR';
-            } else if (role == 'USER') {
-                data.info.role = 'USER';
-            }
-            if (!role && data.info.switchStatus == 1 && data.info.originRole == 'USER') {
-                data.info.role = 'DOCTOR';
+            if (role) {
+                if (role == 'USER') {
+                    data.info.role = 'USER';
+                } else {
+                    data.info.role = 'DOCTOR';
+                }
+            } else {
+                wx.setStorageSync('role', data.info.role);
             }
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {

@@ -70,6 +70,10 @@ Page({
         this.submit();
     },
     onClickTextPrice() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.doctorInfo.incomeSwitch != 1) {
             return;
         }
@@ -92,6 +96,10 @@ Page({
         });
     },
     onClickVideoPrice() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.doctorInfo.incomeSwitch != 1) {
             return;
         }
@@ -114,6 +122,10 @@ Page({
         });
     },
     onClickPhonePrice() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.doctorInfo.incomeSwitch != 1) {
             return;
         }
@@ -158,6 +170,10 @@ Page({
         });
     },
     onClickStatus() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.status != 1 && this.data.status != 2) {
             return;
         }

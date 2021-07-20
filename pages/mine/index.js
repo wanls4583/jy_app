@@ -69,12 +69,12 @@ Page({
                 url: '/pages/index/index'
             });
         } else {
-            wx.setStorageSync('role', 'DOCTOR');
-            if (this.data.userInfo.doctorId && this.data.userInfo.offlineDoctorId || this.data.userInfo.offlineDoctorId) {
+            if (this.data.userInfo.offlineDoctorId || !this.data.userInfo.doctorId && this.data.userInfo.testDoctorStatus == 1) {
                 this.setData({
                     actionVisible: true
                 });
             } else {
+                wx.setStorageSync('role', 'DOCTOR');
                 wx.reLaunch({
                     url: '/pages/index/index'
                 });
@@ -82,6 +82,18 @@ Page({
         }
     },
     onSelectDoctorType(e) {
+        var type = e.currentTarget.dataset.type;
+        if (type == 1) {
+            if (!this.data.userInfo.doctorId) {
+                wx.setStorageSync('role', 'DOCTOR_TEST');
+            } else {
+                wx.setStorageSync('role', 'DOCTOR');
+            }
+        } else if (type == 2) {
+            wx.setStorageSync('role', 'DOCTOR_OFFLINE');
+        } else {
+            wx.setStorageSync('role', 'DOCTOR_TEST');
+        }
         wx.reLaunch({
             url: '/pages/index/index'
         });

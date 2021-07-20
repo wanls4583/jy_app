@@ -878,6 +878,10 @@ Page({
     },
     //视频通话
     onVideo(e) {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         var roomId = Math.ceil(Math.random() * 4294967295);
         wx.jyApp.room.invite({
             consultOrderId: this.data.consultOrderId,
@@ -984,5 +988,10 @@ Page({
                 consultOrder: this.data.consultOrder
             });
         }
+    },
+    getDoctorInfo() {
+        return wx.jyApp.loginUtil.getDoctorInfo(this.data.consultOrder.doctorId).then((data) => {
+            this.doctorInfo = data.doctor
+        });
     }
 })

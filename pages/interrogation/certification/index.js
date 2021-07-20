@@ -33,7 +33,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData'],
+            fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.loadDepartmentList();
@@ -398,6 +398,10 @@ Page({
         }
     },
     onSave() {
+        if (this.data.doctorInfo && this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.approveStatus == 1) {
             wx.jyApp.toast('审核中不能对资料信息进行修改');
             return;
@@ -410,10 +414,10 @@ Page({
             wx.jyApp.toast('个人头像不能为空');
             return;
         }
-        if(!this.data.phone) {
+        if (!this.data.phone) {
             wx.jyApp.toast('手机号不能为空');
             return;
-        }else if (!/^1\d{10}$/.test(this.data.phone)) {
+        } else if (!/^1\d{10}$/.test(this.data.phone)) {
             wx.jyApp.toast('手机号输入错误');
             return;
         }

@@ -84,6 +84,10 @@ Page({
         });
     },
     submit() {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.type == 2 && !this.data.doctorBankCard) {
             wx.jyApp.toast('请填写到账银行卡');
             return;

@@ -13,10 +13,18 @@ Page({
         areaVisible: false
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['doctorInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.type = option.type;
         this.setData({
             areaList: area
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
@@ -49,6 +57,10 @@ Page({
         });
     },
     onSave() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (!this.data.contact.contactName) {
             wx.jyApp.toast('请填写联系人');
             return;

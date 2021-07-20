@@ -145,9 +145,7 @@
 			</block>
 		</view>
 		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
-			<view
-				class="padding-left-right-20 clickable"
-			>
+			<view class="padding-left-right-20 clickable">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
@@ -239,7 +237,10 @@
 	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{1}}">
 		<text class="font-title">线上医生</text>
 	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}">
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}" wxx:if="{{userInfo.offlineDoctorId}}">
 		<text class="font-title">线下医生</text>
+	</view>
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{3}}" wxx:if="{{userInfo.testDoctorStatus==1}}">
+		<text class="font-title">测试医生</text>
 	</view>
 </van-action-sheet>
