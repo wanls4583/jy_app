@@ -232,15 +232,16 @@ Page({
                 });
             }
             var role = wx.getStorageSync('role');
-            var doctorId = data.info.currentDoctorId;
-            doctorId = data.info.doctorId || data.info.offlineDoctorId;
+            var doctorId = '';
             if (role) {
+                doctorId = data.info.currentDoctorId;
                 if (role == 'USER') {
                     data.info.role = 'USER';
                 } else {
                     data.info.role = 'DOCTOR';
                 }
             } else {
+                doctorId = data.info.doctorId || data.info.offlineDoctorId;
                 if(doctorId) {
                     data.info.role = 'DOCTOR';
                     if(data.info.doctorId) {

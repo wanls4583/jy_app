@@ -22,7 +22,7 @@ function getUserInfo() {
                 data.info.role = 'USER';
             }
             if(data.info.originRole == 'PHARMACIST') {
-                wx.removeStorageSync('role');
+                wx.setStorageSync('role', 'USER');
             }
             //后台删除医生后前端也需要删除医生信息
             if(!data.info.doctorId) {

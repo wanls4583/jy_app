@@ -85,14 +85,10 @@ Page({
     onSelectDoctorType(e) {
         var type = e.currentTarget.dataset.type;
         if (type == 1) {
-            if (!this.data.userInfo.doctorId) {
-                wx.setStorageSync('role', 'DOCTOR_TEST');
-            } else {
-                wx.setStorageSync('role', 'DOCTOR');
-            }
+            wx.setStorageSync('role', 'DOCTOR');
         } else if (type == 2) {
             wx.setStorageSync('role', 'DOCTOR_OFFLINE');
-        } else {
+        } else if (type == 3) {
             wx.setStorageSync('role', 'DOCTOR_TEST');
         }
         wx.reLaunch({
@@ -154,7 +150,7 @@ Page({
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
                 var doctorId = data.info.currentDoctorId;
-                return data.info.doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
+                return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
                     } else {
@@ -182,9 +178,9 @@ Page({
                 });
             }
             var role = wx.getStorageSync('role');
-            if (role == 'DOCTOR') {
+            if (role && role.indexOf('DOCTOR') > -1) {
                 data.info.role = 'DOCTOR';
-            } else if (role == 'USER') {
+            } else {
                 data.info.role = 'USER';
             }
             this.updateUserInfo(data.info);
