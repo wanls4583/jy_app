@@ -509,7 +509,7 @@ Page({
     },
     loadLoaclInfo() {
         var data = wx.getStorageSync('approvInfo');
-        if (data) {
+        if (data && !(this.data.doctorInfo && this.data.doctorInfo.role == 'DOCTOR_TEST')) {
             this.setInfo(data);
         } else {
             this.loadInfo();
