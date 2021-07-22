@@ -52,7 +52,7 @@ Page({
     onCheckGoto(e) {
         var incomeSwitch = e.currentTarget.dataset.incomeSwitch;
         if (wx.jyApp.utils.checkDoctor()) {
-            if (incomeSwitch && this.data.doctorInfo.incomeSwitch != 1) {
+            if (incomeSwitch && this.data.doctorInfo.incomeSwitch != 1 && this.data.doctorInfo.role != 'DOCTOR_TEST') {
                 wx.jyApp.toast('该功能已关闭，请联系管理员！');
             } else {
                 this.onGoto(e);

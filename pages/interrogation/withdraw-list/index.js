@@ -30,6 +30,7 @@ Page({
             url: '/doctorwithdraw/list'
         });
         this.request.then((data) => {
+            data.list = data.list || [];
             data.list.map((item) => {
                 item._status = this.data.statusMap[item.status];
                 item._nickname = item.nickname;

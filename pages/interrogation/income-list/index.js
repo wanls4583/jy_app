@@ -68,6 +68,7 @@ Page({
                     dataList: []
                 });
             }
+            data.page.list = data.page.list || [];
             data.page.list.map((item) => {
                 switch (item.type) {
                     case 1:

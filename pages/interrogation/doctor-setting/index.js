@@ -148,6 +148,10 @@ Page({
         });
     },
     onClickGuidePrice() {
+        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+            wx.jyApp.toast('测试医生不支持该操作');
+            return;
+        }
         if (this.data.doctorInfo.incomeSwitch != 1) {
             return;
         }
