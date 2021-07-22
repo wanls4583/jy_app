@@ -58,7 +58,7 @@
 					<view
 						bindtap="onGoto"
 						class="button primary margin-top-30"
-						data-url="/pages/interrogation/qrcode-share/index??barcodeUrl={{doctorInfo.barcodeUrl}}"
+						data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 					>我的二维码名片</view>
 				</view>
 			</view>
