@@ -289,7 +289,7 @@ function checkDoctor(option = {
 }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
-    if ((!doctorInfo || doctorInfo.type != 2 && doctorInfo.authStatus != 1) && option.checkApprove) {
+    if ((!doctorInfo || doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus != 1) && option.checkApprove) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您未通过资质认证，认证后可使用该功能',
             confirmButtonText: '立即认证',
