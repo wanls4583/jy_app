@@ -27,7 +27,7 @@
 		<!-- 未认证医生 -->
 		<view
 			class="flex--center--between background-gradient padding-30 padding-top-0"
-			wx:elif="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.authStatus!=1)}}"
+			wx:elif="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
 		>
 			<view class="flex--center--center">
 				<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
