@@ -4,6 +4,7 @@ Page({
         stopRefresh: false,
         userInfoButtonVisible: true,
         actionVisible: false,
+        testVisible: false,
         canIUseGetUserProfile: wx.getUserProfile ? true : false
     },
     onLoad() {
@@ -13,6 +14,9 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
+        this.setData({
+            testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
+        })
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -70,7 +74,7 @@ Page({
                 url: '/pages/index/index'
             });
         } else {
-            if (this.data.userInfo.offlineDoctorId || !this.data.userInfo.doctorId && this.data.userInfo.testDoctorStatus == 1) {
+            if (this.data.userInfo.offlineDoctorId || this.data.testVisible) {
                 this.setData({
                     actionVisible: true
                 });
@@ -184,6 +188,9 @@ Page({
                 data.info.role = 'USER';
             }
             this.updateUserInfo(data.info);
+            this.setData({
+                testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
+            });
             return data;
         });
     },

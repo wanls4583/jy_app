@@ -136,7 +136,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/income-list/index"
-					wx:if="{{userInfo.role=='DOCTOR'}}"
+					wx:if="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
 				>
 					<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
@@ -146,7 +146,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/withdraw/index"
-					wx:if="{{userInfo.role=='DOCTOR'}}"
+					wx:if="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
 				>
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">提现</view>
@@ -249,7 +249,7 @@
 	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}" wx:if="{{userInfo.offlineDoctorId}}">
 		<text class="font-title">线下医生</text>
 	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{3}}" wx:if="{{userInfo.testDoctorStatus==1}}">
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{3}}" wx:if="{{testVisible}}">
 		<text class="font-title">测试医生</text>
 	</view>
 </van-action-sheet>
