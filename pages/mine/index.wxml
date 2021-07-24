@@ -246,7 +246,7 @@
 	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{1}}">
 		<text class="font-title">线上医生</text>
 	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}" wx:if="{{userInfo.offlineDoctorId}}">
+	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}" wx:if="{{offlineVisible}}">
 		<text class="font-title">线下医生</text>
 	</view>
 	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{3}}" wx:if="{{testVisible}}">

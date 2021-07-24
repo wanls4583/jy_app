@@ -17,7 +17,7 @@ Component({
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
                 fields: ['userInfo', 'doctorInfo', 'configData', 'consultNum', 'videoBookNum', 'phoneBookNum'],
-                actions: ['updateDoctorInfo'],
+                actions: ['updateDoctorInfo', 'updateUserInfo'],
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
@@ -84,9 +84,12 @@ Component({
         //获取医生信息
         getDoctorInfo() {
             return wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.currentDoctorId).then((data) => {
-                if (data.doctor) {
-                    this.updateDoctorInfo(Object.assign({}, data.doctor));
-                }
+                this.updateDoctorInfo(Object.assign({}, data.doctor));
+            }).catch(() => {
+                // 获取不到医生信息，切换到患者端
+                wx.jyApp.store.userInfo.role = 'USER';
+                wx.setStorageSync('role', 'USER');
+                this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
             });
         },
         loadBaner() {

@@ -59,6 +59,11 @@ Page({
                     } else {
                         this.updatePharmacistInfo(Object.assign({}, data.doctor));
                     }
+                }).catch(() => {
+                    // 获取不到医生信息，切换到患者端
+                    wx.jyApp.store.userInfo.role = 'USER';
+                    wx.setStorageSync('role', 'USER');
+                    this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
                 });
             }).finally(() => {
                 wx.hideLoading();
@@ -242,9 +247,9 @@ Page({
                 }
             } else {
                 doctorId = data.info.doctorId || data.info.offlineDoctorId;
-                if(doctorId) {
+                if (doctorId) {
                     data.info.role = 'DOCTOR';
-                    if(data.info.doctorId) {
+                    if (data.info.doctorId) {
                         wx.setStorageSync('role', 'DOCTOR');
                     } else {
                         wx.setStorageSync('role', 'DOCTOR_OFFLINE');

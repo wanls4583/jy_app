@@ -5,6 +5,7 @@ Page({
         userInfoButtonVisible: true,
         actionVisible: false,
         testVisible: false,
+        offlineVisible: false,
         canIUseGetUserProfile: wx.getUserProfile ? true : false
     },
     onLoad() {
@@ -14,9 +15,7 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
-        this.setData({
-            testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
-        })
+        this.getOfflineDoctor();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -74,7 +73,7 @@ Page({
                 url: '/pages/index/index'
             });
         } else {
-            if (this.data.userInfo.offlineDoctorId || this.data.testVisible) {
+            if (this.data.offlineVisible || this.data.testVisible) {
                 this.setData({
                     actionVisible: true
                 });
@@ -154,12 +153,26 @@ Page({
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
                 var doctorId = data.info.currentDoctorId;
+                if (doctorId != this.data.offlineDoctorId) {
+                    this.getOfflineDoctor();
+                }
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
                     } else {
                         this.updatePharmacistInfo(Object.assign({}, data.doctor));
                     }
+                    if (doctorId == this.data.offlineDoctorId) {
+                        this.setOfflineVisible(true);
+                    }
+                }).catch(() => {
+                    if (doctorId == this.data.offlineDoctorId) {
+                        this.setOfflineVisible(false);
+                    }
+                    // 获取不到医生信息，切换到患者端
+                    wx.jyApp.store.userInfo.role = 'USER';
+                    wx.setStorageSync('role', 'USER');
+                    this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
                 });
             });
         });
@@ -188,10 +201,29 @@ Page({
                 data.info.role = 'USER';
             }
             this.updateUserInfo(data.info);
-            this.setData({
-                testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
-            });
             return data;
         });
     },
+    getOfflineDoctor() {
+        if (this.data.userInfo.offlineDoctorId) {
+            return wx.jyApp.http({
+                url: `/doctor/info/${this.data.userInfo.offlineDoctorId}`,
+                hideTip: true,
+            }).then(() => {
+                this.setOfflineVisible(true)
+            }).catch(() => {
+                this.setOfflineVisible(false)
+            });
+        } else {
+            this.setOfflineVisible(false)
+        }
+    },
+    setOfflineVisible(offlineVisible) {
+        this.setData({
+            offlineVisible: offlineVisible
+        });
+        this.setData({
+            testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.offlineVisible
+        });
+    }
 })
