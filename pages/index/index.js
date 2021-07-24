@@ -239,11 +239,11 @@ Page({
             var role = wx.getStorageSync('role');
             var doctorId = '';
             if (role) {
-                doctorId = data.info.currentDoctorId;
                 if (role == 'USER') {
                     data.info.role = 'USER';
                 } else {
                     data.info.role = 'DOCTOR';
+                    doctorId = data.info.currentDoctorId;
                 }
             } else {
                 doctorId = data.info.doctorId || data.info.offlineDoctorId;

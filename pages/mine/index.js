@@ -15,6 +15,7 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount'],
         });
         this.storeBindings.updateStoreBindings();
+        this.setOfflineVisible(this.data.userInfo.offlineDoctorId);
         this.getOfflineDoctor();
     },
     onUnload() {
@@ -153,6 +154,9 @@ Page({
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
                 var doctorId = data.info.currentDoctorId;
+                if(this.data.userInfo.role == 'USER') {
+                    this.getOfflineDoctor();
+                }
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
@@ -197,10 +201,7 @@ Page({
         });
     },
     getOfflineDoctor() {
-        if(this.data.userInfo.role == 'DOCTOR') {
-            this.setData({
-                testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
-            });
+        if (this.data.userInfo.role == 'DOCTOR') {
             return;
         }
         if (this.data.userInfo.offlineDoctorId) {
