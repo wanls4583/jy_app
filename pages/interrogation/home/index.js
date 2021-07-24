@@ -87,9 +87,10 @@ Component({
                 this.updateDoctorInfo(Object.assign({}, data.doctor));
             }).catch(() => {
                 // 获取不到医生信息，切换到患者端
-                wx.jyApp.store.userInfo.role = 'USER';
                 wx.setStorageSync('role', 'USER');
-                this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
+                wx.reLaunch({
+                    url: '/pages/index/index'
+                });
             });
         },
         loadBaner() {

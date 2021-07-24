@@ -153,26 +153,18 @@ Page({
         return wx.jyApp.loginUtil.login().then(() => {
             return this.getUserInfo().then((data) => {
                 var doctorId = data.info.currentDoctorId;
-                if (doctorId != this.data.offlineDoctorId) {
-                    this.getOfflineDoctor();
-                }
                 return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                     if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                         this.updateDoctorInfo(Object.assign({}, data.doctor));
                     } else {
                         this.updatePharmacistInfo(Object.assign({}, data.doctor));
                     }
-                    if (doctorId == this.data.offlineDoctorId) {
-                        this.setOfflineVisible(true);
-                    }
                 }).catch(() => {
-                    if (doctorId == this.data.offlineDoctorId) {
-                        this.setOfflineVisible(false);
-                    }
                     // 获取不到医生信息，切换到患者端
-                    wx.jyApp.store.userInfo.role = 'USER';
                     wx.setStorageSync('role', 'USER');
-                    this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
+                    wx.reLaunch({
+                        url: '/pages/index/index'
+                    });
                 });
             });
         });
@@ -205,14 +197,17 @@ Page({
         });
     },
     getOfflineDoctor() {
+        if(this.data.userInfo.role == 'DOCTOR') {
+            this.setData({
+                testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.userInfo.offlineDoctorId
+            });
+            return;
+        }
         if (this.data.userInfo.offlineDoctorId) {
-            return wx.jyApp.http({
-                url: `/doctor/info/${this.data.userInfo.offlineDoctorId}`,
-                hideTip: true,
-            }).then(() => {
-                this.setOfflineVisible(true)
+            wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.offlineDoctorId).then(() => {
+                this.setOfflineVisible(true);
             }).catch(() => {
-                this.setOfflineVisible(false)
+                this.setOfflineVisible(false);
             });
         } else {
             this.setOfflineVisible(false)

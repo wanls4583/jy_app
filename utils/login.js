@@ -38,7 +38,8 @@ function getDoctorInfo(doctorId) {
         return Promise.reject();
     }
     return wx.jyApp.http({
-        url: `/doctor/info/${doctorId}`
+        url: `/doctor/info/${doctorId}`,
+        hideTip: true
     }).then((data) => {
         return data;
     });
