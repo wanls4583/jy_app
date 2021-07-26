@@ -225,10 +225,17 @@
 	<block wx:if="{{step==17}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="flex font-bold">
+				<viwe class="font-bold">
 					<text>15、你坚持锻炼：</text>
-					<input bindinput="onInputNum" class="border-bottom" data-prop="answers.q[16]" style="width:50px;text-align:center" type="text" value="{{answers.q[16]}}" />
-					<text>年</text>
+					<input
+						bindinput="onInputNum"
+						class="border-bottom"
+						data-prop="answers.q[16]"
+						style="display:inline-block;width:50px;text-align:center"
+						type="text"
+						value="{{answers.q[16]}}"
+					/>
+					<text>年（例如：舞蹈班／足球队／篮球队／啦啦队／羽毛球／长跑队员／田径队员等）</text>
 				</viwe>
 			</view>
 		</view>

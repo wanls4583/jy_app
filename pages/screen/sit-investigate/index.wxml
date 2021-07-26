@@ -31,7 +31,7 @@
 	<block wx:if="{{step==2}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">2、平均而言，你每天大约连续有多少小时做以下事情？（社交型久坐行为：电脑、手机聊天、坐着或躺着打电话、短信等）</viwe>
+				<viwe class="font-bold">2、平均而言，你每天大约连续有多少小时做以下事情？（社交型久坐行为：打电话、面对面聊天、交谈等）</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
@@ -95,7 +95,7 @@
 	<block wx:if="{{step==6}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">6、平均而言，你每天大约连续有多少小时做以下事情？（其他类型久坐行为）</viwe>
+				<viwe class="font-bold">6、平均而言，你每天大约连续有多少小时做以下事情？（其他类型久坐行为：外伤后需要静养等）</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
 					<van-radio name="{{0}}">0小时</van-radio>
 					<van-radio name="{{0.5}}">半小时</van-radio>
