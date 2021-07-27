@@ -42,6 +42,9 @@ Page({
         wx.jyApp.utils.onInput(e, this);
         this.setBMI();
     },
+    onInputNum(e) {
+        wx.jyApp.utils.onInputNum(e, this);
+    },
     onShowDate() {
         this.setData({
             dateVisible: true
@@ -91,7 +94,7 @@ Page({
         var result = '';
         if ((q[0] == 2 || q[0] == 3) || (q[1] == 2 || q[1] == 3) || (q[2] == 2) || (q[3] == 1 || q[3] == 3)) {
             result = '异常';
-        } else if(q.length) {
+        } else if (q.length) {
             result = '正常';
         }
         this.setData({
@@ -110,8 +113,12 @@ Page({
             type: 'FAT-GROW',
             isRisk: this.data.isRisk
         };
-        if(!this.data.answers.q.length) {
+        if (!this.data.answers.q.length) {
             wx.jyApp.toast('请至少选择一道题目的选项');
+            return;
+        }
+        if (this.data.answers.q[5] == 1 && !this.data.answers.age) {
+            wx.jyApp.toast('请填写第6题的年纪');
             return;
         }
         wx.jyApp.showLoading('加载中...', true);

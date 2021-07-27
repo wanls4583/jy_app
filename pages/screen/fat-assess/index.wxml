@@ -93,7 +93,7 @@
 							<text>{{item.answers.q[0]}}</text>
 						</view>
 						<view class="flex margin-top-20">
-							<text class="flex-shrink-0">6个月内喂养方式：</text>
+							<text class="flex-shrink-0">母乳喂养时间：</text>
 							<text>{{item.answers.q[1]}}</text>
 						</view>
 						<view class="flex margin-top-20">
@@ -103,6 +103,14 @@
 						<view class="flex margin-top-20">
 							<text class="flex-shrink-0">青春期性成熟：</text>
 							<text>{{item.answers.q[3]}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">辅食添加时间：</text>
+							<text>{{item.answers.q[4]}}</text>
+						</view>
+						<view class="flex margin-top-20">
+							<text class="flex-shrink-0">生长速率：</text>
+							<text>{{item.answers.q[5]}}</text>
 						</view>
 					</block>
 					<!-- 家族史 -->

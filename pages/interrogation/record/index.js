@@ -15,9 +15,10 @@ Page({
                 2: '低出生体质量',
                 3: '巨大儿'
             }, {
-                1: '母乳喂养',
-                2: '奶粉喂养',
-                3: '混合喂养',
+                1: '母乳喂养小于6个月',
+                2: '母乳喂养至6个月',
+                3: '奶粉（人工）喂养 7-12个月',
+                4: '混合喂养 12-24个月'
             }, {
                 1: '足月',
                 2: '早产'
@@ -25,6 +26,10 @@ Page({
                 1: '提前',
                 2: '正常',
                 3: '延迟'
+            }, {
+                1: '小于4个月开始',
+                2: '4-6个月开始',
+                3: '大于6个月开始'
             }],
             'FAT-HOME': [{
                 1: '家族成员中是有超重或肥胖史'
@@ -161,8 +166,16 @@ Page({
                     } else {
                         var q = [];
                         item.answers.q.map((_item, i) => {
-                            _item = _item && this.data.answersMap['FAT-GROW'][i][_item] || '';
-                            q.push(_item);
+                            if (i == 5) {
+                                if (_item == 1) {
+                                    q.push('孩子' + item.answers.age + '岁开始体重增长过快或感觉明显高于同性别的同龄人');
+                                } else {
+                                    q.push('无上述情况');
+                                }
+                            } else {
+                                _item = _item && this.data.answersMap['FAT-GROW'][i][_item] || '';
+                                q.push(_item);
+                            }
                         });
                         item.answers.q = q;
                     }

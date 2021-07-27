@@ -78,7 +78,16 @@ Page({
             0: '饱和脂肪酸摄入量过高'
         }, {
             0: '饱和脂肪酸摄入量过高'
-        }]
+        }, {
+            3: '餐次安排不合理'
+        }, {
+            3: '睡前进食'
+        }, {
+            0: '过度喂养和过量进食'
+        }, {
+            3: '外出就餐过频',
+            4: '外出就餐过频'
+        }, {}]
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
@@ -123,7 +132,7 @@ Page({
             [`${prop}`]: e.detail,
         });
         setTimeout(() => {
-            if (step == 24) {
+            if (step == 29) {
                 this.onSave();
             } else {
                 this.setData({

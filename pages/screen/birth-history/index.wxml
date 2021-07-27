@@ -14,7 +14,7 @@
 	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>
-			<viwe class="font-bold">1、出生体质量</viwe>
+			<viwe class="font-bold">1、出生体重</viwe>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 				<van-radio name="{{1}}">{{'正常（2.5kg≤出生体质量≤4.0kg）'}}</van-radio>
 				<van-radio name="{{2}}">{{'低出生体质量（出生体质量<2.5kg）'}}</van-radio>
@@ -24,11 +24,12 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">2、6个月内喂养方式</viwe>
+			<viwe class="font-bold">2、母乳喂养时间</viwe>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
-				<van-radio name="{{1}}">母乳喂养</van-radio>
-				<van-radio name="{{2}}">奶粉喂养</van-radio>
-				<van-radio name="{{3}}">混合喂养</van-radio>
+				<van-radio name="{{1}}">母乳喂养小于6个月</van-radio>
+				<van-radio name="{{2}}">母乳喂养至6个月</van-radio>
+				<van-radio name="{{3}}">奶粉（人工）喂养 7-12个月</van-radio>
+				<van-radio name="{{4}}">混合喂养 12-24个月</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
@@ -56,6 +57,38 @@
 					<view>男生：14岁前无睾丸增大、生殖器的开始发育和完全生长的间隔>5年</view>
 					<view>女生：13岁以前没有乳房发育、从乳腺生长开始和月经初潮相隔>5年、16岁前未见月经</view>
 				</view>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-30 padding-top-0">
+		<view class="padding-top-30 border-top">
+			<viwe class="font-bold">5、辅食添加时间</viwe>
+			<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+				<van-radio name="{{1}}">小于4个月开始</van-radio>
+				<van-radio name="{{2}}">4-6个月开始</van-radio>
+				<van-radio name="{{3}}">大于6个月开始</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-30 padding-top-0">
+		<view class="padding-top-30 border-top">
+			<viwe class="font-bold">6、生长速率</viwe>
+			<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+				<van-radio name="{{1}}">
+					<view>
+						<text class="flex-shrink-0">孩子</text>
+						<input
+							bindinput="onInputNum"
+							class="margin-left-right-20 border-bottom"
+							data-prop="answers.age"
+							style="width:50px;display:inline-block;vertical-align:bottom"
+							type="text"
+							value="{{answers.age}}"
+						/>
+						<text>岁开始体重增长过快或感觉明显高于同性别的同龄人</text>
+					</view>
+				</van-radio>
+				<van-radio name="{{2}}">无上述情况</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
