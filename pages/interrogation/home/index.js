@@ -83,7 +83,8 @@ Component({
         },
         //获取医生信息
         getDoctorInfo() {
-            return wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.currentDoctorId).then((data) => {
+            var doctorId = this.data.userInfo.currentDoctorId;
+            return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                 this.updateDoctorInfo(Object.assign({}, data.doctor));
             }).catch(() => {
                 // 获取不到医生信息，切换到患者端

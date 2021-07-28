@@ -262,6 +262,9 @@ Page({
                     wx.setStorageSync('role', 'USER');
                 }
             }
+            if(doctorId) {
+                data.info.currentDoctorId = doctorId;
+            }
             this.updateUserInfo(data.info);
             if (data.info.role == 'USER') {
                 this.getCart();
