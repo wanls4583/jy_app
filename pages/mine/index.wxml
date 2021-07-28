@@ -153,17 +153,17 @@
 				</view>
 			</block>
 		</view>
-		<!-- 药师才有审核权限 -->
-		<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole=='PHARMACIST'&&pharmacistInfo.status==1}}">
-			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
-				<text>处方单审核</text>
-				<view class="flex--center--center">
-					<van-icon color="#ccc" name="arrow" />
+		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">
+			<!-- 药师才有审核权限 -->
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole=='PHARMACIST'&&pharmacistInfo.status==1}}">
+				<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/guidance-online/examine-list/index">
+					<text>处方单审核</text>
+					<view class="flex--center--center">
+						<van-icon color="#ccc" name="arrow" />
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow" wx:else>
-			<view class="padding-left-right-20 clickable">
+			<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole!='PHARMACIST'}}">
 				<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 					<text>切换账号</text>
 					<view class="flex--center--center">
