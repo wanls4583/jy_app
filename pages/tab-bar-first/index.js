@@ -36,7 +36,7 @@ Page({
     },
     onShareAppMessage: function (res) {
         return {
-            title: '钜元云营养',
+            title: '钜元营养',
             path: '/pages/index/index',
             imageUrl: '/image/logo.png'
         }
