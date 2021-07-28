@@ -240,6 +240,9 @@ Page({
             var doctorId = '';
             if (role) {
                 if (role == 'USER') {
+                    if (data.info.originRole == 'PHARMACIST') { // 药师
+                        doctorId = data.info.doctorId;
+                    }
                     data.info.role = 'USER';
                 } else {
                     data.info.role = 'DOCTOR';
