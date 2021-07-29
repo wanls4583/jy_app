@@ -64,6 +64,7 @@ Page({
                     wx.jyApp.store.userInfo.role = 'USER';
                     wx.setStorageSync('role', 'USER');
                     this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
+                    this.storeBindings.updateStoreBindings();
                 });
             }).finally(() => {
                 wx.hideLoading();
@@ -278,6 +279,7 @@ Page({
                 data.info.currentDoctorId = doctorId;
             }
             this.updateUserInfo(data.info);
+            this.storeBindings.updateStoreBindings();
             if (data.info.role == 'USER') {
                 this.getCart();
             }
