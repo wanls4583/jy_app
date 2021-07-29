@@ -26,10 +26,11 @@
 		<view class="padding-top-30 border-top">
 			<viwe class="font-bold">2、母乳喂养时间</viwe>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
-				<van-radio name="{{1}}">母乳喂养小于6个月</van-radio>
-				<van-radio name="{{2}}">母乳喂养至6个月</van-radio>
-				<van-radio name="{{3}}">奶粉（人工）喂养 7-12个月</van-radio>
-				<van-radio name="{{4}}">混合喂养 12-24个月</van-radio>
+				<van-radio name="{{1}}">纯母乳喂养小于6个月</van-radio>
+				<van-radio name="{{2}}">纯母乳喂养至满6个月</van-radio>
+				<van-radio name="{{3}}">纯母乳喂养达1岁</van-radio>
+				<van-radio name="{{4}}">母乳喂养达2岁</van-radio>
+				<van-radio name="{{5}}">奶粉（人工）喂养（无母乳喂养）</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
@@ -64,9 +65,10 @@
 		<view class="padding-top-30 border-top">
 			<viwe class="font-bold">5、辅食添加时间</viwe>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
-				<van-radio name="{{1}}">小于4个月开始</van-radio>
-				<van-radio name="{{2}}">4-6个月开始</van-radio>
-				<van-radio name="{{3}}">大于6个月开始</van-radio>
+				<van-radio name="{{1}}">小于4个月</van-radio>
+				<van-radio name="{{2}}">小于6个月</van-radio>
+				<van-radio name="{{3}}">满6个月开始</van-radio>
+				<van-radio name="{{4}}">大于6个月开始</van-radio>
 			</van-radio-group>
 		</view>
 	</view>

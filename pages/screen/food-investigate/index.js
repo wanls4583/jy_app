@@ -87,7 +87,13 @@ Page({
         }, {
             3: '外出就餐过频',
             4: '外出就餐过频'
-        }, {}]
+        }, {
+            2: '饮食口味偏重',
+            3: '饮食口味偏重',
+            4: '饮食口味偏重',
+            5: '饮食口味偏重',
+            6: '饮食口味偏重'
+        }]
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
