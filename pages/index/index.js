@@ -80,6 +80,15 @@ Page({
                                 url: this.url
                             });
                         }
+                    } else if (this.inviteWay == 'salesman') { //扫业务员二维码进入
+                        if (wx.jyApp.store.userInfo.role == 'USER') {
+                            this.data.userInfo.role = 'DOCTOR';
+                            this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                            wx.setStorageSync('role', 'DOCTOR');
+                        }
+                        wx.jyApp.utils.navigateTo({
+                            url: '/pages/interrogation/certification/index'
+                        });
                     } else if (this.inviteWay == 2) { //扫医生二维码进入
                         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
                             var url = '';
@@ -225,6 +234,9 @@ Page({
             } else if (param.type == 3 && param.dId) { //医生邀请二维码分享
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 1;
+            } else if (param.type == 4 && param.sId) { //业务员邀请二维码分享
+                this.inviteDoctorId = param.sId;
+                this.inviteWay = 'salesman';
             }
         }
     },
@@ -262,7 +274,7 @@ Page({
                     wx.setStorageSync('role', 'USER');
                 }
             }
-            if(doctorId) {
+            if (doctorId) {
                 data.info.currentDoctorId = doctorId;
             }
             this.updateUserInfo(data.info);
