@@ -13,6 +13,12 @@ Page({
             limit: 10,
             totalPage: -1,
             stopRefresh: false,
+            startDate: new Date().getTime(),
+            _startDate: '',
+            endDate: 0,
+            _endDate: '',
+            startDateVisible: false,
+            endDateVisible: false
         },
         applyOrder: {
             orderList: [],
@@ -20,6 +26,12 @@ Page({
             limit: 10,
             totalPage: -1,
             stopRefresh: false,
+            startDate: new Date().getTime(),
+            _startDate: '',
+            endDate: 0,
+            _endDate: '',
+            startDateVisible: false,
+            endDateVisible: false
         },
         guidanceOrder: {
             orderList: [],
@@ -27,6 +39,12 @@ Page({
             limit: 10,
             totalPage: -1,
             stopRefresh: false,
+            startDate: new Date().getTime(),
+            _startDate: '',
+            endDate: 0,
+            _endDate: '',
+            startDateVisible: false,
+            endDateVisible: false
         },
         active: 0
     },
@@ -347,6 +365,68 @@ Page({
             this.holding = false;
         });
     },
+    onShowDate(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}.startDateVisible`]: true
+        });
+    },
+    onConfirmStartDate(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}.startDateVisible`]: false,
+            [`${prop}.endDateVisible`]: true,
+            [`${prop}.startDate`]: e.detail,
+            [`${prop}._startDate`]: new Date(e.detail).formatTime('yyyy-MM-dd'),
+        })
+    },
+    onCancelStart(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}.startDate`]: 0,
+            [`${prop}._startDate`]: '',
+            [`${prop}.startDateVisible`]: false,
+            [`${prop}.endDateVisible`]: true,
+        })
+    },
+    onConfirmEndDate(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}.endDate`]: e.detail,
+            [`${prop}._endDate`]: new Date(e.detail).formatTime('yyyy-MM-dd'),
+            [`${prop}.endDateVisible`]: false
+        })
+        switch (prop) {
+            case 'interrogationOrder':
+                this.loadInterrogationOrderList(true);
+                break;
+            case 'applyOrder':
+                this.loadApplyOrderList(true);
+                break;
+            case 'guidanceOrder':
+                this.loadGuidanceOrderList(true);
+                break;
+        }
+    },
+    onCancelEnd(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}.endDate`]: 0,
+            [`${prop}._endDate`]: '',
+            [`${prop}.endDateVisible`]: false
+        })
+        switch (prop) {
+            case 'interrogationOrder':
+                this.loadInterrogationOrderList(true);
+                break;
+            case 'applyOrder':
+                this.loadApplyOrderList(true);
+                break;
+            case 'guidanceOrder':
+                this.loadGuidanceOrderList(true);
+                break;
+        }
+    },
     loadMallOrderList(refresh) {
         if (refresh) {
             this.mallRequest && this.mallRequest.requestTask.abort();
@@ -413,19 +493,18 @@ Page({
             url: '/consultorder/list',
             data: {
                 page: refresh ? 1 : this.data.interrogationOrder.page,
-                limit: this.data.interrogationOrder.limit
+                limit: this.data.interrogationOrder.limit,
+                startDate: this.data.interrogationOrder._startDate,
+                endDate: this.data.interrogationOrder._endDate
             }
         });
         this.interrogationRequest.then((data) => {
             if (refresh) {
                 this.setData({
-                    interrogationOrder: {
-                        orderList: [],
-                        page: 1,
-                        limit: 10,
-                        totalPage: -1,
-                        stopRefresh: false,
-                    }
+                    'interrogationOrder.orderList': [],
+                    'interrogationOrder.page': 1,
+                    'interrogationOrder.totalPage': -1,
+                    'interrogationOrder.stopRefresh': false,
                 });
             }
             var now = data.now;
@@ -452,6 +531,7 @@ Page({
                 this.setStatusColor(item, 'interrogation')
             });
             this.setData({
+                'interrogationOrder.totalAmount': data.totalAmount,
                 'interrogationOrder.page': this.data.interrogationOrder.page + 1,
                 'interrogationOrder.totalPage': data.page.totalPage,
                 'interrogationOrder.orderList': this.data.interrogationOrder.orderList.concat(data.page.list)
@@ -476,19 +556,18 @@ Page({
             url: '/nutritionorder/list',
             data: {
                 page: refresh ? 1 : this.data.guidanceOrder.page,
-                limit: this.data.guidanceOrder.limit
+                limit: this.data.guidanceOrder.limit,
+                startDate: this.data.guidanceOrder._startDate,
+                endDate: this.data.guidanceOrder._endDate
             }
         });
         this.guidanceRequest.then((data) => {
             if (refresh) {
                 this.setData({
-                    guidanceOrder: {
-                        orderList: [],
-                        page: 1,
-                        limit: 10,
-                        totalPage: -1,
-                        stopRefresh: false,
-                    }
+                    'guidanceOrder.orderList': [],
+                    'guidanceOrder.page': 1,
+                    'guidanceOrder.totalPage': -1,
+                    'guidanceOrder.stopRefresh': false,
                 });
             }
             var todayBegin = Date.prototype.getTodayBegin();
@@ -504,7 +583,7 @@ Page({
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(1) || '';
                 item.goods.map((_item) => {
-                    if(_item.type == 1) {
+                    if (_item.type == 1) {
                         _item.goodsName = `${_item.goodsName}(${_item.items[0].standardNum}${wx.jyApp.constData.unitChange[_item.items[0].standardUnit]}/${wx.jyApp.constData.unitChange[_item.unit]})`;
                     }
                     _item.goodsPic = _item.goodsPic && _item.goodsPic.split(',')[0] || '';
@@ -513,6 +592,7 @@ Page({
                 this.setStatusColor(item, 'mall');
             });
             this.setData({
+                'guidanceOrder.totalAmount': data.totalAmount,
                 'guidanceOrder.page': this.data.guidanceOrder.page + 1,
                 'guidanceOrder.totalPage': data.page.totalPage,
                 'guidanceOrder.orderList': this.data.guidanceOrder.orderList.concat(data.page.list)
@@ -537,19 +617,18 @@ Page({
             url: '/apply/list',
             data: {
                 page: refresh ? 1 : this.data.applyOrder.page,
-                limit: this.data.applyOrder.limit
+                limit: this.data.applyOrder.limit,
+                startDate: this.data.applyOrder._startDate,
+                endDate: this.data.applyOrder._endDate
             }
         });
         this.applyRequest.then((data) => {
             if (refresh) {
                 this.setData({
-                    applyOrder: {
-                        orderList: [],
-                        page: 1,
-                        limit: 10,
-                        totalPage: -1,
-                        stopRefresh: false,
-                    }
+                    'applyOrder.orderList': [],
+                    'applyOrder.page': 1,
+                    'applyOrder.totalPage': -1,
+                    'applyOrder.stopRefresh': false,
                 });
             }
             var todayBegin = Date.prototype.getTodayBegin();
@@ -565,6 +644,7 @@ Page({
                 this.setStatusColor(item, 'apply');
             });
             this.setData({
+                'applyOrder.totalAmount': data.totalAmount,
                 'applyOrder.page': this.data.applyOrder.page + 1,
                 'applyOrder.totalPage': data.page.totalPage,
                 'applyOrder.orderList': this.data.applyOrder.orderList.concat(data.page.list)

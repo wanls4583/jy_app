@@ -195,7 +195,7 @@
                 "pagePath": "pages/tab-bar-second/index",
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城"
+                "text": "制剂中心"
             },
             {
                 "pagePath": "pages/interrogation/message-list/index",

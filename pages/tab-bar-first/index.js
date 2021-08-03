@@ -26,7 +26,7 @@ Page({
                 index: 1,
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城",
+                "text": "制剂中心",
                 fail: () => { }
             });
         }

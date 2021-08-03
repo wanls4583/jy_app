@@ -141,7 +141,7 @@
 					<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
 				</view>
-				<view
+				<!-- <view
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-income-switch="{{true}}"
@@ -150,7 +150,7 @@
 				>
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">提现</view>
-				</view>
+				</view> -->
 			</block>
 		</view>
 		<view class="margin-20 white-background-color radius-8px overflow-hidden shadow">

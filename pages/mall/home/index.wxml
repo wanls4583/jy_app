@@ -62,7 +62,7 @@
 				<view class="flex--center--between margin-left-right-20 margin-top-30 overflow-hidden">
 					<view
 						bindtap="onGoto"
-						class="flex-direction-column flex--center--between width-25 clickable"
+						class="flex-direction-column flex--center--between width-33 clickable"
 						data-url="/pages/interrogation/illness-edit/index"
 						wx:if="{{configData.hideDoctor!=1}}"
 					>
@@ -74,7 +74,7 @@
 					</view>
 					<view
 						bindtap="onGoto"
-						class="flex-direction-column flex--center--between width-25 clickable"
+						class="flex-direction-column flex--center--between width-33 clickable"
 						data-url="/pages/mall/search-doctor/index"
 						wx:if="{{configData.hideDoctor!=1}}"
 					>
@@ -86,7 +86,7 @@
 					</view>
 					<view
 						bindtap="onGoto"
-						class="flex-direction-column flex--center--between width-25 clickable"
+						class="flex-direction-column flex--center--between width-33 clickable"
 						data-url="/pages/screen/screen-select/index"
 						wx:if="{{configData.hideDoctor!=1}}"
 					>
@@ -96,7 +96,7 @@
 						<text class="margin-top-10">筛查评估</text>
 						<text class="font-small color-666">风险筛查评估</text>
 					</view>
-					<view
+					<!-- <view
 						bindtap="onGoto"
 						class="flex-direction-column flex--center--between width-25 clickable"
 						data-type="tab"
@@ -107,7 +107,7 @@
 						</view>
 						<text class="margin-top-10">营养产品</text>
 						<text class="font-small color-666">快速送货上门</text>
-					</view>
+					</view> -->
 				</view>
 				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow" wx:if="{{departmentList.length&&configData.hideDoctor!=1}}">
 					<view class="font-title font-bold padding-20">营养中心</view>

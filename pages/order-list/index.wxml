@@ -10,7 +10,21 @@
 	</view>
 	<view class="height-100" style="padding-top:44px">
 		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
-			<swiper-item>
+			<swiper-item style="padding-top:44px">
+				<view class="position-absolute top-0 width-100 flex--center--between padding-left-right-30 white-background-color border-bottom" style="height:44px">
+					<view bindtap="onShowDate" class="flex gray-color" data-prop="interrogationOrder">
+						<view class="flex">
+							<block wx:if="{{interrogationOrder._startDate||interrogationOrder._endDate}}">
+								<text>{{interrogationOrder._startDate}}</text>
+								<text decode="{{true}}">&nbsp;至&nbsp;</text>
+								<text>{{interrogationOrder._endDate}}</text>
+							</block>
+							<text wx:else>全部时间</text>
+						</view>
+						<van-icon name="arrow-down" />
+					</view>
+					<view wx:if="{{interrogationOrder._startDate||interrogationOrder._endDate}}">产品金额：{{interrogationOrder.totalAmount||0}}</view>
+				</view>
 				<pull-scroll-view
 					bindrefresh="onInterrogationOrderRefresh"
 					bindscrolltolower="onInterrogationOrderLoadMore"
@@ -101,7 +115,21 @@
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
 			</swiper-item>
-			<swiper-item>
+			<swiper-item style="padding-top:44px">
+				<view class="position-absolute top-0 width-100 flex--center--between padding-left-right-30 white-background-color border-bottom" style="height:44px">
+					<view bindtap="onShowDate" class="flex gray-color" data-prop="applyOrder">
+						<view class="flex">
+							<block wx:if="{{applyOrder._startDate||applyOrder._endDate}}">
+								<text>{{applyOrder._startDate}}</text>
+								<text decode="{{true}}">&nbsp;至&nbsp;</text>
+								<text>{{applyOrder._endDate}}</text>
+							</block>
+							<text wx:else>全部时间</text>
+						</view>
+						<van-icon name="arrow-down" />
+					</view>
+					<view wx:if="{{applyOrder._startDate||applyOrder._endDate}}">产品金额：{{applyOrder.totalAmount||0}}</view>
+				</view>
 				<pull-scroll-view
 					bindrefresh="onApplyOrderRefresh"
 					bindscrolltolower="onApplyOrderLoadMore"
@@ -167,7 +195,21 @@
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
 			</swiper-item>
-			<swiper-item>
+			<swiper-item style="padding-top:44px">
+				<view class="position-absolute top-0 width-100 flex--center--between padding-left-right-30 white-background-color border-bottom" style="height:44px">
+					<view bindtap="onShowDate" class="flex gray-color" data-prop="guidanceOrder">
+						<view class="flex">
+							<block wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">
+								<text>{{guidanceOrder._startDate}}</text>
+								<text decode="{{true}}">&nbsp;至&nbsp;</text>
+								<text>{{guidanceOrder._endDate}}</text>
+							</block>
+							<text wx:else>全部时间</text>
+						</view>
+						<van-icon name="arrow-down" />
+					</view>
+					<view wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">产品金额：{{guidanceOrder.totalAmount||0}}</view>
+				</view>
 				<pull-scroll-view
 					bindrefresh="onGuidanceOrderRefresh"
 					bindscrolltolower="onGuidanceOrderLoadMore"
@@ -300,3 +342,66 @@
 		</swiper>
 	</view>
 </view>
+<van-popup position="bottom" show="{{interrogationOrder.startDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelStart"
+		bind:confirm="onConfirmStartDate"
+		data-prop="interrogationOrder"
+		title="开始日期"
+		type="date"
+		value="{{interrogationOrder.startDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{interrogationOrder.endDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelEnd"
+		bind:confirm="onConfirmEndDate"
+		data-prop="interrogationOrder"
+		min-date="{{interrogationOrder.startDate}}"
+		title="结束日期"
+		type="date"
+		value="{{interrogationOrder.endDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{applyOrder.startDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelStart"
+		bind:confirm="onConfirmStartDate"
+		data-prop="applyOrder"
+		title="开始日期"
+		type="date"
+		value="{{applyOrder.startDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{applyOrder.endDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelEnd"
+		bind:confirm="onConfirmEndDate"
+		data-prop="applyOrder"
+		min-date="{{applyOrder.startDate}}"
+		title="结束日期"
+		type="date"
+		value="{{applyOrder.endDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{guidanceOrder.startDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelStart"
+		bind:confirm="onConfirmStartDate"
+		data-prop="guidanceOrder"
+		title="开始日期"
+		type="date"
+		value="{{guidanceOrder.startDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{guidanceOrder.endDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelEnd"
+		bind:confirm="onConfirmEndDate"
+		data-prop="guidanceOrder"
+		min-date="{{guidanceOrder.startDate}}"
+		title="结束日期"
+		type="date"
+		value="{{guidanceOrder.endDate}}"
+	/>
+</van-popup>
