@@ -383,7 +383,6 @@ Page({
     onCancelStart(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
-            [`${prop}.startDate`]: 0,
             [`${prop}._startDate`]: '',
             [`${prop}.startDateVisible`]: false,
             [`${prop}.endDateVisible`]: true,
@@ -411,7 +410,6 @@ Page({
     onCancelEnd(e) {
         var prop = e.currentTarget.dataset.prop;
         this.setData({
-            [`${prop}.endDate`]: 0,
             [`${prop}._endDate`]: '',
             [`${prop}.endDateVisible`]: false
         })

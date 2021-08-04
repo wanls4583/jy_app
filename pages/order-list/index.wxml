@@ -23,7 +23,7 @@
 						</view>
 						<van-icon name="arrow-down" />
 					</view>
-					<view wx:if="{{interrogationOrder._startDate||interrogationOrder._endDate}}">产品金额：{{interrogationOrder.totalAmount||0}}</view>
+					<view wx:if="{{interrogationOrder._startDate||interrogationOrder._endDate}}">总额：{{interrogationOrder.totalAmount||0}}</view>
 				</view>
 				<pull-scroll-view
 					bindrefresh="onInterrogationOrderRefresh"
@@ -128,7 +128,7 @@
 						</view>
 						<van-icon name="arrow-down" />
 					</view>
-					<view wx:if="{{applyOrder._startDate||applyOrder._endDate}}">产品金额：{{applyOrder.totalAmount||0}}</view>
+					<view wx:if="{{applyOrder._startDate||applyOrder._endDate}}">总额：{{applyOrder.totalAmount||0}}</view>
 				</view>
 				<pull-scroll-view
 					bindrefresh="onApplyOrderRefresh"
@@ -208,7 +208,7 @@
 						</view>
 						<van-icon name="arrow-down" />
 					</view>
-					<view wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">产品金额：{{guidanceOrder.totalAmount||0}}</view>
+					<view wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">总额：{{guidanceOrder.totalAmount||0}}</view>
 				</view>
 				<pull-scroll-view
 					bindrefresh="onGuidanceOrderRefresh"

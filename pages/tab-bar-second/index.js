@@ -32,7 +32,7 @@ Page({
             });
         } else {
             wx.setNavigationBarTitle({
-                title: '商城'
+                title: '制剂中心'
             });
             wx.setNavigationBarColor({
                 frontColor: '#ffffff',
@@ -42,7 +42,7 @@ Page({
                 index: 1,
                 "iconPath": "image/icon_marks.png",
                 "selectedIconPath": "image/icon_marks_active.png",
-                "text": "商城",
+                "text": "制剂中心",
                 fail: () => { }
             });
         }
