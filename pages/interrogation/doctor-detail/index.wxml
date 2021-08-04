@@ -56,7 +56,7 @@
 				bindtap="onGoto"
 				class="button primary small"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
-			>去咨询</view>
+			>去筛查</view>
 		</view>
 		<view class="flex--center--between padding-30 gray-background-color radius-8rpx">
 			<view class="flex--center--between height-80rpx">
