@@ -21,11 +21,17 @@ Page({
             result: result,
             _result: _result,
             color: color,
+            doctorId: option.doctorId
         });
         this.loadDoctor();
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
+    },
+    onConsult() {
+        wx.redirectTo({
+            url: `/pages/interrogation/illness-edit/index?doctorId=${this.doctorId}&type=1`
+        })
     },
     //查看更多
     onClickMore(e) {

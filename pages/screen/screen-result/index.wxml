@@ -5,7 +5,7 @@
 		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
 		<view class="white-color">{{result>=1?'患者有营养风险，请联系医生进行营养支持治疗':'患者营养状况良好，可联系医生咨询健康生活方式'}}</view>
 	</view>
-	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{doctorList.length&&configData.hideDoctor!=1}}">
+	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{!doctorId&&doctorList.length&&configData.hideDoctor!=1}}">
 		<view class="flex--center--between">
 			<text class="font-title font-bold">推荐医生</text>
 			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
@@ -17,4 +17,7 @@
 			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 		</view>
 	</view>
+	<footer wx:if="{{doctorId}}">
+		<view bindtap="onConsult" class="button primary block">立即问诊</view>
+	</footer>
 </view>
