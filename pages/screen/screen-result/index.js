@@ -21,7 +21,7 @@ Page({
             result: result,
             _result: _result,
             color: color,
-            doctorId: option.doctorId
+            doctorId: option.doctorId || ''
         });
         this.loadDoctor();
     },
@@ -30,7 +30,7 @@ Page({
     },
     onConsult() {
         wx.redirectTo({
-            url: `/pages/interrogation/illness-edit/index?doctorId=${this.doctorId}&type=1`
+            url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=1`
         })
     },
     //查看更多

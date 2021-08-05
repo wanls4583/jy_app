@@ -42,7 +42,7 @@
 		</view>
 	</view>
 	<view class="padding-30">
-		<view class="flex--center--between padding-30 margin-bottom-30 radius-8rpx" style="background:rgb(247,196,117)" wx:if="{{screenVisible}}">
+		<view class="flex--center--between padding-30 margin-bottom-30 radius-8rpx" style="background:rgb(247,196,117)" wx:if="{{!screenVisible}}">
 			<view class="flex--center--between height-80rpx">
 				<view class="width-80rpx height-100 radius-8rpx overflow-hidden">
 					<image class="width-100 height-100" mode="aspectFit" src="/image/icon_order.png" />
