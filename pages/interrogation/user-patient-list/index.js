@@ -108,7 +108,7 @@ Page({
     },
     onAdd(e) {
         wx.jyApp.utils.navigateTo({
-            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}`
+            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}&doctorId=${this.doctorId}&doctorName=${this.doctorName}`
         });
     },
     loadList() {
