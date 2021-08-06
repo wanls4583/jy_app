@@ -102,6 +102,7 @@
             "body-fat/index",
             "body-result/index",
             "pgsga/index",
+            "tumour-fluid/index",
             "fat/index",
             "fat-result/index"
         ]

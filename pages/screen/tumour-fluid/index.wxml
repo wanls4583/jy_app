@@ -1,0 +1,139 @@
+<view class="container white-background-color padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view>
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+				</view>
+			</view>
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="split-20"></view>
+		<view class="padding-30">
+			<view class="font-bold margin-bottom-30">1、6个月体质量丢失</view>
+			<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+				<van-radio name="{{0}}">体质量稳定或增加</van-radio>
+				<van-radio name="{{1}}">体质量减轻≤5%</van-radio>
+				<van-radio name="{{2}}">{{'5%<体质量减轻≤15%'}}</van-radio>
+				<van-radio name="{{3}}">{{'体质量减轻>15%'}}</van-radio>
+			</van-radio-group>
+		</view>
+	</block>
+	<block wx:if="{{step==2}}">
+		<view class="margin-30 pre-vertical-line primary-line-color">SARC-F评分</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">1、举起／搬运约4.5kg重物的难度</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1][0]" value="{{answers.q[1][0]}}">
+					<van-radio name="{{0}}">没有难度</van-radio>
+					<van-radio name="{{1}}">有一定难度</van-radio>
+					<van-radio name="{{2}}">难度较大，无法完成</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">2、步行穿越房间的难度</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1][1]" value="{{answers.q[1][1]}}">
+					<van-radio name="{{0}}">没有难度</van-radio>
+					<van-radio name="{{1}}">有一定难度</van-radio>
+					<van-radio name="{{2}}">难度较大，需要帮助，无法完成</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">3、攀爬10级台阶的难度</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1][2]" value="{{answers.q[1][2]}}">
+					<van-radio name="{{0}}">没有难度</van-radio>
+					<van-radio name="{{1}}">有一定难度</van-radio>
+					<van-radio name="{{2}}">难度较大，无法完成</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">4、过去1年中跌倒的次数</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1][3]" value="{{answers.q[1][3]}}">
+					<van-radio name="{{0}}">0次</van-radio>
+					<van-radio name="{{1}}">1-3次</van-radio>
+					<van-radio name="{{2}}">4次及以上</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==3}}">
+		<view class="margin-30 pre-vertical-line primary-line-color">ECOG 体能状态评分</view>
+		<view class="padding-30 padding-top-0">
+			<view>
+				<view class="font-bold margin-bottom-30">1、请选择最符合的选项</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-radio name="{{0}}">活动能力完全正常，与起病前活动能力无任何差异。</van-radio>
+					<van-radio name="{{1}}">能自由走动及从事轻体力活动，包括一般家务或办公室工作，但不能从事较重的体力活动。</van-radio>
+					<van-radio name="{{2}}">能自由走动及生活自理，但已丧失工作能力，日间不少于一半时间可以起床活动。</van-radio>
+					<van-radio name="{{3}}">生活仅能部分自理，日间一半以上时间卧床或坐轮椅。</van-radio>
+					<van-radio name="{{4}}">卧床不起，生活不能自理。</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==4}}">
+		<view class="margin-30 pre-vertical-line primary-line-color">厌食评分</view>
+		<view class="padding-30 padding-top-0">
+			<view>
+				<view class="font-bold margin-bottom-30">1、过去1周食欲如何？（从0-10级，0代表完全没有食欲，10代表食欲正常）</view>
+				<view class="flex">
+					<view
+						bindtap="onEat"
+						class="align-center border primary-border-color primary-color {{q[3]>=item?'primary-background-color white-color':''}}"
+						data-item="{{item}}"
+						style="width:9%;padding:10rpx 0"
+						wx:for="{{eatArr}}"
+						wx:key="index"
+					>{{item}}</view>
+				</view>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==5}}">
+		<view class="margin-30 pre-vertical-line primary-line-color">实验室检查异常</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">1、“白血球计数WBC”的检查结果：</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4][0]" value="{{answers.q[4][0]}}">
+					<van-radio name="{{0}}">{{'WBC>10×10'}}</van-radio>
+					<van-radio name="{{1}}">{{'WBC≥10×10'}}</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">1、“白蛋白Alb”的检查结果：</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4][1]" value="{{answers.q[4][1]}}">
+					<van-radio name="{{0}}">{{'Alb<35 g/L'}}</van-radio>
+					<van-radio name="{{1}}">{{'Alb≥35 g/L'}}</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">1、“血红素Hb”的检查结果：</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4][2]" value="{{answers.q[4][2]}}">
+					<van-radio name="{{0}}">{{'Hb<120g/L（男）或Hb<110g/L（女）'}}</van-radio>
+					<van-radio name="{{1}}">{{'Hb≥120g/L（男）或Hb≥110g/L（女）'}}</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+</view>
+<footer>
+	<view bindtap="onBack" class="button primary plain" wx:if="{{step>1}}">上一页</view>
+	<view bindtap="onNext" class="button primary" wx:if="{{step<5}}">下一页</view>
+	<view bindtap="onSave" class="button primary" wx:if="{{step==5}}">提交</view>
+</footer>
+<footer-text>{{step}}/5</footer-text>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

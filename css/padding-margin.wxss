@@ -344,12 +344,15 @@
 
 .split-10 {
     height: 10rpx;
+    background-color: #f6f6f6;
 }
 
 .split-20 {
     height: 20rpx;
+    background-color: #f6f6f6;
 }
 
 .split-30 {
     height: 30rpx;
+    background-color: #f6f6f6;
 }

@@ -377,6 +377,7 @@ Page({
             [`${prop}.startDateVisible`]: false,
             [`${prop}.endDateVisible`]: true,
             [`${prop}.startDate`]: e.detail,
+            [`${prop}.endDate`]: 0,
             [`${prop}._startDate`]: new Date(e.detail).formatTime('yyyy-MM-dd'),
         })
     },

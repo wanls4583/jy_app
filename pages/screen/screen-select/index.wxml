@@ -36,6 +36,22 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
+				data-type="{{2}}"
+				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=tumour-fluid&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
+			>
+				<view>
+					<text>肿瘤恶液质评估</text>
+					<text class="gray-color">（适用于肿瘤患者）</text>
+				</view>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
+			<view
+				bindtap="onGoto"
+				class="flex--center--between padding-top-bottom-30 border-bottom"
 				data-type="{{3}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=sga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
