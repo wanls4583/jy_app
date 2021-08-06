@@ -103,8 +103,8 @@
 			<view class="border-bottom">
 				<view class="font-bold margin-bottom-30">1、“白血球计数WBC”的检查结果：</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[4][0]" value="{{answers.q[4][0]}}">
-					<van-radio name="{{0}}">{{'WBC>10×10'}}</van-radio>
-					<van-radio name="{{1}}">{{'WBC≥10×10'}}</van-radio>
+					<van-radio name="{{1}}">{{'WBC>10×10'}}</van-radio>
+					<van-radio name="{{0}}">{{'WBC≥10×10'}}</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
@@ -112,8 +112,8 @@
 			<view class="border-bottom">
 				<view class="font-bold margin-bottom-30">1、“白蛋白Alb”的检查结果：</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[4][1]" value="{{answers.q[4][1]}}">
-					<van-radio name="{{0}}">{{'Alb<35 g/L'}}</van-radio>
-					<van-radio name="{{1}}">{{'Alb≥35 g/L'}}</van-radio>
+					<van-radio name="{{1}}">{{'Alb<35 g/L'}}</van-radio>
+					<van-radio name="{{0}}">{{'Alb≥35 g/L'}}</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
@@ -121,8 +121,8 @@
 			<view class="border-bottom">
 				<view class="font-bold margin-bottom-30">1、“血红素Hb”的检查结果：</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[4][2]" value="{{answers.q[4][2]}}">
-					<van-radio name="{{0}}">{{'Hb<120g/L（男）或Hb<110g/L（女）'}}</van-radio>
-					<van-radio name="{{1}}">{{'Hb≥120g/L（男）或Hb≥110g/L（女）'}}</van-radio>
+					<van-radio name="{{1}}">{{'Hb<120g/L（男）或Hb<110g/L（女）'}}</van-radio>
+					<van-radio name="{{0}}">{{'Hb≥120g/L（男）或Hb≥110g/L（女）'}}</van-radio>
 				</van-radio-group>
 			</view>
 		</view>

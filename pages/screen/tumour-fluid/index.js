@@ -91,6 +91,45 @@ Page({
         var result = '';
         var resultDescription = [];
         var q = this.data.answers.q;
+        var temp = 0;
+        score += (q[0] || 0);
+        q[1] && q[1].map((item) => {
+            temp += (item || 0);
+        });
+        if (temp >= 1 && temp <= 3) {
+            score += 1;
+        } else if (temp >= 4 && temp <= 6) {
+            score += 2;
+        } else if (temp >= 7) {
+            score += 3;
+        }
+        if (q[2] >= 1 && q[2] <= 2) {
+            score += 1;
+        } else if (q[2] >= 3) {
+            score += 2
+        }
+        temp = 10 - q[3];
+        if (temp >= 4 && temp <= 6) {
+            score += 1;
+        } else if (temp >= 7) {
+            score += 2;
+        }
+        temp = q[4] || [];
+        temp = (temp[0] || 0) + (temp[1] || 0) + (temp[2] || 0);
+        if (temp == 1) {
+            score += 1;
+        } else if (temp > 1) {
+            score += 2;
+        }
+        if (score >= 9) {
+            result = '恶液质难治期';
+        } else if (score >= 5) {
+            result = '恶液质期';
+        } else if (score >= 3) {
+            result = '恶液质前期';
+        } else if (q.length) {
+            result = '无恶液质';
+        }
         this.setData({
             result: result,
             resultDescription: resultDescription.join(';'),
@@ -125,10 +164,10 @@ Page({
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
             answers: JSON.stringify(this.data.answers),
-            type: 'FAT-SIT',
             result: this.data.result,
             resultDescription: this.data.resultDescription,
-            isRisk: this.data.isRisk
+            isRisk: this.data.isRisk,
+            type: 'TUNOUR_FLUID'
         };
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
