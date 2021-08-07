@@ -80,6 +80,9 @@ Page({
             case 'FAT-BODY':
                 url = '/pages/screen/body-fat/index';
                 break;
+            case 'TUNOUR_FLUID':
+                url = '/pages/screen/tumour-fluid/index';
+                break;
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
@@ -184,6 +187,10 @@ Page({
                 }
                 if (item.filtrateType == 'FAT-BODY') {
                     item._filtrateType = '体脂肪含量测量'
+                    item.label = '评估';
+                }
+                if (item.filtrateType == 'TUNOUR_FLUID') {
+                    item._filtrateType = '肿瘤恶液质评估'
                     item.label = '评估';
                 }
             });

@@ -150,6 +150,9 @@ Page({
                         item._filtrateResult = '中心性肥胖（BMI肥胖）';
                     }
                 }
+                if (item.filtrateType == 'TUNOUR_FLUID') {
+                    item._filtrateType = '肿瘤恶液质评估'
+                }
             });
             var fatTypes = [];
             var fatData = [];
