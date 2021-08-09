@@ -132,6 +132,7 @@ Page({
             });
             data.filtrate.map((item) => {
                 item._filtrateType = item.filtrateType;
+                item._filtrateResult = item.filtrateResult;
                 if (item.filtrateType == 'FAT') {
                     item._filtrateType = '超重与肥胖'
                     if (item.filtrateResult == 1) {

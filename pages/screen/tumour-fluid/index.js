@@ -142,17 +142,17 @@ Page({
         }).then((data) => {
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
+            data.info.answers = JSON.parse(data.info.answers);
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
-                id: data.fatEvaluate.id || '',
-                filtrateId: data.fatEvaluate.filtrateId || '',
-                answers: data.fatEvaluate.answers,
+                id: data.info.id || '',
+                filtrateId: data.info.filtrateId || '',
+                answers: data.info.answers,
                 patient: data.patientFiltrate
             });
-            if (data.fatEvaluate.answers.filtrateDate) {
+            if (data.info.answers.filtrateDate) {
                 this.setData({
-                    filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                    filtrateDate: Date.prototype.parseDate(data.info.answers.filtrateDate)
                 });
             }
         });
