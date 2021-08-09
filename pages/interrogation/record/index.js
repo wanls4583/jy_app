@@ -153,6 +153,9 @@ Page({
                 if (item.filtrateType == 'TUNOUR_FLUID') {
                     item._filtrateType = '肿瘤恶液质评估'
                 }
+                if (item.filtrateType == 'ORAL_MUCOSA') {
+                    item._filtrateType = '口腔黏膜风险评估'
+                }
             });
             var fatTypes = [];
             var fatData = [];

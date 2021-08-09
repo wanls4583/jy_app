@@ -1,9 +1,9 @@
-<view class="container padding-bottom-footer">
+<view class="container white-background-color padding-bottom-footer">
 	<view class="flex--center--between flex-direction-column" style="padding:30px 0;background-color:{{color}}">
 		<view class="white-color font-bold font-title">评估结果</view>
 		<view class="font-bold" style="margin-top:30px;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
 	</view>
-	<view class="white-background-color" style="padding:20px 40px;line-height:24px">
+	<view style="padding:20px 40px;line-height:24px">
 		<view>结果解释：</view>
 		<view wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>
 	</view>

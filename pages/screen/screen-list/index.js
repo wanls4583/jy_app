@@ -83,6 +83,9 @@ Page({
             case 'TUNOUR_FLUID':
                 url = '/pages/screen/tumour-fluid/index';
                 break;
+            case 'ORAL_MUCOSA':
+                url = '/pages/screen/oral-mucosa/index';
+                break;
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
@@ -191,6 +194,10 @@ Page({
                 }
                 if (item.filtrateType == 'TUNOUR_FLUID') {
                     item._filtrateType = '肿瘤恶液质评估'
+                    item.label = '评估';
+                }
+                if (item.filtrateType == 'ORAL_MUCOSA') {
+                    item._filtrateType = '口腔黏膜风险评估'
                     item.label = '评估';
                 }
             });

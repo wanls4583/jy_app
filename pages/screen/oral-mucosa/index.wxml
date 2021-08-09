@@ -1,0 +1,88 @@
+<view class="container white-background-color padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view>
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+				</view>
+			</view>
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="split-20"></view>
+		<view class="padding-left-right-30">
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">1、性别</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+					<van-radio name="{{1}}">男</van-radio>
+					<van-radio name="{{2}}">女</van-radio>
+				</van-radio-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">2、年龄</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+					<van-radio name="{{1}}">{{'<60'}}</van-radio>
+					<van-radio name="{{2}}">≥60</van-radio>
+				</van-radio-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">3、是否有以下行为</view>
+				<van-checkbox-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-checkbox name="{{1}}" shape="square">吸烟</van-checkbox>
+					<van-checkbox name="{{2}}" shape="square">喝酒</van-checkbox>
+					<van-checkbox name="{{3}}" shape="square">带义齿</van-checkbox>
+					<van-checkbox name="{{-1}}" shape="square">以上都没有</van-checkbox>
+				</van-checkbox-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">4、口腔是否有以下情况</view>
+				<van-checkbox-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+					<van-checkbox name="{{1}}" shape="square">口腔卫生不良</van-checkbox>
+					<van-checkbox name="{{2}}" shape="square">{{'口腔ph值<6.5'}}</van-checkbox>
+					<van-checkbox name="{{-1}}" shape="square">以上都没有</van-checkbox>
+				</van-checkbox-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">5、是否有以下状况</view>
+				<van-checkbox-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+					<van-checkbox name="{{1}}" shape="square">有口腔疾患（龋齿、牙周病等）</van-checkbox>
+					<van-checkbox name="{{2}}" shape="square">口干/唾液分泌不足</van-checkbox>
+					<van-checkbox name="{{3}}" shape="square">有营养不良的风险、营养状况差</van-checkbox>
+					<van-checkbox name="{{4}}" shape="square">脱水</van-checkbox>
+					<van-checkbox name="{{5}}" shape="square">疾病终末期</van-checkbox>
+					<van-checkbox name="{{6}}" shape="square">重度骨髓抑制</van-checkbox>
+					<van-checkbox name="{{7}}" shape="square">合并糖尿病或免疫缺陷病</van-checkbox>
+					<van-checkbox name="{{8}}" shape="square">接受氧疗、留置鼻胃管等可能导致口腔干燥的治疗</van-checkbox>
+					<van-checkbox name="{{-1}}" shape="square">以上都没有</van-checkbox>
+				</van-checkbox-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">6、是否有服用以下药物</view>
+				<van-checkbox-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+					<van-checkbox name="{{1}}" shape="square">服用靶向药物</van-checkbox>
+					<van-checkbox name="{{2}}" shape="square">服用双磷酸盐制剂</van-checkbox>
+					<van-checkbox name="{{3}}" shape="square">服用镇静剂</van-checkbox>
+					<van-checkbox name="{{4}}" shape="square">服用阿片类药物</van-checkbox>
+					<van-checkbox name="{{5}}" shape="square">服用利尿剂</van-checkbox>
+					<van-checkbox name="{{-1}}" shape="square">以上都没有</van-checkbox>
+				</van-checkbox-group>
+			</view>
+			<view class="padding-top-bottom-30">
+				<view class="font-bold margin-bottom-30">7、是否有进行以下治疗</view>
+				<van-checkbox-group bind:change="onChange" data-prop="answers.q[6]" value="{{answers.q[6]}}">
+					<van-checkbox name="{{1}}" shape="square">头颈部放疗</van-checkbox>
+					<van-checkbox name="{{2}}" shape="square">大剂量化疗</van-checkbox>
+					<van-checkbox name="{{3}}" shape="square">自体/异体造血干细胞移植</van-checkbox>
+					<van-checkbox name="{{-1}}" shape="square">以上都没有</van-checkbox>
+				</van-checkbox-group>
+			</view>
+		</view>
+	</block>
+</view>
+<footer>
+	<view bindtap="onSave" class="button primary">提交</view>
+</footer>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>
