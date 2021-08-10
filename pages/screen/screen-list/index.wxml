@@ -30,7 +30,12 @@
 				<view class="flex margin-top-10">
 					<text class="flex-shrink-0 label-color">结果解释：</text>
 					<view>
-						<view style="white-space:pre-line" wx:for="{{item.resultDescription}}" wx:key="index">{{item&&index+1+'、'||''}}{{item||''}}</view>
+						<view
+							style="white-space:pre-line"
+							wx:for="{{item.resultDescription}}"
+							wx:for-item="_item"
+							wx:key="index"
+						>{{item.resultDescription.length>1&&_item&&index+1+'、'||''}}{{_item||''}}</view>
 					</view>
 				</view>
 			</view>

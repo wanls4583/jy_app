@@ -81,10 +81,10 @@
 				<view class="font-bold margin-bottom-30">1、请选择最符合的选项</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 					<van-radio name="{{0}}">活动能力完全正常，与起病前活动能力无任何差异。</van-radio>
-					<van-radio name="{{1}}">能自由走动及从事轻体力活动，包括一般家务或办公室工作，但不能从事较重的体力活动。</van-radio>
+					<van-radio name="{{1}}">能自由走动及从事轻体力活动，包括一般家务或办公室工作，但不能从事较重的体力活动。</van-radio>
 					<van-radio name="{{2}}">能自由走动及生活自理，但已丧失工作能力，日间不少于一半时间可以起床活动。</van-radio>
 					<van-radio name="{{3}}">生活仅能部分自理，日间一半以上时间卧床或坐轮椅。</van-radio>
-					<van-radio name="{{4}}">卧床不起，生活不能自理。</van-radio>
+					<van-radio name="{{4}}">卧床不起，生活不能自理。</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
@@ -97,7 +97,7 @@
 				<view class="flex">
 					<view
 						bindtap="onEat"
-						class="align-center border primary-border-color primary-color {{q[3]>=item?'primary-background-color white-color':''}}"
+						class="align-center border primary-border-color primary-color {{answers.q[3]>=item?'primary-background-color white-color':''}}"
 						data-item="{{item}}"
 						style="width:9%;padding:10rpx 0"
 						wx:for="{{eatArr}}"

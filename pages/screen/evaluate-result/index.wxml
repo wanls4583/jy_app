@@ -9,5 +9,5 @@
 	</view>
 </view>
 <view class="footer flex--center--around padding-30 background-color-transparent">
-	<view bindtap="onBack" class="button primary plain">返回</view>
+	<view bindtap="onBack" class="button block primary">返回</view>
 </view>

@@ -83,7 +83,7 @@ Page({
     onEat(e) {
         var eat = e.currentTarget.dataset.item;
         this.setData({
-            'q[3]': eat
+            'answers.q[3]': eat
         });
     },
     countResult() {
@@ -147,7 +147,7 @@ Page({
         } else if (score >= 3) {
             result = '恶液质前期';
             resultDescription.push('推荐恶液质前期的评估结果干预建议');
-            _resultDescription = `评估结果干预建议：：
+            _resultDescription = `评估结果干预建议：
             1、营养干预的目标是增加患者能量及各种营养素的摄入，改善患者营养状况，调节肿瘤患者的异常代谢，最终逆转患者体质量减轻和肌肉丢失。
             2、为患者及家属提供实用和安全的营养建议；提供关于摄入高蛋白、高热量、高营养型食物的指导；以及修正任何未经证实的或极端的饮食建议。
             3、对于患者不能摄入足够固体食物满足营养需求时，建议补充营养剂，以ONS为首选。
@@ -163,7 +163,7 @@ Page({
             result: result,
             resultDescription: resultDescription.join(';'),
             _resultDescription: _resultDescription,
-            isRisk: score > 2
+            isRisk: score >= 2
         });
     },
     loadInfo(id) {
