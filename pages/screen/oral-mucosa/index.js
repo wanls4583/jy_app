@@ -86,6 +86,7 @@ Page({
         var score = 0;
         var result = '';
         var resultDescription = [];
+        var _resultDescription = '';
         var q = this.data.answers.q;
         var level3 = q[6] && q[6].length;
         var level2 = (q[5] && q[5].length || 0) + (q[4] && q[4].length || 0);
@@ -94,19 +95,57 @@ Page({
         if (level3 > 0 || level2 >= 2) {
             result = '高度风险患者';
             resultDescription = ['需进行高度风险患者预防措施'];
+            _resultDescription = `1、每日自我评估口腔情况，有异常变化及时告知医护人员。
+			2、戒烟、戒酒。
+			3、避免进食尖锐、粗糙、辛辣、过咸、过酸、过热等易损伤或刺激口腔黏膜的食物。
+			4、做好基础口腔护理：
+			（1）进食后和睡前使用软毛牙刷刷牙，宜用含氟牙膏，至少 2 次/d。牙刷刷头向上放置储存， 每月至少更换 1 次牙刷。
+			（2）使用不含酒精的溶液漱口，如生理盐水或 3%～5%碳酸氢钠溶液，至少 2 次/d；使用漱口液时应先含漱，再鼓漱，时间至少 1 min。
+			（3）治疗期间禁用牙线和牙签。
+			5、增加生理盐水或 3%～5%碳酸氢钠溶液漱口频次，至少 4 次/d。
+			6、宜在治疗前指前往口腔科筛查及治疗口腔基础疾患。
+			7、使用半衰期短的化疗药物时，用药前开始含冰片、冰水等保持口腔低温 30 min；奥沙利铂化疗期间应避免使用口腔冷疗。
+			8、用清水漱口后，再使用药物漱口液或口腔黏膜保护剂。
+			9、应在中度风险预防措施的基础上进一步加强。
+			10、可使用不同机制的药物漱口液，使用不同药物时至少间隔 30 min。
+			11、使用低剂量激光治疗时，应根据仪器使用说明调节波长和照射时间。
+			12、使用重组人角质细胞生长因子时，应正确配置并指导患者每次含漱 3 min，至少 4 次/d。`;
         } else if (level2 > 0 || level1 >= 3) {
             result = '中度风险患者';
             resultDescription = ['需进行中度风险患者预防措施'];
+            _resultDescription = `1、每日自我评估口腔情况，有异常变化及时告知医护人员。
+			2、戒烟、戒酒。
+			3、避免进食尖锐、粗糙、辛辣、过咸、过酸、过热等易损伤或刺激口腔黏膜的食物。
+			4、 做好基础口腔护理：
+			（1）进食后和睡前使用软毛牙刷刷牙，宜用含氟牙膏，至少 2 次/d。牙刷刷头向上放置储存， 每月至少更换 1 次牙刷。
+			（2） 使用不含酒精的溶液漱口，如生理盐水或 3%～5%碳酸氢钠溶液，至少 2 次/d；使用漱口液时应先含漱，再鼓漱，时间至少 1 min。
+			（3）治疗期间禁用牙线和牙签。
+			5、增加生理盐水或 3%～5%碳酸氢钠溶液漱口频次，至少 4 次/d。
+			6、宜在治疗前指前往口腔科筛查及治疗口腔基础疾患。
+			7、使用半衰期短的化疗药物时，用药前开始含冰片、冰水等保持口腔低温 30 min；奥沙利铂化疗期间应避免使用口腔冷疗。
+			8、用清水漱口后，再使用药物漱口液或口腔黏膜保护剂。`;
         } else if (level1 > 0) {
             result = '轻度风险患者';
             resultDescription = ['需进行轻度风险患者预防措施'];
+            _resultDescription = `1、每日自我评估口腔情况，有异常变化及时告知医护人员。
+			2、戒烟、戒酒。
+			3 、避免进食尖锐、粗糙、辛辣、过咸、过酸、过热等易损伤或刺激口腔黏膜的食物。
+			4 、做好基础口腔护理：
+			（1） 进食后和睡前使用软毛牙刷刷牙，宜用含氟牙膏，至少 2 次/d。牙刷刷头向上放置储存， 每月至少更换 1 次牙刷。
+			（2） 使用不含酒精的溶液漱口，如生理盐水或 3%～5%碳酸氢钠溶液，至少 2 次/d；使用漱口液时应先含漱，再鼓漱，时间至少 1 min。
+			（3） 治疗期间禁用牙线和牙签。`;
         } else {
             result = '正常';
             resultDescription = ['暂未发现风险'];
+            _resultDescription = `暂未发现风险`;
+        }
+        if (result != '正常') {
+            _resultDescription = result + '\n' + _resultDescription;
         }
         this.setData({
             result: result,
             resultDescription: resultDescription.join(';'),
+            _resultDescription: _resultDescription,
             isRisk: score > 2
         });
     },
@@ -163,9 +202,9 @@ Page({
                     if (this.data.result == '高度风险患者') {
                         result = 4;
                     }
-                    wx.jyApp.setTempData('oral-mucosa-results', this.data.resultDescription.split(';'));
+                    wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/oral-mucosa-result/index?result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/evaluate-result/index?result=${result}&_result=${this.data.result}`
                     });
                 }
             });

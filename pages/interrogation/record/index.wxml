@@ -39,7 +39,7 @@
 								</view>
 								<view class="flex--center--start margin-top-20">
 									<view class="flex-shrink-0 label label-color">结果解释：</view>
-									<view>{{item.resultDescription || ''}}</view>
+									<view style="white-space:pre-line">{{item.resultDescription || ''}}</view>
 								</view>
 							</view>
 						</view>
@@ -235,7 +235,7 @@
 								<view class="flex margin-top-20">
 									<text class="flex-shrink-0">结果解释：</text>
 									<view>
-										<view wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+										<view style="white-space:pre-line" wx:for="{{item.resultDescription}}" wx:key="index">{{item&&index+1+'、'||''}}、{{item||''}}</view>
 									</view>
 								</view>
 							</block>

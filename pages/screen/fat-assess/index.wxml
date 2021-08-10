@@ -167,7 +167,7 @@
 						<view class="flex margin-top-20">
 							<text class="flex-shrink-0">结果解释：</text>
 							<view>
-								<view wx:for="{{item.resultDescription}}" wx:key="index">{{index+1}}、{{item}}</view>
+								<view wx:for="{{item.resultDescription}}" wx:key="index">{{item&&index+1+'、'||''}}、{{item||''}}</view>
 							</view>
 						</view>
 					</block>
