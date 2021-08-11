@@ -218,7 +218,7 @@ Page({
             this.routeType = option.routeType || 'navigateTo';
         } else if (option.type == 1 && option.dId) { //医生邀请分享
             this.inviteDoctorId = option.dId;
-            this.inviteWay = 1;
+            this.inviteWay = 'doctor';
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
         } else if (option.type == 3 && option.pId) { //产品主页
@@ -227,14 +227,14 @@ Page({
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
             if (param.type == 1 && param.dId) { //医生通过二维码或名片分享邀请
-                this.inviteWay = 2;
+                this.inviteWay = 'doctor';
                 this.inviteDoctorId = param.dId;
             } else if (param.type == 2 && param.dId) { //医生筛查二维码
                 this.screenDoctorId = param.dId;
                 this.screenType = param.stype;
             } else if (param.type == 3 && param.dId) { //医生邀请二维码分享
                 this.inviteDoctorId = param.dId;
-                this.inviteWay = 1;
+                this.inviteWay = 'doctor';
             } else if (param.type == 4 && param.sId) { //业务员邀请二维码分享
                 this.inviteDoctorId = param.sId;
                 this.inviteWay = 'salesman';
