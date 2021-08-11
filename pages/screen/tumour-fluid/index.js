@@ -109,7 +109,7 @@ Page({
         } else if (q[2] >= 3) {
             score += 2
         }
-        temp = 10 - q[3];
+        temp = 10 - (q[3] == null ? 10 : q[3]);
         if (temp >= 4 && temp <= 6) {
             score += 1;
         } else if (temp >= 7) {
