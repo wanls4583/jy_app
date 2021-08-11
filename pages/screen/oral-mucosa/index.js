@@ -35,6 +35,8 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
+                'answers.q[0]': patient.sex == 1 ? 1 : 2,
+                'answers.q[1]': patient.age < 60 ? 1 : 2
             });
         } else {
             this.loadInfo(option.id);
@@ -91,6 +93,21 @@ Page({
         var level3 = q[6] && q[6].length;
         var level2 = (q[5] && q[5].length || 0) + (q[4] && q[4].length || 0);
         var level1 = (q[3] && q[3].length || 0) + (q[2] && q[2].length || 0) + (q[1] == 2 ? 1 : 0) + (q[0] == 2 ? 1 : 0);
+        if (q[6] && q[6][0] == -1) {
+            level3--;
+        }
+        if (q[5] && q[5][0] == -1) {
+            level2--;
+        }
+        if (q[4] && q[4][0] == -1) {
+            level2--;
+        }
+        if (q[3] && q[3][0] == -1) {
+            level1--;
+        }
+        if (q[2] && q[2][0] == -1) {
+            level1--;
+        }
         // 高度风险
         if (level3 > 0 || level2 >= 2) {
             result = '高度风险患者';
@@ -146,7 +163,7 @@ Page({
             result: result,
             resultDescription: resultDescription.join(';'),
             _resultDescription: _resultDescription,
-            isRisk: score > 2
+            isRisk: level1 > 0
         });
     },
     loadInfo(id) {
@@ -204,7 +221,7 @@ Page({
                     }
                     wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/evaluate-result/index?result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/evaluate-result/index?title=口腔黏膜风险评估&result=${result}&_result=${this.data.result}`
                     });
                 }
             });

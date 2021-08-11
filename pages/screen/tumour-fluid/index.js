@@ -221,7 +221,7 @@ Page({
                     }
                     wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/evaluate-result/index?result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/evaluate-result/index?title=肿瘤恶液质评估&result=${result}&_result=${this.data.result}`
                     });
                 }
             });

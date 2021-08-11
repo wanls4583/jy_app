@@ -26,6 +26,9 @@ Page({
             _result: _result,
             color: color,
         });
+        wx.setNavigationBarTitle({
+            title: option.title || '评估结果'
+        });
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);

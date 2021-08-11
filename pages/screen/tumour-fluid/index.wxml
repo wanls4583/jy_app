@@ -97,7 +97,7 @@
 				<view class="flex">
 					<view
 						bindtap="onEat"
-						class="align-center border primary-border-color primary-color {{answers.q[3]>=item?'primary-background-color white-color':''}}"
+						class="align-center border primary-border-color primary-color {{answers.q[3]!=null&&answers.q[3]>=item?'primary-background-color white-color':''}}"
 						data-item="{{item}}"
 						style="width:9%;padding:10rpx 0"
 						wx:for="{{eatArr}}"
