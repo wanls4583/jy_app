@@ -163,7 +163,7 @@ Page({
             result: result,
             resultDescription: resultDescription.join(';'),
             _resultDescription: _resultDescription,
-            isRisk: score >= 2
+            isRisk: score >= 3
         });
     },
     loadInfo(id) {
