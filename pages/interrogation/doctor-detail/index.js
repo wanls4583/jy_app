@@ -69,7 +69,7 @@ Page({
         if (!this.data.doctor.id) {
             return;
         }
-        if (this.data.doctor.id == this.data.userInfo.doctorId) {
+        if (this.data.doctor.id == this.data.userInfo.doctorId || this.data.doctor.id == this.data.userInfo.offlineDoctorId) {
             wx.jyApp.toast('不能向自己问诊');
             return;
         }
