@@ -69,6 +69,10 @@ Page({
         if (!this.data.doctor.id) {
             return;
         }
+        if (this.data.doctor.id == this.data.userInfo.doctorId) {
+            wx.jyApp.toast('不能向自己问诊');
+            return;
+        }
         if (this.data.doctor.status != 1) {
             wx.jyApp.dialog.confirm({
                 message: '该医生已下线，你可以找其他医生进行问诊咨询',
