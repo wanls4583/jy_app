@@ -440,7 +440,7 @@
 		>{{item.name}}</view>
 	</view>
 	<view class="flex">
-		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">自己筛查</view>
+		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">医生筛查</view>
 		<view bindtap="onSendScreen" class="primary-color padding-30 align-center border-top clickable" style="flex:1">发送给患者</view>
 	</view>
 </van-popup>
