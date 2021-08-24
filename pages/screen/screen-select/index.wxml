@@ -152,7 +152,7 @@
 	<van-picker
 		bind:cancel="onCancel"
 		bind:confirm="onConfirm"
-		columns="{{[{label:'筛查二维码',value:1},{label:'自己筛查',value:2}]}}"
+		columns="{{[{label:'筛查二维码',value:1},{label:'医生筛查',value:2}]}}"
 		show-toolbar
 		value-key="label"
 		visible-item-count="{{3}}"
