@@ -23,7 +23,9 @@ Page({
             mainDiagnosis: '',
             mainDeseasePeriod: '',
             otherMainDeseasePeriod: '',
-            metabolismStatus: null,
+            metabolismStatus1: null,
+            metabolismStatus2: null,
+            metabolismStatus3: null,
             fatOfCheek: null,
             fatOfTriceps: null,
             fatOfRib: null,
@@ -40,7 +42,7 @@ Page({
             edemaOfShin: null,
             edemaOfAbdominal: null,
             edemaOfTotalGrade: null,
-            integralEvaluation: 'SGA_A',
+            _result: 'A',
             result: 0
         },
         dateVisible: false,
@@ -203,10 +205,86 @@ Page({
         var self = this;
         var pgsga = this.data.pgsga;
         var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8();
+        this.resultDescription = [];
         this.setData({
             'pgsga.result': count
         });
         this.setResult(count);
+        if (pgsga.dieteticChange.length) {
+            var arr = [];
+            var index = pgsga.dieteticChange.indexOf('NORMAL_FEED');
+            if (index > -1) {
+                arr[index] = '比正常量少的一般食物';
+            }
+            index = pgsga.dieteticChange.indexOf('SOLID_FEED');
+            if (index > -1) {
+                arr[index] = '一点固体食物';
+            }
+            index = pgsga.dieteticChange.indexOf('FLUID_FEED');
+            if (index > -1) {
+                arr[index] = '只有流质饮食';
+            }
+            index = pgsga.dieteticChange.indexOf('ONLY_NUTRITION');
+            if (index > -1) {
+                arr[index] = '只有营养补充品';
+            }
+            index = pgsga.dieteticChange.indexOf('LITTLE_FEED');
+            if (index > -1) {
+                arr[index] = '非常少的任何食物';
+            }
+            index = pgsga.dieteticChange.indexOf('INJECTABLE_FEED');
+            if (index > -1) {
+                arr[index] = '通过管饲进食或由静脉注射营养';
+            }
+            if (arr.length) {
+                this.resultDescription.push('我现在只吃：' + arr.join('、'));
+            }
+        }
+        if (pgsga.symptom.length) {
+            var arr = [];
+            var index = pgsga.symptom.indexOf('恶心');
+            if (index > -1) {
+                arr[index] = '恶心';
+            }
+            index = pgsga.symptom.indexOf('呕吐');
+            if (index > -1) {
+                arr[index] = '呕吐';
+            }
+            index = pgsga.symptom.indexOf('便秘');
+            if (index > -1) {
+                arr[index] = '便秘';
+            }
+            index = pgsga.symptom.indexOf('腹泻');
+            if (index > -1) {
+                arr[index] = '腹泻';
+            }
+            index = pgsga.symptom.indexOf('口腔溃疡');
+            if (index > -1) {
+                arr[index] = '口腔溃疡';
+            }
+            index = pgsga.symptom.indexOf('吞咽困难');
+            if (index > -1) {
+                arr[index] = '吞咽困难';
+            }
+            if (arr.length) {
+                this.resultDescription.push('症状：' + arr.join('、'));
+            }
+        }
+        if (pgsga.edemaOfAbdominal > 0) {
+            var str = '';
+            switch (Number(pgsga.edemaOfAbdominal)) {
+                case 1:
+                    str = '轻度异常';
+                    break;
+                case 1:
+                    str = '中度异常';
+                    break;
+                case 1:
+                    str = '严重异常';
+                    break;
+            }
+            this.resultDescription.push('腹水：' + str);
+        }
 
         function _countStep1() {
             var count = 0;
@@ -268,7 +346,7 @@ Page({
         }
 
         function _countStep6() {
-            return Number(pgsga.metabolismStatus) || 0;
+            return (Number(pgsga.metabolismStatus1) || 0) + (Number(pgsga.metabolismStatus2) || 0) + (Number(pgsga.metabolismStatus3) || 0);
         }
 
         function _countStep8() {
@@ -317,19 +395,24 @@ Page({
         }
     },
     setResult(score) {
-        if (score >= 0 && score <= 3) {
+        if (score >= 0 && score <= 1) {
             this.setData({
-                'pgsga.integralEvaluation': 'SGA_A'
+                'pgsga._result': 'A'
             });
         }
-        if (score > 3 && score <= 8) {
+        if (score >= 2 && score <= 3) {
             this.setData({
-                'pgsga.integralEvaluation': 'SGA_B'
+                'pgsga._result': 'B'
             });
         }
-        if (score > 8) {
+        if (score >= 4) {
             this.setData({
-                'pgsga.integralEvaluation': 'SGA_C'
+                'pgsga._result': 'C'
+            });
+        }
+        if (score >= 9) {
+            this.setData({
+                'pgsga._result': 'D'
             });
         }
     },
@@ -345,6 +428,12 @@ Page({
             }
             data.filtratePgsga = data.filtratePgsga || this.data.pgsga;
             data.filtratePgsga.filtrateDate = data.patientFiltrate.filtrateDate;
+            if (data.filtratePgsga.metabolismStatus) {
+                var arr = data.filtratePgsga.metabolismStatus.split(',');
+                data.filtratePgsga.metabolismStatus1 = isNaN(parseInt(arr[0])) ? null : parseInt(arr[0]);
+                data.filtratePgsga.metabolismStatus2 = isNaN(parseInt(arr[1])) ? null : parseInt(arr[1]);
+                data.filtratePgsga.metabolismStatus3 = isNaN(parseInt(arr[2])) ? null : parseInt(arr[2]);
+            }
             this.setData({
                 pgsga: data.filtratePgsga,
                 patient: data.patientFiltrate,
@@ -359,6 +448,7 @@ Page({
         var data = {
             ...this.data.pgsga
         };
+        data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus1, data.metabolismStatus3].join(',');
         data.symptom = data.symptom.join(',');
         data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.showLoading('加载中...', true);
@@ -375,21 +465,24 @@ Page({
                     delta: 1,
                     complete: () => {
                         var result = 0;
-                        var _result = '营养状况良好';
-                        if (data.integralEvaluation == 'SGA_B') {
+                        var _result = '无营养不良';
+                        if (data._result == 'B') {
                             result = 1;
-                            _result = '中度或可疑营养不良';
+                            _result = '可疑营养不良者';
                         }
-                        if (data.integralEvaluation == 'SGA_C') {
+                        if (data._result == 'C') {
                             result = 2;
-                            _result = '严重营养不良';
+                            _result = '中度营养不良者';
+                        }
+                        if (data._result == 'C') {
+                            result = 3;
+                            _result = '重度营养不良者';
                         }
                         if (this.data.userInfo.role != 'DOCTOR') {
-                            setTimeout(() => {
-                                wx.jyApp.utils.navigateTo({
-                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
-                                });
-                            }, 500);
+                            wx.jyApp.getTempData('screen-results', this.resultDescription);
+                            wx.jyApp.utils.navigateTo({
+                                url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
+                            });
                         }
                     }
                 });

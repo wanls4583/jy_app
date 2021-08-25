@@ -263,7 +263,9 @@ Component({
                     mainDiagnosis: '',
                     mainDeseasePeriod: '',
                     otherMainDeseasePeriod: '',
-                    metabolismStatus: null,
+                    metabolismStatus1: null,
+                    metabolismStatus2: null,
+                    metabolismStatus3: null,
                     fatOfCheek: null,
                     fatOfTriceps: null,
                     fatOfRib: null,
@@ -280,7 +282,7 @@ Component({
                     edemaOfShin: null,
                     edemaOfAbdominal: null,
                     edemaOfTotalGrade: null,
-                    integralEvaluation: 'SGA_A',
+                    _result: 'A',
                     result: 0
                 }
             });
@@ -401,7 +403,7 @@ Component({
             }
 
             function _countStep6() {
-                return Number(pgsga.metabolismStatus) || 0;
+                return (Number(pgsga.metabolismStatus1) || 0) + (Number(pgsga.metabolismStatus2) || 0) + (Number(pgsga.metabolismStatus3) || 0);
             }
 
             function _countStep8() {
@@ -450,19 +452,24 @@ Component({
             }
         },
         setResult(score) {
-            if (score >= 0 && score <= 3) {
+            if (score >= 0 && score <= 1) {
                 this.setData({
-                    'pgsga.integralEvaluation': 'SGA_A'
+                    'pgsga._result': 'A'
                 });
             }
-            if (score > 3 && score <= 8) {
+            if (score >= 2 && score <= 3) {
                 this.setData({
-                    'pgsga.integralEvaluation': 'SGA_B'
+                    'pgsga._result': 'B'
                 });
             }
-            if (score > 8) {
+            if (score >= 4) {
                 this.setData({
-                    'pgsga.integralEvaluation': 'SGA_C'
+                    'pgsga._result': 'C'
+                });
+            }
+            if (score >= 9) {
+                this.setData({
+                    'pgsga._result': 'D'
                 });
             }
         },
@@ -493,7 +500,6 @@ Component({
                 mainDiagnosis: pgsga.mainDiagnosis,
                 mainDeseasePeriod: '',
                 otherMainDeseasePeriod: '',
-                metabolismStatus: isNaN(Number(pgsga.metabolismStatus)) ? '' : Number(pgsga.metabolismStatus),
                 fatOfCheek: isNaN(Number(pgsga.fatOfCheek)) ? '' : Number(pgsga.fatOfCheek),
                 fatOfTriceps: isNaN(Number(pgsga.fatOfTriceps)) ? '' : Number(pgsga.fatOfTriceps),
                 fatOfRib: isNaN(Number(pgsga.fatOfRib)) ? '' : Number(pgsga.fatOfRib),
@@ -510,9 +516,14 @@ Component({
                 edemaOfShin: isNaN(Number(pgsga.edemaOfShin)) ? '' : Number(pgsga.edemaOfShin),
                 edemaOfAbdominal: isNaN(Number(pgsga.edemaOfAbdominal)) ? '' : Number(pgsga.edemaOfAbdominal),
                 edemaOfTotalGrade: isNaN(Number(pgsga.edemaOfTotalGrade)) ? '' : Number(pgsga.edemaOfTotalGrade),
-                integralEvaluation: pgsga.integralEvaluation,
                 result: pgsga.score
             };
+            if (pgsga.metabolismStatus) {
+                var arr = data.metabolismStatus.split(',');
+                data.metabolismStatus1 = isNaN(parseInt(arr[0])) ? null : parseInt(arr[0]);
+                data.metabolismStatus2 = isNaN(parseInt(arr[1])) ? null : parseInt(arr[1]);
+                data.metabolismStatus3 = isNaN(parseInt(arr[2])) ? null : parseInt(arr[2]);
+            }
             switch (Number(pgsga.mainDeseasePeriod)) {
                 case 1:
                     data.mainDeseasePeriod = '1级';
@@ -576,6 +587,7 @@ Component({
                 filtratedDate: pgsga.originDate,
                 doctorName: pgsga.doctorName
             })
+            this.setResult(pgsga.score || 0);
         },
         getSaveData() {
             var data = {
@@ -593,6 +605,7 @@ Component({
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.mainDeseasePeriod = this.data.mainDeseasePeriodMap[this.data.pgsga.mainDeseasePeriod] || this.data.pgsga.otherMainDeseasePeriod;
+            data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus1, data.metabolismStatus3].join(',');
             data.sick = false;
             if (data.symptom.indexOf('恶心') > -1) {
                 data.sick = true;
