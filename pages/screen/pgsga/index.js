@@ -479,7 +479,7 @@ Page({
                             _result = '重度营养不良者';
                         }
                         if (this.data.userInfo.role != 'DOCTOR') {
-                            wx.jyApp.getTempData('screen-results', this.resultDescription);
+                            wx.jyApp.setTempData('screen-results', this.resultDescription);
                             wx.jyApp.utils.navigateTo({
                                 url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
                             });

@@ -122,7 +122,7 @@
 			<view class="margin-left-30 pre-vertical-line primary-line-color">应激</view>
 			<view class="padding-30">
 				<view class="padding-bottom-30">发热：</view>
-				<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus" value="{{pgsga.metabolismStatus1}}">
+				<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus1" value="{{pgsga.metabolismStatus1}}">
 					<van-radio name="{{0}}">无（0分）</van-radio>
 					<van-radio name="{{1}}">37.2~38.3℃（1分）</van-radio>
 					<van-radio name="{{2}}">38.3~38.8℃（2分）</van-radio>
@@ -131,7 +131,7 @@
 			</view>
 			<view class="padding-30">
 				<view class="padding-bottom-30">发热持续时间</view>
-				<van-radio-group bind:change="onChange" data-prop="pgsga.fatOfTriceps" value="{{pgsga.metabolismStatus2}}">
+				<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus2" value="{{pgsga.metabolismStatus2}}">
 					<van-radio name="{{0}}">无（0分）</van-radio>
 					<van-radio name="{{1}}">{{'<72h（1分）'}}）</van-radio>
 					<van-radio name="{{2}}">{{'72（2分）'}}</van-radio>
@@ -140,7 +140,7 @@
 			</view>
 			<view class="padding-30">
 				<view class="padding-bottom-30">是否用激素（强的松）</view>
-				<van-radio-group bind:change="onChange" data-prop="pgsga.fatOfTriceps" value="{{pgsga.metabolismStatus3}}">
+				<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus3" value="{{pgsga.metabolismStatus3}}">
 					<van-radio name="{{0}}">无（0分）</van-radio>
 					<van-radio name="{{1}}">{{'低剂量（<10mg/d强的松或相对剂量的其他激素）（1分）'}}）</van-radio>
 					<van-radio name="{{2}}">{{'中剂量（10mg/d~30mg/d强的松或相对剂量的其他激素）（2分）'}}</van-radio>
