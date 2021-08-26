@@ -127,7 +127,7 @@ Component({
         onInputNum(e) {
             wx.jyApp.utils.onInputNum(e, this);
             this.countScore();
-            switch (Number(this.data.pgsga.otherMainDeseasePeriod)) {
+            switch (parseInt(this.data.pgsga.otherMainDeseasePeriod)) {
                 case 1:
                     this.setData({
                         'pgsga.mainDeseasePeriod': '1级'
@@ -399,11 +399,11 @@ Component({
             }
 
             function _countStep5() {
-                return Number(pgsga.otherMainDeseasePeriod) || 0;
+                return parseInt(pgsga.otherMainDeseasePeriod) || 0;
             }
 
             function _countStep6() {
-                return (Number(pgsga.metabolismStatus1) || 0) + (Number(pgsga.metabolismStatus2) || 0) + (Number(pgsga.metabolismStatus3) || 0);
+                return (parseInt(pgsga.metabolismStatus1) || 0) + (parseInt(pgsga.metabolismStatus2) || 0) + (parseInt(pgsga.metabolismStatus3) || 0);
             }
 
             function _countStep8() {
@@ -500,22 +500,22 @@ Component({
                 mainDiagnosis: pgsga.mainDiagnosis,
                 mainDeseasePeriod: '',
                 otherMainDeseasePeriod: '',
-                fatOfCheek: isNaN(Number(pgsga.fatOfCheek)) ? '' : Number(pgsga.fatOfCheek),
-                fatOfTriceps: isNaN(Number(pgsga.fatOfTriceps)) ? '' : Number(pgsga.fatOfTriceps),
-                fatOfRib: isNaN(Number(pgsga.fatOfRib)) ? '' : Number(pgsga.fatOfRib),
-                fatOfLack: isNaN(Number(pgsga.fatOfLack)) ? '' : Number(pgsga.fatOfLack),
-                muscleOfTempora: isNaN(Number(pgsga.muscleOfTempora)) ? '' : Number(pgsga.muscleOfTempora),
-                muscleOfCollarbone: isNaN(Number(pgsga.muscleOfCollarbone)) ? '' : Number(pgsga.muscleOfCollarbone),
-                muscleOfShoulder: isNaN(Number(pgsga.muscleOfShoulder)) ? '' : Number(pgsga.muscleOfShoulder),
-                muscleBewteenBones: isNaN(Number(pgsga.muscleBewteenBones)) ? '' : Number(pgsga.muscleBewteenBones),
-                muscleOfScapula: isNaN(Number(pgsga.muscleOfScapula)) ? '' : Number(pgsga.muscleOfScapula),
-                muscleOfThigh: isNaN(Number(pgsga.muscleOfThigh)) ? '' : Number(pgsga.muscleOfThigh),
-                muscleOfLowerLeg: isNaN(Number(pgsga.muscleOfLowerLeg)) ? '' : Number(pgsga.muscleOfLowerLeg),
-                muscleOfTotalGrade: isNaN(Number(pgsga.muscleOfTotalGrade)) ? '' : Number(pgsga.muscleOfTotalGrade),
-                edemaOfAnkle: isNaN(Number(pgsga.edemaOfAnkle)) ? '' : Number(pgsga.edemaOfAnkle),
-                edemaOfShin: isNaN(Number(pgsga.edemaOfShin)) ? '' : Number(pgsga.edemaOfShin),
-                edemaOfAbdominal: isNaN(Number(pgsga.edemaOfAbdominal)) ? '' : Number(pgsga.edemaOfAbdominal),
-                edemaOfTotalGrade: isNaN(Number(pgsga.edemaOfTotalGrade)) ? '' : Number(pgsga.edemaOfTotalGrade),
+                fatOfCheek: isNaN(parseInt(pgsga.fatOfCheek)) ? '' : parseInt(pgsga.fatOfCheek),
+                fatOfTriceps: isNaN(parseInt(pgsga.fatOfTriceps)) ? '' : parseInt(pgsga.fatOfTriceps),
+                fatOfRib: isNaN(parseInt(pgsga.fatOfRib)) ? '' : parseInt(pgsga.fatOfRib),
+                fatOfLack: isNaN(parseInt(pgsga.fatOfLack)) ? '' : parseInt(pgsga.fatOfLack),
+                muscleOfTempora: isNaN(parseInt(pgsga.muscleOfTempora)) ? '' : parseInt(pgsga.muscleOfTempora),
+                muscleOfCollarbone: isNaN(parseInt(pgsga.muscleOfCollarbone)) ? '' : parseInt(pgsga.muscleOfCollarbone),
+                muscleOfShoulder: isNaN(parseInt(pgsga.muscleOfShoulder)) ? '' : parseInt(pgsga.muscleOfShoulder),
+                muscleBewteenBones: isNaN(parseInt(pgsga.muscleBewteenBones)) ? '' : parseInt(pgsga.muscleBewteenBones),
+                muscleOfScapula: isNaN(parseInt(pgsga.muscleOfScapula)) ? '' : parseInt(pgsga.muscleOfScapula),
+                muscleOfThigh: isNaN(parseInt(pgsga.muscleOfThigh)) ? '' : parseInt(pgsga.muscleOfThigh),
+                muscleOfLowerLeg: isNaN(parseInt(pgsga.muscleOfLowerLeg)) ? '' : parseInt(pgsga.muscleOfLowerLeg),
+                muscleOfTotalGrade: isNaN(parseInt(pgsga.muscleOfTotalGrade)) ? '' : parseInt(pgsga.muscleOfTotalGrade),
+                edemaOfAnkle: isNaN(parseInt(pgsga.edemaOfAnkle)) ? '' : parseInt(pgsga.edemaOfAnkle),
+                edemaOfShin: isNaN(parseInt(pgsga.edemaOfShin)) ? '' : parseInt(pgsga.edemaOfShin),
+                edemaOfAbdominal: isNaN(parseInt(pgsga.edemaOfAbdominal)) ? '' : parseInt(pgsga.edemaOfAbdominal),
+                edemaOfTotalGrade: isNaN(parseInt(pgsga.edemaOfTotalGrade)) ? '' : parseInt(pgsga.edemaOfTotalGrade),
                 result: pgsga.score
             };
             if (pgsga.metabolismStatus) {
@@ -524,7 +524,7 @@ Component({
                 data.metabolismStatus2 = isNaN(parseInt(arr[1])) ? null : parseInt(arr[1]);
                 data.metabolismStatus3 = isNaN(parseInt(arr[2])) ? null : parseInt(arr[2]);
             }
-            switch (Number(pgsga.mainDeseasePeriod)) {
+            switch (parseInt(pgsga.mainDeseasePeriod)) {
                 case 1:
                     data.mainDeseasePeriod = '1级';
                     data.otherMainDeseasePeriod = 1;
@@ -542,7 +542,7 @@ Component({
                     data.otherMainDeseasePeriod = 4;
                     break;
                 default:
-                    data.otherMainDeseasePeriod = isNaN(Number(data.mainDeseasePeriod)) ? '' : Number(data.mainDeseasePeriod);
+                    data.otherMainDeseasePeriod = isNaN(parseInt(data.mainDeseasePeriod)) ? '' : parseInt(data.mainDeseasePeriod);
                     data.mainDeseasePeriod = '其他';
                     break;
             }
