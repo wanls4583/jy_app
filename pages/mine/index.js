@@ -129,7 +129,9 @@ Page({
         var userInfo = e.detail.userInfo;
         if (userInfo && this.data.userInfoButtonVisible) {
             userInfo.sex = userInfo.gender == 1 ? 1 : 2;
-            userInfo.nickname = userInfo.nickName;
+            if(userInfo.nickName != '微信用户') {
+                userInfo.nickname = userInfo.nickName;
+            }
             wx.showLoading({
                 title: '更新资料中...',
                 mask: true
