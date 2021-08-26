@@ -138,6 +138,14 @@ Page({
                 item._filtrateType = item.filtrateType;
                 item._filtrateResult = item.filtrateResult;
                 item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
+                if (item.filtrateType == 'PG-SGA') {
+                    if (item.answers) {
+                        try {
+                            item.answers = JSON.parse(item.answers);
+                            this.setPgsgaResult(item.answers, item.resultDescription);
+                        } catch (e) {}
+                    }
+                }
                 if (item.filtrateType == 'FAT') {
                     item._filtrateType = '超重与肥胖';
                     if (item.filtrateResult == 1) {
@@ -217,4 +225,81 @@ Page({
             });
         });
     },
+    setPgsgaResult(pgsga, resultDescription) {
+        if (pgsga.dieteticChange) {
+            var arr = [];
+            var index = pgsga.dieteticChange.indexOf('NORMAL_FEED');
+            if (index > -1) {
+                arr[index] = '比正常量少的一般食物';
+            }
+            index = pgsga.dieteticChange.indexOf('SOLID_FEED');
+            if (index > -1) {
+                arr[index] = '一点固体食物';
+            }
+            index = pgsga.dieteticChange.indexOf('FLUID_FEED');
+            if (index > -1) {
+                arr[index] = '只有流质饮食';
+            }
+            index = pgsga.dieteticChange.indexOf('ONLY_NUTRITION');
+            if (index > -1) {
+                arr[index] = '只有营养补充品';
+            }
+            index = pgsga.dieteticChange.indexOf('LITTLE_FEED');
+            if (index > -1) {
+                arr[index] = '非常少的任何食物';
+            }
+            index = pgsga.dieteticChange.indexOf('INJECTABLE_FEED');
+            if (index > -1) {
+                arr[index] = '通过管饲进食或由静脉注射营养';
+            }
+            if (arr.length) {
+                resultDescription.push('我现在只吃：' + arr.join('、'));
+            }
+        }
+        if (pgsga.symptom) {
+            var arr = [];
+            var index = pgsga.symptom.indexOf('恶心');
+            if (index > -1) {
+                arr[index] = '恶心';
+            }
+            index = pgsga.symptom.indexOf('呕吐');
+            if (index > -1) {
+                arr[index] = '呕吐';
+            }
+            index = pgsga.symptom.indexOf('便秘');
+            if (index > -1) {
+                arr[index] = '便秘';
+            }
+            index = pgsga.symptom.indexOf('腹泻');
+            if (index > -1) {
+                arr[index] = '腹泻';
+            }
+            index = pgsga.symptom.indexOf('口腔溃疡');
+            if (index > -1) {
+                arr[index] = '口腔溃疡';
+            }
+            index = pgsga.symptom.indexOf('吞咽困难');
+            if (index > -1) {
+                arr[index] = '吞咽困难';
+            }
+            if (arr.length) {
+                resultDescription.push('症状：' + arr.join('、'));
+            }
+        }
+        if (pgsga.edemaOfAbdominal > 0) {
+            var str = '';
+            switch (Number(pgsga.edemaOfAbdominal)) {
+                case 1:
+                    str = '轻度异常';
+                    break;
+                case 2:
+                    str = '中度异常';
+                    break;
+                case 3:
+                    str = '严重异常';
+                    break;
+            }
+            resultDescription.push('腹水：' + str);
+        }
+    }
 })

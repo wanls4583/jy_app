@@ -276,10 +276,10 @@ Page({
                 case 1:
                     str = '轻度异常';
                     break;
-                case 1:
+                case 2:
                     str = '中度异常';
                     break;
-                case 1:
+                case 3:
                     str = '严重异常';
                     break;
             }
@@ -474,7 +474,7 @@ Page({
                             result = 2;
                             _result = '中度营养不良者';
                         }
-                        if (data._result == 'C') {
+                        if (data._result == 'D') {
                             result = 3;
                             _result = '重度营养不良者';
                         }
