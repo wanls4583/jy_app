@@ -441,7 +441,7 @@ Page({
                 doctorName: data.patientFiltrate.doctorName,
             });
             this.setBMI();
-            data.filtratePgsga.id && this.setResult(data.filtratePgsga.score || 0);
+            data.filtratePgsga.id && this.countScore();
         });
     },
     onSave() {
