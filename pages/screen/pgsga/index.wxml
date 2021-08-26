@@ -141,8 +141,8 @@
 			<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus2" value="{{pgsga.metabolismStatus2}}">
 				<van-radio name="{{0}}">无（0分）</van-radio>
 				<van-radio name="{{1}}">{{'<72h（1分）'}}）</van-radio>
-				<van-radio name="{{2}}">{{'72（2分）'}}</van-radio>
-				<van-radio name="{{3}}">{{'>72（3分）'}}</van-radio>
+				<van-radio name="{{2}}">{{'72h（2分）'}}</van-radio>
+				<van-radio name="{{3}}">{{'>72h（3分）'}}</van-radio>
 			</van-radio-group>
 		</view>
 		<view class="padding-30">

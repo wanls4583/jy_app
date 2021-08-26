@@ -139,7 +139,7 @@ Page({
                             item.answers = JSON.parse(item.answers);
                             item.resultDescription = item.resultDescription && [item.resultDescription] || [];
                             this.setPgsgaResult(item.answers, item.resultDescription);
-                            item.resultDescription = item.resultDescription.join('\n');
+                            item.resultDescription = item.resultDescription.join('；\n');
                         } catch (e) {}
                     }
                 }
@@ -279,27 +279,27 @@ Page({
             var arr = [];
             var index = pgsga.dieteticChange.indexOf('NORMAL_FEED');
             if (index > -1) {
-                arr[index] = '比正常量少的一般食物';
+                arr.push('比正常量少的一般食物');
             }
             index = pgsga.dieteticChange.indexOf('SOLID_FEED');
             if (index > -1) {
-                arr[index] = '一点固体食物';
+                arr.push('一点固体食物');
             }
             index = pgsga.dieteticChange.indexOf('FLUID_FEED');
             if (index > -1) {
-                arr[index] = '只有流质饮食';
+                arr.push('只有流质饮食');
             }
             index = pgsga.dieteticChange.indexOf('ONLY_NUTRITION');
             if (index > -1) {
-                arr[index] = '只有营养补充品';
+                arr.push('只有营养补充品');
             }
             index = pgsga.dieteticChange.indexOf('LITTLE_FEED');
             if (index > -1) {
-                arr[index] = '非常少的任何食物';
+                arr.push('非常少的任何食物');
             }
             index = pgsga.dieteticChange.indexOf('INJECTABLE_FEED');
             if (index > -1) {
-                arr[index] = '通过管饲进食或由静脉注射营养';
+                arr.push('通过管饲进食或由静脉注射营养');
             }
             if (arr.length) {
                 resultDescription.push('我现在只吃：' + arr.join('、'));
@@ -309,27 +309,27 @@ Page({
             var arr = [];
             var index = pgsga.symptom.indexOf('恶心');
             if (index > -1) {
-                arr[index] = '恶心';
+                arr.push('恶心');
             }
             index = pgsga.symptom.indexOf('呕吐');
             if (index > -1) {
-                arr[index] = '呕吐';
+                arr.push('呕吐');
             }
             index = pgsga.symptom.indexOf('便秘');
             if (index > -1) {
-                arr[index] = '便秘';
+                arr.push('便秘');
             }
             index = pgsga.symptom.indexOf('腹泻');
             if (index > -1) {
-                arr[index] = '腹泻';
+                arr.push('腹泻');
             }
             index = pgsga.symptom.indexOf('口腔溃疡');
             if (index > -1) {
-                arr[index] = '口腔溃疡';
+                arr.push('口腔溃疡');
             }
             index = pgsga.symptom.indexOf('吞咽困难');
             if (index > -1) {
-                arr[index] = '吞咽困难';
+                arr.push('吞咽困难');
             }
             if (arr.length) {
                 resultDescription.push('症状：' + arr.join('、'));
