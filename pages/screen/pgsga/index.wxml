@@ -140,7 +140,7 @@
 			<view class="padding-bottom-30">发热持续时间</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus2" value="{{pgsga.metabolismStatus2}}">
 				<van-radio name="{{0}}">无（0分）</van-radio>
-				<van-radio name="{{1}}">{{'<72h（1分）'}}）</van-radio>
+				<van-radio name="{{1}}">{{'<72h（1分）'}}</van-radio>
 				<van-radio name="{{2}}">{{'72h（2分）'}}</van-radio>
 				<van-radio name="{{3}}">{{'>72h（3分）'}}</van-radio>
 			</van-radio-group>
@@ -149,7 +149,7 @@
 			<view class="padding-bottom-30">是否用激素（强的松）</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus3" value="{{pgsga.metabolismStatus3}}">
 				<van-radio name="{{0}}">无（0分）</van-radio>
-				<van-radio name="{{1}}">{{'低剂量（<10mg/d强的松或相当剂量的其他激素）（1分）'}}）</van-radio>
+				<van-radio name="{{1}}">{{'低剂量（<10mg/d强的松或相当剂量的其他激素）（1分）'}}</van-radio>
 				<van-radio name="{{2}}">{{'中剂量（10mg/d~30mg/d强的松或相当剂量的其他激素）（2分）'}}</van-radio>
 				<van-radio name="{{3}}">{{'高剂量（>30mg/d强的松或相当剂量的其他激素）（3分）'}}</van-radio>
 			</van-radio-group>
