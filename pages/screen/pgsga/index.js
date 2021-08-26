@@ -204,7 +204,7 @@ Page({
     countScore() {
         var self = this;
         var pgsga = this.data.pgsga;
-        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8();
+        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8() + +_countStep7() + _countStep9();
         this.resultDescription = [];
         this.setData({
             'pgsga.result': count
@@ -312,7 +312,7 @@ Page({
                     count += 1;
                 }
             }
-            return count + (self.data.weightChangeScoreMap[pgsga.weightChange] || 0);
+            return count //+ (self.data.weightChangeScoreMap[pgsga.weightChange] || 0);
         }
 
         function _countStep2() {
@@ -347,6 +347,41 @@ Page({
 
         function _countStep6() {
             return (Number(pgsga.metabolismStatus1) || 0) + (Number(pgsga.metabolismStatus2) || 0) + (Number(pgsga.metabolismStatus3) || 0);
+        }
+
+        function _countStep7() {
+            var fatCount = [{
+                score: 0,
+                num: 0
+            }, {
+                score: 1,
+                num: 0
+            }, {
+                score: 2,
+                num: 0
+            }, {
+                score: 3,
+                num: 0
+            }];
+            if (fatCount[pgsga.fatOfCheek]) {
+                fatCount[pgsga.fatOfCheek].num++;
+            }
+            if (fatCount[pgsga.fatOfTriceps]) {
+                fatCount[pgsga.fatOfTriceps].num++;
+            }
+            if (fatCount[pgsga.fatOfRib]) {
+                fatCount[pgsga.fatOfRib].num++;
+            }
+            //脂肪评分中分数个数最多的分数计入总分
+            fatCount.sort((arg1, arg2) => {
+                return arg1.num - arg2.num;
+            });
+            var score = fatCount[3].num && fatCount[3].score || 0;
+            if (fatCount[3].num) {
+                self.setData({
+                    'pgsga.fatOfLack': score
+                });
+            }
         }
 
         function _countStep8() {
@@ -384,14 +419,50 @@ Page({
             if (muscleCount[pgsga.muscleOfLowerLeg]) {
                 muscleCount[pgsga.muscleOfLowerLeg].num++;
             }
-            if (muscleCount[pgsga.muscleOfTotalGrade]) {
-                muscleCount[pgsga.muscleOfTotalGrade].num++;
-            }
             //肌肉评分中分数个数最多的分数计入总分
             muscleCount.sort((arg1, arg2) => {
                 return arg1.num - arg2.num;
             });
-            return muscleCount[3].num && muscleCount[3].score || 0;
+            var score = muscleCount[3].num && muscleCount[3].score || 0;
+            if (muscleCount[3].num) {
+                self.setData({
+                    'pgsga.muscleOfTotalGrade': score
+                });
+            }
+            return score;
+        }
+
+        function _countStep9() {
+            var edemaCount = [{
+                score: 0,
+                num: 0
+            }, {
+                score: 1,
+                num: 0
+            }, {
+                score: 2,
+                num: 0
+            }, {
+                score: 3,
+                num: 0
+            }];
+            if (edemaCount[pgsga.edemaOfAnkle]) {
+                edemaCount[pgsga.edemaOfAnkle].num++;
+            }
+            if (edemaCount[pgsga.edemaOfShin]) {
+                edemaCount[pgsga.edemaOfShin].num++;
+            }
+            if (edemaCount[pgsga.edemaOfAbdominal]) {
+                edemaCount[pgsga.edemaOfAbdominal].num++;
+            }
+            //脂肪评分中分数个数最多的分数计入总分
+            var score = edemaCount[3].num && edemaCount[3].score || 0;
+            if (edemaCount[3].num) {
+                self.setData({
+                    'pgsga.edemaOfTotalGrade': score
+                });
+            }
+            return score;
         }
     },
     setResult(score) {
