@@ -19,14 +19,14 @@
 			<van-field bind:input="onInput" data-prop="pgsga.currentStature" label="当前身高(cm)" value="{{pgsga.currentStature}}" />
 			<van-field bind:input="onInput" data-prop="pgsga.weightOneMouthAgo" label="一个月前体重(kg)" title-width="8em" value="{{pgsga.weightOneMouthAgo}}" />
 			<van-field bind:input="onInput" data-prop="pgsga.weightSixMouthAgo" label="六个月前体重(kg)" title-width="8em" value="{{pgsga.weightSixMouthAgo}}" />
-			<!-- <view class="padding-30">
+			<view class="padding-30">
 				<view class="padding-bottom-30">过去两星期，我的体重呈现：</view>
 				<van-radio-group bind:change="onChange" data-prop="pgsga.weightChange" value="{{pgsga.weightChange}}">
 					<van-radio name="NO_CHANGE">没有改变（0分）</van-radio>
 					<van-radio name="MORE_THAN_BEFORE">比以前多（0分）</van-radio>
 					<van-radio name="LESS_THAN_BEFORE">比以前少（1分）</van-radio>
 				</van-radio-group>
-			</view> -->
+			</view>
 		</view>
 	</view>
 	<view class="white-background-color padding-top-30" wx:if="{{step==2}}">
@@ -149,9 +149,9 @@
 			<view class="padding-bottom-30">是否用激素（强的松）</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.metabolismStatus3" value="{{pgsga.metabolismStatus3}}">
 				<van-radio name="{{0}}">无（0分）</van-radio>
-				<van-radio name="{{1}}">{{'低剂量（<10mg/d强的松或相当剂量的其他激素）（1分）'}}</van-radio>
-				<van-radio name="{{2}}">{{'中剂量（10mg/d~30mg/d强的松或相当剂量的其他激素）（2分）'}}</van-radio>
-				<van-radio name="{{3}}">{{'高剂量（>30mg/d强的松或相当剂量的其他激素）（3分）'}}</van-radio>
+				<van-radio name="{{1}}">{{'低剂量(<10mg/d强的松或相当剂量的其他激素)（1分）'}}</van-radio>
+				<van-radio name="{{2}}">{{'中剂量(10mg/d~30mg/d强的松或相当剂量的其他激素)（2分）'}}</van-radio>
+				<van-radio name="{{3}}">{{'高剂量(>30mg/d强的松或相当剂量的其他激素)（3分）'}}</van-radio>
 			</van-radio-group>
 		</view>
 	</view>

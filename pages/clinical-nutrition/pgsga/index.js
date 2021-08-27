@@ -332,7 +332,7 @@ Component({
             var aGrade = _countStep1() + _countStep2() + _countStep3() + _countStep4();
             var bGrade = _countStep5();
             var cGrade = _countStep6();
-            var dGrade = _countStep8();
+            var dGrade = _countStep7() + _countStep8() + _countStep9();
             var count = aGrade + bGrade + cGrade + dGrade;
             this.setData({
                 'pgsga.result': count,
@@ -369,7 +369,7 @@ Component({
                         count += 1;
                     }
                 }
-                return count //+ (self.data.weightChangeScoreMap[pgsga.weightChange] || 0);
+                return count + (self.data.weightChangeScoreMap[pgsga.weightChange] || 0);
             }
 
             function _countStep2() {
@@ -429,7 +429,7 @@ Component({
                 if (fatCount[pgsga.fatOfRib]) {
                     fatCount[pgsga.fatOfRib].num++;
                 }
-                //脂肪评分中分数个数最多的分数计入总分
+                //分数个数最多的分数计入总分
                 fatCount.sort((arg1, arg2) => {
                     return arg1.num - arg2.num;
                 });
@@ -476,7 +476,7 @@ Component({
                 if (muscleCount[pgsga.muscleOfLowerLeg]) {
                     muscleCount[pgsga.muscleOfLowerLeg].num++;
                 }
-                //肌肉评分中分数个数最多的分数计入总分
+                //分数个数最多的分数计入总分
                 muscleCount.sort((arg1, arg2) => {
                     return arg1.num - arg2.num;
                 });
@@ -512,7 +512,10 @@ Component({
                 if (edemaCount[pgsga.edemaOfAbdominal]) {
                     edemaCount[pgsga.edemaOfAbdominal].num++;
                 }
-                //脂肪评分中分数个数最多的分数计入总分
+                //分数个数最多的分数计入总分
+                edemaCount.sort((arg1, arg2) => {
+                    return arg1.num - arg2.num;
+                });
                 var score = edemaCount[3].num && edemaCount[3].score || 0;
                 if (edemaCount[3].num) {
                     self.setData({
