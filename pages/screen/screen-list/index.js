@@ -86,6 +86,9 @@ Page({
             case 'ORAL_MUCOSA':
                 url = '/pages/screen/oral-mucosa/index';
                 break;
+            case 'X_INJURY':
+                url = '/pages/screen/radiation-injury/index';
+                break;
         }
         wx.jyApp.utils.navigateTo({
             url: `${url}?id=${item.id}`
@@ -206,6 +209,10 @@ Page({
                 }
                 if (item.filtrateType == 'ORAL_MUCOSA') {
                     item._filtrateType = '口腔黏膜风险评估'
+                    item.label = '评估';
+                }
+                if (item.filtrateType == 'X_INJURY') {
+                    item._filtrateType = '放射性损伤评估'
                     item.label = '评估';
                 }
             });

@@ -167,6 +167,9 @@ Page({
                 if (item.filtrateType == 'ORAL_MUCOSA') {
                     item._filtrateType = '口腔黏膜风险评估'
                 }
+                if (item.filtrateType == 'X_INJURY') {
+                    item._filtrateType = '放射性损伤评估'
+                }
             });
             var fatTypes = [];
             var fatData = [];

@@ -1,0 +1,163 @@
+<view class="container white-background-color padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view>
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+				</view>
+			</view>
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="split-20"></view>
+		<view class="padding-30">
+			<view class="font-bold margin-bottom-30">1、治疗状态</view>
+			<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+				<van-radio name="{{1}}">放疗中</van-radio>
+				<van-radio name="{{2}}">放疗后</van-radio>
+			</van-radio-group>
+		</view>
+	</block>
+	<block wx:if="{{answers.q[0]==1}}">
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">2、粘膜</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">充血／可有轻度疼痛，无需镇痛药</van-radio>
+					<van-radio name="{{2}}">片状黏膜炎，或有炎性血清血液分泌物，或有中度疼痛，需镇痛药</van-radio>
+					<van-radio name="{{3}}">融合的纤维性黏膜炎疼痛，需麻醉药／可伴重度疼痛</van-radio>
+					<van-radio name="{{4}}">溃疡，出血，坏死</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">3、涎腺</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度口干／唾液稍稠／可有味觉的轻度变化如金属味／这些变化不会引起进食行为的改变，如进食时需水量增加</van-radio>
+					<van-radio name="{{2}}">轻度到完全口干／唾液变稠变黏／味觉发生明显改变</van-radio>
+					<van-radio name="{{3}}">急性涎腺坏死</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">4、咽和食管</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度吞咽困难或吞咽疼痛／需麻醉性镇痛药／需进流食</van-radio>
+					<van-radio name="{{2}}">中度吞咽困难或吞咽疼痛／需要麻醉性镇痛药／需匀浆或流食</van-radio>
+					<van-radio name="{{3}}">严重吞咽难困难或吞咽疼痛伴脱水或较放疗前体重丢失＞15%／需鼻胃管饲，静脉补液或营养液</van-radio>
+					<van-radio name="{{4}}">完全梗阻孔，瘘</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">5、喉</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度或间断性声嘶／咳嗽但不需要镇咳药／黏膜红斑</van-radio>
+					<van-radio name="{{2}}">持续的声嘶但能发声／牵涉性耳痛，咽喉痛，片状纤维性渗出或轻度喉水肿，无需麻醉剂／咳嗽，需镇咳药</van-radio>
+					<van-radio name="{{3}}">讲话声音低微，咽喉痛或牵涉性耳痛，需麻醉剂／融合的纤维性渗出，明显的喉水肿</van-radio>
+					<van-radio name="{{4}}">明显的呼吸困难，喘鸣或咯血／气管切开或需要插管</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">6、上消化道</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">厌食伴体重比疗前下降≤５％／恶心，无需镇吐药／腹部不适，无需抗副交感神经药或镇痛药</van-radio>
+					<van-radio name="{{2}}">厌食伴体重比疗前下降≤５％恶心和或呕吐，需要镇吐药／腹部不适，需止痛药</van-radio>
+					<van-radio name="{{3}}">厌食伴体重较疗前下降≥５％／需鼻胃管或肠胃外支持，恶心和／或呕吐需插管或肠胃外支持／腹痛，用药后仍较重／呕血或黑粪／腹部膨胀，（平片示肠管扩张）</van-radio>
+					<van-radio name="{{4}}">肠梗阻，亚急性或急性梗阻，胃肠道出血需输血／腹痛需置管减压或肠扭转</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class>
+				<view class="font-bold margin-bottom-30">7、下消化道</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[6]" value="{{answers.q[6]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">排便次数增多或排便习惯改变，无需用药／直肠不适，无需镇痛治疗</van-radio>
+					<van-radio name="{{2}}">腹泻，需用抗副交感神经药（如止吐宁）／黏液分泌增多，无需卫生垫／直肠或腹部疼痛，需镇痛药</van-radio>
+					<van-radio name="{{3}}">腹泻，需肠胃外支持／重度黏液或血性分泌物增多，需卫生垫／腹部膨胀平片（平片示肠管扩张）</van-radio>
+					<van-radio name="{{4}}">急性或亚急性肠梗阻，瘘或穿孔；胃肠道出血需输血；腹痛或里急后重需置管减压，或肠扭转</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:else>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">2、粘膜</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度萎缩和干燥</van-radio>
+					<van-radio name="{{2}}">中度萎缩和毛细血管扩张，无黏液</van-radio>
+					<van-radio name="{{3}}">危害萎缩完全干燥，重度毛细血管扩张</van-radio>
+					<van-radio name="{{4}}">溃疡</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">3、涎腺</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度口干，对刺激有反应</van-radio>
+					<van-radio name="{{2}}">轻度口干，对刺激反应差</van-radio>
+					<van-radio name="{{3}}">完全口干，对刺激无反应</van-radio>
+					<van-radio name="{{4}}">纤维化</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">4、喉</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">声间嘶哑，轻度喉水肿</van-radio>
+					<van-radio name="{{2}}">中度喉水肿，软骨炎</van-radio>
+					<van-radio name="{{3}}">重度水肿，重度软骨炎</van-radio>
+					<van-radio name="{{4}}">坏死</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view class="border-bottom">
+				<view class="font-bold margin-bottom-30">5、食管</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度纤维化；轻度吞咽固体食物困难；无吞咽疼痛</van-radio>
+					<van-radio name="{{2}}">不能正常进固体食物；进半固体食物；可能有扩张指征</van-radio>
+					<van-radio name="{{3}}">严重纤维化，只能进流质；可有吞咽疼痛；需扩张</van-radio>
+					<van-radio name="{{4}}">坏死／穿孔，瘘</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+		<view class="padding-30 padding-top-0">
+			<view>
+				<view class="font-bold margin-bottom-30">6、小肠／大肠</view>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
+					<van-radio name="{{0}}">无变化</van-radio>
+					<van-radio name="{{1}}">轻度腹泻，轻度痉挛，轻度直肠分泌物增多或出血</van-radio>
+					<van-radio name="{{2}}">中度腹泻和肠绞痛，大便＞５次／ｄ，多量直肠黏膜或间断出血</van-radio>
+					<van-radio name="{{3}}">梗阻或出血，需手术</van-radio>
+					<van-radio name="{{4}}">坏死／穿孔，瘘</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+</view>
+<footer>
+	<view bindtap="onSave" class="button primary">提交</view>
+</footer>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>
