@@ -439,6 +439,7 @@ Component({
                         'pgsga.fatOfLack': score
                     });
                 }
+                return score;
             }
 
             function _countStep8() {
@@ -679,7 +680,7 @@ Component({
             data.score = data.result;
             data.dieteticChange = data.dieteticChange.join(',');
             data.mainDeseasePeriod = this.data.mainDeseasePeriodMap[this.data.pgsga.mainDeseasePeriod] || this.data.pgsga.otherMainDeseasePeriod;
-            data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus1, data.metabolismStatus3].join(',');
+            data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus2, data.metabolismStatus3].join(',');
             data.sick = false;
             if (data.symptom.indexOf('恶心') > -1) {
                 data.sick = true;

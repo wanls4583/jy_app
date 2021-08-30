@@ -204,7 +204,7 @@ Page({
     countScore() {
         var self = this;
         var pgsga = this.data.pgsga;
-        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8() + +_countStep7() + _countStep9();
+        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8() +_countStep7() + _countStep9();
         this.resultDescription = [];
         this.setData({
             'pgsga.result': count
@@ -382,6 +382,7 @@ Page({
                     'pgsga.fatOfLack': score
                 });
             }
+            return score;
         }
 
         function _countStep8() {
@@ -522,7 +523,7 @@ Page({
         var data = {
             ...this.data.pgsga
         };
-        data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus1, data.metabolismStatus3].join(',');
+        data.metabolismStatus = [data.metabolismStatus1, data.metabolismStatus2, data.metabolismStatus3].join(',');
         data.symptom = data.symptom.join(',');
         data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.showLoading('加载中...', true);
