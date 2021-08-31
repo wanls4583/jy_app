@@ -104,7 +104,7 @@
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=oral-mucosa&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
-					<text>口腔黏膜风险评估（试用于所有住院患者）</text>
+					<text>口腔黏膜风险评估（适用于所有住院患者）</text>
 					<text class="gray-color"></text>
 				</view>
 				<view class="flex--center--center">
