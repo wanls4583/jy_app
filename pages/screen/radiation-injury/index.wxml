@@ -50,7 +50,7 @@
 					<van-radio name="{{0}}">无变化</van-radio>
 					<van-radio name="{{1}}">轻度吞咽困难或吞咽疼痛／需麻醉性镇痛药／需进流食</van-radio>
 					<van-radio name="{{2}}">中度吞咽困难或吞咽疼痛／需要麻醉性镇痛药／需匀浆或流食</van-radio>
-					<van-radio name="{{3}}">严重吞咽难困难或吞咽疼痛伴脱水或较放疗前体重丢失＞15%／需鼻胃管饲，静脉补液或营养液</van-radio>
+					<van-radio name="{{3}}">严重吞咽困难或吞咽疼痛伴脱水或较放疗前体重丢失＞15%／需鼻胃管饲，静脉补液或营养液</van-radio>
 					<van-radio name="{{4}}">完全梗阻孔，瘘</van-radio>
 				</van-radio-group>
 			</view>
@@ -73,8 +73,8 @@
 				<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
 					<van-radio name="{{0}}">无变化</van-radio>
 					<van-radio name="{{1}}">厌食伴体重比疗前下降≤５％／恶心，无需镇吐药／腹部不适，无需抗副交感神经药或镇痛药</van-radio>
-					<van-radio name="{{2}}">厌食伴体重比疗前下降≤５％恶心和或呕吐，需要镇吐药／腹部不适，需止痛药</van-radio>
-					<van-radio name="{{3}}">厌食伴体重较疗前下降≥５％／需鼻胃管或肠胃外支持，恶心和／或呕吐需插管或肠胃外支持／腹痛，用药后仍较重／呕血或黑粪／腹部膨胀，（平片示肠管扩张）</van-radio>
+					<van-radio name="{{2}}">厌食伴体重比疗前下降≤５％／恶心或呕吐，需要镇吐药／腹部不适，需止痛药</van-radio>
+					<van-radio name="{{3}}">厌食伴体重较疗前下降≥５％／需鼻胃管或肠胃外支持，恶心或呕吐需插管或肠胃外支持／腹痛，用药后仍较重／呕血或黑粪／腹部膨胀，（平片示肠管扩张）</van-radio>
 					<van-radio name="{{4}}">肠梗阻，亚急性或急性梗阻，胃肠道出血需输血／腹痛需置管减压或肠扭转</van-radio>
 				</van-radio-group>
 			</view>

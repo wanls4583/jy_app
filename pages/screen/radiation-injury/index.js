@@ -83,8 +83,10 @@ Page({
         var explain = '';
         var suggestion = '';
         var q = this.data.answers.q;
-        q.map((item) => {
-            score += Number(item || 0);
+        q.map((item, index) => {
+            if (index > 0) {
+                score += Number(item || 0);
+            }
         });
         if (score <= 1) {
             result = '正常';
