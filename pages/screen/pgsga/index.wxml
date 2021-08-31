@@ -318,7 +318,7 @@
 				<van-radio name="A">无营养不良（0-1分）</van-radio>
 				<van-radio name="B">可疑营养不良者（2-3分）</van-radio>
 				<van-radio name="C">中度营养不良者（4-8分）</van-radio>
-				<van-radio name="D">{{'重度营养不良者（>9分）'}}</van-radio>
+				<van-radio name="D">{{'重度营养不良者（≥9分）'}}</van-radio>
 			</van-radio-group>
 			<view class="padding-top-bottom-30 border-top">筛查医生：{{doctorName||''}}</view>
 			<view>填写人：{{filtrateByName||''}}</view>
