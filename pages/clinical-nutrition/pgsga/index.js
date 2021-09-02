@@ -637,7 +637,7 @@ Component({
                 data.symptom.push('痛');
             }
             if (pgsga.dry) {
-                data.symptom.push('干');
+                data.symptom.push('口干');
             }
             if (pgsga.swallowHard) {
                 data.symptom.push('吞咽困难');
@@ -656,6 +656,15 @@ Component({
             }
             if (pgsga.noTaste) {
                 data.symptom.push('吃起来感觉没有味道');
+            }
+            if (pgsga.pain) {
+                data.symptom.push('口腔溃疡');
+            }
+            if (pgsga.wherePainedCheck) {
+                data.symptom.push('何处疼痛');
+            }
+            if (pgsga.otherCheck) {
+                data.symptom.push('其他');
             }
             this.setData({
                 pgsga: data,
@@ -702,7 +711,7 @@ Component({
                 data.pain = true;
             }
             data.dry = false;
-            if (data.symptom.indexOf('干') > -1) {
+            if (data.symptom.indexOf('口干') > -1) {
                 data.dry = true;
             }
             data.swallowHard = false;
@@ -728,6 +737,18 @@ Component({
             data.noTaste = false;
             if (data.symptom.indexOf('吃起来感觉没有味道') > -1) {
                 data.noTaste = true;
+            }
+            data.pain = false;
+            if (data.symptom.indexOf('口腔溃疡') > -1) {
+                data.pain = true;
+            }
+            data.wherePainedCheck = false;
+            if (data.symptom.indexOf('何处疼痛') > -1) {
+                data.wherePainedCheck = true;
+            }
+            data.otherCheck = false;
+            if (data.symptom.indexOf('其他') > -1) {
+                data.otherCheck = true;
             }
             return data;
         },
