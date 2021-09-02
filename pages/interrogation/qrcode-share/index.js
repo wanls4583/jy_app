@@ -56,9 +56,7 @@ Page({
     onShareAppMessage: function () {
         var path = '/pages/index/index?type=2&dId=' + this.dId;
         if (this.data.from == 'screen') {
-            var url = `/pages/screen/screen-select/index?doctorId=${this.dId}&doctorName=${this.dName}`;
-            url = encodeURIComponent(url);
-            path = '/pages/index/index?type=-1&url=' + url;
+            path += `&stype=${this.stype || -1}`
         }
         return {
             title: this.dName || '医生',

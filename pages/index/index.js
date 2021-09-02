@@ -223,6 +223,10 @@ Page({
             this._inviteWay = 1;
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
+            if(option.stype) {
+                this.screenDoctorId = option.dId;
+                this.screenType = option.stype;
+            }
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
         } else if (option.scene) { //扫二维码进入

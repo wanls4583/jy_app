@@ -1,4 +1,5 @@
 {
+  "setting": {},
   "condition": {
     "plugin": {
       "list": []
@@ -12,9 +13,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/screen/screen-result/index",
-          "pathName": "pages/screen/screen-result/index",
-          "query": "",
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "type=2&dId=9&stype=1",
           "scene": null
         },
         {
