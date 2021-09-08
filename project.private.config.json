@@ -15,7 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=2&dId=9&stype=1",
+          "query": "type=-1&url=/pages/tab-bar-second/index&routeType=switchTab",
           "scene": null
         },
         {
