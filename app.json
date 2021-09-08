@@ -65,7 +65,8 @@
         "pages/interrogation/receive-select/index",
         "pages/interrogation/receive/index",
         "pages/interrogation/my-doctor/index",
-        "pages/mall/search-doctor/index"
+        "pages/mall/search-doctor/index",
+        "pages/service-process/index"
     ],
     "subpackages": [{
         "root": "pages/statistic",

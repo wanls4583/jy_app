@@ -17,6 +17,14 @@
 			</view>
 		</view>
 		<view class="padding-left-right-30 clickable">
+			<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/service-process/index">
+				<text>营养服务流程</text>
+				<view class="flex--center--center">
+					<van-icon color="#ccc" name="arrow" />
+				</view>
+			</view>
+		</view>
+		<view class="padding-left-right-30 clickable">
 			<view bindtap="onOpenWebview" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="{{configData.privacy_agreement_url}}">
 				<text>隐私协议</text>
 				<view class="flex--center--center">

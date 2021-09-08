@@ -1,0 +1,131 @@
+<view class="container white-background-color">
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="住院患者"></van-tab>
+			<van-tab title="门诊患者"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="position-absolute bottom-0 width-100" style="top:44px">
+		<swiper bindchange="onChangeSwiper" class="widht-100 height-100" current="{{active}}">
+			<swiper-item>
+				<view class="padding-30">温馨提示：您好！患者的身体康复离不开专业的营养指导和支持。我们会根据患者的具体情况，给予专业的营养干预方案。住院患者的详细营养服务流程如下，如有问题欢迎随时咨询！</view>
+				<view class="padding-30 primary-background-color white-color align-center">住院期间</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">1、营养筛查</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/screen/screen-select/index">立即筛查 ></view>
+					</view>
+					<view>入院第一天：不同疾病的患者使用不同的营养筛查工具，可发现患者的营养风险，具体可咨询医护人员或营养师。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">2、营养评估</view>
+					<view>营养筛查后：对有营养风险的患者，进行营养评估和营养诊断。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">3、营养干预</view>
+					<view>营养评估后：对有营养风险的患者，按患者具体情况制定个性化营养干预方案并新开营养医嘱。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">4、账户充值</view>
+					<view>新开医嘱后：请患者或家属到营养收费处进行账户充值。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">5、配餐服务</view>
+					<view>账户充值后：营养技师按营养医生的医嘱，每天按时给患者配送营养餐，如有问题及时与营养科反馈。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">6、营养查房</view>
+					<view>接受营养支持第二天：营养医生进行营养查房，了解记录患者使用营养餐后的情况，根据具体情况选择是否需要调整营养干预方案。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">7、营养宣教</view>
+					<view>住院期间：医生/营养师在查房过程中会给患者/家属/护工做营养宣教、膳食指导、健康科普等。</view>
+				</view>
+				<view class="padding-30 primary-background-color white-color align-center">出院前</view>
+				<view class="padding-30">
+					<view class="primary-color">1、营养评估</view>
+					<view>收到出院通知当天：患者再次进行营养评估，确定出院后是否需要继续营养干预。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">2、线下购买</view>
+					<view>出院前：患者可以外带营养配餐粉剂或整取营养产品。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">3、账户结算</view>
+					<view>出院时：患者可以出院前一天，或当天对账户余额进行结算。</view>
+				</view>
+				<view class="padding-30 primary-background-color white-color align-center">出院后</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">1、营养问诊</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/interrogation/illness-edit/index">立即问诊 ></view>
+					</view>
+					<view>出院后：患者可通过微信小程序，随时向医生/营养师发起在线营养问诊。医生/营养师为患者提供营养筛查、营养评估、营养诊断、营养干预等服务。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">2、出院随访</view>
+					<view>营养产品使用完前1天：对患者进行出院回访，根据患者情况确定是否需要继续营养干预。</view>
+				</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">3、营养筛查</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/screen/screen-select/index">立即筛查 ></view>
+					</view>
+					<view>出院第7天：患者再次进行营养筛查，确定是否需要继续营养干预。</view>
+				</view>
+				<view class="flex--center--center padding-30" wx:if="{{from=='home'}}">
+					<view bindtap="onClickHome" class="button primary">返回首页</view>
+				</view>
+			</swiper-item>
+			<swiper-item>
+				<view class="padding-30">温馨提示：您好！患者的身体康复离不开专业的营养指导和支持。我们会根据患者的具体情况，给予专业的营养干预方案。门诊患者详细的营养服务流程如下，如有问题欢迎随时咨询！</view>
+				<view class="padding-30 primary-background-color white-color align-center">院内门诊</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">1、营养筛查</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/screen/screen-select/index">立即筛查 ></view>
+					</view>
+					<view>入院第一天：不同疾病的患者使用不同的营养筛查工具，可发现患者的营养风险，具体可咨询医护人员或营养师。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">2、营养评估</view>
+					<view>营养筛查后：对有营养风险的患者，进行营养评估和营养诊断。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">3、营养干预</view>
+					<view>营养评估后：对有营养风险的患者，按患者具体情况制定个性化营养干预方案并新开营养医嘱。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">4、门诊缴费</view>
+					<view>新开医嘱后：请患者或家属到营养收费处进行门诊缴费。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">5、领取产品</view>
+					<view>门诊缴费后：请患者或家属到营养科领取产品。</view>
+				</view>
+				<view class="padding-30">
+					<view class="primary-color">6、营养宣教</view>
+					<view>门诊问诊期间：医生/营养师会给患者/家属/做营养宣教、膳食指导、健康科普等。</view>
+				</view>
+				<view class="padding-30 primary-background-color white-color align-center">院外问诊</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">1、营养问诊</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/interrogation/illness-edit/index">立即问诊 ></view>
+					</view>
+					<view>出院后：患者可通过微信小程序，随时向医生/营养师发起在线营养问诊。医生/营养师为患者提供营养筛查、营养评估、营养诊断、营养干预等服务。</view>
+				</view>
+				<view class="padding-30">
+					<view class="flex--center--between">
+						<view class="primary-color">2、营养筛查</view>
+						<view bindtap="onGoto" class="warn-color" data-url="/pages/screen/screen-select/index">立即筛查 ></view>
+					</view>
+					<view>出院第7天：患者再次进行营养筛查，确定是否需要继续营养干预。</view>
+				</view>
+				<view class="flex--center--center padding-30" wx:if="{{from=='home'}}">
+					<view bindtap="onClickHome" class="button primary">返回首页</view>
+				</view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>
