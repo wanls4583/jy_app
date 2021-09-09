@@ -142,6 +142,7 @@
         "footer": "/components/footer/index",
         "footer-text": "/components/footer-text/index",
         "user-home": "/pages/mall/home/index",
+        "user-home-v2": "/pages/mall/home-v2/index",
         "doctor-home": "/pages/interrogation/home/index",
         "user-mall": "/pages/mall/mall/index",
         "patient-manage": "/pages/interrogation/doctor-patient-list/index",

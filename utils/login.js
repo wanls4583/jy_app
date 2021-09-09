@@ -21,11 +21,11 @@ function getUserInfo() {
             if (data.info.role != 'DOCTOR') {
                 data.info.role = 'USER';
             }
-            if(data.info.originRole == 'PHARMACIST') {
+            if (data.info.originRole == 'PHARMACIST') {
                 wx.setStorageSync('role', 'USER');
             }
             //后台删除医生后前端也需要删除医生信息
-            if(!data.info.doctorId) {
+            if (!data.info.doctorId) {
                 wx.jyApp.store.updateDoctorInfo(null);
             }
         }
@@ -67,6 +67,11 @@ function login(param) {
         }).then((data) => {
             wx.setStorageSync('token', data.token);
             login.logining = false;
+            if (data.msg != 'success') {
+                setTimeout(() => {
+                    wx.jyApp.toast(data.msg);
+                }, 300);
+            }
             return wx.jyApp.Promise.resolve(data);
         });
     });

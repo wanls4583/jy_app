@@ -6,7 +6,7 @@ Page({
     },
     onLoad(option) {
         // 患者端v2版本选择默认患者
-        this.selectDefault = option.selectDefault;
+        this.selectDefault = option.selectDefault || '';
         this.screen = option.screen || '';
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';

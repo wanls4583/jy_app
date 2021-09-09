@@ -1,0 +1,98 @@
+<import src="/template/doctor-item.wxml" />
+<import src="/template/footer.wxml" />
+<view class="container">
+	<navigation-bar background="#2aafff" holder="{{true}}" safe="{{true}}">
+		<view class="position-absolute top-0 left-0 width-100 height-100 flex--center--center font-title font-bold">钜元营养</view>
+	</navigation-bar>
+	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscroll="onScroll" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
+			<view class="position-relative padding-top-10" style="min-height:{{minContentHeight}}px">
+				<view class="position-absolute top-0 width-100 background-gradient" style="z-index:-1;height:100px;border-radius:0 0 375rpx 375rpx/0 0 30rpx 30rpx"></view>
+				<view class="margin-top-20" wx:if="{{banner.length&&configData.hideAllBanner!=1}}">
+					<swiper
+						autoplay="{{true}}"
+						circular="{{true}}"
+						duration="{{500}}"
+						indicator-active-color="#ffffff"
+						indicator-color="rgba(255,255,255,.5)"
+						indicator-dots="{{true}}"
+						interval="{{5000}}"
+						style="height:236rpx;transform:translateY(0);"
+					>
+						<swiper-item bindtap="onClickBanner" data-item="{{item}}" wx:for="{{banner}}" wx:for-item="item" wx:key="picUrl">
+							<view class="position-relative height-100 padding-left-right-20">
+								<jy-video src="{{item.linkUrl}}" wx:if="{{item.type==2}}"></jy-video>
+								<image class="width-100 height-100 radius-8px" mode="aspectFill" src="{{item.picUrl}}" wx:else />
+								<view class="position-absolute bottom-0 z-index-100 align-right padding-30" style="left:30rpx;right:30rpx" wx:if="{{item.title}}">
+									<text style="color:{{item.titleColor}}">{{item.title}}</text>
+								</view>
+							</view>
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow">
+					<view class="flex--center--between padding-left-right-20">
+						<view class="gray-color">
+							<text>患者信息：</text>
+							<text>{{userInfo.defaultPatient.patientName}}</text>
+							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
+							<text>，{{userInfo.defaultPatient.age}}岁</text>
+						</view>
+						<view class="padding-top-bottom-30 primary-color clickable">设置默认成员></view>
+					</view>
+					<view class="flex flex-wrap-wrap">
+						<view
+							bindtap="onGoto"
+							class="margin-left-20 margin-bottom-20 padding-20 radius-8px align-center clickable"
+							data-url="{{item.url}}"
+							style="width:210rpx;{{item.background}}"
+							wx:for="{{btnList}}"
+							wx:key="index"
+						>
+							<view class="ellipse">{{item.text}}</view>
+						</view>
+					</view>
+				</view>
+				<view class="margin-20 margin-top-30 margin-bottom-0" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">
+					<view class="padding-bottom-30">
+						<view class="font-title font-bold pre-vertical-line">健康科普</view>
+					</view>
+					<view
+						bindtap="onClickBanner"
+						class="padding-20 margin-bottom-20 white-background-color radius-8px shadow"
+						data-item="{{item}}"
+						wx:for="{{kepuList}}"
+						wx:key="id"
+					>
+						<view class="position-relative radius-8px overflow-hidden">
+							<view style="height:376rpx" wx:if="{{item.type==2}}">
+								<jy-video poster="{{item.picUrl}}" src="{{item.linkUrl}}"></jy-video>
+							</view>
+							<view style="background:url({{item.picUrl}}) no-repeat center;background-size:cover;height:376rpx" wx:else></view>
+							<view
+								class="position-absolute z-index-100 font-title font-bold"
+								style="top:20rpx;left:20rpx;right:20rpx;color:{{item.titleColor}}"
+								wx:if="{{item.title}}"
+							>{{item.title}}</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<template is="footer"></template>
+		</pull-scroll-view>
+	</view>
+</view>
+<view class="position-fixed bottom-0 width-100 padding-30" style="z-index:101" wx:if="{{tipVisible}}">
+	<view class="flex--center--between radius-100px padding-20" style="background:rgba(0,0,0,0.5)">
+		<text class="font-small white-color">点击“我的->切换账号”可切换为医生账号</text>
+		<view bindtap="onClickHideTip" class="flex-shrink-0 button small primary radius-100px">我知道了</view>
+	</view>
+</view>
+<view
+	class="position-fixed z-index-100 flex radius-50 clickable"
+	style="bottom:30rpx;right:30rpx;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd"
+>
+	<button class="flex" hover-class="none" open-type="contact">
+		<van-icon name="service-o" size="25" />
+	</button>
+</view>

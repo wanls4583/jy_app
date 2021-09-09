@@ -81,7 +81,7 @@ Page({
                                 url: this.url
                             });
                         }
-                    } else if (this.inviteWay == 'salesman') { //扫业务员二维码进入
+                    } else if (this.inviteWay == 'salesman' || this.inviteWay == 'department') { //扫业务员或科室二维码进入
                         if (wx.jyApp.store.userInfo.role == 'USER') {
                             this.data.userInfo.role = 'DOCTOR';
                             this.updateUserInfo(Object.assign({}, this.data.userInfo));
@@ -90,7 +90,7 @@ Page({
                         wx.jyApp.utils.navigateTo({
                             url: '/pages/interrogation/certification/index'
                         });
-                    } else if (this._inviteWay == 2) { //扫医生二维码进入
+                    } else if (this._inviteWay == 2) { //扫医生名片二维码进入
                         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
                             var url = '';
                             var tabs = [
@@ -175,7 +175,7 @@ Page({
                                         url: sUrl
                                     });
                                 }
-                            }).catch(()=>{
+                            }).catch(() => {
                                 wx.jyApp.toast('医生已下线');
                                 wx.switchTab({
                                     url: '/pages/tab-bar-first/index'
@@ -223,7 +223,7 @@ Page({
             this._inviteWay = 1;
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
-            if(option.stype) {
+            if (option.stype) {
                 this.screenDoctorId = option.dId;
                 this.screenType = option.stype;
             }
@@ -232,7 +232,7 @@ Page({
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
-            if (param.type == 1 && param.dId) { //医生二维码
+            if (param.type == 1 && param.dId) { //医生名片二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
                 this._inviteWay = 2;
@@ -249,6 +249,9 @@ Page({
             } else if (param.type == 4 && param.sId) { //业务员通过二维码邀请医生
                 this.inviteDoctorId = param.sId;
                 this.inviteWay = 'salesman';
+            } else if (param.type == 5 && param.dpId) { //医生扫科室二维码进入科室
+                this.inviteDoctorId = param.dpId;
+                this.inviteWay = 'department';
             }
         }
     },
