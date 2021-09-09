@@ -9,7 +9,7 @@
 		<swiper bindchange="onChangeSwiper" class="widht-100 height-100" current="{{active}}">
 			<swiper-item>
 				<view class="padding-30">温馨提示：您好！患者的身体康复离不开专业的营养指导和支持。我们会根据患者的具体情况，给予专业的营养干预方案。住院患者的详细营养服务流程如下，如有问题欢迎随时咨询！</view>
-				<view class="padding-30 primary-background-color white-color align-center">住院期间</view>
+				<view class="padding-20 primary-background-color white-color align-center">住院期间</view>
 				<view class="padding-30">
 					<view class="flex--center--between">
 						<view class="primary-color">1、营养筛查</view>
@@ -41,7 +41,7 @@
 					<view class="primary-color">7、营养宣教</view>
 					<view>住院期间：医生/营养师在查房过程中会给患者/家属/护工做营养宣教、膳食指导、健康科普等。</view>
 				</view>
-				<view class="padding-30 primary-background-color white-color align-center">出院前</view>
+				<view class="padding-20 primary-background-color white-color align-center">出院前</view>
 				<view class="padding-30">
 					<view class="primary-color">1、营养评估</view>
 					<view>收到出院通知当天：患者再次进行营养评估，确定出院后是否需要继续营养干预。</view>
@@ -54,7 +54,7 @@
 					<view class="primary-color">3、账户结算</view>
 					<view>出院时：患者可以出院前一天，或当天对账户余额进行结算。</view>
 				</view>
-				<view class="padding-30 primary-background-color white-color align-center">出院后</view>
+				<view class="padding-20 primary-background-color white-color align-center">出院后</view>
 				<view class="padding-30">
 					<view class="flex--center--between">
 						<view class="primary-color">1、营养问诊</view>
@@ -79,7 +79,7 @@
 			</swiper-item>
 			<swiper-item>
 				<view class="padding-30">温馨提示：您好！患者的身体康复离不开专业的营养指导和支持。我们会根据患者的具体情况，给予专业的营养干预方案。门诊患者详细的营养服务流程如下，如有问题欢迎随时咨询！</view>
-				<view class="padding-30 primary-background-color white-color align-center">院内门诊</view>
+				<view class="padding-20 primary-background-color white-color align-center">院内门诊</view>
 				<view class="padding-30">
 					<view class="flex--center--between">
 						<view class="primary-color">1、营养筛查</view>
@@ -107,7 +107,7 @@
 					<view class="primary-color">6、营养宣教</view>
 					<view>门诊问诊期间：医生/营养师会给患者/家属/做营养宣教、膳食指导、健康科普等。</view>
 				</view>
-				<view class="padding-30 primary-background-color white-color align-center">院外问诊</view>
+				<view class="padding-20 primary-background-color white-color align-center">院外问诊</view>
 				<view class="padding-30">
 					<view class="flex--center--between">
 						<view class="primary-color">1、营养问诊</view>
