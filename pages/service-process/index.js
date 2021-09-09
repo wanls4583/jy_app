@@ -14,7 +14,8 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            from: 'home'
+            from: 'home',
+            active: Number(option.active) || 0 
         });
     },
     onUnload() {
