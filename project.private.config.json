@@ -15,7 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=-1&url=/pages/tab-bar-second/index&routeType=switchTab",
+          "query": "type=-1&url=/pages/interrogation/illness-edit/index",
           "scene": null
         },
         {

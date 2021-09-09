@@ -12,7 +12,8 @@ Page({
             weight: '',
             BMI: '',
             foodSensitive: '',
-            phone: ''
+            phone: '',
+            defaultFlag: 0
         },
         minDate: new Date(1900, 0, 1).getTime(),
         maxDate: new Date().getTime(),
@@ -21,6 +22,8 @@ Page({
         birthday: new Date().getTime()
     },
     onLoad(option) {
+        // 患者端v2版本选择默认患者
+        this.selectDefault = option.selectDefault;
         // 是否从医生详情页跳过来的
         this.screen = option.screen;
         this.doctorId = option.doctorId || '';
@@ -39,6 +42,11 @@ Page({
                 title: '编辑成员'
             });
         } else {
+            if (this.selectDefault) {
+                this.setData({
+                    'patient.defaultFlag': 1
+                });
+            }
             wx.setNavigationBarTitle({
                 title: '添加成员'
             });
@@ -58,6 +66,13 @@ Page({
         this.setData({
             'patient.BMI': BMI && BMI.toFixed(1) || ''
         });
+    },
+    onSwitchDefault(e) {
+        if(!this.selectDefault) {
+            this.setData({
+                'patient.defaultFlag': this.data.patient.defaultFlag == 1 ? 0 : 1
+            });
+        }
     },
     onShowBirthday() {
         this.setData({
@@ -120,23 +135,29 @@ Page({
                     });
                 });
             }
-            if (!this.screen) {
-                wx.jyApp.toastBack('保存成功', {
-                    mask: true
-                });
-            } else {
+            if (this.screen || this.selectDefault) {
                 // 筛查页面
                 this.loadInfo(data.id).then(() => {
-                    wx.jyApp.setTempData('screenPatient', this.data.patient);
-                    if (this.screen == 'fat' || this.screen == 'fat-assess') {
-                        if (!(this.data.patient.age >= 6 && this.data.patient.age <= 18)) {
-                            wx.jyApp.toast('该项筛查/评估适用年龄为6-18岁');
-                            return;
+                    if (this.screen) {
+                        wx.jyApp.setTempData('screenPatient', this.data.patient);
+                        if (this.screen == 'fat' || this.screen == 'fat-assess') {
+                            if (!(this.data.patient.age >= 6 && this.data.patient.age <= 18)) {
+                                wx.jyApp.toast('该项筛查/评估适用年龄为6-18岁');
+                                return;
+                            }
                         }
+                        wx.redirectTo({
+                            url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+                        });
+                    } else {
+                        wx.reLaunch({
+                            url: '/pages/index/index'
+                        });
                     }
-                    wx.redirectTo({
-                        url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
-                    });
+                });
+            } else {
+                wx.jyApp.toastBack('保存成功', {
+                    mask: true
                 });
             }
         }).catch(() => {
