@@ -122,6 +122,7 @@ Page({
             return;
         }
         wx.jyApp.showLoading('提交中...', true);
+        this.data.patient.doctorId = 113
         wx.jyApp.http({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
             method: 'post',

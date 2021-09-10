@@ -1,0 +1,15 @@
+<template name="department-item">
+	<view bindtap="onGoto" class="department-item flex--start--between white-background-color" data-url>
+		<view class="radius-8px overflow-hidden width-100rpx height-100rpx margin-top-30 gray-background-color">
+			<text>群聊</text>
+		</view>
+		<view class="flex-grow-1 margin-left-30">
+			<view class="padding-top-bottom-30 border-bottom">
+				<view>
+					<text>{{department.hospitalName}}</text>
+				</view>
+				<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{department.departmentName}}</text>
+			</view>
+		</view>
+	</view>
+</template>

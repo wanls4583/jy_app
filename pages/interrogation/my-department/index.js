@@ -3,7 +3,6 @@ Page({
         doctorList: []
     },
     onLoad(option) {
-        this.version = option.version;
         this.loadList();
     },
     onRefresh() {
@@ -17,10 +16,9 @@ Page({
         if (this.loading) {
             return;
         }
-        var url = this.version != 2 ? '/hospital/department/user' : '/wx/user/doctor';
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: url
+            url: '/wx/user/doctor'
         });
         this.request.then((data) => {
             this.setData({

@@ -13,12 +13,15 @@ Component({
         menuRect: wx.jyApp.utils.getMenuRect(),
         btnList: [{
             text: '我的医生',
+            url: '/pages/interrogation/my-doctor/index?version=2',
             background: 'background:linear-gradient(to right, #fbf9ea, #fdefbd)',
         }, {
             text: '我的科室',
+            url: '/pages/interrogation/my-department/index',
             background: 'background:linear-gradient(to right, #eafbf1, #bdfde5)',
         }, {
             text: '筛查评估',
+            url: '/pages/screen/screen-select/index',
             background: 'background:linear-gradient(to right, #eaf3fb, #bddcfd)',
         }]
     },
