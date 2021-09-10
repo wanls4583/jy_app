@@ -11,6 +11,9 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
+        if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            this.viewVersion = 2;
+        }
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
@@ -112,7 +115,7 @@ Page({
         });
         if (option.id) {
             return wx.jyApp.http({
-                url: '/chat/init',
+                url: this.viewVersion == 2 ? '/chat/v2/init' : '/chat/init',
                 method: 'post',
                 data: {
                     id: option.id

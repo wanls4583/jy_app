@@ -47,7 +47,7 @@ Component({
                 return;
             }
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/chat/index?roomId=' + roomId
+                url: '/pages/interrogation/chat/index?id=' + id
             });
             for (var i = 0; i < this.data.messageList.length; i++) {
                 var item = this.data.messageList[i];
