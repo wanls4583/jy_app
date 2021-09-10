@@ -1,6 +1,0 @@
-<view class="container">
-    <doctor-home wx:if="{{userInfo.role=='DOCTOR'}}" refresh="{{refresh}}"></doctor-home>
-    <user-home-v2 wx:elif="{{userInfo.viewVersion==2}}" refresh="{{refresh}}"></user-home-v2>
-    <user-home wx:else refresh="{{refresh}}"></user-home>
-</view>
-<van-dialog id="van-dialog" />

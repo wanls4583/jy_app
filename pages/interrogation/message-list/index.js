@@ -14,7 +14,7 @@ Component({
         attached(option) {
             this.storeBindings = wx.jyApp.createStoreBindings(this, {
                 store: wx.jyApp.store,
-                fields: ['noticeCount', 'msgCount'],
+                fields: ['noticeCount', 'msgCount', 'userInfo', 'doctorInfo'],
                 actions: ['updateNoticeCount', 'updateMsgCount'],
             });
             this.storeBindings.updateStoreBindings();
@@ -78,9 +78,13 @@ Component({
             } else if (this.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
                 return;
             }
+            var url = '/chat/list';
+            if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+                url = '/chat/v2/list'
+            }
             this.loading = true;
             this.request = wx.jyApp.http({
-                url: '/chat/list',
+                url: url,
                 data: {
                     page: refresh ? 1 : this.data.page,
                     limit: 20

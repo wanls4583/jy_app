@@ -1,5 +1,0 @@
-<view class="container">
-    <patient-manage wx:if="{{userInfo.role=='DOCTOR'}}"></patient-manage>
-    <user-mall wx:else></user-mall>
-</view>
-<van-dialog id="van-dialog" />

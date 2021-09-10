@@ -14,8 +14,6 @@
         "pages/mine/index",
         "pages/mall/home/index",
         "pages/mall/mall/index",
-        "pages/tab-bar-first/index",
-        "pages/tab-bar-second/index",
         "pages/mall/address-list/index",
         "pages/mall/product-list/index",
         "pages/order-list/index",

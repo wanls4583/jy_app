@@ -43,8 +43,8 @@
 		wx:for="{{list}}"
 		wx:key="pagePath"
 	>
-		<image mode="widthFix" src="{{item.selectedIconPath}}" wx:if="{{pagePath==item.pagePath}}" />
-		<image mode="widthFix" src="{{item.iconPath}}" wx:else />
+		<image src="{{item.selectedIconPath}}" wx:if="{{pagePath==item.pagePath}}" />
+		<image src="{{item.iconPath}}" wx:else />
 		<text>{{item.text}}</text>
 	</view>
 </view>
