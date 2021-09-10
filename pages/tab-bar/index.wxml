@@ -1,0 +1,51 @@
+<view class="container" style="padding-bottom:50px">
+	<block wx:if="{{userInfo.role=='DOCTOR'}}">
+		<view hidden="{{pagePath!='/pages/interrogation/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/interrogation/home/index']}}">
+			<doctor-home id="doctor-home"></doctor-home>
+		</view>
+		<view
+			hidden="{{pagePath!='/pages/interrogation/doctor-patient-list/index'}}"
+			style="height:100%"
+			wx:if="{{loadedPathMap['/pages/interrogation/doctor-patient-list/index']}}"
+		>
+			<patient-manage id="patient-manage"></patient-manage>
+		</view>
+	</block>
+	<block wx:else>
+		<view hidden="{{pagePath!='/pages/mall/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mall/home/index']}}">
+			<user-home-v2 id="user-home" wx:if="{{userInfo.viewVersion==2}}"></user-home-v2>
+			<user-home id="user-home" wx:else></user-home>
+		</view>
+		<view hidden="{{pagePath!='/pages/mall/mall/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mall/mall/index']}}">
+			<user-mall id="user-mall"></user-mall>
+		</view>
+	</block>
+	<!-- 消息列表 -->
+	<view
+		hidden="{{pagePath!='/pages/interrogation/message-list/index'}}"
+		style="height:100%"
+		wx:if="{{loadedPathMap['/pages/interrogation/message-list/index']}}"
+	>
+		<message-list id="message-list"></message-list>
+	</view>
+	<!-- 我的 -->
+	<view hidden="{{pagePath!='/pages/mine/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mine/index']}}">
+		<mine id="mine"></mine>
+	</view>
+</view>
+<view class="tab-bar">
+	<view
+		bindtap="onSwitchTab"
+		class="tab-bar-item"
+		data-id="{{item.id}}"
+		data-path="{{item.pagePath}}"
+		style="color:{{pagePath==item.pagePath?selectedColor:color}}"
+		wx:for="{{list}}"
+		wx:key="pagePath"
+	>
+		<image mode="widthFix" src="{{item.selectedIconPath}}" wx:if="{{pagePath==item.pagePath}}" />
+		<image mode="widthFix" src="{{item.iconPath}}" wx:else />
+		<text>{{item.text}}</text>
+	</view>
+</view>
+<van-dialog id="van-dialog" />

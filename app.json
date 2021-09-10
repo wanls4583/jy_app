@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/tab-bar/index",
         "pages/interrogation/bankcard/index",
         "pages/interrogation/record/index",
         "pages/trtc/index",
@@ -147,6 +148,8 @@
         "doctor-home": "/pages/interrogation/home/index",
         "user-mall": "/pages/mall/mall/index",
         "patient-manage": "/pages/interrogation/doctor-patient-list/index",
+        "message-list": "/pages/interrogation/message-list/index",
+        "mine": "/pages/mine/index",
         "navigation-bar": "/components/navigation-bar/index",
         "pull-scroll-view": "/components/pull-scroll-view/index",
         "readonly-field": "/components/readonly-field/index",

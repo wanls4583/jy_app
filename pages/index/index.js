@@ -101,40 +101,37 @@ Page({
                                 '/pages/interrogation/message-list/index',
                                 '/pages/mine/index',
                             ]
-                            switch (data.doctor.barcodePath) {
-                                case '/pages/mall/home/index':
-                                case '/pages/mall/mall/index':
-                                    //医生扫医生的二维码进入首页或商城页需要先切换称患者
-                                    if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
-                                        this.data.userInfo.role = 'USER';
-                                        this.updateUserInfo(Object.assign({}, this.data.userInfo));
-                                        wx.setStorageSync('role', 'USER');
-                                    }
-                                    default:
-                                        url = data.doctor.barcodePath;
+                            url = data.doctor.barcodePath;
+                            if (['/pages/mall/home/index', '/pages/mall/mall/index'].index(url) > -1) {
+                                //医生扫医生的二维码进入首页或商城页需要先切换称患者
+                                if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                                    this.data.userInfo.role = 'USER';
+                                    this.updateUserInfo(Object.assign({}, this.data.userInfo));
+                                    wx.setStorageSync('role', 'USER');
+                                }
                             }
-                            var type = '';
                             if (url.slice(0, 6) == '/pages') {
                                 if (tabs.indexOf(url) > -1) {
-                                    type = 'tab';
-                                }
-                                if (type != 'tab') {
+                                    url = '/pages/tab-bar/index?url=' + url;
+                                    wx.redirectTo({
+                                        url: url
+                                    });
+                                } else {
                                     if (url.indexOf('?') > -1) {
                                         url += '&doctorId=' + this.inviteDoctorId + '&from=barcode';
                                     } else {
                                         url += '?doctorId=' + this.inviteDoctorId + '&from=barcode';
                                     }
+                                    wx.jyApp.utils.navigateTo({
+                                        url: url
+                                    });
                                 }
-                                wx.jyApp.utils.navigateTo({
-                                    url: url,
-                                    type: type
-                                });
                             } else {
                                 wx.jyApp.utils.openWebview(url);
                             }
                         }).catch(() => {
                             wx.redirectTo({
-                                url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
+                                url: '/pages/tab-bar/index'
                             });
                         });
                     } else if (this.screenDoctorId) { //扫医生筛查二维码进入
@@ -180,7 +177,7 @@ Page({
                             }).catch(() => {
                                 wx.jyApp.toast('医生已下线');
                                 wx.redirectTo({
-                                    url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
+                                    url: '/pages/tab-bar/index'
                                 });
                             });
                         } else {
@@ -198,12 +195,12 @@ Page({
                         });
                     } else {
                         wx.redirectTo({
-                            url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
+                            url: '/pages/tab-bar/index'
                         });
                     }
                 } else {
                     wx.redirectTo({
-                        url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
+                        url: '/pages/tab-bar/index'
                     });
                 }
                 this.firstLoad = false;
