@@ -38,7 +38,11 @@
 							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
 							<text>，{{userInfo.defaultPatient.age}}岁</text>
 						</view>
-						<view bindtap="onGoto" data-url="/pages/interrogation/user-patient-list/index?selectDefault=true" class="padding-top-bottom-30 primary-color clickable">设置默认成员></view>
+						<view
+							bindtap="onGoto"
+							class="padding-top-bottom-30 primary-color clickable"
+							data-url="/pages/interrogation/user-patient-list/index?selectDefault=true"
+						>设置默认成员></view>
 					</view>
 					<view class="flex flex-wrap-wrap">
 						<view
@@ -81,18 +85,18 @@
 			<template is="footer"></template>
 		</pull-scroll-view>
 	</view>
+	<view
+		class="position-absolute z-index-100 flex radius-50 clickable"
+		style="bottom:30rpx;right:30rpx;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd"
+	>
+		<button class="flex" hover-class="none" open-type="contact">
+			<van-icon name="service-o" size="25" />
+		</button>
+	</view>
 </view>
 <view class="position-fixed bottom-0 width-100 padding-30" style="z-index:101" wx:if="{{tipVisible}}">
 	<view class="flex--center--between radius-100px padding-20" style="background:rgba(0,0,0,0.5)">
 		<text class="font-small white-color">点击“我的->切换账号”可切换为医生账号</text>
 		<view bindtap="onClickHideTip" class="flex-shrink-0 button small primary radius-100px">我知道了</view>
 	</view>
-</view>
-<view
-	class="position-fixed z-index-100 flex radius-50 clickable"
-	style="bottom:30rpx;right:30rpx;padding:8px;background-color:rgba(256,256,256,0.95);border:1px solid #ddd"
->
-	<button class="flex" hover-class="none" open-type="contact">
-		<van-icon name="service-o" size="25" />
-	</button>
 </view>
