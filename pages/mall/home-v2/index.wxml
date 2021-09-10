@@ -38,7 +38,7 @@
 							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
 							<text>，{{userInfo.defaultPatient.age}}岁</text>
 						</view>
-						<view class="padding-top-bottom-30 primary-color clickable">设置默认成员></view>
+						<view bindtap="onGoto" data-url="/pages/interrogation/user-patient-list/index?selectDefault=true" class="padding-top-bottom-30 primary-color clickable">设置默认成员></view>
 					</view>
 					<view class="flex flex-wrap-wrap">
 						<view

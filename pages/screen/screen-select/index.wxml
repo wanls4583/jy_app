@@ -104,8 +104,8 @@
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=oral-mucosa&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
-					<text>口腔黏膜风险评估（适用于所有住院患者）</text>
-					<text class="gray-color"></text>
+					<text>口腔黏膜风险评估</text>
+					<text class="gray-color">（适用于所有住院患者）</text>
 				</view>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />
@@ -120,8 +120,8 @@
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=radiation-injury&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>
-					<text>放射性损伤评估（适用于放疗患者）</text>
-					<text class="gray-color"></text>
+					<text>放射性损伤评估</text>
+					<text class="gray-color">（适用于放疗患者）</text>
 				</view>
 				<view class="flex--center--center">
 					<van-icon color="#ccc" name="arrow" />

@@ -4,6 +4,9 @@ Page({
     },
     onLoad(option) {
         this.version = option.version;
+        this.setData({
+            version: this.version || 1
+        });
         this.loadList();
     },
     onRefresh() {
@@ -17,15 +20,30 @@ Page({
         if (this.loading) {
             return;
         }
-        var url = this.version != 2 ? '/hospital/department/user' : '/wx/user/doctor';
+        var url = this.version == 2 ? '/hospital/department/user' : '/wx/user/doctor';
         this.loading = true;
         this.request = wx.jyApp.http({
             url: url
         });
         this.request.then((data) => {
-            this.setData({
-                'doctorList': data.list || []
-            });
+            if (this.version == 2) {
+                var list = [];
+                data.list.map((item) => {
+                    var arr = item.doctors || [];
+                    arr.map((_item) => {
+                        _item.departmentName = item.departmentName;
+                        _item.hospitalName = item.hospitalName;
+                    });
+                    list = list.concat(item.doctors || []);
+                });
+                this.setData({
+                    'doctorList': list
+                });
+            } else {
+                this.setData({
+                    'doctorList': data.list || []
+                });
+            }
         }).finally(() => {
             this.loading = false;
             this.request = null;

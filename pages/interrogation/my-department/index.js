@@ -1,6 +1,6 @@
 Page({
     data: {
-        doctorList: []
+        deparmentList: []
     },
     onLoad(option) {
         this.loadList();
@@ -18,11 +18,11 @@ Page({
         }
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: '/wx/user/doctor'
+            url: '/hospital/department/user'
         });
         this.request.then((data) => {
             this.setData({
-                'doctorList': data.list || []
+                'deparmentList': data.list || []
             });
         }).finally(() => {
             this.loading = false;

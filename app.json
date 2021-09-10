@@ -186,36 +186,5 @@
         "van-goods-action-icon": "@vant/weapp/goods-action-icon/index",
         "van-goods-action-button": "@vant/weapp/goods-action-button/index",
         "van-stepper": "@vant/weapp/stepper/index"
-    },
-    "tabBar": {
-        "color": "#999",
-        "selectedColor": "#2aafff",
-        "borderStyle": "black",
-        "backgroundColor": "#fff",
-        "list": [{
-                "pagePath": "pages/tab-bar-first/index",
-                "iconPath": "image/icon_home.png",
-                "selectedIconPath": "image/icon_home_active.png",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/tab-bar-second/index",
-                "iconPath": "image/icon_marks.png",
-                "selectedIconPath": "image/icon_marks_active.png",
-                "text": "制剂中心"
-            },
-            {
-                "pagePath": "pages/interrogation/message-list/index",
-                "iconPath": "image/icon_message.png",
-                "selectedIconPath": "image/icon_message_active.png",
-                "text": "消息"
-            },
-            {
-                "pagePath": "pages/mine/index",
-                "iconPath": "image/icon_center.png",
-                "selectedIconPath": "image/icon_center_active.png",
-                "text": "我的"
-            }
-        ]
     }
 }

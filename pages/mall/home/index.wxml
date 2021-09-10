@@ -96,18 +96,6 @@
 						<text class="margin-top-10">筛查评估</text>
 						<text class="font-small color-666">风险筛查评估</text>
 					</view>
-					<!-- <view
-						bindtap="onGoto"
-						class="flex-direction-column flex--center--between width-25 clickable"
-						data-type="tab"
-						data-url="/pages/tab-bar-second/index"
-					>
-						<view style="width:70rpx;height:70rpx">
-							<image class="width-100 height-100" mode="aspectFit" src="/image/icon_product.png" />
-						</view>
-						<text class="margin-top-10">营养产品</text>
-						<text class="font-small color-666">快速送货上门</text>
-					</view> -->
 				</view>
 				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow" wx:if="{{departmentList.length&&configData.hideDoctor!=1}}">
 					<view class="font-title font-bold padding-20">营养中心</view>

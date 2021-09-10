@@ -23,13 +23,14 @@ Page({
     },
     onLoad(option) {
         // 患者端v2版本选择默认患者
-        this.selectDefault = option.selectDefault || '';
+        this.selectDefault = option.selectDefault == 'true';
         // 是否从医生详情页跳过来的
         this.screen = option.screen;
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.setData({
-            screen: this.screen
+            screen: this.screen,
+            selectDefault: this.selectDefault
         });
         if (this.doctorId) {
             this.setData({
@@ -68,7 +69,7 @@ Page({
         });
     },
     onSwitchDefault(e) {
-        if(!this.selectDefault) {
+        if (!this.selectDefault) {
             this.setData({
                 'patient.defaultFlag': this.data.patient.defaultFlag == 1 ? 0 : 1
             });
@@ -122,7 +123,6 @@ Page({
             return;
         }
         wx.jyApp.showLoading('提交中...', true);
-        this.data.patient.doctorId = 113
         wx.jyApp.http({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
             method: 'post',

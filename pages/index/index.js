@@ -73,7 +73,7 @@ Page({
                 if (this.firstLoad) {
                     if (this.url) {
                         if (this.routeType == 'switchTab') {
-                            wx.switchTab({
+                            wx.redirectTo({
                                 url: this.url
                             });
                         } else {
@@ -94,14 +94,16 @@ Page({
                         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
                             var url = '';
                             var tabs = [
-                                '/pages/tab-bar-first/index',
-                                '/pages/tab-bar-second/index',
+                                '/pages/mall/home/index',
+                                '/pages/mall/mall/index',
+                                '/pages/interrogation/home/index',
+                                '/pages/interrogation/doctor-patient-list/index',
                                 '/pages/interrogation/message-list/index',
                                 '/pages/mine/index',
                             ]
                             switch (data.doctor.barcodePath) {
-                                case '/pages/tab-bar-first/index':
-                                case '/pages/tab-bar-second/index':
+                                case '/pages/mall/home/index':
+                                case '/pages/mall/mall/index':
                                     //医生扫医生的二维码进入首页或商城页需要先切换称患者
                                     if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                                         this.data.userInfo.role = 'USER';
@@ -131,8 +133,8 @@ Page({
                                 wx.jyApp.utils.openWebview(url);
                             }
                         }).catch(() => {
-                            wx.switchTab({
-                                url: '/pages/tab-bar-first/index'
+                            wx.redirectTo({
+                                url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
                             });
                         });
                     } else if (this.screenDoctorId) { //扫医生筛查二维码进入
@@ -177,8 +179,8 @@ Page({
                                 }
                             }).catch(() => {
                                 wx.jyApp.toast('医生已下线');
-                                wx.switchTab({
-                                    url: '/pages/tab-bar-first/index'
+                                wx.redirectTo({
+                                    url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
                                 });
                             });
                         } else {
@@ -195,13 +197,13 @@ Page({
                             url: '/pages/mall/product-detail/index?id=' + this.productId
                         });
                     } else {
-                        wx.switchTab({
-                            url: '/pages/tab-bar-first/index'
+                        wx.redirectTo({
+                            url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
                         });
                     }
                 } else {
-                    wx.switchTab({
-                        url: '/pages/tab-bar-first/index'
+                    wx.redirectTo({
+                        url: this.data.userInfo.role == 'DOCTOR' ? '/pages/interrogation/home/index' : '/pages/mall/home/index'
                     });
                 }
                 this.firstLoad = false;

@@ -6,7 +6,7 @@ Page({
     },
     onLoad(option) {
         // 患者端v2版本选择默认患者
-        this.selectDefault = option.selectDefault || '';
+        this.selectDefault = option.selectDefault == 'true';
         this.screen = option.screen || '';
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
@@ -37,6 +37,7 @@ Page({
             wx.jyApp.toast('请选择患者');
             return;
         }
+        // 客户端v2版本设置默认患者
         if (this.selectDefault) {
             this.data.patient.defaultFlag = 1;
             wx.jyApp.http({

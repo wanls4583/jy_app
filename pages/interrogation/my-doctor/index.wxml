@@ -1,9 +1,15 @@
+<import src="/template/doctor-item-v2.wxml" />
 <import src="/template/doctor-item.wxml" />
 <view class="container">
 	<view class="height-100">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view class="padding-left-right-30 white-background-color">
-				<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
+				<block wx:if="{{version==2}}">
+					<template data="{{doctor:item}}" is="doctor-item-v2" wx:for="{{doctorList}}" wx:key="id"></template>
+				</block>
+				<block wx:else>
+					<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
+				</block>
 			</view>
 			<view class="padding-30 gray-color align-center font-small" wx:if="{{!doctorList.length}}">
 				<empty description="暂无我的医生" />

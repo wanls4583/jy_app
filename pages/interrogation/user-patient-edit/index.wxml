@@ -46,7 +46,7 @@
 			wx:if="{{screen!='fat'&&screen!='fat-assess'}}"
 		/>
 	</van-cell-group>
-	<view class="flex--center--between white-background-color padding-30 margin-top-20">
+	<view class="flex--center--between white-background-color padding-30 margin-top-20" wx:if="{{selectDefault}}">
 		<text>默认成员</text>
 		<switch bindchange="onSwitchDefault" checked="{{patient.defaultFlag==1}}" color="rgb(42, 175, 255)" />
 	</view>

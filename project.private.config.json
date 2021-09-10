@@ -15,7 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=-1&url=/pages/interrogation/illness-edit/index",
+          "query": "type=-1&url=%2Fpages%2Fservice-process%2Findex%3Facitve%3D1",
           "scene": null
         },
         {
