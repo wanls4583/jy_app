@@ -42,15 +42,17 @@ Component({
             });
         },
         onClickMsg(e) {
-            var id = e.currentTarget.dataset.id;
-            var roomId = e.currentTarget.dataset.roomid;
+            var item = e.currentTarget.dataset.item;
+            var id = item.id;
+            var roomId = item.roomId;
+            var groupFlag = item.groupFlag;
             if (!wx.jyApp.utils.checkDoctor({
                     checkStatus: true
                 })) {
                 return;
             }
             wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/chat${this.viewVersion==2?'-v2':''}/index?roomId=${roomId}`
+                url: `/pages/interrogation/chat${this.viewVersion==2?'-v2':''}/index?roomId=${roomId}&groupFlag=${groupFlag}`
             });
             for (var i = 0; i < this.data.messageList.length; i++) {
                 var item = this.data.messageList[i];

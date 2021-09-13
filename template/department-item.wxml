@@ -1,7 +1,11 @@
 <template name="department-item">
-	<view bindtap="onGoto" class="department-item flex--center--between white-background-color" data-url>
+	<view
+		bindtap="onGoto"
+		class="department-item flex--center--between white-background-color"
+		data-url="/pages/interrogation/chat-v2/index?departmentId={{department.id}}"
+	>
 		<view class="flex--center--center radius-8px overflow-hidden width-100rpx height-100rpx primary-background-color">
-			<text class="white-color">群</text>
+			<text class="white-color" style="font-size:20px">群</text>
 		</view>
 		<view class="flex-grow-1 margin-left-30">
 			<view class="padding-top-bottom-30 border-bottom">

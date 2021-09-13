@@ -7,8 +7,7 @@
 				<view
 					bindtap="onClickMsg"
 					class="flex--start--between padding-top-20 padding-left-right-30 clickable"
-					data-id="{{item.id}}"
-					data-roomid="{{item.roomId}}"
+					data="{{item}}"
 					wx:for="{{messageList}}"
 					wx:key="id"
 				>

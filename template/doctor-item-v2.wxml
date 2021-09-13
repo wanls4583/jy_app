@@ -1,10 +1,10 @@
 <template name="doctor-item-v2">
 	<view
 		bindtap="onGoto"
-		class="doctor-item flex--center--between white-background-color"
-		data-url="/pages/interrogation/doctor-detail/index?doctorId={{doctor.id}}"
+		class="doctor-item flex--start--between white-background-color"
+		data-url="/pages/interrogation/chat-v2/index?doctorId={{doctor.id}}"
 	>
-		<view class="radius-8px overflow-hidden width-100rpx height-100rpx gray-background-color">
+		<view class="radius-8px overflow-hidden width-100rpx height-100rpx margin-top-30 gray-background-color">
 			<image class="width-100 height-100" mode="aspectFill" src="{{doctor.avatar}}" />
 		</view>
 		<view class="flex-grow-1 margin-left-30">
@@ -13,8 +13,11 @@
 					<text>{{doctor.doctorName}}</text>
 					<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle}}</text>
 				</view>
-				<view class="margin-top-20">
+				<view class="margin-top-10">
 					<text class="gray-color font-small" decode="{{true}}">{{doctor.hospitalName}}&nbsp;&nbsp;{{doctor.departmentName}}</text>
+				</view>
+				<view class="margin-top-10">
+					<text class="gray-color font-small" decode="{{true}}">擅长：{{doctor.goodAtDomain||''}}</text>
 				</view>
 			</view>
 		</view>

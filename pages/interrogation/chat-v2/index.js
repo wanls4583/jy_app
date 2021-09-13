@@ -95,10 +95,26 @@ Page({
     },
     initV2(option) {
         var data = {};
+        if (option.groupFlag == 1 || option.departmentId) {
+            this.roomType = 'group-chat';
+        } else {
+            this.roomType = 'single-chat';
+        }
         if (option.roomId) {
-            this.roomId = option.roomId;
             data.roomId = option.roomId;
         }
+        if (option.doctorId) {
+            data.doctorId = option.doctorId;
+        }
+        if (option.departmentId) {
+            data.departmentId = option.departmentId;
+        }
+        if (option.patientId) {
+            data.patientId = option.patientId;
+        }
+        this.setData({
+            roomType: this.roomType
+        });
         return wx.jyApp.http({
             url: '/chat/v2/init',
             method: 'get',
