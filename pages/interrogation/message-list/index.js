@@ -23,6 +23,9 @@ Component({
             this.firstLoad = true;
             var today = new Date();
             this.today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
+            if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+                this.viewVersion = 2
+            }
         },
         detached() {
             this.storeBindings.destroyStoreBindings();
@@ -47,7 +50,7 @@ Component({
                 return;
             }
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/chat/index?roomId=' + roomId
+                url: `/pages/interrogation/chat${this.viewVersion==2?'-v2':''}/index?roomId=${roomId}`
             });
             for (var i = 0; i < this.data.messageList.length; i++) {
                 var item = this.data.messageList[i];
@@ -79,7 +82,7 @@ Component({
                 return;
             }
             var url = '/chat/list';
-            if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            if (this.viewVersion == 2) {
                 url = '/chat/v2/list'
             }
             this.loading = true;

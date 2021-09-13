@@ -58,8 +58,10 @@ Page({
             applyOrderMap: {},
             status: 0, //1:聊天未关闭，0:聊天已关闭
             limit: 20,
-            pages: [],
-            pageMap: {},
+            pages: [0],
+            pageMap: {
+                0: []
+            },
             pageHeightMap: {},
             bottomId: '',
             nowPageIndex: 0,
@@ -89,11 +91,7 @@ Page({
             title: '加载中...',
             mask: true
         });
-        if (this.viewVersion == 2) {
-            this.initV2(option);
-        } else {
-            this.initV1(option);
-        }
+        this.initV2(option);
     },
     initV2(option) {
         var data = {};
@@ -612,7 +610,7 @@ Page({
             list = list.filter((item) => {
                 return !item.del;
             });
-            if (ifPre || !this.data.pages.length) { //上翻记录
+            if (ifPre) { //上翻记录或首次加载
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);
                 this.data.pageMap[pageId] = list;
