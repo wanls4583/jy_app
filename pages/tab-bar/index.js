@@ -88,7 +88,7 @@ Page({
         if (this.data.userInfo.role == 'DOCTOR') {
             list = this.data.doctorTabList;
         } else if (this.data.userInfo.viewVersion == 2) {
-            list.splice(1, 0);
+            list.splice(1, 1);
         }
         this.data.loadedPathMap[pagePath] = true;
         list.map((item) => {
