@@ -96,6 +96,7 @@ Page({
     initV2(option) {
         var data = {};
         if (option.roomId) {
+            this.roomId = option.roomId;
             data.roomId = option.roomId;
         }
         return wx.jyApp.http({
@@ -115,13 +116,20 @@ Page({
             currentUser: data.currentUser,
             talker: data.talker,
             patient: data.patient,
+            roomInfo: data.roomInfo,
         });
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });
-        wx.setNavigationBarTitle({
-            title: data.talker.nickname
-        });
+        if(data.talker) {
+            wx.setNavigationBarTitle({
+                title: data.talker.nickname
+            });
+        } else {
+            wx.setNavigationBarTitle({
+                title: data.roomInfo.departmentName
+            });
+        }
         wx.hideLoading();
     },
     onClickAvatar(e) {
