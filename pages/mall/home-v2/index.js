@@ -13,7 +13,7 @@ Component({
         menuRect: wx.jyApp.utils.getMenuRect(),
         btnList: [{
             text: '我的医生',
-            url: '/pages/interrogation/my-doctor/index?version=2',
+            url: '/pages/interrogation/my-doctor/index',
             background: 'background:linear-gradient(to right, #fbf9ea, #fdefbd)',
         }, {
             text: '我的科室',

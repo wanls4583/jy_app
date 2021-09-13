@@ -18,6 +18,10 @@
 		class="position-absolute width-100"
 		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
 	>
+		<view class="position-absolute top-0 left-0 z-index-100 width-100 padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{tipVisible}}">
+			<text wx:if="{{roomType=='group-chat'}}">本群为科室群，消息发送后群里的医生和患者都可查看。</text>
+			<text wx:else>您正在向医生发起一对一免费在线咨询。</text>
+		</view>
 		<scroll-view
 			bindscroll="onScroll"
 			class="height-100"
@@ -324,6 +328,16 @@
 					<van-icon name="notes-o" size="30px" />
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">问诊病历</view>
+			</view>
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='USER'&&roomType=='group-chat'}}">
+				<view
+					bindtap="onGoto"
+					class="flex--center--center width-60px height-60px radius-8px white-background-color"
+					data-url="/pages/interrogation/my-doctor/index?title=医生列表"
+				>
+					<van-icon name="friends-o" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">医生列表</view>
 			</view>
 		</view>
 	</view>

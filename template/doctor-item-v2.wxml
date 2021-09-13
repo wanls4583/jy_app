@@ -17,7 +17,7 @@
 					<text class="gray-color font-small" decode="{{true}}">{{doctor.hospitalName}}&nbsp;&nbsp;{{doctor.departmentName}}</text>
 				</view>
 				<view class="margin-top-10">
-					<text class="gray-color font-small" decode="{{true}}">擅长：{{doctor.goodAtDomain||''}}</text>
+					<text class="gray-color font-small" decode="{{true}}">1擅长：{{doctor.goodAtDomain||''}}</text>
 				</view>
 			</view>
 		</view>

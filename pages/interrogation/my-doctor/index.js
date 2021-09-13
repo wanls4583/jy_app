@@ -3,11 +3,26 @@ Page({
         doctorList: []
     },
     onLoad(option) {
-        this.version = option.version;
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo', 'doctorInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
+        if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            this.viewVersion = 2
+        }
         this.setData({
-            version: this.version || 1
+            viewVersion: this.viewVersion
         });
         this.loadList();
+        if(option.title) {
+            wx.setNavigationBarTitle({
+                title: option.title
+            });
+        }
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onRefresh() {
         this.loadList();
@@ -20,13 +35,13 @@ Page({
         if (this.loading) {
             return;
         }
-        var url = this.version == 2 ? '/hospital/department/user' : '/wx/user/doctor';
+        var url = this.viewVersion == 2 ? '/hospital/department/user' : '/wx/user/doctor';
         this.loading = true;
         this.request = wx.jyApp.http({
             url: url
         });
         this.request.then((data) => {
-            if (this.version == 2) {
+            if (this.viewVersion == 2) {
                 var list = [];
                 data.list.map((item) => {
                     var arr = item.doctors || [];

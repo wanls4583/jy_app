@@ -2,7 +2,7 @@ import Utils from '../../../utils/util.js';
 
 Page({
     data: {
-
+        tipVisible: false
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -11,6 +11,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.maxImgWidth = 550 / wx.jyApp.systemInfo.devicePixelRatio;
+        this.firstLoad = true;
         if (wx.onKeyboardHeightChange) {
             wx.onKeyboardHeightChange((res) => {
                 if (!this.data.inputFoucus) {
@@ -95,7 +96,7 @@ Page({
     },
     initV2(option) {
         var data = {};
-        if (option.groupFlag == 1 || option.departmentId) {
+        if (option.groupFlag != 1 || option.departmentId) {
             this.roomType = 'group-chat';
         } else {
             this.roomType = 'single-chat';
@@ -594,8 +595,19 @@ Page({
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
             if (!list.length) {
+                if(this.firstLoad) {
+                    this.setData({
+                        tipVisible: true
+                    });
+                    setTimeout(()=>{
+                        this.setData({
+                            tipVisible: false
+                        });
+                    }, 10*1000);
+                }
                 return;
             }
+            this.firstLoad = false;
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
             });

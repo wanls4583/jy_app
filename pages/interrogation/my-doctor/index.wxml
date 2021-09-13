@@ -4,7 +4,7 @@
 	<view class="height-100">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
 			<view class="padding-left-right-30 white-background-color">
-				<block wx:if="{{version==2}}">
+				<block wx:if="{{viewVersion==2}}">
 					<template data="{{doctor:item}}" is="doctor-item-v2" wx:for="{{doctorList}}" wx:key="id"></template>
 				</block>
 				<block wx:else>
