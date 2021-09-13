@@ -23,26 +23,6 @@ Page({
         this.init(option);
     },
     onShow() {
-        if (wx.jyApp.tempData.payInterrogationResult) {
-            if (wx.jyApp.tempData.payInterrogationResult.result == 'success') {
-                if (wx.jyApp.tempData.payInterrogationResult.type == 3) { //视频问诊
-                    setTimeout(() => {
-                        wx.jyApp.toast('支付成功');
-                    }, 500);
-                    wx.jyApp.utils.navigateTo({
-                        url: '/pages/interrogation/apply-order-detail/index?type=interrogation&&id=' + wx.jyApp.tempData.payInterrogationResult.id
-                    });
-                }
-                this.init({
-                    id: wx.jyApp.tempData.payInterrogationResult.id
-                });
-                delete wx.jyApp.tempData.payInterrogationResult;
-                return;
-            } else {
-                wx.jyApp.toast('支付失败');
-                delete wx.jyApp.tempData.payInterrogationResult;
-            }
-        }
         this.pollStoped = false;
         if (this.data.roomId) {
             this.getNewHistory();
@@ -69,7 +49,6 @@ Page({
             domId: '',
             inputHeight: 60,
             panelHeight: 115,
-            actionVisible: false,
             roomId: '',
             consultOrderId: '',
             earlistId: '',
@@ -110,33 +89,10 @@ Page({
             title: '加载中...',
             mask: true
         });
-        this.initV1(option);
-    },
-    initV1(option) {
-        if (option.id) {
-            return wx.jyApp.http({
-                url: '/chat/init',
-                method: 'post',
-                data: {
-                    id: option.id
-                }
-            }).then((data) => {
-                if (wx.jyApp.tempData.toRecieve) {
-                    var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                    if (page) { //已接诊
-                        page.updateRecieve(option.id);
-                    }
-                }
-                this.initRoom(data);
-            }).finally(() => {
-                delete wx.jyApp.tempData.toRecieve;
-            });
-        } else if (option.roomId) {
-            return wx.jyApp.http({
-                url: '/chat/room/info/' + option.roomId
-            }).then((data) => {
-                this.initRoom(data);
-            });
+        if (this.viewVersion == 2) {
+            this.initV2(option);
+        } else {
+            this.initV1(option);
         }
     },
     initV2(option) {
@@ -157,29 +113,18 @@ Page({
         data.patient.BMI = (data.patient.weight) / (data.patient.height * data.patient.height / 10000);
         data.patient.BMI = data.patient.BMI && data.patient.BMI.toFixed(1) || '';
         this.setData({
-            roomId: data.chatRoom.roomId,
+            roomId: data.roomInfo.roomId,
             currentUser: data.currentUser,
             talker: data.talker,
             patient: data.patient,
-            status: data.chatRoom.status,
-            consultOrder: data.consultOrder,
-            consultOrderId: data.chatRoom.consultOrderId
         });
-        //转诊中或已转诊状态，医生底部的工具栏要隐藏掉
-        if ((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.talker.role == 'DOCTOR') {
-            this.setData({
-                inputHeight: 0
-            });
-        }
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });
         wx.setNavigationBarTitle({
             title: data.talker.nickname
         });
-        this.getDoctorInfo().then(() => {
-            wx.hideLoading();
-        });
+        wx.hideLoading();
     },
     onClickAvatar(e) {
         wx.jyApp.utils.navigateTo({
@@ -221,25 +166,6 @@ Page({
     onInput(e) {
         this.setData({
             inputValue: e.detail.value
-        });
-    },
-    //转诊
-    onReferral() {
-        wx.jyApp.dialog.confirm({
-            message: '确定邀请营养师会诊？'
-        }).then(() => {
-            wx.jyApp.http({
-                url: '/consultorder/transfer',
-                method: 'post',
-                data: {
-                    id: this.data.consultOrderId
-                }
-            }).then(() => {
-                this.setData({
-                    'consultOrder.status': 8,
-                    inputHeight: 0
-                });
-            });
         });
     },
     //发文字消息
@@ -374,60 +300,14 @@ Page({
             urls: picList // 需要预览的图片http链接列表
         });
     },
-    //点击[申请]开指导按钮
+    //点击开指导按钮
     onClickApply() {
-        if (this.data.currentUser.role != 'DOCTOR') { //患者申请指导
-            this.setData({
-                actionVisible: true
-            });
-        } else { //医生开指导
-            this.data.patient.diseaseDetail = this.data.consultOrder.diseaseDetail;
-            wx.jyApp.setTempData('guidePatient', this.data.patient);
-            wx.jyApp.utils.navigateTo({
-                url: `/pages/interrogation/${this.data.consultOrder.type==2?'guidance-edit':'guidance-online/medical-record'}/index?id=${this.data.consultOrderId}&type=${this.data.consultOrder.type}`
-            });
-        }
+        wx.jyApp.setTempData('guidePatient', this.data.patient);
+        wx.jyApp.utils.navigateTo({
+            url: `/pages/interrogation/guidance-online/medical-record/index?patientId=${this.data.patient.id}`
+        });
         this.setData({
             panelVisible: false
-        });
-    },
-    onCancelAction() {
-        this.setData({
-            actionVisible: false,
-            panelVisible: false
-        });
-    },
-    //申请开指导
-    onApply() {
-        wx.jyApp.showLoading('支付中...', true);
-        wx.jyApp.http({
-            url: '/apply/save',
-            method: 'post',
-            data: {
-                id: this.data.consultOrderId
-            }
-        }).then((data) => {
-            wx.hideLoading();
-            this.setData({
-                actionVisible: false
-            });
-            if (data.params) {
-                wx.jyApp.utils.pay(data.params).then(() => {
-                    wx.jyApp.toast('申请成功');
-                    this.getNewHistory();
-                }).catch(() => {
-                    wx.jyApp.toast('支付失败');
-                });
-            } else {
-                wx.jyApp.toast('申请成功');
-                this.getNewHistory();
-                this.data.consultOrder.applyCount = 1;
-                this.setData({
-                    'consultOrder.applyCount': 1
-                });
-            }
-        }).catch(() => {
-            wx.hideLoading();
         });
     },
     //图片加载完成
@@ -607,7 +487,7 @@ Page({
     sendMsg(type, chat) {
         this.setSendStatus(chat, 'sending');
         wx.jyApp.http({
-            url: '/chat/history/send',
+            url: '/chat/history/v2/send',
             method: 'post',
             data: {
                 type: type,
@@ -651,7 +531,7 @@ Page({
         this.request && this.request.requestTask.abort();
         this.request = wx.jyApp.http({
             hideTip: this.data.pages.length > 0,
-            url: '/chat/history/poll',
+            url: '/chat/history/v2/poll',
             method: 'get',
             data: {
                 page: 1,
@@ -693,28 +573,6 @@ Page({
             }
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
-                item.doctorId = this.data.consultOrder.acceptDoctorId || this.data.consultOrder.doctorId;
-                if (item.type == 4 && item.orderApplyVO) {
-                    item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[item.orderApplyVO.status];
-                    item.orderApplyVO.status = item.orderApplyVO.status;
-                }
-                if (item.type == 5 && item.nutritionOrderChatVO) {
-                    item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[item.nutritionOrderChatVO.status];
-                }
-                //已转诊医生的聊天记录
-                if (item.sender && item.sender != this.data.currentUser.id && item.sender != this.data.talker.id) {
-                    if (this.data.currentUser.role == 'DOCTOR') {
-                        item.sender = this.data.currentUser.id;
-                    } else {
-                        item.sender = this.data.talker.id;
-                    }
-                    item.doctorId = this.data.consultOrder.doctorId;
-                }
-                if (item.sender && !item.userInfo) {
-                    item.userInfo = {
-                        avatar: item.sender == this.data.currentUser.id ? this.data.currentUser.avatarUrl : this.data.talker.avatarUrl
-                    }
-                }
             });
             list.map((item) => {
                 if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
@@ -739,11 +597,6 @@ Page({
             //通过动态消息更新申请单和指导单的状态
             function _updateStatus(_item, item, obj) {
                 if (_item.type == obj.type && item.associateId == _item.associateId) {
-                    if (obj.type == 4) {
-                        _item.orderApplyVO = _item.orderApplyVO || {};
-                        _item.orderApplyVO._status = wx.jyApp.constData.applyOrderStatusMap[obj.status];
-                        _item.orderApplyVO.status = obj.status;
-                    }
                     if (obj.type == 5) {
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
@@ -815,7 +668,7 @@ Page({
                     loading: false
                 });
             }, 500);
-            if ( /* this.data.status == 1 && */ !this.pollStoped) { //聊天是否未关闭
+            if (!this.pollStoped) { //聊天是否未关闭
                 clearTimeout(this.pollTimer);
                 this.pollTimer = setTimeout(() => {
                     this.getNewHistory();
@@ -826,7 +679,7 @@ Page({
     },
     updateLastMessage(list) {
         var page = wx.jyApp.utils.getPages('pages/interrogation/message-list/index');
-        if (page) { //已接诊
+        if (page) { //修改消息列表中的最新文案
             for (var i = 0; i < list.length; i++) {
                 if (list[i].type != 0) {
                     page.updateLastMessage(this.data.roomId, list[i].txt, list[i].sendTime);
@@ -874,16 +727,6 @@ Page({
             }
         });
     },
-    //问诊单详情
-    onGotoInterrogationDetail(e) {
-        var id = e.currentTarget.dataset.id
-        wx.jyApp.http({
-            url: '/consultorder/info/' + id
-        }).then((data) => {
-            wx.jyApp.tempData.applyOrderData = data;
-            wx.jyApp.utils.navigateTo(e);
-        });
-    },
     //营养处方详情
     onGotoGuidanceDetail(e) {
         var id = e.currentTarget.dataset.id
@@ -892,23 +735,6 @@ Page({
         }).then((data) => {
             wx.jyApp.tempData.guidanceOrderData = data;
             wx.jyApp.utils.navigateTo(e);
-        });
-    },
-    //视频通话
-    onVideo(e) {
-        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
-            wx.jyApp.toast('测试医生不支持该操作');
-            return;
-        }
-        var roomId = Math.ceil(Math.random() * 4294967295);
-        wx.jyApp.room.invite({
-            consultOrderId: this.data.consultOrderId,
-            roomId: roomId,
-            user: this.data.currentUser
-        }).then(() => {
-            wx.jyApp.utils.navigateTo({
-                url: `/pages/trtc/index?consultOrderId=${this.data.consultOrderId}&roomId=${roomId}&nickname=${this.data.talker.nickname}&avatar=${this.data.talker.avatarUrl}`
-            });
         });
     },
     //筛查
@@ -988,28 +814,17 @@ Page({
     //聊天框点击筛查单
     onGotoScreen(e) {
         var url = e.currentTarget.dataset.url;
+        var item = e.currentTarget.dataset.item;
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.currentUser.role == 'DOCTOR') {
             url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
         } else {
-            url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.doctorInfo.doctorName}`
-        }
-        wx.jyApp.utils.navigateTo({
-            url: url
-        });
-    },
-    //供其他页面更新评论状态为已评论
-    updateAppraise(id) {
-        if (this.data.consultOrderId == id) {
-            this.data.consultOrder.isAppraise = true;
-            this.setData({
-                consultOrder: this.data.consultOrder
+            wx.jyApp.loginUtil.getDoctorInfo(item.userInfo.doctorId).then((data) => {
+                url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${data.doctor.doctorName}`
+                wx.jyApp.utils.navigateTo({
+                    url: url
+                });
             });
         }
     },
-    getDoctorInfo() {
-        return wx.jyApp.loginUtil.getDoctorInfo(this.data.consultOrder.doctorId).then((data) => {
-            this.doctorInfo = data.doctor
-        });
-    }
 })

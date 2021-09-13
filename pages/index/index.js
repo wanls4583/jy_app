@@ -12,14 +12,20 @@ Page({
             actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount', 'updateMsgCount', 'updateConsultNum', 'updateVideoBookNum', 'updatePhoneBookNum', 'addCart', 'updateCartNum'],
         });
         this.storeBindings.updateStoreBindings();
-        this.checkOption(this.option);
         this.firstLoad = true;
+        this.checkOption(this.option);
         this.loadDiagnosis();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
     },
     onShow() {
+        if (!this.firstLoad) {
+            wx.redirectTo({
+                url: '/pages/tab-bar/index'
+            });
+            return;
+        }
         wx.showLoading({
             title: '加载中...'
         });
@@ -36,182 +42,20 @@ Page({
                     showCancel: false,
                     success: (res) => {
                         if (res.confirm) {
-                            _getInfo.bind(this)();
+                            this.jump();
                         }
                     }
                 })
             } else {
-                _getInfo.bind(this)();
+                this.jump();
             }
         }).catch(() => {
             wx.hideLoading();
             wx.jyApp.toast('登录失败');
         });
-
-        function _getInfo() {
-            wx.showLoading({
-                title: '加载中...'
-            });
-            this.getUserInfo().then((doctorId) => {
-                return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                    if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
-                        this.updateDoctorInfo(Object.assign({}, data.doctor));
-                    } else {
-                        this.updatePharmacistInfo(Object.assign({}, data.doctor));
-                    }
-                }).catch(() => {
-                    // 获取不到医生信息，切换到患者端
-                    wx.jyApp.store.userInfo.role = 'USER';
-                    wx.setStorageSync('role', 'USER');
-                    this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
-                    this.storeBindings.updateStoreBindings();
-                });
-            }).finally(() => {
-                wx.hideLoading();
-                this.getMessageCount();
-                this.getRoomInfo();
-                if (this.firstLoad) {
-                    if (this.url) {
-                        if (this.routeType == 'switchTab') {
-                            wx.redirectTo({
-                                url: this.url
-                            });
-                        } else {
-                            wx.jyApp.utils.navigateTo({
-                                url: this.url
-                            });
-                        }
-                    } else if (this.inviteWay == 'salesman' || this.inviteWay == 'department') { //扫业务员或科室二维码进入
-                        if (wx.jyApp.store.userInfo.role == 'USER') {
-                            this.data.userInfo.role = 'DOCTOR';
-                            this.updateUserInfo(Object.assign({}, this.data.userInfo));
-                            wx.setStorageSync('role', 'DOCTOR');
-                        }
-                        wx.jyApp.utils.navigateTo({
-                            url: '/pages/interrogation/certification/index'
-                        });
-                    } else if (this._inviteWay == 2) { //扫医生名片二维码进入
-                        wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
-                            var url = '';
-                            var tabs = [
-                                '/pages/mall/home/index',
-                                '/pages/mall/mall/index',
-                                '/pages/interrogation/home/index',
-                                '/pages/interrogation/doctor-patient-list/index',
-                                '/pages/interrogation/message-list/index',
-                                '/pages/mine/index',
-                            ]
-                            url = data.doctor.barcodePath;
-                            if (['/pages/mall/home/index', '/pages/mall/mall/index'].index(url) > -1) {
-                                //医生扫医生的二维码进入首页或商城页需要先切换称患者
-                                if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
-                                    this.data.userInfo.role = 'USER';
-                                    this.updateUserInfo(Object.assign({}, this.data.userInfo));
-                                    wx.setStorageSync('role', 'USER');
-                                }
-                            }
-                            if (url.slice(0, 6) == '/pages') {
-                                if (tabs.indexOf(url) > -1) {
-                                    url = '/pages/tab-bar/index?url=' + url;
-                                    wx.redirectTo({
-                                        url: url
-                                    });
-                                } else {
-                                    if (url.indexOf('?') > -1) {
-                                        url += '&doctorId=' + this.inviteDoctorId + '&from=barcode';
-                                    } else {
-                                        url += '?doctorId=' + this.inviteDoctorId + '&from=barcode';
-                                    }
-                                    wx.jyApp.utils.navigateTo({
-                                        url: url
-                                    });
-                                }
-                            } else {
-                                wx.jyApp.utils.openWebview(url);
-                            }
-                        }).catch(() => {
-                            wx.redirectTo({
-                                url: '/pages/tab-bar/index'
-                            });
-                        });
-                    } else if (this.screenDoctorId) { //扫医生筛查二维码进入
-                        var sUrl = '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId;
-                        var screen = '';
-                        switch (Number(this.screenType)) {
-                            case 1:
-                                screen = 'nrs';
-                                break;
-                            case 2:
-                                screen = 'pgsga'
-                                break;
-                            case 3:
-                                screen = 'sga'
-                                break;
-                            case 4:
-                                screen = 'must'
-                                break;
-                            case 5:
-                                screen = 'mna'
-                                break;
-                        }
-                        if (screen) { //跳转到具体的筛查页
-                            wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
-                                var doctor = data.doctor;
-                                if (this.data.userInfo.role == 'USER') {
-                                    this.getPatient().then((data) => {
-                                        if (data.list && data.list.length) {
-                                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
-                                        } else {
-                                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
-                                        }
-                                        wx.jyApp.utils.navigateTo({
-                                            url: sUrl
-                                        });
-                                    });
-                                } else {
-                                    sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
-                                    wx.jyApp.utils.navigateTo({
-                                        url: sUrl
-                                    });
-                                }
-                            }).catch(() => {
-                                wx.jyApp.toast('医生已下线');
-                                wx.redirectTo({
-                                    url: '/pages/tab-bar/index'
-                                });
-                            });
-                        } else {
-                            wx.jyApp.utils.navigateTo({
-                                url: sUrl
-                            });
-                        }
-                    } else if (this.doctorId || this.inviteDoctorId) { //医生主页
-                        wx.jyApp.utils.navigateTo({
-                            url: '/pages/interrogation/doctor-detail/index?doctorId=' + (this.doctorId || this.inviteDoctorId)
-                        });
-                    } else if (this.productId) { //产品主页
-                        wx.jyApp.utils.navigateTo({
-                            url: '/pages/mall/product-detail/index?id=' + this.productId
-                        });
-                    } else {
-                        wx.redirectTo({
-                            url: '/pages/tab-bar/index'
-                        });
-                    }
-                } else {
-                    wx.redirectTo({
-                        url: '/pages/tab-bar/index'
-                    });
-                }
-                this.firstLoad = false;
-            }).catch((e) => {
-                console.log(e);
-            });
-        }
     },
     //检查启动参数
     checkOption(option) {
-        console.log('检查启动参数');
         //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
@@ -219,7 +63,6 @@ Page({
         } else if (option.type == 1 && option.dId) { //医生通过小程序分享邀请医生
             this.inviteDoctorId = option.dId;
             this.inviteWay = 'doctor';
-            this._inviteWay = 1;
         } else if (option.type == 2 && option.dId) { //医生主页
             this.doctorId = option.dId;
             if (option.stype) {
@@ -234,17 +77,15 @@ Page({
             if (param.type == 1 && param.dId) { //医生名片二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
-                this._inviteWay = 2;
+                this.barcodType = 'card';
             } else if (param.type == 2 && param.dId) { //医生筛查二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
-                this._inviteWay = 3;
                 this.screenDoctorId = param.dId;
                 this.screenType = param.stype;
             } else if (param.type == 3 && param.dId) { //医生通过二维码邀请医生
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
-                this._inviteWay = 4;
             } else if (param.type == 4 && param.sId) { //业务员通过二维码邀请医生
                 this.inviteDoctorId = param.sId;
                 this.inviteWay = 'salesman';
@@ -252,6 +93,196 @@ Page({
                 this.inviteDoctorId = param.dpId;
                 this.inviteWay = 'department';
             }
+            if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
+                wx.getStorageSync('role', 'DOCTOR');
+            } else {
+                wx.getStorageSync('role', 'USER');
+            }
+        }
+    },
+    // 跳转页面
+    jump() {
+        wx.showLoading({
+            title: '加载中...'
+        });
+        this.getUserInfo().then((doctorId) => {
+            return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
+                if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                } else {
+                    this.updatePharmacistInfo(Object.assign({}, data.doctor));
+                }
+            }).catch(() => {
+                // 获取不到医生信息，切换到患者端
+                wx.jyApp.store.userInfo.role = 'USER';
+                wx.setStorageSync('role', 'USER');
+                this.updateUserInfo(Object.assign({}, wx.jyApp.store.userInfo));
+                this.storeBindings.updateStoreBindings();
+            });
+        }).finally(() => {
+            wx.hideLoading();
+            this.getMessageCount();
+            this.getRoomInfo();
+            if (this.url) { //通过url直接跳转
+                this.handleUrl();
+            } else if (this.inviteWay == 'salesman') { //扫业务员二维码进入
+                this.handleSalesmanCode();
+            } else if (this.inviteWay == 'department') { //扫科室二维码进入
+                this.handleDepartmentCode();
+            } else if (this.barcodType == 'card') { //扫医生名片二维码进入
+                this.handleCardCode();
+            } else if (this.screenDoctorId) { //扫医生筛查二维码进入
+                this.handleScreenCode();
+            } else if (this.doctorId || this.inviteDoctorId) { //医生主页
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/doctor-detail/index?doctorId=' + (this.doctorId || this.inviteDoctorId)
+                });
+            } else if (this.productId) { //产品主页
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/mall/product-detail/index?id=' + this.productId
+                });
+            } else {
+                wx.redirectTo({
+                    url: '/pages/tab-bar/index'
+                });
+            }
+            this.firstLoad = false;
+        }).catch((e) => {
+            console.log(e);
+        });
+    },
+    handleUrl() {
+        if (this.routeType == 'switchTab') {
+            wx.redirectTo({
+                url: this.url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: this.url
+            });
+        }
+    },
+    handleSalesmanCode() {
+        if (this.data.doctorInfo) {
+            wx.redirectTo({
+                url: '/pages/tab-bar/index'
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/certification/index'
+            });
+        }
+    },
+    handleDepartmentCode() {
+        if (!this.data.doctorInfo) {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/certification/index'
+            });
+        } else {
+            if (this.data.doctorInfo.hosDepartment) {
+                // 未加入科室直接进入我的团队页面
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/my-team/index'
+                });
+            } else {
+                setTimeout(() => {
+                    wx.toast('加入团队失败，每个医生只能加入一个团队');
+                }, 500);
+                // 己加入科室，进入首页
+                wx.redirectTo({
+                    url: '/pages/tab-bar/index'
+                });
+            }
+        }
+    },
+    handleCardCode() {
+        wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+            var url = '';
+            // tab页
+            var tabs = [
+                '/pages/mall/home/index',
+                '/pages/mall/mall/index',
+                '/pages/interrogation/home/index',
+                '/pages/interrogation/doctor-patient-list/index',
+                '/pages/interrogation/message-list/index',
+                '/pages/mine/index',
+            ]
+            url = data.doctor.barcodePath;
+            if (url.slice(0, 6) == '/pages') {
+                if (tabs.indexOf(url) > -1) {
+                    url = '/pages/tab-bar/index?url=' + url;
+                    wx.redirectTo({
+                        url: url
+                    });
+                } else {
+                    if (url.indexOf('?') > -1) {
+                        url += '&doctorId=' + this.inviteDoctorId + '&from=barcode';
+                    } else {
+                        url += '?doctorId=' + this.inviteDoctorId + '&from=barcode';
+                    }
+                    wx.jyApp.utils.navigateTo({
+                        url: url
+                    });
+                }
+            } else {
+                wx.jyApp.utils.openWebview(url);
+            }
+        }).catch(() => {
+            wx.redirectTo({
+                url: '/pages/tab-bar/index'
+            });
+        });
+    },
+    handleScreenCode() {
+        var sUrl = '/pages/screen/screen-select/index?doctorId=' + this.screenDoctorId;
+        var screen = '';
+        switch (Number(this.screenType)) {
+            case 1:
+                screen = 'nrs';
+                break;
+            case 2:
+                screen = 'pgsga'
+                break;
+            case 3:
+                screen = 'sga'
+                break;
+            case 4:
+                screen = 'must'
+                break;
+            case 5:
+                screen = 'mna'
+                break;
+        }
+        if (screen) { //跳转到具体的筛查页
+            wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
+                var doctor = data.doctor;
+                if (this.data.userInfo.role == 'USER') {
+                    this.getPatient().then((data) => {
+                        if (data.list && data.list.length) {
+                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                        } else {
+                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                        }
+                        wx.jyApp.utils.navigateTo({
+                            url: sUrl
+                        });
+                    });
+                } else {
+                    sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                    wx.jyApp.utils.navigateTo({
+                        url: sUrl
+                    });
+                }
+            }).catch(() => {
+                wx.jyApp.toast('医生已下线');
+                wx.redirectTo({
+                    url: '/pages/tab-bar/index'
+                });
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: sUrl
+            });
         }
     },
     getUserInfo() {

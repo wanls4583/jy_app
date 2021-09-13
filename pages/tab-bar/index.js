@@ -105,6 +105,7 @@ Page({
     onShow() {
         var com = this.selectComponent('#' + this.comId);
         com.onShow && com.onShow();
+        wx.hideHomeButton();
     },
     onHide() {
         var com = this.selectComponent('#' + this.comId);

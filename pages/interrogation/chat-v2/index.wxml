@@ -1,0 +1,351 @@
+<view class="container">
+	<view
+		class="position-absolute top-0 flex--center--between width-100 height-50px white-background-color border-top border-bottom gray-color"
+		style="padding:15px;"
+		wx:if="{{roomId}}"
+	>
+		<view class="flex">
+			<text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
+			<text decode="{{true}}">{{patient._sex}}&nbsp;&nbsp;</text>
+			<text decode="{{true}}">{{patient.age}}岁&nbsp;&nbsp;</text>
+			<text decode="{{true}}" wx:if="{{patient.height}}">{{patient.height}}cm&nbsp;&nbsp;</text>
+			<text decode="{{true}}" wx:if="{{patient.weight}}">{{patient.weight}}kg&nbsp;&nbsp;</text>
+			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+		</view>
+	</view>
+	<view
+		bindtap="onClickChatBlock"
+		class="position-absolute width-100"
+		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
+	>
+		<scroll-view
+			bindscroll="onScroll"
+			class="height-100"
+			enhanced="{{true}}"
+			scroll-anchoring="{{true}}"
+			scroll-into-view="{{domId}}"
+			scroll-with-animation="{{false}}"
+			scroll-y="{{true}}"
+		>
+			<!-- 触发ios的回弹，防止ios的bug -->
+			<view style="height:2px"></view>
+			<view style="min-height:100%;">
+				<view class="flex--center--center" wx:if="{{totalPage>1}}">
+					<view class="flex--center--center" style="height:{{loadButtonHeight}}px;" wx:if="{{loading}}">
+						<van-loading size="20" type="spinner" />
+					</view>
+					<view
+						bindtap="onPre"
+						class="padding-left-right-30 flex--center--center clickable gray-color font-small"
+						style="height:{{loadButtonHeight}}px;"
+						wx:else
+					>点击加载更多</view>
+				</view>
+				<view id="{{'page-id-' + page}}" style="min-height:{{pageHeightMap[page]}}px" wx:for="{{pages}}" wx:for-item="page" wx:key="index">
+					<block wx:if="{{index>=nowPageIndex-1&&index<=nowPageIndex+1}}">
+						<view class="position-relative" wx:for="{{pageMap[page]}}" wx:key="id">
+							<view class="flex--center--center padding-top-bottom-20 gray-color font-small" wx:if="{{item.timeStr}}">{{item.timeStr}}</view>
+							<!-- 开始或结束消息 -->
+							<view class="flex--center--between padding-top-bottom-20" id="{{item.domId}}" wx:if="{{item.type==-1||item.type==-2}}">
+								<view class="flex-grow-1 border-bottom border-color-ddd"></view>
+								<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
+								<view class="flex-grow-1 border-bottom border-color-ddd"></view>
+							</view>
+							<!-- 系统消息 -->
+							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==0}}">
+								<text class="margin-left-right-20 gray-color font-small">{{item.txt}}</text>
+							</view>
+							<view
+								class="flex padding-20 padding-left-right-0 overflow-hidden {{item.sender==currentUser.id?'myself':'other'}}"
+								id="{{item.domId}}"
+								style="line-height:40rpx"
+								wx:if="{{item.type>0}}"
+							>
+								<view class="flex-shrink-0 width-80rpx height-80rpx margin-right-20 background-color-ddd radius-8rpx" wx:if="{{item.sender!=currentUser.id}}">
+									<image
+										bindtap="onGoto"
+										class="width-100 height-100 radius-8rpx"
+										data-url="/pages/interrogation/doctor-detail/index?doctorId={{item.doctorId}}"
+										mode="scaleToFill"
+										src="{{item.userInfo.avatar}}"
+										wx:if="{{item.doctorId}}"
+									/>
+									<image
+										bindtap="onClickAvatar"
+										class="width-100 height-100 radius-8rpx"
+										data-src="{{item.userInfo.avatar}}"
+										mode="scaleToFill"
+										src="{{item.userInfo.avatar}}"
+										wx:else
+									/>
+								</view>
+								<!-- 文本消息 -->
+								<view class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color" wx:if="{{item.type==1}}">
+									<text class="{{item.sender==talker.id&&'color-333'||'white-color'}}">{{item.txt}}</text>
+									<view class="{{item.sender==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
+									<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
+									<icon bindtap="onResend" class="send-status" data-id="{{item.id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>
+								</view>
+								<!-- 图片消息 -->
+								<view class="position-relative flex-shrink-1" wx:elif="{{item.type==2}}">
+									<image class="flex radius-8rpx" mode="widthFix" src="{{item.failImgUrl}}" style="width:160rpx" wx:if="{{item.failImgUrl}}" />
+									<image
+										binderror="onImgLoadError"
+										bindload="onImgLoadSuccess"
+										bindtap="onClickImg"
+										class="flex radius-8rpx"
+										data-id="{{item.id}}"
+										data-src="{{item.originTxt||item.txt}}"
+										src="{{item.originTxt||item.txt}}"
+										style="width:{{item.width||0}}px;height:{{item.height||120}}px"
+										wx:else
+									/>
+									<view
+										class="position-absolute top-0 width-100 flex--center--center"
+										style="background-color:rgba(0,0,0,0.5);height:{{item.height||120}}px"
+										wx:if="{{item.sendStatus=='uploading'}}"
+									>
+										<text class="font-small white-color">{{item.progress}}%</text>
+									</view>
+									<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
+									<icon
+										bindtap="onResendImg"
+										class="send-status"
+										data-id="{{item.id}}"
+										size="20"
+										type="warn"
+										wx:if="{{item.sendStatus=='sendFail'||item.sendStatus=='uploadFail'}}"
+									></icon>
+								</view>
+								<!-- 指导单 -->
+								<view class="position-relative" wx:elif="{{item.type==5}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">营养处方（{{item.nutritionOrderChatVO._status}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="align-center padding-bottom-20">
+											<view
+												bindtap="onGotoGuidanceDetail"
+												class="button small success"
+												data-id="{{item.associateId}}"
+												data-url="/pages/interrogation/guidance-order-detail/index?id={{item.associateId}}"
+											>查看详情</view>
+										</view>
+									</view>
+								</view>
+								<!-- NRS2002 -->
+								<view class="position-relative" wx:elif="{{item.type==7}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">NRS2002（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/nrs/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
+								<!-- PGSGA -->
+								<view class="position-relative" wx:elif="{{item.type==8}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">PGSGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/pgsga/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
+								<!-- SGA -->
+								<view class="position-relative" wx:elif="{{item.type==9}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">SGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/sga/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
+								<!-- MUST -->
+								<view class="position-relative" wx:elif="{{item.type==10}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">MUST（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/must/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
+								<!-- MNA -->
+								<view class="position-relative" wx:elif="{{item.type==11}}">
+									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+										<view class="width-100 padding-20 success-background-color white-color align-center">MNA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+										<view class="padding-30">
+											<text>{{patient.patientName}}，</text>
+											<text>{{patient._sex}}，</text>
+											<text>{{patient.age}}岁，</text>
+											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
+											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
+											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
+										</view>
+										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+										<view class="align-center padding-bottom-30">
+											<view
+												bindtap="onGotoScreen"
+												class="button small success"
+												data-item="{{item}}"
+												data-url="/pages/screen/mna/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+										</view>
+									</view>
+								</view>
+								<view class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx" wx:if="{{item.sender==currentUser.id}}">
+									<image
+										bindtap="onGoto"
+										class="width-100 height-100 radius-8rpx"
+										data-url="/pages/interrogation/doctor-detail/index?doctorId={{item.doctorId}}"
+										mode="scaleToFill"
+										src="{{item.userInfo.avatar}}"
+										wx:if="{{currentUser.role=='DOCTOR'}}"
+									/>
+									<image
+										bindtap="onClickAvatar"
+										class="width-100 height-100 radius-8rpx"
+										data-src="{{currentUser.avatarUrl}}"
+										mode="scaleToFill"
+										src="{{currentUser.avatarUrl}}"
+										wx:else
+									/>
+								</view>
+							</view>
+						</view>
+					</block>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+	<!-- 底部输入框 -->
+	<view
+		class="position-absolute width-100 border-top border-color-ddd"
+		style="background:#f5f5f5;transition:bottom 0.25s ease;bottom:{{inputBottom}}px;"
+	>
+		<view class="flex--center--between height-60px padding-left-20">
+			<input
+				adjust-position="{{false}}"
+				bindblur="blur"
+				bindconfirm="onSend"
+				bindfocus="foucus"
+				bindinput="onInput"
+				class="flex-grow-1 height-80rpx padding-0 padding-left-20 radius-8rpx white-background-color"
+				confirm-hold="{{true}}"
+				confirm-type="send"
+				focus="{{inputFoucus}}"
+				maxlength="{{650}}"
+				type="text"
+				value="{{inputValue}}"
+			/>
+			<view bindtap="onShowPanel" class="flex--center--center height-120rpx padding-left-30 padding-right-20">
+				<van-icon name="add-o" size="30px" />
+			</view>
+		</view>
+		<view class="flex--center--start border-top border-color-ddd" style="height:{{panelHeight}}px" wx:if="{{panelVisible}}">
+			<view class="flex--center--between flex-direction-column width-25">
+				<view bindtap="onChooseImage" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<van-icon name="photo-o" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">照片</view>
+			</view>
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'}}">
+				<view bindtap="onClickApply" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<van-icon name="records" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">新开处方</view>
+			</view>
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'}}">
+				<view bindtap="onScreen" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<van-icon name="filter-o" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">营养筛查</view>
+			</view>
+			<view class="flex--center--between flex-direction-column width-25">
+				<view bindtap="onClickAvatar" class="flex--center--center width-60px height-60px radius-8px white-background-color">
+					<van-icon name="notes-o" size="30px" />
+				</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">问诊病历</view>
+			</view>
+		</view>
+	</view>
+</view>
+<van-popup bind:click-overlay="onCloseScreen" bind:close="onCloseScreen" closeable="{{true}}" position="bottom" show="{{screenVisible}}">
+	<view class="font-bold align-center padding-30">选择筛查方式</view>
+	<view class="flex flex-wrap-wrap padding-30 padding-top-0">
+		<view
+			bindtap="onClickSceen"
+			class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+			data-item="{{item}}"
+			style="border-radius:100px"
+			wx:for="{{screenList}}"
+			wx:key="index"
+		>{{item.name}}</view>
+	</view>
+	<view class="flex">
+		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">医生筛查</view>
+		<view bindtap="onSendScreen" class="primary-color padding-30 align-center border-top clickable" style="flex:1">发送给患者</view>
+	</view>
+</van-popup>
+<van-dialog id="van-dialog" />

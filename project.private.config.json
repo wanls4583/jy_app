@@ -15,19 +15,13 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=-1&url=%2Fpages%2Fservice-process%2Findex%3Facitve%3D1",
+          "query": "",
           "scene": null
         },
         {
           "name": "pages/interrogation/product-list/index",
           "pathName": "pages/interrogation/product-list/index",
           "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "type=3&pId=139",
           "scene": null
         }
       ]

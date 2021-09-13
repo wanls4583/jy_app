@@ -22,6 +22,7 @@ Page({
         var patient = wx.jyApp.getTempData('guidePatient');
         this.from = option.from;
         this.consultOrderId = option.id;
+        this.patientId = option.patientId; //v2版本开处方
         this.id = '';
         this.setData({
             from: this.from
@@ -148,6 +149,7 @@ Page({
                 id: this.id,
                 from: this.from,
                 consultOrderId: this.consultOrderId,
+                patientId: this.patientId,
                 isFirst: this.data.isFirst,
                 foodSensitive: this.data.hasFoodSensitive == 1  && this.data.foodSensitive || '',
                 mainSuit: this.data.mainSuit,

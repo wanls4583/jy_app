@@ -34,7 +34,7 @@ Page({
         } else if (guideOrderDetail) { //修改
             this.setData({
                 goodsList: guideOrderDetail.goods.map((item) => {
-                    if(item.type == 1) {
+                    if (item.type == 1) {
                         item._goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
                     } else {
                         item._goodsName = item.goodsName;
@@ -56,7 +56,7 @@ Page({
                 })
             })
         }
-        if(this.data.goodsList.length) {
+        if (this.data.goodsList.length) {
             this.caculateTotalAmount();
         }
         this.setData({
@@ -74,7 +74,7 @@ Page({
             var arr = this.data.goodsList.filter((item) => {
                 return item.type == usageGoods.type && item.id == usageGoods.id;
             });
-            if(usageGoods.type == 1) {
+            if (usageGoods.type == 1) {
                 usageGoods._goodsName = `${usageGoods.goodsName}(${usageGoods.standardNum}${wx.jyApp.constData.unitChange[usageGoods.standardUnit]}/${wx.jyApp.constData.unitChange[usageGoods.unit]})`;
             } else {
                 usageGoods._goodsName = usageGoods.goodsName;
@@ -148,7 +148,7 @@ Page({
         wx.navigateBack();
     },
     onSave() {
-        this.checkStore().then(()=>{
+        this.checkStore().then(() => {
             this.save();
         });
     },
@@ -166,9 +166,10 @@ Page({
             mask: true
         });
         wx.jyApp.http({
-            url: `/nutritionorder/${this.guidanceData.id ? 'update' : 'save'}`,
+            url: `/nutritionorder/${this.guidanceData.id ? 'update' : 'save'}${this.guidanceData.patientId?'/v2':''}`,
             method: 'post',
             data: {
+                patientId: this.guidanceData.patientId, //v2版本
                 consultOrderId: this.guidanceData.consultOrderId,
                 currentDisease: this.guidanceData.currentDisease,
                 diagnosisArr: this.guidanceData.diagnosisArr,
@@ -207,7 +208,7 @@ Page({
                         page.onGuidanceOrderRefresh();
                     }
                     page = wx.jyApp.utils.getPages('pages/interrogation/guidance-order-detail/index');
-                    if(page) { //修改了订单，刷新订单详情页
+                    if (page) { //修改了订单，刷新订单详情页
                         page.loadInfo();
                     }
                     wx.jyApp.utils.navigateTo({
