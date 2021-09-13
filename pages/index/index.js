@@ -83,6 +83,7 @@ Page({
                 this.inviteWay = 'doctor';
                 this.screenDoctorId = param.dId;
                 this.screenType = param.stype;
+                this.barcodType = 'screen';
             } else if (param.type == 3 && param.dId) { //医生通过二维码邀请医生
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
@@ -131,7 +132,7 @@ Page({
                 this.handleDepartmentCode();
             } else if (this.barcodType == 'card') { //扫医生名片二维码进入
                 this.handleCardCode();
-            } else if (this.screenDoctorId) { //扫医生筛查二维码进入
+            } else if (this.barcodType == 'screen') { //扫医生筛查二维码进入
                 this.handleScreenCode();
             } else if (this.doctorId || this.inviteDoctorId) { //医生主页
                 wx.jyApp.utils.navigateTo({
@@ -197,6 +198,21 @@ Page({
     },
     handleCardCode() {
         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+            // 患者通过扫医生的码加入可是
+            if (data.doctor.hosDepartment) {
+                wx.setStorageSync('join-doctorId', doctor.doctor.id);
+                this.getPatient().then((data) => {
+                    if (data.list && data.list.length) {
+                        sUrl = `/pages/interrogation/user-patient-list/index?select=true`;
+                    } else {
+                        sUrl = `/pages/interrogation/user-patient-edit/index?select=true`;
+                    }
+                    wx.jyApp.utils.navigateTo({
+                        url: sUrl
+                    });
+                });
+                return;
+            }
             var url = '';
             // tab页
             var tabs = [
@@ -253,9 +269,9 @@ Page({
                 screen = 'mna'
                 break;
         }
-        if (screen) { //跳转到具体的筛查页
-            wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
-                var doctor = data.doctor;
+        wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
+            var doctor = data.doctor;
+            if (screen) { //跳到具体的筛查页面
                 if (this.data.userInfo.role == 'USER') {
                     this.getPatient().then((data) => {
                         if (data.list && data.list.length) {
@@ -273,17 +289,21 @@ Page({
                         url: sUrl
                     });
                 }
-            }).catch(() => {
-                wx.jyApp.toast('医生已下线');
-                wx.redirectTo({
-                    url: '/pages/tab-bar/index'
+            } else {
+                wx.jyApp.utils.navigateTo({
+                    url: sUrl
                 });
+            }
+            // 患者通过扫医生的码加入可是
+            if (data.doctor.hosDepartment) {
+                wx.setStorageSync('join-doctorId', doctor.doctor.id);
+            }
+        }).catch(() => {
+            wx.jyApp.toast('医生已下线');
+            wx.redirectTo({
+                url: '/pages/tab-bar/index'
             });
-        } else {
-            wx.jyApp.utils.navigateTo({
-                url: sUrl
-            });
-        }
+        });
     },
     getUserInfo() {
         return wx.jyApp.loginUtil.getUserInfo().then((data) => {

@@ -6,7 +6,7 @@ Page({
     },
     onLoad(option) {
         // 患者端v2版本选择默认患者
-        this.selectDefault = option.selectDefault == 'true';
+        this.joinDoctorId = wx.getStorageSync('join-doctorId');
         this.screen = option.screen || '';
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
@@ -16,10 +16,10 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            ifSelect: option.select || option.selectDefault || false,
+            ifSelect: option.select || this.joinDoctorId || false,
             screen: this.screen
         });
-        if (this.screen || this.selectDefault) {
+        if (this.screen || this.joinDoctorId) {
             this.setData({
                 btnText: '下一页'
             });
@@ -38,7 +38,7 @@ Page({
             return;
         }
         // 客户端v2版本设置默认患者
-        if (this.selectDefault) {
+        if (this.joinDoctorId) {
             this.data.patient.defaultFlag = 1;
             wx.jyApp.http({
                 url: `/patientdocument/update`,
@@ -124,7 +124,7 @@ Page({
     },
     onAdd(e) {
         wx.jyApp.utils.navigateTo({
-            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}&doctorId=${this.doctorId}&doctorName=${this.doctorName}&&selectDefault=${this.selectDefault}`
+            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}&doctorId=${this.doctorId}&doctorName=${this.doctorName}`
         });
     },
     loadList() {

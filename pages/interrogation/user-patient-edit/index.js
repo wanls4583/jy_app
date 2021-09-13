@@ -23,14 +23,14 @@ Page({
     },
     onLoad(option) {
         // 患者端v2版本选择默认患者
-        this.selectDefault = option.selectDefault == 'true';
+        this.joinDoctorId = wx.getStorageSync('join-doctorId');
         // 是否从医生详情页跳过来的
         this.screen = option.screen;
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.setData({
             screen: this.screen,
-            selectDefault: this.selectDefault
+            joinDoctorId: this.joinDoctorId
         });
         if (this.doctorId) {
             this.setData({
@@ -43,7 +43,7 @@ Page({
                 title: '编辑成员'
             });
         } else {
-            if (this.selectDefault) {
+            if (this.joinDoctorId) {
                 this.setData({
                     'patient.defaultFlag': 1
                 });
@@ -69,7 +69,7 @@ Page({
         });
     },
     onSwitchDefault(e) {
-        if (!this.selectDefault) {
+        if (!this.joinDoctorId) {
             this.setData({
                 'patient.defaultFlag': this.data.patient.defaultFlag == 1 ? 0 : 1
             });
@@ -122,6 +122,9 @@ Page({
             wx.jyApp.toast('手机号格式不正确');
             return;
         }
+        if(this.joinDoctorId) {
+            this.data.patient.doctorId = this.joinDoctorId;
+        }
         wx.jyApp.showLoading('提交中...', true);
         wx.jyApp.http({
             url: `/patientdocument/${this.data.patient.id ? 'update' : 'save'}`,
@@ -136,7 +139,7 @@ Page({
                     });
                 });
             }
-            if (this.screen || this.selectDefault) {
+            if (this.screen || this.joinDoctorId) {
                 // 筛查页面
                 this.loadInfo(data.id).then(() => {
                     if (this.screen) {
