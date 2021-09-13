@@ -121,7 +121,7 @@ Page({
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });
-        if(data.talker) {
+        if (data.talker) {
             wx.setNavigationBarTitle({
                 title: data.talker.nickname
             });
@@ -182,19 +182,20 @@ Page({
             var chat = {
                 id: id,
                 sendStatus: 'sending',
-                sender: this.data.currentUser.id,
-                avatarUrl: this.data.currentUser.avatarUrl,
                 type: 1,
                 txt: inputValue,
                 sendTime: new Date().getTime(),
-                domId: 'id-' + id
+                domId: 'id-' + id,
+                userInfo: {
+                    id: this.data.currentUser.id,
+                    avatar: this.data.currentUser.avatar,
+                    name: this.data.currentUser.nickname
+                }
             };
             if (this.data.doctorInfo) {
-                chat.doctorId = this.data.doctorInfo.id;
-                chat.userInfo = {
-                    avatar: this.data.doctorInfo.avatar,
-                    name: this.data.doctorInfo.doctorName
-                }
+                chat.userInfo.doctorId = this.data.doctorInfo.id;
+                chat.userInfo.avatar = this.data.doctorInfo.avatar;
+                chat.userInfo.name = this.data.doctorInfo.doctorName;
             }
             this.addLocalChat(chat);
             this.setData({
@@ -222,20 +223,22 @@ Page({
                         var id = wx.jyApp.utils.getUUID();
                         var chat = {
                             id: id,
-                            sender: self.data.currentUser.id,
                             type: 2,
                             txt: item,
                             sendStatus: 'uploading',
                             progress: 10,
                             sendTime: new Date().getTime(),
-                            domId: 'id-' + id
+                            domId: 'id-' + id,
+                            userInfo: {
+                                id: self.data.currentUser.id,
+                                avatar: self.data.currentUser.avatar,
+                                name: self.data.currentUser.nickname
+                            }
                         };
                         if (self.data.doctorInfo) {
-                            chat.doctorId = self.data.doctorInfo.id;
-                            chat.userInfo = {
-                                avatar: self.data.doctorInfo.avatar,
-                                name: self.data.doctorInfo.doctorName
-                            }
+                            chat.userInfo.doctorId = self.data.doctorInfo.id;
+                            chat.userInfo.avatar = self.data.doctorInfo.avatar;
+                            chat.userInfo.name = self.data.doctorInfo.doctorName;
                         }
                         self.addLocalChat(chat);
                         uploadingChats.push(chat);
