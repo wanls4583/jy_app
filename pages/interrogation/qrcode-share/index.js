@@ -15,6 +15,7 @@ Page({
         this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
         this.dpId = this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.doctorInfo.hosDepartment.departmentId || '';
         this.stype = option.stype; //要调转的具体筛查方式
+        this.type = option.type || '';
         this.setData({
             from: option.from
         });
@@ -23,9 +24,11 @@ Page({
                 barcodeUrl: option.barcodeUrl
             })
         } else if (option.from == 'screen') { //调转到筛查页面
-            this.getQrCode(2);
+            this.type = 2;
+            this.getQrCode();
         } else if (option.from == 'invite') {
-            this.getQrCode(3);
+            this.type = 3;
+            this.getQrCode();
         } else {
             wx.jyApp.toast('参数错误');
         }
@@ -39,6 +42,7 @@ Page({
             tip = option.tip;
         } else if (option.from == 'team') {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
+            this.type = 5;
         } else if (option.from == 'screen') {
             tip = '将二维码展示给患者，扫码后可进行营养师筛查';
         } else {
@@ -68,12 +72,12 @@ Page({
         });
     },
     onShareAppMessage: function () {
-        var path = '/pages/index/index?type=2&dId=' + this.dId;
+        var path = `/pages/index/index?type=4&subType=${this.type}&uId=${this.uId}&dId=${this.dId}`;
         if (this.data.from == 'screen') {
             path += `&stype=${this.stype || -1}`
         }
         if (this.data.from == 'team') {
-            path = '/pages/index/index?type=4&dpId=' + this.dpId;
+            path = '&dpId=' + this.dpId;
         }
         return {
             title: this.dName || '医生',
@@ -157,12 +161,12 @@ Page({
             })
         }
     },
-    getQrCode(type) {
+    getQrCode() {
         wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                scene: `type=${type},dId=${this.dId},uId=${this.uId}${type==2&&this.stype?',stype='+this.stype:''}`
+                scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${this.type==2&&this.stype?',stype='+this.stype:''}`
             }
         }).then((data) => {
             this.setData({

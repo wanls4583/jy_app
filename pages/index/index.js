@@ -56,6 +56,7 @@ Page({
     },
     //检查启动参数
     checkOption(option) {
+        console.log(option);
         //type:{-1:直接跳转,1:邀请,2:医生主页, 3:产品主页}
         if (option.type == -1 && option.url) { //有page直接跳转
             this.url = decodeURIComponent(option.url);
@@ -71,29 +72,33 @@ Page({
             }
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
-        } else if (option.type == 4 && option.dpId) { //医生分享团队二维码
-            this.inviteDoctorId = param.dpId;
-            this.inviteWay = 'department';
+        } else if (option.type == 4) { //医生分享二维码
+            _handleType.call(this, option.subType, option);
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
-            if (param.type == 1 && param.dId) { //医生名片二维码
+            _handleType.call(this, param.type, param);
+        }
+
+        // 判断二维码类型
+        function _handleType(type, param) {
+            if (type == 1 && param.dId) { //医生名片二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
                 this.barcodType = 'card';
-            } else if (param.type == 2 && param.dId) { //医生筛查二维码
+            } else if (type == 2 && param.dId) { //医生筛查二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
                 this.screenDoctorId = param.dId;
                 this.screenType = param.stype;
                 this.barcodType = 'screen';
-            } else if (param.type == 3 && param.dId) { //医生通过二维码邀请医生
+            } else if (type == 3 && param.dId) { //医生通过二维码邀请医生
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
-            } else if (param.type == 4 && param.sId) { //业务员通过二维码邀请医生
+            } else if (type == 4 && param.sId) { //业务员通过二维码邀请医生
                 this.inviteDoctorId = param.sId;
                 this.inviteWay = 'salesman';
-            } else if (param.type == 5 && param.dpId) { //医生扫科室二维码进入科室
+            } else if (type == 5 && param.dpId) { //医生扫科室二维码进入科室
                 this.inviteDoctorId = param.dpId;
                 this.inviteWay = 'department';
             }
