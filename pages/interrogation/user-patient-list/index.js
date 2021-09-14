@@ -40,29 +40,27 @@ Page({
         // 客户端v2版本设置默认患者
         if (this.joinDoctorId) {
             this.data.patient.defaultFlag = 1;
+            this.data.patient.doctorId = this.joinDoctorId;
             wx.jyApp.http({
                 url: `/patientdocument/update`,
                 method: 'post',
                 data: this.data.patient
             }).then(() => {
-                wx.reLaunch({
-                    url: '/pages/index/index'
-                });
+                // 跳转到筛查页面
+                if (this.screen) {
+                    _toScreen.call(this);
+                    return;
+                } else {
+                    wx.reLaunch({
+                        url: '/pages/index/index'
+                    });
+                }
             });
             return;
         }
         // 跳转到筛查页面
         if (this.screen) {
-            if (this.screen == 'fat' || this.screen == 'fat-assess') {
-                if (!(this.data.patient.age >= 6 && this.data.patient.age <= 18)) {
-                    wx.jyApp.toast('该项筛查/评估适用年龄为6-18岁');
-                    return;
-                }
-            }
-            wx.jyApp.setTempData('screenPatient', this.data.patient);
-            wx.redirectTo({
-                url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
-            });
+            _toScreen.call(this);
             return;
         }
         var bookDateTime = wx.jyApp.tempData.illness.bookDateTime;
@@ -80,6 +78,20 @@ Page({
                 url: '/pages/interrogation/interrogation-pay/index'
             });
         });
+
+        function _toScreen() {
+            // 跳转到筛查页面
+            if (this.screen == 'fat' || this.screen == 'fat-assess') {
+                if (!(this.data.patient.age >= 6 && this.data.patient.age <= 18)) {
+                    wx.jyApp.toast('该项筛查/评估适用年龄为6-18岁');
+                    return;
+                }
+            }
+            wx.jyApp.setTempData('screenPatient', this.data.patient);
+            wx.redirectTo({
+                url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+            });
+        }
     },
     onChange(e) {
         var item = e.currentTarget.dataset.item;
