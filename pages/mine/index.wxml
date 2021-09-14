@@ -170,7 +170,11 @@
 						</view>
 					</view>
 				</view>
-				<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole!='PHARMACIST'}}">
+				<!-- v2版本医生没有切换功能 -->
+				<view
+					class="padding-left-right-20 clickable"
+					wx:if="{{userInfo.originRole!='PHARMACIST'&&(userInfo.role=='USER'||!doctorInfo||!doctorInfo.hosDepartment)}}"
+				>
 					<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 						<text>切换账号</text>
 						<view class="flex--center--center">
