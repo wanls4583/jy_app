@@ -597,7 +597,8 @@ Page({
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
             if (!list.length) {
-                if (this.firstLoad) {
+                // 首次进入弹出顶部提示
+                if (this.firstLoad && this.data.userInfo.role == 'USER') {
                     this.setData({
                         tipVisible: true
                     });
@@ -606,8 +607,8 @@ Page({
                             tipVisible: false
                         });
                     }, 10 * 1000);
-                    this.firstLoad = false;
                 }
+                this.firstLoad = false;
                 return;
             }
             this.firstLoad = false;

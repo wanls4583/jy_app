@@ -21,7 +21,7 @@
 								<text class="ellipse" style="max-width:350rpx">{{item.wxNickname}}</text>
 								<text class="font-small gray-color">{{item.updateTime}}</text>
 							</view>
-							<view class="gray-color font-small ellipse">{{item.lastMessage}}</view>
+							<view class="gray-color font-small ellipse">{{item.lastMessage||''}}</view>
 						</view>
 					</view>
 				</view>
