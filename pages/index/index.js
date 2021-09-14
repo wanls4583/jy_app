@@ -99,9 +99,9 @@ Page({
                 this.inviteWay = 'department';
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
-                wx.getStorageSync('role', 'DOCTOR');
+                wx.setStorageSync('role', 'DOCTOR');
             } else {
-                wx.getStorageSync('role', 'USER');
+                wx.setStorageSync('role', 'USER');
             }
         }
     },
@@ -117,6 +117,7 @@ Page({
                 } else {
                     this.updatePharmacistInfo(Object.assign({}, data.doctor));
                 }
+                this.storeBindings.updateStoreBindings();
             }).catch(() => {
                 // 获取不到医生信息，切换到患者端
                 wx.jyApp.store.userInfo.role = 'USER';
@@ -185,39 +186,39 @@ Page({
             });
         } else {
             if (this.data.doctorInfo.hosDepartment) {
-                // 未加入科室直接进入我的团队页面
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/my-team/index'
-                });
-            } else {
                 setTimeout(() => {
-                    wx.toast('加入团队失败，每个医生只能加入一个团队');
+                    wx.jyApp.toast('加入团队失败，每个医生只能加入一个团队');
                 }, 500);
                 // 己加入科室，进入首页
                 wx.redirectTo({
                     url: '/pages/tab-bar/index'
+                });
+            } else {
+                // 未加入科室直接进入我的团队页面
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/my-team/index'
                 });
             }
         }
     },
     handleCardCode() {
         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+            var url = '';
             // 患者通过扫医生的码加入可是
             if (data.doctor.hosDepartment) {
-                wx.setStorageSync('join-doctorId', doctor.doctor.id);
+                wx.setStorageSync('join-doctorId', data.doctor.id);
                 this.getPatient().then((data) => {
                     if (data.list && data.list.length) {
-                        sUrl = `/pages/interrogation/user-patient-list/index?select=true`;
+                        url = `/pages/interrogation/user-patient-list/index?select=true`;
                     } else {
-                        sUrl = `/pages/interrogation/user-patient-edit/index?select=true`;
+                        url = `/pages/interrogation/user-patient-edit/index?select=true`;
                     }
                     wx.jyApp.utils.navigateTo({
-                        url: sUrl
+                        url: url
                     });
                 });
                 return;
             }
-            var url = '';
             // tab页
             var tabs = [
                 '/pages/mall/home/index',
@@ -300,7 +301,7 @@ Page({
             }
             // 患者通过扫医生的码加入可是
             if (data.doctor.hosDepartment) {
-                wx.setStorageSync('join-doctorId', doctor.doctor.id);
+                wx.setStorageSync('join-doctorId', data.doctor.id);
             }
         }).catch(() => {
             wx.jyApp.toast('医生已下线');
