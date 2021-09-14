@@ -65,6 +65,8 @@
         "pages/interrogation/receive/index",
         "pages/interrogation/my-doctor/index",
         "pages/interrogation/my-department/index",
+        "pages/interrogation/my-team/index",
+        "pages/interrogation/doctor-order-screen/index",
         "pages/mall/search-doctor/index",
         "pages/service-process/index"
     ],

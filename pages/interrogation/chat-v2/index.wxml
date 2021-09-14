@@ -2,7 +2,7 @@
 	<view
 		class="position-absolute top-0 flex--center--between width-100 height-50px white-background-color border-top border-bottom gray-color"
 		style="padding:15px;"
-		wx:if="{{roomId}}"
+		wx:if="{{roomId&&patient}}"
 	>
 		<view class="flex">
 			<text decode="{{true}}">{{patient.patientName}}&nbsp;&nbsp;</text>
@@ -16,7 +16,7 @@
 	<view
 		bindtap="onClickChatBlock"
 		class="position-absolute width-100"
-		style="padding:0 10px;top:50px;bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
+		style="padding:0 10px;top:{{patient?'50px':'0'}};bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
 	>
 		<view class="position-absolute top-0 left-0 z-index-100 width-100 padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color" wx:if="{{tipVisible}}">
 			<text wx:if="{{roomType=='group-chat'}}">本群为科室群，消息发送后群里的医生和患者都可查看。</text>
@@ -85,7 +85,7 @@
 								</view>
 								<!-- 文本消息 -->
 								<view class="position-relative padding-20 radius-8rpx {{item.userInfo.id==currentUser.id?'primary':'white'}}-background-color" wx:if="{{item.type==1}}">
-									<text class="{{talker&&item.userInfo.id==talker.id&&'color-333'||'white-color'}}">{{item.txt}}</text>
+									<text class="{{item.userInfo.id!=currentUser.id&&'color-333'||'white-color'}}">{{item.txt}}</text>
 									<view class="{{item.userInfo.id==currentUser.id?'arrow-right':'arrow-left white-arrow'}}"></view>
 									<image class="send-status" mode="aspectFit" src="/image/icon_loading.gif" wx:if="{{item.sendStatus=='sending'}}" />
 									<icon bindtap="onResend" class="send-status" data-id="{{item.id}}" size="20" type="warn" wx:if="{{item.sendStatus=='sendFail'}}"></icon>

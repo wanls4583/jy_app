@@ -1,0 +1,8 @@
+.van-picker {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+
+.van-picker>view {
+    width: 100%;
+}

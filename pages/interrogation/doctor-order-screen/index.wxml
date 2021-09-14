@@ -1,0 +1,136 @@
+<import src="/template/order-goods-item.wxml" />
+<view class="container">
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="处方订单"></van-tab>
+			<van-tab title="筛查评估"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
+			<swiper-item style="padding-top:44px">
+				<view class="position-absolute top-0 width-100 flex--center--between padding-left-right-30 white-background-color border-bottom" style="height:44px">
+					<view bindtap="onShowDate" class="flex gray-color" data-prop="guidanceOrder">
+						<view class="flex">
+							<block wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">
+								<text>{{guidanceOrder._startDate}}</text>
+								<text decode="{{true}}">&nbsp;至&nbsp;</text>
+								<text>{{guidanceOrder._endDate}}</text>
+							</block>
+							<text wx:else>全部时间</text>
+						</view>
+						<van-icon name="arrow-down" />
+					</view>
+					<view wx:if="{{guidanceOrder._startDate||guidanceOrder._endDate}}">总额：{{guidanceOrder.totalAmount||0}}</view>
+				</view>
+				<pull-scroll-view
+					bindrefresh="onGuidanceOrderRefresh"
+					bindscrolltolower="onGuidanceOrderLoadMore"
+					lower-threshold="300px"
+					stop-refresh="{{guidanceOrder.stopRefresh}}"
+				>
+					<view class="padding-left-right-30 margin-top-20 white-background-color" wx:for="{{guidanceOrder.orderList}}" wx:for-item="order" wx:key="id">
+						<view class="flex--center--between padding-top-bottom-20 border-bottom font-small">
+							<text class="gray-color">订单编号：{{order.orderNo}}</text>
+							<text class="{{order.statusColor}}">{{order._status}}</text>
+						</view>
+						<view bindtap="onGoto" data-url="/pages/interrogation/guidance-order-detail/index?id={{order.id}}">
+							<view class="flex padding-top-bottom-20">
+								<text class="flex-shrink-0">患者信息：</text>
+								<view>
+									<text>{{order.patientName}}</text>
+									<text>，{{order._sex}}</text>
+									<text>，{{order.age}}岁</text>
+									<text wx:if="{{order.height}}">，{{order.height}}cm</text>
+									<text wx:if="{{order.weight}}">，{{order.weight}}kg</text>
+									<text wx:if="{{order.BMI}}">，{{order.BMI}}</text>
+								</view>
+							</view>
+							<view>
+								<text>医生姓名：{{order.doctorName}}</text>
+							</view>
+							<view>
+								<template data="{{goods:item,isOrderList:true}}" is="order-goods-item" wx:for="{{order.goods}}" wx:key="index"></template>
+							</view>
+							<view class="flex--center--between padding-top-bottom-20 border-top">
+								<view>配送金额：￥{{order.deliveryCost}}</view>
+								<view class="primary-color">订单金额：￥{{order.totalAmount}}</view>
+							</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:elif="{{guidanceOrder.totalPage==0}}">
+						<empty description="暂无订单" />
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<pull-scroll-view bindrefresh="onScreenRefresh" bindscrolltolower="onScreenLoadMore" lower-threshold="300px" stop-refresh="{{screen.stopRefresh}}">
+					<view class="padding-left-right-30 margin-top-20 white-background-color" wx:for="{{screen.list}}" wx:key="id">
+						<view class="flex flex-wrap-wrap padding-top-bottom-20 border-bottom">
+							<text>{{item.patientName}}</text>
+							<text>，{{item._sex}}</text>
+							<text>，{{item.age}}岁</text>
+							<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+							<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+							<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+						</view>
+						<view class="padding-top-bottom-20" data-item="{{item}}">
+							<view class="flex">
+								<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}日期：</text>
+								<text>{{item.filtrateDate}}</text>
+							</view>
+							<view class="flex margin-top-10">
+								<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}方式：</text>
+								<text>{{item._filtrateType}}</text>
+							</view>
+							<view class="flex margin-top-10">
+								<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}医师：</text>
+								<text>{{item.doctorName||''}}</text>
+							</view>
+							<view class="flex margin-top-10">
+								<text class="flex-shrink-0 label-color">{{item.label||'筛查'}}结果：</text>
+								<text>{{item._filtrateResult||''}}</text>
+							</view>
+							<view class="flex margin-top-10">
+								<text class="flex-shrink-0 label-color">结果解释：</text>
+								<view>
+									<view
+										style="white-space:pre-line"
+										wx:for="{{item.resultDescription}}"
+										wx:for-item="_item"
+										wx:key="index"
+									>{{item.resultDescription.length>1&&_item&&index+1+'、'||''}}{{_item||''}}</view>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{screen.totalPage>=0&&screen.page>screen.totalPage}}">没有更多了</view>
+					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+				</pull-scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>
+<van-popup position="bottom" show="{{guidanceOrder.startDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelStart"
+		bind:confirm="onConfirmStartDate"
+		data-prop="guidanceOrder"
+		title="开始日期"
+		type="date"
+		value="{{guidanceOrder.startDate}}"
+	/>
+</van-popup>
+<van-popup position="bottom" show="{{guidanceOrder.endDateVisible}}">
+	<van-datetime-picker
+		bind:cancel="onCancelEnd"
+		bind:confirm="onConfirmEndDate"
+		data-prop="guidanceOrder"
+		min-date="{{guidanceOrder.startDate}}"
+		title="结束日期"
+		type="date"
+		value="{{guidanceOrder.endDate}}"
+	/>
+</van-popup>

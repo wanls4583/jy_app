@@ -63,7 +63,7 @@ Page({
         } else if (option.type == 1 && option.dId) { //医生通过小程序分享邀请医生
             this.inviteDoctorId = option.dId;
             this.inviteWay = 'doctor';
-        } else if (option.type == 2 && option.dId) { //医生主页
+        } else if (option.type == 2 && option.dId) { //医生主页或者分享筛查二维码
             this.doctorId = option.dId;
             if (option.stype) {
                 this.screenDoctorId = option.dId;
@@ -71,6 +71,9 @@ Page({
             }
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
+        } else if (option.type == 4 && option.dpId) { //医生分享团队二维码
+            this.inviteDoctorId = param.dpId;
+            this.inviteWay = 'department';
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);

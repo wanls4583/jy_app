@@ -8,13 +8,13 @@
 		</view>
 	</view>
 	<view class="position-fixed top-0 z-index-100 width-100 padding-30 white-color primary-background-color" style="opacity: 0.8">
-		<text>{{from=='screen'?'将二维码展示给患者，扫码后可进行营养师筛查':'将二维码展示给患者，扫码后可进行线上问诊'}}</text>
+		<text>{{tip}}</text>
 	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
 		<!-- <view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view> -->
 		<button class="button primary plain" open-type="share" style="min-width:90px">分享</button>
 		<view bindtap="onSave" class="button primary plain" style="min-width:90px">保存</view>
-		<view bindtap="onReceive" class="button primary" style="min-width:90px" wx:if="{{from!='screen'}}">领取二维码</view>
+		<view bindtap="onReceive" class="button primary" style="min-width:90px" wx:if="{{from!='screen'&&from!='team'}}">领取二维码</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />

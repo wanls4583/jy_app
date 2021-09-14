@@ -13,6 +13,7 @@ Page({
         this.uId = this.data.userInfo && this.data.userInfo.id || '';
         this.dId = this.data.doctorInfo && this.data.doctorInfo.id || '';
         this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
+        this.dpId = this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.doctorInfo.hosDepartment.departmentId || '';
         this.stype = option.stype; //要调转的具体筛查方式
         this.setData({
             from: option.from
@@ -33,6 +34,19 @@ Page({
                 title: '筛查二维码'
             });
         }
+        var tip = '';
+        if (option.tip) {
+            tip = option.tip;
+        } else if (option.from == 'team') {
+            tip = '将二维码展示给医生，扫码后可加入我的团队';
+        } else if (option.from == 'screen') {
+            tip = '将二维码展示给患者，扫码后可进行营养师筛查';
+        } else {
+            tip = '将二维码展示给患者，扫码后可进行线上问诊';
+        }
+        this.setData({
+            tip: tip
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -58,10 +72,13 @@ Page({
         if (this.data.from == 'screen') {
             path += `&stype=${this.stype || -1}`
         }
+        if (this.data.from == 'team') {
+            path = '/pages/index/index?type=4&dpId=' + this.dpId;
+        }
         return {
             title: this.dName || '医生',
             path: path,
-            imageUrl: this.data.doctorInfo.avatar || '/image/logo.png'
+            imageUrl: this.data.barcodeUrl || '/image/logo.png'
         }
     },
     //保存二维码
