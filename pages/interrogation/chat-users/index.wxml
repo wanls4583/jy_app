@@ -1,0 +1,53 @@
+<import src="/template/team-item.wxml" />
+<view class="container">
+	<view class="position-fixed top-0 width-100">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="患者列表"></van-tab>
+			<van-tab title="医生列表"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
+			<swiper-item>
+				<pull-scroll-view bindrefresh="onPatientRefresh" stop-refresh="{{patient.stopRefresh}}">
+					<view
+						bindtap="onGoto"
+						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
+						data-url="/pages/interrogation/chat-v2/index?patientId={{item.patientId}}"
+						wx:for="{{patient.list}}"
+						wx:key="patientId"
+					>
+						<view class="flex-shrink-0 height-100rpx width-100rpx overflow-hidden radius-50 border">
+							<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
+						</view>
+						<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
+							<view class="flex-direction-column flex--start--between height-100rpx">
+								<view class="width-100">
+									<text>{{item.patientName}}</text>
+									<text>，{{item._sex}}</text>
+									<text>，{{item.age}}岁</text>
+								</view>
+								<view>
+									<text class="font-small gray-color">{{item.joinTime}}</text>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{!patient.list.length}}">
+						<empty description="暂无患者" />
+					</view>
+				</pull-scroll-view>
+			</swiper-item>
+			<swiper-item>
+				<pull-scroll-view bindrefresh="onDoctorRefresh" stop-refresh="{{doctor.stopRefresh}}">
+					<view class="padding-left-right-30 white-background-color">
+						<template data="{{doctor:item}}" is="team-item" wx:for="{{doctor.list}}" wx:key="id"></template>
+					</view>
+					<view class="padding-30 gray-color align-center font-small" wx:if="{{!doctor.list.length}}">
+						<empty description="暂无医生" />
+					</view>
+				</pull-scroll-view>
+			</swiper-item>
+		</swiper>
+	</view>
+</view>

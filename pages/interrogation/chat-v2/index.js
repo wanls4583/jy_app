@@ -96,7 +96,7 @@ Page({
     },
     initV2(option) {
         var data = {};
-        if (option.groupFlag != 1 || option.departmentId) {
+        if (option.groupFlag == 1 || option.departmentId) {
             this.roomType = 'group-chat';
         } else {
             this.roomType = 'single-chat';
@@ -125,7 +125,7 @@ Page({
         });
     },
     initRoom(data) {
-        if(data.patient) {
+        if (data.patient) {
             data.patient._sex = data.patient.sex == 1 ? '男' : '女';
             data.patient.BMI = (data.patient.weight) / (data.patient.height * data.patient.height / 10000);
             data.patient.BMI = data.patient.BMI && data.patient.BMI.toFixed(1) || '';
@@ -597,15 +597,16 @@ Page({
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
             if (!list.length) {
-                if(this.firstLoad) {
+                if (this.firstLoad) {
                     this.setData({
                         tipVisible: true
                     });
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.setData({
                             tipVisible: false
                         });
-                    }, 10*1000);
+                    }, 10 * 1000);
+                    this.firstLoad = false;
                 }
                 return;
             }
