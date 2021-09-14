@@ -66,10 +66,6 @@ Page({
             this.inviteWay = 'doctor';
         } else if (option.type == 2 && option.dId) { //医生主页或者分享筛查二维码
             this.doctorId = option.dId;
-            if (option.stype) {
-                this.screenDoctorId = option.dId;
-                this.screenType = option.stype;
-            }
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
         } else if (option.type == 4) { //医生分享二维码
