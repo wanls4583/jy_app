@@ -41,7 +41,7 @@
 						<view
 							bindtap="onGoto"
 							class="padding-top-bottom-30 primary-color clickable"
-							data-url="/pages/interrogation/user-patient-list/index?selectDefault=true"
+							data-url="/pages/interrogation/user-patient-list/index?select=true"
 						>设置默认成员></view>
 					</view>
 					<view class="flex flex-wrap-wrap">

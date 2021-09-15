@@ -206,12 +206,11 @@ Page({
             var url = '';
             // 患者通过扫医生的码加入可是
             if (data.doctor.hosDepartment) {
-                wx.setStorageSync('join-doctorId', data.doctor.id);
                 this.getPatient().then((data) => {
                     if (data.list && data.list.length) {
-                        url = `/pages/interrogation/user-patient-list/index?select=true`;
+                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${data.doctor.id}`;
                     } else {
-                        url = `/pages/interrogation/user-patient-edit/index?select=true`;
+                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${data.doctor.id}`;
                     }
                     wx.jyApp.utils.navigateTo({
                         url: url
@@ -280,9 +279,9 @@ Page({
                 if (this.data.userInfo.role == 'USER') {
                     this.getPatient().then((data) => {
                         if (data.list && data.list.length) {
-                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${data.doctor.id}`;
                         } else {
-                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true`;
+                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${data.doctor.id}`;
                         }
                         wx.jyApp.utils.navigateTo({
                             url: sUrl

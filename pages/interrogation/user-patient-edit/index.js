@@ -19,11 +19,17 @@ Page({
         maxDate: new Date().getTime(),
         sexVisible: false,
         birthDayVisible: false,
-        birthday: new Date().getTime()
+        birthday: new Date().getTime(),
+        switchDefaultDisabled: true
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo']
+        });
+        this.storeBindings.updateStoreBindings();
         // 患者端v2版本选择默认患者
-        this.joinDoctorId = wx.getStorageSync('join-doctorId');
+        this.joinDoctorId = option.joinDoctorId || '';
         // 是否从医生详情页跳过来的
         this.screen = option.screen;
         this.doctorId = option.doctorId || '';
@@ -38,20 +44,31 @@ Page({
             });
         }
         if (option.id) {
-            this.loadInfo(option.id);
+            this.loadInfo(option.id).then(() => {
+                this.setData({
+                    switchDefaultDisabled: this.data.patient.defaultFlag == 1
+                });
+            });
             wx.setNavigationBarTitle({
                 title: '编辑成员'
             });
         } else {
             if (this.joinDoctorId) {
                 this.setData({
-                    'patient.defaultFlag': 1
+                    'patient.defaultFlag': 1,
+                });
+            } else {
+                this.setData({
+                    switchDefaultDisabled: false
                 });
             }
             wx.setNavigationBarTitle({
                 title: '添加成员'
             });
         }
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onInput(e) {
         if (typeof e.detail == 'string') {
@@ -69,11 +86,9 @@ Page({
         });
     },
     onSwitchDefault(e) {
-        if (!this.joinDoctorId) {
-            this.setData({
-                'patient.defaultFlag': this.data.patient.defaultFlag == 1 ? 0 : 1
-            });
-        }
+        this.setData({
+            'patient.defaultFlag': this.data.patient.defaultFlag == 1 ? 0 : 1
+        });
     },
     onShowBirthday() {
         this.setData({
@@ -122,7 +137,7 @@ Page({
             wx.jyApp.toast('手机号格式不正确');
             return;
         }
-        if(this.joinDoctorId) {
+        if (this.joinDoctorId) {
             this.data.patient.doctorId = this.joinDoctorId;
         }
         wx.jyApp.showLoading('提交中...', true);
