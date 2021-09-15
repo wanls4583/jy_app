@@ -1,5 +1,5 @@
 <view class="container">
-	<navigation-bar background="#2aafff" color="white" holder="{{true}}" title="消息列表"></navigation-bar>
+	<navigation-bar background="#2aafff" color="white" holder="{{true}}" title="我的"></navigation-bar>
 	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
 		<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 			<!-- 认证医生 -->
