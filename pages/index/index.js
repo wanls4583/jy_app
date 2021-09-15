@@ -69,6 +69,7 @@ Page({
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
         } else if (option.type == 4) { //医生分享二维码
+            option.type = option.subType;
             _handleType.call(this, option.subType, option);
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
@@ -203,14 +204,15 @@ Page({
     },
     handleCardCode() {
         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
+            var doctor = data.doctor;
             var url = '';
             // 患者通过扫医生的码加入可是
             if (data.doctor.hosDepartment) {
                 this.getPatient().then((data) => {
                     if (data.list && data.list.length) {
-                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${data.doctor.id}`;
+                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${doctor.id}`;
                     } else {
-                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${data.doctor.id}`;
+                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${doctor.id}`;
                     }
                     wx.jyApp.utils.navigateTo({
                         url: url
@@ -227,7 +229,7 @@ Page({
                 '/pages/interrogation/message-list/index',
                 '/pages/mine/index',
             ]
-            url = data.doctor.barcodePath;
+            url = doctor.barcodePath;
             if (url.slice(0, 6) == '/pages') {
                 if (tabs.indexOf(url) > -1) {
                     url = '/pages/tab-bar/index?url=' + url;

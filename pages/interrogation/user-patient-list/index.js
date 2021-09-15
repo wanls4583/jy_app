@@ -38,7 +38,7 @@ Page({
             return;
         }
         // 客户端v2版本设置默认患者
-        if (this.data.userInfo.viewVersion == 2) {
+        if (this.data.userInfo.viewVersion == 2 || this.joinDoctorId) {
             this.data.patient.defaultFlag = 1;
             this.data.patient.doctorId = this.joinDoctorId;
             wx.jyApp.http({
