@@ -77,7 +77,7 @@ Page({
             path += `&stype=${this.stype || -1}`
         }
         if (this.data.from == 'team') {
-            path = '&dpId=' + this.dpId;
+            path += '&dpId=' + this.dpId;
         }
         return {
             title: this.dName || '医生',
