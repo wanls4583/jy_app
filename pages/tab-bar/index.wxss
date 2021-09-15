@@ -16,6 +16,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    min-width: 50px;
 }
 
 .tab-bar-item image {
