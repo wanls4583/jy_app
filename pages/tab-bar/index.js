@@ -75,7 +75,7 @@ Page({
         var list = this.data.list;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo','msgCount']
         });
         this.storeBindings.updateStoreBindings();
         if (option.url) {

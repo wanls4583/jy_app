@@ -46,6 +46,11 @@
 		<image src="{{item.selectedIconPath}}" wx:if="{{pagePath==item.pagePath}}" />
 		<image src="{{item.iconPath}}" wx:else />
 		<text>{{item.text}}</text>
+		<view
+			class="position-absolute radius-50 white-color font-mini align-center"
+			style="right:0px;top:-0;min-width:15px;height:15px;line-height:15px;background-color:red;"
+			wx:if="{{item.id=='message-list'&&msgCount>0}}"
+		>{{msgCount}}</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />
