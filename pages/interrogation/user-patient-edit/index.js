@@ -25,7 +25,8 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo']
+            fields: ['userInfo'],
+            actions: ['updateUserInfo'],
         });
         this.storeBindings.updateStoreBindings();
         // 患者端v2版本选择默认患者
@@ -154,6 +155,11 @@ Page({
                     });
                 });
             }
+            // v2版本患者修改默认患者时，需更新用户信息，首页需要展示默认患者
+            if (this.data.userInfo.viewVersion == 2 && this.data.patient.defaultFlag == 1) {
+                this.data.userInfo.defaultPatient = this.data.patient;
+                this.updateUserInfo(Object.assign({}, this.data.userInfo));
+            }
             if (this.screen || this.joinDoctorId) {
                 // 筛查页面
                 this.loadInfo(data.id).then(() => {
@@ -179,7 +185,8 @@ Page({
                     mask: true
                 });
             }
-        }).catch(() => {
+        }).catch((err) => {
+            console.log(err);
             wx.hideLoading();
         });
     },
