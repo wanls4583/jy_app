@@ -35,6 +35,7 @@ Page({
             inviteWay: this.inviteWay
         }).then((data) => {
             wx.hideLoading();
+            this.loginData = data;
             if (data.doctorStatus == 3) {
                 wx.showModal({
                     title: '提示',
@@ -186,7 +187,7 @@ Page({
                 url: '/pages/interrogation/certification/index'
             });
         } else {
-            if (this.data.doctorInfo.hosDepartment) {
+            if (this.loginData.tag == 4) {
                 setTimeout(() => {
                     wx.jyApp.toast('加入团队失败，每个医生只能加入一个团队');
                 }, 500);
