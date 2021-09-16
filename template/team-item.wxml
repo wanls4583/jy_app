@@ -12,7 +12,7 @@
 				<view>
 					<text>{{doctor.doctorName}}</text>
 					<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle}}</text>
-					<text class="tag hollow" wx:if="{{item.type==2}}">上级医生</text>
+					<text class="tag" wx:if="{{doctor.type==2}}">上级医生</text>
 				</view>
 				<view class="margin-top-10">
 					<text class="gray-color font-small" decode="{{true}}">{{doctor.hospitalName}}&nbsp;&nbsp;{{doctor.departmentName}}</text>
