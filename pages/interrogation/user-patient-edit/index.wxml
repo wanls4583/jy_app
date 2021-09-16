@@ -47,7 +47,7 @@
 		/>
 	</van-cell-group>
 	<!-- v2版本才有设置默认患者功能 -->
-	<view class="flex--center--between white-background-color padding-30 margin-top-20" wx:if="{{userInfo.viewVersion==2}}">
+	<view class="flex--center--between white-background-color padding-30 margin-top-20" wx:if="{{userInfo.viewVersion==2||joinDoctorId}}">
 		<text>默认成员</text>
 		<switch bindchange="onSwitchDefault" disabled="{{switchDefaultDisabled}}" checked="{{patient.defaultFlag==1}}" color="rgb(42, 175, 255)" />
 	</view>
