@@ -205,6 +205,7 @@ Page({
                 txt: inputValue,
                 sendTime: new Date().getTime(),
                 domId: 'id-' + id,
+                isSelf: true,
                 userInfo: {
                     id: this.data.currentUser.id,
                     avatar: this.data.currentUser.avatar,
@@ -248,6 +249,7 @@ Page({
                             progress: 10,
                             sendTime: new Date().getTime(),
                             domId: 'id-' + id,
+                            isSelf: true,
                             userInfo: {
                                 id: self.data.currentUser.id,
                                 avatar: self.data.currentUser.avatar,
@@ -614,8 +616,7 @@ Page({
             this.firstLoad = false;
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
-            });
-            list.map((item) => {
+                item.isSelf = item.userInfo.id == this.data.currentUser.id && item.role == this.data.userInfo.role;
                 if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
                     var obj = null
                     try {
