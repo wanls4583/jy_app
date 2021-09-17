@@ -24,7 +24,7 @@
 							<view class="flex-direction-column flex--start--between height-100rpx">
 								<view class="width-100">
 									<text>{{item.patientName}}</text>
-									<text>，{{item._sex}}</text>
+									<text>，{{item.sex==1?'男':'女'}}</text>
 									<text>，{{item.age}}岁</text>
 								</view>
 								<view>
