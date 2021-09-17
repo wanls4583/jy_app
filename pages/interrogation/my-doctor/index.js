@@ -8,6 +8,7 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
+        this.departmentId = option.departmentId; //患者聊天室科室医生列表
         if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
             this.viewVersion = 2
         }
@@ -15,7 +16,7 @@ Page({
             viewVersion: this.viewVersion
         });
         this.loadList();
-        if(option.title) {
+        if (option.title) {
             wx.setNavigationBarTitle({
                 title: option.title
             });
@@ -38,18 +39,20 @@ Page({
         var url = this.viewVersion == 2 ? '/hospital/department/user' : '/wx/user/doctor';
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: url
+            url: url,
         });
         this.request.then((data) => {
             if (this.viewVersion == 2) {
                 var list = [];
                 data.list.map((item) => {
                     var arr = item.doctors || [];
-                    arr.map((_item) => {
-                        _item.departmentName = item.departmentName;
-                        _item.hospitalName = item.hospitalName;
-                    });
-                    list = list.concat(item.doctors || []);
+                    if (!this.departmentId || item.id == this.departmentId) {
+                        arr.map((_item) => {
+                            _item.departmentName = item.departmentName;
+                            _item.hospitalName = item.hospitalName;
+                        });
+                        list = list.concat(item.doctors || []);
+                    }
                 });
                 this.setData({
                     'doctorList': list
