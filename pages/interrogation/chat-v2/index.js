@@ -828,7 +828,7 @@ Page({
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         wx.jyApp.utils.navigateTo({
-            url: `${url}?consultOrderId=${this.data.consultOrderId}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
         });
         this.setData({
             screenVisible: false
@@ -838,10 +838,10 @@ Page({
     onSendScreen() {
         wx.jyApp.showLoading('发送中...', true);
         wx.jyApp.http({
-            url: '/patient/filtrate/save',
+            url: '/patient/filtrate/save/v2',
             method: 'post',
             data: {
-                consultOrderId: this.data.consultOrderId,
+                patientId: this.data.patientId,
                 filtrateType: this.data.filtrateType,
                 isSelf: false,
             }

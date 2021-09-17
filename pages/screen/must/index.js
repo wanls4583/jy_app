@@ -56,6 +56,7 @@ Page({
         this.setData({
             'must.filtrateId': option.filtrateId,
             'consultOrderId': option.consultOrderId,
+            'patientId': option.patientId,
             'filtrateType': option.filtrateType,
         });
     },
@@ -182,10 +183,11 @@ Page({
         } else {
             if (!data.filtrateId) {
                 wx.jyApp.http({
-                    url: '/patient/filtrate/save',
+                    url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`,
                     method: 'post',
                     data: {
                         consultOrderId: this.data.consultOrderId,
+                        patientId: this.data.patientId,
                         filtrateType: this.data.filtrateType,
                         isSelf: true,
                     }
