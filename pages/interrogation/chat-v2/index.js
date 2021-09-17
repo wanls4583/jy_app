@@ -616,7 +616,9 @@ Page({
             this.firstLoad = false;
             list.map((item) => {
                 item.domId = 'id-' + item.id; //id用来定位最新一条信息
-                item.isSelf = item.userInfo.id == this.data.currentUser.id && item.role == this.data.userInfo.role;
+                if (item.userInfo) {
+                    item.isSelf = item.userInfo.id == this.data.currentUser.id && item.role == this.data.userInfo.role;
+                }
                 if (item.type == 0 && item.associateId) { //系统消息动态更改申请单和指导单状态
                     var obj = null
                     try {
