@@ -36,6 +36,10 @@ Page({
             wx.setNavigationBarTitle({
                 title: '筛查二维码'
             });
+        } else if(option.from == 'team') {
+            wx.setNavigationBarTitle({
+                title: '邀请团队成员'
+            });
         }
         var tip = '';
         if (option.tip) {
