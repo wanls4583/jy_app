@@ -183,7 +183,7 @@ Page({
         } else {
             if (!data.filtrateId) {
                 wx.jyApp.http({
-                    url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`,
+                    url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
                     method: 'post',
                     data: {
                         consultOrderId: this.data.consultOrderId,
