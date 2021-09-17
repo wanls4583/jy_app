@@ -54,15 +54,14 @@ Page({
                 title: '编辑成员'
             });
         } else {
-            if (this.joinDoctorId) {
+            if (this.joinDoctorId || this.data.userInfo.viewVersion == 2) {
                 this.setData({
                     'patient.defaultFlag': 1,
                 });
-            } else {
-                this.setData({
-                    switchDefaultDisabled: false
-                });
             }
+            this.setData({
+                switchDefaultDisabled: Boolean(this.joinDoctorId)
+            });
             wx.setNavigationBarTitle({
                 title: '添加成员'
             });
