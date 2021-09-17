@@ -187,18 +187,13 @@ Page({
                 url: '/pages/interrogation/certification/index'
             });
         } else {
-            if (this.loginData.tag == 4) {
-                setTimeout(() => {
-                    wx.jyApp.toast('加入团队失败，每个医生只能加入一个团队');
-                }, 500);
-                // 己加入科室，进入首页
-                wx.redirectTo({
-                    url: '/pages/tab-bar/index'
-                });
-            } else {
-                // 未加入科室直接进入我的团队页面
+            if (this.loginData.tag == 2 || this.loginData.tag == 3) { //2:加入成功,3:之前已经加过该科室
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/interrogation/my-team/index'
+                });
+            } else {
+                wx.redirectTo({
+                    url: '/pages/tab-bar/index'
                 });
             }
         }
