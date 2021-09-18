@@ -3,11 +3,16 @@ Page({
         statusList1: [1, 8, 5, 3],
         statusList2: [1, 5, 3],
         statusList: [1, 5, 3],
-        statusActiveMap: {
+        statusActiveMap1: {
             1: 0,
             8: 1,
             5: 2,
             3: 3
+        },
+        statusActiveMap2: {
+            1: 0,
+            5: 1,
+            3: 2
         },
         dataMap: {
             1: {
@@ -49,15 +54,17 @@ Page({
         this.loadList(true, 1);
         this.loadList(true, 3);
         this.loadList(true, 5);
-        if(this.data.doctorInfo.acceptTransferSwitch == 1) {
+        if (this.data.doctorInfo.acceptTransferSwitch == 1) {
             this.setData({
-                statusList: [1, 8, 5, 3]
+                statusList: [1, 8, 5, 3],
+                active: this.data.statusActiveMap1[this.status]
             })
             this.loadList(true, 8);
+        } else {
+            this.setData({
+                active: this.data.statusActiveMap2[this.status]
+            });
         }
-        this.setData({
-            active: this.data.statusActiveMap[this.status]
-        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

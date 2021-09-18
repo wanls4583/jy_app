@@ -30,7 +30,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow">
+				<view class="white-background-color margin-left-right-20 margin-top-30 padding-top-bottom-20 radius-8px shadow">
 					<view class="flex--center--between padding-left-right-20">
 						<view class="gray-color">
 							<text>患者信息：</text>
@@ -44,10 +44,10 @@
 							data-url="/pages/interrogation/user-patient-list/index?select=true"
 						>设置默认成员></view>
 					</view>
-					<view class="flex flex-wrap-wrap">
+					<view class="flex flex-wrap-wrap margin-top-20">
 						<view
 							bindtap="onGoto"
-							class="margin-left-20 margin-bottom-20 padding-20 radius-8px align-center clickable"
+							class="margin-left-20 margin-bottom-30 padding-20 padding-top-bottom-30 radius-8px align-center clickable"
 							data-url="{{item.url}}"
 							style="width:210rpx;{{item.background}}"
 							wx:for="{{btnList}}"
@@ -94,7 +94,7 @@
 		</button>
 	</view>
 </view>
-<view class="position-fixed bottom-0 width-100 padding-30" style="z-index:101" wx:if="{{tipVisible}}">
+<view class="position-fixed bottom-0 width-100 padding-30" style="z-index:101;bottom:50px" wx:if="{{tipVisible}}">
 	<view class="flex--center--between radius-100px padding-20" style="background:rgba(0,0,0,0.5)">
 		<text class="font-small white-color">点击“我的->切换账号”可切换为医生账号</text>
 		<view bindtap="onClickHideTip" class="flex-shrink-0 button small primary radius-100px">我知道了</view>

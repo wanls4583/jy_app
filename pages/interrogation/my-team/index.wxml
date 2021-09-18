@@ -21,7 +21,7 @@
 				<empty description="暂无我的团队" />
 			</view>
 		</pull-scroll-view>
-		<view class="position-absolute bottom-0 width-100 padding-30 flex--center--center">
+		<view class="position-absolute bottom-0 width-100 padding-30 flex--center--center" wx:if="{{doctorInfo.hosDepartment.type==2}}">
 			<button
 				bindtap="onGoto"
 				class="button primary"

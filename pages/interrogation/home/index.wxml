@@ -2,7 +2,7 @@
 <view class="container">
 	<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 		<view style="min-height:{{minContentHeight}}px;">
-			<view style="padding:{{systemInfo.statusBarHeight+30}}px 60rpx 15px 60rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
+			<view style="padding:{{systemInfo.statusBarHeight+30}}px 60rpx 30px 60rpx;background:linear-gradient(to bottom, rgb(42, 175, 255), #4286f4)">
 				<view class="flex--center--start">
 					<view class="flex-shrink-0 width-100rpx height-100rpx margin-right-30 radius-50 border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{doctorInfo.avatar || userInfo.avatarUrl}}" />
@@ -17,7 +17,7 @@
 						<text class="font-small" decode="{{true}}" wx:if="{{doctorInfo.workHospitalName}}">{{doctorInfo.workHospitalName || ''}}</text>
 					</view>
 				</view>
-				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum}}">
+				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum&&!doctorInfo.hosDepartment}}">
 					<view bindtap="onGoto" class="clickable" data-url="/pages/interrogation/interrogation-list/index?status=1">
 						<view class="white-color">待接诊</view>
 						<view class="align-center font-large warn-color text-shadow">{{consultNum.waitingNum}}</view>
@@ -96,7 +96,12 @@
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">订单列表</view>
 				</view>
-				<view bindtap="onCheckGoto" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/interrogation/my-team/index" wx:if="{{doctorInfo.hosDepartment}}">
+				<view
+					bindtap="onCheckGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
+					data-url="/pages/interrogation/my-team/index"
+					wx:if="{{doctorInfo.hosDepartment}}"
+				>
 					<image src="/image/icon_users_active.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的团队</view>
 				</view>

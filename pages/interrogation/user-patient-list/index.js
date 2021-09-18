@@ -151,14 +151,19 @@ Page({
                 limit: 1000
             }
         }).then((data) => {
+            var selected = 0;
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(1) || '';
+                // v2版本加入科室时选择患者，默认选中默认患者
+                if (item.defaultFlag == 1) {
+                    selected = item.id;
+                }
             });
             this.setData({
                 patientList: data.list || [],
-                selectId: this.data.selectId || (data.list.length ? data.list[0].id : 0),
+                selectId: this.data.selectId || selected || (data.list.length ? data.list[0].id : 0),
                 patient: this.data.patient || (data.list.length ? data.list[0] : null)
             });
         }).finally(() => {

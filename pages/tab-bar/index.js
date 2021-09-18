@@ -68,14 +68,15 @@ Page({
             }
         ],
         pagePath: '',
-        loadedPathMap: {}
+        loadedPathMap: {},
+        safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
     },
     onLoad(option) {
         var pagePath = '/pages/mall/home/index';
         var list = this.data.list;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo','msgCount']
+            fields: ['userInfo', 'msgCount']
         });
         this.storeBindings.updateStoreBindings();
         if (option.url) {

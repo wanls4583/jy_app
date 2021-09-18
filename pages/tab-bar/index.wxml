@@ -1,4 +1,4 @@
-<view class="container" style="padding-bottom:50px">
+<view class="container" style="padding-bottom:{{safeBottom+50}}px">
 	<block wx:if="{{userInfo.role=='DOCTOR'}}">
 		<view hidden="{{pagePath!='/pages/interrogation/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/interrogation/home/index']}}">
 			<doctor-home id="doctor-home"></doctor-home>
@@ -33,7 +33,7 @@
 		<mine id="mine"></mine>
 	</view>
 </view>
-<view class="tab-bar">
+<view class="tab-bar" style="height:{{safeBottom+50}}px;padding-bottom:{{safeBottom}}px">
 	<view
 		bindtap="onSwitchTab"
 		class="tab-bar-item"
