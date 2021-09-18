@@ -30,7 +30,7 @@
 						</swiper-item>
 					</swiper>
 				</view>
-				<view class="white-background-color margin-left-right-20 margin-top-30 padding-top-bottom-20 radius-8px shadow">
+				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow">
 					<view class="flex--center--between padding-left-right-20">
 						<view class="gray-color">
 							<text>患者信息：</text>
@@ -38,11 +38,10 @@
 							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
 							<text>，{{userInfo.defaultPatient.age}}岁</text>
 						</view>
-						<view
-							bindtap="onGoto"
-							class="padding-top-bottom-30 primary-color clickable"
-							data-url="/pages/interrogation/user-patient-list/index?select=true"
-						>设置默认成员></view>
+						<view bindtap="onGoto" class="flex--center--center padding-top-bottom-30 primary-color clickable" data-url="/pages/interrogation/user-patient-list/index?select=true">
+							<text>设置默认成员</text>
+							<van-icon color="#2aafff" name="arrow" />
+						</view>
 					</view>
 					<view class="flex flex-wrap-wrap margin-top-20">
 						<view
