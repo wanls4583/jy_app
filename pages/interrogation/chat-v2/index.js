@@ -1,5 +1,3 @@
-import Utils from '../../../utils/util.js';
-
 Page({
     data: {
         tipVisible: false
@@ -200,14 +198,14 @@ Page({
     onSend() {
         this.getNewHistory().then(() => {
             var inputValue = this.data.inputValue;
-            var id = Utils.getUUID();
+            var id = 'msg-' + wx.jyApp.utils.getUUID();
             var chat = {
                 id: id,
                 sendStatus: 'sending',
                 type: 1,
                 txt: inputValue,
                 sendTime: new Date().getTime(),
-                domId: 'id-' + id,
+                domId: id,
                 isSelf: true,
                 userInfo: {
                     id: this.data.currentUser.id,
@@ -243,7 +241,7 @@ Page({
                 var uploadingChats = [];
                 if (res.errMsg == 'chooseImage:ok') {
                     res.tempFilePaths.map((item) => {
-                        var id = wx.jyApp.utils.getUUID();
+                        var id = 'msg-' + wx.jyApp.utils.getUUID();
                         var chat = {
                             id: id,
                             type: 2,
@@ -251,7 +249,7 @@ Page({
                             sendStatus: 'uploading',
                             progress: 10,
                             sendTime: new Date().getTime(),
-                            domId: 'id-' + id,
+                            domId: id,
                             isSelf: true,
                             userInfo: {
                                 id: self.data.currentUser.id,
@@ -292,14 +290,14 @@ Page({
             this.data.pages.push(chat.id);
             this.setData({
                 pages: this.data.pages,
-                [`pageMap[${chat.id}]`]: [chat]
+                [`pageMap.${chat.id}`]: [chat]
             }, () => {
                 this.scrollToBottom();
             });
         } else {
             lastPageList.push(chat);
             this.setData({
-                [`pageMap[${lastPageId}]`]: lastPageList
+                [`pageMap.${lastPageId}`]: lastPageList
             }, () => {
                 this.scrollToBottom();
             });
@@ -358,7 +356,7 @@ Page({
                     item.width = width / height * 120;
                 }
                 this.setData({
-                    [`pageMap[${pageId}][${index}]`]: item
+                    [`pageMap.${pageId}[${index}]`]: item
                 }, () => {
                     if (item.height != 120) {
                         this.setData({
@@ -378,7 +376,7 @@ Page({
             if (item.id == id) {
                 item.failImgUrl = '/image/icon_pic_loading_failed.png';
                 this.setData({
-                    [`pageMap[${pageId}][${index}]`]: item
+                    [`pageMap.${pageId}[${index}]`]: item
                 }, () => {
                     if (item.height != 120) {
                         this.setData({
@@ -418,7 +416,7 @@ Page({
             if (item.id == chat.id) {
                 item.sendStatus = status;
                 this.setData({
-                    [`pageMap[${pageId}][${index}]`]: item
+                    [`pageMap.${pageId}[${index}]`]: item
                 });
             }
         });
@@ -509,7 +507,7 @@ Page({
                     if (_item.id == item.id) {
                         item.progress = data.progress;
                         this.setData({
-                            [`pageMap[${pageId}][${index}]`]: item
+                            [`pageMap.${pageId}[${index}]`]: item
                         });
                     }
                 });
@@ -538,8 +536,7 @@ Page({
     scrollToBottom() {
         var domId = this.data.pages[this.data.pages.length - 1];
         domId = this.data.pageMap[domId];
-        domId = domId[domId.length - 1].id;
-        domId = 'id-' + domId;
+        domId = domId[domId.length - 1].domId;
         this.setData({
             domId: domId
         })
@@ -618,7 +615,8 @@ Page({
             }
             this.firstLoad = false;
             list.map((item) => {
-                item.domId = 'id-' + item.id; //id用来定位最新一条信息
+                item.id = 'msg-' + item.id;
+                item.domId = item.id; //id用来定位最新一条信息
                 if (item.userInfo) {
                     item.isSelf = item.userInfo.id == this.data.currentUser.id && item.role == this.data.userInfo.role;
                 }
@@ -666,7 +664,7 @@ Page({
                 this.caculateSendTime();
                 this.setData({
                     pages: this.data.pages,
-                    [`pageMap[${pageId}]`]: list
+                    [`pageMap.${pageId}`]: list
                 }, () => {
                     this.getPageHeight(pageId);
                 });
@@ -689,7 +687,7 @@ Page({
                     this.caculateSendTime();
                     this.setData({
                         pages: this.data.pages,
-                        [`pageMap[${pageId}]`]: list.slice(index)
+                        [`pageMap.${pageId}`]: list.slice(index)
                     }, () => {
                         this.getPageHeight(pageId);
                     });
@@ -699,7 +697,7 @@ Page({
                     this.data.pageMap[lastPageId] = lastPageList;
                     this.caculateSendTime();
                     this.setData({
-                        [`pageMap[${lastPageId}]`]: lastPageList
+                        [`pageMap.${lastPageId}`]: lastPageList
                     }, () => {
                         this.getPageHeight(lastPageId);
                     });
