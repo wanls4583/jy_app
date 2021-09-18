@@ -24,7 +24,7 @@ Component({
         wx.jyApp.systemInfo = wx.getSystemInfoSync()
       }
       this.setData({
-        safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
+        safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom || 0
       });
     },
   }

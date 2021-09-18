@@ -69,7 +69,7 @@ Page({
         ],
         pagePath: '',
         loadedPathMap: {},
-        safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom
+        safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom || 0
     },
     onLoad(option) {
         var pagePath = '/pages/mall/home/index';
