@@ -25,6 +25,30 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         }
     },
+    onDelDoctor(e) {
+        var item = e.currentTarget.dataset.item;
+        if (item.id == this.data.doctorInfo.id) {
+            wx.jyApp.toast('不能删除自己');
+            return;
+        }
+        if (item.type == 2) {
+            wx.jyApp.toast('不能删除上级医生');
+            return;
+        }
+        wx.jyApp.dialog.confirm({
+            message: '确定删除医生？'
+        }).then(() => {
+            wx.jyApp.http({
+                url: '/hospital/department/doctor/delete',
+                data: {
+                    doctorId: item.id
+                }
+            }).then(() => {
+                wx.jyApp.toast('删除成功');
+                this.loadList();
+            });
+        });
+    },
     //加载医生列表
     loadList() {
         if (this.loading) {

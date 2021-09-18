@@ -2,9 +2,21 @@
 <view class="container">
 	<view class="height-100" style="padding-bottom:80px">
 		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
-			<view class="padding-left-right-30 white-background-color">
-				<template data="{{doctor:item}}" is="team-item" wx:for="{{doctorList}}" wx:key="id"></template>
-			</view>
+			<block wx:if="{{doctorInfo.hosDepartment.type==2}}">
+				<van-swipe-cell right-width="{{75}}" wx:for="{{doctorList}}" wx:key="id">
+					<view class="padding-left-right-30 white-background-color">
+						<template data="{{doctor:item}}" is="team-item"></template>
+					</view>
+					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:150px">
+						<view bindtap="onDelDoctor" class="button center height-100 width-50 min-width-50px danger radius-0" data-item="{{item}}">删除</view>
+					</view>
+				</van-swipe-cell>
+			</block>
+			<block wx:else>
+				<view class="padding-left-right-30 white-background-color" wx:for="{{doctorList}}" wx:key="id">
+					<template data="{{doctor:item}}" is="team-item"></template>
+				</view>
+			</block>
 			<view class="padding-30 gray-color align-center font-small" wx:if="{{!doctorList.length}}">
 				<empty description="暂无我的团队" />
 			</view>
@@ -18,3 +30,4 @@
 		</view>
 	</view>
 </view>
+<van-dialog id="van-dialog"></van-dialog>

@@ -843,7 +843,7 @@ Page({
             url: '/patient/filtrate/save/v2',
             method: 'post',
             data: {
-                patientId: this.data.patientId,
+                patientId: this.data.patient.id,
                 filtrateType: this.data.filtrateType,
                 isSelf: false,
             }
@@ -862,6 +862,9 @@ Page({
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.currentUser.role == 'DOCTOR') {
             url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
         } else {
             wx.jyApp.loginUtil.getDoctorInfo(item.userInfo.doctorId).then((data) => {
                 url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${data.doctor.doctorName}`
