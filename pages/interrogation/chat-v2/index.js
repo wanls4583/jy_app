@@ -152,9 +152,12 @@ Page({
         wx.hideLoading();
     },
     onClickAvatar(e) {
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/record/index?patientId=' + this.data.patient.id
-        });
+        var id = e.currentTarget.dataset.id;
+        if (this.data.userInfo.role == 'DOCTOR' || this.data.patient.id == id) {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/record/index?patientId=' + this.data.patient.id
+            });
+        }
     },
     foucus: function (e) {
         this.setData({
