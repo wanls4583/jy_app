@@ -20,8 +20,9 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onGotoDoctor(e) {
+        var id = e.currentTarget.dataset.id;
         // 只有上级医生才能查看下级医生的订单列表和评估列表
-        if (this.data.doctorInfo.hosDepartment.type == 2) {
+        if (this.data.doctorInfo.hosDepartment.type == 2 || thia.data.doctorInfo.id == id) {
             wx.jyApp.utils.navigateTo(e);
         }
     },

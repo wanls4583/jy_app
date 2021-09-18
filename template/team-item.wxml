@@ -2,6 +2,7 @@
 	<view
 		bindtap="onGotoDoctor"
 		class="doctor-item flex--start--between white-background-color"
+		data-ie="{{doctor.id}}"
 		data-url="/pages/interrogation/doctor-order-screen/index?doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}"
 	>
 		<view class="radius-8px overflow-hidden width-100rpx height-100rpx margin-top-30 gray-background-color">
