@@ -11,6 +11,11 @@ Page({
         color: ''
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         var results = wx.jyApp.getTempData('screen-results') || null;
         var result = option.result;
         var _result = option._result;
@@ -30,6 +35,9 @@ Page({
         });
         this.loadDoctor();
     },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
@@ -40,21 +48,43 @@ Page({
     },
     //查看更多
     onClickMore(e) {
-        wx.jyApp.utils.navigateTo({
-            url: '/pages/mall/search-doctor/index?all=1'
-        });
+        if (this.data.userInfo.viewVersion == 2) {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/my-doctor/index'
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/mall/search-doctor/index?all=1'
+            });
+        }
     },
     loadDoctor() {
+        var url = this.data.userInfo.viewVersion == 2 ? '/hospital/department/user' : '/doctor/list';
         return wx.jyApp.http({
-            url: '/doctor/list',
+            url: url,
             data: {
                 page: 1,
                 limit: 6
             }
         }).then((data) => {
-            this.setData({
-                doctorList: data.page.list
-            });
+            if (this.data.userInfo.viewVersion == 2) {
+                var list = [];
+                data.list.map((item) => {
+                    var arr = item.doctors || [];
+                    arr.map((_item) => {
+                        _item.departmentName = item.departmentName;
+                        _item.hospitalName = item.hospitalName;
+                    });
+                    list = list.concat(item.doctors || []);
+                });
+                this.setData({
+                    'doctorList': list.slice(0, 6)
+                });
+            } else {
+                this.setData({
+                    doctorList: data.page.list
+                });
+            }
         })
     },
 })
