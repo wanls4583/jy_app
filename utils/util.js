@@ -401,9 +401,9 @@ function getMenuRect() {
     bRect.left = bRect && bRect.left || systemInfo.screenWidth - 97;
     bRect.height = bRect && bRect.height || 32;
     bRect.width = bRect && bRect.width || 87;
-    bRect.navHeight = (bRect.top - systemInfo.statusBarHeight) * 2 + bRect.height;
-    bRect.outerNavHeight = bRect.navHeight + systemInfo.statusBarHeight;
-    bRect.marginRight = systemInfo.screenWidth - bRect.right;
+    bRect.navHeight = (bRect.top - systemInfo.statusBarHeight) * 2 + bRect.height || 40;
+    bRect.outerNavHeight = bRect.navHeight + systemInfo.statusBarHeight || 60;
+    bRect.marginRight = systemInfo.screenWidth - bRect.right || 7;
     return bRect;
 }
 
