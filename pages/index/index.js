@@ -198,23 +198,23 @@ Page({
         }
     },
     handleCardCode() {
-        // 患者通过扫医生的码加入科室
-        if (this.loginData.tag == 2 || this.loginData.tag == 3) {
-            this.getPatient().then((data) => {
-                if (data.list && data.list.length) {
-                    url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
-                } else {
-                    url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
-                }
-                wx.jyApp.utils.navigateTo({
-                    url: url
-                });
-            });
-            return;
-        }
         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
             var doctor = data.doctor;
             var url = '';
+            // 患者通过扫医生的码加入科室
+            if (doctor.hosDepartment && this.loginData.tag != 1) { // tag==1代表科室已下线
+                this.getPatient().then((data) => {
+                    if (data.list && data.list.length) {
+                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
+                    } else {
+                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
+                    }
+                    wx.jyApp.utils.navigateTo({
+                        url: url
+                    });
+                });
+                return;
+            }
             // tab页
             var tabs = [
                 '/pages/mall/home/index',
