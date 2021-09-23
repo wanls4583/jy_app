@@ -15,19 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=-1&url=/pages/screen/screen-result/index",
-          "scene": null
-        },
-        {
-          "name": "pages/interrogation/product-list/index",
-          "pathName": "pages/interrogation/product-list/index",
-          "query": "",
-          "scene": null
-        },
-        {
-          "name": "pages/screen/screen-result/index",
-          "pathName": "pages/screen/screen-result/index",
-          "query": "result=0&_result=%E6%AF%8F%E5%91%A8%E9%87%8D%E6%96%B0%E8%AF%84%E4%BC%B0%E6%82%A3%E8%80%85%E7%9A%84%E8%90%A5%E5%85%BB%E7%8A%B6%E5%86%B5&doctorId=",
+          "query": "type=4&subType=1&dId=65",
           "scene": null
         }
       ]
