@@ -219,14 +219,14 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 300) {
+                        // if (item.size < 1024 * 300) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
-                        } else {
-                            wx.jyApp.toast('部分文件大于300K，已取消');
-                        }
+                        // } else {
+                        //     wx.jyApp.toast('部分文件大于300K，已取消');
+                        // }
                     }
                 });
                 self.setData({
@@ -262,14 +262,14 @@ Page({
                 var files = [];
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobTitleCertificateUrl.length < 5) {
-                        if (item.size < 1024 * 300) {
+                        // if (item.size < 1024 * 300) {
                             files.push({
                                 path: item.path,
                                 id: wx.jyApp.utils.getUUID()
                             });
-                        } else {
-                            wx.jyApp.toast('部分文件大于300K，已取消');
-                        }
+                        // } else {
+                        //     wx.jyApp.toast('部分文件大于300K，已取消');
+                        // }
                     }
                 });
                 self.setData({
