@@ -15,7 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=4&subType=1&dId=65",
+          "query": "type=-1&url=%2Fpages%2Ftab-bar%2Findex%3Furl%3D%2Fpages%2Fmall%2Fmall%2Findex",
           "scene": null
         }
       ]

@@ -81,8 +81,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         if (option.url) {
             pagePath = option.url;
-            pagePath = pagePath.slice(0, pagePath.indexOf('?') || Infinity);
-            pagePath = pagePath.slice(0, pagePath.indexOf('#') || Infinity);
+            pagePath = pagePath.slice(0, pagePath.indexOf('?') == -1 ? Infinity : pagePath.indexOf('?'));
+            pagePath = pagePath.slice(0, pagePath.indexOf('#') == -1 ? Infinity : pagePath.indexOf('#'));
         } else if (this.data.userInfo.role == 'DOCTOR') {
             pagePath = '/pages/interrogation/home/index';
         }
