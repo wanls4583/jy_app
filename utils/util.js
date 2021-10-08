@@ -90,14 +90,28 @@ function navigateTo(e) {
         if (!url) {
             return;
         }
-        if (getCurrentPages().length > 9) {
-            wx.redirectTo({
-                url: url
+        if (url.indexOf('interrogation/chat-v2') > -1) { //进入到v2聊天室时先订阅
+            requestSubscribeMessage([wx.jyApp.constData.subIds.chatMsg]).then(() => {
+                _go();
+            });
+        } else if (url.indexOf('interrogation/chat') > -1) { //进入到v1聊天室时先订阅
+            requestSubscribeMessage([wx.jyApp.constData.subIds.chatV2Msg]).then(() => {
+                _go();
             });
         } else {
-            wx.navigateTo({
-                url: url
-            });
+            _go();
+        }
+
+        function _go() {
+            if (getCurrentPages().length > 9) {
+                wx.redirectTo({
+                    url: url
+                });
+            } else {
+                wx.navigateTo({
+                    url: url
+                });
+            }
         }
     }
 }
@@ -412,12 +426,21 @@ function requestSubscribeMessage(tmplIds) {
     if (!(tmplIds instanceof Array)) {
         tmplIds = [tmplIds];
     }
+    var subIds = wx.getStorageSync('subIds') || [];
+    tmplIds = tmplIds.filter((item) => {
+        return subIds.indexOf(item) == -1;
+    });
+    if (!tmplIds.length) {
+        return wx.jyApp.Promise.resolve();
+    }
     return new wx.jyApp.Promise((resolve, reject) => {
         if (tmplIds.length) {
             wx.requestSubscribeMessage({
                 tmplIds: tmplIds,
                 success(res) {
                     resolve(res)
+                    subIds = subIds.concat(tmplIds);
+                    wx.setStorageSync('subIds', subIds);
                     console.log('订阅成功', res);
                 },
                 fail(err) {

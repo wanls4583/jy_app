@@ -152,6 +152,8 @@ export const subIds = {
   'phone': 'x_SCWh8uk9zeSwbpIAkz3htoua27Jjlf0hG-kfNM5Uw',
   'appointmentSuc': 'OnHKW-18JNl7SaLjd2TrHmYzm50rp4Q8jvl7Qn84R-s',
   'appointment': 'edTETw5PCUvKhcQ3a8ZpcOXAy6f_FEoMdEOOn5BYWqk',
+  'chatMsg': 'ewYsmE6eWdZgbLCOIGNvtAP8GoARjWRyyPX91q_RxTA',
+  'chatV2Msg': 'HnbnGsygsBDLY4slgd6e106dOBj2tXnTDm59Yj8q45I',
 }
 export const dayArr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 export const nutritionNameMap = {
