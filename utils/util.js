@@ -91,11 +91,11 @@ function navigateTo(e) {
             return;
         }
         if (url.indexOf('interrogation/chat-v2') > -1) { //进入到v2聊天室时先订阅
-            requestSubscribeMessage([wx.jyApp.constData.subIds.chatMsg]).then(() => {
+            requestSubscribeMessage([wx.jyApp.constData.subIds.chatV2Msg]).then(() => {
                 _go();
             });
         } else if (url.indexOf('interrogation/chat') > -1) { //进入到v1聊天室时先订阅
-            requestSubscribeMessage([wx.jyApp.constData.subIds.chatV2Msg]).then(() => {
+            requestSubscribeMessage([wx.jyApp.constData.subIds.chatMsg]).then(() => {
                 _go();
             });
         } else {
