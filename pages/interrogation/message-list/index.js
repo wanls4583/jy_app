@@ -60,7 +60,8 @@ Component({
                     if (item.notReadNum) {
                         var msgCount = wx.jyApp.store.msgCount;
                         if (msgCount > 0) {
-                            this.updateMsgCount(wx.jyApp.store.msgCount - item.notReadNum);
+                            this.updateMsgCount(msgCount - item.notReadNum);
+                            this.msgCount = msgCount;
                         }
                         item.notReadNum = 0;
                     }
