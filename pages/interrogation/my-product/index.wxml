@@ -1,0 +1,25 @@
+<import src="/template/doctor-goods-item.wxml" />
+<view class="container">
+	<view class="position-fixed top-0 width-100">
+		<van-search bindtap="onGotoSearch" class="padding-top-0" disabled="{{true}}" placeholder="请输入产品" shape="round" />
+	</view>
+	<view class="height-100" style="padding-top:44px;padding-bottom:150rpx">
+		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" style>
+			<view class="padding-left-right-30 white-background-color" wx:for="{{list}}" wx:for-item="item" wx:key="id">
+				<template data="{{taocan:item,btnType:1}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
+				<template data="{{taocan:item,btnType:1}}" is="doctor-product-item" wx:else></template>
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:if="{{list.lengt>0}}">没有更多了</view>
+			<view class="padding-30 gray-color align-center font-small" wx:elif="{{list.lengt==0}}">
+				<empty description="暂无我的产品" />
+			</view>
+		</pull-scroll-view>
+	</view>
+</view>
+<footer>
+	<button
+		bindtap="onGoto"
+		class="button primary"
+		data-url="/pages/interrogation/product-list/index?from=my-product"
+	>添加产品</button>
+</footer>

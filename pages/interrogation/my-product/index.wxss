@@ -1,0 +1,3 @@
+.product-item:last-of-type .border-bottom {
+	border-bottom-style: solid;
+}

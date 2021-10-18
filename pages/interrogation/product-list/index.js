@@ -35,12 +35,15 @@ Page({
     },
     onLoad(option) {
         this.setData({
-            pageType: option.page || ''
+            from: option.from || ''
         });
-        if (this.data.pageType === 'addToMineProduct') {
+        this.addedList = [];
+        // 从我的产品跳转过来
+        if (this.data.from === 'my-product') {
             wx.setNavigationBarTitle({
                 title: '添加产品'
             });
+            this.addedList = wx.getStorageSync('my-product-ids') || [];
         }
         var tmp = [];
         for (var i = 1; i <= 500; i++) {
@@ -58,7 +61,7 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.pageType != 'addToMineProduct' && this.data.myData.totalPage > 0 ? 1 : 0
+                myDataVisible: this.data.from != 'my-product' && this.data.myData.totalPage > 0 ? 1 : 0
             });
             var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
             // 默认显示套餐tab
@@ -130,7 +133,7 @@ Page({
         }).then(() => {
             wx.jyApp.toast('添加成功');
         }).finally(() => {
-            wx.jyApp.hideLoading();
+            wx.hideLoading();
         });
     },
     // 删除我的产品
@@ -146,7 +149,7 @@ Page({
         }).then(() => {
             wx.jyApp.toast('删除成功');
         }).finally(() => {
-            wx.jyApp.hideLoading();
+            wx.hideLoading();
         });
     },
     onGotoSearch() {
@@ -232,7 +235,7 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.pageType != 'addToMineProduct' && this.data.myData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.from != 'my-product' && this.data.myData.totalPage > 0 ? 1 : 0,
                 stopRefresh: true
             });
             wx.hideLoading();
@@ -248,7 +251,7 @@ Page({
     loadList(refresh, type) {
         var page = 0;
         if (type == 4) {
-            if (this.data.pageType == 'addToMineProduct') {
+            if (this.data.from == 'my-product') {
                 return wx.jyApp.Promise.resolve();
             }
             if (this.data.myData.loading || !refresh && this.data.myData.totalPage > -1 && this.data.myData.page > this.data.myData.totalPage) {
@@ -327,6 +330,8 @@ Page({
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = '份';
+                    // 已添加到我的产品
+                    item.added = this.addedList.indexOf(item.id) > -1;
                 });
                 this.setData({
                     [`taocanData.pageList[${page}]`]: data.page.list || [],
@@ -374,6 +379,8 @@ Page({
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
+                    // 已添加到我的产品
+                    item.added = this.addedList.indexOf(item.id) > -1;
                 });
                 this.setData({
                     [`productData.pageList[${page}]`]: data.page.list || [],
