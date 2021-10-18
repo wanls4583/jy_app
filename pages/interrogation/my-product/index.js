@@ -38,6 +38,11 @@ Page({
             wx.hideLoading();
         });
     },
+    onGotoSearch() {
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/interrogation/search/index?from=my-product'
+        });
+    },
     loadList() {
         if (this.loading) {
             this.request.abort();

@@ -175,10 +175,17 @@ Page({
                 });
             }
         });
+        var index = this.addedList.indexOf(id);
+        if (added) {
+            index == -1 && this.addedList.push(id);
+        } else {
+            index > -1 && this.addedList.splice(index, 1);
+        }
+        wx.setStorageSync('my-product-ids', this.addedList);
     },
     onGotoSearch() {
         wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/search/index'
+            url: '/pages/interrogation/search/index?from=' + (this.data.from == 'my-product' ? 'add-product' : '')
         });
     },
     onChangeTab(e) {
