@@ -105,12 +105,12 @@ Page({
     },
     onShow() {
         var com = this.selectComponent('#' + this.comId);
-        com.onShow && com.onShow();
+        com && com.onShow && com.onShow();
         wx.hideHomeButton();
     },
     onHide() {
         var com = this.selectComponent('#' + this.comId);
-        com.onHide && com.onHide();
+        com && com.onHide && com.onHide();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

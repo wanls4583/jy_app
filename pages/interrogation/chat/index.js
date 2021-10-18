@@ -154,6 +154,9 @@ Page({
         data.patient._sex = data.patient.sex == 1 ? '男' : '女';
         data.patient.BMI = (data.patient.weight) / (data.patient.height * data.patient.height / 10000);
         data.patient.BMI = data.patient.BMI && data.patient.BMI.toFixed(1) || '';
+        if (data.currentUser.role == 'DOCTOR_OFFLINE') {
+            data.currentUser.role = 'DOCTOR';
+        }
         this.setData({
             roomId: data.chatRoom.roomId,
             currentUser: data.currentUser,
@@ -535,7 +538,7 @@ Page({
                 if (rect && rect[0]) {
                     if (!self.data.pageHeightMap[pageId]) {
                         self.setData({
-                            [`pageHeightMap[${pageId}]`]: rect[0].height
+                            [`pageHeightMap.${pageId}`]: rect[0].height
                         });
                     }
                 }
