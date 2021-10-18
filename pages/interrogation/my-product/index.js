@@ -9,6 +9,12 @@ Page({
             wx.hideLoading();
         });
     },
+    onShow() {
+        if (this.firstLoaded) {
+            this.loadList();
+        }
+        this.firstLoaded = true;
+    },
     onRefresh() {
         this.loadList();
     },

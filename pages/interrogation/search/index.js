@@ -19,6 +19,14 @@ Page({
             totalCount: 0,
             totalPage: -1
         },
+        myData: {
+            list: [],
+            renderList: [],
+            page: 1,
+            limit: 6,
+            totalCount: 0,
+            totalPage: -1
+        },
         searched: false
     },
     onLoad() {},
@@ -79,6 +87,12 @@ Page({
                     });
                 }
             });
+        } else if (type == 4) {
+            if (this.data.myData.renderList.length < this.data.myData.list.length) {
+                this.setData({
+                    'myData.renderList': this.data.myData.list.slice(0, this.data.myData.renderList.length + 6)
+                });
+            }
         }
     },
     onGoto(e) {
@@ -91,6 +105,7 @@ Page({
                 searched: true,
                 'taocanData.renderList': this.data.taocanData.list.slice(0, 3),
                 'productData.renderList': this.data.productData.list.slice(0, 3),
+                'myData.renderList': this.data.myData.list.slice(0, 3),
             });
         }).finally(() => {
             wx.hideLoading();
@@ -180,5 +195,31 @@ Page({
                 [`taocanData.totalPage`]: data.page.totalPage
             });
         });
+    },
+    loadMyProduct() {
+        if (this.data.myData.loading) {
+            return wx.jyApp.Promise.reject();
+        }
+        this.data.myData.request = wx.jyApp.http({
+            url: '/goodsdoctor/list',
+            complete: () => {
+                this.data.myData.loading = false;
+            }
+        })
+        this.data.myData.request.then((data) => {
+            data.list.map((item) => {
+                item.goodsPic = item.goodsPic.split(',')[0];
+                if (item.type == 3) {
+                    item._unit = '份';
+                } else {
+                    item._unit = wx.jyApp.constData.unitChange[item.unit];
+                }
+            });
+            this.setData({
+                'myData.list': data.list,
+                'myData.totalCount': data.list.length,
+            });
+        });
+        return this.data.myData.request;
     }
 })

@@ -132,6 +132,7 @@ Page({
             }
         }).then(() => {
             wx.jyApp.toast('添加成功');
+            this.changeAddFlag(id, true);
         }).finally(() => {
             wx.hideLoading();
         });
@@ -148,8 +149,31 @@ Page({
             }
         }).then(() => {
             wx.jyApp.toast('删除成功');
+            this.changeAddFlag(id, false);
         }).finally(() => {
             wx.hideLoading();
+        });
+    },
+    changeAddFlag(id, added) {
+        var list = this.data.productData.pageList[this.data.productData.lastPage];
+        list = list || [];
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`productData.pageList[${this.data.productData.lastPage}][${index}]`]: item
+                });
+            }
+        });
+        list = this.data.taocanData.pageList[this.data.taocanData.lastPage];
+        list = list || [];
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`taocanData.pageList[${this.data.taocanData.lastPage}][${index}]`]: item
+                });
+            }
         });
     },
     onGotoSearch() {

@@ -7,6 +7,15 @@
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
 			<empty description="未查询到相关商品，请重新搜索" />
 		</view>
+		<view class="padding-left-right-30 white-background-color" wx:if="{{myData.list.length}}">
+			<view class="font-bold padding-top-30 border-top">我的产品</view>
+			<view>
+				<template data="{{taocan:item}}" is="doctor-taocan-item" wx:for="{{myData.renderList}}" wx:key="id"></template>
+			</view>
+			<view class="padding-top-bottom-30 align-center" wx:if="{{myData.renderList.length<myData.totalCount}}">
+				<view bindtap="onLoadMore" class="button text primary" data-type="4">查看更多</view>
+			</view>
+		</view>
 		<view class="padding-left-right-30 white-background-color" wx:if="{{taocanData.list.length}}">
 			<view class="font-bold padding-top-30 border-top">营养套餐</view>
 			<view>
