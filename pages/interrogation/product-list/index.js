@@ -1,6 +1,14 @@
 Page({
     data: {
         active: 0,
+        myData: {
+            stopRefresh: false,
+            pageList: {},
+            page: 1,
+            nowPage: 1,
+            lastPage: 1,
+            totalPage: -1
+        },
         taocanData: {
             stopRefresh: false,
             pageList: {},
@@ -20,14 +28,18 @@ Page({
         limit: 10,
         pageArr: [],
         wrapHeight: 0,
-        productVisible: false,
-        taocanVisible: false,
+        productVisible: 0,
+        taocanVisible: 0,
+        myDataVisible: 0,
         stopRefresh: false
     },
     onLoad(option) {
-        if (option && option.type == 1) {
-            this.setData({
-                active: 1
+        this.setData({
+            pageType: option.page || ''
+        });
+        if (this.data.pageType === 'addToMineProduct') {
+            wx.setNavigationBarTitle({
+                title: '添加产品'
             });
         }
         var tmp = [];
@@ -39,13 +51,34 @@ Page({
         });
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([
+            this.loadList(false, 4),
             this.loadList(false, 2),
             this.loadList(false, 1)
         ]).finally(() => {
             this.setData({
-                productVisible: this.data.productData.totalPage > 0,
-                taocanVisible: this.data.taocanData.totalPage > 0
+                productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
+                taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.pageType != 'addToMineProduct' && this.data.myData.totalPage > 0 ? 1 : 0
             });
+            var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
+            // 默认显示套餐tab
+            if (option.type == 2 && this.data.taocanVisible && this.data.myDataVisible) {
+                this.setData({
+                    active: 1
+                });
+            }
+            // 默认显示产品tab
+            if (option.type == 1 && this.data.productVisible) {
+                if (toltalTab >= 3) {
+                    this.setData({
+                        active: 2
+                    });
+                } else if (toltalTab >= 2) {
+                    this.setData({
+                        active: 1
+                    });
+                }
+            }
             wx.hideLoading();
         });
     },
@@ -84,6 +117,38 @@ Page({
             });
         }
     },
+    // 添加到我的产品
+    onAddMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.showLoading('添加中...');
+        wx.jyApp.http({
+            url: '/goodsdoctor/save',
+            method: 'post',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            wx.jyApp.toast('添加成功');
+        }).finally(() => {
+            wx.jyApp.hideLoading();
+        });
+    },
+    // 删除我的产品
+    onDelMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.showLoading('删除中...');
+        wx.jyApp.http({
+            url: '/goodsdoctor/delete',
+            method: 'delete',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            wx.jyApp.toast('删除成功');
+        }).finally(() => {
+            wx.jyApp.hideLoading();
+        });
+    },
     onGotoSearch() {
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/search/index'
@@ -111,7 +176,10 @@ Page({
         var scrollTop = e.detail.scrollTop;
         var nowPageKey = '';
         var data = null;
-        if (type == 2) {
+        if (type == 4) {
+            data = this.data.myData;
+            nowPageKey = 'myData.nowPage';
+        } else if (type == 2) {
             data = this.data.taocanData;
             nowPageKey = 'taocanData.nowPage';
         } else {
@@ -157,12 +225,14 @@ Page({
     //刷新全部
     onRefreshAll() {
         wx.jyApp.Promise.all([
+            this.loadList(false, 4),
             this.loadList(false, 2),
             this.loadList(false, 1)
         ]).finally(() => {
             this.setData({
-                productVisible: this.data.productData.totalPage > 0,
-                taocanVisible: this.data.taocanData.totalPage > 0,
+                productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
+                taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.pageType != 'addToMineProduct' && this.data.myData.totalPage > 0 ? 1 : 0,
                 stopRefresh: true
             });
             wx.hideLoading();
@@ -177,7 +247,54 @@ Page({
     },
     loadList(refresh, type) {
         var page = 0;
-        if (type == 2) {
+        if (type == 4) {
+            if (this.data.pageType == 'addToMineProduct') {
+                return wx.jyApp.Promise.resolve();
+            }
+            if (this.data.myData.loading || !refresh && this.data.myData.totalPage > -1 && this.data.myData.page > this.data.myData.totalPage) {
+                return wx.jyApp.Promise.reject();
+            }
+            this.data.myData.loading = true;
+            var page = refresh ? 1 : this.data.myData.page;
+            this.request4 = wx.jyApp.http({
+                url: '/goodsdoctor/list',
+                complete: () => {
+                    this.data.myData.loading = false;
+                }
+            })
+            this.request4.then((data) => {
+                if (refresh) {
+                    this.setData({
+                        myData: {
+                            page: 1,
+                            nowPage: 1,
+                            lastPage: 1,
+                            totalPage: -1,
+                            pageList: {}
+                        }
+                    });
+                }
+                data.list.map((item) => {
+                    item.goodsPic = item.goodsPic.split(',')[0];
+                    if (item.type == 3) {
+                        item._unit = '份';
+                    } else {
+                        item._unit = wx.jyApp.constData.unitChange[item.unit];
+                    }
+                });
+                this.setData({
+                    [`myData.pageList[${page}]`]: data.list || [],
+                    [`myData.page`]: page + 1,
+                    [`myData.lastPage`]: page,
+                    [`myData.totalPage`]: 1
+                });
+            }).finally(() => {
+                this.setData({
+                    [`myData.stopRefresh`]: true
+                });
+            });
+            return this.request4;
+        } else if (type == 2) {
             if (this.data.taocanData.loading || !refresh && this.data.taocanData.totalPage > -1 && this.data.taocanData.page > this.data.taocanData.totalPage) {
                 return wx.jyApp.Promise.reject();
             }
