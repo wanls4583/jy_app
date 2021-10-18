@@ -1,7 +1,7 @@
 Page({
     data: {
         active: 0,
-        myData: {
+        myProductData: {
             stopRefresh: false,
             pageList: {},
             page: 1,
@@ -61,7 +61,7 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.from != 'my-product' && this.data.myData.totalPage > 0 ? 1 : 0
+                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0
             });
             var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
             // 默认显示套餐tab
@@ -211,8 +211,8 @@ Page({
         var nowPageKey = '';
         var data = null;
         if (type == 4) {
-            data = this.data.myData;
-            nowPageKey = 'myData.nowPage';
+            data = this.data.myProductData;
+            nowPageKey = 'myProductData.nowPage';
         } else if (type == 2) {
             data = this.data.taocanData;
             nowPageKey = 'taocanData.nowPage';
@@ -266,7 +266,7 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.from != 'my-product' && this.data.myData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0,
                 stopRefresh: true
             });
             wx.hideLoading();
@@ -285,21 +285,21 @@ Page({
             if (this.data.from == 'my-product') {
                 return wx.jyApp.Promise.resolve();
             }
-            if (this.data.myData.loading || !refresh && this.data.myData.totalPage > -1 && this.data.myData.page > this.data.myData.totalPage) {
+            if (this.data.myProductData.loading || !refresh && this.data.myProductData.totalPage > -1 && this.data.myProductData.page > this.data.myProductData.totalPage) {
                 return wx.jyApp.Promise.reject();
             }
-            this.data.myData.loading = true;
-            var page = refresh ? 1 : this.data.myData.page;
+            this.data.myProductData.loading = true;
+            var page = refresh ? 1 : this.data.myProductData.page;
             this.request4 = wx.jyApp.http({
                 url: '/goodsdoctor/list',
                 complete: () => {
-                    this.data.myData.loading = false;
+                    this.data.myProductData.loading = false;
                 }
             })
             this.request4.then((data) => {
                 if (refresh) {
                     this.setData({
-                        myData: {
+                        myProductData: {
                             page: 1,
                             nowPage: 1,
                             lastPage: 1,
@@ -317,14 +317,14 @@ Page({
                     }
                 });
                 this.setData({
-                    [`myData.pageList[${page}]`]: data.list || [],
-                    [`myData.page`]: page + 1,
-                    [`myData.lastPage`]: page,
-                    [`myData.totalPage`]: 1
+                    [`myProductData.pageList[${page}]`]: data.list || [],
+                    [`myProductData.page`]: page + 1,
+                    [`myProductData.lastPage`]: page,
+                    [`myProductData.totalPage`]: 1
                 });
             }).finally(() => {
                 this.setData({
-                    [`myData.stopRefresh`]: true
+                    [`myProductData.stopRefresh`]: true
                 });
             });
             return this.request4;

@@ -19,13 +19,9 @@ Page({
             totalCount: 0,
             totalPage: -1
         },
-        myData: {
+        myProductData: {
             list: [],
             renderList: [],
-            page: 1,
-            limit: 6,
-            totalCount: 0,
-            totalPage: -1
         },
         searched: false
     },
@@ -97,9 +93,9 @@ Page({
                 }
             });
         } else if (type == 4) {
-            if (this.data.myData.renderList.length < this.data.myData.list.length) {
+            if (this.data.myProductData.renderList.length < this.data.myProductData.list.length) {
                 this.setData({
-                    'myData.renderList': this.data.myData.list.slice(0, this.data.myData.renderList.length + 6)
+                    'myProductData.renderList': this.data.myProductData.list.slice(0, this.data.myProductData.renderList.length + 6)
                 });
             }
         }
@@ -143,7 +139,7 @@ Page({
             this.changeAddFlag(id, false);
             var page = wx.jyApp.utils.getPageByLastIndex(2);
             if (page && page.route == "pages/interrogation/product-list/index") { //添加我的产品页面
-                page.changeAddFlag(id, true);
+                page.changeAddFlag(id, false);
             }
         }).finally(() => {
             wx.hideLoading();
@@ -168,15 +164,15 @@ Page({
                 });
             }
         });
-        list = this.data.myData.renderList;
+        list = this.data.myProductData.renderList;
         for (var i = 0; i < list.length; i++) {
             var item = list[i];
             if (item.id == id) {
-                this.data.myData.renderList.splice(i, 1);
-                this.data.myData.list.splice(this.data.myData.list.indexOf(item), 1);
+                this.data.myProductData.renderList.splice(i, 1);
+                this.data.myProductData.list.splice(this.data.myProductData.list.indexOf(item), 1);
                 this.setData({
-                    'myData.renderList': this.data.myData.renderList,
-                    'myData.list': this.data.myData.list
+                    'myProductData.renderList': this.data.myProductData.renderList,
+                    'myProductData.list': this.data.myProductData.list
                 })
                 break;
             }
@@ -196,7 +192,7 @@ Page({
                 searched: true,
                 'taocanData.renderList': this.data.taocanData.list.slice(0, 3),
                 'productData.renderList': this.data.productData.list.slice(0, 3),
-                'myData.renderList': this.data.myData.list.slice(0, 3),
+                'myProductData.renderList': this.data.myProductData.list.slice(0, 3),
             });
         }).finally(() => {
             wx.hideLoading();
@@ -290,16 +286,16 @@ Page({
         });
     },
     loadMyProduct() {
-        if (this.data.myData.loading) {
+        if (this.data.myProductData.loading) {
             return wx.jyApp.Promise.reject();
         }
-        this.data.myData.request = wx.jyApp.http({
+        this.data.myProductData.request = wx.jyApp.http({
             url: '/goodsdoctor/list',
             complete: () => {
-                this.data.myData.loading = false;
+                this.data.myProductData.loading = false;
             }
         })
-        this.data.myData.request.then((data) => {
+        this.data.myProductData.request.then((data) => {
             data.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 if (item.type == 3) {
@@ -309,10 +305,10 @@ Page({
                 }
             });
             this.setData({
-                'myData.list': data.list,
-                'myData.totalCount': data.list.length,
+                'myProductData.list': data.list,
+                'myProductData.totalCount': data.list.length,
             });
         });
-        return this.data.myData.request;
+        return this.data.myProductData.request;
     }
 })

@@ -15,13 +15,13 @@
 		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
 			<empty description="未查询到相关商品，请重新搜索" />
 		</view>
-		<view class="padding-left-right-30 white-background-color" wx:if="{{myData.list.length&&from!='add-product'}}">
+		<view class="padding-left-right-30 white-background-color" wx:if="{{myProductData.list.length&&from!='add-product'}}">
 			<view class="font-bold padding-top-30 border-top">我的产品</view>
-			<view wx:for="{{myData.renderList}}" wx:key="id">
-				<template data="{{taocan:item,btnType:1}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
-				<template data="{{product:item,btnType:1}}" is="doctor-product-item" wx:else></template>
+			<view wx:for="{{myProductData.renderList}}" wx:key="id">
+				<template data="{{taocan:item,btnType:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
+				<template data="{{product:item,btnType:from=='my-product'?1:0}}" is="doctor-product-item" wx:else></template>
 			</view>
-			<view class="padding-top-bottom-30 align-center" wx:if="{{myData.renderList.length<myData.totalCount}}">
+			<view class="padding-top-bottom-30 align-center" wx:if="{{myProductData.renderList.length<myProductData.list.length}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="4">查看更多</view>
 			</view>
 		</view>
