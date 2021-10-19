@@ -21,21 +21,24 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
-    // 删除我的产品
     onDelMine(e) {
-        var id = e.currentTarget.dataset.item.id;
-        wx.jyApp.showLoading('删除中...');
-        wx.jyApp.http({
-            url: '/goodsdoctor/delete',
-            method: 'delete',
-            data: {
-                goodsId: id
-            }
+        wx.jyApp.dialog.confirm({
+            message: '确认删除？'
         }).then(() => {
-            wx.jyApp.toast('删除成功');
-            this.loadList();
-        }).finally(() => {
-            wx.hideLoading();
+            var id = e.currentTarget.dataset.item.id;
+            wx.jyApp.showLoading('删除中...');
+            wx.jyApp.http({
+                url: '/goodsdoctor/delete',
+                method: 'delete',
+                data: {
+                    goodsId: id
+                }
+            }).then(() => {
+                wx.jyApp.toast('删除成功');
+                this.loadList();
+            }).finally(() => {
+                wx.hideLoading();
+            });
         });
     },
     onGotoSearch() {

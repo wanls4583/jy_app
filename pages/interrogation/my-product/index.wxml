@@ -23,3 +23,4 @@
 		data-url="/pages/interrogation/product-list/index?from=my-product"
 	>添加产品</button>
 </footer>
+<van-dialog id="van-dialog"></van-dialog>

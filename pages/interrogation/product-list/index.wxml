@@ -108,3 +108,4 @@
 		</pull-scroll-view>
 	</view>
 </view>
+<van-dialog id="van-dialog"></van-dialog>
