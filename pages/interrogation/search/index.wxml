@@ -12,7 +12,7 @@
 		/>
 	</view>
 	<view style="margin-top:44px">
-		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length}}">
+		<view class="padding-30 gray-color align-center font-small" wx:if="{{searched&&!productData.list.length&&!taocanData.list.length&&!myProductData.list.length}}">
 			<empty description="未查询到相关商品，请重新搜索" />
 		</view>
 		<view class="padding-left-right-30 white-background-color" wx:if="{{myProductData.list.length&&from!='add-product'}}">
