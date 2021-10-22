@@ -123,7 +123,6 @@ Page({
     // 添加到我的产品
     onAddMine(e) {
         var id = e.currentTarget.dataset.item.id;
-        wx.jyApp.showLoading('添加中...');
         wx.jyApp.http({
             url: '/goodsdoctor/save',
             method: 'post',
@@ -131,31 +130,20 @@ Page({
                 goodsId: id
             }
         }).then(() => {
-            wx.jyApp.toast('添加成功');
             this.changeAddFlag(id, true);
-        }).finally(() => {
-            wx.hideLoading();
         });
     },
     // 删除我的产品
     onDelMine(e) {
-        wx.jyApp.dialog.confirm({
-            message: '确认删除？'
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.http({
+            url: '/goodsdoctor/delete',
+            method: 'delete',
+            data: {
+                goodsId: id
+            }
         }).then(() => {
-            var id = e.currentTarget.dataset.item.id;
-            wx.jyApp.showLoading('删除中...');
-            wx.jyApp.http({
-                url: '/goodsdoctor/delete',
-                method: 'delete',
-                data: {
-                    goodsId: id
-                }
-            }).then(() => {
-                wx.jyApp.toast('删除成功');
-                this.changeAddFlag(id, false);
-            }).finally(() => {
-                wx.hideLoading();
-            });
+            this.changeAddFlag(id, false);
         });
     },
     changeAddFlag(id, added) {

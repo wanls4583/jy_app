@@ -304,6 +304,9 @@ Page({
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                 }
             });
+            data.list = data.list.filter((item)=>{
+                return item.goodsName.indexOf(this.data.goodsName) > -1;
+            });
             this.setData({
                 'myProductData.list': data.list,
                 'myProductData.totalCount': data.list.length,
