@@ -27,9 +27,11 @@ page button:not([size='mini']) {
 .button {
     position: relative;
     display: inline-block;
+    height: 45px;
+    line-height: 45px;
     min-width: 120px;
     text-align: center;
-    padding: 20rpx 30rpx;
+    padding: 0 30rpx;
     border: 1rpx solid transparent;
     font-size: 30rpx;
     user-select: none;
@@ -66,7 +68,9 @@ page button:not([size='mini']) {
 .button.small {
     min-width: 0;
     font-size: 24rpx;
-    padding: 10rpx 20rpx;
+    padding: 0 20rpx;
+    height: 30px;
+    line-height: 30px;
 }
 
 .button.text {
@@ -75,7 +79,9 @@ page button:not([size='mini']) {
 
 .button.large {
     font-size: 34rpx;
-    padding: 30rpx 40rpx;
+    padding: 0 40rpx;
+    height: 50px;
+    line-height: 50px;
 }
 
 .button.block {

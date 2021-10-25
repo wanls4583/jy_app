@@ -1,0 +1,40 @@
+<view hidden="{{editorFocus}}" style="padding:0 10px">
+	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" placeholder="请输入标题" type="text" value="{{title}}" />
+</view>
+<view class="edit-container">
+	<editor
+		bindblur="onEditBlur"
+		bindfocus="onEditFocus"
+		bindready="onEditorReady"
+		bindstatuschange="onStatusChange"
+		class="ql-container"
+		id="editor"
+		placeholder="{{placeholder}}"
+		style="height:{{editorHeight}}px"
+	></editor>
+</view>
+<view catchtouchend="format" class="toolbar" hidden="{{!editorFocus}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+	<i catchtouchend="insertImage" class="edit-iconfont icon-charutupian"></i>
+	<i class="edit-iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
+	<i class="edit-iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>
+	<i class="edit-iconfont icon-zitijiacu {{formats.bold ? 'ql-active' : ''}}" data-name="bold"></i>
+	<i class="edit-iconfont icon-zitixieti {{formats.italic ? 'ql-active' : ''}}" data-name="italic"></i>
+	<i class="edit-iconfont icon-zitixiahuaxian {{formats.underline ? 'ql-active' : ''}}" data-name="underline"></i>
+	<i class="edit-iconfont icon--checklist" data-name="list" data-value="check"></i>
+	<i class="edit-iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
+	<i class="edit-iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
+</view>
+<footer style="background:#fff" wx:if="{{!editorFocus}}">
+	<view class="width-100 border-top" style="padding-top:10px">
+		<view class="flex--center--between">
+			<view class="flex">
+				<view class="flex-shrink-0 label" style="width:auto">患者类型：</view>
+				<van-checkbox-group bind:change="onChange" data-prop="side" style="display:flex" value="{{side}}">
+					<van-checkbox name="USER" shape="square">患者端</van-checkbox>
+					<van-checkbox name="DOCTOR" shape="square">医生端</van-checkbox>
+				</van-checkbox-group>
+			</view>
+			<button bindtap="onSubmit" class="button primary small">发布文章</button>
+		</view>
+	</view>
+</footer>

@@ -42,6 +42,10 @@ swiper-item {
     background-color: #f6f6f6;
 }
 
+.border-0 {
+    border: none;
+}
+
 .border {
     border: 1rpx solid #ebedf0;
 }

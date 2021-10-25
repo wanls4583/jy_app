@@ -13,9 +13,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "type=-1&url=%2Fpages%2Ftab-bar%2Findex%3Furl%3D%2Fpages%2Fmall%2Fmall%2Findex",
+          "name": "pages/interrogation/article-edit/index",
+          "pathName": "pages/interrogation/article-edit/index",
+          "query": "",
           "scene": null
         }
       ]
