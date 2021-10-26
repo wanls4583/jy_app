@@ -90,7 +90,7 @@ Page({
         var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
             return _item.id == item.id && _item.type == item.type
         });
-        if (!arr.lenght) {
+        if (!arr.length) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             if (item.type == 3) { //整取套餐
@@ -112,7 +112,7 @@ Page({
         var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
             return _item.id == item.id && _item.type == item.type
         });
-        if (!arr.lenght) {
+        if (!arr.length) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({
@@ -147,26 +147,30 @@ Page({
         });
     },
     changeAddFlag(id, added) {
-        var list = this.data.productData.pageList[this.data.productData.lastPage];
-        list = list || [];
-        list.map((item, index) => {
-            if (item.id == id) {
-                item.added = added
-                this.setData({
-                    [`productData.pageList[${this.data.productData.lastPage}][${index}]`]: item
-                });
-            }
-        });
-        list = this.data.taocanData.pageList[this.data.taocanData.lastPage];
-        list = list || [];
-        list.map((item, index) => {
-            if (item.id == id) {
-                item.added = added
-                this.setData({
-                    [`taocanData.pageList[${this.data.taocanData.lastPage}][${index}]`]: item
-                });
-            }
-        });
+        for(var page in this.data.productData.pageList) {
+            var list = this.data.productData.pageList[page];
+            list = list || [];
+            list.map((item, index) => {
+                if (item.id == id) {
+                    item.added = added
+                    this.setData({
+                        [`productData.pageList[${page}][${index}]`]: item
+                    });
+                }
+            });
+        }
+        for(var page in this.data.taocanData.pageList) {
+            var list = this.data.taocanData.pageList[page];
+            list = list || [];
+            list.map((item, index) => {
+                if (item.id == id) {
+                    item.added = added
+                    this.setData({
+                        [`taocanData.pageList[${page}][${index}]`]: item
+                    });
+                }
+            });
+        }
         var index = this.addedList.indexOf(id);
         if (added) {
             index == -1 && this.addedList.push(id);

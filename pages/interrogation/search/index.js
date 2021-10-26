@@ -41,7 +41,7 @@ Page({
         var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
             return _item.id == item.id && _item.type == item.type
         });
-        if (!arr.lenght) {
+        if (!arr.length) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({
@@ -55,7 +55,7 @@ Page({
         var arr = wx.jyApp.diagnosisGoods.filter((_item) => {
             return _item.id == item.id && _item.type == item.type
         });
-        if (!arr.lenght) {
+        if (!arr.length) {
             wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({

@@ -1,6 +1,6 @@
 Page({
     data: {
-        list: 10,
+        list: [],
         stopRefresh: false
     },
     onLoad(option) {
