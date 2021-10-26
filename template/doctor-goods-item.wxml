@@ -13,7 +13,14 @@
 						<text class="font-large">{{taocan.price}}</text>
 						<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{taocan._unit}}</text>
 					</view>
-					<view catchtap="onAddTaocan" class="button primary small" data-item="{{taocan}}" wx:if="{{!taocan.hideBtn}}">添加该套餐</view>
+					<block wx:if="{{btnType==1}}">
+						<view catchtap="onDelMine" class="button primary small" data-item="{{taocan}}">删除</view>
+					</block>
+					<block wx:elif="{{btnType==2}}">
+						<view catchtap="onAddMine" class="button primary small" data-item="{{taocan}}" wx:if="{{!taocan.added}}">添加该套餐</view>
+						<view catchtap="onDelMine" class="button primary disabled small" data-item="{{taocan}}" wx:else>取消该套餐</view>
+					</block>
+					<view catchtap="onAddTaocan" class="button primary small" data-item="{{taocan}}" wx:elif="{{!taocan.hideBtn}}">添加该套餐</view>
 				</view>
 			</view>
 		</view>
@@ -38,7 +45,14 @@
 						<text class="font-large">{{product.price}}</text>
 						<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{product._unit}}</text>
 					</view>
-					<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}" wx:if="{{!product.hideBtn}}">添加该产品</view>
+					<block wx:if="{{btnType==1}}">
+						<view catchtap="onDelMine" class="button primary small" data-item="{{product}}">删除</view>
+					</block>
+					<block wx:elif="{{btnType==2}}">
+						<view catchtap="onAddMine" class="button primary small" data-item="{{product}}" wx:if="{{!product.added}}">添加该产品</view>
+						<view catchtap="onDelMine" class="button primary disabled small" data-item="{{product}}" wx:else>取消该产品</view>
+					</block>
+					<view catchtap="onAddProduct" class="button primary small" data-item="{{product}}" wx:elif="{{!product.hideBtn}}">添加该产品</view>
 				</view>
 			</view>
 		</view>

@@ -7,13 +7,14 @@
 		bindfocus="onEditFocus"
 		bindready="onEditorReady"
 		bindstatuschange="onStatusChange"
+		read-only="{{readOnly}}"
 		class="ql-container"
 		id="editor"
 		placeholder="{{placeholder}}"
 		style="height:{{editorHeight}}px"
 	></editor>
 </view>
-<view catchtouchend="format" class="toolbar" hidden="{{!editorFocus}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+<view catchtouchend="onFormat" class="toolbar" hidden="{{!editorFocus}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
 	<i catchtouchend="insertImage" class="edit-iconfont icon-charutupian"></i>
 	<i class="edit-iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
 	<i class="edit-iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>

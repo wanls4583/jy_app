@@ -13,8 +13,12 @@
 }
 
 .edit-iconfont {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    font-size: 20px;
     font-family: "edit-iconfont" !important;
-    font-size: 16px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -265,18 +269,11 @@
     color: #22C704;
 }
 
-.iconfont {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
 .toolbar {
     box-sizing: border-box;
     padding: 0 10px;
     height: 50px;
+    line-height: 30px;
     width: 100%;
     position: fixed;
     left: 0;

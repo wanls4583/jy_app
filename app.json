@@ -71,6 +71,7 @@
         "pages/interrogation/article-edit/index",
         "pages/interrogation/article-detail/index",
         "pages/interrogation/article-list/index",
+        "pages/interrogation/my-product/index",
         "pages/mall/search-doctor/index",
         "pages/service-process/index"
     ],

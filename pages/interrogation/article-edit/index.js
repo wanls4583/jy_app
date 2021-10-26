@@ -1,7 +1,7 @@
 Page({
     data: {
         formats: {},
-        readOnly: false,
+        readOnly: true,
         placeholder: '请输入正文...',
         editorHeight: 300,
         keyboardHeight: 0,
@@ -20,6 +20,10 @@ Page({
         })
         if (option.id) {
             this.loadInfo(option.id);
+        } else {
+            this.setData({
+                readOnly: false
+            });
         }
         const that = this
         this.imgMap = {};
@@ -82,12 +86,14 @@ Page({
             });
         }).exec()
     },
-    format(e) {
+    onFormat(e) {
         let {
             name,
             value
         } = e.target.dataset
-        if (!name) return
+        if (!name){
+            return;
+        }
         this.editorCtx.format(name, value)
     },
     onStatusChange(e) {
@@ -130,6 +136,7 @@ Page({
         }
     },
     loadInfo(id) {
+        wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.http({
             url: '/article/info/' + id,
         }).then((data) => {
@@ -137,16 +144,24 @@ Page({
             if (!data.article.side || data.article.side == 'ALL') {
                 side = ['USER', 'DOCTOR'];
             }
+            if (this.editorCtx) {
+                this.editorCtx.setContents({
+                    html: data.article.content
+                });
+                this.editorCtx.blur();
+            }
             this.setData({
                 title: data.article.title,
                 side: side,
-                content: data.article.content
+                content: data.article.content,
             });
-            if (this.editorCtx) {
-                this.editorCtx.setContents({
-                    html: this.data.content
+        }).finally(()=>{
+            setTimeout(()=>{
+                this.setData({
+                    readOnly: false
                 });
-            }
+            }, 500);
+            wx.hideLoading();
         });
     },
     submit(html) {
@@ -173,6 +188,9 @@ Page({
             success: function (res) {
                 var id = ++that.imgId;
                 that.uploadImg(id, res.tempFilePaths[0]);
+                that.setData({
+                    readOnly: true
+                });
                 that.editorCtx.insertImage({
                     src: res.tempFilePaths[0],
                     data: {
@@ -180,7 +198,10 @@ Page({
                     },
                     width: '100%',
                     success: function () {
-                        console.log('insert image success')
+                        that.updatePosition(0);
+                        that.setData({
+                            readOnly: false
+                        });
                     }
                 })
             }

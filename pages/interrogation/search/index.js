@@ -19,9 +19,22 @@ Page({
             totalCount: 0,
             totalPage: -1
         },
+        myProductData: {
+            list: [],
+            renderList: [],
+        },
         searched: false
     },
-    onLoad() {},
+    onLoad(option) {
+        this.setData({
+            from: option.from
+        });
+        this.addedList = [];
+        // 从添加产品跳转过来
+        if (this.data.from === 'add-product') {
+            this.addedList = wx.getStorageSync('my-product-ids') || [];
+        }
+    },
     onAddTaocan(e) {
         var item = Object.assign({}, e.currentTarget.dataset.item);
         item.type = 2;
@@ -79,18 +92,107 @@ Page({
                     });
                 }
             });
+        } else if (type == 4) {
+            if (this.data.myProductData.renderList.length < this.data.myProductData.list.length) {
+                this.setData({
+                    'myProductData.renderList': this.data.myProductData.list.slice(0, this.data.myProductData.renderList.length + 6)
+                });
+            }
         }
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
+    // 添加到我的产品
+    onAddMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.showLoading('添加中...');
+        wx.jyApp.http({
+            url: '/goodsdoctor/save',
+            method: 'post',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            wx.jyApp.toast('添加成功');
+            this.changeAddFlag(id, true);
+            var page = wx.jyApp.utils.getPageByLastIndex(2);
+            if (page && page.route == "pages/interrogation/product-list/index") { //添加我的产品页面
+                page.changeAddFlag(id, true);
+            }
+        }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    // 删除我的产品
+    onDelMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.showLoading('删除中...');
+        wx.jyApp.http({
+            url: '/goodsdoctor/delete',
+            method: 'delete',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            wx.jyApp.toast('删除成功');
+            this.changeAddFlag(id, false);
+            var page = wx.jyApp.utils.getPageByLastIndex(2);
+            if (page && page.route == "pages/interrogation/product-list/index") { //添加我的产品页面
+                page.changeAddFlag(id, false);
+            }
+        }).finally(() => {
+            wx.hideLoading();
+        });
+    },
+    changeAddFlag(id, added) {
+        var list = this.data.productData.renderList;
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`productData.renderList[${index}]`]: item
+                });
+            }
+        });
+        list = this.data.taocanData.renderList;
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`taocanData.renderList[${index}]`]: item
+                });
+            }
+        });
+        list = this.data.myProductData.renderList;
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            if (item.id == id) {
+                this.data.myProductData.renderList.splice(i, 1);
+                this.data.myProductData.list.splice(this.data.myProductData.list.indexOf(item), 1);
+                this.setData({
+                    'myProductData.renderList': this.data.myProductData.renderList,
+                    'myProductData.list': this.data.myProductData.list
+                })
+                break;
+            }
+        }
+        var index = this.addedList.indexOf(id);
+        if (added) {
+            index == -1 && this.addedList.push(id);
+        } else {
+            index > -1 && this.addedList.splice(index, 1);
+        }
+        wx.setStorageSync('my-product-ids',this.addedList);
+    },
     search() {
         wx.jyApp.showLoading('搜索中...', true);
-        wx.jyApp.Promise.all([this.loadProduct(true), this.loadToacan(true)]).then(() => {
+        wx.jyApp.Promise.all([this.loadProduct(true), this.loadToacan(true), this.loadMyProduct()]).then(() => {
             this.setData({
                 searched: true,
                 'taocanData.renderList': this.data.taocanData.list.slice(0, 3),
                 'productData.renderList': this.data.productData.list.slice(0, 3),
+                'myProductData.renderList': this.data.myProductData.list.slice(0, 3),
             });
         }).finally(() => {
             wx.hideLoading();
@@ -130,6 +232,7 @@ Page({
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = wx.jyApp.constData.unitChange[item.unit];
                 item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
+                item.added = this.addedList.indexOf(item.id) > -1;
             });
             this.setData({
                 [`productData.list`]: this.data.productData.list.concat(data.page.list),
@@ -172,6 +275,7 @@ Page({
             data.page.list.map((item) => {
                 item.goodsPic = item.goodsPic.split(',')[0];
                 item._unit = '份';
+                item.added = this.addedList.indexOf(item.id) > -1;
             });
             this.setData({
                 [`taocanData.list`]: this.data.taocanData.list.concat(data.page.list),
@@ -180,5 +284,34 @@ Page({
                 [`taocanData.totalPage`]: data.page.totalPage
             });
         });
+    },
+    loadMyProduct() {
+        if (this.data.myProductData.loading) {
+            return wx.jyApp.Promise.reject();
+        }
+        this.data.myProductData.request = wx.jyApp.http({
+            url: '/goodsdoctor/list',
+            complete: () => {
+                this.data.myProductData.loading = false;
+            }
+        })
+        this.data.myProductData.request.then((data) => {
+            data.list.map((item) => {
+                item.goodsPic = item.goodsPic.split(',')[0];
+                if (item.type == 3) {
+                    item._unit = '份';
+                } else {
+                    item._unit = wx.jyApp.constData.unitChange[item.unit];
+                }
+            });
+            data.list = data.list.filter((item)=>{
+                return item.goodsName.indexOf(this.data.goodsName) > -1;
+            });
+            this.setData({
+                'myProductData.list': data.list,
+                'myProductData.totalCount': data.list.length,
+            });
+        });
+        return this.data.myProductData.request;
     }
 })

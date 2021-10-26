@@ -1,6 +1,14 @@
 Page({
     data: {
         active: 0,
+        myProductData: {
+            stopRefresh: false,
+            pageList: {},
+            page: 1,
+            nowPage: 1,
+            lastPage: 1,
+            totalPage: -1
+        },
         taocanData: {
             stopRefresh: false,
             pageList: {},
@@ -20,15 +28,22 @@ Page({
         limit: 10,
         pageArr: [],
         wrapHeight: 0,
-        productVisible: false,
-        taocanVisible: false,
+        productVisible: 0,
+        taocanVisible: 0,
+        myDataVisible: 0,
         stopRefresh: false
     },
     onLoad(option) {
-        if (option && option.type == 1) {
-            this.setData({
-                active: 1
+        this.setData({
+            from: option.from || ''
+        });
+        this.addedList = [];
+        // 从我的产品跳转过来
+        if (this.data.from === 'my-product') {
+            wx.setNavigationBarTitle({
+                title: '添加产品'
             });
+            this.addedList = wx.getStorageSync('my-product-ids') || [];
         }
         var tmp = [];
         for (var i = 1; i <= 500; i++) {
@@ -39,13 +54,34 @@ Page({
         });
         wx.jyApp.showLoading('加载中...', true);
         wx.jyApp.Promise.all([
+            this.loadList(false, 4),
             this.loadList(false, 2),
             this.loadList(false, 1)
         ]).finally(() => {
             this.setData({
-                productVisible: this.data.productData.totalPage > 0,
-                taocanVisible: this.data.taocanData.totalPage > 0
+                productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
+                taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0
             });
+            var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
+            // 默认显示套餐tab
+            if (option.type == 2 && this.data.taocanVisible && this.data.myDataVisible) {
+                this.setData({
+                    active: 1
+                });
+            }
+            // 默认显示产品tab
+            if (option.type == 1 && this.data.productVisible) {
+                if (toltalTab >= 3) {
+                    this.setData({
+                        active: 2
+                    });
+                } else if (toltalTab >= 2) {
+                    this.setData({
+                        active: 1
+                    });
+                }
+            }
             wx.hideLoading();
         });
     },
@@ -84,9 +120,64 @@ Page({
             });
         }
     },
+    // 添加到我的产品
+    onAddMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.http({
+            url: '/goodsdoctor/save',
+            method: 'post',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            this.changeAddFlag(id, true);
+        });
+    },
+    // 删除我的产品
+    onDelMine(e) {
+        var id = e.currentTarget.dataset.item.id;
+        wx.jyApp.http({
+            url: '/goodsdoctor/delete',
+            method: 'delete',
+            data: {
+                goodsId: id
+            }
+        }).then(() => {
+            this.changeAddFlag(id, false);
+        });
+    },
+    changeAddFlag(id, added) {
+        var list = this.data.productData.pageList[this.data.productData.lastPage];
+        list = list || [];
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`productData.pageList[${this.data.productData.lastPage}][${index}]`]: item
+                });
+            }
+        });
+        list = this.data.taocanData.pageList[this.data.taocanData.lastPage];
+        list = list || [];
+        list.map((item, index) => {
+            if (item.id == id) {
+                item.added = added
+                this.setData({
+                    [`taocanData.pageList[${this.data.taocanData.lastPage}][${index}]`]: item
+                });
+            }
+        });
+        var index = this.addedList.indexOf(id);
+        if (added) {
+            index == -1 && this.addedList.push(id);
+        } else {
+            index > -1 && this.addedList.splice(index, 1);
+        }
+        wx.setStorageSync('my-product-ids', this.addedList);
+    },
     onGotoSearch() {
         wx.jyApp.utils.navigateTo({
-            url: '/pages/interrogation/search/index'
+            url: '/pages/interrogation/search/index?from=' + (this.data.from == 'my-product' ? 'add-product' : '')
         });
     },
     onChangeTab(e) {
@@ -111,7 +202,10 @@ Page({
         var scrollTop = e.detail.scrollTop;
         var nowPageKey = '';
         var data = null;
-        if (type == 2) {
+        if (type == 4) {
+            data = this.data.myProductData;
+            nowPageKey = 'myProductData.nowPage';
+        } else if (type == 2) {
             data = this.data.taocanData;
             nowPageKey = 'taocanData.nowPage';
         } else {
@@ -157,12 +251,14 @@ Page({
     //刷新全部
     onRefreshAll() {
         wx.jyApp.Promise.all([
+            this.loadList(false, 4),
             this.loadList(false, 2),
             this.loadList(false, 1)
         ]).finally(() => {
             this.setData({
-                productVisible: this.data.productData.totalPage > 0,
-                taocanVisible: this.data.taocanData.totalPage > 0,
+                productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
+                taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
+                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0,
                 stopRefresh: true
             });
             wx.hideLoading();
@@ -177,7 +273,54 @@ Page({
     },
     loadList(refresh, type) {
         var page = 0;
-        if (type == 2) {
+        if (type == 4) {
+            if (this.data.from == 'my-product') {
+                return wx.jyApp.Promise.resolve();
+            }
+            if (this.data.myProductData.loading || !refresh && this.data.myProductData.totalPage > -1 && this.data.myProductData.page > this.data.myProductData.totalPage) {
+                return wx.jyApp.Promise.reject();
+            }
+            this.data.myProductData.loading = true;
+            var page = refresh ? 1 : this.data.myProductData.page;
+            this.request4 = wx.jyApp.http({
+                url: '/goodsdoctor/list',
+                complete: () => {
+                    this.data.myProductData.loading = false;
+                }
+            })
+            this.request4.then((data) => {
+                if (refresh) {
+                    this.setData({
+                        myProductData: {
+                            page: 1,
+                            nowPage: 1,
+                            lastPage: 1,
+                            totalPage: -1,
+                            pageList: {}
+                        }
+                    });
+                }
+                data.list.map((item) => {
+                    item.goodsPic = item.goodsPic.split(',')[0];
+                    if (item.type == 3) {
+                        item._unit = '份';
+                    } else {
+                        item._unit = wx.jyApp.constData.unitChange[item.unit];
+                    }
+                });
+                this.setData({
+                    [`myProductData.pageList[${page}]`]: data.list || [],
+                    [`myProductData.page`]: page + 1,
+                    [`myProductData.lastPage`]: page,
+                    [`myProductData.totalPage`]: 1
+                });
+            }).finally(() => {
+                this.setData({
+                    [`myProductData.stopRefresh`]: true
+                });
+            });
+            return this.request4;
+        } else if (type == 2) {
             if (this.data.taocanData.loading || !refresh && this.data.taocanData.totalPage > -1 && this.data.taocanData.page > this.data.taocanData.totalPage) {
                 return wx.jyApp.Promise.reject();
             }
@@ -210,6 +353,8 @@ Page({
                 data.page.list.map((item) => {
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = '份';
+                    // 已添加到我的产品
+                    item.added = this.addedList.indexOf(item.id) > -1;
                 });
                 this.setData({
                     [`taocanData.pageList[${page}]`]: data.page.list || [],
@@ -257,6 +402,8 @@ Page({
                     item.goodsPic = item.goodsPic.split(',')[0];
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                     item._standardUnit = wx.jyApp.constData.unitChange[item.standardUnit];
+                    // 已添加到我的产品
+                    item.added = this.addedList.indexOf(item.id) > -1;
                 });
                 this.setData({
                     [`productData.pageList[${page}]`]: data.page.list || [],

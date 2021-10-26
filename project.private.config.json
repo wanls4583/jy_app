@@ -11,14 +11,7 @@
       "list": []
     },
     "miniprogram": {
-      "list": [
-        {
-          "name": "pages/interrogation/article-edit/index",
-          "pathName": "pages/interrogation/article-edit/index",
-          "query": "",
-          "scene": null
-        }
-      ]
+      "list": []
     }
   }
 }

@@ -360,7 +360,7 @@ Page({
                 }, () => {
                     if (item.height != 120) {
                         this.setData({
-                            [`pageHeightMap[${pageId}]`]: 0
+                            [`pageHeightMap.${pageId}`]: 0
                         }, () => {
                             this.getPageHeight(pageId); //刷新page高度
                         });
@@ -380,7 +380,7 @@ Page({
                 }, () => {
                     if (item.height != 120) {
                         this.setData({
-                            [`pageHeightMap[${pageId}]`]: 0
+                            [`pageHeightMap.${pageId}`]: 0
                         }, () => {
                             this.getPageHeight(pageId); //刷新page高度
                         });
@@ -448,7 +448,7 @@ Page({
                 if (rect && rect[0]) {
                     if (!self.data.pageHeightMap[pageId]) {
                         self.setData({
-                            [`pageHeightMap[${pageId}]`]: rect[0].height
+                            [`pageHeightMap.${pageId}`]: rect[0].height
                         });
                     }
                 }
