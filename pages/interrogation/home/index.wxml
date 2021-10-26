@@ -92,6 +92,14 @@
 					<image src="/image/icon_qrcode.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">二维码名片</view>
 				</view>
+				<view
+					bindtap="onCheckGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
+					data-url="/pages/interrogation/article-self/index"
+				>
+					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<view class="font-small margin-top-10 line-height-1em color-666">我的文章</view>
+				</view>
 				<view bindtap="onCheckGoto" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/order-list/index">
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">订单列表</view>
@@ -160,7 +168,7 @@
 					<view
 						bindtap="onGoto"
 						class="padding-top-bottom-30 {{index<articleList.length-1?'border-bottom':''}}"
-						data-url="/pages/interrogation/article-edit/index?id={{item.id}}"
+						data-url="/pages/interrogation/article-detail/index?id={{item.id}}"
 						wx:for="{{articleList}}"
 						wx:key="id"
 					>

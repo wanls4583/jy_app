@@ -5,13 +5,16 @@
 			<view
 				bindtap="onGoto"
 				class="padding-left-right-30 clickable"
-				data-url="/pages/interrogation/article-detail/index?id={{item.id}}"
+				data-url="/pages/interrogation/article-edit/index?id={{item.id}}"
 				wx:for="{{list}}"
 				wx:key="id"
 			>
 				<view class="padding-top-bottom-20 {{index<list.length-1?'border-bottom':''}}">
-					<view>{{item.title||''}}</view>
-					<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
+					<view class="ellipse-2">{{item.title||''}}</view>
+					<view class="flex--center--between">
+						<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
+						<view class="{{item._color}}">{{item._status}}</view>
+					</view>
 				</view>
 			</view>
 		</view>

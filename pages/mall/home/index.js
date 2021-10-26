@@ -10,6 +10,7 @@ Component({
         departmentList: [],
         doctorList: [],
         kepuList: [],
+        articleList: [],
         stopRefresh: false,
         tipVisible: false,
         scrollTop: 0,
@@ -29,6 +30,7 @@ Component({
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
                 this.loadKepu();
+                this.loadArticle();
                 this.loadDoctor();
                 this.loadDepartmentList();
             }
@@ -83,6 +85,7 @@ Component({
                 this.loadDepartmentList(),
                 this.loadBaner(),
                 this.loadKepu(),
+                this.loadArticle(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
@@ -168,6 +171,19 @@ Component({
             }).then((data) => {
                 this.setData({
                     kepuList: data.list
+                });
+            });
+        },
+        loadArticle() {
+            return wx.jyApp.http({
+                url: '/article/list',
+                data: {
+                    page: 1,
+                    limit: 3
+                }
+            }).then((data) => {
+                this.setData({
+                    articleList: data.page.list
                 });
             });
         }

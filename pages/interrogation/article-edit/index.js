@@ -11,11 +11,6 @@ Page({
         title: '',
         content: '',
     },
-    readOnlyChange() {
-        this.setData({
-            readOnly: !this.data.readOnly
-        })
-    },
     onLoad(option) {
         const platform = wx.getSystemInfoSync().platform
         const isIOS = platform === 'ios'
@@ -138,14 +133,14 @@ Page({
         wx.jyApp.http({
             url: '/article/info/' + id,
         }).then((data) => {
-            var side = [data.side];
-            if (!data.side || data.side == 'ALL') {
+            var side = [data.article.side];
+            if (!data.article.side || data.article.side == 'ALL') {
                 side = ['USER', 'DOCTOR'];
             }
             this.setData({
-                title: data.title,
+                title: data.article.title,
                 side: side,
-                content: data.content
+                content: data.article.content
             });
             if (this.editorCtx) {
                 this.editorCtx.setContents({

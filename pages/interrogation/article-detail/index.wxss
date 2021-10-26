@@ -1,0 +1,30 @@
+.edit-container {
+    /* position: absolute;
+    top: 50px;
+    left: 0; */
+    width: 100%;
+    padding: 10px;
+}
+
+.ql-container {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow: auto;
+}
+
+.title {
+    height: 30px;
+    line-height: 30px;
+}
+
+.time {
+    height: 20px;
+    line-height: 20px;
+}
+
+.footer {
+    padding: 10px;
+}
