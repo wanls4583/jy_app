@@ -145,6 +145,29 @@
 						</view>
 					</swiper-item>
 				</swiper>
+				<view class="white-background-color padding-20 padding-top-30 padding-bottom-0 margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{articleList.length}}">
+					<view class="flex--center--between">
+						<text class="font-title font-bold">科普文章</text>
+						<view
+							bindtap="onGoto"
+							class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable"
+							data-url="/pages/interrogation/article-list/index"
+						>
+							<text>全部</text>
+							<van-icon name="arrow" />
+						</view>
+					</view>
+					<view
+						bindtap="onGoto"
+						class="padding-top-bottom-30 {{index<articleList.length-1?'border-bottom':''}}"
+						data-url="/pages/interrogation/article-edit/index?id={{item.id}}"
+						wx:for="{{articleList}}"
+						wx:key="id"
+					>
+						<view>{{item.title}}</view>
+						<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
+					</view>
+				</view>
 			</view>
 		</view>
 		<template is="footer"></template>

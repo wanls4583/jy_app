@@ -9,6 +9,7 @@ Component({
     },
     data: {
         banner: [],
+        articleList: [],
         stopRefresh: false,
         systemInfo: wx.getSystemInfoSync()
     },
@@ -21,10 +22,11 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 80
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 50
             });
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
+                this.loadArticle();
             }
             if (!wx.getStorageSync('doctor-first-in')) {
                 wx.showModal({
@@ -53,10 +55,7 @@ Component({
     },
     methods: {
         onGoto(e) {
-            var url = e.currentTarget.dataset.url;
-            wx.jyApp.utils.navigateTo({
-                url: url
-            });
+            wx.jyApp.utils.navigateTo(e);
         },
         //跳转前检查医生状态
         onCheckGoto(e) {
@@ -68,6 +67,7 @@ Component({
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),
                 this.loadBaner(),
+                this.loadArticle(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
@@ -106,5 +106,18 @@ Component({
                 });
             });
         },
+        loadArticle() {
+            return wx.jyApp.http({
+                url: '/article/list',
+                data: {
+                    page: 1,
+                    limit: 3
+                }
+            }).then((data) => {
+                this.setData({
+                    articleList: data.page.list
+                });
+            });
+        }
     }
 })

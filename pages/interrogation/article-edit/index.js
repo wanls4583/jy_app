@@ -16,12 +16,16 @@ Page({
             readOnly: !this.data.readOnly
         })
     },
-    onLoad() {
+    onLoad(option) {
         const platform = wx.getSystemInfoSync().platform
         const isIOS = platform === 'ios'
         this.setData({
+            id: option.id || '',
             isIOS
         })
+        if (option.id) {
+            this.loadInfo(option.id);
+        }
         const that = this
         this.imgMap = {};
         this.imgId = 0;
@@ -129,6 +133,26 @@ Page({
             }
             that.submit(html);
         }
+    },
+    loadInfo(id) {
+        wx.jyApp.http({
+            url: '/article/info/' + id,
+        }).then((data) => {
+            var side = [data.side];
+            if (!data.side || data.side == 'ALL') {
+                side = ['USER', 'DOCTOR'];
+            }
+            this.setData({
+                title: data.title,
+                side: side,
+                content: data.content
+            });
+            if (this.editorCtx) {
+                this.editorCtx.setContents({
+                    html: this.data.content
+                });
+            }
+        });
     },
     submit(html) {
         wx.jyApp.http({
