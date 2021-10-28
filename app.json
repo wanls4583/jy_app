@@ -68,6 +68,7 @@
         "pages/interrogation/my-team/index",
         "pages/interrogation/doctor-order-screen/index",
         "pages/interrogation/chat-users/index",
+        "pages/interrogation/article-self/index",
         "pages/interrogation/article-edit/index",
         "pages/interrogation/article-detail/index",
         "pages/interrogation/article-list/index",

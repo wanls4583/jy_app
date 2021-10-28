@@ -3,13 +3,25 @@ Page({
         editorHeight: 300,
         title: '',
         content: '',
+        info: {},
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         this.loadInfo(option.id);
         this.updatePosition(0)
     },
-    updatePosition(keyboardHeight) {
-        const toolbarHeight = 50
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
+    },
+    updatePosition() {
+        const toolbarHeight = this.data.userInfo.role === 'USER' ? 50 : 0;
         const titleHeight = 50
         const {
             windowHeight
@@ -34,7 +46,8 @@ Page({
         }).then((data) => {
             this.setData({
                 title: data.article.title,
-                content: data.article.content
+                content: data.article.content,
+                info: data.article
             });
             if (this.editorCtx) {
                 this.editorCtx.setContents({

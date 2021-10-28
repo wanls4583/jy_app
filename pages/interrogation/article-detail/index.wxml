@@ -1,13 +1,13 @@
 <view style="padding:0 10px">
 	<view class="title font-title">{{title}}</view>
 	<view class="flex time font-small gray-color margin-top-10">
-		<text>{{item.publishTime}}</text>
-		<text class="margin-right-20">{{item.doctorName}}</text>
+		<text>{{info.publishTime}}</text>
+		<text class="margin-left-20">{{info.doctorName}}</text>
 	</view>
 </view>
 <view class="edit-container">
 	<editor class="ql-container" id="editor" read-only="{{true}}" style="height:{{editorHeight}}px"></editor>
 </view>
-<footer style="background:#fff">
-	<button bindtap="onSubmit" class="button primary small">发起问诊</button>
+<footer style="background:#fff" wx:if="{{userInfo.role=='USER'}}">
+	<button bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{info.doctorId}}&type=1">发起问诊</button>
 </footer>

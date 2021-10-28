@@ -37,7 +37,9 @@ Page({
             console.log(e);
         });
     },
-    onUnload() {},
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
+    },
     initTitle() {
         var nowDay = new Date().getDay();
         var title = _getTitle();
