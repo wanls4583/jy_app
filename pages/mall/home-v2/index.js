@@ -6,6 +6,7 @@ Component({
         banner: [],
         currentBannerIndex: 0,
         kepuList: [],
+        articleList: [],
         stopRefresh: false,
         tipVisible: false,
         scrollTop: 0,
@@ -23,7 +24,7 @@ Component({
             text: '筛查评估',
             url: '/pages/screen/screen-select/index',
             background: 'background:linear-gradient(to right, #eaf3fb, #bddcfd)',
-        }]
+        }],
     },
     lifetimes: {
         attached() {
@@ -38,6 +39,7 @@ Component({
             if (this.data.userInfo.role != 'DOCTOR') {
                 this.loadBaner();
                 this.loadKepu();
+                this.loadArticle();
             }
             // 切换回患者端的提示
             if (this.data.userInfo.role == 'USER' &&
@@ -89,6 +91,7 @@ Component({
             wx.jyApp.Promise.all([
                 this.loadBaner(),
                 this.loadKepu(),
+                this.loadArticle(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
@@ -134,6 +137,19 @@ Component({
             }).then((data) => {
                 this.setData({
                     kepuList: data.list
+                });
+            });
+        },
+        loadArticle() {
+            return wx.jyApp.http({
+                url: '/article/list',
+                data: {
+                    page: 1,
+                    limit: 3
+                }
+            }).then((data) => {
+                this.setData({
+                    articleList: data.page.list
                 });
             });
         }

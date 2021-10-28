@@ -38,7 +38,11 @@
 							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
 							<text>，{{userInfo.defaultPatient.age}}岁</text>
 						</view>
-						<view bindtap="onGoto" class="flex--center--center padding-top-bottom-30 primary-color clickable" data-url="/pages/interrogation/user-patient-list/index?select=true">
+						<view
+							bindtap="onGoto"
+							class="flex--center--center padding-top-bottom-30 primary-color clickable"
+							data-url="/pages/interrogation/user-patient-list/index?select=true"
+						>
 							<text>设置默认成员</text>
 							<van-icon color="#2aafff" name="arrow" />
 						</view>
@@ -54,6 +58,29 @@
 						>
 							<view class="ellipse">{{item.text}}</view>
 						</view>
+					</view>
+				</view>
+				<view class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{articleList.length}}">
+					<view class="flex--center--between">
+						<text class="font-title font-bold">科普文章</text>
+						<view
+							bindtap="onGoto"
+							class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable"
+							data-url="/pages/interrogation/article-list/index"
+						>
+							<text>全部</text>
+							<van-icon name="arrow" />
+						</view>
+					</view>
+					<view
+						bindtap="onGoto"
+						class="padding-top-bottom-30 {{index<articleList.length-1?'border-bottom':''}}"
+						data-url="/pages/interrogation/article-detail/index?id={{item.id}}"
+						wx:for="{{articleList}}"
+						wx:key="id"
+					>
+						<view>{{item.title}}</view>
+						<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
 					</view>
 				</view>
 				<view class="margin-20 margin-top-30 margin-bottom-0" wx:if="{{kepuList.length&&configData.hideAllBanner!=1}}">

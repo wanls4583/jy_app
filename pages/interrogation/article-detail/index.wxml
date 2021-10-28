@@ -6,8 +6,8 @@
 	</view>
 </view>
 <view class="edit-container">
-	<editor class="ql-container" id="editor" read-only="{{true}}" style="height:{{editorHeight}}px"></editor>
+	<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto"></editor>
 </view>
 <footer style="background:#fff" wx:if="{{userInfo.role=='USER'}}">
-	<button bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/illness-edit/index?doctorId={{info.doctorId}}&type=1">发起问诊</button>
+	<button bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/doctor-detail/index?doctorId={{info.doctorId}}">发起问诊</button>
 </footer>
