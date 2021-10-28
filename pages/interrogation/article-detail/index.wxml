@@ -5,9 +5,9 @@
 		<text class="margin-left-20">{{info.doctorName}}</text>
 	</view>
 </view>
-<view class="edit-container">
+<view class="edit-container" style="margin-bottom:60px">
 	<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto"></editor>
 </view>
 <footer style="background:#fff" wx:if="{{userInfo.role=='USER'}}">
-	<button bindtap="onGoto" class="button primary small" data-url="/pages/interrogation/doctor-detail/index?doctorId={{info.doctorId}}">发起问诊</button>
+	<view bindtap="onGoto" class="button primary block" data-url="/pages/interrogation/doctor-detail/index?doctorId={{info.doctorId}}">发起问诊</view>
 </footer>

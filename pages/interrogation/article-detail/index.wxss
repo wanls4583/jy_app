@@ -15,10 +15,6 @@
     overflow: auto;
 }
 
-.title {
-    line-height: 30px;
-}
-
 .time {
     height: 20px;
     line-height: 20px;
