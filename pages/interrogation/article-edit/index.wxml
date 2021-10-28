@@ -7,10 +7,13 @@
 		bindfocus="onEditFocus"
 		bindready="onEditorReady"
 		bindstatuschange="onStatusChange"
-		read-only="{{readOnly}}"
 		class="ql-container"
 		id="editor"
 		placeholder="{{placeholder}}"
+		read-only="{{readOnly}}"
+		show-img-resize="{{true}}"
+		show-img-size="{{true}}"
+		show-img-toolbar="{{true}}"
 		style="height:{{editorHeight}}px"
 	></editor>
 </view>
