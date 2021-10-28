@@ -14,7 +14,7 @@
 		show-img-resize="{{true}}"
 		show-img-size="{{true}}"
 		show-img-toolbar="{{true}}"
-		style="height:{{editorHeight}}px"
+		style="height:{{editorHeight}}px;padding:10px"
 	></editor>
 </view>
 <view catchtouchend="onFormat" class="toolbar" hidden="{{!editorFocus}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">

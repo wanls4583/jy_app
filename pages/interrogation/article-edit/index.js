@@ -73,7 +73,7 @@ Page({
         } = wx.getSystemInfoSync()
         let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : (windowHeight - 60)
         this.setData({
-            editorHeight: editorHeight - titleHeight - 20,
+            editorHeight: editorHeight - titleHeight,
             keyboardHeight
         });
     },
