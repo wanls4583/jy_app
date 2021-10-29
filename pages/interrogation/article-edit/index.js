@@ -111,7 +111,7 @@ Page({
         var that = this;
         this.editorCtx.getContents({
             success: function (res) {
-                if (!res.text.replace(/\s|\n/, '')) {
+                if (!res.text.replace(/\s|\n/, '') && res.html.indexOf('img') == -1) {
                     wx.jyApp.toast('请输入正文');
                     return;
                 }
@@ -141,6 +141,8 @@ Page({
             url: '/article/info/' + id,
         }).then((data) => {
             var side = [data.article.side];
+            data.article.content = data.article.content || '';
+            data.article.content = data.article.content.replace(/\[\#/mg, '<').replace(/\#\]/mg, '>');
             if (!data.article.side || data.article.side == 'ALL') {
                 side = ['USER', 'DOCTOR'];
             }
@@ -165,6 +167,7 @@ Page({
         });
     },
     submit(html) {
+        html = html.replace(/</mg, '[#').replace(/>/mg, '#]');
         wx.jyApp.http({
             url: `/article/${this.data.id?'update':'save'}`,
             method: 'post',
