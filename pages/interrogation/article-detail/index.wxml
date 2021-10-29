@@ -5,7 +5,7 @@
 		<text class="margin-left-20">{{info.doctorName}}</text>
 	</view>
 </view>
-<view class="edit-container" style="padding-bottom:60px">
+<view class="edit-container" style="padding-bottom:95px">
 	<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto"></editor>
 </view>
 <footer style="background:#fff" wx:if="{{userInfo.role=='USER'}}">

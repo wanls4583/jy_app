@@ -91,7 +91,7 @@ Page({
             name,
             value
         } = e.target.dataset
-        if (!name){
+        if (!name) {
             return;
         }
         this.editorCtx.format(name, value)
@@ -155,8 +155,8 @@ Page({
                 side: side,
                 content: data.article.content,
             });
-        }).finally(()=>{
-            setTimeout(()=>{
+        }).finally(() => {
+            setTimeout(() => {
                 this.setData({
                     readOnly: false
                 });
@@ -177,6 +177,10 @@ Page({
         }).then(() => {
             wx.hideLoading();
             wx.jyApp.toastBack('保存成功');
+            var page = wx.jyApp.utils.getPages('pages/interrogation/article-self/index');
+            if (page && !this.data.id) {
+                page.loadList(true);
+            }
         }).catch(() => {
             wx.hideLoading();
         });
