@@ -32,6 +32,8 @@ Page({
         wx.jyApp.http({
             url: '/article/info/' + id,
         }).then((data) => {
+            data.article.content = data.article.content || '';
+            data.article.content = data.article.content.replace(/\[\#/mg, '<').replace(/\#\]/mg, '>');
             if (this.editorCtx) {
                 this.editorCtx.setContents({
                     html: data.article.content
