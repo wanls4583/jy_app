@@ -134,7 +134,6 @@
 				class="flex--center--between padding-top-bottom-30 border-bottom"
 				data-type="{{6}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=fat&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
-				wx:if="{{userInfo.role=='USER'}}"
 			>
 				<view>
 					<text>超重与肥胖筛查</text>
@@ -151,7 +150,6 @@
 				class="flex--center--between padding-top-bottom-30 border-bottom"
 				data-type="{{7}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=fat-assess&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
-				wx:if="{{userInfo.role=='USER'}}"
 			>
 				<view>
 					<text>超重与肥胖评估</text>

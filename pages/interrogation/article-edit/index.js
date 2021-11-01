@@ -120,7 +120,7 @@ Page({
         });
 
         function _replaceImg(html) {
-            var reg = /<img [^>]+?data-custom="id=(\d+)">/mg;
+            var reg = /<img [^>]+?data-custom="id=(\d+)"[^>]*?>/mg;
             var result = null;
             while (result = reg.exec(html)) {
                 if (!that.imgMap[result[1]]) {
