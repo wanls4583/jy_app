@@ -1,5 +1,5 @@
 <view hidden="{{editorFocus}}" style="padding:0 10px">
-	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" placeholder="请输入标题" type="text" value="{{title}}" />
+	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" maxlength="48" placeholder="请输入标题" type="text" value="{{title}}" />
 </view>
 <view class="edit-container">
 	<editor
@@ -38,7 +38,7 @@
 					<van-checkbox name="DOCTOR" shape="square">医生端</van-checkbox>
 				</van-checkbox-group>
 			</view>
-			<button bindtap="onSubmit" class="button primary small">{{id?'修改问诊':'发布文章'}}</button>
+			<button bindtap="onSubmit" class="button primary small">{{id?'修改文章':'发布文章'}}</button>
 		</view>
 	</view>
 </footer>
