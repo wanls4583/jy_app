@@ -32,13 +32,13 @@
 	<view class="width-100 border-top" style="padding-top:10px">
 		<view class="flex--center--between">
 			<view class="flex">
-				<view class="flex-shrink-0 label" style="width:auto">患者类型：</view>
+				<view class="flex-shrink-0 label" style="width:auto">读者类型：</view>
 				<van-checkbox-group bind:change="onChange" data-prop="side" style="display:flex" value="{{side}}">
 					<van-checkbox name="USER" shape="square">患者端</van-checkbox>
 					<van-checkbox name="DOCTOR" shape="square">医生端</van-checkbox>
 				</van-checkbox-group>
 			</view>
-			<button bindtap="onSubmit" class="button primary small">发布文章</button>
+			<button bindtap="onSubmit" class="button primary small">{{id?'修改问诊':'发布文章'}}</button>
 		</view>
 	</view>
 </footer>

@@ -25,6 +25,23 @@ Page({
     onLoadMore() {
         this.loadList();
     },
+    onDelArticle(e) {
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.dialog.confirm({
+            message: '确认删除？'
+        }).then(() => {
+            wx.jyApp.http({
+                url: '/article/delete',
+                method: 'delete',
+                data: {
+                    id: id
+                }
+            }).then(() => {
+                wx.jyApp.toast('删除成功');
+                this.loadList(true);
+            });
+        })
+    },
     loadList(refresh) {
         if (refresh) {
             this.request && this.request.requestTask.abort();

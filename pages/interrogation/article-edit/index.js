@@ -142,6 +142,7 @@ Page({
         }).then((data) => {
             var side = [data.article.side];
             data.article.content = data.article.content || '';
+            data.article.content = data.article.content.replace(/&nbsp;/mg, ' ');
             data.article.content = data.article.content.replace(/\[\#/mg, '<').replace(/\#\]/mg, '>');
             if (!data.article.side || data.article.side == 'ALL') {
                 side = ['USER', 'DOCTOR'];
