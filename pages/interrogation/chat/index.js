@@ -167,7 +167,7 @@ Page({
             consultOrderId: data.chatRoom.consultOrderId
         });
         //转诊中或已转诊状态，医生底部的工具栏要隐藏掉
-        if ((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.talker.role == 'DOCTOR') {
+        if ((data.consultOrder.status == 8 || data.consultOrder.status == 9) && data.currentUser.role == 'DOCTOR') {
             this.setData({
                 inputHeight: 0
             });
@@ -178,7 +178,7 @@ Page({
         wx.setNavigationBarTitle({
             title: data.talker.nickname
         });
-        this.getDoctorInfo().then(() => {
+        this.getDoctorInfo().finally(() => {
             wx.hideLoading();
         });
     },
