@@ -71,9 +71,9 @@ Page({
         const {
             windowHeight
         } = wx.getSystemInfoSync()
-        let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : (windowHeight - 60)
+        let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : (windowHeight - titleHeight - 60)
         this.setData({
-            editorHeight: editorHeight - titleHeight,
+            editorHeight: editorHeight,
             keyboardHeight
         });
     },
@@ -140,11 +140,11 @@ Page({
         wx.jyApp.http({
             url: '/article/info/' + id,
         }).then((data) => {
-            var side = [data.article.side];
+            var side = data.article.side && [data.article.side] || [];
             data.article.content = data.article.content || '';
             data.article.content = data.article.content.replace(/&nbsp;/mg, ' ');
             data.article.content = data.article.content.replace(/\[\#/mg, '<').replace(/\#\]/mg, '>');
-            if (!data.article.side || data.article.side == 'ALL') {
+            if (data.article.side == 'ALL') {
                 side = ['USER', 'DOCTOR'];
             }
             if (this.editorCtx) {
@@ -182,7 +182,7 @@ Page({
             wx.hideLoading();
             wx.jyApp.toastBack('保存成功');
             var page = wx.jyApp.utils.getPages('pages/interrogation/article-self/index');
-            if (page && !this.data.id) {
+            if (page) {
                 page.loadList(true);
             }
         }).catch(() => {

@@ -1,5 +1,5 @@
 <view hidden="{{editorFocus}}" style="padding:0 10px">
-	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" maxlength="48" placeholder="请输入标题" type="text" value="{{title}}" />
+	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" maxlength="{{48}}" placeholder="请输入标题" type="text" value="{{title}}" />
 </view>
 <view class="edit-container">
 	<editor
@@ -14,10 +14,10 @@
 		show-img-resize="{{true}}"
 		show-img-size="{{true}}"
 		show-img-toolbar="{{true}}"
-		style="height:{{editorHeight}}px;padding:10px"
+		style="height:{{editorHeight}}px;padding:10px;padding-bottom:0"
 	></editor>
 </view>
-<view catchtouchend="onFormat" class="toolbar" hidden="{{!editorFocus}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
+<view catchtouchend="onFormat" class="toolbar" hidden="{{!editorFocus || keyboardHeight <= 0}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">
 	<i catchtouchend="insertImage" class="edit-iconfont icon-charutupian"></i>
 	<i class="edit-iconfont icon-format-header-2 {{formats.header === 2 ? 'ql-active' : ''}}" data-name="header" data-value="{{2}}"></i>
 	<i class="edit-iconfont icon-format-header-3 {{formats.header === 3 ? 'ql-active' : ''}}" data-name="header" data-value="{{3}}"></i>
@@ -28,7 +28,7 @@
 	<i class="edit-iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
 	<i class="edit-iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
 </view>
-<footer style="background:#fff" wx:if="{{!editorFocus}}">
+<footer style="background:#fff;padding-bottom:10px" wx:if="{{!editorFocus || keyboardHeight <= 0}}">
 	<view class="width-100 border-top" style="padding-top:10px">
 		<view class="flex--center--between">
 			<view class="flex">
