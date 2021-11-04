@@ -101,6 +101,15 @@ Page({
             }, {
                 name: 'MNA',
                 filtrateType: 'MNA'
+            }, {
+                name: 'TUNOUR_FLUID',
+                filtrateType: 'TUNOUR_FLUID'
+            }, {
+                name: 'ORAL_MUCOSA',
+                filtrateType: 'ORAL_MUCOSA'
+            }, {
+                name: 'X_INJURY',
+                filtrateType: 'X_INJURY'
             }],
             filtrateType: 'NRS 2002'
         });
@@ -957,6 +966,15 @@ Page({
                 break;
             case 'MNA':
                 url = '/pages/screen/mna/index';
+                break;
+            case 'TUNOUR_FLUID':
+                url = '/pages/screen/tumour-fluid/index';
+                break;
+            case 'ORAL_MUCOSA':
+                url = '/pages/screen/oral-mucosa/index';
+                break;
+            case 'X_INJURY':
+                url = '/pages/screen/radiation-injury/index';
                 break;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);

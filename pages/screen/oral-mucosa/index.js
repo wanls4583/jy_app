@@ -36,7 +36,11 @@ Page({
                 doctorName: option.doctorName,
                 patient: patient,
                 'answers.q[0]': patient.sex == 1 ? 1 : 2,
-                'answers.q[1]': patient.age < 60 ? 1 : 2
+                'answers.q[1]': patient.age < 60 ? 1 : 2,
+                'filtrateId': option.filtrateId || '',
+                'consultOrderId': option.consultOrderId || '',
+                'patientId': option.patientId || '',
+                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
@@ -200,6 +204,13 @@ Page({
             type: 'ORAL_MUCOSA'
         };
         wx.jyApp.showLoading('加载中...', true);
+        if (this.from == 'screen') {
+            this.save(data);
+        } else {
+            this.saveWithChat(data);
+        }
+    },
+    save() {
         wx.jyApp.http({
             url: `/evaluate/common/${this.data.id?'update':'save'}`,
             method: 'post',
@@ -229,4 +240,25 @@ Page({
             wx.hideLoading();
         });
     },
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                this.save(data);
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            this.save(data);
+        }
+    }
 })

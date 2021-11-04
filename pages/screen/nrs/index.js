@@ -161,9 +161,9 @@ Page({
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
-            save(data);
+            this.save(data);
         } else {
-            saveWithChat(data);
+            this.saveWithChat(data);
         }
     },
     // 普通筛查
