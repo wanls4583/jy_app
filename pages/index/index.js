@@ -269,6 +269,21 @@ Page({
             case 5:
                 screen = 'mna'
                 break;
+            case 6:
+                screen = 'fat'
+                break;
+            case 7:
+                screen = 'fat-assess'
+                break;
+            case 8:
+                screen = 'tumour-fluid'
+                break;
+            case 9:
+                screen = 'oral-mucosa'
+                break;
+            case 10:
+                screen = 'radiation-injury'
+                break;
         }
         wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
             var doctor = data.doctor;
