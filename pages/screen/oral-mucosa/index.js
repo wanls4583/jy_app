@@ -174,20 +174,25 @@ Page({
         return wx.jyApp.http({
             url: `/evaluate/common/info/${id}`,
         }).then((data) => {
+            data.info = data.info || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.info.answers = JSON.parse(data.info.answers);
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.info.id || '',
                 filtrateId: data.info.filtrateId || '',
-                answers: data.info.answers,
                 patient: data.patientFiltrate
             });
-            if (data.fatEvaluate.answers.filtrateDate) {
+            if (data.info.answers) {
+                data.info.answers = JSON.parse(data.info.answers);
                 this.setData({
-                    filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                    answers: data.info.answers,
                 });
+                if (data.info.answers.filtrateDate) {
+                    this.setData({
+                        filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                    });
+                }
             }
         });
     },

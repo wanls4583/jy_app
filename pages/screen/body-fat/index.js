@@ -139,20 +139,25 @@ Page({
         return wx.jyApp.http({
             url: `/fatevaluate/info/${id}`,
         }).then((data) => {
+            data.fatEvaluate = data.fatEvaluate || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
-            data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: data.fatEvaluate.filtrateId || '',
-                answers: data.fatEvaluate.answers,
                 patient: data.patientFiltrate
             });
-            if (data.fatEvaluate.answers.filtrateDate) {
+            if(data.fatEvaluate.answers) {
+                data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
-                    filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                    answers: data.fatEvaluate.answers,
                 });
+                if (data.fatEvaluate.answers.filtrateDate) {
+                    this.setData({
+                        filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                    });
+                }
             }
         });
     },
