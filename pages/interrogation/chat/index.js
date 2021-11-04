@@ -113,9 +113,37 @@ Page({
             }, {
                 name: '超重与肥胖筛查',
                 filtrateType: 'FAT'
-            }, {
+            }],
+            fatScreenList: [{
                 name: '超重与肥胖评估',
                 filtrateType: 'FAT-ASSESS'
+            }, {
+                name: '询问调查',
+                filtrateType: 'FAT-GROW'
+            }, {
+                name: '家族史',
+                filtrateType: 'FAT-HOME'
+            }, {
+                name: '疾病史',
+                filtrateType: 'FAT-DISEASE'
+            }, {
+                name: '肥胖治疗史',
+                filtrateType: 'FAT-TREAT'
+            }, {
+                name: '膳食调查',
+                filtrateType: 'FAT-DIET'
+            }, {
+                name: '久坐行为调查',
+                filtrateType: 'FAT-SIT'
+            }, {
+                name: '睡眠评估',
+                filtrateType: 'FAT-SLEEP'
+            }, {
+                name: '活动水平评估',
+                filtrateType: 'FAT-ACTION'
+            }, {
+                name: '体脂肪含量测量',
+                filtrateType: 'FAT-BODY'
             }],
             filtrateType: 'NRS 2002'
         });
@@ -949,8 +977,16 @@ Page({
                 _item.selected = false;
             }
         });
+        this.data.fatScreenList.map((_item) => {
+            if (_item.filtrateType == item.filtrateType) {
+                _item.selected = true;
+            } else {
+                _item.selected = false;
+            }
+        });
         this.setData({
             screenList: this.data.screenList,
+            fatScreenList: this.data.fatScreenList,
             filtrateType: item.filtrateType
         });
     },
@@ -985,8 +1021,32 @@ Page({
             case 'FAT':
                 url = '/pages/screen/fat/index';
                 break;
-            case 'FAT-ASSESS':
-                url = '/pages/screen/fat-assess/index';
+            case 'FAT-GROW':
+                url = '/pages/screen/birth-history/index';
+                break;
+            case 'FAT-HOME':
+                url = '/pages/screen/family-history/index';
+                break;
+            case 'FAT-DISEASE':
+                url = '/pages/screen/disease-history/index';
+                break;
+            case 'FAT-TREAT':
+                url = '/pages/screen/fat-history/index';
+                break;
+            case 'FAT-DIET':
+                url = '/pages/screen/food-investigate/index';
+                break;
+            case 'FAT-SIT':
+                url = '/pages/screen/sit-investigate/index';
+                break;
+            case 'FAT-SLEEP':
+                url = '/pages/screen/sleep-assess/index';
+                break;
+            case 'FAT-ACTION':
+                url = '/pages/screen/act-assess/index';
+                break;
+            case 'FAT-BODY':
+                url = '/pages/screen/body-fat/index';
                 break;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);

@@ -71,7 +71,7 @@ Page({
         const {
             windowHeight
         } = wx.getSystemInfoSync()
-        let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : (windowHeight - titleHeight - 60)
+        let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : (windowHeight - titleHeight - 65)
         this.setData({
             editorHeight: editorHeight,
             keyboardHeight
