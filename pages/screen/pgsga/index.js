@@ -205,7 +205,7 @@ Page({
     countScore() {
         var self = this;
         var pgsga = this.data.pgsga;
-        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8() +_countStep7() + _countStep9();
+        var count = _countStep1() + _countStep2() + _countStep3() + _countStep4() + _countStep5() + _countStep6() + _countStep8() + _countStep7() + _countStep9();
         this.resultDescription = [];
         this.setData({
             'pgsga.result': count
@@ -529,62 +529,70 @@ Page({
         data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
-            data.patientId = this.patient.id;
-            data.doctorId = this.doctorId;
-            wx.jyApp.http({
-                url: `/filtrate/pgsga/public/save`,
-                method: 'post',
-                data: data
-            }).then(() => {
-                wx.jyApp.toastBack('保存成功', {
-                    mask: true,
-                    delta: 1,
-                    complete: () => {
-                        var result = 0;
-                        var _result = '无营养不良';
-                        if (data._result == 'B') {
-                            result = 1;
-                            _result = '可疑营养不良者';
-                        }
-                        if (data._result == 'C') {
-                            result = 2;
-                            _result = '中度营养不良者';
-                        }
-                        if (data._result == 'D') {
-                            result = 3;
-                            _result = '重度营养不良者';
-                        }
-                        if (this.data.userInfo.role != 'DOCTOR') {
-                            wx.jyApp.setTempData('screen-results', this.resultDescription);
-                            wx.jyApp.utils.navigateTo({
-                                url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
-                            });
-                        }
+            save(data);
+        } else {
+            saveWithChat(data);
+        }
+    },
+    // 普通筛查
+    save(data) {
+        data.patientId = this.patient.id;
+        data.doctorId = this.doctorId;
+        wx.jyApp.http({
+            url: `/filtrate/pgsga/public/save`,
+            method: 'post',
+            data: data
+        }).then(() => {
+            wx.jyApp.toastBack('保存成功', {
+                mask: true,
+                delta: 1,
+                complete: () => {
+                    var result = 0;
+                    var _result = '无营养不良';
+                    if (data._result == 'B') {
+                        result = 1;
+                        _result = '可疑营养不良者';
                     }
-                });
+                    if (data._result == 'C') {
+                        result = 2;
+                        _result = '中度营养不良者';
+                    }
+                    if (data._result == 'D') {
+                        result = 3;
+                        _result = '重度营养不良者';
+                    }
+                    if (this.data.userInfo.role != 'DOCTOR') {
+                        wx.jyApp.setTempData('screen-results', this.resultDescription);
+                        wx.jyApp.utils.navigateTo({
+                            url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
+                        });
+                    }
+                }
+            });
+        }).catch(() => {
+            wx.hideLoading();
+        });
+    },
+    // 聊天室里的筛查
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                _save.bind(this)();
             }).catch(() => {
                 wx.hideLoading();
             });
         } else {
-            if (!data.filtrateId) {
-                wx.jyApp.http({
-                    url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
-                    method: 'post',
-                    data: {
-                        consultOrderId: this.data.consultOrderId,
-                        patientId: this.data.patientId,
-                        filtrateType: this.data.filtrateType,
-                        isSelf: true,
-                    }
-                }).then((_data) => {
-                    data.filtrateId = _data.filtrateId;
-                    _save.bind(this)();
-                }).catch(() => {
-                    wx.hideLoading();
-                });
-            } else {
-                _save.bind(this)();
-            }
+            _save.bind(this)();
         }
 
         function _save() {

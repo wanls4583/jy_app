@@ -245,59 +245,67 @@ Page({
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
-            data.patientId = this.patient.id;
-            data.doctorId = this.doctorId;
-            wx.jyApp.http({
-                url: `/filtrate/mna/public/save`,
-                method: 'post',
-                data: data
-            }).then(() => {
-                wx.jyApp.toastBack('保存成功', {
-                    mask: true,
-                    delta: 1,
-                    complete: () => {
-                        var result = 0;
-                        var _result = '营养状况良好'
-                        if (data._result == 'B') {
-                            result = 1;
-                            _result = '存在营养不良的风险';
-                        }
-                        if (data._result == 'C') {
-                            result = 2;
-                            _result = '明确为营养不良';
-                        }
-                        if (this.data.userInfo.role != 'DOCTOR') {
-                            setTimeout(() => {
-                                wx.jyApp.utils.navigateTo({
-                                    url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
-                                });
-                            }, 500);
-                        }
+            save(data);
+        } else {
+            saveWithChat(data);
+        }
+    },
+    // 普通筛查
+    save(data) {
+        data.patientId = this.patient.id;
+        data.doctorId = this.doctorId;
+        wx.jyApp.http({
+            url: `/filtrate/mna/public/save`,
+            method: 'post',
+            data: data
+        }).then(() => {
+            wx.jyApp.toastBack('保存成功', {
+                mask: true,
+                delta: 1,
+                complete: () => {
+                    var result = 0;
+                    var _result = '营养状况良好'
+                    if (data._result == 'B') {
+                        result = 1;
+                        _result = '存在营养不良的风险';
                     }
-                });
+                    if (data._result == 'C') {
+                        result = 2;
+                        _result = '明确为营养不良';
+                    }
+                    if (this.data.userInfo.role != 'DOCTOR') {
+                        setTimeout(() => {
+                            wx.jyApp.utils.navigateTo({
+                                url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
+                            });
+                        }, 500);
+                    }
+                }
+            });
+        }).catch(() => {
+            wx.hideLoading();
+        });
+    },
+    // 聊天室里的筛查
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                _save.bind(this)();
             }).catch(() => {
                 wx.hideLoading();
             });
         } else {
-            if (!data.filtrateId) {
-                wx.jyApp.http({
-                    url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
-                    method: 'post',
-                    data: {
-                        consultOrderId: this.data.consultOrderId,
-                        patientId: this.data.patientId,
-                        filtrateType: this.data.filtrateType,
-                        isSelf: true,
-                    }
-                }).then((_data) => {
-                    data.filtrateId = _data.filtrateId;
-                    _save.bind(this)();
-                }).catch(() => {
-                    wx.hideLoading();
-                });
-            } else {
-                _save.bind(this)();
-            }
+            _save.bind(this)();
         }
 
         function _save() {
