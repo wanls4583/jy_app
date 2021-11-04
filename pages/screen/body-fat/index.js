@@ -32,6 +32,10 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
+                'filtrateId': option.filtrateId || '',
+                'consultOrderId': option.consultOrderId || '',
+                'patientId': option.patientId || '',
+                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
@@ -165,6 +169,13 @@ Page({
             isRisk: this.data.isRisk
         };
         wx.jyApp.showLoading('加载中...', true);
+        if (this.from == 'screen') {
+            this.save(data);
+        } else {
+            this.saveWithChat(data);
+        }
+    },
+    save(data) {
         wx.jyApp.http({
             url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
@@ -175,13 +186,13 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 1;
-                    if(this.data.result == '轻度肥胖') {
+                    if (this.data.result == '轻度肥胖') {
                         result = 2;
                     }
-                    if(this.data.result == '中度肥胖') {
+                    if (this.data.result == '中度肥胖') {
                         result = 3;
                     }
-                    if(this.data.result == '重度肥胖') {
+                    if (this.data.result == '重度肥胖') {
                         result = 4;
                     }
                     wx.jyApp.setTempData('body-results', this.data.resultDescription.split(';'));
@@ -193,6 +204,27 @@ Page({
         }).catch(() => {
             wx.hideLoading();
         });
+    },
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                this.save(data);
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            this.save(data);
+        }
     },
     onBack() {
         this.setData({

@@ -39,6 +39,10 @@ Page({
                 'filtrateFat.stature': patient.height,
                 'filtrateFat.weight': patient.weight,
                 'filtrateFat.age': patient.birthday ? this.getAge(patient.birthday) : '',
+                'filtrateId': option.filtrateId || '',
+                'consultOrderId': option.consultOrderId || '',
+                'patientId': option.patientId || '',
+                'filtrateType': option.filtrateType || '',
             });
             this.setBMI();
             this.countScore();
@@ -184,6 +188,9 @@ Page({
         });
     },
     onSave() {
+        var data = {
+            ...this.data.filtrateFat
+        }
         if (!this.data.filtrateFat.filtrateDate) {
             wx.jyApp.toast('请填写筛查日期');
             return;
@@ -201,13 +208,18 @@ Page({
             return;
         }
         wx.jyApp.showLoading('提交中...', true);
+        if (this.from == 'screen') {
+            this.save(data);
+        } else {
+            this.saveWithChat(data);
+        }
+    },
+    save(data) {
         wx.jyApp.http({
             url: `/filtrate/fat/${this.data.filtrateFat.id ? 'update' : 'save'}`,
             method: 'post',
-            data: {
-                ...this.data.filtrateFat
-            }
-        }).then((data) => {
+            data: data
+        }).then(() => {
             var page = wx.jyApp.utils.getPageByLastIndex(2);
             if (page.route == 'pages/screen/screen-list/index') {
                 page.onRefresh();
@@ -238,6 +250,27 @@ Page({
         }).catch(() => {
             wx.hideLoading();
         });
+    },
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                this.save(data);
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            this.save(data);
+        }
     },
     loadInfo(id) {
         wx.jyApp.http({

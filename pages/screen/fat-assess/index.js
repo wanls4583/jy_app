@@ -57,10 +57,15 @@ Page({
         }
     },
     onLoad(option) {
+        this.from = option.from;
+        this.filtrateId = option.filtrateId || '';
+        this.consultOrderId = option.consultOrderId || '';
+        this.patientId = option.patientId || ''; //v2版聊天室
+        this.filtrateType = option.filtrateType || '';
         this.setData({
             active: option.active || 0,
             doctorId: option.doctorId || '',
-            doctorName: option.doctorName || ''
+            doctorName: option.doctorName || '',
         });
         if (option.patientId) {
             this.patientId = option.patientId;
@@ -98,7 +103,11 @@ Page({
         });
     },
     onGoto(e) {
-        wx.jyApp.utils.navigateTo(e);
+        var url = e.currentTarget.dataset.url;
+        url = url + `?from=${this.from}&filtrateId=${this.filtrateId}&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&filtrateType=${this.filtrateType}`;
+        wx.jyApp.utils.navigateTo({
+            url: url
+        });
     },
     getInfo() {
         wx.jyApp.http({

@@ -1,3 +1,4 @@
+<import src="/template/chat-screen.wxml" />
 <view class="container">
 	<view
 		class="position-absolute top-0 flex--center--between width-100 height-50px white-background-color border-top border-bottom gray-color"
@@ -195,118 +196,75 @@
 								</view>
 								<!-- NRS2002 -->
 								<view class="position-relative" wx:elif="{{item.type==7}}">
-									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">NRS2002（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-										<view class="padding-30">
-											<text>{{patient.patientName}}，</text>
-											<text>{{patient._sex}}，</text>
-											<text>{{patient.age}}岁，</text>
-											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
-											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
-											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
-										</view>
-										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
-										<view class="align-center padding-bottom-30">
-											<view
-												bindtap="onGotoScreen"
-												class="button small success"
-												data-item="{{item}}"
-												data-url="/pages/screen/nrs/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
-											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
-										</view>
-									</view>
+									<template data="{{item:item,patient:patient}}" is="chat-screen-nrs"></template>
 								</view>
 								<!-- PGSGA -->
 								<view class="position-relative" wx:elif="{{item.type==8}}">
-									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">PGSGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-										<view class="padding-30">
-											<text>{{patient.patientName}}，</text>
-											<text>{{patient._sex}}，</text>
-											<text>{{patient.age}}岁，</text>
-											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
-											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
-											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
-										</view>
-										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
-										<view class="align-center padding-bottom-30">
-											<view
-												bindtap="onGotoScreen"
-												class="button small success"
-												data-item="{{item}}"
-												data-url="/pages/screen/pgsga/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
-											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
-										</view>
-									</view>
+									<template data="{{item:item,patient:patient}}" is="chat-screen-pgsga"></template>
 								</view>
 								<!-- SGA -->
 								<view class="position-relative" wx:elif="{{item.type==9}}">
-									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">SGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-										<view class="padding-30">
-											<text>{{patient.patientName}}，</text>
-											<text>{{patient._sex}}，</text>
-											<text>{{patient.age}}岁，</text>
-											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
-											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
-											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
-										</view>
-										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
-										<view class="align-center padding-bottom-30">
-											<view
-												bindtap="onGotoScreen"
-												class="button small success"
-												data-item="{{item}}"
-												data-url="/pages/screen/sga/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
-											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
-										</view>
-									</view>
+									<template data="{{item:item,patient:patient}}" is="chat-screen-sga"></template>
 								</view>
 								<!-- MUST -->
 								<view class="position-relative" wx:elif="{{item.type==10}}">
-									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">MUST（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-										<view class="padding-30">
-											<text>{{patient.patientName}}，</text>
-											<text>{{patient._sex}}，</text>
-											<text>{{patient.age}}岁，</text>
-											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
-											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
-											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
-										</view>
-										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
-										<view class="align-center padding-bottom-30">
-											<view
-												bindtap="onGotoScreen"
-												class="button small success"
-												data-item="{{item}}"
-												data-url="/pages/screen/must/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
-											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
-										</view>
-									</view>
+									<template data="{{item:item,patient:patient}}" is="chat-screen-must"></template>
 								</view>
 								<!-- MNA -->
 								<view class="position-relative" wx:elif="{{item.type==11}}">
-									<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-										<view class="width-100 padding-20 success-background-color white-color align-center">MNA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-										<view class="padding-30">
-											<text>{{patient.patientName}}，</text>
-											<text>{{patient._sex}}，</text>
-											<text>{{patient.age}}岁，</text>
-											<text wx:if="{{patient.height}}">{{patient.height}}cm，</text>
-											<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
-											<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
-										</view>
-										<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
-										<view class="align-center padding-bottom-30">
-											<view
-												bindtap="onGotoScreen"
-												class="button small success"
-												data-item="{{item}}"
-												data-url="/pages/screen/mna/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
-											>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
-										</view>
-									</view>
+									<template data="{{item:item,patient:patient}}" is="chat-screen-mna"></template>
+								</view>
+								<!-- 肿瘤恶液质评估 -->
+								<view class="position-relative" wx:elif="{{item.type==23}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-tunour-fluid"></template>
+								</view>
+								<!-- 口腔黏膜风险评估 -->
+								<view class="position-relative" wx:elif="{{item.type==24}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-oral-mucosa"></template>
+								</view>
+								<!-- 放射性损伤评估 -->
+								<view class="position-relative" wx:elif="{{item.type==25}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-radiation-injury"></template>
+								</view>
+								<!-- 超重与肥胖筛查 -->
+								<view class="position-relative" wx:elif="{{item.type==12}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-fat"></template>
+								</view>
+								<!-- 询问调查 -->
+								<view class="position-relative" wx:elif="{{item.type==13}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-birth-history"></template>
+								</view>
+								<!-- 家族史 -->
+								<view class="position-relative" wx:elif="{{item.type==14}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-family-history"></template>
+								</view>
+								<!-- 疾病史 -->
+								<view class="position-relative" wx:elif="{{item.type==15}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-disease-history"></template>
+								</view>
+								<!-- 肥胖治疗史 -->
+								<view class="position-relative" wx:elif="{{item.type==16}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-fat-history"></template>
+								</view>
+								<!-- 膳食调查 -->
+								<view class="position-relative" wx:elif="{{item.type==17}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-food-investigate"></template>
+								</view>
+								<!-- 久坐行为调查 -->
+								<view class="position-relative" wx:elif="{{item.type==18}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-sit-investigate"></template>
+								</view>
+								<!-- 睡眠评估 -->
+								<view class="position-relative" wx:elif="{{item.type==19}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-sleep-assess"></template>
+								</view>
+								<!-- 活动水平评估 -->
+								<view class="position-relative" wx:elif="{{item.type==20}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-act-assess"></template>
+								</view>
+								<!-- 体脂肪含量测量 -->
+								<view class="position-relative" wx:elif="{{item.type==22}}">
+									<template data="{{item:item,patient:patient}}" is="chat-screen-body-fat"></template>
 								</view>
 								<!-- 视频通话 -->
 								<view class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color" wx:elif="{{item.type==6}}">

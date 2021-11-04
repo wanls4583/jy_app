@@ -71,10 +71,10 @@ Page({
             });;
         }
         this.setData({
-            'mna.filtrateId': option.filtrateId,
-            'consultOrderId': option.consultOrderId,
-            'patientId': option.patientId, //v2版聊天室
-            'filtrateType': option.filtrateType,
+            'mna.filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '', //v2版聊天室
+            'filtrateType': option.filtrateType || '',
         });
     },
     onUnload() {

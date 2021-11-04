@@ -34,6 +34,10 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
+                'filtrateId': option.filtrateId || '',
+                'consultOrderId': option.consultOrderId || '',
+                'patientId': option.patientId || '',
+                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
@@ -108,9 +112,9 @@ Page({
             resultDescription.push('有其他类型久坐行为');
         }
         var result = '';
-        if(score >= 8 || resultDescription.length) {
+        if (score >= 8 || resultDescription.length) {
             result = '有久坐行为';
-        } else if(q.length) {
+        } else if (q.length) {
             result = '无久坐行为';
             resultDescription = ['未发现存在久坐行为'];
         }
@@ -154,6 +158,13 @@ Page({
             isRisk: this.data.isRisk
         };
         wx.jyApp.showLoading('加载中...', true);
+        if (this.from == 'screen') {
+            this.save(data);
+        } else {
+            this.saveWithChat(data);
+        }
+    },
+    save(data) {
         wx.jyApp.http({
             url: `/fatevaluate/save`,
             method: 'post',
@@ -176,6 +187,27 @@ Page({
         }).catch(() => {
             wx.hideLoading();
         });
+    },
+    saveWithChat(data) {
+        if (!data.filtrateId) {
+            wx.jyApp.http({
+                url: `/patient/filtrate/save${this.data.patientId?'/v2':''}`, //v2版接口使用patientId字段，v1版本使用consultOrderId字段
+                method: 'post',
+                data: {
+                    consultOrderId: this.data.consultOrderId,
+                    patientId: this.data.patientId,
+                    filtrateType: this.data.filtrateType,
+                    isSelf: true,
+                }
+            }).then((_data) => {
+                data.filtrateId = _data.filtrateId;
+                this.save(data);
+            }).catch(() => {
+                wx.hideLoading();
+            });
+        } else {
+            this.save(data);
+        }
     },
     onBack() {
         this.setData({

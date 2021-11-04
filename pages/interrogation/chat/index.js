@@ -102,14 +102,20 @@ Page({
                 name: 'MNA',
                 filtrateType: 'MNA'
             }, {
-                name: 'TUNOUR_FLUID',
+                name: '肿瘤恶液质评估',
                 filtrateType: 'TUNOUR_FLUID'
             }, {
-                name: 'ORAL_MUCOSA',
+                name: '口腔黏膜风险评估',
                 filtrateType: 'ORAL_MUCOSA'
             }, {
-                name: 'X_INJURY',
+                name: '放射性损伤评估',
                 filtrateType: 'X_INJURY'
+            }, {
+                name: '超重与肥胖筛查',
+                filtrateType: 'FAT'
+            }, {
+                name: '超重与肥胖评估',
+                filtrateType: 'FAT-ASSESS'
             }],
             filtrateType: 'NRS 2002'
         });
@@ -975,6 +981,12 @@ Page({
                 break;
             case 'X_INJURY':
                 url = '/pages/screen/radiation-injury/index';
+                break;
+            case 'FAT':
+                url = '/pages/screen/fat/index';
+                break;
+            case 'FAT-ASSESS':
+                url = '/pages/screen/fat-assess/index';
                 break;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
