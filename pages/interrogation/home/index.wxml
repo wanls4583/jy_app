@@ -20,9 +20,9 @@
 				<view class="flex--center--between margin-top-30" wx:if="{{doctorInfo.consultNum&&!doctorInfo.hosDepartment}}">
 					<view bindtap="onGoto" class="clickable" data-url="/pages/interrogation/interrogation-list/index?status=1">
 						<view class="white-color">待接诊</view>
-						<view class="align-center font-large warn-color text-shadow">{{consultNum.waitingNum}}</view>
+						<view class="align-center font-large warn-color text-shadow">{{consultNum.waitingNum||0}}</view>
 					</view>
-					<block wx:if="{{doctorInfo.acceptTransferSwitch==1}}">
+					<block>
 						<view class="white-color">|</view>
 						<view bindtap="onGoto" class="clickable" data-url="/pages/interrogation/interrogation-list/index?status=8">
 							<view class="white-color">转诊中</view>
@@ -32,12 +32,12 @@
 					<view class="white-color">|</view>
 					<view bindtap="onGoto" class="clickable" data-url="/pages/interrogation/interrogation-list/index?status=5">
 						<view class="white-color">问诊中</view>
-						<view class="align-center font-large warn-color text-shadow">{{consultNum.talkingNum}}</view>
+						<view class="align-center font-large warn-color text-shadow">{{consultNum.talkingNum||0}}</view>
 					</view>
 					<view class="white-color">|</view>
 					<view bindtap="onGoto" class="clickable" data-url="/pages/interrogation/interrogation-list/index?status=3">
 						<view class="white-color">已服务</view>
-						<view class="align-center font-large warn-color text-shadow">{{consultNum.completeNum}}</view>
+						<view class="align-center font-large warn-color text-shadow">{{consultNum.completeNum||0}}</view>
 					</view>
 				</view>
 			</view>

@@ -13,7 +13,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['configData'],
+            fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         this.loadRecent();
@@ -113,10 +113,14 @@ Page({
                     stopRefresh: false,
                 });
             }
+            var list = data.page.list || [];
+            list = list.filter((item)=>{
+                return item.id != this.data.doctorInfo.id;
+            });
             this.setData({
                 'page': this.data.page + 1,
                 'totalPage': data.page.totalPage,
-                'doctorList': this.data.doctorList.concat(data.page.list || [])
+                'doctorList': this.data.doctorList.concat(list)
             });
         }).finally(() => {
             this.loading = false;

@@ -16,7 +16,7 @@
 	</view>
 	<view class="height-100" style="padding-top:40px;padding-bottom:80px">
 		<view class="padding-left-right-20" wx:if="{{firstLoad}}">
-			<view class="padding-bottom-30">最近转诊记录</view>
+			<view class="padding-top-20">最近转诊记录</view>
 			<checkbox-group bindchange="onCheckboxChange">
 				<label class="flex--center--between border-bottom" wx:for="{{recentList}}" wx:key="id">
 					<view class="flex-grow-1">
