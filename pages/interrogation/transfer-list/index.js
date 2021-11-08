@@ -59,7 +59,7 @@ Page({
         // wx.jyApp.utils.navigateTo(e);
     },
     onCheckboxChange(e) {
-        this.doctorIds = e.detail.values;
+        this.doctorIds = e.detail.value;
     },
     onSubmit() {
         wx.jyApp.dialog.confirm({
@@ -75,6 +75,13 @@ Page({
                 }
             }).then(() => {
                 wx.jyApp.toastBack('转诊成功');
+                var page = wx.jyApp.utils.getPageByLastIndex(2);
+                if (page && page.route == 'pages/interrogation/chat/index') {
+                    page.setData({
+                        'consultOrder.status': 8,
+                        inputHeight: 0
+                    });
+                }
             }).finally(() => {
                 wx.hideLoading();
             });

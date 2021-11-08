@@ -18,22 +18,22 @@
 		<view class="padding-left-right-20" wx:if="{{firstLoad}}">
 			<view class="padding-bottom-30">最近转诊记录</view>
 			<checkbox-group bindchange="onCheckboxChange">
-				<label class="flex--start--between" wx:for="{{recentList}}" wx:key="id">
-					<checkbox checked="{{item.checked}}" color="rgb(42, 175, 255)" style="margin-top:60rpx" value="{{item.id}}" />
-					<view class="flex-grow-1 margin-left-10 border-bottom">
+				<label class="flex--center--between border-bottom" wx:for="{{recentList}}" wx:key="id">
+					<view class="flex-grow-1">
 						<template data="{{doctor:item}}" is="doctor-item"></template>
 					</view>
+					<checkbox checked="{{item.checked}}" class="flex-shrink-0" color="rgb(42, 175, 255)" value="{{item.id}}" />
 				</label>
 			</checkbox-group>
 		</view>
 		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}" wx:else>
 			<view class="padding-left-right-20">
 				<checkbox-group bindchange="onCheckboxChange">
-					<label class="flex--start--between" wx:for="{{doctorList}}" wx:key="id">
-						<checkbox checked="{{item.checked}}" color="rgb(42, 175, 255)" style="margin-top:60rpx" value="{{item.id}}" />
-						<view class="flex-grow-1 margin-left-10 border-bottom">
+					<label class="flex--center--between border-bottom" wx:for="{{doctorList}}" wx:key="id">
+						<view class="flex-grow-1">
 							<template data="{{doctor:item}}" is="doctor-item"></template>
 						</view>
+						<checkbox checked="{{item.checked}}" class="flex-shrink-0" color="rgb(42, 175, 255)" value="{{item.id}}" />
 					</label>
 				</checkbox-group>
 			</view>
@@ -47,8 +47,8 @@
 </view>
 <footer style="padding-bottom:10px;">
 	<view class="width-100">
-		<view class="align-center warn-color" style="height:15px;line-height:15px;margin-bottom:5px">若未选中，则转诊给系统默认的医生。</view>
-		<view class="button primary block">转诊</view>
+		<view class="align-center warn-color" style="height:15px;line-height:15px;margin-bottom:5px">若未选中任何医生，则转诊给系统默认的医生。</view>
+		<view bindtap="onSubmit" class="button primary block">转诊</view>
 	</view>
 </footer>
 <van-dialog id="van-dialog"></van-dialog>

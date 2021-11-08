@@ -285,7 +285,7 @@ Page({
         //         });
         //     });
         // });
-        wx.jyApp.navigateTo({
+        wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/transfer-list/index?consultOrderId=' + this.data.consultOrderId
         });
     },
