@@ -216,7 +216,7 @@ Page({
             this.saveWithChat(data);
         }
     },
-    save() {
+    save(data) {
         wx.jyApp.http({
             url: `/evaluate/common/${this.data.id?'update':'save'}`,
             method: 'post',

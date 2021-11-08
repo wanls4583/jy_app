@@ -161,7 +161,7 @@ Page({
                 if (item.filtrateType == 'FAT-DISEASE') {
                     item._filtrateType = '疾病史';
                     item.visible = false;
-                    if (item.answers.q.length &&
+                    if (item.answers.q && item.answers.q.length &&
                         (item.answers.q[0] && item.answers.q[0].length && String(item.answers.q[0]) != 6 ||
                             item.answers.q[1] && item.answers.q[1].length && String(item.answers.q[1]) != 7)) {
                         item.visible = true;
@@ -213,6 +213,8 @@ Page({
                 fatData: fatData,
                 fatActiveNames: fatActiveNames
             });
+        }).catch((e)=>{
+            console.log(e);
         });
     },
 })

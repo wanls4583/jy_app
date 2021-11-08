@@ -161,7 +161,7 @@ Page({
             }
             if (this.screen || this.joinDoctorId) {
                 // 筛查页面
-                this.loadInfo(data.id).then(() => {
+                this.loadInfo(data.id || this.data.patient.id).then(() => {
                     if (this.screen) {
                         wx.jyApp.setTempData('screenPatient', this.data.patient);
                         if (this.screen == 'fat' || this.screen == 'fat-assess') {
