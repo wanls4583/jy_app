@@ -88,7 +88,11 @@
 									/>
 								</view>
 								<view class="position-relative flex-shrink-1">
-									<view class="gray-color" style="line-height:16px;margin-top:-3px;font-size:10px" wx:if="{{roomType=='group-chat'&&!item.isSelf}}">{{item.userInfo.name}}</view>
+									<view
+										class="gray-color"
+										style="line-height:16px;margin-top:-3px;font-size:10px"
+										wx:if="{{roomType=='group-chat'&&!item.isSelf}}"
+									>{{item.userInfo.name}}</view>
 									<!-- 文本消息 -->
 									<view class="position-relative padding-20 radius-8rpx {{item.isSelf?'primary':'white'}}-background-color" wx:if="{{item.type==1}}">
 										<text class="{{!item.isSelf&&'color-333'||'white-color'}}">{{item.txt}}</text>
@@ -369,6 +373,15 @@
 			data-item="{{item}}"
 			style="border-radius:100px"
 			wx:for="{{screenList}}"
+			wx:key="index"
+		>{{item.name}}</view>
+		<view class="width-100 margin-top-30">超重与肥胖评估：</view>
+		<view
+			bindtap="onClickSceen"
+			class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+			data-item="{{item}}"
+			style="border-radius:100px"
+			wx:for="{{fatScreenList}}"
 			wx:key="index"
 		>{{item.name}}</view>
 	</view>

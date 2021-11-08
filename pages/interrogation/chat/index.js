@@ -115,10 +115,7 @@ Page({
                 filtrateType: 'FAT'
             }],
             fatScreenList: [{
-                name: '超重与肥胖评估',
-                filtrateType: 'FAT-ASSESS'
-            }, {
-                name: '询问调查',
+                name: '出生、喂养史、发育史',
                 filtrateType: 'FAT-GROW'
             }, {
                 name: '家族史',
