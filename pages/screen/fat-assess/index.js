@@ -57,7 +57,7 @@ Page({
         }
     },
     onLoad(option) {
-        this.from = option.from;
+        this.from = option.from || '';
         this.setData({
             active: option.active || 0,
             doctorId: option.doctorId || '',

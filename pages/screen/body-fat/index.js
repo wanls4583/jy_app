@@ -25,7 +25,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.from = option.from;
+        this.from = option.from || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -204,7 +204,7 @@ Page({
                     }
                     wx.jyApp.setTempData('body-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/body-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
+                        url: `/pages/screen/body-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}`
                     });
                 }
             });

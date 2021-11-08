@@ -16,6 +16,7 @@ Page({
         var color = 'rgb(126,210,107)';
         this.patientId = option.patientId || '';
         this.consultOrderId = option.consultOrderId || '';
+        this.from = option.from || '';
         if (result == 2) {
             color = 'rgb(236,76,23)';
         }
@@ -34,7 +35,7 @@ Page({
     },
     onNext() {
         wx.redirectTo({
-            url: `/pages/screen/sleep-assess/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}`
+            url: `/pages/screen/sleep-assess/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}&from=${this.from}`
         });
     }
 })

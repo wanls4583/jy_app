@@ -25,7 +25,7 @@ Page({
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.doctorId = option.doctorId || '';
         this.patient = patient;
-        this.from = option.from;
+        this.from = option.from || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
@@ -150,7 +150,7 @@ Page({
                 delta: 1,
                 complete: () => {
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
+                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}`
                     });
                 }
             });

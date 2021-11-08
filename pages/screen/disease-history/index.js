@@ -24,7 +24,7 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
-        this.from = option.from;
+        this.from = option.from || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -146,11 +146,11 @@ Page({
                 complete: () => {
                     if (this.data.result == '异常') {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/disease-result/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
+                            url: `/pages/screen/disease-result/index`
                         });
                     } else {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
+                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}`
                         });
                     }
                 }

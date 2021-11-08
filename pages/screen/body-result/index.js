@@ -16,6 +16,7 @@ Page({
         var color = 'rgb(126,210,107)';
         this.patientId = option.patientId || '';
         this.consultOrderId = option.consultOrderId || '';
+        this.from = option.from || '';
         if (result == 2 || result == 3) {
             color = 'rgb(240,139,72)';
         }
@@ -45,7 +46,7 @@ Page({
             })
         } else {
             wx.redirectTo({
-                url: `/pages/screen/fat-assess/index?active=1&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}`
+                url: `/pages/screen/fat-assess/index?active=1&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}`
             });
         }
     }
