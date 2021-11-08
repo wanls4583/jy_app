@@ -329,7 +329,7 @@
 				<view bindtap="onScreen" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="filter-o" size="30px" />
 				</view>
-				<view class="font-small margin-top-20 line-height-1em color-666">营养筛查</view>
+				<view class="font-small margin-top-20 line-height-1em color-666">筛查评估</view>
 			</view>
 			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='USER'||roomType=='single-chat'}}">
 				<view bindtap="onClickAvatar" class="flex--center--center width-60px height-60px radius-8px white-background-color" data-id="{{patient.id}}">

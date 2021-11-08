@@ -25,6 +25,7 @@ Page({
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.doctorId = option.doctorId || '';
         this.patient = patient;
+        this.from = option.from;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({

@@ -23,6 +23,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.from = option.from;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';

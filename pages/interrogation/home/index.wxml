@@ -82,7 +82,7 @@
 					data-url="/pages/screen/screen-select/index?doctorId={{doctorInfo.id}}&doctorName={{doctorInfo.doctorName}}"
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666">营养筛查</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">筛查评估</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"
