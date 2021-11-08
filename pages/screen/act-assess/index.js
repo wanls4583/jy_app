@@ -33,14 +33,15 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -189,7 +190,7 @@ Page({
                 filtrateId: data.patientFiltrate.id || '',
                 patient: data.patientFiltrate
             });
-            if(data.fatEvaluate.answers) {
+            if (data.fatEvaluate.answers) {
                 data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
                     answers: data.fatEvaluate.answers,
@@ -237,7 +238,7 @@ Page({
                 complete: () => {
                     wx.jyApp.setTempData('act-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/act-result/index?result=${this.result}&_result=${this.data.result}`
+                        url: `/pages/screen/act-result/index?result=${this.result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
                     });
                 }
             });
@@ -253,7 +254,7 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT-ACTION',
                     isSelf: true,
                 }
             }).then((_data) => {

@@ -14,6 +14,8 @@ Page({
         var result = option.result;
         var _result = option._result;
         var color = 'rgb(126,210,107)';
+        this.patientId = option.patientId || '';
+        this.consultOrderId = option.consultOrderId || '';
         if (result == 2) {
             color = 'rgb(236,76,23)';
         }
@@ -33,7 +35,7 @@ Page({
     },
     onNext() {
         wx.redirectTo({
-            url: '/pages/screen/act-assess/index'
+            url: `/pages/screen/act-assess/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}`
         });
     }
 })

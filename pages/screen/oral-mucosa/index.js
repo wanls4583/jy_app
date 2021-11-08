@@ -37,14 +37,15 @@ Page({
                 patient: patient,
                 'answers.q[0]': patient.sex == 1 ? 1 : 2,
                 'answers.q[1]': patient.age < 60 ? 1 : 2,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -253,7 +254,7 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'ORAL_MUCOSA',
                     isSelf: true,
                 }
             }).then((_data) => {

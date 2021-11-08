@@ -35,14 +35,15 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -145,7 +146,7 @@ Page({
                 delta: 1,
                 complete: () => {
                     wx.jyApp.utils.navigateTo({
-                        url: '/pages/screen/food-investigate/index'
+                        url: `/pages/screen/food-investigate/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}`
                     });
                 }
             });
@@ -161,7 +162,7 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT-TREAT',
                     isSelf: true,
                 }
             }).then((_data) => {

@@ -58,22 +58,15 @@ Page({
     },
     onLoad(option) {
         this.from = option.from;
-        this.filtrateId = option.filtrateId || '';
-        this.consultOrderId = option.consultOrderId || '';
-        this.patientId = option.patientId || ''; //v2版聊天室
-        this.filtrateType = option.filtrateType || '';
         this.setData({
             active: option.active || 0,
             doctorId: option.doctorId || '',
             doctorName: option.doctorName || '',
+            consultOrderId: option.consultOrderId || '',
+            patientId: option.patientId || ''
         });
-        if (option.patientId) {
-            this.patientId = option.patientId;
-            this.getPatient();
-        } else {
-            var patient = wx.jyApp.getTempData('screenPatient') || {};
-            this.patientId = patient.id;
-        }
+        var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.patientId = patient.id;
         if (option.active == 1) {
             this.getInfo();
         }
@@ -104,7 +97,7 @@ Page({
     },
     onGoto(e) {
         var url = e.currentTarget.dataset.url;
-        url = url + `?from=${this.from}&filtrateId=${this.filtrateId}&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&filtrateType=${this.filtrateType}`;
+        url = url + `?from=${this.from}&consultOrderId=${this.data.consultOrderId}&patientId=${this.data.patientId}`;
         wx.jyApp.utils.navigateTo({
             url: url
         });
@@ -220,13 +213,6 @@ Page({
                 fatData: fatData,
                 fatActiveNames: fatActiveNames
             });
-        });
-    },
-    getPatient() {
-        wx.jyApp.http({
-            url: `/patientdocument/info/${this.patientId}`
-        }).then((data) => {
-            this.patient = data.patientDocument;
         });
     },
 })

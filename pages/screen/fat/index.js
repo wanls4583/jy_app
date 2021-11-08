@@ -39,16 +39,17 @@ Page({
                 'filtrateFat.stature': patient.height,
                 'filtrateFat.weight': patient.weight,
                 'filtrateFat.age': patient.birthday ? this.getAge(patient.birthday) : '',
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
             this.setBMI();
             this.countScore();
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -259,7 +260,7 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT',
                     isSelf: true,
                 }
             }).then((_data) => {
