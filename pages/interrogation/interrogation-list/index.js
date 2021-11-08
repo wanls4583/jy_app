@@ -54,17 +54,22 @@ Page({
         this.loadList(true, 1);
         this.loadList(true, 3);
         this.loadList(true, 5);
-        if (this.data.doctorInfo.acceptTransferSwitch == 1) {
-            this.setData({
-                statusList: [1, 8, 5, 3],
-                active: this.data.statusActiveMap1[this.status]
-            })
-            this.loadList(true, 8);
-        } else {
-            this.setData({
-                active: this.data.statusActiveMap2[this.status]
-            });
-        }
+        this.loadList(true, 8);
+        this.setData({
+            statusList: [1, 8, 5, 3],
+            active: this.data.statusActiveMap1[this.status]
+        });
+        // if (this.data.doctorInfo.acceptTransferSwitch == 1) {
+        //     this.setData({
+        //         statusList: [1, 8, 5, 3],
+        //         active: this.data.statusActiveMap1[this.status]
+        //     })
+        //     this.loadList(true, 8);
+        // } else {
+        //     this.setData({
+        //         active: this.data.statusActiveMap2[this.status]
+        //     });
+        // }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
