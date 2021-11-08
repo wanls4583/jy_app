@@ -62,10 +62,10 @@ Page({
         this.doctorIds = e.detail.values;
     },
     onSubmit() {
-        wx.showLoading('转诊中...', true);
         wx.jyApp.dialog.confirm({
-            message: '确定转诊改问诊单？'
+            message: '确定转诊该问诊单？'
         }).then(() => {
+            wx.showLoading('转诊中...', true);
             wx.jyApp.http({
                 url: '/consultorder/transfer',
                 method: 'post',
