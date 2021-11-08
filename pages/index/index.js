@@ -342,14 +342,10 @@ Page({
                     doctorId = data.info.currentDoctorId;
                 }
             } else {
-                doctorId = data.info.doctorId || data.info.offlineDoctorId;
+                doctorId = data.info.doctorId;
                 if (doctorId) {
                     data.info.role = 'DOCTOR';
-                    if (data.info.doctorId) {
-                        wx.setStorageSync('role', 'DOCTOR');
-                    } else {
-                        wx.setStorageSync('role', 'DOCTOR_OFFLINE');
-                    }
+                    wx.setStorageSync('role', 'DOCTOR');
                 } else {
                     data.info.role = 'USER';
                     wx.setStorageSync('role', 'USER');

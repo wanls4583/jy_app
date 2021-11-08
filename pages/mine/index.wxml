@@ -29,7 +29,7 @@
 			<!-- 未认证医生 -->
 			<view
 				class="flex--center--between background-gradient padding-30 padding-top-0"
-				wx:elif="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
+				wx:elif="{{userInfo.role=='DOCTOR'&&!doctorInfo}}"
 			>
 				<view class="flex--center--center">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
@@ -139,7 +139,6 @@
 						class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 						data-income-switch="{{true}}"
 						data-url="/pages/interrogation/income-list/index"
-						wx:if="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
 					>
 						<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
 						<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
@@ -149,8 +148,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 					data-income-switch="{{true}}"
 					data-url="/pages/interrogation/withdraw/index"
-					wx:if="{{userInfo.role=='DOCTOR'&&(!doctorInfo||doctorInfo.role!='DOCTOR_OFFLINE')}}"
-				>
+					>
 					<image mode="aspectFit" src="/image/icon_withdrawal.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">提现</view>
 					</view>-->
@@ -251,17 +249,3 @@
 	</view>
 </view>
 <van-dialog id="van-dialog" />
-<van-action-sheet bindtap="onCancelAction" cancel-text="取消" show="{{actionVisible}}">
-	<view class="flex--center--center padding-30">
-		<text class="font-title gray-color">请选择医生类型后切换账号</text>
-	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{1}}">
-		<text class="font-title">线上医生</text>
-	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{2}}" wx:if="{{offlineVisible}}">
-		<text class="font-title">线下医生</text>
-	</view>
-	<view bindtap="onSelectDoctorType" class="flex--center--center padding-30 border-top clickable" data-type="{{3}}" wx:if="{{testVisible}}">
-		<text class="font-title">测试医生</text>
-	</view>
-</van-action-sheet>

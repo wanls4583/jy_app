@@ -6,9 +6,6 @@ Component({
         settlementUrl: '',
         stopRefresh: false,
         userInfoButtonVisible: true,
-        actionVisible: false,
-        testVisible: false,
-        offlineVisible: false,
         canIUseGetUserProfile: wx.getUserProfile ? true : false,
         menuRect: wx.jyApp.utils.getMenuRect()
     },
@@ -20,8 +17,6 @@ Component({
                 actions: ['updateUserInfo', 'updateDoctorInfo', 'updatePharmacistInfo', 'updateNoticeCount'],
             });
             this.storeBindings.updateStoreBindings();
-            this.setOfflineVisible(this.data.userInfo.offlineDoctorId);
-            this.getOfflineDoctor();
         },
         detached() {
             this.storeBindings.destroyStoreBindings();
@@ -82,34 +77,16 @@ Component({
                     url: '/pages/index/index'
                 });
             } else {
-                if (this.data.offlineVisible || this.data.testVisible) {
-                    this.setData({
-                        actionVisible: true
-                    });
-                } else {
-                    wx.setStorageSync('role', 'DOCTOR');
-                    wx.reLaunch({
-                        url: '/pages/index/index'
-                    });
-                }
+                wx.setStorageSync('role', 'DOCTOR');
+                wx.reLaunch({
+                    url: '/pages/index/index'
+                });
             }
         },
         onSelectDoctorType(e) {
-            var type = e.currentTarget.dataset.type;
-            if (type == 1) {
-                wx.setStorageSync('role', 'DOCTOR');
-            } else if (type == 2) {
-                wx.setStorageSync('role', 'DOCTOR_OFFLINE');
-            } else if (type == 3) {
-                wx.setStorageSync('role', 'DOCTOR_TEST');
-            }
+            wx.setStorageSync('role', 'DOCTOR');
             wx.reLaunch({
                 url: '/pages/index/index'
-            });
-        },
-        onCancelAction() {
-            this.setData({
-                actionVisible: false
             });
         },
         //拨打电话
@@ -164,9 +141,6 @@ Component({
             return wx.jyApp.loginUtil.login().then(() => {
                 return this.getUserInfo().then((data) => {
                     var doctorId = data.info.currentDoctorId;
-                    if (this.data.userInfo.role == 'USER') {
-                        this.getOfflineDoctor();
-                    }
                     return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                         if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
                             this.updateDoctorInfo(Object.assign({}, data.doctor));
@@ -210,27 +184,5 @@ Component({
                 return data;
             });
         },
-        getOfflineDoctor() {
-            if (this.data.userInfo.role == 'DOCTOR') {
-                return;
-            }
-            if (this.data.userInfo.offlineDoctorId) {
-                wx.jyApp.loginUtil.getDoctorInfo(this.data.userInfo.offlineDoctorId).then(() => {
-                    this.setOfflineVisible(true);
-                }).catch(() => {
-                    this.setOfflineVisible(false);
-                });
-            } else {
-                this.setOfflineVisible(false)
-            }
-        },
-        setOfflineVisible(offlineVisible) {
-            this.setData({
-                offlineVisible: offlineVisible
-            });
-            this.setData({
-                testVisible: this.data.userInfo.testDoctorStatus == 1 && !this.data.userInfo.doctorId && !this.data.offlineVisible
-            });
-        }
     }
 })
