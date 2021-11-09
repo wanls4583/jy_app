@@ -190,7 +190,8 @@ Page({
     },
     onSave() {
         var data = {
-            ...this.data.filtrateFat
+            filtrateId: this.data.filtrateId,
+            ...this.data.filtrateFat,
         }
         if (!this.data.filtrateFat.filtrateDate) {
             wx.jyApp.toast('请填写筛查日期');

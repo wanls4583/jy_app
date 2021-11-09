@@ -147,7 +147,6 @@ Page({
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
-                filtrateId: data.patientFiltrate.id || '',
                 patient: data.patientFiltrate
             });
             if(data.fatEvaluate.answers) {
