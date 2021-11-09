@@ -2,7 +2,7 @@ Page({
     data: {
         statusList1: [1, 8, 5, 3],
         statusList2: [1, 5, 3],
-        statusList: [1, 5, 3],
+        statusList: [1, 8, 5, 3],
         statusActiveMap1: {
             1: 0,
             8: 1,
@@ -56,7 +56,6 @@ Page({
         this.loadList(true, 5);
         this.loadList(true, 8);
         this.setData({
-            statusList: [1, 8, 5, 3],
             active: this.data.statusActiveMap1[this.status]
         });
         // if (this.data.doctorInfo.acceptTransferSwitch == 1) {
