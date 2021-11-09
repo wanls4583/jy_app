@@ -38,7 +38,7 @@ Page({
                 'filtrateFat._sex': patient._sex,
                 'filtrateFat.stature': patient.height,
                 'filtrateFat.weight': patient.weight,
-                'filtrateFat.age': patient.birthday ? this.getAge(patient.birthday) : '',
+                'filtrateFat.age': patient.age,
             });
             this.setBMI();
             this.countScore();
