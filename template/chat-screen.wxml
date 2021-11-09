@@ -14,7 +14,7 @@
 				bindtap="onGotoScreen"
 				class="button small success"
 				data-item="{{item}}"
-				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}"
+				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}"
 			>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
 		</view>
 	</view>
@@ -22,108 +22,108 @@
 <template name="chat-screen-nrs">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">NRS2002（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'nrs'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'nrs'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-pgsga">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">PGSGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'pgsga'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'pgsga'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-sga">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">SGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'sga'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'sga'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-must">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">MUST（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'must'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'must'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-mna">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">MNA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'mna'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'mna'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-tunour-fluid">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">肿瘤恶液质评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'tumour-fluid'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'tumour-fluid'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-oral-mucosa">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">口腔黏膜风险评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'oral-mucosa'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'oral-mucosa'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-radiation-injury">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">放射性损伤评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'radiation-injury'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'radiation-injury'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-fat">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">超重与肥胖筛查（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'fat'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'fat'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-birth-history">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
-		<view class="width-100 padding-20 success-background-color white-color align-center">询问调查（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'birth-history'}}" is="chat-screen"></template>
+		<view class="width-100 padding-20 success-background-color white-color align-center">出生、喂养史、发育史（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'birth-history'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-family-history">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">家族史（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'family-history'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'family-history'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-disease-history">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">疾病史（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'disease-history'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'disease-history'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-fat-history">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">肥胖治疗史（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'fat-history'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'fat-history'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-food-investigate">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">膳食调查（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'food-investigate'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'food-investigate'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-sit-investigate">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">久坐行为调查（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'sit-investigate'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'sit-investigate'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-sleep-assess">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">睡眠评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'sleep-assess'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'sleep-assess'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-act-assess">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">活动水平评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'act-assess'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'act-assess'}}" is="chat-screen"></template>
 	</view>
 </template>
 <template name="chat-screen-body-fat">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">体脂肪含量测量（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
-		<template data="{{item,patient,stype:'body-fat'}}" is="chat-screen"></template>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'body-fat'}}" is="chat-screen"></template>
 	</view>
 </template>

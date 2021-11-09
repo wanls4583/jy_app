@@ -181,7 +181,6 @@ Page({
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.info.id || '',
-                filtrateId: data.info.filtrateId || '',
                 patient: data.patientFiltrate
             });
             if (data.info.answers) {
@@ -194,6 +193,11 @@ Page({
                         filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
                     });
                 }
+            } else {
+                this.setData({
+                    'answers.q[0]': this.data.patient.sex == 1 ? 1 : 2,
+                    'answers.q[1]': this.data.patient.age < 60 ? 1 : 2,
+                });
             }
         });
     },

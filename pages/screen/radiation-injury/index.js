@@ -138,7 +138,6 @@ Page({
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.info.id || '',
-                filtrateId: data.info.filtrateId || '',
                 patient: data.patientFiltrate
             });
             if (data.info.answers) {

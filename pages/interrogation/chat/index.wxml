@@ -196,75 +196,75 @@
 								</view>
 								<!-- NRS2002 -->
 								<view class="position-relative" wx:elif="{{item.type==7}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-nrs"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-nrs"></template>
 								</view>
 								<!-- PGSGA -->
 								<view class="position-relative" wx:elif="{{item.type==8}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-pgsga"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-pgsga"></template>
 								</view>
 								<!-- SGA -->
 								<view class="position-relative" wx:elif="{{item.type==9}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-sga"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-sga"></template>
 								</view>
 								<!-- MUST -->
 								<view class="position-relative" wx:elif="{{item.type==10}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-must"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-must"></template>
 								</view>
 								<!-- MNA -->
 								<view class="position-relative" wx:elif="{{item.type==11}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-mna"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-mna"></template>
 								</view>
 								<!-- 肿瘤恶液质评估 -->
 								<view class="position-relative" wx:elif="{{item.type==23}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-tunour-fluid"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-tunour-fluid"></template>
 								</view>
 								<!-- 口腔黏膜风险评估 -->
 								<view class="position-relative" wx:elif="{{item.type==24}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-oral-mucosa"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-oral-mucosa"></template>
 								</view>
 								<!-- 放射性损伤评估 -->
 								<view class="position-relative" wx:elif="{{item.type==25}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-radiation-injury"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-radiation-injury"></template>
 								</view>
 								<!-- 超重与肥胖筛查 -->
 								<view class="position-relative" wx:elif="{{item.type==12}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-fat"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-fat"></template>
 								</view>
 								<!-- 询问调查 -->
 								<view class="position-relative" wx:elif="{{item.type==13}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-birth-history"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-birth-history"></template>
 								</view>
 								<!-- 家族史 -->
 								<view class="position-relative" wx:elif="{{item.type==14}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-family-history"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-family-history"></template>
 								</view>
 								<!-- 疾病史 -->
 								<view class="position-relative" wx:elif="{{item.type==15}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-disease-history"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-disease-history"></template>
 								</view>
 								<!-- 肥胖治疗史 -->
 								<view class="position-relative" wx:elif="{{item.type==16}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-fat-history"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-fat-history"></template>
 								</view>
 								<!-- 膳食调查 -->
 								<view class="position-relative" wx:elif="{{item.type==17}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-food-investigate"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-food-investigate"></template>
 								</view>
 								<!-- 久坐行为调查 -->
 								<view class="position-relative" wx:elif="{{item.type==18}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-sit-investigate"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-sit-investigate"></template>
 								</view>
 								<!-- 睡眠评估 -->
 								<view class="position-relative" wx:elif="{{item.type==19}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-sleep-assess"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-sleep-assess"></template>
 								</view>
 								<!-- 活动水平评估 -->
 								<view class="position-relative" wx:elif="{{item.type==20}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-act-assess"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-act-assess"></template>
 								</view>
 								<!-- 体脂肪含量测量 -->
 								<view class="position-relative" wx:elif="{{item.type==22}}">
-									<template data="{{item:item,patient:patient}}" is="chat-screen-body-fat"></template>
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-body-fat"></template>
 								</view>
 								<!-- 视频通话 -->
 								<view class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color" wx:elif="{{item.type==6}}">

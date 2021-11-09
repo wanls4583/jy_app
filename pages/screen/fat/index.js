@@ -278,6 +278,13 @@ Page({
             url: `/filtrate/fat/info/${id}`
         }).then((data) => {
             var filtrateFat = data.filtrateFat;
+            if(!filtrateFat) {
+                filtrateFat = {};
+                filtrateFat.sex = data.patientFiltrate.sex;
+                filtrateFat.stature = data.patientFiltrate.height;
+                filtrateFat.weight = data.patientFiltrate.weight;
+                filtrateFat.age = data.patientFiltrate.age;
+            }
             filtrateFat._sex = filtrateFat.sex == 1 ? '男' : '女';
             filtrateFat.patientId = data.patientFiltrate.patientId;
             filtrateFat.filtrateDate = data.patientFiltrate.filtrateDate;
