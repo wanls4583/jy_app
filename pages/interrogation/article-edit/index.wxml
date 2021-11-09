@@ -28,7 +28,7 @@
 	<i class="edit-iconfont icon-youxupailie {{formats.list === 'ordered' ? 'ql-active' : ''}}" data-name="list" data-value="ordered"></i>
 	<i class="edit-iconfont icon-wuxupailie {{formats.list === 'bullet' ? 'ql-active' : ''}}" data-name="list" data-value="bullet"></i>
 </view>
-<footer style="background:#fff;padding-bottom:10px" wx:if="{{keyboardHeight <= 0}}">
+<footer style="background:#fff;padding-top:10px;padding-bottom:10px" wx:if="{{keyboardHeight <= 0}}">
 	<view class="width-100 border-top" style="padding-top:10px">
 		<view class="flex--center--between">
 			<view class="flex">

@@ -1,5 +1,5 @@
 <!-- index.wxml -->
-<view class="container" style="{{ifSelect?'padding-bottom:204rpx':''}}">
+<view class="container white-background-color padding-bottom-footer">
 	<radio-group>
 		<view
 			class="position-relative white-background-color padding-left-right-30 {{ifSelect?'':'padding-top-bottom-20 border-bottom'}}"
@@ -28,17 +28,19 @@
 		</view>
 	</radio-group>
 	<view class="padding-30">
-		<view catchtap="onAdd" class="button plain primary block">+ 添加成员</view>
+		<view catchtap="onAdd" class="button plain primary block" style="margin-bottom:20px">+ 添加成员</view>
 	</view>
-	<view class="footer padding-30" wx:if="{{ifSelect&&patientList.length}}">
-		<view bindtap="onSave" class="margin-top-30 button primary block">{{btnText||'确定'}}</view>
-	</view>
-	<view class="footer padding-30" wx:elif="{{ifSelect}}">
-		<view class="font-small gray-color align-center">
-			<text>开始问诊即代表已阅读并同意</text>
-			<text bindtap="onOpenWebview" class="primary-color clickable" data-url="{{configData.informed_consent_url}}">《知情同意书》</text>
+	<footer wx:if="{{ifSelect&&patientList.length}}">
+		<view bindtap="onSave" class="button primary block">{{btnText||'确定'}}</view>
+	</footer>
+	<footer wx:elif="{{ifSelect}}" style="padding-top:10px">
+		<view class="width-100">
+			<view class="font-small gray-color align-center" style="line-height:15px;margin-bottom:10px">
+				<text>开始问诊即代表已阅读并同意</text>
+				<text bindtap="onOpenWebview" class="primary-color clickable" data-url="{{configData.informed_consent_url}}">《知情同意书》</text>
+			</view>
+			<view bindtap="onSave" class="button primary block">提交问诊</view>
 		</view>
-		<view bindtap="onSave" class="margin-top-30 button primary block">提交问诊</view>
-	</view>
+	</footer>
 </view>
 <van-dialog id="van-dialog" />
