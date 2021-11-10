@@ -295,6 +295,7 @@ Page({
                 filtrateDate: this.data.filtrateDate
             });
             this.setBMI();
+            this.countScore();
         });
     }
 })
