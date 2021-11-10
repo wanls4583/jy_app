@@ -178,9 +178,11 @@ Page({
             data.info = data.info || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.info.id || '',
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
             if (data.info.answers) {

@@ -130,7 +130,6 @@ Page({
                 this.setData({
                     page: 1,
                     totalPage: -1,
-                    list: []
                 });
             }
             data.page.list = data.page.list || [];
@@ -216,7 +215,7 @@ Page({
                     item.label = '评估';
                 }
             });
-            this.data.list = this.data.list.concat(data.page.list);
+            this.data.list = refresh ? data.page.list : this.data.list.concat(data.page.list);
             this.setData({
                 list: this.data.list,
                 page: this.data.page + 1,

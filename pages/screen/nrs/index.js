@@ -146,8 +146,11 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.filtrateNrs = data.filtrateNrs || this.data.nrs;
             data.filtrateNrs.filtrateDate = data.patientFiltrate.filtrateDate;
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 nrs: data.filtrateNrs,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,

@@ -275,6 +275,8 @@ Page({
                 fatData: fatData,
                 fatActiveNames: fatActiveNames
             });
+        }).catch((e)=>{
+            console.log(e);
         });
     },
     setPgsgaResult(pgsga, resultDescription) {

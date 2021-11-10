@@ -144,8 +144,11 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.filtrateSga = data.filtrateSga || this.data.sga;
             data.filtrateSga.filtrateDate = data.patientFiltrate.filtrateDate;
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 sga: data.filtrateSga,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,

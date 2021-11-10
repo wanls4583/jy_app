@@ -78,9 +78,11 @@ Page({
             data.fatEvaluate = data.fatEvaluate || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
             if(data.fatEvaluate.answers) {

@@ -8,7 +8,17 @@
 			<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
 			<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 		</view>
-		<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">筛查结果：{{item.filtrateChatVO.filtrateResult}}</view>
+		<view class="padding-30 padding-top-0" wx:if="{{item.filtrateChatVO.associateId}}">
+			<text>筛查结果：</text>
+			<block wx:if="{{item.type==12}}">
+				<text wx:if="{{item.filtrateChatVO.filtrateResult==1}}">体重正常</text>
+				<text wx:if="{{item.filtrateChatVO.filtrateResult==2}}">超重</text>
+				<text wx:if="{{item.filtrateChatVO.filtrateResult==3}}">肥胖</text>
+				<text wx:if="{{item.filtrateChatVO.filtrateResult==4}}">中心性肥胖（BMI超重）</text>
+				<text wx:if="{{item.filtrateChatVO.filtrateResult==5}}">中心性肥胖（BMI肥胖）</text>
+			</block>
+			<text wx:else>{{item.filtrateChatVO.filtrateResult}}</text>
+		</view>
 		<view class="align-center padding-bottom-30">
 			<view
 				bindtap="onGotoScreen"

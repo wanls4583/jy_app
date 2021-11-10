@@ -510,8 +510,11 @@ Page({
                 data.filtratePgsga.metabolismStatus2 = isNaN(parseInt(arr[1])) ? null : parseInt(arr[1]);
                 data.filtratePgsga.metabolismStatus3 = isNaN(parseInt(arr[2])) ? null : parseInt(arr[2]);
             }
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 pgsga: data.filtratePgsga,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,

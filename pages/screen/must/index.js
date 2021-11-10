@@ -129,11 +129,14 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.filtrateMust = data.filtrateMust || this.data.must;
             data.filtrateMust.filtrateDate = data.patientFiltrate.filtrateDate;
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             if (data.filtrateMust.result) {
                 data.filtrateMust._result = data.filtrateMust.result == 0 ? '0' : (data.filtrateMust.result == 1 ? '1' : '2');
             }
             this.setData({
                 must: data.filtrateMust,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,
