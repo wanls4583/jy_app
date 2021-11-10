@@ -90,8 +90,16 @@ Page({
                 url = '/pages/screen/radiation-injury/index';
                 break;
         }
+        wx.jyApp.setTempData('screenPatient', {
+            id: item.patientId,
+            patientName: item.patientName,
+            weight: item.weight,
+            height: item.height,
+            age: item.age,
+            sex: item.sex,
+        });
         wx.jyApp.utils.navigateTo({
-            url: `${url}?id=${item.id}`
+            url: `${url}?id=${item.id}&from=screen`
         });
     },
     onDelete(e) {
