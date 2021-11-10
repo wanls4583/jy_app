@@ -531,7 +531,7 @@ Page({
         data.symptom = data.symptom.join(',');
         data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.showLoading('加载中...', true);
-        if (this.from == 'screen') {
+        if (this.from == 'screen' && !data.id) {
             this.save(data);
         } else {
             this.saveWithChat(data);

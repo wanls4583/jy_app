@@ -163,7 +163,7 @@ Page({
             ...this.data.nrs
         };
         wx.jyApp.showLoading('加载中...', true);
-        if (this.from == 'screen') {
+        if (this.from == 'screen' && !data.id) {
             this.save(data);
         } else {
             this.saveWithChat(data);

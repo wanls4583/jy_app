@@ -844,8 +844,16 @@ Page({
                 _item.selected = false;
             }
         });
+        this.data.fatScreenList.map((_item) => {
+            if (_item.filtrateType == item.filtrateType) {
+                _item.selected = true;
+            } else {
+                _item.selected = false;
+            }
+        });
         this.setData({
             screenList: this.data.screenList,
+            fatScreenList: this.data.fatScreenList,
             filtrateType: item.filtrateType
         });
     },
