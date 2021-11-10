@@ -294,8 +294,8 @@ Page({
                 filtrateFat: filtrateFat,
                 filtrateDate: this.data.filtrateDate
             });
-            this.countScore();
             this.setBMI();
+            this.countScore();
         });
     }
 })
