@@ -33,12 +33,8 @@ Component({
     },
     methods: {
         onShow() {
-            this.getMessageCount().then(() => {
-                if (!this.checkMsgCount() && !this.firstLoad) {
-                    this.checkMsgLength();
-                }
-            }).finally(() => {
-                this.firstLoad = false;
+            this.loadList(true).then(() => {
+                this.checkMsgCount();
             });
         },
         onClickMsg(e) {
@@ -93,7 +89,7 @@ Component({
                 url: url,
                 data: {
                     page: refresh ? 1 : this.data.page,
-                    limit: 20
+                    limit: 30
                 }
             });
             this.request.then((data) => {
@@ -133,33 +129,6 @@ Component({
             }
             return time;
         },
-        //未读消息总数量
-        getMessageCount() {
-            return wx.jyApp.http({
-                url: '/systemnotice/totalNotRead',
-                hideTip: true
-            }).then((data) => {
-                data.msgTotalNotRead = data.msgTotalNotRead || 0;
-                if (data.msgTotalNotRead) {
-                    wx.setTabBarBadge({
-                        index: 2,
-                        text: String(data.msgTotalNotRead),
-                        fail() {}
-                    });
-                } else {
-                    wx.removeTabBarBadge({
-                        index: 2,
-                        fail() {}
-                    });
-                }
-                if (data.msgTotalNotRead != this.msgCount) {
-                    this.loadList(true);
-                }
-                this.updateNoticeCount(data.totalNotRead || 0);
-                this.updateMsgCount(data.msgTotalNotRead || 0);
-                this.msgCount = (data.msgTotalNotRead || 0);
-            });
-        },
         updateLastMessage(roomId, lastMessage, time) {
             this.data.messageList.map((item, i) => {
                 if (item.roomId == roomId && time != item.originTime) {
@@ -186,19 +155,5 @@ Component({
             }, 1000);
             return loaded;
         },
-        //检查列表是否有新增
-        checkMsgLength() {
-            return wx.jyApp.http({
-                url: '/chat/list',
-                data: {
-                    page: 1,
-                    limit: 1
-                }
-            }).then((data) => {
-                if (data.page.totalCount != this.data.totalCount) {
-                    this.loadList(true);
-                }
-            })
-        }
     }
 })

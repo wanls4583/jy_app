@@ -1,4 +1,4 @@
-<view hidden="{{editorFocus}}" style="padding:0 10px">
+<view hidden="{{editorFocus}}" style="padding:0 20px">
 	<input bindinput="onInput" class="title no-border border-0 border-bottom" data-prop="title" maxlength="{{48}}" placeholder="请输入标题" type="text" value="{{title}}" />
 </view>
 <view class="edit-container">
@@ -14,7 +14,7 @@
 		show-img-resize="{{true}}"
 		show-img-size="{{true}}"
 		show-img-toolbar="{{true}}"
-		style="height:{{editorHeight}}px;padding:10px;padding-bottom:0"
+		style="height:{{editorHeight}}px;padding:10px 20px;padding-bottom:0;line-height:36px"
 	></editor>
 </view>
 <view catchtouchend="onFormat" class="toolbar" hidden="{{keyboardHeight <= 0}}" style="bottom: {{isIOS ? keyboardHeight : 0}}px">

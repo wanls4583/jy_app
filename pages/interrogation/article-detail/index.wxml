@@ -1,12 +1,18 @@
-<view style="padding:0 10px">
+<view style="padding:0 20px">
 	<view class="title font-title">{{title}}</view>
 	<view class="flex time font-small gray-color margin-top-10">
 		<text>{{info.publishTime}}</text>
 		<text class="margin-left-20">{{info.doctorName}}</text>
 	</view>
 </view>
-<view class="edit-container" style="padding-bottom:95px">
-	<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto"></editor>
+<view class="edit-container" style="padding-bottom:70px">
+	<editor
+		bindready="onEditorReady"
+		class="ql-container"
+		id="editor"
+		read-only="{{true}}"
+		style="height:auto;line-height:36px"
+	></editor>
 </view>
 <footer style="background:#fff" wx:if="{{userInfo.role=='USER'}}">
 	<view bindtap="onGoto" class="button primary block" data-url="/pages/interrogation/doctor-detail/index?doctorId={{info.doctorId}}">发起问诊</view>
