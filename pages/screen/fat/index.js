@@ -28,7 +28,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patient = patient;
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
@@ -245,7 +246,7 @@ Page({
                         _result = '中心性肥胖（BMI肥胖）';
                     }
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}&roomId=${this.roomId}`
                     });
                 }
             });
@@ -263,6 +264,7 @@ Page({
                     patientId: this.data.patientId,
                     filtrateType: 'FAT',
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;

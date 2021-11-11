@@ -18,6 +18,7 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+        clearTimeout(this.getRoomInfo.timer);
     },
     onShow() {
         if (!this.firstLoad) {
@@ -455,9 +456,8 @@ Page({
 
             }
         }).finally(() => {
-            this.getRoomInfo.loading = false;
-            clearTimeout(this.getRoomInfo.timer)
             this.getRoomInfo.timer = setTimeout(() => {
+                this.getRoomInfo.loading = false;
                 this.getRoomInfo();
             }, 2000);
         });

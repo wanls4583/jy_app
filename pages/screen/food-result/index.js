@@ -17,6 +17,7 @@ Page({
         this.patientId = option.patientId || '';;
         this.consultOrderId = option.consultOrderId || '';
         this.from = option.from || '';
+        this.roomId = option.roomId || '';
         if (result == 2) {
             color = 'rgb(240,139,72)';
         }
@@ -38,7 +39,7 @@ Page({
     },
     onNext() {
         wx.redirectTo({
-            url: `/pages/screen/sit-investigate/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}&from=${this.from}`
+            url: `/pages/screen/sit-investigate/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
         });
     }
 })
