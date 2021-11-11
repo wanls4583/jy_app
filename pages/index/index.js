@@ -292,9 +292,9 @@ Page({
                 if (this.data.userInfo.role == 'USER') {
                     this.getPatient().then((data) => {
                         if (data.list && data.list.length) {
-                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${data.doctor.id}`;
+                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${doctor.id}`;
                         } else {
-                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${data.doctor.id}`;
+                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${doctor.id}`;
                         }
                         wx.jyApp.utils.navigateTo({
                             url: sUrl
