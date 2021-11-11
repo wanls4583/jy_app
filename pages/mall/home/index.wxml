@@ -148,7 +148,7 @@
 						wx:for="{{articleList}}"
 						wx:key="id"
 					>
-						<view>{{item.title}}</view>
+						<view class="font-title">{{item.title}}</view>
 						<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
 					</view>
 				</view>

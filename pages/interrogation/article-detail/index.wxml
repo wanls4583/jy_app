@@ -1,5 +1,5 @@
 <view style="padding:0 20px">
-	<view class="title font-title">{{title}}</view>
+	<view class="title font-large font-bold">{{title}}</view>
 	<view class="flex time font-small gray-color margin-top-10">
 		<text>{{info.publishTime}}</text>
 		<text class="margin-left-20">{{info.doctorName}}</text>
