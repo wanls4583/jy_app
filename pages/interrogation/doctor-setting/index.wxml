@@ -55,7 +55,7 @@
 	</view>
 	<view bindtap="onClickStatus" class="padding-left-right-30 white-background-color margin-top-20">
 		<view class="flex--center--between padding-top-bottom-30">
-			<text>医生服务状态</text>
+			<text>是否展示在患者端</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">
 					<text class="success-color" wx:if="{{status==1}}">{{statusMap[status]}}</text>

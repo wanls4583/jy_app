@@ -9,7 +9,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.departmentId = option.departmentId; //患者聊天室科室医生列表
-        if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+        if (this.data.userInfo.viewVersion == 2) {
             this.viewVersion = 2
         }
         this.setData({

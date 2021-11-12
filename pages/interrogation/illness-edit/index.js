@@ -58,7 +58,7 @@ Page({
         if (this.doctorId) {
             return wx.jyApp.loginUtil.getDoctorInfo(this.doctorId).then((data) => {
                 wx.hideLoading();
-                if (data.doctor.consultOrderSwitch != 1 || data.doctor.authStatus != 1 || data.doctor.status != 1) {
+                if (data.doctor.consultOrderSwitch != 1 || data.doctor.authStatus == 0 || data.doctor.status != 1) {
                     this.stopNext = true;
                     wx.navigateBack();
                     setTimeout(() => {

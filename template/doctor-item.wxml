@@ -16,7 +16,7 @@
 				<text class="margin-top-10 gray-color font-small" decode="{{true}}">{{doctor.workHospitalName}}</text>
 				<view class="margin-top-10 gray-color font-small">擅长：{{doctor.goodAtDomain}}</view>
 				<view class="flex margin-top-10">
-					<block wx:if="{{doctor.consultOrderSwitch==1}}">
+					<block >
 						<text>图文问诊</text>
 						<text class="danger-color margin-left-10">￥{{doctor.consultOrderPrice}}</text>
 					</block>

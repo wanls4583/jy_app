@@ -1,5 +1,14 @@
-<view class="container white-background-color" style="padding:50px 0 60px 0">
-	<view class="flex--center--center height-100">
+<view class="container white-background-color" style="padding:0 0 60px 0">
+	<view class="position-fixed top-0 width-100" wx:if="{{isTeam}}">
+		<van-tabs active="{{active}}" bind:change="onChangeTab">
+			<van-tab title="团队二维码"></van-tab>
+			<van-tab title="二维码名片"></van-tab>
+		</van-tabs>
+	</view>
+	<view class="position-absolute width-100 padding-30 white-color primary-background-color" style="opacity: 0.8;top:{{isTeam?'44px':'0'}}">
+		<text>{{tip}}</text>
+	</view>
+	<view class="flex--center--center height-100" style="padding-top:{{isTeam?'44px':'0'}}">
 		<view class="padding-30 border">
 			<van-image fit="contain" height="60vw" src="{{barcodeUrl}}" use-error-slot use-loading-slot width="60vw">
 				<van-loading size="20" slot="loading" type="spinner" vertical />
@@ -7,14 +16,11 @@
 			</van-image>
 		</view>
 	</view>
-	<view class="position-fixed top-0 z-index-100 width-100 padding-30 white-color primary-background-color" style="opacity: 0.8">
-		<text>{{tip}}</text>
-	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">
 		<!-- <view bindtap="onShare" class="button primary plain" style="min-width:90px">分享</view> -->
 		<button class="button primary plain" open-type="share" style="min-width:90px">分享</button>
 		<view bindtap="onSave" class="button primary plain" style="min-width:90px">保存</view>
-		<view bindtap="onReceive" class="button primary" style="min-width:90px" wx:if="{{from!='screen'&&from!='team'}}">领取二维码</view>
+		<view bindtap="onReceive" class="button primary" style="min-width:90px" wx:if="{{from!='screen'&&active!=0}}">领取二维码</view>
 	</view>
 </view>
 <van-dialog id="van-dialog" />

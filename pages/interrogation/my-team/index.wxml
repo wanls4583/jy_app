@@ -1,7 +1,7 @@
 <import src="/template/team-item.wxml" />
 <view class="container">
-	<view class="height-100" style="padding-bottom:80px">
-		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}">
+	<view class="height-100 padding-bottom-footer">
+		<pull-scroll-view bindrefresh="onRefresh" stop-refresh="{{stopRefresh}}" wx:if="{{doctorInfo.hosDepartment}}">
 			<block wx:if="{{doctorInfo.hosDepartment.type==2}}">
 				<van-swipe-cell right-width="{{75}}" wx:for="{{doctorList}}" wx:key="id">
 					<view class="padding-left-right-30 white-background-color">
@@ -21,7 +21,15 @@
 				<empty description="暂无我的团队" />
 			</view>
 		</pull-scroll-view>
-		<view class="position-absolute bottom-0 width-100 padding-30 flex--center--center" wx:if="{{doctorInfo.hosDepartment.type==2}}">
+		<view class="padding-30" wx:else>
+			<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
+				<view class="font-title font-bold">暂未加入团队</view>
+				<view class="warn-color">您可以创建团队，或扫描其他团队的邀请码加入其他团队</view>
+				<view bindtap="onGoto" class="button primary margin-top-30" data-url="/pages/interrogation/create-team/index">创建团队</view>
+			</view>
+		</view>
+		<view class="position-absolute bottom-0 width-100 padding-30 flex--center--around" wx:if="{{doctorInfo.hosDepartment}}">
+			<button bindtap="onGoto" class="button primary plain" data-url="/pages/interrogation/create-team/index">修改资料</button>
 			<button
 				bindtap="onGoto"
 				class="button primary"

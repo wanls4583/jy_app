@@ -22,7 +22,7 @@ Page({
     onGoto(e) {
         this.stype = e.currentTarget.dataset.type;
         // 医生角色
-        if (this.data.userInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus == 1) {
+        if (this.data.userInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus != 0) {
             this.url = e.currentTarget.dataset.url;
             this.setData({
                 wayVisible: true

@@ -35,15 +35,15 @@ Page({
             phoneServiceTime: this.data.doctorInfo.phoneServiceTime,
             statusDefault: this.data.doctorInfo.status == 2 ? 1 : 0,
             statusList: [{
-                label: '上线',
+                label: '展示',
                 value: 1
             }, {
-                label: '下线',
+                label: '不展示',
                 value: 2
             }],
             statusMap: {
-                1: '上线',
-                2: '下线',
+                1: '展示',
+                2: '不展示',
                 3: '禁用'
             }
         });

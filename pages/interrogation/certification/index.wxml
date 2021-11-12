@@ -9,6 +9,13 @@
 	>资质认证审核不通过，原因如下：{{approveMsg}}</view>
 	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
 		<van-collapse-item name="1" title="基本信息">
+			<view class="flex padding-top-30 margin-left-right-30 border-bottom">
+				<view class="label" style="width:auto">是否展示在患者端</view>
+				<van-radio-group bind:change="onChange" data-prop="showable" style="display:flex" value="{{showable}}">
+					<van-radio name="{{0}}">不展示</van-radio>
+					<van-radio name="{{1}}">展示</van-radio>
+				</van-radio-group>
+			</view>
 			<readonly-field bindtap="onInput" data-prop="doctorName" data-title="姓名" label="姓名" placeholder="请输入本人真实姓名" readonly value="{{doctorName}}"></readonly-field>
 			<van-field bindtap="chooseAvater" label="个人头像" placeholder="{{avatar?'':'请上传个人头像'}}" readonly>
 				<view class="flex--center--center" slot="right-icon">
@@ -40,7 +47,7 @@
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</van-field>
-			<view class="padding-30 border-bottom">
+			<view class="padding-30 border-bottom" wx:if="{{showable==1}}">
 				<view>您适合下面哪些营养中心（可多选）</view>
 				<view class="flex flex-wrap-wrap">
 					<view
@@ -62,6 +69,7 @@
 				placeholder="请输入擅长"
 				type="textarea"
 				value="{{goodAtDomain}}"
+				wx:if="{{showable==1}}"
 			></readonly-field>
 			<readonly-field
 				autosize
@@ -73,9 +81,10 @@
 				placeholder="请输入个人简介"
 				type="textarea"
 				value="{{introduce}}"
+				wx:if="{{showable==1}}"
 			></readonly-field>
 		</van-collapse-item>
-		<van-collapse-item class="margin-top-20" name="2" title="执业信息">
+		<van-collapse-item class="margin-top-20" name="2" title="执业信息" wx:if="{{showable==1}}">
 			<view class="padding-top-30 margin-left-30 label-color">
 				<text>执业证书图片</text>
 				<text class="gray-color">(医师需要上传)</text>

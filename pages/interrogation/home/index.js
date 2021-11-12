@@ -11,7 +11,8 @@ Component({
         banner: [],
         articleList: [],
         stopRefresh: false,
-        systemInfo: wx.getSystemInfoSync()
+        systemInfo: wx.getSystemInfoSync(),
+        showTeam: false
     },
     lifetimes: {
         attached() {
@@ -22,7 +23,8 @@ Component({
             });
             this.storeBindings.updateStoreBindings();
             this.setData({
-                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 50
+                minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 50,
+                showTeam: this.data.doctorInfo && ['主任医师', '高级营养师', '主任技师'].indexOf(this.data.doctorInfo.jobTitle) > -1
             });
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
@@ -63,6 +65,14 @@ Component({
                 this.onGoto(e);
             }
         },
+        //跳转前检查医生资质完整状态
+        onCheckGoto1(e) {
+            if (wx.jyApp.utils.checkDoctor({
+                    checkAuthStatus: true
+                })) {
+                this.onGoto(e);
+            }
+        },
         onRefresh(e) {
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),
@@ -83,9 +93,13 @@ Component({
         },
         //获取医生信息
         getDoctorInfo() {
-            var doctorId = this.data.userInfo.currentDoctorId;
+            var doctorId = this.data.userInfo.role == 'DOCTOR' && this.data.userInfo.doctorId;
             return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                this.updateDoctorInfo(Object.assign({}, data.doctor));
+                if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
+                    this.updateDoctorInfo(Object.assign({}, data.doctor));
+                } else {
+                    this.updatePharmacistInfo(Object.assign({}, data.doctor));
+                }
             }).catch(() => {
                 // 获取不到医生信息，切换到患者端
                 wx.setStorageSync('role', 'USER');

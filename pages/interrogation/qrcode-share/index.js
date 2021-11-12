@@ -2,7 +2,9 @@ Page({
     data: {
         barcodeUrl: '',
         type: '',
-        from: ''
+        from: '',
+        active: 1,
+        isTeam: false
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -19,7 +21,13 @@ Page({
         this.setData({
             from: option.from
         });
-        if (option.barcodeUrl) {
+        if (option.isTeam == 'true') {
+            this.setData({
+                isTeam: true,
+                active: 0,
+                barcodeUrl: this.data.doctorInfo.hosDepartment.doctorBarcodeUrl
+            });
+        } else if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
             })
@@ -36,7 +44,7 @@ Page({
             wx.setNavigationBarTitle({
                 title: '筛查二维码'
             });
-        } else if(option.from == 'team') {
+        } else if (option.from == 'team') {
             wx.setNavigationBarTitle({
                 title: '邀请团队成员'
             });
@@ -58,6 +66,14 @@ Page({
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+    },
+    onChangeTab(e) {
+        this.setData({
+            barcodeUrl: e.detail.index == 0 ? this.data.doctorInfo.hosDepartment.doctorBarcodeUrl : this.data.doctorInfo.barcodeUrl,
+            tip: e.detail.index == 0 ? '将二维码展示给医生，扫码后可加入我的团队' : '将二维码展示给患者，扫码后可进行线上问诊',
+            active: e.detail.index,
+        });
+        this.type = e.detail.index == 1 ? 1 : 5;
     },
     //分享
     onShare() {

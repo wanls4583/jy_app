@@ -132,7 +132,7 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     loadList(refresh, status) {
-        if (!this.data.doctorInfo || this.data.doctorInfo.authStatus != 1 || this.data.doctorInfo.status == 3) { //医生状态异常
+        if (!this.data.doctorInfo || this.data.doctorInfo.authStatus == 0 || this.data.doctorInfo.status == 3) { //医生状态异常
             this.setData({
                 [`dataMap[${status}].stopRefresh`]: true,
                 [`dataMap[${status}].page`]: 1,

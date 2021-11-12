@@ -299,11 +299,16 @@ function getAllConfig() {
 function checkDoctor(option = {
     hideTip: false,
     checkApprove: true,
-    checkStatus: true
+    checkStatus: true,
+    checkAuthStatus: false
 }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
-    if ((!doctorInfo || doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus != 1) && option.checkApprove) {
+    option.checkApprove = option.checkApprove == undefined ? true : option.checkApprove;
+    option.checkStatus = option.checkStatus == undefined ? true : option.checkStatus;
+    option.hideTip = option.hideTip == undefined ? false : option.hideTip;
+    option.checkAuthStatus = option.checkAuthStatus == undefined ? false : option.checkAuthStatus;
+    if ((!doctorInfo || doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 0) && option.checkApprove) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您未通过资质认证，认证后可使用该功能',
             confirmButtonText: '立即认证',
@@ -315,8 +320,19 @@ function checkDoctor(option = {
             });
         });
         pass = false;
-    }
-    if (doctorInfo && doctorInfo.status == 3 && option.checkStatus) {
+    } else if(doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 2 && option.checkAuthStatus) {
+        !option.hideTip && wx.jyApp.dialog.confirm({
+            message: '您的资质认证不完整，完善资质认证后可使用该功能',
+            confirmButtonText: '立即认证',
+            cancelButtonText: '暂不认证',
+            showCancelButton: !option.hideCancelButton
+        }).then(() => {
+            wx.navigateTo({
+                url: '/pages/interrogation/certification/index'
+            });
+        });
+        pass = false;
+    } else if (doctorInfo && doctorInfo.status == 3 && option.checkStatus) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您的医生资质已被禁用，请联系客服人员解决',
             confirmButtonText: '联系客服',

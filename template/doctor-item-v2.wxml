@@ -13,12 +13,12 @@
 					<text>{{doctor.doctorName}}</text>
 					<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{doctor.jobTitle||''}}</text>
 				</view>
-				<view class="margin-top-10">
+				<view class="margin-top-30">
 					<text class="gray-color font-small" decode="{{true}}">{{doctor.hospitalName||''}}&nbsp;&nbsp;{{doctor.departmentName||''}}</text>
 				</view>
-				<view class="margin-top-10">
+				<!-- <view class="margin-top-10">
 					<text class="gray-color font-small" decode="{{true}}">擅长：{{doctor.goodAtDomain||''}}</text>
-				</view>
+				</view> -->
 			</view>
 		</view>
 	</view>

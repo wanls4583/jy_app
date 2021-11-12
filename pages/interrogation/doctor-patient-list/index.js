@@ -60,7 +60,7 @@ Component({
             });
         },
         loadList(refresh) {
-            if (!this.data.doctorInfo || this.data.doctorInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus != 1 || this.data.doctorInfo.status == 3) { //医生状态异常
+            if (!this.data.doctorInfo || this.data.doctorInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus == 0 || this.data.doctorInfo.status == 3) { //医生状态异常
                 this.setData({
                     stopRefresh: true,
                     page: 1,

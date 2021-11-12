@@ -28,7 +28,8 @@ Page({
         areaList: [],
         progressMap: {},
         approveStatus: 0,
-        approveMsg: ''
+        approveMsg: '',
+        showable: 0
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -81,6 +82,12 @@ Page({
                     [prop]: value
                 });
             }
+        });
+    },
+    onChange(e) {
+        var prop = e.currentTarget.dataset.prop;
+        this.setData({
+            [`${prop}`]: e.detail,
         });
     },
     onCollapseChange(event) {

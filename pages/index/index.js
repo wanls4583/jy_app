@@ -114,7 +114,7 @@ Page({
         });
         this.getUserInfo().then((doctorId) => {
             return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));
                 } else {
                     this.updatePharmacistInfo(Object.assign({}, data.doctor));
@@ -331,36 +331,18 @@ Page({
                 });
             }
             var role = wx.getStorageSync('role');
-            var doctorId = '';
-            if (role) {
-                if (role == 'USER') {
-                    if (data.info.originRole == 'PHARMACIST') { // 药师
-                        doctorId = data.info.doctorId;
-                    }
-                    data.info.role = 'USER';
-                } else {
-                    data.info.role = 'DOCTOR';
-                    doctorId = data.info.currentDoctorId;
-                }
+            role = role == 'DOCTOR' ? 'DOCTOR' : 'USER';
+            if (role == 'USER') {
+                data.info.role = 'USER';
             } else {
-                doctorId = data.info.doctorId;
-                if (doctorId) {
-                    data.info.role = 'DOCTOR';
-                    wx.setStorageSync('role', 'DOCTOR');
-                } else {
-                    data.info.role = 'USER';
-                    wx.setStorageSync('role', 'USER');
-                }
-            }
-            if (doctorId) {
-                data.info.currentDoctorId = doctorId;
+                data.info.role = 'DOCTOR';
             }
             this.updateUserInfo(data.info);
             this.storeBindings.updateStoreBindings();
             if (data.info.role == 'USER') {
                 this.getCart();
             }
-            return doctorId;
+            return role == 'DOCTOR' && data.info.doctorId;
         });
     },
     getMessageCount() {

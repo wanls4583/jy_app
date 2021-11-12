@@ -23,7 +23,7 @@ Component({
             this.firstLoad = true;
             var today = new Date();
             this.today = today - today.getHours() * 60 * 60 * 1000 - today.getMinutes() * 60 * 1000 - today.getSeconds() * 1000;
-            if (this.data.userInfo.viewVersion == 2 || this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            if (this.data.userInfo.viewVersion == 2 || this.data.userInfo.role == 'DOCTOR' && this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
                 this.viewVersion = 2
             }
         },

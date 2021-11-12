@@ -36,11 +36,12 @@ Component({
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
-            if (this.data.userInfo.role != 'DOCTOR') {
-                this.loadBaner();
-                this.loadKepu();
-                this.loadArticle();
-            }
+            this.loadBaner();
+            this.loadKepu();
+            this.loadArticle();
+            this.loadRcentChat();
+            this.loadRcentGroupChat();
+            this.getPatient();
             // 切换回患者端的提示
             if (this.data.userInfo.role == 'USER' &&
                 this.data.userInfo.originRole == 'DOCTOR' &&
@@ -92,6 +93,8 @@ Component({
                 this.loadBaner(),
                 this.loadKepu(),
                 this.loadArticle(),
+                this.loadRcentChat(),
+                this.loadRcentGroupChat(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
@@ -152,6 +155,47 @@ Component({
                     articleList: data.page.list
                 });
             });
-        }
+        },
+        loadRcentChat() {
+            wx.jyApp.http({
+                url: '/chat/v2/list',
+                data: {
+                    page: 1,
+                    limit: 1,
+                    groupFlag: 0
+                }
+            }).then((data)=>{
+                this.setData({
+                    recentChat: data.page.list.length && data.page.list[0]
+                });
+            });
+        },
+        loadRcentGroupChat() {
+            wx.jyApp.http({
+                url: '/chat/v2/list',
+                data: {
+                    page: 1,
+                    limit: 1,
+                    groupFlag: 1
+                }
+            }).then((data)=>{
+                this.setData({
+                    recentGroupChat: data.page.list.length && data.page.list[0]
+                });
+            });
+        },
+        getPatient() {
+            wx.jyApp.http({
+                url: '/patientdocument/list',
+                data: {
+                    page: 1,
+                    limit: 1
+                }
+            }).then((data) => {
+                this.setData({
+                    patientList: data.list || []
+                });
+            });
+        },
     }
 })

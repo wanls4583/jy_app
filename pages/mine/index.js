@@ -140,9 +140,9 @@ Component({
         reLogin() {
             return wx.jyApp.loginUtil.login().then(() => {
                 return this.getUserInfo().then((data) => {
-                    var doctorId = data.info.currentDoctorId;
+                    var doctorId = this.data.userInfo.role == 'DOCTOR' && data.info.doctorId;
                     return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
-                        if (wx.jyApp.store.userInfo.role == 'DOCTOR') {
+                        if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
                             this.updateDoctorInfo(Object.assign({}, data.doctor));
                         } else {
                             this.updatePharmacistInfo(Object.assign({}, data.doctor));

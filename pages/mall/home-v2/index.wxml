@@ -59,6 +59,38 @@
 							<view class="ellipse">{{item.text}}</view>
 						</view>
 					</view>
+					<view class="padding-left-right-20 clickable">
+						<view
+							bindtap="onGoto"
+							class="flex--center--between padding-top-bottom-30 border-bottom"
+							data-type="{{1}}"
+							data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
+						>
+							<view>
+								<text>NRS 2002</text>
+								<text class="gray-color">（适用于住院患者、大多数人群）</text>
+							</view>
+							<view class="flex--center--center">
+								<van-icon color="#ccc" name="arrow" />
+							</view>
+						</view>
+					</view>
+					<view class="padding-left-right-20 clickable">
+						<view
+							bindtap="onGoto"
+							class="flex--center--between padding-top-bottom-30"
+							data-type="{{2}}"
+							data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
+						>
+							<view>
+								<text>PG-SGA</text>
+								<text class="gray-color">（适用于肿瘤患者）</text>
+							</view>
+							<view class="flex--center--center">
+								<van-icon color="#ccc" name="arrow" />
+							</view>
+						</view>
+					</view>
 				</view>
 				<view class="white-background-color padding-20 padding-bottom-0 margin-20 margin-bottom-0 radius-8px shadow" wx:if="{{articleList.length}}">
 					<view class="flex--center--between">

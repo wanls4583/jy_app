@@ -18,6 +18,7 @@ function request(obj) {
     } else {
         header['token'] = wx.getStorageSync('token');
         header['role'] = wx.getStorageSync('role');
+        header['role'] = header['role'] == 'DOCTOR' ? 'DOCTOR' : 'USER';
     }
     var userInfo = wx.jyApp.store.userInfo;
     if (userInfo) {
