@@ -333,15 +333,17 @@
 			wx:for="{{screenList}}"
 			wx:key="index"
 		>{{item.name}}</view>
-		<view class="width-100 margin-top-30">超重与肥胖评估：</view>
-		<view
-			bindtap="onClickSceen"
-			class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
-			data-item="{{item}}"
-			style="border-radius:100px"
-			wx:for="{{fatScreenList}}"
-			wx:key="index"
-		>{{item.name}}</view>
+		<view wx:if="{{fatScreenVisible}}">
+			<view class="width-100 margin-top-30">超重与肥胖评估：</view>
+			<view
+				bindtap="onClickSceen"
+				class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+				data-item="{{item}}"
+				style="border-radius:100px"
+				wx:for="{{fatScreenList}}"
+				wx:key="index"
+			>{{item.name}}</view>
+		</view>
 	</view>
 	<view class="flex">
 		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">医生筛查</view>

@@ -85,6 +85,7 @@ Page({
             loadButtonHeight: 45, //加载更多按钮的高度
             loading: true, //上翻页加载中状态
             screenVisible: false,
+            fatScreenVisible: false,
             screenList: [{
                 name: 'NRS 2002',
                 filtrateType: 'NRS 2002',
@@ -113,6 +114,9 @@ Page({
             }, {
                 name: '超重与肥胖筛查',
                 filtrateType: 'FAT'
+            }, {
+                name: '超重与肥胖评估',
+                filtrateType: 'FAT-ASSESS'
             }],
             fatScreenList: [{
                 name: '出生、喂养史、发育史',
@@ -970,6 +974,16 @@ Page({
     //选择筛查方式
     onClickSceen(e) {
         var item = e.currentTarget.dataset.item;
+        if (item.filtrateType == 'FAT-ASSESS') {
+            this.setData({
+                fatScreenVisible: true
+            });
+            return;
+        } else if (item.filtrateType.indexOf('FAT-') == -1) {
+            this.setData({
+                fatScreenVisible: false
+            });
+        }
         this.data.screenList.map((_item) => {
             if (_item.filtrateType == item.filtrateType) {
                 _item.selected = true;
@@ -1048,6 +1062,10 @@ Page({
             case 'FAT-BODY':
                 url = '/pages/screen/body-fat/index';
                 break;
+        }
+        if (this.data.filtrateType.indexOf('FAT-') > -1 && !(this.data.patient.age >= 6 && this.data.patient.age <= 18)) {
+            wx.jyApp.toast('该项筛查/评估适用年龄为6-18岁');
+            return;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         wx.jyApp.utils.navigateTo({
