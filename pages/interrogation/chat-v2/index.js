@@ -83,6 +83,46 @@ Page({
             }, {
                 name: 'MNA',
                 filtrateType: 'MNA'
+            }, {
+                name: '肿瘤恶液质评估',
+                filtrateType: 'TUNOUR_FLUID'
+            }, {
+                name: '口腔黏膜风险评估',
+                filtrateType: 'ORAL_MUCOSA'
+            }, {
+                name: '放射性损伤评估',
+                filtrateType: 'X_INJURY'
+            }, {
+                name: '超重与肥胖筛查',
+                filtrateType: 'FAT'
+            }],
+            fatScreenList: [{
+                name: '出生、喂养史、发育史',
+                filtrateType: 'FAT-GROW'
+            }, {
+                name: '家族史',
+                filtrateType: 'FAT-HOME'
+            }, {
+                name: '疾病史',
+                filtrateType: 'FAT-DISEASE'
+            }, {
+                name: '肥胖治疗史',
+                filtrateType: 'FAT-TREAT'
+            }, {
+                name: '膳食调查',
+                filtrateType: 'FAT-DIET'
+            }, {
+                name: '久坐行为调查',
+                filtrateType: 'FAT-SIT'
+            }, {
+                name: '睡眠评估',
+                filtrateType: 'FAT-SLEEP'
+            }, {
+                name: '活动水平评估',
+                filtrateType: 'FAT-ACTION'
+            }, {
+                name: '体脂肪含量测量',
+                filtrateType: 'FAT-BODY'
             }],
             filtrateType: 'NRS 2002'
         });
@@ -646,7 +686,7 @@ Page({
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
                     }
-                    if ([7, 8, 9, 10, 11].indexOf(obj.type) > -1) {
+                    if ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].indexOf(obj.type) > -1) {
                         _item.filtrateChatVO = _item.orderApplyVO || {};
                         _item.filtrateChatVO.associateId = obj.associateId;
                         _item.filtrateChatVO.filtrateResult = obj.filtrateResult;
@@ -804,8 +844,16 @@ Page({
                 _item.selected = false;
             }
         });
+        this.data.fatScreenList.map((_item) => {
+            if (_item.filtrateType == item.filtrateType) {
+                _item.selected = true;
+            } else {
+                _item.selected = false;
+            }
+        });
         this.setData({
             screenList: this.data.screenList,
+            fatScreenList: this.data.fatScreenList,
             filtrateType: item.filtrateType
         });
     },
@@ -828,10 +876,49 @@ Page({
             case 'MNA':
                 url = '/pages/screen/mna/index';
                 break;
+            case 'TUNOUR_FLUID':
+                url = '/pages/screen/tumour-fluid/index';
+                break;
+            case 'ORAL_MUCOSA':
+                url = '/pages/screen/oral-mucosa/index';
+                break;
+            case 'X_INJURY':
+                url = '/pages/screen/radiation-injury/index';
+                break;
+            case 'FAT':
+                url = '/pages/screen/fat/index';
+                break;
+            case 'FAT-GROW':
+                url = '/pages/screen/birth-history/index';
+                break;
+            case 'FAT-HOME':
+                url = '/pages/screen/family-history/index';
+                break;
+            case 'FAT-DISEASE':
+                url = '/pages/screen/disease-history/index';
+                break;
+            case 'FAT-TREAT':
+                url = '/pages/screen/fat-history/index';
+                break;
+            case 'FAT-DIET':
+                url = '/pages/screen/food-investigate/index';
+                break;
+            case 'FAT-SIT':
+                url = '/pages/screen/sit-investigate/index';
+                break;
+            case 'FAT-SLEEP':
+                url = '/pages/screen/sleep-assess/index';
+                break;
+            case 'FAT-ACTION':
+                url = '/pages/screen/act-assess/index';
+                break;
+            case 'FAT-BODY':
+                url = '/pages/screen/body-fat/index';
+                break;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         wx.jyApp.utils.navigateTo({
-            url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
         });
         this.setData({
             screenVisible: false
@@ -862,13 +949,13 @@ Page({
         var item = e.currentTarget.dataset.item;
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.currentUser.role == 'DOCTOR') {
-            url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
             wx.jyApp.utils.navigateTo({
                 url: url
             });
         } else {
             wx.jyApp.loginUtil.getDoctorInfo(item.userInfo.doctorId).then((data) => {
-                url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${data.doctor.doctorName}`
+                url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${data.doctor.doctorName}&roomId=${this.data.roomId}`
                 wx.jyApp.utils.navigateTo({
                     url: url
                 });

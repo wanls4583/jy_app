@@ -24,7 +24,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -32,14 +33,15 @@ Page({
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -78,10 +80,11 @@ Page({
             data.fatEvaluate = data.fatEvaluate || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
-                filtrateId: data.patientFiltrate.id || '',
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
             if(data.fatEvaluate.answers) {
@@ -145,11 +148,11 @@ Page({
                 complete: () => {
                     if (this.data.result == '异常') {
                         wx.jyApp.utils.navigateTo({
-                            url: '/pages/screen/disease-result/index'
+                            url: `/pages/screen/disease-result/index`
                         });
                     } else {
                         wx.jyApp.utils.navigateTo({
-                            url: '/pages/screen/fat-history/index'
+                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
                         });
                     }
                 }
@@ -166,8 +169,9 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT-DISEASE',
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;

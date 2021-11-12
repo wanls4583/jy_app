@@ -25,19 +25,22 @@ Page({
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.doctorId = option.doctorId || '';
         this.patient = patient;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
                 doctorName: option.doctorName,
                 patient: patient,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -79,10 +82,11 @@ Page({
             data.fatEvaluate = data.fatEvaluate || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.fatEvaluate.id || '',
-                filtrateId: data.patientFiltrate.id || '',
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
             if(data.fatEvaluate.answers) {
@@ -148,7 +152,7 @@ Page({
                 delta: 1,
                 complete: () => {
                     wx.jyApp.utils.navigateTo({
-                        url: '/pages/screen/family-history/index'
+                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
                     });
                 }
             });
@@ -164,8 +168,9 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT-GROW',
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;

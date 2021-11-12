@@ -2,8 +2,6 @@
     "pages": [
         "pages/index/index",
         "pages/tab-bar/index",
-        "pages/interrogation/bankcard/index",
-        "pages/interrogation/record/index",
         "pages/trtc/index",
         "pages/input/index",
         "pages/notice-list/index",
@@ -25,6 +23,9 @@
         "pages/mall/cart/index",
         "pages/mall/confirm-order/index",
         "pages/mall/pay-suc/index",
+        "pages/interrogation/transfer-list/index",
+        "pages/interrogation/bankcard/index",
+        "pages/interrogation/record/index",
         "pages/interrogation/message-list/index",
         "pages/interrogation/illness-edit/index",
         "pages/interrogation/interrogation-pay/index",

@@ -90,8 +90,16 @@ Page({
                 url = '/pages/screen/radiation-injury/index';
                 break;
         }
+        wx.jyApp.setTempData('screenPatient', {
+            id: item.patientId,
+            patientName: item.patientName,
+            weight: item.weight,
+            height: item.height,
+            age: item.age,
+            sex: item.sex,
+        });
         wx.jyApp.utils.navigateTo({
-            url: `${url}?id=${item.id}`
+            url: `${url}?id=${item.id}&from=screen`
         });
     },
     onDelete(e) {
@@ -130,7 +138,6 @@ Page({
                 this.setData({
                     page: 1,
                     totalPage: -1,
-                    list: []
                 });
             }
             data.page.list = data.page.list || [];
@@ -216,7 +223,7 @@ Page({
                     item.label = '评估';
                 }
             });
-            this.data.list = this.data.list.concat(data.page.list);
+            this.data.list = refresh ? data.page.list : this.data.list.concat(data.page.list);
             this.setData({
                 list: this.data.list,
                 page: this.data.page + 1,

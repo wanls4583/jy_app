@@ -26,7 +26,8 @@ Page({
         });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -129,11 +130,14 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.filtrateMust = data.filtrateMust || this.data.must;
             data.filtrateMust.filtrateDate = data.patientFiltrate.filtrateDate;
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             if (data.filtrateMust.result) {
                 data.filtrateMust._result = data.filtrateMust.result == 0 ? '0' : (data.filtrateMust.result == 1 ? '1' : '2');
             }
             this.setData({
                 must: data.filtrateMust,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,
@@ -146,7 +150,7 @@ Page({
             ...this.data.must
         }
         wx.jyApp.showLoading('加载中...', true);
-        if (this.from == 'screen') {
+        if (this.from == 'screen' && !data.id) {
             this.save(data);
         } else {
             this.saveWithChat(data);
@@ -201,6 +205,7 @@ Page({
                     patientId: this.data.patientId,
                     filtrateType: this.data.filtrateType,
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;

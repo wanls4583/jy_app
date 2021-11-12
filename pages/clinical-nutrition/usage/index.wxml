@@ -88,7 +88,7 @@
 		</view>
 	</view>
 </view>
-<view class="footer flex--center--around padding-top-bottom-30">
+<view class="footer flex--center--around">
 	<view bindtap="onShowAnalize" class="button primary block plain" style="width: 40%">营养素分析</view>
 	<view bindtap="onSave" class="button primary block" style="width: 40%">保存</view>
 </view>

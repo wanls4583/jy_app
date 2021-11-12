@@ -1,4 +1,4 @@
-<view class="footer flex--center--around padding-left-right-30" style="padding-top:10px;padding-bottom:{{safeBottom+(bottomText?20:15)}}px;{{style}}">
+<view class="footer flex--center--around padding-left-right-30" style="padding-top:15px;padding-bottom:{{safeBottom+(bottomText?20:15)}}px;{{style}}">
 	<slot></slot>
 	<view class="position-absolute width-100 gray-color font-small align-center" style="bottom:{{safeBottom}}rpx" wx:if="{{bottomText}}">{{bottomText}}</view>
 </view>

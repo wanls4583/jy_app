@@ -103,7 +103,8 @@ Page({
         });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -510,8 +511,11 @@ Page({
                 data.filtratePgsga.metabolismStatus2 = isNaN(parseInt(arr[1])) ? null : parseInt(arr[1]);
                 data.filtratePgsga.metabolismStatus3 = isNaN(parseInt(arr[2])) ? null : parseInt(arr[2]);
             }
+            var filtrateId = data.patientFiltrate.id;
+            data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 pgsga: data.filtratePgsga,
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: data.patientFiltrate.filtrateByName,
                 doctorName: data.patientFiltrate.doctorName,
@@ -528,7 +532,7 @@ Page({
         data.symptom = data.symptom.join(',');
         data.dieteticChange = data.dieteticChange.join(',');
         wx.jyApp.showLoading('加载中...', true);
-        if (this.from == 'screen') {
+        if (this.from == 'screen' && !data.id) {
             this.save(data);
         } else {
             this.saveWithChat(data);
@@ -584,6 +588,7 @@ Page({
                     patientId: this.data.patientId,
                     filtrateType: this.data.filtrateType,
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;

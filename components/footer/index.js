@@ -9,7 +9,10 @@ Component({
     bottomText: {
       type: String,
       value: 0
-    }
+    },
+    class: {
+      type: String,
+    },
   },
   data: {
     safeBottom: 0

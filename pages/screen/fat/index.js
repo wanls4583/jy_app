@@ -28,7 +28,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patient = patient;
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
@@ -38,17 +39,18 @@ Page({
                 'filtrateFat._sex': patient._sex,
                 'filtrateFat.stature': patient.height,
                 'filtrateFat.weight': patient.weight,
-                'filtrateFat.age': patient.birthday ? this.getAge(patient.birthday) : '',
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
+                'filtrateFat.age': patient.age,
             });
             this.setBMI();
             this.countScore();
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -189,7 +191,8 @@ Page({
     },
     onSave() {
         var data = {
-            ...this.data.filtrateFat
+            filtrateId: this.data.filtrateId,
+            ...this.data.filtrateFat,
         }
         if (!this.data.filtrateFat.filtrateDate) {
             wx.jyApp.toast('请填写筛查日期');
@@ -243,7 +246,7 @@ Page({
                         _result = '中心性肥胖（BMI肥胖）';
                     }
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}`
+                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}&roomId=${this.roomId}`
                     });
                 }
             });
@@ -259,8 +262,9 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'FAT',
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;
@@ -277,6 +281,13 @@ Page({
             url: `/filtrate/fat/info/${id}`
         }).then((data) => {
             var filtrateFat = data.filtrateFat;
+            if(!filtrateFat) {
+                filtrateFat = {};
+                filtrateFat.sex = data.patientFiltrate.sex;
+                filtrateFat.stature = data.patientFiltrate.height;
+                filtrateFat.weight = data.patientFiltrate.weight;
+                filtrateFat.age = data.patientFiltrate.age;
+            }
             filtrateFat._sex = filtrateFat.sex == 1 ? '男' : '女';
             filtrateFat.patientId = data.patientFiltrate.patientId;
             filtrateFat.filtrateDate = data.patientFiltrate.filtrateDate;
@@ -286,6 +297,7 @@ Page({
                 filtrateDate: this.data.filtrateDate
             });
             this.setBMI();
+            this.countScore();
         });
     }
 })

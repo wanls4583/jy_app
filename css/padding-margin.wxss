@@ -339,7 +339,7 @@
 }
 
 .padding-bottom-footer {
-    padding-bottom: 190rpx;
+    padding-bottom: 70px;
 }
 
 .split-10 {

@@ -27,7 +27,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         // 患者通过筛查选择页面进入
-        this.from = option.from;
+        this.from = option.from || '';
+        this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -37,14 +38,15 @@ Page({
                 patient: patient,
                 'answers.q[0]': patient.sex == 1 ? 1 : 2,
                 'answers.q[1]': patient.age < 60 ? 1 : 2,
-                'filtrateId': option.filtrateId || '',
-                'consultOrderId': option.consultOrderId || '',
-                'patientId': option.patientId || '',
-                'filtrateType': option.filtrateType || '',
             });
         } else {
             this.loadInfo(option.id);
         }
+        this.setData({
+            'filtrateId': option.filtrateId || '',
+            'consultOrderId': option.consultOrderId || '',
+            'patientId': option.patientId || '',
+        });
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
@@ -177,10 +179,11 @@ Page({
             data.info = data.info || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
+            var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
             this.setData({
                 id: data.info.id || '',
-                filtrateId: data.info.filtrateId || '',
+                filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
             if (data.info.answers) {
@@ -193,6 +196,11 @@ Page({
                         filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
                     });
                 }
+            } else {
+                this.setData({
+                    'answers.q[0]': this.data.patient.sex == 1 ? 1 : 2,
+                    'answers.q[1]': this.data.patient.age < 60 ? 1 : 2,
+                });
             }
         });
     },
@@ -215,7 +223,7 @@ Page({
             this.saveWithChat(data);
         }
     },
-    save() {
+    save(data) {
         wx.jyApp.http({
             url: `/evaluate/common/${this.data.id?'update':'save'}`,
             method: 'post',
@@ -253,8 +261,9 @@ Page({
                 data: {
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
-                    filtrateType: this.data.filtrateType,
+                    filtrateType: 'ORAL_MUCOSA',
                     isSelf: true,
+                    roomId: this.roomId
                 }
             }).then((_data) => {
                 data.filtrateId = _data.filtrateId;
