@@ -978,7 +978,7 @@ Page({
             this.setData({
                 fatScreenVisible: true
             });
-            return;
+            item.filtrateType = 'FAT-GROW';
         } else if (item.filtrateType.indexOf('FAT-') == -1) {
             this.setData({
                 fatScreenVisible: false
