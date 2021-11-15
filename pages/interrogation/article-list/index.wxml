@@ -10,7 +10,7 @@
 				wx:key="id"
 			>
 				<view class="padding-top-bottom-20 {{index<list.length-1?'border-bottom':''}}">
-					<view>{{item.title||''}}</view>
+					<view class="font-title">{{item.title||''}}</view>
 					<view class="font-small gray-color margin-top-10">{{item.publishTime}}</view>
 				</view>
 			</view>
