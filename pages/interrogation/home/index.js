@@ -94,6 +94,9 @@ Component({
         //获取医生信息
         getDoctorInfo() {
             var doctorId = this.data.userInfo.role == 'DOCTOR' && this.data.userInfo.doctorId;
+            if(!doctorId) {
+                this.updateDoctorInfo(null);
+            }
             return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                 if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
                     this.updateDoctorInfo(Object.assign({}, data.doctor));

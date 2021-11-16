@@ -37,6 +37,7 @@ Page({
             fields: ['configData', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
+        this.loadInfo();
         this.loadDepartmentList();
         this.loadWorkDepartmentList();
         this.setData({
@@ -47,7 +48,6 @@ Page({
         this.jobTitleCertificateUrl = [];
         this.pciMap = {};
         this.taskMap = {};
-        this.loadLoaclInfo();
         var diseaseList = wx.jyApp.store.configData.goodAtDomain.split('#');
         diseaseList.map((item) => {
             this.data.diseaseList.push({
@@ -227,10 +227,10 @@ Page({
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobCertificateUrl.length < 5) {
                         // if (item.size < 1024 * 300) {
-                            files.push({
-                                path: item.path,
-                                id: wx.jyApp.utils.getUUID()
-                            });
+                        files.push({
+                            path: item.path,
+                            id: wx.jyApp.utils.getUUID()
+                        });
                         // } else {
                         //     wx.jyApp.toast('部分文件大于300K，已取消');
                         // }
@@ -270,10 +270,10 @@ Page({
                 res.tempFiles.map((item) => {
                     if (files.length + self.data.jobTitleCertificateUrl.length < 5) {
                         // if (item.size < 1024 * 300) {
-                            files.push({
-                                path: item.path,
-                                id: wx.jyApp.utils.getUUID()
-                            });
+                        files.push({
+                            path: item.path,
+                            id: wx.jyApp.utils.getUUID()
+                        });
                         // } else {
                         //     wx.jyApp.toast('部分文件大于300K，已取消');
                         // }
@@ -387,6 +387,7 @@ Page({
     },
     getData() {
         return {
+            showable: this.data.showable,
             avatar: this.avatar[0],
             cityCode: this.data.cityCode,
             provinceCity: this.data.provinceCity,
@@ -405,10 +406,6 @@ Page({
         }
     },
     onSave() {
-        if (this.data.doctorInfo && this.data.doctorInfo.role == 'DOCTOR_TEST') {
-            wx.jyApp.toast('测试医生不支持该操作');
-            return;
-        }
         if (this.data.approveStatus == 1) {
             wx.jyApp.toast('审核中不能对资料信息进行修改');
             return;
@@ -451,25 +448,27 @@ Page({
             wx.jyApp.toast('职称不能为空');
             return;
         }
-        if (!this.data.onlineDepartmentName.length) {
-            wx.jyApp.toast('请选择营养中心');
-            return;
-        }
-        if (!this.data.introduce) {
-            wx.jyApp.toast('个人简介不能为空');
-            return;
-        }
-        if (!this.data.goodAtDomain) {
-            wx.jyApp.toast('擅长不能为空');
-            return;
-        }
-        if (!this.data.jobCertificateUrl.length && ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(this.data.jobTitle) > -1) {
-            wx.jyApp.toast('请上传执业证');
-            return;
-        }
-        if (!this.data.jobTitleCertificateUrl.length) {
-            wx.jyApp.toast('请上传资格证');
-            return;
+        if (this.data.showable == 1) {
+            if (!this.data.onlineDepartmentName.length) {
+                wx.jyApp.toast('请选择营养中心');
+                return;
+            }
+            if (!this.data.introduce) {
+                wx.jyApp.toast('个人简介不能为空');
+                return;
+            }
+            if (!this.data.goodAtDomain) {
+                wx.jyApp.toast('擅长不能为空');
+                return;
+            }
+            if (!this.data.jobCertificateUrl.length && ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(this.data.jobTitle) > -1) {
+                wx.jyApp.toast('请上传执业证');
+                return;
+            }
+            if (!this.data.jobTitleCertificateUrl.length) {
+                wx.jyApp.toast('请上传资格证');
+                return;
+            }
         }
         var subIds = [];
         subIds.push(wx.jyApp.constData.subIds.patientPayMsg);
@@ -516,10 +515,8 @@ Page({
     },
     loadLoaclInfo() {
         var data = wx.getStorageSync('approvInfo');
-        if (data && !(this.data.doctorInfo && this.data.doctorInfo.role == 'DOCTOR_TEST')) {
+        if (data) {
             this.setInfo(data);
-        } else {
-            this.loadInfo();
         }
     },
     loadInfo() {
@@ -532,8 +529,10 @@ Page({
         }).then((data) => {
             if (data.list && data.list.length) {
                 data = data.list[0];
+                wx.removeStorageSync('approvInfo');
                 this.setInfo(data);
             } else {
+                this.loadLoaclInfo();
                 this.setData({
                     approveStatus: -1
                 });

@@ -3,7 +3,7 @@
 	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
 		<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 			<!-- 认证医生 -->
-			<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo.authStatus!=0}}">
+			<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:if="{{userInfo.role=='DOCTOR'&&doctorInfo&&doctorInfo.authStatus!=0}}">
 				<view class="flex--center--center">
 					<view class="flex-shrink-0 width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{doctorInfo.avatar}}" />
@@ -29,7 +29,7 @@
 			<!-- 未认证医生 -->
 			<view
 				class="flex--center--between background-gradient padding-30 padding-top-0"
-				wx:elif="{{userInfo.role=='DOCTOR'&&!doctorInfo}}"
+				wx:elif="{{userInfo.role=='DOCTOR'}}"
 			>
 				<view class="flex--center--center">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">

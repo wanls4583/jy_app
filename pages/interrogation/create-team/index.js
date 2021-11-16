@@ -33,7 +33,10 @@ Page({
                 status: hosDepartment.status,
                 _status: this.data.statusMap[hosDepartment.status],
                 statusDefault: hosDepartment.status == 1 ? 0 : 1
-            })
+            });
+            wx.setNavigationBarTitle({
+                title: '修改团队'
+            });
         }
     },
     onUnload() {

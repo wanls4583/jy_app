@@ -141,6 +141,7 @@ Component({
             return wx.jyApp.loginUtil.login().then(() => {
                 return this.getUserInfo().then((data) => {
                     var doctorId = this.data.userInfo.role == 'DOCTOR' && data.info.doctorId;
+                    this.updateDoctorInfo(null);
                     return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
                         if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
                             this.updateDoctorInfo(Object.assign({}, data.doctor));
