@@ -40,7 +40,6 @@ Component({
             this.loadKepu();
             this.loadArticle();
             this.loadRcentChat();
-            this.loadRcentGroupChat();
             this.getPatient();
             // 切换回患者端的提示
             if (this.data.userInfo.role == 'USER' &&
@@ -94,7 +93,6 @@ Component({
                 this.loadKepu(),
                 this.loadArticle(),
                 this.loadRcentChat(),
-                this.loadRcentGroupChat(),
                 wx.jyApp.utils.getAllConfig()
             ]).finally(() => {
                 this.setData({
@@ -158,29 +156,11 @@ Component({
         },
         loadRcentChat() {
             wx.jyApp.http({
-                url: '/chat/v2/list',
-                data: {
-                    page: 1,
-                    limit: 1,
-                    groupFlag: 0
-                }
+                url: '/chat/v2/list/recent'
             }).then((data)=>{
                 this.setData({
-                    recentChat: data.page.list.length && data.page.list[0]
-                });
-            });
-        },
-        loadRcentGroupChat() {
-            wx.jyApp.http({
-                url: '/chat/v2/list',
-                data: {
-                    page: 1,
-                    limit: 1,
-                    groupFlag: 1
-                }
-            }).then((data)=>{
-                this.setData({
-                    recentGroupChat: data.page.list.length && data.page.list[0]
+                    groupChat: data.groupChat,
+                    privateChat: data.privateChat
                 });
             });
         },

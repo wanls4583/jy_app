@@ -59,10 +59,42 @@
 							<view class="ellipse">{{item.text}}</view>
 						</view>
 					</view>
+					<view
+						bindtap="onGoto"
+						class="padding-left-right-20 clickable"
+						data-url="/pages/interrogation/chat-v2/index?roomId={{privateChat.roomId}}"
+						wx:if="{{privateChat}}"
+					>
+						<view class="flex--center--between padding-top-bottom-30 border-top">
+							<image class="width-80rpx height-80rpx radius-8rpx" mode="aspectFill" src="{{privateChat.wxAvatar}}" />
+							<view class="flex-grow-1 margin-left-20">
+								<view>
+									<text>{{privateChat.wxNickname}}</text>
+								</view>
+								<view class="margin-top-20 gray-color">{{privateChat.hospitalName||''}} {{privateChat.departmentName||''}}</view>
+							</view>
+						</view>
+					</view>
+					<view
+						bindtap="onGoto"
+						class="padding-left-right-20 clickable"
+						data-url="/pages/interrogation/chat-v2/index?roomId={{groupChat.roomId}}&groupFlag=1"
+						wx:if="{{groupChat}}"
+					>
+						<view class="flex--center--between padding-top-bottom-30 border-top">
+							<image class="width-80rpx height-80rpx radius-8rpx" mode="aspectFill" src="{{groupChat.avatar}}" />
+							<view class="flex-grow-1 margin-left-20">
+								<view>
+									<text>{{groupChat.hospitalName}}</text>
+								</view>
+								<view class="margin-top-20 gray-color">{{groupChat.departmentName||''}}</view>
+							</view>
+						</view>
+					</view>
 					<view class="padding-left-right-20 clickable">
 						<view
 							bindtap="onGoto"
-							class="flex--center--between padding-top-bottom-30 border-bottom"
+							class="flex--center--between padding-top-bottom-30 border-top"
 							data-type="{{1}}"
 							data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=nrs&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 						>
@@ -78,7 +110,7 @@
 					<view class="padding-left-right-20 clickable">
 						<view
 							bindtap="onGoto"
-							class="flex--center--between padding-top-bottom-30"
+							class="flex--center--between padding-top-bottom-30 border-top"
 							data-type="{{2}}"
 							data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=pgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 						>
