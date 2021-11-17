@@ -3,7 +3,11 @@
 	<navigation-bar background="#ffffff" holder="{{true}}" safe="{{true}}">
 		<view class="position-relative width-100 height-100">
 			<view class="position-absolute top-0 z-index-100 width-100 height-100 flex--center--center" style="padding:0 {{menuRect.marginRight}}px">
-				<view bindtap="onGotoSearch" class="flex--center--start width-100 padding-left-right-20 gray-background-color radius-100px border" style="height:{{menuRect.height}}px">
+				<view
+					bindtap="onGotoSearch"
+					class="flex--center--start width-100 padding-left-right-20 gray-background-color radius-100px border"
+					style="height:{{menuRect.height}}px"
+				>
 					<van-icon color="#666" name="search" size="16"></van-icon>
 					<text class="margin-left-10 gray-color">请输入患者姓名</text>
 				</view>
@@ -56,7 +60,7 @@
 					<view>您目前没有线上患者</view>
 					<view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
 					<view
-						bindtap="onGoto"
+						bindtap="onCheckGotoWithFullCertification"
 						class="button primary margin-top-30"
 						data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 					>我的二维码名片</view>

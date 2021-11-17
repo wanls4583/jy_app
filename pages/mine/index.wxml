@@ -12,7 +12,8 @@
 						<view class="white-color">
 							<text class="font-bold" decode="{{true}}">{{doctorInfo.doctorName || '--'}}&nbsp;&nbsp;</text>
 							<text class="font-small">{{doctorInfo.jobTitle || '--'}}</text>
-							<view class="tag success" style="vertical-align:top">已认证</view>
+							<view class="tag success" style="vertical-align:top" wx:if="{{doctorInfo.authStatus==1}}">已认证</view>
+							<view class="tag warn" style="vertical-align:top" wx:if="{{doctorInfo.authStatus==2}}">资料待完善</view>
 						</view>
 						<text class="margin-top-20 white-color font-small" decode="{{true}}">{{doctorInfo.workHospitalName || '--'}}</text>
 					</view>
@@ -27,10 +28,7 @@
 				</view>
 			</view>
 			<!-- 未认证医生 -->
-			<view
-				class="flex--center--between background-gradient padding-30 padding-top-0"
-				wx:elif="{{userInfo.role=='DOCTOR'}}"
-			>
+			<view class="flex--center--between background-gradient padding-30 padding-top-0" wx:elif="{{userInfo.role=='DOCTOR'}}">
 				<view class="flex--center--center">
 					<view class="width-100rpx height-100rpx margin-right-30 radius-50 background-color-#ddd border border-color-white overflow-hidden">
 						<image class="width-100 height-100" src="{{userInfo.avatarUrl}}" />
@@ -169,10 +167,7 @@
 					</view>
 				</view>
 				<!-- v2版本医生没有切换功能 -->
-				<view
-					class="padding-left-right-20 clickable"
-					wx:if="{{userInfo.originRole!='PHARMACIST'}}"
-				>
+				<view class="padding-left-right-20 clickable" wx:if="{{userInfo.originRole!='PHARMACIST'}}">
 					<view bindtap="onSitchRole" class="flex--center--between padding-top-bottom-30 border-bottom">
 						<text>切换账号</text>
 						<view class="flex--center--center">

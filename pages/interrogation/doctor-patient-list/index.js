@@ -39,7 +39,9 @@ Component({
         },
         onClickPatient(e) {
             var roomId = e.currentTarget.dataset.roomid;
-            if (!wx.jyApp.utils.checkDoctor({ checkStatus: true })) {
+            if (!wx.jyApp.utils.checkDoctor({
+                    checkStatus: true
+                })) {
                 return;
             }
             wx.jyApp.utils.navigateTo({
@@ -53,6 +55,13 @@ Component({
         },
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
+        },
+        onCheckGotoWithFullCertification(e) {
+            if (wx.jyApp.utils.checkDoctor({
+                    checkFullAuthStatus: true
+                })) {
+                this.onGoto(e);
+            }
         },
         onGotoSearch() {
             wx.jyApp.utils.navigateTo({

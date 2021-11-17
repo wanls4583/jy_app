@@ -8,10 +8,12 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        this.loadList();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
+    },
+    onShow() {
+        this.loadList();
     },
     onRefresh() {
         this.loadList();
