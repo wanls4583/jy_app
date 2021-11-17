@@ -77,7 +77,7 @@ Page({
             method: 'post',
             data: {
                 departmentName: this.data.departmentName,
-                hospitalName: this.data.departmentName,
+                hospitalName: this.data.hospitalName,
                 status: this.data.status,
                 id: this.data.id,
             }

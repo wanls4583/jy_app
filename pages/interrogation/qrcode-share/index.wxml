@@ -2,7 +2,7 @@
 	<view class="position-fixed top-0 width-100" wx:if="{{isTeam}}">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
 			<van-tab title="团队二维码"></van-tab>
-			<van-tab title="二维码名片"></van-tab>
+			<van-tab title="个人二维码"></van-tab>
 		</van-tabs>
 	</view>
 	<view class="position-absolute width-100 padding-30 white-color primary-background-color" style="opacity: 0.8;top:{{isTeam?'44px':'0'}}">
