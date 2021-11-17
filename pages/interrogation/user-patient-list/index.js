@@ -159,13 +159,24 @@ Page({
                 // v2版本加入科室时选择患者，默认选中默认患者
                 if (item.defaultFlag == 1) {
                     selected = item.id;
+                    if (!this.data.selectId) {
+                        this.setData({
+                            patient: item
+                        });
+                    }
+                }
+                if (this.data.selectId && item.id == this.data.selectId) {
+                    this.setData({
+                        patient: item
+                    });
                 }
             });
             this.setData({
                 patientList: data.list || [],
-                selectId: this.data.selectId || selected || (data.list.length ? data.list[0].id : 0),
-                patient: this.data.patient || (data.list.length ? data.list[0] : null)
+                selectId: this.data.selectId || selected || (data.list.length ? data.list[0].id : 0)
             });
+
+
         }).finally(() => {
             wx.hideLoading();
         });
