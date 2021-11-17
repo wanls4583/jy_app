@@ -69,7 +69,7 @@
 							<image class="width-80rpx height-80rpx radius-8rpx" mode="aspectFill" src="{{privateChat.wxAvatar}}" />
 							<view class="flex-grow-1 margin-left-20">
 								<view>
-									<text>{{privateChat.wxNickname}}</text>
+									<text>{{privateChat.wxNickname}} {{privateChat.jobTitle}}</text>
 								</view>
 								<view class="margin-top-20 gray-color">{{privateChat.hospitalName||''}} {{privateChat.departmentName||''}}</view>
 							</view>
