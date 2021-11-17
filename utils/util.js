@@ -300,14 +300,14 @@ function checkDoctor(option = {
     hideTip: false,
     checkApprove: true,
     checkStatus: true,
-    checkAuthStatus: false
+    checkFullAuthStatus: false
 }) {
     var doctorInfo = wx.jyApp.store.doctorInfo;
     var pass = true;
     option.checkApprove = option.checkApprove == undefined ? true : option.checkApprove;
     option.checkStatus = option.checkStatus == undefined ? true : option.checkStatus;
     option.hideTip = option.hideTip == undefined ? false : option.hideTip;
-    option.checkAuthStatus = option.checkAuthStatus == undefined ? false : option.checkAuthStatus;
+    option.checkFullAuthStatus = option.checkFullAuthStatus == undefined ? false : option.checkFullAuthStatus;
     if ((!doctorInfo || doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 0) && option.checkApprove) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您未通过资质认证，认证后可使用该功能',
@@ -320,7 +320,7 @@ function checkDoctor(option = {
             });
         });
         pass = false;
-    } else if(doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 2 && option.checkAuthStatus) {
+    } else if(doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 2 && option.checkFullAuthStatus) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您的资质认证不完整，完善资质认证后可使用该功能',
             confirmButtonText: '立即认证',

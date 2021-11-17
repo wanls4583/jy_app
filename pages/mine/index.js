@@ -53,8 +53,16 @@ Component({
         },
         //跳转前检查医生状态
         onCheckGoto(e) {
-            var incomeSwitch = e.currentTarget.dataset.incomeSwitch;
             if (wx.jyApp.utils.checkDoctor()) {
+                this.onGoto(e);
+            }
+        },
+        //跳转前检查医生状态
+        onCheckGotoWithFullCertification(e) {
+            var incomeSwitch = e.currentTarget.dataset.incomeSwitch;
+            if (wx.jyApp.utils.checkDoctor({
+                    checkFullAuthStatus: true
+                })) {
                 if (incomeSwitch && this.data.doctorInfo.incomeSwitch != 1 && this.data.doctorInfo.role != 'DOCTOR_TEST') {
                     wx.jyApp.toast('该功能已关闭，请联系管理员！');
                 } else {
@@ -68,7 +76,7 @@ Component({
         //切换账号
         onSitchRole() {
             if (this.data.userInfo.role == 'DOCTOR') {
-                if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.userInfo.viewVersion!=2) {
+                if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.userInfo.viewVersion != 2) {
                     wx.jyApp.toast('请扫描科室医生二维码进行问诊');
                     return;
                 }

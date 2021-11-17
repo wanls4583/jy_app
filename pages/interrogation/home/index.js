@@ -66,9 +66,9 @@ Component({
             }
         },
         //跳转前检查医生资质完整状态
-        onCheckGoto1(e) {
+        onCheckGotoWithFullCertification(e) {
             if (wx.jyApp.utils.checkDoctor({
-                    checkAuthStatus: true
+                    checkFullAuthStatus: true
                 })) {
                 this.onGoto(e);
             }
