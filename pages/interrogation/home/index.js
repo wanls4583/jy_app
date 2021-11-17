@@ -73,6 +73,13 @@ Component({
                 this.onGoto(e);
             }
         },
+        onCheckGotoWithDepartDoctor(e) {
+            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+                this.onGoto(e);
+            } else {
+                this.onCheckGotoWithFullCertification(e);
+            }
+        },
         onRefresh(e) {
             wx.jyApp.Promise.all([
                 this.getDoctorInfo(),

@@ -70,6 +70,13 @@ Component({
                 }
             }
         },
+        onCheckGotoWithDepartDoctor(e) {
+            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+                this.onGoto(e);
+            } else {
+                this.onCheckGotoWithFullCertification(e);
+            }
+        },
         onOpenWebview(e) {
             wx.jyApp.utils.openWebview(e);
         },

@@ -60,7 +60,7 @@
 					<view>您目前没有线上患者</view>
 					<view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
 					<view
-						bindtap="onCheckGotoWithFullCertification"
+						bindtap="onCheckGotoWithDepartDoctor"
 						class="button primary margin-top-30"
 						data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}"
 					>我的二维码名片</view>

@@ -94,7 +94,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">二维码名片</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGotoWithDepartDoctor"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}&type=1"
 					wx:else
@@ -110,7 +110,7 @@
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的文章</view>
 				</view>
-				<view bindtap="onCheckGotoWithFullCertification" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/order-list/index">
+				<view bindtap="onCheckGotoWithDepartDoctor" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/order-list/index">
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">订单列表</view>
 				</view>

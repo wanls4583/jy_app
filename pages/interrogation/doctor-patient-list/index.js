@@ -63,6 +63,13 @@ Component({
                 this.onGoto(e);
             }
         },
+        onCheckGotoWithDepartDoctor(e) {
+            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+                this.onGoto(e);
+            } else {
+                this.onCheckGotoWithFullCertification(e);
+            }
+        },
         onGotoSearch() {
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/doctor-patient-search/index'
