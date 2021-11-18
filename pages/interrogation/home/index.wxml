@@ -85,7 +85,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">筛查评估</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGotoWithDepartDoctor"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/qrcode-share/index?isTeam=true"
 					wx:if="{{doctorInfo.hosDepartment}}"
@@ -94,7 +94,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">二维码名片</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithDepartDoctor"
+					bindtap="onCheckGotoWithFullCertification"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}&type=1"
 					wx:else
@@ -126,7 +126,6 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/my-team/index"
-					wx:if="{{showTeam}}"
 				>
 					<image src="/image/icon_users_active.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的团队</view>

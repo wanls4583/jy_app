@@ -12,7 +12,6 @@ Component({
         articleList: [],
         stopRefresh: false,
         systemInfo: wx.getSystemInfoSync(),
-        showTeam: false
     },
     lifetimes: {
         attached() {
@@ -24,7 +23,6 @@ Component({
             this.storeBindings.updateStoreBindings();
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - 50,
-                showTeam: this.data.doctorInfo && ['主任医师', '高级营养师', '主任技师'].indexOf(this.data.doctorInfo.jobTitle) > -1
             });
             if (this.data.userInfo.role == 'DOCTOR') {
                 this.loadBaner();
@@ -74,7 +72,7 @@ Component({
             }
         },
         onCheckGotoWithDepartDoctor(e) {
-            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
                 this.onGoto(e);
             } else {
                 this.onCheckGotoWithFullCertification(e);
@@ -101,7 +99,7 @@ Component({
         //获取医生信息
         getDoctorInfo() {
             var doctorId = this.data.userInfo.role == 'DOCTOR' && this.data.userInfo.doctorId;
-            if(!doctorId) {
+            if (!doctorId) {
                 this.updateDoctorInfo(null);
             }
             return doctorId && wx.jyApp.loginUtil.getDoctorInfo(doctorId).then((data) => {
