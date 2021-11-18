@@ -22,6 +22,7 @@ Page({
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['doctorInfo'],
+            actions: ['updateDoctorInfo', 'updatePharmacistInfo'],
         });
         this.storeBindings.updateStoreBindings();
         if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
@@ -82,20 +83,18 @@ Page({
                 id: this.data.id,
             }
         }).then((data) => {
-            wx.jyApp.toastBack('保存成功');
             // 更新医生科室信息
-            this.getDoctorInfo();
+            this.getDoctorInfo().then(()=>{
+                wx.hideLoading();
+                wx.jyApp.toastBack('保存成功');
+            });
         }).catch(() => {
             wx.hideLoading();
         });
     },
     getDoctorInfo() {
         return wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorInfo.id).then((data) => {
-            if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
-                this.updateDoctorInfo(Object.assign({}, data.doctor));
-            } else {
-                this.updatePharmacistInfo(Object.assign({}, data.doctor));
-            }
+            this.updateDoctorInfo(Object.assign({}, data.doctor));
         });
     },
 })
