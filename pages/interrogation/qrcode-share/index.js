@@ -52,7 +52,7 @@ Page({
         var tip = '';
         if (option.tip) {
             tip = option.tip;
-        } else if (option.from == 'team') {
+        } else if (option.from == 'team' || option.isTeam) {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
             this.type = 5;
         } else if (option.from == 'screen') {
