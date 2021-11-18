@@ -8,6 +8,7 @@ Page({
         // 患者端v2版本选择默认患者
         this.joinDoctorId = option.joinDoctorId || '';
         this.screen = option.screen || '';
+        this.setDefault = option.setDefault || '';
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -16,7 +17,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            ifSelect: option.select || this.joinDoctorId || false,
+            ifSelect: this.select || this.setDefault || this.joinDoctorId || false,
             screen: this.screen
         });
         if (this.data.ifSelect) {
@@ -38,7 +39,7 @@ Page({
             return;
         }
         // 客户端v2版本设置默认患者
-        if (this.data.userInfo.viewVersion == 2 || this.joinDoctorId) {
+        if (this.setDefault || this.joinDoctorId) {
             this.data.patient.defaultFlag = 1;
             this.data.patient.doctorId = this.joinDoctorId;
             wx.jyApp.http({

@@ -83,8 +83,19 @@ Page({
             }
         }).then((data) => {
             wx.jyApp.toastBack('保存成功');
+            // 更新医生科室信息
+            this.getDoctorInfo();
         }).catch(() => {
             wx.hideLoading();
+        });
+    },
+    getDoctorInfo() {
+        return wx.jyApp.loginUtil.getDoctorInfo(this.data.doctorInfo.id).then((data) => {
+            if (wx.jyApp.store.userInfo.originRole == 'DOCTOR') {
+                this.updateDoctorInfo(Object.assign({}, data.doctor));
+            } else {
+                this.updatePharmacistInfo(Object.assign({}, data.doctor));
+            }
         });
     },
 })

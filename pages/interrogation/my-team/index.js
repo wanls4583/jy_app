@@ -54,7 +54,7 @@ Page({
     },
     //加载医生列表
     loadList() {
-        if (this.loading) {
+        if (this.loading || !this.data.doctorInfo.hosDepartment) {
             return;
         }
         this.loading = true;
