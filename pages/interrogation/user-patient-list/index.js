@@ -17,7 +17,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.setData({
-            ifSelect: this.select || this.setDefault || this.joinDoctorId || false,
+            ifSelect: option.select || this.setDefault || this.joinDoctorId || false,
             screen: this.screen
         });
         if (this.data.ifSelect) {
