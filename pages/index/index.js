@@ -246,6 +246,7 @@ Page({
                 wx.jyApp.utils.openWebview(url);
             }
         }).catch(() => {
+            wx.jyApp.toast('医生已下线');
             wx.redirectTo({
                 url: '/pages/tab-bar/index'
             });
