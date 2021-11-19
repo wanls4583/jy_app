@@ -58,15 +58,14 @@
 			<text>是否展示在患者端</text>
 			<view class="flex--center--center">
 				<text class="primary-color margin-right-20">
-					<text class="success-color" wx:if="{{status==1}}">{{statusMap[status]}}</text>
-					<text class="warn-color" wx:if="{{status==2}}">{{statusMap[status]}}</text>
-					<text class="danger-color" wx:if="{{status==3}}">{{statusMap[status]}}</text>
+					<text class="success-color" wx:if="{{showable==1}}">{{showableMap[showable]}}</text>
+					<text class="warn-color" wx:if="{{showable==0}}">{{showableMap[showable]}}</text>
 				</text>
 				<van-icon color="#ccc" name="arrow" />
 			</view>
 		</view>
 	</view>
-	<van-popup position="bottom" show="{{statusVisible}}">
-		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmStatus" columns="{{statusList}}" default-index="{{statusDefault}}" show-toolbar value-key="label"></van-picker>
+	<van-popup position="bottom" show="{{showableVisible}}">
+		<van-picker bind:cancel="onCancel" bind:confirm="onConfirmStatus" columns="{{showableList}}" default-index="{{showableDefault}}" show-toolbar value-key="label"></van-picker>
 	</van-popup>
 </view>

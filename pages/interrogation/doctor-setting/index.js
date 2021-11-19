@@ -3,11 +3,11 @@ Page({
         consultOrderPrice: 0,
         nutritionOrderPrice: 0,
         consultOrderSwitch: 0,
-        status: '',
-        statusVisible: false,
-        statusList: [],
-        statusMap: {},
-        statusDefault: 0,
+        showable: 0,
+        showableVisible: false,
+        showableList: [],
+        showableMap: {},
+        showableDefault: 0,
         videoOrderSwitch: 0,
         videoOrderPrice: 0,
         phoneOrderSwitch: 0,
@@ -30,21 +30,20 @@ Page({
             consultOrderSwitch: this.data.doctorInfo.consultOrderSwitch,
             videoOrderSwitch: this.data.doctorInfo.videoOrderSwitch,
             phoneOrderSwitch: this.data.doctorInfo.phoneOrderSwitch,
-            status: this.data.doctorInfo.status,
+            showable: this.data.doctorInfo.showable,
             videoServiceTime: this.data.doctorInfo.videoServiceTime,
             phoneServiceTime: this.data.doctorInfo.phoneServiceTime,
-            statusDefault: this.data.doctorInfo.status == 2 ? 1 : 0,
-            statusList: [{
+            showableDefault: this.data.doctorInfo.showable == 0 ? 1 : 0,
+            showableList: [{
                 label: '展示',
                 value: 1
             }, {
                 label: '不展示',
-                value: 2
+                value: 0
             }],
-            statusMap: {
+            showableMap: {
                 1: '展示',
-                2: '不展示',
-                3: '禁用'
+                0: '不展示',
             }
         });
     },
@@ -70,7 +69,7 @@ Page({
         this.submit();
     },
     onClickTextPrice() {
-        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
             wx.jyApp.toast('测试医生不支持该操作');
             return;
         }
@@ -96,7 +95,7 @@ Page({
         });
     },
     onClickVideoPrice() {
-        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
             wx.jyApp.toast('测试医生不支持该操作');
             return;
         }
@@ -122,7 +121,7 @@ Page({
         });
     },
     onClickPhonePrice() {
-        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
             wx.jyApp.toast('测试医生不支持该操作');
             return;
         }
@@ -148,7 +147,7 @@ Page({
         });
     },
     onClickGuidePrice() {
-        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
             wx.jyApp.toast('测试医生不支持该操作');
             return;
         }
@@ -174,27 +173,27 @@ Page({
         });
     },
     onClickStatus() {
-        if(this.data.doctorInfo.role == 'DOCTOR_TEST') {
+        if (this.data.doctorInfo.role == 'DOCTOR_TEST') {
             wx.jyApp.toast('测试医生不支持该操作');
             return;
         }
-        if (this.data.status != 1 && this.data.status != 2) {
+        if (this.data.doctorInfo.status != 1 && this.data.doctorInfo.status != 2) {
             return;
         }
         this.setData({
-            statusVisible: true
+            showableVisible: true
         });
     },
     onConfirmStatus(e) {
         this.setData({
-            statusVisible: false,
-            status: e.detail.value.value
+            showableVisible: false,
+            showable: e.detail.value.value
         });
         this.submit();
     },
     onCancel() {
         this.setData({
-            statusVisible: false
+            showableVisible: false
         });
     },
     onSetTime() {
@@ -227,7 +226,7 @@ Page({
                 consultOrderSwitch: this.data.consultOrderSwitch,
                 videoOrderSwitch: this.data.videoOrderSwitch,
                 phoneOrderSwitch: this.data.phoneOrderSwitch,
-                status: this.data.status,
+                showable: this.data.showable,
                 videoServiceTime: this.data.videoServiceTime,
                 phoneServiceTime: this.data.phoneServiceTime
             }
@@ -241,7 +240,7 @@ Page({
             this.data.doctorInfo.consultOrderSwitch = this.data.consultOrderSwitch
             this.data.doctorInfo.videoOrderSwitch = this.data.videoOrderSwitch
             this.data.doctorInfo.phoneOrderSwitch = this.data.phoneOrderSwitch
-            this.data.doctorInfo.status = this.data.status
+            this.data.doctorInfo.showable = this.data.showable
             this.data.doctorInfo.videoServiceTime = this.data.videoServiceTime
             this.data.doctorInfo.phoneServiceTime = this.data.phoneServiceTime
             this.updateDoctorInfo(Object.assign({}, this.data.doctorInfo))
