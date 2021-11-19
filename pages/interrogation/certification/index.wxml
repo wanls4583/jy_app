@@ -52,7 +52,7 @@
 					<van-icon color="#ccc" name="arrow" />
 				</view>
 			</van-field>
-			<view class="padding-30 border-bottom" wx:if="{{showable==1||authStatus==2}}">
+			<view class="padding-30 border-bottom" wx:if="{{showable==1}}">
 				<view>您适合下面哪些营养中心（可多选）</view>
 				<view class="flex flex-wrap-wrap">
 					<view
