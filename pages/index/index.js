@@ -99,6 +99,11 @@ Page({
             } else if (type == 5 && param.dpId) { //医生扫科室二维码进入科室
                 this.inviteDoctorId = param.dpId;
                 this.inviteWay = 'department';
+            } else if (type == 6 && param.dId) { //患者扫医生二维码，进入v1版本
+                this.inviteDoctorId = param.dId;
+                this.inviteWay = 'doctor';
+                this.barcodType = 'card';
+                this.v1 = true;
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
                 wx.setStorageSync('role', 'DOCTOR');
@@ -203,7 +208,7 @@ Page({
             var doctor = data.doctor;
             var url = '';
             // 患者通过扫医生的码加入科室
-            if (doctor.hosDepartment && this.loginData.tag != 1) { // tag==1代表科室已下线
+            if (doctor.hosDepartment && this.loginData.tag != 1 && !this.v1) { // tag==1代表科室已下线
                 this.getPatient().then((data) => {
                     if (data.list && data.list.length) {
                         url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${this.inviteDoctorId}`;

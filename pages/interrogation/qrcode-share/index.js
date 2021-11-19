@@ -3,7 +3,7 @@ Page({
         barcodeUrl: '',
         type: '',
         from: '',
-        active: 1,
+        active: 0,
         isTeam: false
     },
     onLoad(option) {
@@ -21,11 +21,11 @@ Page({
         this.setData({
             from: option.from
         });
-        if (option.isTeam == 'true') {
+        if (option.isTeam) {
+            this.type = 1;
             this.setData({
                 isTeam: true,
-                active: 0,
-                barcodeUrl: this.data.doctorInfo.hosDepartment.doctorBarcodeUrl
+                barcodeUrl: this.data.doctorInfo.barcodeUrl
             });
         } else if (option.barcodeUrl) {
             this.setData({
@@ -52,7 +52,10 @@ Page({
         var tip = '';
         if (option.tip) {
             tip = option.tip;
-        } else if (option.from == 'team' || option.isTeam) {
+        } else if (option.isTeam) {
+            tip = '将二维码展示给患者，扫码后可加入我的科室';
+            this.type = 6;
+        } else if (option.from == 'team') {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
             this.type = 5;
         } else if (option.from == 'screen') {
@@ -68,12 +71,12 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onChangeTab(e) {
+        this.type = e.detail.index == 0 ? 1 : 6;
         this.setData({
-            barcodeUrl: e.detail.index == 0 ? this.data.doctorInfo.hosDepartment.doctorBarcodeUrl : this.data.doctorInfo.barcodeUrl,
-            tip: e.detail.index == 0 ? '将二维码展示给医生，扫码后可加入我的团队' : '将二维码展示给患者，扫码后可进行线上问诊',
+            barcodeUrl: e.detail.index == 0 ? this.data.doctorInfo.barcodeUrl : this.getQrCode(),
+            tip: e.detail.index == 0 ? '将二维码展示给患者，扫码后可加入我的科室' : '将二维码展示给患者，扫码后可进行线上问诊',
             active: e.detail.index,
         });
-        this.type = e.detail.index == 1 ? 1 : 5;
     },
     //分享
     onShare() {
@@ -96,7 +99,7 @@ Page({
         if (this.data.from == 'screen') {
             path += `&stype=${this.stype || -1}`
         }
-        if (this.data.from == 'team' || this.data.isTeam) {
+        if (this.data.from == 'team') {
             path += '&dpId=' + this.dpId;
         }
         return {
@@ -182,7 +185,7 @@ Page({
         }
     },
     getQrCode() {
-        wx.jyApp.http({
+        return wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
