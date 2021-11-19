@@ -27,6 +27,8 @@ Page({
                 isTeam: true,
                 barcodeUrl: this.data.doctorInfo.barcodeUrl
             });
+        } else if (option.from == 'team') {
+            this.type = 5;
         } else if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
@@ -54,10 +56,8 @@ Page({
             tip = option.tip;
         } else if (option.isTeam) {
             tip = '将二维码展示给患者，扫码后可加入我的科室';
-            this.type = 6;
         } else if (option.from == 'team') {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
-            this.type = 5;
         } else if (option.from == 'screen') {
             tip = '将二维码展示给患者，扫码后可进行营养师筛查';
         } else {
