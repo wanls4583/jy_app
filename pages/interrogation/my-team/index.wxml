@@ -29,7 +29,7 @@
 			</view>
 		</view>
 		<view class="position-absolute bottom-0 width-100 padding-30 flex--center--around" wx:if="{{doctorInfo.hosDepartment}}">
-			<button bindtap="onGoto" class="button primary plain" data-url="/pages/interrogation/create-team/index">修改资料</button>
+			<button bindtap="onGotoEditTeam" class="button primary plain" data-url="/pages/interrogation/create-team/index">修改资料</button>
 			<button
 				bindtap="onGoto"
 				class="button primary"

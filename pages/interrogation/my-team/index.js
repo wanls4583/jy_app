@@ -39,6 +39,17 @@ Page({
             }
         }
     },
+    onGotoEditTeam(e) {
+        if (wx.jyApp.utils.checkDoctor({
+                checkFullAuthStatus: true
+            })) {
+            if (['主任医师', '高级营养师', '主任技师'].indexOf(this.data.doctorInfo.jobTitle) > -1) {
+                this.onGoto(e);
+            } else {
+                wx.jyApp.toast('主任医师、高级营养师、主任技师才支持修改资料');
+            }
+        }
+    },
     onDelDoctor(e) {
         var item = e.currentTarget.dataset.item;
         if (item.id == this.data.doctorInfo.id) {

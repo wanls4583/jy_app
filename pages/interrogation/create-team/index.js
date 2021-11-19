@@ -36,7 +36,7 @@ Page({
                 statusDefault: hosDepartment.status == 1 ? 0 : 1
             });
             wx.setNavigationBarTitle({
-                title: '修改团队'
+                title: '修改资料'
             });
         }
     },
