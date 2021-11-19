@@ -47,6 +47,11 @@ Page({
                     messageList: []
                 });
             }
+            data.page.list.map((item) => {
+                if (item.subType == 'AUTH') {
+                    item.linkUrl = '/pages/interrogation/certification/index';
+                }
+            });
             this.setData({
                 page: this.data.page + 1,
                 totalPage: data.page.totalPage,

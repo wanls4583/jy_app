@@ -96,7 +96,7 @@ Page({
         if (this.data.from == 'screen') {
             path += `&stype=${this.stype || -1}`
         }
-        if (this.data.from == 'team') {
+        if (this.data.from == 'team' || this.data.isTeam) {
             path += '&dpId=' + this.dpId;
         }
         return {
