@@ -294,13 +294,18 @@ Page({
         }
         wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
             var doctor = data.doctor;
+            var joinDoctorId = '';
+            // 患者通过扫医生的码加入可是
+            if (data.doctor.hosDepartment) {
+                joinDoctorId = data.doctor.id;
+            }
             if (screen) { //跳到具体的筛查页面
                 if (this.data.userInfo.role == 'USER') {
                     this.getPatient().then((data) => {
                         if (data.list && data.list.length) {
-                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${doctor.id}`;
+                            sUrl = `/pages/interrogation/user-patient-list/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${joinDoctorId}`;
                         } else {
-                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${doctor.id}`;
+                            sUrl = `/pages/interrogation/user-patient-edit/index?screen=${screen}&doctorId=${doctor.id}&doctorName=${doctor.doctorName}&select=true&joinDoctorId=${joinDoctorId}`;
                         }
                         wx.jyApp.utils.navigateTo({
                             url: sUrl
@@ -316,10 +321,6 @@ Page({
                 wx.jyApp.utils.navigateTo({
                     url: sUrl
                 });
-            }
-            // 患者通过扫医生的码加入可是
-            if (data.doctor.hosDepartment) {
-                wx.setStorageSync('join-doctorId', data.doctor.id);
             }
         }).catch(() => {
             wx.jyApp.toast('医生已下线');
