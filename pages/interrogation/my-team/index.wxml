@@ -33,7 +33,7 @@
 			<button
 				bindtap="onGoto"
 				class="button primary"
-				data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.hosDepartment.doctorBarcodeUrl}}&from=team"
+				data-url="/pages/interrogation/qrcode-share/index?from=team"
 			>邀请团队成员</button>
 		</view>
 	</view>

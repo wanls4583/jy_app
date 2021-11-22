@@ -22,7 +22,11 @@ Page({
         this.setData({
             from: option.from
         });
-        if (option.from == 'home') { //首页二维码
+        if (option.barcodeUrl) {
+            this.setData({
+                barcodeUrl: option.barcodeUrl
+            });
+        } else if (option.from == 'home') { //首页二维码
             this.type = 6;
             this.getQrCode();
             this.setData({
@@ -30,9 +34,8 @@ Page({
             });
         } else if (option.from == 'team') { //团队二维码
             this.type = 5;
-        } else if (option.barcodeUrl) {
             this.setData({
-                barcodeUrl: option.barcodeUrl
+                barcodeUrl: this.data.doctorInfo.hosDepartment.doctorBarcodeUrl
             })
         } else if (option.from == 'screen') { //筛查二维码
             this.type = 2;
