@@ -18,26 +18,29 @@ Page({
         this.dpId = this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.doctorInfo.hosDepartment.departmentId || '';
         this.stype = option.stype; //要调转的具体筛查方式
         this.type = option.type || '';
+        this.qrMap = {};
         this.setData({
             from: option.from
         });
-        if (option.isTeam) {
-            this.type = 1;
+        if (option.from == 'home') { //首页二维码
+            this.type = 6;
+            this.getQrCode();
             this.setData({
-                isTeam: true,
-                barcodeUrl: this.data.doctorInfo.barcodeUrl
+                isTeam: true
             });
-        } else if (option.from == 'team') {
+        } else if (option.from == 'team') { //团队二维码
             this.type = 5;
         } else if (option.barcodeUrl) {
             this.setData({
                 barcodeUrl: option.barcodeUrl
             })
-        } else if (option.from == 'screen') { //调转到筛查页面
+        } else if (option.from == 'screen') { //筛查二维码
             this.type = 2;
             this.getQrCode();
-        } else if (option.from == 'invite') {
+        } else if (option.from == 'invite') { //邀请医生二维码
             this.type = 3;
+            this.getQrCode();
+        } else if (this.type) {
             this.getQrCode();
         } else {
             wx.jyApp.toast('参数错误');
@@ -71,9 +74,9 @@ Page({
         this.storeBindings.destroyStoreBindings();
     },
     onChangeTab(e) {
-        this.type = e.detail.index == 0 ? 1 : 6;
+        this.type = e.detail.index == 0 ? 6 : 1;
         this.setData({
-            barcodeUrl: e.detail.index == 0 ? this.data.doctorInfo.barcodeUrl : this.getQrCode(),
+            barcodeUrl: e.detail.index == 0 ? this.getQrCode() : this.data.doctorInfo.barcodeUrl,
             tip: e.detail.index == 0 ? '将二维码展示给患者，扫码后可加入我的科室' : '将二维码展示给患者，扫码后可进行线上问诊',
             active: e.detail.index,
         });
@@ -185,6 +188,12 @@ Page({
         }
     },
     getQrCode() {
+        if (this.qrMap[this.type]) {
+            this.setData({
+                barcodeUrl: this.qrMap[this.type]
+            });
+            return;
+        }
         return wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
@@ -192,6 +201,7 @@ Page({
                 scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${this.type==2&&this.stype?',stype='+this.stype:''}`
             }
         }).then((data) => {
+            this.qrMap[this.type] = data.barcode;
             this.setData({
                 barcodeUrl: data.barcode
             });

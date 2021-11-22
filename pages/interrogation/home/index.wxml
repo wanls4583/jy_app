@@ -87,7 +87,7 @@
 				<view
 					bindtap="onCheckGotoWithDepartDoctor"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
-					data-url="/pages/interrogation/qrcode-share/index?isTeam=true"
+					data-url="/pages/interrogation/qrcode-share/index?from=home"
 					wx:if="{{doctorInfo.hosDepartment}}"
 				>
 					<image src="/image/icon_qrcode.png" style="width:70rpx;height:70rpx" />
