@@ -110,7 +110,11 @@
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的文章</view>
 				</view>
-				<view bindtap="onCheckGotoWithDepartDoctor" class="flex--center--center flex-direction-column width-25 padding-top-30 align-center" data-url="/pages/order-list/index">
+				<view
+					bindtap="onCheckGotoWithDepartDoctor"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
+					data-url="/pages/order-list/index"
+				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">订单列表</view>
 				</view>
@@ -121,6 +125,14 @@
 				>
 					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的产品</view>
+				</view>
+				<view
+					bindtap="onGoto"
+					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
+					data-url="/pages/interrogation/guideline-consensus/index"
+				>
+					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<view class="font-small margin-top-10 line-height-1em color-666">指南共识</view>
 				</view>
 				<view
 					bindtap="onCheckGoto"

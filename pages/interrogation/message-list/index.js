@@ -42,11 +42,6 @@ Component({
             var id = item.id;
             var roomId = item.roomId;
             var groupFlag = item.groupFlag;
-            if (!wx.jyApp.utils.checkDoctor({
-                    checkStatus: true
-                })) {
-                return;
-            }
             wx.jyApp.utils.navigateTo({
                 url: `/pages/interrogation/chat${this.viewVersion==2?'-v2':''}/index?roomId=${roomId}&groupFlag=${groupFlag}`
             });
