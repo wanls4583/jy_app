@@ -43,6 +43,11 @@ Page({
         });
         this.loadList(true);
     },
+    onDetail(e) {
+        var item = e.currentTarget.dataset.item;
+        wx.setStorageSync('approv-detail', item);
+        this.onGoto(e);
+    },
     onRefresh() {
         this.loadList(true);
     },
@@ -82,7 +87,7 @@ Page({
                 });
             }
             data.page.list.map((item) => {
-                item._status = this.data.statusMap[item.approveStatus];
+                item._approveStatus = this.data.statusMap[item.approveStatus];
                 switch (item.approveStatus) {
                     case 1:
                         item.color = 'warn-color';

@@ -489,14 +489,7 @@ Page({
                 this.setData({
                     approveStatus: 1
                 });
-                wx.switchTab({
-                    url: '/pages/mine/index'
-                });
-                setTimeout(() => {
-                    wx.showToast({
-                        title: '提交成功'
-                    });
-                }, 500);
+                wx.toastBack('提交成功');
             }).catch(() => {
                 wx.hideLoading();
             });
