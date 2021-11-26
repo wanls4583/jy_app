@@ -107,7 +107,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/article-self/index"
 				>
-					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<image src="/image/icon_invite.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的文章</view>
 				</view>
 				<view
@@ -123,7 +123,7 @@
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/my-product/index"
 				>
-					<image src="/image/icon_order.png" style="width:70rpx;height:70rpx" />
+					<image src="/image/icon_product.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的产品</view>
 				</view>
 				<view
