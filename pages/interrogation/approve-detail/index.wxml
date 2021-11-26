@@ -20,7 +20,7 @@
 		<van-collapse-item class="margin-top-20" name="3" title="基本信息">
 			<view class="flex padding-top-30 margin-left-right-30 border-bottom">
 				<view class="label" style="width:auto">是否展示在患者端</view>
-				<van-radio-group bind:change="onChange" data-prop="showable" style="display:flex" value="{{showable}}">
+				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{approveStatus!=1}}" style="display:flex" value="{{showable}}">
 					<van-radio name="{{0}}">不展示</van-radio>
 					<van-radio name="{{1}}">展示</van-radio>
 				</van-radio-group>
@@ -70,32 +70,50 @@
 					<image class="width-100 height-100" mode="aspectFill" src="{{item}}" />
 				</view>
 			</view>
-			<readonly-field bindtap="onInput" data-prop="titleCategoryName" data-title="资质类别名称" label="资质类别名称" readonly value="{{doctorAddition.titleCategoryName}}"></readonly-field>
+			<readonly-field
+				bindtap="onInput"
+				data-prop="titleCategoryName"
+				data-title="资质类别名称"
+				label="资质类别名称"
+				placeholder="请输入资质类别名称"
+				readonly
+				value="{{doctorAddition.titleCategoryName}}"
+			></readonly-field>
 			<readonly-field
 				bindtap="onInput"
 				data-prop="titleCertificateNumber"
 				data-title="资格证书编号"
 				label="资格证书编号"
+				placeholder="请输入资格证书编号"
 				readonly
 				value="{{doctorAddition.titleCertificateNumber}}"
 			></readonly-field>
-			<readonly-field bindtap="onShowDate" data-prop="titleGetDate" label="资格获得时间" readonly value="{{doctorAddition._titleGetDate}}"></readonly-field>
+			<readonly-field bindtap="onShowDate" data-prop="titleGetDate" label="资格获得时间" placeholder="请输入资格获得时间" readonly value="{{doctorAddition._titleGetDate}}"></readonly-field>
 			<readonly-field
 				bindtap="onInput"
 				data-prop="jobCertificateNumber"
 				data-title="资格证书编号"
 				label="资格证书编号"
+				placeholder="请输入资格证书编号"
 				readonly
 				value="{{doctorAddition.jobCertificateNumber}}"
 			></readonly-field>
-			<readonly-field bindtap="onShowDate" data-prop="titleCertificateDate" label="资格获得时间" readonly value="{{doctorAddition._titleCertificateDate}}"></readonly-field>
-			<readonly-field bindtap="onInput" data-prop="jobAddress" data-title="执业地点" label="执业地点" readonly value="{{doctorAddition.jobAddress}}"></readonly-field>
-			<readonly-field bindtap="onShowDepartment" label="执业范围" readonly value="{{doctorAddition._jobDomain}}"></readonly-field>
+			<readonly-field
+				bindtap="onShowDate"
+				data-prop="titleCertificateDate"
+				label="资格获得时间"
+				placeholder="请输入资格获得时间"
+				readonly
+				value="{{doctorAddition._titleCertificateDate}}"
+			></readonly-field>
+			<readonly-field bindtap="onInput" data-prop="jobAddress" data-title="执业地点" label="执业地点" placeholder="请输入执业地点" readonly value="{{doctorAddition.jobAddress}}"></readonly-field>
+			<readonly-field bindtap="onShowDepartment" label="执业范围" placeholder="请输入执业范围" readonly value="{{doctorAddition._jobDomain}}"></readonly-field>
 			<readonly-field
 				bindtap="onInput"
 				data-prop="jobDepartmentCode"
 				data-title="主要执业医疗机构代码"
 				label="主要执业医疗机构代码"
+				placeholder="请输入主要执业医疗机构代码"
 				readonly
 				value="{{doctorAddition.jobDepartmentCode}}"
 			></readonly-field>
@@ -112,8 +130,8 @@
 					<van-radio name="{{0}}">否</van-radio>
 				</van-radio-group>
 			</view>
-			<readonly-field bindtap="onShowDate" data-prop="startJobDate" label="参加工作日期" readonly value="{{doctorAddition._startJobDate}}"></readonly-field>
-			<readonly-field bindtap="onInput" data-prop="approveMsg" data-title="审核说明" label="审核说明" readonly value="{{approveMsg}}"></readonly-field>
+			<readonly-field bindtap="onShowDate" data-prop="startJobDate" label="参加工作日期" placeholder="请输入参加工作日期" readonly value="{{doctorAddition._startJobDate}}"></readonly-field>
+			<readonly-field bindtap="onInput" data-prop="approveMsg" data-title="审核说明" label="审核说明" placeholder="请输入审核说明" readonly value="{{approveMsg}}"></readonly-field>
 		</van-collapse-item>
 	</van-collapse>
 	<footer wx:if="{{approveStatus==1}}">

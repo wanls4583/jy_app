@@ -106,6 +106,9 @@ Page({
         })
     },
     onShowDate(e) {
+        if (!this.checkEdit()) {
+            return;
+        }
         var prop = e.currentTarget.dataset.prop;
         this.setData({
             [`${prop}Visible`]: true,
