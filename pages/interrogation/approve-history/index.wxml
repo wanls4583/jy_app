@@ -1,0 +1,46 @@
+<import src="/template/doctor-item.wxml" />
+<view class="container" wx:if="{{configData.hideDoctor!=1}}">
+	<view bindtap="onShowSearch" class="position-fixed z-index-100 width-100 flex white-background-color border-bottom" style="top:0;height:44px;">
+		<view class="flex--center--center height-100 margin-left-30">
+			<text class="{{statusMap[status]?'primary-color':'gray-color'}}" decode="{{true}}">{{statusMap[status]||'全部'}}&nbsp;</text>
+			<van-icon name="arrow-down" />
+		</view>
+	</view>
+	<view class="height-100" style="padding-top:44px">
+		<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+			<view bindtap="onGoto" class="flex--start--between white-background-color padding-left-right-30" wx:for="{{list}}" wx:key="id">
+				<view class="radius-8px overflow-hidden width-100rpx height-100rpx margin-top-30 gray-background-color">
+					<image class="width-100 height-100" mode="aspectFill" src="{{item.avatar}}" />
+				</view>
+				<view class="flex-grow-1 margin-left-30">
+					<view class="padding-top-bottom-30 border-bottom">
+						<view class="flex--center--between">
+							<view>
+								<text>{{item.doctorName}}</text>
+								<text class="gray-color font-small" decode="{{true}}">&nbsp;&nbsp;{{item.phone||''}}</text>
+							</view>
+							<view class="{{item.color}}">{{item._status}}</view>
+						</view>
+						<view class="margin-top-30">
+							<text class="gray-color font-small" decode="{{true}}">{{item.workHospitalName||''}}&nbsp;&nbsp;{{item.workDepartmentName||''}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:if="{{totalPage>0&&page>totalPage}}">没有更多了</view>
+			<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage==0}}">
+				<empty description="暂无数据" />
+			</view>
+			<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+		</pull-scroll-view>
+	</view>
+	<van-popup bind:click-overlay="onShowSearch" custom-style="top:44px" position="top" show="{{searchVisible}}" z-index="{{0}}">
+		<view bindtap="onClickStatus" class="padding-30 border-bottom" data-item="{{item}}" wx:for="{{statusList}}" wx:key="item">
+			<view class="primary-color" wx:if="{{item==status}}">
+				<van-icon name="success" />
+				<text>{{statusMap[item]||'全部'}}</text>
+			</view>
+			<view wx:else>{{statusMap[item]||'全部'}}</view>
+		</view>
+	</van-popup>
+</view>

@@ -1,5 +1,5 @@
 <view class="container">
-	<navigation-bar background="#2aafff" color="white" holder="{{true}}" title=""></navigation-bar>
+	<navigation-bar background="#2aafff" color="white" holder="{{true}}" title></navigation-bar>
 	<view class="position-absolute bottom-0 z-index-100 width-100" style="top:{{menuRect.outerNavHeight}}px">
 		<pull-scroll-view bindrefresh="onRefresh" refresher-background="#2aafff" refresher-default-style="white" stop-refresh="{{stopRefresh}}">
 			<!-- 认证医生 -->
@@ -137,6 +137,7 @@
 						class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
 						data-income-switch="{{true}}"
 						data-url="/pages/interrogation/income-list/index"
+						wx:if="{{configData.showIncomeSwitch==1}}"
 					>
 						<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
 						<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">查看收益</view>
@@ -218,6 +219,14 @@
 				<view class="padding-left-right-20 clickable" wx:if="{{userInfo.dataAuthority==1}}">
 					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/statistic/summary/index">
 						<text>数据查询</text>
+						<view class="flex--center--center">
+							<van-icon color="#ccc" name="arrow" />
+						</view>
+					</view>
+				</view>
+				<view class="padding-left-right-20 clickable" wx:if="{{userInfo.doctorApproveAuthority==1}}">
+					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/interrogation/approve-history/index">
+						<text>资质审核</text>
 						<view class="flex--center--center">
 							<van-icon color="#ccc" name="arrow" />
 						</view>
