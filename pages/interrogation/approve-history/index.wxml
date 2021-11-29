@@ -12,7 +12,7 @@
 				bindtap="onDetail"
 				class="flex--start--between white-background-color padding-left-right-30"
 				data-item="{{item}}"
-				data-url="/pages/interrogation/approve-detail/index"
+				data-url="/pages/interrogation/approve-detail/index?id={{item.id}}"
 				wx:for="{{list}}"
 				wx:key="id"
 			>

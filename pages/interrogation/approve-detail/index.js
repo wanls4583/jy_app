@@ -10,9 +10,9 @@ Page({
             _jobDomain: '',
             jobDepartmentCode: '',
             isAll: 0,
-            titleGetDate: 0,
-            titleCertificateDate: 0,
-            startJobDate: 0,
+            titleGetDate: '',
+            titleCertificateDate: '',
+            startJobDate: '',
             _titleGetDate: '',
             _titleCertificateDate: '',
             _startJobDate: '',
@@ -54,13 +54,19 @@ Page({
             0: '关闭',
             1: '开启',
         },
+        approveStatusMap: {
+            1: '审核中',
+            2: '审核通过',
+            3: '审核不通过',
+        }
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['configData', 'doctorInfo'],
         });
-        this.loadLoaclInfo();
+        // this.loadLoaclInfo();
+        this.loadInfo(option.id);
         this.loadWorkDepartmentList();
         this.storeBindings.updateStoreBindings();
     },
@@ -137,6 +143,46 @@ Page({
     },
     onSave(e) {
         var status = e.currentTarget.dataset.status;
+        if (!this.data.doctorAddition.titleCategoryName) {
+            wx.jyApp.toast('资质类别名称为空');
+            return;
+        }
+        if (!this.data.doctorAddition.titleCertificateNumber) {
+            wx.jyApp.toast('资格证书编号不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition._titleGetDate) {
+            wx.jyApp.toast('资格获得时间不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition.titleCertificateNumber) {
+            wx.jyApp.toast('执业证书编号不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition._titleCertificateDate) {
+            wx.jyApp.toast('发证日期不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition.jobAddress) {
+            wx.jyApp.toast('执业地点不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition._jobDomain) {
+            wx.jyApp.toast('执业范围不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition.jobDepartmentCode) {
+            wx.jyApp.toast('主要执业医疗机构代码不能为空');
+            return;
+        }
+        if (!this.data.doctorAddition._startJobDate) {
+            wx.jyApp.toast('参加工作日期不能为空');
+            return;
+        }
+        if (!this.data.approveMsg) {
+            wx.jyApp.toast('审核说明不能为空');
+            return;
+        }
         wx.showLoading({
             title: '提交中...',
             mask: true
@@ -179,6 +225,7 @@ Page({
             this.setData({
                 workDepartmentList: data.list
             });
+            this.setJobDomain();
         })
     },
     loadLoaclInfo() {
@@ -187,26 +234,48 @@ Page({
             this.setInfo(data);
         }
     },
+    loadInfo(id) {
+        wx.jyApp.http({
+            url: `/doctor/approve/history/info/${id}`
+        }).then((data) => {
+            data.doctorApproveHistory.incomeSwitch = data.incomeSwitch;
+            data.doctorApproveHistory.status = data.status;
+            this.setInfo(data.doctorApproveHistory);
+        });
+    },
     setInfo(data) {
         data = Object.assign({}, data);
         data.jobCertificateUrl = data.jobCertificateUrl && data.jobCertificateUrl.split(',');
         data.jobTitleCertificateUrl = data.jobTitleCertificateUrl && data.jobTitleCertificateUrl.split(',');
         data._status = this.data.statusMap[data.status];
+        data._approveStatus = this.data.approveStatusMap[data.approveStatus];
         data._authStatus = this.data.authStatusMap[data.authStatus];
         data._incomeSwitch = this.data.incomeSwitchMap[data.incomeSwitch];
-        data.doctorAddition = data.doctorAddition || {};
+        data.doctorAddition = data.doctorAddition || this.data.doctorAddition;
         data.doctorAddition._titleGetDate = data.doctorAddition.titleGetDate;
         data.doctorAddition._titleCertificateDate = data.doctorAddition.titleCertificateDate;
         data.doctorAddition._startJobDate = data.doctorAddition.startJobDate;
-        data.doctorAddition.titleGetDate = data.doctorAddition.titleGetDate || new Date().getTime();
-        data.doctorAddition.titleCertificateDate = data.doctorAddition.titleCertificateDate || new Date().getTime();
-        data.doctorAddition.startJobDate = data.doctorAddition.startJobDate || new Date().getTime();
+        data.doctorAddition.titleGetDate = data.doctorAddition.titleGetDate && Date.prototype.parseDate(data.doctorAddition.titleGetDate).getTime() || new Date().getTime();
+        data.doctorAddition.titleCertificateDate = data.doctorAddition.titleCertificateDate && Date.prototype.parseDate(data.doctorAddition.titleCertificateDate).getTime() || new Date().getTime();
+        data.doctorAddition.startJobDate = data.doctorAddition.startJobDate && Date.prototype.parseDate(data.doctorAddition.startJobDate).getTime() || new Date().getTime();
         for (var key in data) {
             this.setData({
                 [`${key}`]: data[key]
             });
         }
+        this.setJobDomain();
         console.log(data);
+    },
+    setJobDomain() {
+        if (this.data.doctorAddition.jobDomain) {
+            this.data.workDepartmentList.map((item) => {
+                if (item.departmentCode == this.data.doctorAddition.jobDomain) {
+                    this.setData({
+                        'doctorAddition._jobDomain': item.departmentName
+                    });
+                }
+            });
+        }
     },
     checkEdit() {
         return this.data.approveStatus == 1;

@@ -5,11 +5,11 @@
 			<readonly-field label="认证状态" readonly value="{{_authStatus}}"></readonly-field>
 			<readonly-field label="审核状态" readonly value="{{_approveStatus}}"></readonly-field>
 			<readonly-field label="上线状态" readonly value="{{_status}}"></readonly-field>
-			<readonly-field label="收益开关" readonly value="{{_incomSwitch}}"></readonly-field>
+			<readonly-field label="收益开关" readonly value="{{_incomeSwitch}}"></readonly-field>
 		</van-collapse-item>
 		<van-collapse-item class="margin-top-20" name="2" title="绑定用户信息">
 			<readonly-field label="微信昵称" readonly value="{{wxNickname}}"></readonly-field>
-			<van-field label="个人头像" readonly>
+			<van-field label="微信头像" readonly>
 				<view class="flex--center--center" slot="right-icon">
 					<view class="position-relative width-80rpx height-80rpx radius-50 overflow-hidden">
 						<image class="width-100 height-100" mode="aspectFill" src="{{wxAvatar}}" />
@@ -39,7 +39,7 @@
 			<readonly-field label="医院" readonly value="{{workHospitalName}}"></readonly-field>
 			<readonly-field label="科室" readonly value="{{workDepartmentName}}"></readonly-field>
 			<readonly-field label="职称" readonly value="{{jobTitle}}"></readonly-field>
-			<readonly-field label="时候的营养中心" readonly value="{{departmentName}}"></readonly-field>
+			<readonly-field label="时候的营养中心" readonly value="{{onlineDepartmentName}}"></readonly-field>
 			<readonly-field label="擅长" readonly value="{{goodAtDomain}}"></readonly-field>
 			<readonly-field label="个人简介" readonly value="{{introduce}}"></readonly-field>
 		</van-collapse-item>
@@ -92,17 +92,17 @@
 			<readonly-field
 				bindtap="onInput"
 				data-prop="jobCertificateNumber"
-				data-title="资格证书编号"
-				label="资格证书编号"
-				placeholder="请输入资格证书编号"
+				data-title="执业证书编号"
+				label="执业证书编号"
+				placeholder="请输入执业证书编号"
 				readonly
 				value="{{doctorAddition.jobCertificateNumber}}"
 			></readonly-field>
 			<readonly-field
 				bindtap="onShowDate"
 				data-prop="titleCertificateDate"
-				label="资格获得时间"
-				placeholder="请输入资格获得时间"
+				label="发证日期"
+				placeholder="请输入发证日期"
 				readonly
 				value="{{doctorAddition._titleCertificateDate}}"
 			></readonly-field>
@@ -134,11 +134,11 @@
 			<readonly-field bindtap="onInput" data-prop="approveMsg" data-title="审核说明" label="审核说明" placeholder="请输入审核说明" readonly value="{{approveMsg}}"></readonly-field>
 		</van-collapse-item>
 	</van-collapse>
-	<footer wx:if="{{approveStatus==1}}">
-		<view bindtap="onSave" class="button primary plain" data-status="{{3}}">审核不通过</view>
-		<view bindtap="onSave" class="button primary" data-status="{{2}}">审核通过</view>
-	</footer>
 </view>
+<footer wx:if="{{approveStatus==1}}" style="padding-bottom:15px">
+	<view bindtap="onSave" class="button primary plain" data-status="{{3}}">审核不通过</view>
+	<view bindtap="onSave" class="button primary" data-status="{{2}}">审核通过</view>
+</footer>
 <van-popup position="bottom" show="{{titleGetDateVisible}}">
 	<van-datetime-picker
 		bind:cancel="onCancelDate"

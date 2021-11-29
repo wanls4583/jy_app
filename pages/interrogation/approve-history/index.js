@@ -5,7 +5,7 @@ Page({
         page: 1,
         limit: 20,
         totalPage: -1,
-        status: '',
+        status: 1,
         searchVisible: false,
         statusList: ['', 1, 2, 3],
         statusMap: {

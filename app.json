@@ -24,6 +24,7 @@
         "pages/mall/confirm-order/index",
         "pages/mall/pay-suc/index",
         "pages/interrogation/approve-history/index",
+        "pages/interrogation/approve-detail/index",
         "pages/interrogation/guideline-consensus/index",
         "pages/interrogation/create-team/index",
         "pages/interrogation/transfer-list/index",
