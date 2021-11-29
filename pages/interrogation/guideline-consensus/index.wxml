@@ -56,7 +56,7 @@
 				wx:key="index"
 			>{{item||'全部'}}</view>
 		</view>
-		<view class="padding-30">地区：</view>
+		<view class="padding-30">类型：</view>
 		<view class="flex flex-wrap-wrap">
 			<view
 				bindtap="onClickArea"
