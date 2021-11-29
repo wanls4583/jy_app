@@ -39,6 +39,7 @@ Page({
         titleCertificateDateVisible: false,
         startJobDateVisible: false,
         departmentVisible: false,
+        isSpecialTitle: false,
         workDepartmentList: [],
         authStatusMap: {
             2: '资料待完善',
@@ -155,19 +156,19 @@ Page({
             wx.jyApp.toast('资格获得时间不能为空');
             return;
         }
-        if (!this.data.doctorAddition.titleCertificateNumber) {
+        if (!this.data.doctorAddition.titleCertificateNumber && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业证书编号不能为空');
             return;
         }
-        if (!this.data.doctorAddition._titleCertificateDate) {
+        if (!this.data.doctorAddition._titleCertificateDate && this.data.isSpecialTitle) {
             wx.jyApp.toast('发证日期不能为空');
             return;
         }
-        if (!this.data.doctorAddition.jobAddress) {
+        if (!this.data.doctorAddition.jobAddress && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业地点不能为空');
             return;
         }
-        if (!this.data.doctorAddition._jobDomain) {
+        if (!this.data.doctorAddition._jobDomain && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业范围不能为空');
             return;
         }
@@ -258,6 +259,7 @@ Page({
         data.doctorAddition.titleGetDate = data.doctorAddition.titleGetDate && Date.prototype.parseDate(data.doctorAddition.titleGetDate).getTime() || new Date().getTime();
         data.doctorAddition.titleCertificateDate = data.doctorAddition.titleCertificateDate && Date.prototype.parseDate(data.doctorAddition.titleCertificateDate).getTime() || new Date().getTime();
         data.doctorAddition.startJobDate = data.doctorAddition.startJobDate && Date.prototype.parseDate(data.doctorAddition.startJobDate).getTime() || new Date().getTime();
+        data.isSpecialTitle = ['主任医师', '副主任医师', '主治医师', '医师'].indexOf(data.jobTitle) > -1;
         for (var key in data) {
             this.setData({
                 [`${key}`]: data[key]

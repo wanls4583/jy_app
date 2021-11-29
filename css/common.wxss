@@ -456,6 +456,6 @@ swiper-item {
 }
 
 .required::before {
-    content: "* ";
+    content: "*";
     color: red;
 }
