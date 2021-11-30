@@ -9,7 +9,7 @@ Page({
             jobDomain: '',
             _jobDomain: '',
             jobDepartmentCode: '',
-            isAll: 0,
+            isAll: null,
             titleGetDate: '',
             titleCertificateDate: '',
             startJobDate: '',
@@ -79,13 +79,18 @@ Page({
         var prop = e.currentTarget.dataset.prop;
         var type = e.currentTarget.dataset.type;
         var title = e.currentTarget.dataset.title;
+        var defaultValue = undefined;
+        var props = prop.split('.');
+        props.map((item) => {
+            defaultValue = defaultValue == undefined ? this.data[item] : defaultValue[item];
+        });
         if (!this.checkEdit()) {
             return;
         }
         wx.jyApp.utils.setText({
             title: title,
             type: type || 'text',
-            defaultValue: this.data[prop],
+            defaultValue: defaultValue,
             complete: (value) => {
                 this.setData({
                     [prop]: value
@@ -140,6 +145,14 @@ Page({
             'doctorAddition._jobDomain': e.detail.value.departmentName,
             'doctorAddition.jobDomain': e.detail.value.departmentCode,
             departmentVisible: false
+        });
+    },
+    onClickImg(e) {
+        var src = e.currentTarget.dataset.src;
+        var urls = e.currentTarget.dataset.urls;
+        wx.previewImage({
+            current: src,
+            urls: urls
         });
     },
     onSave(e) {
