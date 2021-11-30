@@ -10,7 +10,7 @@
 			<van-icon name="arrow-down" />
 		</view>
 		<view class="flex--center--center height-100">
-			<text class="{{area?'primary-color':'gray-color'}}" decode="{{true}}">{{area||'地区'}}&nbsp;</text>
+			<text class="{{area?'primary-color':'gray-color'}}" decode="{{true}}">{{area||'类型'}}&nbsp;</text>
 			<van-icon name="arrow-down" />
 		</view>
 	</view>
