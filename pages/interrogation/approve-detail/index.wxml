@@ -35,6 +35,7 @@
 			</van-field>
 			<readonly-field label="手机号" readonly value="{{phone}}"></readonly-field>
 			<readonly-field label="身份证" readonly value="{{idNumber}}"></readonly-field>
+			<readonly-field label="身份证" readonly value="{{provinceCity}}"></readonly-field>
 			<readonly-field label="医院" readonly value="{{workHospitalName}}"></readonly-field>
 			<readonly-field label="科室" readonly value="{{workDepartmentName}}"></readonly-field>
 			<readonly-field label="职称" readonly value="{{jobTitle}}"></readonly-field>
