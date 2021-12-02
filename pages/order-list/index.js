@@ -833,6 +833,7 @@ Page({
                 item.oneMoreVisible = [3, 4, 7].indexOf(item.status) > -1;
                 item.delVisible = [0, 3, 4, 7].indexOf(item.status) > -1;
                 item._status = wx.jyApp.constData.interrogationOrderStatusMap[item.status];
+                item.recieveAble = item.status == 1;
                 this.setStatusColor(item, 'interrogation');
                 this.setData({
                     [`interrogationOrder.orderList[${index}]`]: item
