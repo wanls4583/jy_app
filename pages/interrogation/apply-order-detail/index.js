@@ -100,6 +100,33 @@ Page({
             }
         });
     },
+    // 取消问诊订单
+    onCancelInterrogation(e) {
+        wx.showModal({
+            content: '确认取消此订单？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('取消中...', true);
+                    wx.jyApp.http({
+                        url: '/consultorder/cancel',
+                        method: 'post',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.loadInfo();
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                        if (page) {
+                            page.updateInterrogationStatus(this.id, 7);
+                        }
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
     //删除申请订单
     onDelApplyOrder(e) {
         wx.showModal({

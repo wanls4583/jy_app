@@ -57,8 +57,10 @@
 	<black wx:if="{{type=='interrogation'}}">
 		<view
 			class="position-fixed bottom-0 flex--center--end width-100 z-index-100 padding-30 white-background-color border-top"
-			wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
+			wx:if="{{(order.delVisible||order.recieveAble||order.oneMoreVisible||order.ticketStatus||order.applyTicketVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 		>
+			<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+			<view bindtap="onCancelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.recieveAble}}">取消订单</view>
 			<view
 				bindtap="onGoto"
 				class="margin-left-20 button primary small"
@@ -77,7 +79,6 @@
 				data-url="/pages/interrogation/apply-ticket/index?id={{order.id}}&ticketMoney={{order.orderAmount}}&orderNo={{order.orderNo}}&orderType=1"
 				wx:elif="{{order.applyTicketVisible}}"
 			>申请发票</view>
-			<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 			<view bindtap="onInterrogationPay" class="margin-left-20 button primary small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
 			<view
 				catchtap="onGoto"

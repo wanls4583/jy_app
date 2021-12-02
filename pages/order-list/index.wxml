@@ -60,9 +60,10 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.delVisible||order.recieveAble||order.oneMoreVisible||order.ticketStatus||order.applyTicketVisible||order.status==0||!order.isAppraise&&order.status==3)&&userInfo.role=='USER'}}"
 						>
 							<view bindtap="onDelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
+							<view bindtap="onCancelInterrogation" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.recieveAble}}">取消订单</view>
 							<view
 								bindtap="onGoto"
 								class="margin-left-20 button primary small"
