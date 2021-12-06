@@ -97,7 +97,7 @@ Page({
                         this.clearCart();
                         this.updateSelectAddress(null);
                     }, 500);
-                    wx.redirectTo({
+                    wx.jyApp.utils.redirectTo({
                         url: '/pages/mall/order-detail/index?type=mallOrder&id=' + data.id
                     });
                     var page = wx.jyApp.utils.getPages('pages/order-list/index');

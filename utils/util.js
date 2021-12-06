@@ -65,6 +65,15 @@ function getUUID(len) {
     return str;
 }
 
+function redirectTo(option) {
+    option.fail = option.fail || function () {
+        wx.reLaunch({
+            url: '/pages/index/index'
+        });
+    }
+    wx.redirectTo(option);
+}
+
 function navigateTo(e) {
     if (e.url) {
         if (e.type == 'tab') {
@@ -104,12 +113,17 @@ function navigateTo(e) {
 
         function _go() {
             if (getCurrentPages().length > 9) {
-                wx.redirectTo({
+                redirectTo({
                     url: url
                 });
             } else {
                 wx.navigateTo({
-                    url: url
+                    url: url,
+                    fail: () => {
+                        wx.reLaunch({
+                            url: '/pages/index/index'
+                        });
+                    }
                 });
             }
         }
@@ -321,7 +335,7 @@ function checkDoctor(option = {
             });
         });
         pass = false;
-    } else if(doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 2 && option.checkFullAuthStatus) {
+    } else if (doctorInfo.role == 'DOCTOR' && doctorInfo.authStatus == 2 && option.checkFullAuthStatus) {
         !option.hideTip && wx.jyApp.dialog.confirm({
             message: '您的资质认证不完整，完善资质认证后可使用该功能',
             confirmButtonText: '立即认证',
@@ -519,6 +533,7 @@ Date.prototype.countTime = countTime;
 
 module.exports = {
     emailReg: /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/,
+    redirectTo: redirectTo,
     navigateTo: navigateTo,
     navigateBack: navigateBack,
     getPageByLastIndex: getPageByLastIndex,

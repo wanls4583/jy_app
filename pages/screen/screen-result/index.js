@@ -42,7 +42,7 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onConsult() {
-        wx.redirectTo({
+        wx.jyApp.utils.redirectTo({
             url: `/pages/interrogation/illness-edit/index?doctorId=${this.data.doctorId}&type=1`
         })
     },

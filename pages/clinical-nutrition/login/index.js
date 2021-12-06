@@ -25,7 +25,7 @@ Page({
             //         isInpatient: true
             //     }
             // }).then(() => {
-                wx.redirectTo({
+                wx.jyApp.utils.redirectTo({
                     url: '/pages/clinical-nutrition/patient-list/index'
                 });
             // });
@@ -99,7 +99,7 @@ Page({
                 }).then((data) => {
                     wx.setStorageSync('mobileToken', data.token);
                     wx.setStorageSync('mobileUserInfo', data.info);
-                    wx.redirectTo({
+                    wx.jyApp.utils.redirectTo({
                         url: '/pages/clinical-nutrition/patient-list/index'
                     });
                 }).finally(() => {

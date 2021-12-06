@@ -90,7 +90,7 @@ Page({
                 }
             }
             wx.jyApp.setTempData('screenPatient', this.data.patient);
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
             });
         }

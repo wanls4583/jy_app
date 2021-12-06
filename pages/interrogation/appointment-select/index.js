@@ -170,7 +170,7 @@ Page({
             }
         }).then(() => {
             wx.jyApp.tempData.bookDateTime = Date.prototype.parseDateTime(date.formatTime('yyyy-MM-dd ') + itemObj.time + ':00');
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: `/pages/interrogation/illness-edit/index?type=${this.type}&doctorId=${this.doctorId}`
             });
         });

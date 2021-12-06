@@ -46,7 +46,7 @@ Page({
                 }
             })
         } else {
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: `/pages/screen/fat-assess/index?active=1&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}&roomId=${this.roomId}`
             });
         }

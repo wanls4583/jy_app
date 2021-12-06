@@ -38,7 +38,7 @@ Page({
         wx.navigateBack();
     },
     onNext() {
-        wx.redirectTo({
+        wx.jyApp.utils.redirectTo({
             url: `/pages/screen/body-fat/index?consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}&roomId=${this.roomId}`
         });
     }

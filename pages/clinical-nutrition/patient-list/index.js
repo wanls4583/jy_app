@@ -31,7 +31,7 @@ Page({
     //退出
     onExit() {
         wx.removeStorageSync('mobileToken');
-        wx.redirectTo({
+        wx.jyApp.utils.redirectTo({
             url: '/pages/clinical-nutrition/login/index'
         });
     },

@@ -22,7 +22,7 @@ Page({
     },
     onShow() {
         if (!this.firstLoad) {
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: '/pages/tab-bar/index'
             });
             return;
@@ -155,7 +155,7 @@ Page({
                     url: '/pages/mall/product-detail/index?id=' + this.productId
                 });
             } else {
-                wx.redirectTo({
+                wx.jyApp.utils.redirectTo({
                     url: '/pages/tab-bar/index'
                 });
             }
@@ -166,7 +166,7 @@ Page({
     },
     handleUrl() {
         if (this.routeType == 'switchTab') {
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: this.url
             });
         } else {
@@ -177,7 +177,7 @@ Page({
     },
     handleSalesmanCode() {
         if (this.data.doctorInfo) {
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: '/pages/tab-bar/index'
             });
         } else {
@@ -197,7 +197,7 @@ Page({
                     url: '/pages/interrogation/my-team/index'
                 });
             } else {
-                wx.redirectTo({
+                wx.jyApp.utils.redirectTo({
                     url: '/pages/tab-bar/index'
                 });
             }
@@ -234,7 +234,7 @@ Page({
             if (url.slice(0, 6) == '/pages') {
                 if (tabs.indexOf(url) > -1) {
                     url = '/pages/tab-bar/index?url=' + url;
-                    wx.redirectTo({
+                    wx.jyApp.utils.redirectTo({
                         url: url
                     });
                 } else {
@@ -252,7 +252,7 @@ Page({
             }
         }).catch(() => {
             wx.jyApp.toast('医生已下线');
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: '/pages/tab-bar/index'
             });
         });
@@ -324,7 +324,7 @@ Page({
             }
         }).catch(() => {
             wx.jyApp.toast('医生已下线');
-            wx.redirectTo({
+            wx.jyApp.utils.redirectTo({
                 url: '/pages/tab-bar/index'
             });
         });

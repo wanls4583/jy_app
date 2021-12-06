@@ -38,7 +38,7 @@ Page({
         wx.navigateBack();
     },
     onNext() {
-        wx.redirectTo({
+        wx.jyApp.utils.redirectTo({
             url: `/pages/screen/sit-investigate/index?patientId=${this.patientId}&consultOrderId=${this.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
         });
     }
