@@ -123,7 +123,7 @@ function navigateBack(option) {
             if (getPageByLastIndex().route != page.route) {
                 setTimeout(() => {
                     option && option.success && option.success();
-                }, 500);
+                }, 100);
             } else {
                 _timer();
             }

@@ -47,6 +47,7 @@ Page({
                 method: 'post',
                 data: this.data.patient
             }).then(() => {
+                this.screen = this.screen || 'nrs';
                 // 跳转到筛查页面
                 if (this.screen) {
                     _toScreen.call(this);
@@ -137,7 +138,7 @@ Page({
     },
     onAdd(e) {
         wx.jyApp.utils.navigateTo({
-            url: `/pages/interrogation/user-patient-edit/index?screen=${this.screen}&doctorId=${this.doctorId}&doctorName=${this.doctorName}&joinDoctorId=${this.joinDoctorId}`
+            url: `/pages/interrogation/user-patient-edit/index`
         });
     },
     loadList() {

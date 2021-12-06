@@ -31,8 +31,8 @@ Page({
         this.storeBindings.updateStoreBindings();
         // 患者端v2版本选择默认患者
         this.joinDoctorId = option.joinDoctorId || '';
-        // 是否从医生详情页跳过来的
-        this.screen = option.screen;
+        // 科室跳过来的需要默认跳转到nrs筛查
+        this.screen = option.screen || (this.joinDoctorId ? 'nrs' : '');
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.setData({
