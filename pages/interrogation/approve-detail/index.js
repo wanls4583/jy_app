@@ -157,39 +157,39 @@ Page({
     },
     onSave(e) {
         var status = e.currentTarget.dataset.status;
-        if (this.showable == 1 && !this.data.doctorAddition.titleCategoryName) {
+        if (this.data.showable == 1 && !this.data.doctorAddition.titleCategoryName) {
             wx.jyApp.toast('资质类别名称为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition.titleCertificateNumber) {
+        if (this.data.showable == 1 && !this.data.doctorAddition.titleCertificateNumber) {
             wx.jyApp.toast('资格证书编号不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition._titleGetDate) {
+        if (this.data.showable == 1 && !this.data.doctorAddition._titleGetDate) {
             wx.jyApp.toast('资格获得时间不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition.titleCertificateNumber && this.data.isSpecialTitle) {
+        if (this.data.showable == 1 && !this.data.doctorAddition.jobCertificateNumber && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业证书编号不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition._titleCertificateDate && this.data.isSpecialTitle) {
+        if (this.data.showable == 1 && !this.data.doctorAddition._titleCertificateDate && this.data.isSpecialTitle) {
             wx.jyApp.toast('发证日期不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition.jobAddress && this.data.isSpecialTitle) {
+        if (this.data.showable == 1 && !this.data.doctorAddition.jobAddress && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业地点不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition._jobDomain && this.data.isSpecialTitle) {
+        if (this.data.showable == 1 && !this.data.doctorAddition._jobDomain && this.data.isSpecialTitle) {
             wx.jyApp.toast('执业范围不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition.jobDepartmentCode) {
+        if (this.data.showable == 1 && !this.data.doctorAddition.jobDepartmentCode) {
             wx.jyApp.toast('主要执业医疗机构代码不能为空');
             return;
         }
-        if (this.showable == 1 && !this.data.doctorAddition._startJobDate) {
+        if (this.data.showable == 1 && !this.data.doctorAddition._startJobDate) {
             wx.jyApp.toast('参加工作日期不能为空');
             return;
         }
