@@ -342,7 +342,7 @@ Page({
             if (data.info.role == 'USER') {
                 this.getCart();
             }
-            return role == 'DOCTOR' && data.info.doctorId;
+            return data.info.role == 'DOCTOR' && data.info.doctorId;
         });
     },
     getMessageCount() {

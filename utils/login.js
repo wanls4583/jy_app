@@ -20,7 +20,7 @@ function getUserInfo() {
             var role = wx.getStorageSync('role');
             data.info.originRole = data.info.role;
             if (!role) {
-                if(data.info.role == 'DOCTOR') {
+                if (data.info.role == 'DOCTOR') {
                     role = 'DOCTOR';
                 } else {
                     role = 'USER';
@@ -33,7 +33,6 @@ function getUserInfo() {
             if (!data.info.doctorId) {
                 wx.jyApp.store.updateDoctorInfo(null);
             }
-            wx.jyApp.store.updateStoreBindings(data.info);
         }
         return data;
     });
