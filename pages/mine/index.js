@@ -83,10 +83,6 @@ Component({
         //切换账号
         onSitchRole() {
             if (this.data.userInfo.role == 'DOCTOR') {
-                if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.userInfo.viewVersion != 2) {
-                    wx.jyApp.toast('请扫描科室医生二维码进行问诊');
-                    return;
-                }
                 wx.setStorageSync('role', 'USER');
                 wx.reLaunch({
                     url: '/pages/index/index'
