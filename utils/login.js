@@ -17,17 +17,23 @@ function getUserInfo() {
         url: '/wx/user/info'
     }).then((data) => {
         if (data && data.info) {
+            var role = wx.getStorageSync('role');
             data.info.originRole = data.info.role;
-            if (data.info.role != 'DOCTOR') {
-                data.info.role = 'USER';
+            if (!role) {
+                if(data.info.role == 'DOCTOR') {
+                    role = 'DOCTOR';
+                } else {
+                    role = 'USER';
+                }
             }
-            if (data.info.originRole == 'PHARMACIST') {
-                wx.setStorageSync('role', 'USER');
-            }
+            data.info.role = role;
+            wx.setStorageSync('role', role);
+            wx.jyApp.store.updateUserInfo(data.info);
             //后台删除医生后前端也需要删除医生信息
             if (!data.info.doctorId) {
                 wx.jyApp.store.updateDoctorInfo(null);
             }
+            wx.jyApp.store.updateStoreBindings(data.info);
         }
         return data;
     });

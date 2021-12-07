@@ -336,15 +336,8 @@ Page({
                 wx.jyApp.loginUtil.updateUserInfo({
                     nickname: data.info.nickname
                 });
+                this.updateUserInfo(data.info);
             }
-            var role = wx.getStorageSync('role');
-            role = role == 'DOCTOR' ? 'DOCTOR' : 'USER';
-            if (role == 'USER') {
-                data.info.role = 'USER';
-            } else {
-                data.info.role = 'DOCTOR';
-            }
-            this.updateUserInfo(data.info);
             this.storeBindings.updateStoreBindings();
             if (data.info.role == 'USER') {
                 this.getCart();

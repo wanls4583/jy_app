@@ -71,7 +71,7 @@ Component({
             }
         },
         onCheckGotoWithDepartDoctor(e) {
-            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
                 this.onGoto(e);
             } else {
                 this.onCheckGotoWithFullCertification(e);
@@ -189,14 +189,8 @@ Component({
                     wx.jyApp.loginUtil.updateUserInfo({
                         nickname: data.info.nickname
                     });
+                    this.updateUserInfo(data.info);
                 }
-                var role = wx.getStorageSync('role');
-                if (role && role.indexOf('DOCTOR') > -1) {
-                    data.info.role = 'DOCTOR';
-                } else {
-                    data.info.role = 'USER';
-                }
-                this.updateUserInfo(data.info);
                 return data;
             });
         },

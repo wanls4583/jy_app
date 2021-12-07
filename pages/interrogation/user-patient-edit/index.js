@@ -160,6 +160,8 @@ Page({
                 this.updateUserInfo(Object.assign({}, this.data.userInfo));
             }
             if (this.screen || this.joinDoctorId) {
+                // 更新当前用户信息
+                this.joinDoctorId && wx.jyApp.loginUtil.getUserInfo();
                 // 筛查页面
                 this.loadInfo(data.id || this.data.patient.id).then(() => {
                     if (this.screen) {
