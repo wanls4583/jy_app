@@ -60,7 +60,7 @@ Page({
         var tip = '';
         if (option.tip) {
             tip = option.tip;
-        } else if (option.isTeam) {
+        } else if (this.data.isTeam) {
             tip = '将二维码展示给患者，扫码后可加入我的科室';
         } else if (option.from == 'team') {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
