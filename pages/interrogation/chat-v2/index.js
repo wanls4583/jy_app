@@ -689,8 +689,8 @@ Page({
                     try {
                         item._txt = JSON.parse(item.txt).notice;
                         item.txt = item._txt;
-                        if (item.txt.length > 50) {
-                            item._txt = item.txt.slice(0, 50) + '...';
+                        if (item.txt.length > 36) {
+                            item._txt = item.txt.slice(0, 36) + '...';
                         }
                     } catch (e) {
                         console.log(e);

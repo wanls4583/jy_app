@@ -67,7 +67,7 @@
 							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==26}}">
 								<view>
 									<text class="primary-color">【群公告】</text>
-									<text class="font-small margin-right-10">：{{item._txt}}</text>
+									<text class="margin-right-10">：{{item._txt}}</text>
 									<text bindtap="onGotoNotice" class="primary-color" data-url="/pages/interrogation/group-announcement/index">查看更多>></text>
 								</view>
 							</view>
