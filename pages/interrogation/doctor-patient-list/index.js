@@ -8,7 +8,9 @@ Component({
         totalPage: -1,
         totalCount: 0,
         page: 1,
-        menuRect: wx.jyApp.utils.getMenuRect()
+        active: 0,
+        menuRect: wx.jyApp.utils.getMenuRect(),
+        departmentPatient: {}
     },
     lifetimes: {
         attached(option) {
@@ -17,7 +19,13 @@ Component({
                 fields: ['doctorInfo', 'userInfo'],
             });
             this.storeBindings.updateStoreBindings();
+            this.setData({
+                hosDepartment: this.data.doctorInfo && this.data.doctorInfo.hosDepartment
+            });
             this.loadList(true);
+            if (this.data.hosDepartment) {
+                this.loadDepartmentPatientList();
+            }
         },
         detached() {
             this.storeBindings.destroyStoreBindings();
@@ -31,11 +39,24 @@ Component({
         }
     },
     methods: {
+        onChangeSwiper(e) {
+            this.setData({
+                active: e.detail.current
+            });
+        },
+        onChangeTab(e) {
+            this.setData({
+                active: e.detail.index
+            });
+        },
         onRefresh() {
             this.loadList(true);
         },
         onLoadMore() {
             this.loadList();
+        },
+        onDepartmentPatientRefresh() {
+            this.loadDepartmentPatientList();
         },
         onClickPatient(e) {
             var roomId = e.currentTarget.dataset.roomid;
@@ -64,7 +85,7 @@ Component({
             }
         },
         onCheckGotoWithDepartDoctor(e) {
-            if(this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
+            if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
                 this.onGoto(e);
             } else {
                 this.onCheckGotoWithFullCertification(e);
@@ -74,6 +95,35 @@ Component({
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/doctor-patient-search/index'
             });
+        },
+        onChangeInStatus(e) {
+            var item = e.currentTarget.dataset.item;
+            this.updateInHospitalStatus(item);
+        },
+        //加载患者列表
+        loadDepartmentPatientList() {
+            if (this.data.departmentPatient.loading) {
+                return;
+            }
+            this.data.departmentPatient.loading = true;
+            this.data.departmentPatient.request = wx.jyApp.http({
+                url: '/hospital/department/patient',
+                data: {
+                    departmentId: this.data.doctorInfo.hosDepartment.departmentId
+                }
+            });
+            this.data.departmentPatient.request.then((data) => {
+                this.setData({
+                    'departmentPatient.list': data.list || []
+                });
+            }).finally(() => {
+                this.data.departmentPatient.loading = false;
+                this.data.departmentPatient.request = null;
+                this.setData({
+                    'departmentPatient.stopRefresh': true
+                });
+            });
+            return this.data.departmentPatient.request;
         },
         loadList(refresh) {
             if (!this.data.doctorInfo || this.data.doctorInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus == 0 || this.data.doctorInfo.status == 3) { //医生状态异常
@@ -143,6 +193,35 @@ Component({
                 if (data.page.totalCount != this.data.totalCount) {
                     this.loadList(true);
                 }
+            });
+        },
+        updateInHospitalStatus(item) {
+            if (this.updateInHospitalStatus.doing) {
+                return;
+            }
+            this.updateInHospitalStatus.doing = true;
+            wx.jyApp.showLoading('修改中...');
+            wx.jyApp.http({
+                url: '/hospital/department/patient/update',
+                method: 'post',
+                data: {
+                    departmentId: item.departmentId,
+                    patientId: item.patientId,
+                    inHospitalStatus: item.inHospitalStatus == 1 ? 0 : 1
+                }
+            }).then(() => {
+                wx.jyApp.toast('修改成功');
+                this.data.departmentPatient.list.map((_item, index) => {
+                    if (_item.patientId == item.patientId) {
+                        _item.inHospitalStatus = _item.inHospitalStatus == 1 ? 0 : 1;
+                        this.setData({
+                            [`departmentPatient.list[${index}]`]: _item
+                        });
+                    }
+                });
+            }).finally(() => {
+                wx.hideLoading();
+                this.updateInHospitalStatus.doing = false;
             });
         }
     }

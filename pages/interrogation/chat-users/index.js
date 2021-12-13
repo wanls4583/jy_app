@@ -52,6 +52,10 @@ Page({
     onDoctorRefresh() {
         this.loadDoctorList();
     },
+    onChangeInStatus(e) {
+        var item = e.currentTarget.dataset.item;
+        this.updateInHospitalStatus(item);
+    },
     //加载患者列表
     loadPatientList() {
         if (this.data.patient.loading) {
@@ -101,5 +105,34 @@ Page({
             });
         });
         return this.data.doctor.request;
+    },
+    updateInHospitalStatus(item) {
+        if (this.updateInHospitalStatus.doing) {
+            return;
+        }
+        this.updateInHospitalStatus.doing = true;
+        wx.jyApp.showLoading('修改中...');
+        wx.jyApp.http({
+            url: '/hospital/department/patient/update',
+            method: 'post',
+            data: {
+                departmentId: item.departmentId,
+                patientId: item.patientId,
+                inHospitalStatus: item.inHospitalStatus == 1 ? 0 : 1
+            }
+        }).then(() => {
+            wx.jyApp.toast('修改成功');
+            this.data.patient.list.map((_item, index) => {
+                if (_item.patientId == item.patientId) {
+                    _item.inHospitalStatus = _item.inHospitalStatus == 1 ? 0 : 1;
+                    this.setData({
+                        [`patient.list[${index}]`]: _item
+                    });
+                }
+            });
+        }).finally(() => {
+            wx.hideLoading();
+            this.updateInHospitalStatus.doing = false;
+        });
     }
 })

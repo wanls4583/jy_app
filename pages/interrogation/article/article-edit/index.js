@@ -181,7 +181,7 @@ Page({
         }).then(() => {
             wx.hideLoading();
             wx.jyApp.toastBack('保存成功');
-            var page = wx.jyApp.utils.getPages('pages/interrogation/article-self/index');
+            var page = wx.jyApp.utils.getPages('pages/interrogation/article/article-self/index');
             if (page) {
                 page.loadList(true);
             }

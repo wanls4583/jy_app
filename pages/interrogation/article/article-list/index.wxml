@@ -5,7 +5,7 @@
 			<view
 				bindtap="onGoto"
 				class="padding-left-right-30 clickable"
-				data-url="/pages/interrogation/article-detail/index?id={{item.id}}"
+				data-url="/pages/interrogation/article/article-detail/index?id={{item.id}}"
 				wx:for="{{list}}"
 				wx:key="id"
 			>

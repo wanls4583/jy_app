@@ -74,10 +74,6 @@
         "pages/interrogation/my-team/index",
         "pages/interrogation/doctor-order-screen/index",
         "pages/interrogation/chat-users/index",
-        "pages/interrogation/article-self/index",
-        "pages/interrogation/article-edit/index",
-        "pages/interrogation/article-detail/index",
-        "pages/interrogation/article-list/index",
         "pages/interrogation/my-product/index",
         "pages/mall/search-doctor/index",
         "pages/service-process/index"
@@ -133,6 +129,15 @@
             "guidance-product/index",
             "guidance-diagnosis/index",
             "medical-record/index"
+        ]
+    }, {
+        "root": "pages/interrogation/article",
+        "name": "article",
+        "pages": [
+            "article-self/index",
+            "article-edit/index",
+            "article-detail/index",
+            "article-list/index"
         ]
     }, {
         "root": "pages/clinical-nutrition",

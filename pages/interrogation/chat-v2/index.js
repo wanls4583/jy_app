@@ -685,6 +685,17 @@ Page({
                         _updateStatus(_item, item, obj);
                     });
                 }
+                if (item.type == 26) {
+                    try {
+                        item._txt = JSON.parse(item.txt).notice;
+                        item.txt = item._txt;
+                        if (item.txt.length > 50) {
+                            item._txt = item.txt.slice(0, 50) + '...';
+                        }
+                    } catch (e) {
+                        console.log(e);
+                    }
+                }
             });
             //通过动态消息更新申请单和指导单的状态
             function _updateStatus(_item, item, obj) {
