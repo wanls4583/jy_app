@@ -150,6 +150,15 @@ Page({
             jobTitle: e.detail.value,
             positionVisible: false
         });
+        if (this.data.jobTitle == '护士') {
+            this.setData({
+                showable: 0
+            });
+        } else if (this.data.authStatus == 1) {
+            this.setData({
+                showable: this.originShowable
+            });
+        }
     },
     onShowDisease() {
         if (!this.checkEdit()) {
@@ -541,6 +550,7 @@ Page({
             });
         }
         var diseaseList = this.data.goodAtDomain.split('、');
+        this.originShowable = this.data.showable;
         this.avatar = data.avatar && [data.avatar] || [];
         this.jobCertificateUrl = data.jobCertificateUrl && data.jobCertificateUrl.split(',') || [];
         this.jobTitleCertificateUrl = data.jobTitleCertificateUrl && data.jobTitleCertificateUrl.split(',') || [];

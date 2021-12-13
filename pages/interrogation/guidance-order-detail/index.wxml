@@ -129,12 +129,12 @@
 	</view>
 	<view class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top" wx:if="{{userInfo.role=='DOCTOR'}}">
 		<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.status==10||order.status==11}}">删除订单</view>
-		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">电子处方</view>
 		<view
 			bindtap="onEditOrder"
 			class="margin-left-20 button small primary"
 			data-id="{{order.id}}"
-			wx:if="{{(order.status==10||order.status==11)&&configData.nutritionApproveSwitch==1}}"
+			wx:if="{{order.status==0||(order.status==10||order.status==11)&&configData.nutritionApproveSwitch==1}}"
 		>修改订单</view>
+		<view bindtap="onGotoSheet" class="margin-left-20 button small primary" data-url="/pages/interrogation/guidance-sheet/index?id={{order.id}}">电子处方</view>
 	</view>
 </view>

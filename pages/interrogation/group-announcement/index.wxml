@@ -1,0 +1,14 @@
+<!-- index.wxml -->
+<view class="container">
+	<van-cell-group>
+		<van-field bind:input="onInput" data-prop="hospitalName" label="医院名称" placeholder="请输入医院名称" required value="{{hospitalName}}" />
+		<van-field bind:input="onInput" data-prop="departmentName" label="科室名称" placeholder="请输入科室名称" required value="{{departmentName}}" />
+		<readonly-field bindtap="onShowStatus" label="上线状态" readonly required value="{{_status}}" />
+	</van-cell-group>
+</view>
+<footer style="padding-bottom:15px">
+	<view bindtap="onSave" class="button primary block">保存</view>
+</footer>
+<van-popup position="bottom" show="{{statusVisible}}">
+	<van-picker bind:cancel="onCancel" bind:confirm="onConfirmStatus" columns="{{statusList}}" default-index="{{statusDefault}}" show-toolbar value-key="label"></van-picker>
+</van-popup>

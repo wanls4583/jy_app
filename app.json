@@ -23,6 +23,7 @@
         "pages/mall/cart/index",
         "pages/mall/confirm-order/index",
         "pages/mall/pay-suc/index",
+        "pages/interrogation/group-announcement/index",
         "pages/interrogation/approve-history/index",
         "pages/interrogation/approve-detail/index",
         "pages/interrogation/guideline-consensus/index",

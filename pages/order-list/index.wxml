@@ -271,7 +271,10 @@
 								wx:if="{{order.status==0}}"
 							>立即支付</view>
 						</view>
-						<view class="padding-top-bottom-20 border-top flex--center--end" wx:if="{{(order.status==10||order.status==11)&&userInfo.role=='DOCTOR'}}">
+						<view
+							class="padding-top-bottom-20 border-top flex--center--end"
+							wx:if="{{(order.status==0||order.status==10||order.status==11)&&userInfo.role=='DOCTOR'}}"
+						>
 							<view
 								bindtap="onDelGuidanceOrder"
 								class="margin-left-20 button small plain gray"
@@ -282,7 +285,7 @@
 								bindtap="onEditOrder"
 								class="margin-left-20 button small primary"
 								data-id="{{order.id}}"
-								wx:if="{{(order.status==10||order.status==11)&&configData.nutritionApproveSwitch==1}}"
+								wx:if="{{order.status==0||(order.status==10||order.status==11)&&configData.nutritionApproveSwitch==1}}"
 							>修改订单</view>
 						</view>
 					</view>
