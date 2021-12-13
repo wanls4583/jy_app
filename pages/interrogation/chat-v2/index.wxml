@@ -68,7 +68,7 @@
 								<view>
 									<text class="primary-color">【群公告】</text>
 									<text class="margin-right-10">：{{item._txt}}</text>
-									<text bindtap="onGotoNotice" class="primary-color" data-url="/pages/interrogation/group-announcement/index">查看更多>></text>
+									<text bindtap="onGotoNotice" class="primary-color clickable" data-url="/pages/interrogation/group-announcement/index">查看更多>></text>
 								</view>
 							</view>
 							<view
