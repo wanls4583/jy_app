@@ -14,6 +14,7 @@
 				<van-loading size="20" slot="loading" type="spinner" vertical />
 				<text slot="error">图片加载失败</text>
 			</van-image>
+			<view class="flex--center--center font-title primary-color margin-top-30" wx:if="{{title}}">{{title}}</view>
 		</view>
 	</view>
 	<view class="position-fixed bottom-0 z-index-100 width-100 padding-30 flex--center--around">

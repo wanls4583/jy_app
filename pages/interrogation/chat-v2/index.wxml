@@ -321,7 +321,7 @@
 			</view>
 			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'&&roomType=='group-chat'}}">
 				<view
-					bindtap="onGoto"
+					bindtap="onGotoNotice"
 					class="flex--center--center width-60px height-60px radius-8px white-background-color"
 					data-url="/pages/interrogation/group-announcement/index"
 				>

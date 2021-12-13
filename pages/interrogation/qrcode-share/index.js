@@ -58,19 +58,24 @@ Page({
             });
         }
         var tip = '';
+        var title = '';
         if (option.tip) {
             tip = option.tip;
         } else if (this.data.isTeam) {
             tip = '将二维码展示给患者，扫码后可加入我的科室';
+            title = '邀请患者加入科室';
         } else if (option.from == 'team') {
             tip = '将二维码展示给医生，扫码后可加入我的团队';
+            title = '邀请科室医生加入团队';
         } else if (option.from == 'screen') {
             tip = '将二维码展示给患者，扫码后可进行营养师筛查';
         } else {
             tip = '将二维码展示给患者，扫码后可进行线上问诊';
+            title = '邀请患者线上问诊';
         }
         this.setData({
-            tip: tip
+            tip: tip,
+            title: title
         });
     },
     onUnload() {
@@ -81,6 +86,7 @@ Page({
         this.setData({
             barcodeUrl: e.detail.index == 0 ? this.getQrCode() : this.data.doctorInfo.barcodeUrl,
             tip: e.detail.index == 0 ? '将二维码展示给患者，扫码后可加入我的科室' : '将二维码展示给患者，扫码后可进行线上问诊',
+            title: e.detail.index == 0 ? '邀请患者加入科室' : '邀请患者线上问诊',
             active: e.detail.index,
         });
     },

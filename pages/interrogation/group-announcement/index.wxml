@@ -1,14 +1,26 @@
 <!-- index.wxml -->
-<view class="container">
-	<van-cell-group>
-		<van-field bind:input="onInput" data-prop="hospitalName" label="医院名称" placeholder="请输入医院名称" required value="{{hospitalName}}" />
-		<van-field bind:input="onInput" data-prop="departmentName" label="科室名称" placeholder="请输入科室名称" required value="{{departmentName}}" />
-		<readonly-field bindtap="onShowStatus" label="上线状态" readonly required value="{{_status}}" />
-	</van-cell-group>
+<view class="container {{userInfo.role=='DOCTOR'?'padding-bottom-footer':''}}">
+	<view class="height-100">
+		<textarea
+			bind:input="onInput"
+			class="height-100 width-100"
+			data-prop="editNotice"
+			placeholder="请输入群公告"
+			style="padding:15px"
+			type="text"
+			value="{{editNotice}}"
+			wx:if="{{edit}}"
+		></textarea>
+		<view class="flex--center--center height-100" wx:elif="{{!notice}}">暂未设置群公告</view>
+		<view class="padding-30" wx:else>
+			<text decode="{{true}}">{{notice}}</text>
+		</view>
+	</view>
 </view>
-<footer style="padding-bottom:15px">
-	<view bindtap="onSave" class="button primary block">保存</view>
+<footer style="padding-bottom:15px" wx:if="{{userInfo.role=='DOCTOR'}}">
+	<block wx:if="{{edit}}">
+		<view bindtap="onCancel" class="button primary plain">取消</view>
+		<view bindtap="onSave" class="button primary">保存</view>
+	</block>
+	<view bindtap="onEdit" class="button primary" wx:else>编辑</view>
 </footer>
-<van-popup position="bottom" show="{{statusVisible}}">
-	<van-picker bind:cancel="onCancel" bind:confirm="onConfirmStatus" columns="{{statusList}}" default-index="{{statusDefault}}" show-toolbar value-key="label"></van-picker>
-</van-popup>

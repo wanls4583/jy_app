@@ -216,6 +216,10 @@ Page({
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
+    onGotoNotice(e) {
+        wx.jyApp.setTempData('roomInfo', this.data.roomInfo);
+        wx.jyApp.utils.navigateTo(e);
+    },
     //开指导
     onGuide(e) {
         this.data.patient.diseaseDetail = this.data.consultOrder.diseaseDetail;

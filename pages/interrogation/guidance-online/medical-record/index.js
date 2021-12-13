@@ -43,6 +43,7 @@ Page({
             patient._sex = patient.sex == 1 ? '男' : '女';
             patient.BMI = (patient.weight) / (patient.height * patient.height / 10000);
             patient.BMI = patient.BMI && patient.BMI.toFixed(1) || '';
+            this.patientId = guideOrderDetail.patientId;
             this.setData({
                 isFirst: guideOrderDetail.isFirst,
                 foodSensitive: guideOrderDetail.foodSensitive,
@@ -81,7 +82,7 @@ Page({
         wx.jyApp.clearTempData('guideOrderDetail');
     },
     onInput(e) {
-        if(typeof e.detail == 'string') {
+        if (typeof e.detail == 'string') {
             e.detail = e.detail.replace(wx.jyApp.constData.emojiReg, '');
         } else {
             e.detail.value = e.detail.value.replace(wx.jyApp.constData.emojiReg, '');
@@ -101,7 +102,7 @@ Page({
             this.setData({
                 firstMedicalOrg: '钜元门诊部'
             });
-        } else if(prop == 'isFirst') {
+        } else if (prop == 'isFirst') {
             this.setData({
                 firstMedicalOrg: ''
             });
@@ -151,7 +152,7 @@ Page({
                 consultOrderId: this.consultOrderId,
                 patientId: this.patientId,
                 isFirst: this.data.isFirst,
-                foodSensitive: this.data.hasFoodSensitive == 1  && this.data.foodSensitive || '',
+                foodSensitive: this.data.hasFoodSensitive == 1 && this.data.foodSensitive || '',
                 mainSuit: this.data.mainSuit,
                 currentDisease: this.data.currentDisease,
                 historyDisease: this.data.historyDisease,
