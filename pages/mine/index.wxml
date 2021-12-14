@@ -178,16 +178,8 @@
 					</view>
 				</view>
 				<view class="padding-left-right-20 clickable">
-					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/help/index">
+					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/help/category-list/index">
 						<text>帮助与反馈</text>
-						<view class="flex--center--center">
-							<van-icon color="#ccc" name="arrow" />
-						</view>
-					</view>
-				</view>
-				<view class="padding-left-right-20 clickable">
-					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/feedback/index">
-						<text>功能反馈</text>
 						<view class="flex--center--center">
 							<van-icon color="#ccc" name="arrow" />
 						</view>
@@ -215,15 +207,6 @@
 						</view>
 					</view>
 				</view>
-				<button class="padding-left-right-20" open-type="contact">
-					<view class="flex--center--between padding-top-bottom-30 border-bottom">
-						<text>联系客服</text>
-						<view class="flex--center--center">
-							<text class="gray-color">客服上班时间为9:00-18:00</text>
-							<van-icon color="#ccc" name="arrow" />
-						</view>
-					</view>
-				</button>
 				<view class="padding-left-right-20 clickable" wx:if="{{userInfo.dataAuthority==1}}">
 					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/statistic/summary/index">
 						<text>数据查询</text>

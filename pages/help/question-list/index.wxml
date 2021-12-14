@@ -1,0 +1,11 @@
+<view class="container">
+	<view class="padding-20">{{categoryName}}</view>
+	<view class="padding-left-right-20 white-background-color clickable" wx:for="{{list}}" wx:key="id">
+		<view bindtap="onClickItem" class="flex--center--between padding-top-bottom-30 border-bottom" data-item="{{item}}">
+			<text>{{item.questionName}}</text>
+			<view class="flex--center--center">
+				<van-icon color="#ccc" name="arrow" />
+			</view>
+		</view>
+	</view>
+</view>

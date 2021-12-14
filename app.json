@@ -1,7 +1,6 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/help/index",
         "pages/tab-bar/index",
         "pages/trtc/index",
         "pages/input/index",
@@ -80,6 +79,13 @@
         "pages/service-process/index"
     ],
     "subpackages": [{
+        "root": "pages/help",
+        "name": "help",
+        "pages": [
+            "category-list/index",
+            "question-list/index"
+        ]
+    }, {
         "root": "pages/statistic",
         "name": "statistic",
         "pages": [

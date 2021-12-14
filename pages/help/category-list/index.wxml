@@ -1,0 +1,18 @@
+<view class="container padding-bottom-footer">
+	<view class="padding-20">问题类型</view>
+	<view class="padding-left-right-20 white-background-color clickable" wx:for="{{list}}" wx:key="categoryName">
+		<view bindtap="onClickCategory" class="flex--center--between padding-top-bottom-30 border-bottom" data-item="{{item}}">
+			<text>{{item.categoryName}}</text>
+			<view class="flex--center--center">
+				<van-icon color="#ccc" name="arrow" />
+			</view>
+		</view>
+	</view>
+</view>
+<footer style="padding-bottom:15px">
+	<view bindtap="onGoto" class="button primary plain" data-url="/pages/feedback/index">功能反馈</view>
+	<button class="button primary" open-type="contact" style="line-height:normal">
+		<view>联系客服</view>
+		<view class="font-small">上班时间：9:00-18:00</view>
+	</button>
+</footer>
