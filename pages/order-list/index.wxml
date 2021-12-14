@@ -286,7 +286,7 @@
 								class="margin-left-20 button small primary"
 								data-id="{{order.id}}"
 								wx:if="{{order.status==0||(order.status==10||order.status==11)&&configData.nutritionApproveSwitch==1}}"
-							>修改订单</view>
+							>修改处方</view>
 						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{guidanceOrder.totalPage>0&&guidanceOrder.page>guidanceOrder.totalPage}}">没有更多了</view>

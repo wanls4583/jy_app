@@ -65,11 +65,15 @@
 							</view>
 							<!-- 群公告 -->
 							<view class="flex--center--center padding-top-bottom-20" id="{{item.domId}}" wx:elif="{{item.type==26}}">
-								<view>
+								<view wx:if="{{item.noticeType==-1}}">
 									<text class="primary-color">【群公告】</text>
 									<text class="margin-right-10">：{{item._txt}}</text>
-									<text bindtap="onGotoNotice" class="primary-color clickable" data-url="/pages/interrogation/group-announcement/index">查看更多>></text>
+									<text bindtap="onGotoNotice" class="primary-color clickable" data-notice="{{item.txt}}" data-url="/pages/interrogation/group-announcement/index">查看更多>></text>
 								</view>
+								<view
+									class="margin-left-right-20 gray-color font-small"
+									wx:elif="{{item.noticeType==0&&userInfo.role=='DOCTOR'||item.noticeType==userInfo.id}}"
+								>{{item.txt}}</view>
 							</view>
 							<view
 								class="flex padding-20 padding-left-right-0 overflow-hidden {{item.isSelf?'myself':'other'}}"
@@ -152,7 +156,13 @@
 												<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
 												<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 											</view>
-											<view class="align-center padding-bottom-20">
+											<view class="flex--center--between padding-left-right-30 padding-bottom-20">
+												<view
+													bindtap="onEditOrder"
+													class="button small success plain margin-right-30"
+													data-id="{{item.associateId}}"
+													wx:if="{{item.nutritionOrderChatVO.status==0}}"
+												>修改处方</view>
 												<view
 													bindtap="onGotoGuidanceDetail"
 													class="button small success"

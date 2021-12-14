@@ -939,6 +939,24 @@ Page({
             wx.jyApp.utils.navigateTo(e);
         });
     },
+    // 修改处方
+    onEditOrder(e) {
+        if (this.onEditOrder.holding) {
+            return;
+        }
+        this.onEditOrder.holding = true;
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.http({
+            url: '/nutritionorder/info/' + id
+        }).then((data) => {
+            wx.jyApp.setTempData('guideOrderDetail', data.detail);
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/guidance-online/medical-record/index'
+            });
+        }).finally((err) => {
+            this.onEditOrder.holding = false;
+        });
+    },
     //视频通话
     onVideo(e) {
         if (this.data.doctorInfo.role == 'DOCTOR_TEST') {

@@ -118,6 +118,8 @@ Page({
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'
             });
+        } else {
+            wx.jyApp.toast('已添加该产品');
         }
     },
     // 添加到我的产品
@@ -147,7 +149,7 @@ Page({
         });
     },
     changeAddFlag(id, added) {
-        for(var page in this.data.productData.pageList) {
+        for (var page in this.data.productData.pageList) {
             var list = this.data.productData.pageList[page];
             list = list || [];
             list.map((item, index) => {
@@ -159,7 +161,7 @@ Page({
                 }
             });
         }
-        for(var page in this.data.taocanData.pageList) {
+        for (var page in this.data.taocanData.pageList) {
             var list = this.data.taocanData.pageList[page];
             list = list || [];
             list.map((item, index) => {

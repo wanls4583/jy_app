@@ -21,68 +21,26 @@
 		</van-tabs>
 	</view>
 	<view class="position-absolute bottom-0 width-100" style="top:{{menuRect.outerNavHeight+(hosDepartment?44:0)}}px">
-		<swiper bindchange="onChangeSwiper" class="width-100 height-100" current="{{active}}">
-			<swiper-item wx:if="{{hosDepartment}}">
-				<pull-scroll-view bindrefresh="onDepartmentPatientRefresh" stop-refresh="{{departmentPatient.stopRefresh}}">
-					<van-swipe-cell right-width="{{85}}" wx:for="{{departmentPatient.list}}" wx:key="patientId">
-						<view
-							bindtap="onGoto"
-							class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
-							data-url="/pages/interrogation/chat-v2/index?patientId={{item.patientId}}"
-						>
-							<view class="flex-shrink-0 height-100rpx width-100rpx overflow-hidden radius-50 border">
-								<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
-							</view>
-							<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
-								<view class="flex-direction-column flex--start--between height-100rpx">
-									<view class="width-100 flex--center--between">
-										<view>
-											<text>{{item.patientName}}</text>
-											<text>，{{item.sex==1?'男':'女'}}</text>
-											<text>，{{item.age}}岁</text>
-										</view>
-										<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
-									</view>
-									<view>
-										<text class="font-small gray-color">{{item.joinTime}}</text>
-									</view>
-								</view>
-							</view>
-						</view>
-						<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:85px">
-							<view
-								bindtap="onChangeInStatus"
-								class="button center height-100 width-100 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
-								data-item="{{item}}"
-							>{{item.inHospitalStatus==1?'出院':'在院'}}</view>
-						</view>
-					</van-swipe-cell>
-					<view class="padding-30 gray-color align-center font-small" wx:if="{{!departmentPatient.list.length}}">
-						<empty description="暂无患者" />
-					</view>
-				</pull-scroll-view>
-			</swiper-item>
-			<swiper-item>
-				<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+		<view class="width-100 height-100" wx:if="{{hosDepartment&&active==0}}">
+			<pull-scroll-view bindrefresh="onDepartmentPatientRefresh" stop-refresh="{{departmentPatient.stopRefresh}}">
+				<van-swipe-cell right-width="{{85}}" wx:for="{{departmentPatient.list}}" wx:key="patientId">
 					<view
-						bindtap="onClickPatient"
+						bindtap="onGoto"
 						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
-						data-roomid="{{item.roomId}}"
-						wx:for="{{patientList}}"
-						wx:key="id"
+						data-url="/pages/interrogation/chat-v2/index?patientId={{item.patientId}}"
 					>
 						<view class="flex-shrink-0 height-100rpx width-100rpx overflow-hidden radius-50 border">
 							<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
 						</view>
 						<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
 							<view class="flex-direction-column flex--start--between height-100rpx">
-								<view class="width-100">
-									<text>{{item.patientName}}</text>
-									<text>，{{item._sex}}</text>
-									<text>，{{item.age}}岁</text>
-									<text wx:if="{{item.height}}">，{{item.height}}cm</text>
-									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
-									<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+								<view class="width-100 flex--center--between">
+									<view>
+										<text>{{item.patientName}}</text>
+										<text>，{{item.sex==1?'男':'女'}}</text>
+										<text>，{{item.age}}岁</text>
+									</view>
+									<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
 								</view>
 								<view>
 									<text class="font-small gray-color">{{item.joinTime}}</text>
@@ -90,33 +48,73 @@
 							</view>
 						</view>
 					</view>
-					<view class="padding-30" wx:if="{{!doctorInfo||doctorInfo.role=='DOCTOR'&&doctorInfo.authStatus==0}}">
-						<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
-							<view class="warn-color">您未通过资质认证，认证后可使用该功能</view>
-							<view bindtap="onGoto" class="button primary margin-top-30" data-url="/pages/interrogation/certification/index">去认证</view>
+					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:85px">
+						<view
+							bindtap="onChangeInStatus"
+							class="button center height-100 width-100 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
+							data-item="{{item}}"
+						>{{item.inHospitalStatus==1?'出院':'在院'}}</view>
+					</view>
+				</van-swipe-cell>
+				<view class="padding-30 gray-color align-center font-small" wx:if="{{!departmentPatient.list.length}}">
+					<empty description="暂无患者" />
+				</view>
+			</pull-scroll-view>
+		</view>
+		<view class="width-100 height-100" wx:if="{{!hosDepartment||active==1}}">
+			<pull-scroll-view bindrefresh="onRefresh" bindscrolltolower="onLoadMore" lower-threshold="300px" stop-refresh="{{stopRefresh}}">
+				<view
+					bindtap="onClickPatient"
+					class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
+					data-roomid="{{item.roomId}}"
+					wx:for="{{patientList}}"
+					wx:key="id"
+				>
+					<view class="flex-shrink-0 height-100rpx width-100rpx overflow-hidden radius-50 border">
+						<image class="width-100 height-100" mode="aspectFill" src="{{item.wxAvatar}}" />
+					</view>
+					<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
+						<view class="flex-direction-column flex--start--between height-100rpx">
+							<view class="width-100">
+								<text>{{item.patientName}}</text>
+								<text>，{{item._sex}}</text>
+								<text>，{{item.age}}岁</text>
+								<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+								<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+								<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+							</view>
+							<view>
+								<text class="font-small gray-color">{{item.joinTime}}</text>
+							</view>
 						</view>
 					</view>
-					<view class="padding-30" wx:elif="{{doctorInfo.status==3}}">
-						<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
-							<view class="warn-color">您的医生资质已被禁用，请联系客服人员解决</view>
-							<view bindtap="onClickPhone" class="button primary margin-top-30">联系客服</view>
-						</view>
+				</view>
+				<view class="padding-30" wx:if="{{!doctorInfo||doctorInfo.role=='DOCTOR'&&doctorInfo.authStatus==0}}">
+					<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
+						<view class="warn-color">您未通过资质认证，认证后可使用该功能</view>
+						<view bindtap="onGoto" class="button primary margin-top-30" data-url="/pages/interrogation/certification/index">去认证</view>
 					</view>
-					<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage>0&&page>totalPage}}">没有更多了</view>
-					<view class="padding-30" wx:elif="{{totalPage==0}}">
-						<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
-							<view>您目前没有线上患者</view>
-							<view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
-							<view
-								bindtap="onCheckGotoWithDepartDoctor"
-								class="button primary margin-top-30"
-								data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}&type=1"
-							>我的二维码名片</view>
-						</view>
+				</view>
+				<view class="padding-30" wx:elif="{{doctorInfo.status==3}}">
+					<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
+						<view class="warn-color">您的医生资质已被禁用，请联系客服人员解决</view>
+						<view bindtap="onClickPhone" class="button primary margin-top-30">联系客服</view>
 					</view>
-					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
-				</pull-scroll-view>
-			</swiper-item>
-		</swiper>
+				</view>
+				<view class="padding-30 gray-color align-center font-small" wx:elif="{{totalPage>0&&page>totalPage}}">没有更多了</view>
+				<view class="padding-30" wx:elif="{{totalPage==0}}">
+					<view class="flex-direction-column flex--center--center" style="margin-top:50vw">
+						<view>您目前没有线上患者</view>
+						<view class="margin-top-20">邀请患者扫码可加入线上工作室</view>
+						<view
+							bindtap="onCheckGotoWithDepartDoctor"
+							class="button primary margin-top-30"
+							data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}&type=1"
+						>我的二维码名片</view>
+					</view>
+				</view>
+				<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
+			</pull-scroll-view>
+		</view>
 	</view>
 </view>

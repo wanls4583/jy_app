@@ -110,9 +110,14 @@ Page({
     },
     onDelete(e) {
         var index = e.currentTarget.dataset.index;
+        var id = e.currentTarget.dataset.id;
         wx.jyApp.dialog.confirm({
             message: '确认删除？'
         }).then(() => {
+            wx.jyApp.diagnosisGoods = wx.jyApp.diagnosisGoods || [];
+            wx.jyApp.diagnosisGoods = wx.jyApp.diagnosisGoods.filter((item) => {
+                item.id != id;
+            });
             this.data.goodsList.splice(index, 1);
             this.setData({
                 goodsList: this.data.goodsList.concat([])

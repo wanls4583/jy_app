@@ -217,7 +217,9 @@ Page({
         wx.jyApp.utils.navigateTo(e);
     },
     onGotoNotice(e) {
-        wx.jyApp.setTempData('roomInfo', this.data.roomInfo);
+        let roomInfo = Object.assign({}, this.data.roomInfo);
+        roomInfo.notice = e.currentTarget.dataset.notice || roomInfo.notice;
+        wx.jyApp.setTempData('roomInfo', roomInfo);
         wx.jyApp.utils.navigateTo(e);
     },
     //开指导
@@ -687,8 +689,10 @@ Page({
                 }
                 if (item.type == 26) {
                     try {
-                        item._txt = JSON.parse(item.txt).notice;
+                        var obj = JSON.parse(item.txt);
+                        item._txt = obj.notice;
                         item.txt = item._txt;
+                        item.noticeType = obj.type; //[-1:全员通知,0:医生端通知,>0:用户id]
                         if (item.txt.length > 36) {
                             item._txt = item.txt.slice(0, 36) + '...';
                         }
@@ -703,6 +707,7 @@ Page({
                     if (obj.type == 5) {
                         _item.nutritionOrderChatVO = _item.nutritionOrderChatVO || {};
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
+                        _item.nutritionOrderChatVO.status = obj.status;
                     }
                     if ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25].indexOf(obj.type) > -1) {
                         _item.filtrateChatVO = _item.orderApplyVO || {};
@@ -838,6 +843,24 @@ Page({
         }).then((data) => {
             wx.jyApp.tempData.guidanceOrderData = data;
             wx.jyApp.utils.navigateTo(e);
+        });
+    },
+    // 修改处方
+    onEditOrder(e) {
+        if (this.onEditOrder.holding) {
+            return;
+        }
+        this.onEditOrder.holding = true;
+        var id = e.currentTarget.dataset.id;
+        wx.jyApp.http({
+            url: '/nutritionorder/info/' + id
+        }).then((data) => {
+            wx.jyApp.setTempData('guideOrderDetail', data.detail);
+            wx.jyApp.utils.navigateTo({
+                url: '/pages/interrogation/guidance-online/medical-record/index'
+            });
+        }).finally((err) => {
+            this.onEditOrder.holding = false;
         });
     },
     //筛查

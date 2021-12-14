@@ -17,7 +17,11 @@
 			<!-- 完全认证状态和护士不能修改是否展示在患者端 -->
 			<view class="flex padding-top-30 margin-left-right-30 border-bottom" wx:if="{{authStatus!=1||jobTitle=='护士'}}">
 				<view class="label" style="width:auto">是否展示在患者端</view>
-				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{jobTitle=='护士'}}" style="display:flex" value="{{showable}}">
+				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{true}}" style="display:flex" value="{{showable}}" wx:if="{{jobTitle=='护士'}}">
+					<van-radio name="{{0}}">不展示</van-radio>
+					<van-radio name="{{1}}">展示</van-radio>
+				</van-radio-group>
+				<van-radio-group bind:change="onChange" data-prop="showable" style="display:flex" value="{{showable}}" wx:else>
 					<van-radio name="{{0}}">不展示</van-radio>
 					<van-radio name="{{1}}">展示</van-radio>
 				</van-radio-group>

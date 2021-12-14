@@ -186,6 +186,12 @@
 										</view>
 										<view class="align-center padding-bottom-20">
 											<view
+												bindtap="onEditOrder"
+												class="button small success plain margin-right-30"
+												data-id="{{item.associateId}}"
+												wx:if="{{item.nutritionOrderChatVO.status==0}}"
+											>修改处方</view>
+											<view
 												bindtap="onGotoGuidanceDetail"
 												class="button small success"
 												data-id="{{item.associateId}}"
