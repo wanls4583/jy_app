@@ -369,7 +369,7 @@ function checkStore(cart) {
     var productIdCountMap = {}; //productId与数量的对应关系
     cart.map((item) => {
         ids.push(item.id);
-        if (!item.items) {
+        if (!item.items || item.type == 1) {
             idProductIdMap[item.id] = item.productId;
         }
     });
@@ -395,7 +395,7 @@ function checkStore(cart) {
             for (var i = 0; i < cart.length; i++) {
                 var item = cart[i];
                 var pass = true;
-                if (item.items && item.items.length) { //套餐
+                if (item.items && item.items.length && item.type != 1) { //套餐
                     item.items.map((_item) => {
                         productIdCountMap[_item.productId] = productIdCountMap[_item.productId] || 0;
                         productIdCountMap[_item.productId] += _item.gross * (item.count || 1);

@@ -1,0 +1,12 @@
+<view class="container" wx:if="{{categoryVisible}}">
+	<view class="padding-20">问题类型</view>
+	<view class="padding-left-right-20 white-background-color clickable" wx:for="{{list}}">
+		<view bindtap="onClickCategory" class="flex--center--between padding-top-bottom-30 border-bottom" data-item="{{item}}">
+			<text>{{item.categoryName}}</text>
+			<view class="flex--center--center">
+				<van-icon color="#ccc" name="arrow" />
+			</view>
+		</view>
+	</view>
+</view>
+<view class="container" wx:else></view>

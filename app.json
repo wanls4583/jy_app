@@ -1,6 +1,7 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/help/index",
         "pages/tab-bar/index",
         "pages/trtc/index",
         "pages/input/index",

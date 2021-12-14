@@ -178,6 +178,14 @@
 					</view>
 				</view>
 				<view class="padding-left-right-20 clickable">
+					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/help/index">
+						<text>帮助与反馈</text>
+						<view class="flex--center--center">
+							<van-icon color="#ccc" name="arrow" />
+						</view>
+					</view>
+				</view>
+				<view class="padding-left-right-20 clickable">
 					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/feedback/index">
 						<text>功能反馈</text>
 						<view class="flex--center--center">
