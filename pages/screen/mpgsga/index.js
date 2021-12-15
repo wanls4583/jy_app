@@ -397,18 +397,18 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 0;
-                    var _result = '无营养不良';
+                    var _result = '营养良好';
                     if (data.result == 'B') {
                         result = 1;
-                        _result = '可疑营养不良者';
+                        _result = '轻度营养不良';
                     }
                     if (data.result == 'C') {
                         result = 2;
-                        _result = '中度营养不良者';
+                        _result = '中度营养不良';
                     }
                     if (data.result == 'D') {
                         result = 3;
-                        _result = '重度营养不良者';
+                        _result = '重度营养不良';
                     }
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('screen-results', this.data.resultDescription);
