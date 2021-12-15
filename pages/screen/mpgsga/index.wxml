@@ -103,10 +103,10 @@
 		<view class="margin-left-30 pre-vertical-line primary-line-color">整体评估</view>
 		<view class="padding-30">
 			<van-radio-group value="{{pgsga.result}}">
-				<van-radio name="A">营养良好（0分）</van-radio>
-				<van-radio name="B">轻度营养不良（1-2分）</van-radio>
-				<van-radio name="C">中度营养不良（3-6分）</van-radio>
-				<van-radio name="D">{{'重度营养不良（≥7分）'}}</van-radio>
+				<van-radio name="营养良好">营养良好（0分）</van-radio>
+				<van-radio name="轻度营养不良">轻度营养不良（1-2分）</van-radio>
+				<van-radio name="中度营养不良">中度营养不良（3-6分）</van-radio>
+				<van-radio name="重度营养不良">{{'重度营养不良（≥7分）'}}</van-radio>
 			</van-radio-group>
 			<view class="padding-top-bottom-30 border-top">筛查医生：{{doctorName||''}}</view>
 			<view>填写人：{{filtrateByName||''}}</view>

@@ -22,7 +22,7 @@ Page({
             physicalCondition: '',
             ageScore: '',
             score: 0,
-            result: 'A'
+            result: ''
         },
         dateVisible: false,
         step: 1,
@@ -324,22 +324,22 @@ Page({
     setResult(score) {
         if (score == 0) {
             this.setData({
-                'pgsga.result': 'A'
+                'pgsga.result': '营养良好'
             });
         }
         if (score >= 1 && score <= 2) {
             this.setData({
-                'pgsga.result': 'B'
+                'pgsga.result': '轻度营养不良'
             });
         }
         if (score >= 3 && score <= 6) {
             this.setData({
-                'pgsga.result': 'C'
+                'pgsga.result': '中度营养不良'
             });
         }
         if (score >= 7) {
             this.setData({
-                'pgsga.result': 'D'
+                'pgsga.result': '重度营养不良'
             });
         }
     },
@@ -373,7 +373,7 @@ Page({
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
             answers: JSON.stringify(this.data.pgsga),
-            result: this.data.pgsga.score,
+            result: this.data.pgsga.result,
             resultDescription: this.data.resultDescription && this.data.resultDescription.join(';'),
             isRisk: this.data.pgsga.score > 0,
             type: 'mPG-SGA'
@@ -397,23 +397,19 @@ Page({
                 delta: 1,
                 complete: () => {
                     var result = 0;
-                    var _result = '营养良好';
-                    if (data.result == 'B') {
+                    if (data.result == '轻度营养不良') {
                         result = 1;
-                        _result = '轻度营养不良';
                     }
-                    if (data.result == 'C') {
+                    if (data.result == '中度营养不良') {
                         result = 2;
-                        _result = '中度营养不良';
                     }
-                    if (data.result == 'D') {
+                    if (data.result == '重度营养不良') {
                         result = 3;
-                        _result = '重度营养不良';
                     }
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('screen-results', this.data.resultDescription);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
+                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}`
                         });
                     }
                 }
