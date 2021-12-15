@@ -13,6 +13,6 @@
 	<view bindtap="onGoto" class="button primary plain" data-url="/pages/feedback/index">功能反馈</view>
 	<button class="button primary" open-type="contact" style="line-height:normal">
 		<view>联系客服</view>
-		<view class="font-small">上班时间：9:00-18:00</view>
+		<view class="font-small" style="line-height:1em">上班时间：9:00-18:00</view>
 	</button>
 </footer>

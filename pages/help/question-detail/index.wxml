@@ -1,0 +1,20 @@
+<view class="container white-background-color">
+	<view class="padding-left-right-30" style="white-space:pre">
+		<view class="padding-top-bottom-30 border-bottom">{{info.content}}</view>
+	</view>
+	<view class="flex--center--center" style="margin-top:30px">
+		<button bindtap="onChangeNum" class="flex--center--center button primary {{info.resolve==0?'':'plain'}}" data-resolve="{{0}}" style="display:flex">
+			<van-icon name="thumb-circle-o" size="25px" style="transform:rotateX(180deg)" />
+			<text decode="{{true}}">&nbsp;未解决</text>
+		</button>
+		<button
+			bindtap="onChangeNum"
+			class="flex--center--center button primary {{info.resolve==1?'':'plain'}}"
+			data-resolve="{{1}}"
+			style="display:flex;margin-left:30px"
+		>
+			<van-icon name="thumb-circle-o" size="25px" />
+			<text decode="{{true}}">&nbsp;已解决</text>
+		</button>
+	</view>
+</view>

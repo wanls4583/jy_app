@@ -9,9 +9,12 @@ Page({
             categoryName: data.categoryName,
             list: data.items
         });
+        wx.setNavigationBarTitle({
+            title: data.categoryName
+        });
     },
     onUnload() {},
-    onClickItem(e) {
-        var item = e.currentTarget.dataset.item;
+    onGoto(e) {
+        wx.jyApp.utils.navigateTo(e);
     },
 })

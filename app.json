@@ -83,6 +83,7 @@
         "name": "help",
         "pages": [
             "category-list/index",
+            "question-detail/index",
             "question-list/index"
         ]
     }, {
