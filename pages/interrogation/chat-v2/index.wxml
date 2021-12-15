@@ -156,7 +156,7 @@
 												<text wx:if="{{patient.weight}}">{{patient.weight}}kg，</text>
 												<text wx:if="{{patient.BMI}}">{{patient.BMI}}</text>
 											</view>
-											<view class="flex--center--between padding-left-right-30 padding-bottom-20">
+											<view class="flex--center--center padding-left-right-30 padding-bottom-20">
 												<view
 													bindtap="onEditOrder"
 													class="button small success plain margin-right-30"
