@@ -272,6 +272,10 @@
 								<view class="position-relative" wx:elif="{{item.type==22}}">
 									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-body-fat"></template>
 								</view>
+								<!-- mpgsga -->
+								<view class="position-relative" wx:elif="{{item.type==27}}">
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-mpgsga"></template>
+								</view>
 								<!-- 视频通话 -->
 								<view class="position-relative padding-20 radius-8rpx {{item.sender==currentUser.id?'primary':'white'}}-background-color" wx:elif="{{item.type==6}}">
 									<view class="flex--center--start {{item.sender==currentUser.id&&'white-color'||'color-333'}}">

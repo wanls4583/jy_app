@@ -41,6 +41,12 @@
 		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'pgsga'}}" is="chat-screen"></template>
 	</view>
 </template>
+<template name="chat-screen-mpgsga">
+	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+		<view class="width-100 padding-20 success-background-color white-color align-center">mPGSGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'mpgsga'}}" is="chat-screen"></template>
+	</view>
+</template>
 <template name="chat-screen-sga">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">SGA（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>

@@ -244,6 +244,10 @@
 									<view class="position-relative" wx:elif="{{item.type==22}}">
 										<template data="{{item:item,patient:patient,viewVersion:2}}" is="chat-screen-body-fat"></template>
 									</view>
+									<!-- mpgsga -->
+									<view class="position-relative" wx:elif="{{item.type==27}}">
+										<template data="{{item:item,patient:patient,viewVersion:2}}" is="chat-screen-mpgsga"></template>
+									</view>
 								</view>
 								<view class="flex-shrink-0 width-80rpx height-80rpx margin-left-20 background-color-ddd radius-8rpx" wx:if="{{item.isSelf}}">
 									<image

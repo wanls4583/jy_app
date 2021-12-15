@@ -372,7 +372,7 @@ Page({
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
             answers: JSON.stringify(this.data.pgsga),
-            result: this.data.pgsga.result,
+            result: this.data.pgsga.score,
             resultDescription: this.data.resultDescription && this.data.resultDescription.join(';'),
             isRisk: this.data.pgsga.score > 0,
             type: 'mPG-SGA'
