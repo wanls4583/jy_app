@@ -44,7 +44,7 @@
 			</van-checkbox-group>
 		</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">过去三个月，我的食量变化：</view>
+			<view class="padding-bottom-30">过去一个个月，我的食量变化：</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.appetiteChange" value="{{pgsga.appetiteChange}}">
 				<van-radio name="NO_CHANGE">没有改变（0分）</van-radio>
 				<van-radio name="MORE">比以前多（0分）</van-radio>
