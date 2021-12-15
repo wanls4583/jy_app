@@ -189,7 +189,7 @@
 												bindtap="onEditOrder"
 												class="button small success plain margin-right-30"
 												data-id="{{item.associateId}}"
-												wx:if="{{item.nutritionOrderChatVO.status==0}}"
+												wx:if="{{item.nutritionOrderChatVO.status==0&&userInfo.role=='DOCTOR'}}"
 											>修改处方</view>
 											<view
 												bindtap="onGotoGuidanceDetail"
