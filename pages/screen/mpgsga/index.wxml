@@ -1,0 +1,123 @@
+<view class="container padding-bottom-footer">
+	<view wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field bindtap="onShowDate" label="筛查日期" value="{{pgsga.filtrateDate}}" />
+		</view>
+		<view class="white-background-color padding-top-bottom-30 margin-top-20">
+			<view class="margin-left-30 pre-vertical-line primary-line-color">体重变化</view>
+			<van-field bind:input="onInput" data-prop="pgsga.currentWeight" label="当前体重(kg)" value="{{pgsga.currentWeight}}" />
+			<van-field bind:input="onInput" data-prop="pgsga.currentStature" label="当前身高(cm)" value="{{pgsga.currentStature}}" />
+			<van-field bind:input="onInput" data-prop="pgsga.weightOneMouthAgo" label="一个月前体重(kg)" title-width="8em" value="{{pgsga.weightOneMouthAgo}}" />
+			<van-field bind:input="onInput" data-prop="pgsga.weightSixMouthAgo" label="六个月前体重(kg)" title-width="8em" value="{{pgsga.weightSixMouthAgo}}" />
+			<view class="padding-30">
+				<view class="padding-bottom-30">过去两星期，我的体重呈现：</view>
+				<van-radio-group bind:change="onChange" data-prop="pgsga.weightChange" value="{{pgsga.weightChange}}">
+					<van-radio name="NO_CHANGE">没有改变（0分）</van-radio>
+					<van-radio name="MORE_THAN_BEFORE">比以前多（0分）</van-radio>
+					<van-radio name="LESS_THAN_BEFORE">比以前少（1分）</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==2}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">饮食变化</view>
+		<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
+			<view class="padding-bottom-30">过去一个月，我的食量变化：</view>
+			<van-radio-group bind:change="onChange" data-prop="pgsga.appetiteChange" value="{{pgsga.appetiteChange}}">
+				<van-radio name="NO_CHANGE">没有改变（0分）</van-radio>
+				<van-radio name="MORE">比以前多（0分）</van-radio>
+				<van-radio name="LESS">比以前少（1分）</van-radio>
+			</van-radio-group>
+		</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">如果进食情况小于平常，我目前进食：</view>
+			<van-checkbox-group bind:change="onChange" data-prop="pgsga.dieteticChange" value="{{pgsga.dieteticChange}}">
+				<van-checkbox name="NORMAL_FEED" shape="square">比正常量少的一般食物（1分）</van-checkbox>
+				<van-checkbox name="SOLID_FEED" shape="square">一点固体食物（2分）</van-checkbox>
+				<van-checkbox name="FLUID_FEED" shape="square">只有流质饮食（3分）</van-checkbox>
+				<van-checkbox name="ONLY_NUTRITION" shape="square">只有营养补充品（3分）</van-checkbox>
+				<van-checkbox name="LITTLE_FEED" shape="square">非常少的任何食物（4分）</van-checkbox>
+				<van-checkbox name="INJECTABLE_FEED" shape="square">通过管饲进食或由静脉注射营养（0分）</van-checkbox>
+			</van-checkbox-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==3}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">症状</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">过去两个星期我有以下问题导致吃不下：</view>
+			<van-checkbox-group bind:change="onChange" data-prop="pgsga.symptom" value="{{pgsga.symptom}}">
+				<van-checkbox name="没有饮食困难" shape="square">没有饮食困难（0分）</van-checkbox>
+				<van-checkbox name="没有食欲" shape="square">没有食欲，不想吃饭（3分）</van-checkbox>
+				<van-checkbox name="恶心" shape="square">恶心（1分）</van-checkbox>
+				<van-checkbox name="呕吐" shape="square">呕吐（3分）</van-checkbox>
+				<van-checkbox name="便秘" shape="square">便秘（1分）</van-checkbox>
+				<van-checkbox name="腹泻" shape="square">腹泻（3分）</van-checkbox>
+				<van-checkbox name="口干" shape="square">口干（1分）</van-checkbox>
+				<van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
+				<van-checkbox name="何处疼痛" shape="square">
+					<view class="flex--center--between">
+						<text>疼痛（2分），部位</text>
+						<input bindinput="onInput" class="border" data-prop="pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{pgsga.wherePained}}" />
+					</view>
+				</van-checkbox>
+				<van-checkbox name="食物有怪味或没有味道" shape="square">食物有怪味或没有味道（1分）</van-checkbox>
+				<van-checkbox name="食物气味不好" shape="square">食物气味不好（1分）</van-checkbox>
+				<van-checkbox name="吃一会就饱了" shape="square">吃一会就饱了（1分）</van-checkbox>
+			</van-checkbox-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==4}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">身体状况</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">过去三个月，身体状况处于：</view>
+			<van-radio-group bind:change="onChange" data-prop="pgsga.physicalCondition" value="{{pgsga.physicalCondition}}">
+				<van-radio name="NORMAL">正常，没有任何限制（0分）</van-radio>
+				<van-radio name="DIFFERENT">与平常的我不同，但日常生活起居还能自我料理（1分）</van-radio>
+				<van-radio name="UNCOMFORTABLE">感觉不舒服，但躺在床上的时间不会长于半天（2分）</van-radio>
+				<van-radio name="LITTLE_MOTION">只能做少数活动，大多数时间躺在床上或坐在椅子上（3分）</van-radio>
+				<van-radio name="IN_BED">绝大多数时间躺在床上（3分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==5}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">年龄评分</view>
+		<view class="padding-30">
+			<view class="padding-bottom-30">年龄是否超过65岁：</view>
+			<van-radio-group value="{{pgsga.ageScore}}">
+				<van-radio name="0">年龄≤65岁（0分）</van-radio>
+				<van-radio name="1">年龄>65岁（1分）</van-radio>
+			</van-radio-group>
+		</view>
+	</view>
+	<view class="white-background-color padding-top-30" wx:if="{{step==6}}">
+		<view class="margin-left-30 pre-vertical-line primary-line-color">整体评估</view>
+		<view class="padding-30">
+			<van-radio-group value="{{pgsga.result}}">
+				<van-radio name="A">营养良好（0分）</van-radio>
+				<van-radio name="B">轻度营养不良（1-2分）</van-radio>
+				<van-radio name="C">中度营养不良（3-6分）</van-radio>
+				<van-radio name="D">{{'重度营养不良者（≥7分）'}}</van-radio>
+			</van-radio-group>
+			<view class="padding-top-bottom-30 border-top">筛查医生：{{doctorName||''}}</view>
+			<view>填写人：{{filtrateByName||''}}</view>
+		</view>
+	</view>
+</view>
+<view class="footer flex--center--around padding-30">
+	<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
+	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<6}}">下一页</view>
+	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==6}}">保存</view>
+</view>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

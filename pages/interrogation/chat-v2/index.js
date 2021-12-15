@@ -72,6 +72,9 @@ Page({
                 filtrateType: 'NRS 2002',
                 selected: true
             }, {
+                name: 'mPG-SGA',
+                filtrateType: 'mPG-SGA'
+            }, {
                 name: 'PG-SGA',
                 filtrateType: 'PG-SGA'
             }, {
@@ -914,6 +917,9 @@ Page({
         switch (this.data.filtrateType) {
             case 'NRS 2002':
                 url = '/pages/screen/nrs/index';
+                break;
+            case 'mPG-SGA':
+                url = '/pages/screen/mpgsga/index';
                 break;
             case 'PG-SGA':
                 url = '/pages/screen/pgsga/index';

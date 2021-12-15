@@ -133,13 +133,13 @@ Page({
             data.filtrate.map((item) => {
                 item._filtrateType = item.filtrateType;
                 item._filtrateResult = item.filtrateResult;
+                item.resultDescription = item.resultDescription && item.resultDescription.split(';') || [];
                 if (item.filtrateType == 'PG-SGA') {
                     if (item.answers) {
                         try {
                             item.answers = JSON.parse(item.answers);
-                            item.resultDescription = item.resultDescription && [item.resultDescription] || [];
+                            item.resultDescription = [];
                             this.setPgsgaResult(item.answers, item.resultDescription);
-                            item.resultDescription = item.resultDescription.join('；\n');
                         } catch (e) {}
                     }
                 }
@@ -275,7 +275,7 @@ Page({
                 fatData: fatData,
                 fatActiveNames: fatActiveNames
             });
-        }).catch((e)=>{
+        }).catch((e) => {
             console.log(e);
         });
     },

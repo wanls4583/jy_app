@@ -120,6 +120,7 @@
             "act-result/index",
             "body-fat/index",
             "body-result/index",
+            "mpgsga/index",
             "pgsga/index",
             "tumour-fluid/index",
             "radiation-injury/index",

@@ -84,7 +84,7 @@ Page({
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
                 this.barcodType = 'card';
-                // this.v1 = true;
+                this.v1 = true;
             } else if (type == 2 && param.dId) { //医生筛查二维码
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';

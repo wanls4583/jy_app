@@ -39,7 +39,9 @@
 								</view>
 								<view class="flex--start--start margin-top-20">
 									<view class="flex-shrink-0 label label-color">结果解释：</view>
-									<view style="white-space:pre-line">{{item.resultDescription || ''}}</view>
+									<view style="white-space:pre-line">
+										<view wx:for="{{item.resultDescription}}" wx:key="item">{{item}}</view>
+									</view>
 								</view>
 							</view>
 						</view>

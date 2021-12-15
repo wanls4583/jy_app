@@ -41,6 +41,9 @@ Page({
             case 'PGSGA':
                 url = '/pages/screen/pgsga/index';
                 break;
+            case 'mPG-SGA':
+                url = '/pages/screen/mpgsga/index';
+                break;
             case 'SGA':
                 url = '/pages/screen/sga/index';
                 break;

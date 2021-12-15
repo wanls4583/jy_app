@@ -339,7 +339,15 @@ Page({
         }
         if (pgsga.symptom) {
             var arr = [];
-            var index = pgsga.symptom.indexOf('恶心');
+            var index = pgsga.symptom.indexOf('没有饮食困难');
+            if (index > -1) {
+                arr.push('没有饮食困难');
+            }
+            index = pgsga.symptom.indexOf('没有食欲');
+            if (index > -1) {
+                arr.push('没有食欲');
+            }
+            index = pgsga.symptom.indexOf('恶心');
             if (index > -1) {
                 arr.push('恶心');
             }
@@ -362,6 +370,22 @@ Page({
             index = pgsga.symptom.indexOf('吞咽困难');
             if (index > -1) {
                 arr.push('吞咽困难');
+            }
+            index = pgsga.symptom.indexOf('口干');
+            if (index > -1) {
+                arr.push('口干');
+            }
+            index = pgsga.symptom.indexOf('食物有怪味或没有味道');
+            if (index > -1) {
+                arr.push('食物有怪味或没有味道');
+            }
+            index = pgsga.symptom.indexOf('食物气味不好');
+            if (index > -1) {
+                arr.push('食物气味不好');
+            }
+            index = pgsga.symptom.indexOf('吃一会就饱了');
+            if (index > -1) {
+                arr.push('吃一会就饱了');
             }
             if (arr.length) {
                 resultDescription.push('症状：' + arr.join('、'));
