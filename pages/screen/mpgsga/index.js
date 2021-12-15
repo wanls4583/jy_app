@@ -21,6 +21,7 @@ Page({
             other: '',
             physicalCondition: '',
             ageScore: '',
+            score: 0,
             result: 'A'
         },
         dateVisible: false,
