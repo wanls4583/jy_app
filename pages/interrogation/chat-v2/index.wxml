@@ -341,7 +341,7 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">群成员</view>
 			</view>
-			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'&&roomType=='group-chat'}}">
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{roomType=='group-chat'}}">
 				<view
 					bindtap="onGotoNotice"
 					class="flex--center--center width-60px height-60px radius-8px white-background-color"

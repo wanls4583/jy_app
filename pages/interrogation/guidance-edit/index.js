@@ -70,7 +70,9 @@ Page({
         });
     },
     onAddGoods() {
-        wx.jyApp.diagnosisGoods = wx.jyApp.diagnosisGoods || [];
+        wx.jyApp.diagnosisGoods = this.data.goodsList.map((item) => {
+            return Object.assign({}, item);
+        });
         wx.jyApp.utils.navigateTo({
             url: '/pages/interrogation/product-list/index'
         });
