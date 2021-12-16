@@ -32,7 +32,7 @@
 				<van-radio name="{{0}}">近1月~3月体重无下降（0分）</van-radio>
 				<van-radio name="{{1}}">近3月内体重下降>5%（1分）</van-radio>
 				<van-radio name="{{2}}">近2月内体重下降>5%（2分）</van-radio>
-				<van-radio name="{{3}}">近1月内体重下降>5%（3分）</van-radio>
+				<van-radio name="{{3}}">近1月内体重下降>5%，或近3月内体重下降>15%（3分）</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
@@ -43,7 +43,7 @@
 				<van-radio name="{{0}}">近一周进食无变化（0分）</van-radio>
 				<van-radio name="{{1}}">近一周进食量减少25%~50%（1分）</van-radio>
 				<van-radio name="{{2}}">近一周进食量减少51%~75%（2分）</van-radio>
-				<van-radio name="{{3}}">近3月内体重下降>15%（3分）</van-radio>
+				<van-radio name="{{3}}">近一周进食量减少76%及以上（3分）</van-radio>
 			</van-radio-group>
 		</view>
 	</view>
