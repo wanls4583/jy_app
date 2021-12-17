@@ -101,7 +101,9 @@ Page({
             store: wx.jyApp.store,
             fields: ['userInfo'],
         });
+        this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -110,7 +112,7 @@ Page({
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
-                filtrateByName: this.from == 'screen' ? patient.patientName : option.filtrateByName,
+                filtrateByName: this.from == 'screen' ? filtrateByName : option.filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'pgsga.currentStature': patient.height,

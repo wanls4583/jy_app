@@ -22,11 +22,13 @@ Page({
     onGoto(e) {
         this.stype = e.currentTarget.dataset.type;
         // 医生角色
-        if (this.data.userInfo.role == 'DOCTOR' && this.data.doctorInfo.authStatus != 0) {
-            this.url = e.currentTarget.dataset.url;
-            this.setData({
-                wayVisible: true
-            });
+        if (this.data.userInfo.role == 'DOCTOR') {
+            if (wx.jyApp.utils.checkDoctor()) {
+                this.url = e.currentTarget.dataset.url;
+                this.setData({
+                    wayVisible: true
+                });
+            }
         } else if (!this.doctorId || this.data.doctor) {
             wx.jyApp.utils.navigateTo(e);
         }
