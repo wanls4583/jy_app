@@ -1,31 +1,29 @@
 <!-- index.wxml -->
 <view class="container white-background-color padding-bottom-footer">
 	<radio-group>
-		<view
-			class="position-relative white-background-color padding-left-right-30 {{ifSelect?'':'padding-top-bottom-20 border-bottom'}}"
-			wx:for="{{patientList}}"
-			wx:key="id"
-		>
-			<view bindtap="onChange" class="flex--center--between" data-item="{{item}}">
-				<view class="flex-shrink-0 radio-wrap" wx:if="{{ifSelect}}">
-					<radio checked="{{selectId==item.id}}" color="rgb(42, 175, 255)" value="{{item.id}}" />
-				</view>
-				<view class="flex-grow-1 flex--center--start {{ifSelect?'height-120rpx border-bottom':''}}">
-					<text>{{item.patientName}}</text>
-					<text>，{{item._sex}}</text>
-					<text>，{{item.age}}岁</text>
-					<text wx:if="{{item.height}}">，{{item.height}}cm</text>
-					<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
-					<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
-					<text class="tag" wx:if="{{item.defaultFlag==1}}">默认</text>
+		<van-swipe-cell right-width="{{ifSelect?0:230}}" wx:for="{{patientList}}" wx:key="id">
+			<view class="position-relative white-background-color padding-left-right-30">
+				<view bindtap="onChange" class="flex--center--between" data-item="{{item}}">
+					<view class="flex-shrink-0 radio-wrap" wx:if="{{ifSelect}}">
+						<radio checked="{{selectId==item.id}}" color="rgb(42, 175, 255)" value="{{item.id}}" />
+					</view>
+					<view class="flex-grow-1 flex--center--start height-120rpx border-bottom">
+						<text>{{item.patientName}}</text>
+						<text>，{{item._sex}}</text>
+						<text>，{{item.age}}岁</text>
+						<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+						<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+						<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+						<text class="tag" wx:if="{{item.defaultFlag==1}}">默认</text>
+					</view>
 				</view>
 			</view>
-			<view class="flex--center--end margin-top-20" wx:if="{{!ifSelect}}">
-				<view bindtap="onDetail" class="margin-left-20 button small primary" data-id="{{item.id}}">问诊病历</view>
-				<view bindtap="onEdit" class="margin-left-20 button small primary" data-id="{{item.id}}">编辑</view>
-				<view bindtap="onDelete" class="margin-left-20 button small danger" data-id="{{item.id}}">删除</view>
+			<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:230px">
+				<view bindtap="onDetail" class="height-100 center min-width-50px button primary radius-0" data-id="{{item.id}}" style="width:100px">问诊病历</view>
+				<view bindtap="onEdit" class="height-100 center min-width-50px button warn radius-0" data-id="{{item.id}}" style="width:70px">编辑</view>
+				<view bindtap="onDelete" class="height-100 center min-width-50px button danger radius-0" data-id="{{item.id}}" style="width:70px">删除</view>
 			</view>
-		</view>
+		</van-swipe-cell>
 	</radio-group>
 	<view class="padding-30">
 		<view catchtap="onAdd" class="button plain primary block" style="margin-bottom:20px">+ 添加成员</view>
@@ -33,7 +31,7 @@
 	<footer wx:if="{{ifSelect&&patientList.length}}">
 		<view bindtap="onSave" class="button primary block">{{btnText||'确定'}}</view>
 	</footer>
-	<footer wx:elif="{{ifSelect}}" style="padding-top:10px">
+	<footer style="padding-top:10px" wx:elif="{{ifSelect}}">
 		<view class="width-100">
 			<view class="font-small gray-color align-center" style="line-height:15px;margin-bottom:10px">
 				<text>开始问诊即代表已阅读并同意</text>

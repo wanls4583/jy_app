@@ -19,7 +19,7 @@ Page({
         maxDate: new Date().getTime(),
         sexVisible: false,
         birthDayVisible: false,
-        birthday: new Date().getTime(),
+        birthday: new Date(1980, 0, 1).getTime(),
         switchDefaultDisabled: true
     },
     onLoad(option) {
