@@ -148,11 +148,7 @@ Page({
         }).then((data) => {
             var page = wx.jyApp.utils.getPages('pages/interrogation/user-patient-list/index');
             if (page) {
-                page.loadList().then(() => {
-                    page.setData({
-                        selectId: this.data.patient.id || data.id
-                    });
-                });
+                page.loadList(data.id);
             }
             // v2版本患者修改默认患者时，需更新用户信息，首页需要展示默认患者
             if (this.data.userInfo.viewVersion == 2 && this.data.patient.defaultFlag == 1) {

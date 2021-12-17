@@ -148,6 +148,7 @@ Page({
             wx.navigateBack({
                 delta: pages[pages.length - 2].route == 'pages/interrogation/search/index' ? 3 : (pages[pages.length - 2].route == 'pages/interrogation/product-list/index' ? 2 : 1)
             });
+            wx.jyApp.diagnosisGoods.push(this.data.goods);
         });
     },
     // 检查库存

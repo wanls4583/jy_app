@@ -91,7 +91,6 @@ Page({
             return _item.id == item.id && _item.type == item.type
         });
         if (!arr.length) {
-            wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             if (item.type == 3) { //整取套餐
                 wx.jyApp.utils.navigateTo({
@@ -113,7 +112,6 @@ Page({
             return _item.id == item.id && _item.type == item.type
         });
         if (!arr.length) {
-            wx.jyApp.diagnosisGoods.push(item);
             wx.jyApp.setTempData('usageGoods', item);
             wx.jyApp.utils.navigateTo({
                 url: '/pages/interrogation/usage/index'

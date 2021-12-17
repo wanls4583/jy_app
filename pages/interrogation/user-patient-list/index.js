@@ -143,7 +143,8 @@ Page({
             url: `/pages/interrogation/user-patient-edit/index`
         });
     },
-    loadList() {
+    // selectId参数是user-patient-edit页面调用时传递的参数
+    loadList(selectId) {
         wx.showLoading({
             title: '加载中',
             mask: true
@@ -155,29 +156,28 @@ Page({
                 limit: 1000
             }
         }).then((data) => {
-            var selected = 0;
+            var patient = null;
+            selectId = selectId || this.data.selectId;
             data.list.map((item) => {
                 item._sex = item.sex == 1 ? '男' : '女';
                 item.BMI = (item.weight) / (item.height * item.height / 10000);
                 item.BMI = item.BMI && item.BMI.toFixed(1) || '';
                 // v2版本加入科室时选择患者，默认选中默认患者
-                if (item.defaultFlag == 1) {
-                    selected = item.id;
-                    if (!this.data.selectId) {
-                        this.setData({
-                            patient: item
-                        });
-                    }
+                if (item.defaultFlag == 1 && !selectId) {
+                    selectId = item.id;
                 }
-                if (this.data.selectId && item.id == this.data.selectId) {
-                    this.setData({
-                        patient: item
-                    });
+                if (item.id == selectId) {
+                    patient = item;
                 }
             });
+            if (!selectId && data.list) {
+                selectId = data.list[0].id;
+                patient = data.list[0];
+            }
             this.setData({
                 patientList: data.list || [],
-                selectId: this.data.selectId || selected || (data.list.length ? data.list[0].id : 0)
+                selectId: selectId,
+                patient: patient
             });
 
 
