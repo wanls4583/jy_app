@@ -6,7 +6,7 @@
 		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
 		<view class="white-color">{{result>=1?'患者有营养风险，请联系医生进行营养支持治疗':'患者营养状况良好，可联系医生咨询健康生活方式'}}</view>
 	</view>
-	<view class="white-background-color" wx:if="{{results}}">
+	<view class="white-background-color" wx:if="{{results&&results.length}}">
 		<view style="padding:20px 40px;line-height:24px">
 			<view>结果解释：</view>
 			<view style="white-space:pre-line" wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>

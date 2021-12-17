@@ -242,6 +242,10 @@ Page({
             if (index > -1) {
                 arr.push('吞咽困难');
             }
+            index = pgsga.symptom.indexOf('何处疼痛');
+            if (index > -1 && pgsga.wherePained) {
+                arr.push(pgsga.wherePained + '痛');
+            }
             index = pgsga.symptom.indexOf('食物有怪味或没有味道');
             if (index > -1) {
                 arr.push('食物有怪味或没有味道');
@@ -352,14 +356,16 @@ Page({
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.setData({
+                filtrateId: filtrateId,
+                patient: data.patientFiltrate,
+                filtrateByName: data.patientFiltrate.filtrateByName,
+                doctorName: data.patientFiltrate.doctorName
+            });
             if (data.info.answers) {
                 data.info.answers = JSON.parse(data.info.answers);
                 this.setData({
                     pgsga: data.info.answers,
-                    filtrateId: filtrateId,
-                    patient: data.patientFiltrate,
-                    filtrateByName: data.patientFiltrate.filtrateByName,
-                    doctorName: data.patientFiltrate.doctorName,
                     resultDescription: data.info.resultDescription && data.info.resultDescription.split(';')
                 });
             }
@@ -396,15 +402,15 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = 0;
+                    var result = 1;
                     if (data.result == '轻度营养不良') {
-                        result = 1;
-                    }
-                    if (data.result == '中度营养不良') {
                         result = 2;
                     }
-                    if (data.result == '重度营养不良') {
+                    if (data.result == '中度营养不良') {
                         result = 3;
+                    }
+                    if (data.result == '重度营养不良') {
+                        result = 4;
                     }
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('screen-results', this.data.resultDescription);

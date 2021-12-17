@@ -39,7 +39,7 @@
 				<van-radio name="LESS">比以前少（1分）</van-radio>
 			</van-radio-group>
 		</view>
-		<view class="padding-30">
+		<view class="padding-30" wx:if="{{pgsga.appetiteChange=='LESS'}}">
 			<view class="padding-bottom-30">如果进食情况小于平常，我目前进食：</view>
 			<van-checkbox-group bind:change="onChange" data-prop="pgsga.dieteticChange" value="{{pgsga.dieteticChange}}">
 				<van-checkbox name="NORMAL_FEED" shape="square">比正常量少的一般食物（1分）</van-checkbox>
@@ -64,12 +64,12 @@
 				<van-checkbox name="腹泻" shape="square">腹泻（3分）</van-checkbox>
 				<van-checkbox name="口干" shape="square">口干（1分）</van-checkbox>
 				<van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
-				<van-checkbox name="何处疼痛" shape="square">
-					<view class="flex--center--between">
+				<view class="flex--center--start">
+					<van-checkbox name="何处疼痛" shape="square">
 						<text>疼痛（2分），部位</text>
-						<input bindinput="onInput" class="border" data-prop="pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{pgsga.wherePained}}" />
-					</view>
-				</van-checkbox>
+					</van-checkbox>
+					<input bindinput="onInput" class="border margin-bottom-30" data-prop="pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{pgsga.wherePained}}" />
+				</view>
 				<van-checkbox name="食物有怪味或没有味道" shape="square">食物有怪味或没有味道（1分）</van-checkbox>
 				<van-checkbox name="食物气味不好" shape="square">食物气味不好（1分）</van-checkbox>
 				<van-checkbox name="吃一会就饱了" shape="square">吃一会就饱了（1分）</van-checkbox>

@@ -20,7 +20,7 @@
 			<view
 				bindtap="onGoto"
 				class="flex--center--between padding-top-bottom-30 border-bottom"
-				data-type="{{2}}"
+				data-type="{{11}}"
 				data-url="/pages/interrogation/{{patientList.length&&userInfo.role=='USER'?'user-patient-list':'user-patient-edit'}}/index?screen=mpgsga&doctorId={{doctor.id}}&doctorName={{doctor.doctorName}}&select=true"
 			>
 				<view>

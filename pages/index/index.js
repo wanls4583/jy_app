@@ -291,6 +291,9 @@ Page({
             case 10:
                 screen = 'radiation-injury'
                 break;
+            case 11:
+                screen = 'mpgsga'
+                break;
         }
         wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
             var doctor = data.doctor;
