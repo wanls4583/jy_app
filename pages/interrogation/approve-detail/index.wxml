@@ -18,9 +18,9 @@
 			</van-field>
 		</van-collapse-item>
 		<van-collapse-item class="margin-top-20" name="3" title="基本信息">
-			<view class="flex padding-top-30 margin-left-right-30 border-bottom">
+			<view class="flex padding-top-30 margin-left-right-30 border-bottom" wx:if="{{showable==0}}">
 				<view class="label" style="width:auto">是否展示在患者端</view>
-				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{true}}" style="display:flex" value="{{showable}}" wx:if="{{showable==0}}">
+				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{true}}" style="display:flex" value="{{showable}}">
 					<van-radio name="{{0}}">不展示</van-radio>
 					<van-radio name="{{1}}">展示</van-radio>
 				</van-radio-group>
