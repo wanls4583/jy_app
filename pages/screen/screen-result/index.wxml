@@ -12,7 +12,7 @@
 			<view style="white-space:pre-line" wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>
 		</view>
 	</view>
-	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{!doctorId&&doctorList.length&&configData.hideDoctor!=1}}">
+	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{!doctorId&&doctorList.length}}">
 		<view class="flex--center--between">
 			<text class="font-title font-bold">我的医生</text>
 			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
@@ -27,7 +27,7 @@
 			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 		</view>
 	</view>
-	<footer wx:if="{{doctorId}}">
+	<footer wx:elif="{{doctorId&&userInfo.viewVersion!=2}}">
 		<view bindtap="onConsult" class="button primary block">立即问诊</view>
 	</footer>
 </view>
