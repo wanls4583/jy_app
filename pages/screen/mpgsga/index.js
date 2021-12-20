@@ -73,12 +73,12 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        var patient = wx.jyApp.getTempData('screenPatient') || {};
-        var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        var patient = wx.jyApp.getTempData('screenPatient') || {};
+        var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -93,17 +93,7 @@ Page({
             this.setBMI();
             this.countScore();
         } else {
-            this.loadInfo(option.id).then(() => {
-                if (!this.data.pgsga.id) {
-                    this.setData({
-                        filtrateByName: option.filtrateByName,
-                        'pgsga.currentStature': patient.height,
-                        'pgsga.currentWeight': patient.weight,
-                    });
-                    this.setBMI();
-                    this.countScore();
-                }
-            });
+            this.loadInfo(option.id);
         }
         this.setData({
             'filtrateId': option.filtrateId || '',
@@ -354,14 +344,17 @@ Page({
             url: `/evaluate/common/info/${id}`,
         }).then((data) => {
             var filtrateId = data.patientFiltrate.id;
+            var filtrateByName = '';
             data.info = data.info || {};
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            filtrateByName = data.patientFiltrate.filtrateByName;
+            filtrateByName = filtrateByName || (this.data.userInfo.role == 'DOCTOR' ? data.patientFiltrate.doctorName : data.patientFiltrate.patientName);
             this.setData({
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate,
-                filtrateByName: data.patientFiltrate.filtrateByName,
+                filtrateByName: filtrateByName,
                 doctorName: data.patientFiltrate.doctorName
             });
             if (data.info.answers) {
@@ -370,9 +363,15 @@ Page({
                     pgsga: data.info.answers,
                     resultDescription: data.info.resultDescription && data.info.resultDescription.split(';')
                 });
+            } else {
+                this.setData({
+                    'pgsga.currentStature': this.data.patient.height,
+                    'pgsga.currentWeight': this.data.patient.weight,
+                    'pgsga.ageScore': this.data.patient.age > 65 ? '1' : '0',
+                });
             }
             this.setBMI();
-            data.filtratePgsga.id && this.countScore();
+            this.countScore();
         });
     },
     onSave() {

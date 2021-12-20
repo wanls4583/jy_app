@@ -699,6 +699,11 @@ Page({
                         if (item.txt.length > 36) {
                             item._txt = item.txt.slice(0, 36) + '...';
                         }
+                        if (item.noticeType == -1) {
+                            this.setData({
+                                'roomInfo.notice': item.txt
+                            });
+                        }
                     } catch (e) {
                         console.log(e);
                     }

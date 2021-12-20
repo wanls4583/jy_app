@@ -1,5 +1,5 @@
 <view class="container">
-	<view class="padding-20">{{categoryName}}</view>
+	<view class="padding-20">常见问题</view>
 	<view class="padding-left-right-20 white-background-color clickable" wx:for="{{list}}" wx:key="id">
 		<view
 			bindtap="onGoto"

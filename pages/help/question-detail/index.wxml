@@ -1,5 +1,5 @@
 <view class="container white-background-color">
-	<view class="padding-left-right-30" style="white-space:pre">
+	<view class="padding-left-right-30" style="white-space:pre-wrap">
 		<view class="padding-top-bottom-30 border-bottom">{{info.content}}</view>
 	</view>
 	<view class="flex--center--center" style="margin-top:30px">
