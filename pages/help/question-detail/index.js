@@ -25,6 +25,15 @@ Page({
             });
         });
     },
+    onEditorReady() {
+        const that = this
+        wx.createSelectorQuery().select('#editor').context(function (res) {
+            that.editorCtx = res.context
+            that.data.info.content && that.editorCtx.setContents({
+                html: that.data.info.content
+            });
+        }).exec()
+    },
     loadInfo(id) {
         wx.jyApp.http({
             url: `/question/info/${id}`
@@ -32,6 +41,11 @@ Page({
             this.setData({
                 info: data.question
             });
+            if (this.editorCtx) {
+                this.editorCtx.setContents({
+                    html: data.question.content
+                });
+            }
         });
     }
 })

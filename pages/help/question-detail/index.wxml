@@ -1,6 +1,6 @@
 <view class="container white-background-color">
-	<view class="padding-left-right-30" style="white-space:pre-wrap">
-		<view class="padding-top-bottom-30 border-bottom">{{info.content}}</view>
+	<view class="edit-container" style="padding-bottom:105px">
+		<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto;line-height:36px"></editor>
 	</view>
 	<view class="flex--center--center" style="margin-top:30px">
 		<button bindtap="onChangeNum" class="flex--center--center button primary {{info.resolve==0?'':'plain'}}" data-resolve="{{0}}" style="display:flex">
