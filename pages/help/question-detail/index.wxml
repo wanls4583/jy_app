@@ -1,8 +1,8 @@
-<view class="container white-background-color">
-	<view class="edit-container" style="padding-bottom:105px">
+<view class="container white-background-color padding-bottom-footer">
+	<view class="edit-container">
 		<editor bindready="onEditorReady" class="ql-container" id="editor" read-only="{{true}}" style="height:auto;line-height:36px"></editor>
 	</view>
-	<view class="flex--center--center" style="margin-top:30px">
+	<footer class="flex--center--center" style="padding-bottom:15px">
 		<button bindtap="onChangeNum" class="flex--center--center button primary {{info.resolve==0?'':'plain'}}" data-resolve="{{0}}" style="display:flex">
 			<van-icon name="thumb-circle-o" size="25px" style="transform:rotateX(180deg)" />
 			<text decode="{{true}}">&nbsp;未解决</text>
@@ -16,5 +16,5 @@
 			<van-icon name="thumb-circle-o" size="25px" />
 			<text decode="{{true}}">&nbsp;已解决</text>
 		</button>
-	</view>
+	</footer>
 </view>
