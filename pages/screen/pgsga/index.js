@@ -99,7 +99,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo'],
+            fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};

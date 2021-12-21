@@ -352,6 +352,7 @@ Page({
             filtrateByName = data.patientFiltrate.filtrateByName;
             filtrateByName = filtrateByName || (this.data.userInfo.role == 'DOCTOR' ? data.patientFiltrate.doctorName : data.patientFiltrate.patientName);
             this.setData({
+                id: data.info.id || '',
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate,
                 filtrateByName: filtrateByName,
