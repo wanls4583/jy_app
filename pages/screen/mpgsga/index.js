@@ -66,6 +66,13 @@ Page({
             'LITTLE_MOTION': 3,
             'IN_BED': 3,
         },
+        physicalConditionMap: {
+            'NORMAL': '正常，没有任何限制',
+            'DIFFERENT': '与平常的我不同，但日常生活起居还能自我料理',
+            'UNCOMFORTABLE': '感觉不舒服，但躺在床上的时间不会长于半天',
+            'LITTLE_MOTION': '只能做少数活动，大多数时间躺在床上或坐在椅子上',
+            'IN_BED': '绝大多数时间躺在床上',
+        },
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -170,6 +177,9 @@ Page({
             'pgsga.score': count
         });
         this.setResult(count);
+        if (pgsga.weightChange == 'LESS_THAN_BEFORE') {
+            resultDescription.push('过去两星期，我的体重呈现：比以前少');
+        }
         if (pgsga.dieteticChange.length) {
             var arr = [];
             var index = pgsga.dieteticChange.indexOf('NORMAL_FEED');
@@ -192,20 +202,12 @@ Page({
             if (index > -1) {
                 arr.push('非常少的任何食物');
             }
-            index = pgsga.dieteticChange.indexOf('INJECTABLE_FEED');
-            if (index > -1) {
-                arr.push('通过管饲进食或由静脉注射营养');
-            }
             if (arr.length) {
                 resultDescription.push('我目前进食：' + arr.join('、'));
             }
         }
         if (pgsga.symptom.length) {
             var arr = [];
-            var index = pgsga.symptom.indexOf('没有饮食困难');
-            if (index > -1) {
-                arr.push('没有饮食困难');
-            }
             index = pgsga.symptom.indexOf('没有食欲');
             if (index > -1) {
                 arr.push('没有食欲');
@@ -254,6 +256,12 @@ Page({
                 resultDescription.push('症状：' + arr.join('、'));
             }
         }
+        if (pgsga.physicalCondition && pgsga.physicalCondition != 'NORMAL') {
+            resultDescription.push(`过去三个月，身体状况处于：${self.data.physicalConditionMap[pgsga.physicalCondition]}`);
+        }
+        if (pgsga.ageScore == 1) {
+            resultDescription.push('年龄是否超过65岁：超过');
+        }
         this.setData({
             resultDescription: resultDescription
         });
@@ -288,15 +296,14 @@ Page({
         }
 
         function _countStep2() {
-            var count = 0;
-            //饮食中最大的分数计入总分
-            pgsga.dieteticChange.map(item => {
-                if (self.data.dieteticChangeScoreMap[item] > count) {
-                    count = self.data.dieteticChangeScoreMap[item];
-                }
-            });
-            if (count <= self.data.appetiteChangeScoreMap[pgsga.appetiteChange]) {
-                count = self.data.appetiteChangeScoreMap[pgsga.appetiteChange];
+            var count = self.data.appetiteChangeScoreMap[pgsga.appetiteChange] || 0;
+            if (pgsga.appetiteChange == 'LESS') {
+                //饮食中最大的分数计入总分
+                pgsga.dieteticChange.map(item => {
+                    if (self.data.dieteticChangeScoreMap[item] > count) {
+                        count = self.data.dieteticChangeScoreMap[item];
+                    }
+                });
             }
             return count;
         }
