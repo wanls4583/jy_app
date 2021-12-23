@@ -33,7 +33,7 @@ Page({
         this.joinDoctorId = option.joinDoctorId || '';
         this.joinDoctorWay = option.joinDoctorWay || '';
         // 科室跳过来的需要默认跳转到nrs筛查
-        this.screen = option.screen || (this.joinDoctorId && this.joinDoctorWay != 'private' ? 'nrs' : '');
+        this.screen = option.screen || (this.joinDoctorId && this.joinDoctorWay != 'private' ? 'mpgsga' : '');
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.setData({

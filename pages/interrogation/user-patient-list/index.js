@@ -49,7 +49,7 @@ Page({
                 data: this.data.patient
             }).then(() => {
                 if (this.joinDoctorWay != 'private') { //私域医生跳首页
-                    this.screen = this.screen || 'nrs';
+                    this.screen = this.screen || 'mpgsga';
                 }
                 // 更新当前用户信息
                 wx.jyApp.loginUtil.getUserInfo();
