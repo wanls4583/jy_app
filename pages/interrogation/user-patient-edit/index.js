@@ -32,7 +32,7 @@ Page({
         // 患者端v2版本选择默认患者
         this.joinDoctorId = option.joinDoctorId || '';
         // 科室跳过来的需要默认跳转到nrs筛查
-        this.screen = option.screen || (this.joinDoctorId ? 'nrs' : '');
+        this.screen = option.screen || (this.joinDoctorId ? 'mpgsga' : '');
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
         this.setData({

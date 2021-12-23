@@ -47,7 +47,7 @@ Page({
                 method: 'post',
                 data: this.data.patient
             }).then(() => {
-                this.screen = this.screen || 'nrs';
+                this.screen = this.screen || 'mpgsga';
                 // 更新当前用户信息
                 wx.jyApp.loginUtil.getUserInfo();
                 // 跳转到筛查页面
