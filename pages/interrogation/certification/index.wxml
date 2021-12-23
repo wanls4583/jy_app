@@ -15,7 +15,7 @@
 	<van-collapse bind:change="onCollapseChange" value="{{activeNames}}">
 		<van-collapse-item name="1" title="基本信息">
 			<!-- 完全认证状态和护士不能修改是否展示在患者端 -->
-			<view class="flex padding-top-30 margin-left-right-30 border-bottom">
+			<view class="flex padding-top-30 margin-left-right-30 border-bottom" wx:if="{{join=='department'}}">
 				<view class="label" style="width:auto">是否展示在患者端</view>
 				<van-radio-group bind:change="onChange" data-prop="showable" disabled="{{true}}" style="display:flex" value="{{showable}}" wx:if="{{jobTitle=='护士'}}">
 					<van-radio name="{{0}}">不展示</van-radio>

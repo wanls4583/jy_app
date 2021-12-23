@@ -41,7 +41,9 @@ Page({
         this.loadDepartmentList();
         this.loadWorkDepartmentList();
         this.setData({
-            areaList: area
+            areaList: area,
+            join: option.join, //department:加入科室,private:加入私域医生
+            showable: option.join == 'private' ? 0 : 1
         });
         this.avatar = [];
         this.jobCertificateUrl = [];
@@ -151,6 +153,7 @@ Page({
             positionVisible: false
         });
         if (this.data.jobTitle == '护士') {
+            this.originShowable = this.data.showable;
             this.setData({
                 showable: 0
             });
@@ -158,6 +161,7 @@ Page({
             this.setData({
                 showable: this.originShowable
             });
+            this.originShowable = this.data.showable;
         }
     },
     onShowDisease() {
@@ -550,7 +554,6 @@ Page({
             });
         }
         var diseaseList = this.data.goodAtDomain.split('、');
-        this.originShowable = this.data.showable;
         this.avatar = data.avatar && [data.avatar] || [];
         this.jobCertificateUrl = data.jobCertificateUrl && data.jobCertificateUrl.split(',') || [];
         this.jobTitleCertificateUrl = data.jobTitleCertificateUrl && data.jobTitleCertificateUrl.split(',') || [];

@@ -97,6 +97,7 @@ Page({
             } else if (type == 4 && param.sId) { //业务员通过二维码邀请医生
                 this.inviteDoctorId = param.sId;
                 this.inviteWay = 'salesman';
+                this.joinWay = param.way; //private加入私域医生
             } else if (type == 5 && param.dpId) { //医生扫科室二维码进入科室
                 this.inviteDoctorId = param.dpId;
                 this.inviteWay = 'department';
@@ -182,14 +183,14 @@ Page({
             });
         } else {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/certification/index'
+                url: `/pages/interrogation/certification/index?join=${this.joinWay==2?'private':''}`
             });
         }
     },
     handleDepartmentCode() {
         if (!this.data.doctorInfo) {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/certification/index'
+                url: '/pages/interrogation/certification/index?join=department'
             });
         } else {
             if (this.loginData.tag == 2 || this.loginData.tag == 3) { //2:加入成功,3:之前已经加过该科室
