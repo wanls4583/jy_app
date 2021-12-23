@@ -208,13 +208,20 @@ Page({
         wx.jyApp.loginUtil.getDoctorInfo(this.inviteDoctorId).then((data) => {
             var doctor = data.doctor;
             var url = '';
-            // 患者通过扫医生的码加入科室
-            if (!this.v1 && doctor.hosDepartment && this.loginData.tag != 1) { // tag==1代表科室已下线
+
+            if (
+                this.v1 && doctor.authStatus == 2 || //私域医生
+                !this.v1 && doctor.hosDepartment && this.loginData.tag != 1 //患者通过扫医生的码加入科室,tag==1代表科室已下线
+            ) {
+                let joinDoctorWay = '';
+                if (this.v1) {
+                    joinDoctorWay = 'private';
+                }
                 this.getPatient().then((data) => {
                     if (data.list && data.list.length) {
-                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
+                        url = `/pages/interrogation/user-patient-list/index?select=true&joinDoctorId=${this.inviteDoctorId}&joinDoctorWay=${joinDoctorWay}`;
                     } else {
-                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${this.inviteDoctorId}`;
+                        url = `/pages/interrogation/user-patient-edit/index?select=true&joinDoctorId=${this.inviteDoctorId}&joinDoctorWay=${joinDoctorWay}`;
                     }
                     wx.jyApp.utils.navigateTo({
                         url: url

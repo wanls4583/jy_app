@@ -43,7 +43,7 @@
 			</view>
 			<view class="flex flex-wrap-wrap white-background-color margin-20 padding-bottom-30 radius-8px overflow-hidden shadow">
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/appointment/index?type=4"
 					wx:if="{{userInfo.role=='DOCTOR'}}"
@@ -59,7 +59,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">电话预约</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/appointment/index?type=3"
 					wx:if="{{userInfo.role=='DOCTOR'}}"
@@ -94,7 +94,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">二维码名片</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/qrcode-share/index?barcodeUrl={{doctorInfo.barcodeUrl}}&type=1"
 					wx:else
@@ -111,7 +111,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">我的文章</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithDepartDoctor"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/order-list/index"
 				>
@@ -152,7 +152,7 @@
 					<view class="font-small margin-top-10 line-height-1em color-666">邀请医生</view>
 				</view>
 				<view
-					bindtap="onCheckGotoWithFullCertification"
+					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/doctor-setting/index"
 				>

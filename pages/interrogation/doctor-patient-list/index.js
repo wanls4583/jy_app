@@ -77,18 +77,9 @@ Component({
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
         },
-        onCheckGotoWithFullCertification(e) {
-            if (wx.jyApp.utils.checkDoctor({
-                    checkFullAuthStatus: true
-                })) {
+        onCheckGoto(e) {
+            if (wx.jyApp.utils.checkDoctor()) {
                 this.onGoto(e);
-            }
-        },
-        onCheckGotoWithDepartDoctor(e) {
-            if (this.data.doctorInfo && this.data.doctorInfo.hosDepartment) {
-                this.onGoto(e);
-            } else {
-                this.onCheckGotoWithFullCertification(e);
             }
         },
         onGotoSearch() {

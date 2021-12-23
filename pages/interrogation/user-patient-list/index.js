@@ -7,6 +7,7 @@ Page({
     onLoad(option) {
         // 患者端v2版本选择默认患者
         this.joinDoctorId = option.joinDoctorId || '';
+        this.joinDoctorWay = option.joinDoctorWay || '';
         this.screen = option.screen || '';
         this.setDefault = option.setDefault || '';
         this.doctorId = option.doctorId || '';
@@ -47,7 +48,9 @@ Page({
                 method: 'post',
                 data: this.data.patient
             }).then(() => {
-                this.screen = this.screen || 'nrs';
+                if (this.joinDoctorWay != 'private') { //私域医生跳首页
+                    this.screen = this.screen || 'nrs';
+                }
                 // 更新当前用户信息
                 wx.jyApp.loginUtil.getUserInfo();
                 // 跳转到筛查页面
