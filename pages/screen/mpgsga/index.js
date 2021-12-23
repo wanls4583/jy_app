@@ -237,8 +237,8 @@ Page({
                 arr.push('吞咽困难');
             }
             index = pgsga.symptom.indexOf('何处疼痛');
-            if (index > -1 && pgsga.wherePained) {
-                arr.push(pgsga.wherePained + '痛');
+            if (index > -1) {
+                arr.push((pgsga.wherePained || '') + '疼痛');
             }
             index = pgsga.symptom.indexOf('食物有怪味或没有味道');
             if (index > -1) {

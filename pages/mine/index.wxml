@@ -178,18 +178,18 @@
 					</view>
 				</view>
 				<view class="padding-left-right-20 clickable">
-					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/help/category-list/index">
-						<text>帮助与反馈</text>
+					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
+						<text>消息通知</text>
 						<view class="flex--center--center">
+							<text class="danger-color" wx:if="{{noticeCount}}">{{noticeCount}}条未读消息</text>
 							<van-icon color="#ccc" name="arrow" />
 						</view>
 					</view>
 				</view>
 				<view class="padding-left-right-20 clickable">
-					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/notice-list/index">
-						<text>消息通知</text>
+					<view bindtap="onGoto" class="flex--center--between padding-top-bottom-30 border-bottom" data-url="/pages/help/category-list/index">
+						<text>帮助与反馈</text>
 						<view class="flex--center--center">
-							<text class="danger-color" wx:if="{{noticeCount}}">{{noticeCount}}条未读消息</text>
 							<van-icon color="#ccc" name="arrow" />
 						</view>
 					</view>
