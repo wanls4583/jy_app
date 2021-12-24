@@ -240,7 +240,8 @@ Page({
             ]
             url = doctor.barcodePath;
             if (url.slice(0, 6) == '/pages') {
-                if (tabs.indexOf(url) > -1) {
+                let _url = url.indexOf('?') ? url.slice(0, url.indexOf('?')) : url;
+                if (tabs.indexOf(_url) > -1) {
                     url = '/pages/tab-bar/index?url=' + url;
                     wx.jyApp.utils.redirectTo({
                         url: url
