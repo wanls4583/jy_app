@@ -36,32 +36,15 @@ Page({
         if (this.loading) {
             return;
         }
-        var url = this.viewVersion == 2 ? '/hospital/department/user' : '/wx/user/doctor';
+        var url = this.viewVersion == 2 ? '/hospital/department/user/doctor' : '/wx/user/doctor';
         this.loading = true;
         this.request = wx.jyApp.http({
             url: url,
         });
         this.request.then((data) => {
-            if (this.viewVersion == 2) {
-                var list = [];
-                data.list.map((item) => {
-                    var arr = item.doctors || [];
-                    if (!this.departmentId || item.id == this.departmentId) {
-                        arr.map((_item) => {
-                            _item.departmentName = item.departmentName;
-                            _item.hospitalName = item.hospitalName;
-                        });
-                        list = list.concat(item.doctors || []);
-                    }
-                });
-                this.setData({
-                    'doctorList': list
-                });
-            } else {
-                this.setData({
-                    'doctorList': data.list || []
-                });
-            }
+            this.setData({
+                'doctorList': data.list || []
+            });
         }).finally(() => {
             this.loading = false;
             this.request = null;

@@ -18,7 +18,7 @@ Page({
         }
         this.loading = true;
         this.request = wx.jyApp.http({
-            url: '/hospital/department/user'
+            url: '/hospital/department/user/department'
         });
         this.request.then((data) => {
             this.setData({
