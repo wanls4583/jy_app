@@ -442,7 +442,7 @@ Page({
             wx.jyApp.toast('身份证不能为空');
             return;
         }
-        if (!this.data.provinceCity) {
+        if (!this.data.provinceCity && this.data.showable == 1) {
             wx.jyApp.toast('请选择地区');
             return;
         }
