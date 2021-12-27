@@ -10,9 +10,9 @@
 						</view>
 						<text class="font-small gray-color">{{item.sendTime}}</text>
 					</view>
-					<view class="margin-top-20 gray-color">
+					<view class="flex--end--between margin-top-20 gray-color">
 						<text>{{item.content}}</text>
-						<text class="primary-color" wx:if="{{item.subType=='AUTH'}}">完善资料>></text>
+						<text class="flex-shrink-0 primary-color" wx:if="{{item.subType=='AUTH'}}">完善资料>></text>
 					</view>
 				</view>
 			</view>
