@@ -549,9 +549,11 @@ Page({
     },
     setInfo(data) {
         for (var key in data) {
-            this.setData({
-                [key]: data[key]
-            });
+            if (['showable'].indexOf(key) == -1) {
+                this.setData({
+                    [key]: data[key]
+                });
+            }
         }
         var diseaseList = this.data.goodAtDomain.split('、');
         this.avatar = data.avatar && [data.avatar] || [];
