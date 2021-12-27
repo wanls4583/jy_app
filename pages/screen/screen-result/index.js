@@ -59,32 +59,13 @@ Page({
         }
     },
     loadDoctor() {
-        var url = this.data.userInfo.viewVersion == 2 ? '/hospital/department/user' : '/doctor/list';
+        var url = this.data.userInfo.viewVersion == 2 ? '/hospital/department/user/doctor' : '/wx/user/doctor';
         return wx.jyApp.http({
-            url: url,
-            data: {
-                page: 1,
-                limit: 6
-            }
+            url: url
         }).then((data) => {
-            if (this.data.userInfo.viewVersion == 2) {
-                var list = [];
-                data.list.map((item) => {
-                    var arr = item.doctors || [];
-                    arr.map((_item) => {
-                        _item.departmentName = item.departmentName;
-                        _item.hospitalName = item.hospitalName;
-                    });
-                    list = list.concat(item.doctors || []);
-                });
-                this.setData({
-                    'doctorList': list.slice(0, 6)
-                });
-            } else {
-                this.setData({
-                    doctorList: data.page.list
-                });
-            }
+            this.setData({
+                doctorList: data.list.slice(0, 6)
+            });
         })
     },
 })
