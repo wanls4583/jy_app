@@ -177,7 +177,7 @@ Page({
         }
     },
     handleSalesmanCode() {
-        if (this.data.doctorInfo) {
+        if (this.data.doctorInfo && this.data.doctorInfo.authStatus) {
             wx.jyApp.utils.redirectTo({
                 url: '/pages/tab-bar/index'
             });
