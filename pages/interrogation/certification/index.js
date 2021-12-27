@@ -522,6 +522,7 @@ Page({
     loadLoaclInfo() {
         var data = wx.getStorageSync('approvInfo');
         if (data) {
+            data.showable = this.data.showable;
             this.setInfo(data);
         }
     },
@@ -549,11 +550,9 @@ Page({
     },
     setInfo(data) {
         for (var key in data) {
-            if (['showable'].indexOf(key) == -1) {
-                this.setData({
-                    [key]: data[key]
-                });
-            }
+            this.setData({
+                [key]: data[key]
+            });
         }
         var diseaseList = this.data.goodAtDomain.split('、');
         this.avatar = data.avatar && [data.avatar] || [];
