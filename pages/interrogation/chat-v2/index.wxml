@@ -20,11 +20,12 @@
 		style="padding:0 10px;top:{{patient?'50px':'0'}};bottom:{{panelVisible?inputBottom+inputHeight+panelHeight:inputBottom+inputHeight}}px;"
 	>
 		<view
-			class="position-absolute top-0 left-0 z-index-100 width-100 padding-top-bottom-20 padding-left-right-30 warn-background-color font-small white-color"
+			class="flex--center--between position-absolute top-0 left-0 z-index-100 width-100 padding-top-bottom-20 padding-left-30 warn-background-color font-small white-color"
 			wx:if="{{tipVisible}}"
 		>
 			<text wx:if="{{roomType=='group-chat'}}">本群为科室群，消息发送后群里的医生和患者都可查看。</text>
 			<text wx:else>您正在向医生发起一对一免费在线咨询。</text>
+			<view bindtap="onCloseTip" class="padding-left-right-30">x</view>
 		</view>
 		<scroll-view
 			bindscroll="onScroll"

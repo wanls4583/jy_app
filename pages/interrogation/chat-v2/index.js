@@ -216,6 +216,11 @@ Page({
             inputFoucus: false
         });
     },
+    onCloseTip() {
+        this.setData({
+            tipVisible: false
+        });
+    },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);
     },
@@ -646,23 +651,22 @@ Page({
                     });
                 }
             }
+            if (!list.length) {
+                if (this.firstLoad) {
+                    this.setData({
+                        tipVisible: true
+                    });
+                }
+            } else {
+                this.setData({
+                    tipVisible: false
+                });
+            }
             //去除本地已发送的消息
             list = list.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
             if (!list.length) {
-                // 首次进入弹出顶部提示
-                if (this.firstLoad && this.data.userInfo.role == 'USER') {
-                    this.setData({
-                        tipVisible: true
-                    });
-                    setTimeout(() => {
-                        this.setData({
-                            tipVisible: false
-                        });
-                    }, 10 * 1000);
-                }
-                this.firstLoad = false;
                 return;
             }
             this.firstLoad = false;

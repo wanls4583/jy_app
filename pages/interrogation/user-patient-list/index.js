@@ -48,7 +48,7 @@ Page({
                 method: 'post',
                 data: this.data.patient
             }).then(() => {
-                if (this.joinDoctorWay != 'private') { //私域医生跳首页
+                if (this.joinDoctorWay != 'private' && this.joinDoctorId) { //私域医生跳首页，加入科室跳筛查
                     this.screen = this.screen || 'mpgsga';
                 }
                 // 更新当前用户信息

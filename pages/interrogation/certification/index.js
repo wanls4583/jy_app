@@ -157,11 +157,10 @@ Page({
             this.setData({
                 showable: 0
             });
-        } else if (this.data.authStatus == 1) {
+        } else if (this.originShowable !== undefined) {
             this.setData({
                 showable: this.originShowable
             });
-            this.originShowable = this.data.showable;
         }
     },
     onShowDisease() {
