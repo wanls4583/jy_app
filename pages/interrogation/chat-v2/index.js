@@ -662,6 +662,7 @@ Page({
                     tipVisible: false
                 });
             }
+            this.firstLoad = false;
             //去除本地已发送的消息
             list = list.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
@@ -669,7 +670,6 @@ Page({
             if (!list.length) {
                 return;
             }
-            this.firstLoad = false;
             list.map((item) => {
                 item.id = 'msg-' + item.id;
                 item.domId = item.id; //id用来定位最新一条信息
