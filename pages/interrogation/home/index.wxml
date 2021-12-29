@@ -134,7 +134,7 @@
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
 					data-url="/pages/interrogation/my-team/index"
-					wx:if="{{doctorInfo.authStatus==1}}"
+					wx:if="{{doctorInfo.authStatus==1||doctorInfo.hosDepartment}}"
 				>
 					<image src="/image/icon_patient.png" style="width:70rpx;height:70rpx" />
 					<view class="font-small margin-top-10 line-height-1em color-666">我的团队</view>

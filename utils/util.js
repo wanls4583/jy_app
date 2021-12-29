@@ -373,6 +373,9 @@ function checkStore(cart) {
             idProductIdMap[item.id] = item.productId;
         }
     });
+    if (!cart.length) {
+        return wx.jyApp.Promise.resolve();
+    }
     return new wx.jyApp.Promise((resolve, reject) => {
         wx.jyApp.http({
             url: '/goods/queryStock',
