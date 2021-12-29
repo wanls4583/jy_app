@@ -37,9 +37,15 @@ Page({
             return;
         }
         var url = this.viewVersion == 2 ? '/hospital/department/user/doctor' : '/wx/user/doctor';
+        if (this.departmentId) { //科室医生
+            url = '/hospital/department/doctor';
+        }
         this.loading = true;
         this.request = wx.jyApp.http({
             url: url,
+            data: {
+                departmentId: this.departmentId
+            }
         });
         this.request.then((data) => {
             this.setData({

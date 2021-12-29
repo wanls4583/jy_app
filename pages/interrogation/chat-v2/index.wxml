@@ -21,7 +21,7 @@
 	>
 		<view
 			class="flex--center--between position-absolute top-0 left-0 z-index-100 width-100 padding-top-bottom-20 padding-left-30 warn-background-color font-small white-color"
-			wx:if="{{tipVisible}}"
+			wx:if="{{tipVisible&&(roomType=='group-chat'||userInfo.role=='USER')}}"
 		>
 			<text wx:if="{{roomType=='group-chat'}}">本群为科室群，消息发送后群里的医生和患者都可查看。</text>
 			<text wx:else>您正在向医生发起一对一免费在线咨询。</text>
