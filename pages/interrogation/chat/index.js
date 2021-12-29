@@ -184,19 +184,6 @@ Page({
             });
         }
     },
-    initV2(option) {
-        var data = {};
-        if (option.roomId) {
-            data.roomId = option.roomId;
-        }
-        return wx.jyApp.http({
-            url: '/chat/v2/init',
-            method: 'get',
-            data: data
-        }).then((data) => {
-            this.initRoom(data);
-        });
-    },
     initRoom(data) {
         data.patient._sex = data.patient.sex == 1 ? '男' : '女';
         data.patient.BMI = (data.patient.weight) / (data.patient.height * data.patient.height / 10000);

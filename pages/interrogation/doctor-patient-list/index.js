@@ -65,9 +65,15 @@ Component({
                 })) {
                 return;
             }
-            wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/chat/index?roomId=' + roomId
-            });
+            if (roomId && roomId.slice(0, 2) == 'g-') {
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/chat-v2/index?roomId=' + roomId
+                });
+            } else {
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/chat/index?roomId=' + roomId
+                });
+            }
         },
         onClickPhone() {
             wx.makePhoneCall({
