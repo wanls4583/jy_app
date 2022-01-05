@@ -31,14 +31,12 @@ Component({
             this.storeBindings.destroyStoreBindings();
         }
     },
-    pageLifetimes: {
-        show() {
-            if (this.loaded) {
-                this.checkList();
-            }
-        }
-    },
     methods: {
+        onShow() {
+            if (this.loaded) {
+                this.loadList(true);
+            }
+        },
         onChangeSwiper(e) {
             this.setData({
                 active: e.detail.current
@@ -182,20 +180,6 @@ Component({
                 this.setData({
                     stopRefresh: true
                 });
-            });
-        },
-        //检查是否有新患者
-        checkList() {
-            wx.jyApp.http({
-                url: '/doctor/patients',
-                data: {
-                    page: 1,
-                    limit: 1
-                }
-            }).then((data) => {
-                if (data.page.totalCount != this.data.totalCount) {
-                    this.loadList(true);
-                }
             });
         },
         updateStatus(item) {

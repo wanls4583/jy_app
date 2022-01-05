@@ -50,9 +50,6 @@ Component({
             this.storeBindings.destroyStoreBindings();
         }
     },
-    pageLifetimes: {
-        show() {}
-    },
     methods: {
         onGoto(e) {
             wx.jyApp.utils.navigateTo(e);
