@@ -23,7 +23,7 @@
 	<view class="position-absolute bottom-0 width-100" style="top:{{menuRect.outerNavHeight+(hosDepartment?44:0)}}px">
 		<view class="width-100 height-100" wx:if="{{hosDepartment&&active==0}}">
 			<pull-scroll-view bindrefresh="onDepartmentPatientRefresh" stop-refresh="{{departmentPatient.stopRefresh}}">
-				<van-swipe-cell right-width="{{85}}" wx:for="{{departmentPatient.list}}" wx:key="patientId">
+				<van-swipe-cell right-width="{{170}}" wx:for="{{departmentPatient.list}}" wx:key="patientId">
 					<view
 						bindtap="onGoto"
 						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
@@ -40,7 +40,12 @@
 										<text>，{{item.sex==1?'男':'女'}}</text>
 										<text>，{{item.age}}岁</text>
 									</view>
-									<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
+									<view>
+										<view class="tag hollow success" wx:if="{{item.consultFlag==1}}">已会诊</view>
+										<view class="tag hollow danger" wx:if="{{item.riskFlag==1}}">风险</view>
+										<view class="tag hollow success" wx:if="{{item.riskFlag==0}}">正常</view>
+										<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
+									</view>
 								</view>
 								<view>
 									<text class="font-small gray-color">{{item.joinTime}}</text>
@@ -48,12 +53,13 @@
 							</view>
 						</view>
 					</view>
-					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:85px">
+					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:170px">
 						<view
 							bindtap="onChangeInStatus"
-							class="button center height-100 width-100 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
+							class="button center height-100 width-50 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
 							data-item="{{item}}"
 						>{{item.inHospitalStatus==1?'出院':'在院'}}</view>
+						<view bindtap="onChangeConsultFlag" class="button center height-100 width-50 min-width-50px radius-0 success" data-item="{{item}}">已会诊</view>
 					</view>
 				</van-swipe-cell>
 				<view class="padding-30 gray-color align-center font-small" wx:if="{{!departmentPatient.list.length}}">
@@ -75,13 +81,20 @@
 					</view>
 					<view class="flex-grow-1 margin-left-30 padding-bottom-20 border-bottom">
 						<view class="flex-direction-column flex--start--between height-100rpx">
-							<view class="width-100">
-								<text>{{item.patientName}}</text>
-								<text>，{{item._sex}}</text>
-								<text>，{{item.age}}岁</text>
-								<text wx:if="{{item.height}}">，{{item.height}}cm</text>
-								<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
-								<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+							<view class="flex--center--between width-100">
+								<view>
+									<text>{{item.patientName}}</text>
+									<text>，{{item._sex}}</text>
+									<text>，{{item.age}}岁</text>
+									<text wx:if="{{item.height}}">，{{item.height}}cm</text>
+									<text wx:if="{{item.weight}}">，{{item.weight}}kg</text>
+									<text wx:if="{{item.BMI}}">，{{item.BMI}}</text>
+								</view>
+								<view class="flex-shrink-0">
+									<view class="tag hollow success" wx:if="{{item.consultFlag==1}}">已会诊</view>
+									<view class="tag hollow danger" wx:if="{{item.riskFlag==1}}">风险</view>
+									<view class="tag hollow success" wx:if="{{item.riskFlag==0}}">正常</view>
+								</view>
 							</view>
 							<view>
 								<text class="font-small gray-color">{{item.joinTime}}</text>

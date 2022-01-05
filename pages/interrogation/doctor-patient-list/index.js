@@ -95,7 +95,13 @@ Component({
         },
         onChangeInStatus(e) {
             var item = e.currentTarget.dataset.item;
-            this.updateInHospitalStatus(item);
+            item.inHospitalStatus = item.inHospitalStatus == 1 ? 0 : 1;
+            this.updateStatus(item);
+        },
+        onChangeConsultFlag(e) {
+            var item = e.currentTarget.dataset.item;
+            item.consultFlag = 1;
+            this.updateStatus(item);
         },
         //加载患者列表
         loadDepartmentPatientList() {
@@ -192,11 +198,11 @@ Component({
                 }
             });
         },
-        updateInHospitalStatus(item) {
-            if (this.updateInHospitalStatus.doing) {
+        updateStatus(item) {
+            if (this.updateStatus.doing) {
                 return;
             }
-            this.updateInHospitalStatus.doing = true;
+            this.updateStatus.doing = true;
             wx.jyApp.showLoading('修改中...');
             wx.jyApp.http({
                 url: '/hospital/department/patient/update',
@@ -204,13 +210,15 @@ Component({
                 data: {
                     departmentId: item.departmentId,
                     patientId: item.patientId,
-                    inHospitalStatus: item.inHospitalStatus == 1 ? 0 : 1
+                    inHospitalStatus: item.inHospitalStatus,
+                    consultFlag: item.consultFlag
                 }
             }).then(() => {
                 wx.jyApp.toast('修改成功');
                 this.data.departmentPatient.list.map((_item, index) => {
                     if (_item.patientId == item.patientId) {
-                        _item.inHospitalStatus = _item.inHospitalStatus == 1 ? 0 : 1;
+                        _item.inHospitalStatus = item.inHospitalStatus;
+                        _item.consultFlag = item.consultFlag;
                         this.setData({
                             [`departmentPatient.list[${index}]`]: _item
                         });
@@ -218,7 +226,7 @@ Component({
                 });
             }).finally(() => {
                 wx.hideLoading();
-                this.updateInHospitalStatus.doing = false;
+                this.updateStatus.doing = false;
             });
         }
     }

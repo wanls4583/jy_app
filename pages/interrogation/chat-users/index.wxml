@@ -9,7 +9,7 @@
 	<view class="height-100" style="padding-top:44px">
 		<view class="width-100 height-100" wx:if="{{active==0}}">
 			<pull-scroll-view bindrefresh="onPatientRefresh" stop-refresh="{{patient.stopRefresh}}">
-				<van-swipe-cell right-width="{{85}}" wx:for="{{patient.list}}" wx:key="patientId">
+				<van-swipe-cell right-width="{{170}}" wx:for="{{patient.list}}" wx:key="patientId">
 					<view
 						bindtap="onGoto"
 						class="flex--start--between padding-left-right-30 padding-top-20 white-background-color clickable"
@@ -26,7 +26,12 @@
 										<text>，{{item.sex==1?'男':'女'}}</text>
 										<text>，{{item.age}}岁</text>
 									</view>
-									<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
+									<view>
+										<view class="tag hollow success" wx:if="{{item.consultFlag==1}}">已会诊</view>
+										<view class="tag hollow danger" wx:if="{{item.riskFlag==1}}">风险</view>
+										<view class="tag hollow success" wx:if="{{item.riskFlag==0}}">正常</view>
+										<view class="tag hollow {{item.inHospitalStatus==1?'primary':'warn'}}">{{item.inHospitalStatus==1?'在院':'出院'}}</view>
+									</view>
 								</view>
 								<view>
 									<text class="font-small gray-color">{{item.joinTime}}</text>
@@ -34,12 +39,13 @@
 							</view>
 						</view>
 					</view>
-					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:85px">
+					<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:170px">
 						<view
 							bindtap="onChangeInStatus"
-							class="button center height-100 width-100 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
+							class="button center height-100 width-50 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
 							data-item="{{item}}"
 						>{{item.inHospitalStatus==1?'出院':'在院'}}</view>
+						<view bindtap="onChangeConsultFlag" class="button center height-100 width-50 min-width-50px radius-0 success" data-item="{{item}}">已会诊</view>
 					</view>
 				</van-swipe-cell>
 				<view class="padding-30 gray-color align-center font-small" wx:if="{{!patient.list.length}}">
