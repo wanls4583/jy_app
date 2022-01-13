@@ -207,6 +207,7 @@ Page({
                 })
             }
         }).then((data) => {
+            wx.hideLoading();
             if (!this.guidanceData.id) {
                 wx.jyApp.toast('处方单开具成功，现进入审核流程，审核通过后将发送给患者');
                 setTimeout(() => {
@@ -215,7 +216,7 @@ Page({
             } else {
                 _saveBack();
             }
-        }).finally(() => {
+        }).catch(() => {
             wx.hideLoading();
         });
 
