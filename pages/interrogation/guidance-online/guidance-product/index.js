@@ -207,9 +207,22 @@ Page({
                 })
             }
         }).then((data) => {
+            if (!this.guidanceData.id) {
+                wx.jyApp.toast('处方单开具成功，现进入审核流程，审核通过后将发送给患者');
+                setTimeout(() => {
+                    _saveBack();
+                }, 2000);
+            } else {
+                _saveBack();
+            }
+        }).finally(() => {
+            wx.hideLoading();
+        });
+
+        function _saveBack() {
             wx.jyApp.utils.navigateBack({
                 delta: 3,
-                success: function () {
+                success: () => {
                     var page = wx.jyApp.utils.getPages('pages/order-list/index');
                     if (page) { //修改了订单，刷新订单列表
                         page.onGuidanceOrderRefresh();
@@ -223,9 +236,7 @@ Page({
                     });
                 }
             })
-        }).finally(() => {
-            wx.hideLoading();
-        });
+        }
     },
     // 检查库存
     checkStore() {

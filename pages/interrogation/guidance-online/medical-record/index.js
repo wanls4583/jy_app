@@ -145,6 +145,12 @@ Page({
             wx.jyApp.toast('请输入过敏史');
             return;
         }
+        if (this.data.from == 'examine' || this.data.isFirst == 1) {
+            if (!this.data.firstMedicalOrg) {
+                wx.jyApp.toast('初诊医疗卫生机构名称不能为空');
+                return;
+            }
+        }
         if (!wx.jyApp.getTempData('guidanceData')) {
             wx.jyApp.setTempData('guidanceData', {
                 id: this.id,
