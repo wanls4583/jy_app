@@ -21,11 +21,11 @@ Page({
                 title: '处方审核'
             });
         }
-        if(this.guidanceData.diagnosisArr) {
+        if (this.guidanceData.diagnosisArr) {
             this.setData({
                 diagnosisArr: this.guidanceData.diagnosisArr
             });
-        } else if (guideOrderDetail){
+        } else if (guideOrderDetail) {
             this.setData({
                 diagnosisArr: guideOrderDetail.diagnosisArr || []
             });
@@ -51,8 +51,8 @@ Page({
     onSelect(e) {
         var item = e.currentTarget.dataset.item;
         var index = e.currentTarget.dataset.index;
-        if(!item.selected) {
-            if(this.data.diagnosisArr.length >= 5) {
+        if (!item.selected) {
+            if (this.data.diagnosisArr.length >= 5) {
                 wx.jyApp.toast('最多添加5个临床诊断');
                 return;
             }
@@ -60,7 +60,7 @@ Page({
             this.data.diagnosisArr.push(item);
         } else {
             item.selected = false;
-            this.data.diagnosisArr = this.data.diagnosisArr.filter((_item)=>{
+            this.data.diagnosisArr = this.data.diagnosisArr.filter((_item) => {
                 return _item.diagnosisName != item.diagnosisName;
             });
         }
@@ -96,16 +96,16 @@ Page({
         });
     },
     onClickTemplate() {
-        this.allDiagnosisList.map((item)=>{
-            item.selected = false; 
+        this.allDiagnosisList.map((item) => {
+            item.selected = false;
         });
         this.setData({
             diagnosisVisible: !this.data.diagnosisVisible,
             diagnosisList: [],
             text: ''
-        }, ()=>{
-            if(this.data.diagnosisVisible) {
-                setTimeout(()=>{
+        }, () => {
+            if (this.data.diagnosisVisible) {
+                setTimeout(() => {
                     this.setData({
                         focus: true
                     });

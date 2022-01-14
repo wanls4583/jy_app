@@ -209,10 +209,14 @@ Page({
         }).then((data) => {
             wx.hideLoading();
             if (!this.guidanceData.id && this.data.configData.nutritionApproveSwitch == 1) {
-                wx.jyApp.longToast('处方单开具成功，现进入审核流程，审核通过后将发送给患者');
-                setTimeout(() => {
-                    _saveBack(data);
-                }, 2000);
+                wx.jyApp.longToast({
+                    message: '处方单开具成功，现进入审核流程，审核通过后将发送给患者。',
+                    forbidClick: true,
+                    duration: 3000,
+                    onClose: () => {
+                        _saveBack(data);
+                    }
+                });
             } else {
                 _saveBack(data);
             }
