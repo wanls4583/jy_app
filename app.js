@@ -11,6 +11,7 @@ import http from './utils/request';
 import utils from './utils/util';
 import * as constData from './utils/data';
 import Dialog from '@vant/weapp/dialog/dialog';
+import toast from '@vant/weapp/toast/toast';
 import {
     Promise
 } from 'es6-promise';
@@ -33,6 +34,7 @@ App({
         wx.jyApp.utils = utils;
         wx.jyApp.room = room;
         wx.jyApp.Promise = Promise;
+        wx.jyApp.longToast = toast;
         wx.jyApp.toast = (msg) => {
             wx.showToast({
                 title: msg,
