@@ -37,7 +37,7 @@
 			type="text"
 			value="{{text}}"
 		/>
-		<view bindtap="onClickTemplate" class="margin-left-20 button small primary" style="width:80px;height:40px;line-height:40px">完成</view>
+		<view bindtap="onClickTemplate" class="margin-left-20 button small primary" style="width:80px;height:40px;line-height:40px">取消</view>
 	</view>
 	<view class="padding-left-right-20">
 		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="id">

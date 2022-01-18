@@ -48,7 +48,7 @@
 		<text style="font-size:14px">{{item.text}}</text>
 		<view
 			class="position-absolute radius-50 white-color font-mini align-center"
-			style="right:0px;top:-0;min-width:15px;height:15px;line-height:15px;background-color:red;"
+			style="left:50%;top:-0;margin-left:30rpx;min-width:15px;height:15px;line-height:15px;background-color:red;"
 			wx:if="{{item.id=='message-list'&&msgCount>0}}"
 		>{{msgCount}}</view>
 	</view>
