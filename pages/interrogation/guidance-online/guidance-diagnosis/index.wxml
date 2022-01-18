@@ -3,9 +3,12 @@
 	<view class="margin-top-20 padding-30 white-background-color">
 		<view class="flex--center--between">
 			<text class="required">临床诊断</text>
-			<text bindtap="onClickTemplate" class="primary-color clickable" wx:if="{{from!='examine'}}">添加诊断</text>
+			<text bindtap="onClickTemplate" class="primary-color clickable" wx:if="{{from!='examine'&&diagnosisArr.length}}">添加诊断</text>
 		</view>
-		<view bindtap="onClickTemplate" class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view>
+		<!-- <view bindtap="onClickTemplate" class="gray-color margin-top-20" wx:if="{{!diagnosisArr.length}}">请添加临床诊断，最多添加5个</view> -->
+		<view class="flex--center--center margin-30" wx:if="{{!diagnosisArr.length}}">
+			<view bindtap="onClickTemplate" class="button primary">添加诊断</view>
+		</view>
 		<view class="flex--center--between padding-20 margin-top-20 border radius-4px" wx:for="{{diagnosisArr}}" wx:key="diagnosisCode">
 			<view>{{item.diagnosisName}}</view>
 			<view class="flex-shrink-0 flex margin-left-30" wx:if="{{from!='examine'}}">
@@ -19,9 +22,9 @@
 	</view>
 </view>
 <van-popup bind:click-overlay="onClickTemplate" position="top" show="{{diagnosisVisible}}">
-	<view class="flex--center--end padding-20">
+	<!-- <view class="flex--center--end padding-20">
 		<van-icon bindtap="onClickTemplate" name="cross" size="20" />
-	</view>
+	</view>-->
 	<view class="flex--center--between padding-20 padding-top-0">
 		<input
 			adjust-position="{{false}}"
@@ -34,7 +37,7 @@
 			type="text"
 			value="{{text}}"
 		/>
-		<view bindtap="onClickTemplate" class="margin-left-20 button small primary" style="height:40px;line-height:40px">完成</view>
+		<view bindtap="onClickTemplate" class="margin-left-20 button small primary" style="width:80px;height:40px;line-height:40px">完成</view>
 	</view>
 	<view class="padding-left-right-20">
 		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="id">
