@@ -203,6 +203,11 @@ Page({
                 inputHeight: 0
             });
         }
+        //医生首次进入时，弹出操作面板
+        if (wx.getStorageSync('chat-first-in') != 1 && this.data.userInfo.role === 'DOCTOR') {
+            this.onShowPanel();
+            wx.setStorageSync('chat-first-in', 1);
+        }
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });

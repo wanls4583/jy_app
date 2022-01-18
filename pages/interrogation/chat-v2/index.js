@@ -184,6 +184,11 @@ Page({
         this.resetUnread().finally(() => {
             this.getNewHistory();
         });
+        //医生首次进入时，弹出操作面板
+        if (wx.getStorageSync('chat-first-in') != 1 && this.data.userInfo.role === 'DOCTOR') {
+            this.onShowPanel();
+            wx.setStorageSync('chat-first-in', 1);
+        }
         if (data.talker) {
             wx.setNavigationBarTitle({
                 title: data.talker.nickname
