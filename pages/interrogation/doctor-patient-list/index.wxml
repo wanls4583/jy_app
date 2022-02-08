@@ -59,7 +59,13 @@
 							class="button center height-100 width-50 min-width-50px radius-0 {{item.inHospitalStatus==1?'danger':'primary'}}"
 							data-item="{{item}}"
 						>{{item.inHospitalStatus==1?'出院':'在院'}}</view>
-						<view bindtap="onChangeConsultFlag" class="button center height-100 width-50 min-width-50px radius-0 success" data-item="{{item}}">已会诊</view>
+						<view
+							bindtap="onChangeConsultFlag"
+							class="button center height-100 width-50 min-width-50px radius-0 success"
+							data-item="{{item}}"
+							wx:if="{{item.consultFlag!=1}}"
+						>已会诊</view>
+						<view bindtap="onChangeConsultFlag" class="button center height-100 width-50 min-width-50px radius-0 warn" data-item="{{item}}" wx:else>未会诊</view>
 					</view>
 				</van-swipe-cell>
 				<view class="padding-30 gray-color align-center font-small" wx:if="{{!departmentPatient.list.length}}">

@@ -98,7 +98,7 @@ Component({
         },
         onChangeConsultFlag(e) {
             var item = e.currentTarget.dataset.item;
-            item.consultFlag = 1;
+            item.consultFlag = item.consultFlag === 1 ? 0 : 1;
             this.updateStatus(item);
         },
         //加载患者列表
