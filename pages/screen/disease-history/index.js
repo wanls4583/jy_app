@@ -23,6 +23,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -87,7 +88,7 @@ Page({
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
-            if(data.fatEvaluate.answers) {
+            if (data.fatEvaluate.answers) {
                 data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
                     answers: data.fatEvaluate.answers,
@@ -148,11 +149,11 @@ Page({
                 complete: () => {
                     if (this.data.result == '异常') {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/disease-result/index`
+                            url: `/pages/screen/disease-result/index?share=${this.share}&filtrateId=${data.filtrateId}`
                         });
                     } else {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
+                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
                         });
                     }
                 }

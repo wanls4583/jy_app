@@ -28,6 +28,7 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patient = patient;
+        this.share = option.share;
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -246,7 +247,7 @@ Page({
                         _result = '中心性肥胖（BMI肥胖）';
                     }
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/fat-result/index?result=${result}&_result=${_result}&from=${this.from}&roomId=${this.roomId}`
+                        url: `/pages/screen/evaluate-result/index?title=超重与肥胖筛查&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                     });
                 }
             });

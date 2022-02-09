@@ -1,12 +1,23 @@
 <view class="container white-background-color padding-bottom-footer">
 	<view class="flex--center--between flex-direction-column" style="padding:30px 0;background-color:{{color}}">
-		<view class="white-color font-bold font-title">评估结果</view>
+		<view class="white-color font-bold font-title">筛查评估结果</view>
 		<view class="font-bold" style="margin-top:30px;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
 	</view>
 	<view style="padding:20px 40px;line-height:24px">
-		<view wx:if="{{title=='放射性损伤评估'}}">
+		<view wx:if="{{filtrateType=='X_INJURY'}}">
 			<view>管理建议：</view>
 			<view>{{suggestion}}</view>
+		</view>
+		<view wx:if="{{filtrateType=='FAT'}}">
+			<view>指导建议：</view>
+			<block wx:if="{{result==1}}">
+				<view>1、平衡膳食</view>
+				<view>2、积极运动</view>
+				<view>3、促进身高发育</view>
+				<view>4、BMI监测</view>
+				<view>5、腰围测量</view>
+			</block>
+			<view wx:else>强烈建议您做进一步评估。</view>
 		</view>
 		<block wx:if="{{results&&results.length}}">
 			<view>结果解释：</view>
@@ -16,4 +27,5 @@
 </view>
 <view class="footer flex--center--around padding-30 background-color-transparent">
 	<view bindtap="onBack" class="button block primary">返回</view>
+	<view bindtap="onShareResult" class="button block primary margin-left-20" wx:if="{{share==1}}">分享结果给医生</view>
 </view>

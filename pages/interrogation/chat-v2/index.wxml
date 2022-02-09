@@ -310,7 +310,7 @@
 				</view>
 				<view class="font-small margin-top-20 line-height-1em color-666">新开处方</view>
 			</view>
-			<view class="flex--center--between flex-direction-column width-25" wx:if="{{currentUser.role=='DOCTOR'&&roomType=='single-chat'}}">
+			<view class="flex--center--between flex-direction-column width-25" wx:if="{{roomType=='single-chat'}}">
 				<view bindtap="onScreen" class="flex--center--center width-60px height-60px radius-8px white-background-color">
 					<van-icon name="filter-o" size="30px" />
 				</view>
@@ -360,7 +360,7 @@
 	<view class="flex flex-wrap-wrap padding-30 padding-top-0">
 		<view
 			bindtap="onClickSceen"
-			class="button primary small margin-top-30 margin-right-30 {{item.selected?'':'plain'}}"
+			class="button primary small margin-top-30 margin-right-30 {{item.selected&&userInfo.role=='DOCTOR'?'':'plain'}}"
 			data-item="{{item}}"
 			style="border-radius:100px"
 			wx:for="{{screenList}}"
@@ -378,7 +378,7 @@
 			>{{item.name}}</view>
 		</view>
 	</view>
-	<view class="flex">
+	<view class="flex" wx:if="{{userInfo.role==='DOCTOR'}}">
 		<view bindtap="onSelfScreen" class="primary-color padding-30 align-center border-top border-right clickable" style="flex:1">医生筛查</view>
 		<view bindtap="onSendScreen" class="primary-color padding-30 align-center border-top clickable" style="flex:1">发送给患者</view>
 	</view>

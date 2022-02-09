@@ -80,6 +80,7 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -424,7 +425,7 @@ Page({
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('screen-results', this.data.resultDescription);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}`
+                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}`
                         });
                     }
                 }

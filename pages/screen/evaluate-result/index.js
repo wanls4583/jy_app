@@ -28,7 +28,10 @@ Page({
             results: results,
             _result: _result,
             color: color,
-            suggestion: suggestion
+            suggestion: suggestion,
+            share: option.share,
+            filtrateId: option.filtrateId,
+            filtrateType: option.filtrateType
         });
         wx.setNavigationBarTitle({
             title: title
@@ -39,5 +42,11 @@ Page({
     },
     onBack() {
         wx.navigateBack();
-    }
+    },
+    // 分享结果给医生
+    onShareResult() {
+        wx.jyApp.utils.navigateTo({
+            url: `/pages/interrogation/my-doctor/index?share=1&filtrateId=${this.data.filtrateId}&filtrateType=${this.data.filtrateType}`
+        });
+    },
 })

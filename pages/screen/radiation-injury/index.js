@@ -26,6 +26,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -191,7 +192,7 @@ Page({
                     }
                     wx.jyApp.setTempData('evaluate-results', [this.data.explain]);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/evaluate-result/index?title=放射性损伤评估&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}`
+                        url: `/pages/screen/evaluate-result/index?title=放射性损伤评估&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                     });
                 }
             });

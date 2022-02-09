@@ -29,6 +29,7 @@ Page({
             results: results,
             _result: _result,
             color: color,
+            share: option.share || false
         });
     },
     onGoto(e) {
@@ -41,5 +42,8 @@ Page({
         wx.jyApp.utils.redirectTo({
             url: `/pages/screen/body-fat/index?consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}&roomId=${this.roomId}`
         });
+    },
+    onShareResult() {
+        
     }
 })

@@ -30,4 +30,7 @@
 	<footer wx:if="{{doctorId&&userInfo.viewVersion!=2}}">
 		<view bindtap="onConsult" class="button primary block">立即问诊</view>
 	</footer>
+	<footer wx:elif="{{share==1}}">
+		<view bindtap="onShareResult" class="button primary block">分享结果给医生</view>
+	</footer>
 </view>

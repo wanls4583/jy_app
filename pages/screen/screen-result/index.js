@@ -31,7 +31,10 @@ Page({
             results: results,
             _result: _result,
             color: color,
-            doctorId: option.doctorId || ''
+            doctorId: option.doctorId || '',
+            share: option.share,
+            filtrateId: option.filtrateId,
+            filtrateType: option.filtrateType
         });
         this.loadDoctor();
     },
@@ -57,6 +60,12 @@ Page({
                 url: '/pages/mall/search-doctor/index?all=1'
             });
         }
+    },
+    // 分享结果给医生
+    onShareResult() {
+        wx.jyApp.utils.navigateTo({
+            url: `/pages/interrogation/my-doctor/index?share=1&filtrateId=${this.data.filtrateId}&filtrateType=${this.data.filtrateType}`
+        });
     },
     loadDoctor() {
         var url = this.data.userInfo.viewVersion == 2 ? '/hospital/department/user/doctor' : '/wx/user/doctor';

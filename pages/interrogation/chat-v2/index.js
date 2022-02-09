@@ -895,11 +895,12 @@ Page({
     //选择筛查方式
     onClickSceen(e) {
         var item = e.currentTarget.dataset.item;
+        var filtrateType = item.filtrateType;
         if (item.filtrateType == 'FAT-ASSESS') {
             this.setData({
                 fatScreenVisible: true
             });
-            item.filtrateType = 'FAT-GROW';
+            filtrateType = 'FAT-GROW';
         } else if (item.filtrateType.indexOf('FAT-') == -1) {
             this.setData({
                 fatScreenVisible: false
@@ -922,8 +923,11 @@ Page({
         this.setData({
             screenList: this.data.screenList,
             fatScreenList: this.data.fatScreenList,
-            filtrateType: item.filtrateType
+            filtrateType: filtrateType
         });
+        if (item.filtrateType != 'FAT-ASSESS' && this.data.userInfo.role === 'USER') { //患者自己筛查，分享结果给医生
+            this.onSelfScreen();
+        }
     },
     //自己筛查
     onSelfScreen(e) {
@@ -992,9 +996,15 @@ Page({
             return;
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
-        wx.jyApp.utils.navigateTo({
-            url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
-        });
+        if (this.data.userInfo.role === 'DOCTOR') {
+            wx.jyApp.utils.navigateTo({
+                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.data.talker.nickname}&roomId=${this.data.roomId}&share=1`
+            });
+        }
         this.setData({
             screenVisible: false
         });

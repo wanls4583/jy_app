@@ -26,6 +26,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -245,7 +246,7 @@ Page({
                     }
                     wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/evaluate-result/index?title=口腔黏膜风险评估&result=${result}&_result=${this.data.result}`
+                        url: `/pages/screen/evaluate-result/index?title=口腔黏膜风险评估&result=${result}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                     });
                 }
             });

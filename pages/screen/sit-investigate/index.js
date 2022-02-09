@@ -25,6 +25,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -140,7 +141,7 @@ Page({
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
-            if(data.fatEvaluate.answers) {
+            if (data.fatEvaluate.answers) {
                 data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
                     answers: data.fatEvaluate.answers,
@@ -188,7 +189,7 @@ Page({
                     }
                     wx.jyApp.setTempData('sit-results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/sit-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
+                        url: `/pages/screen/sit-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}`
                     });
                 }
             });

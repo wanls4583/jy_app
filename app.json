@@ -126,8 +126,7 @@
             "radiation-injury/index",
             "oral-mucosa/index",
             "evaluate-result/index",
-            "fat/index",
-            "fat-result/index"
+            "fat/index"
         ]
     }, {
         "root": "pages/interrogation/guidance-online",

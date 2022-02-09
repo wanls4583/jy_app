@@ -104,6 +104,7 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
+        this.share = option.share;
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -549,32 +550,7 @@ Page({
             method: 'post',
             data: data
         }).then(() => {
-            wx.jyApp.toastBack('保存成功', {
-                mask: true,
-                delta: 1,
-                complete: () => {
-                    var result = 0;
-                    var _result = '无营养不良';
-                    if (data._result == 'B') {
-                        result = 1;
-                        _result = '可疑营养不良者';
-                    }
-                    if (data._result == 'C') {
-                        result = 2;
-                        _result = '中度营养不良者';
-                    }
-                    if (data._result == 'D') {
-                        result = 3;
-                        _result = '重度营养不良者';
-                    }
-                    if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.setTempData('screen-results', this.resultDescription);
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}`
-                        });
-                    }
-                }
-            });
+            this.saveSuccess(data);
         }).catch(() => {
             wx.hideLoading();
         });
@@ -609,17 +585,41 @@ Page({
                 data: data
             }).then(() => {
                 var page = wx.jyApp.utils.getPageByLastIndex(2);
-                wx.jyApp.toastBack('保存成功', {
-                    mask: true,
-                    complete: () => {
-                        if (page.route == 'pages/screen/screen-list/index') {
-                            page.onRefresh();
-                        }
-                    }
-                });
+                if (page.route == 'pages/screen/screen-list/index') {
+                    page.onRefresh();
+                }
+                this.saveSuccess(data);
             }).catch(() => {
                 wx.hideLoading();
             });
         }
+    },
+    saveSuccess(data) {
+        wx.jyApp.toastBack('保存成功', {
+            mask: true,
+            delta: 1,
+            complete: () => {
+                var result = 0;
+                var _result = '无营养不良';
+                if (data._result == 'B') {
+                    result = 1;
+                    _result = '可疑营养不良者';
+                }
+                if (data._result == 'C') {
+                    result = 2;
+                    _result = '中度营养不良者';
+                }
+                if (data._result == 'D') {
+                    result = 3;
+                    _result = '重度营养不良者';
+                }
+                if (this.data.userInfo.role != 'DOCTOR') {
+                    wx.jyApp.setTempData('screen-results', this.resultDescription);
+                    wx.jyApp.utils.navigateTo({
+                        url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`
+                    });
+                }
+            }
+        });
     }
 })

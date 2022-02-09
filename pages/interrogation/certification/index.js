@@ -1,6 +1,7 @@
 import area from '../../../data/area.js';
 Page({
     data: {
+        defaultAvatar: 'https://juyuanmenzhenbu.com/ihospital/static/image/avatar.png',
         avatar: {},
         jobCertificateUrl: [],
         jobTitleCertificateUrl: [],
@@ -45,7 +46,7 @@ Page({
             join: option.join, //department:加入科室,private:加入私域医生
             showable: option.join == 'private' ? 0 : 1
         });
-        this.avatar = [];
+        this.avatar = [this.data.defaultAvatar];
         this.jobCertificateUrl = [];
         this.jobTitleCertificateUrl = [];
         this.pciMap = {};
@@ -58,6 +59,7 @@ Page({
             });
         });
         this.setData({
+            'avatar.path': this.data.defaultAvatar,
             diseaseList: this.data.diseaseList
         });
     },
@@ -400,7 +402,7 @@ Page({
     getData() {
         return {
             showable: this.data.showable,
-            avatar: this.avatar[0],
+            avatar: this.avatar[0] || this.data.defaultAvatar,
             cityCode: this.data.cityCode,
             provinceCity: this.data.provinceCity,
             doctorName: this.data.doctorName,

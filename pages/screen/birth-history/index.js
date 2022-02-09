@@ -23,6 +23,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
+        this.share = option.share;
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         this.from = option.from || '';
@@ -152,7 +153,7 @@ Page({
                 delta: 1,
                 complete: () => {
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}`
+                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}`
                     });
                 }
             });

@@ -9,6 +9,9 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.departmentId = option.departmentId; //患者聊天室科室医生列表
+        this.share = option.share; //分享筛查结果
+        this.filtrateId = option.filtrateId;
+        this.filtrateType = option.filtrateType;
         if (this.data.userInfo.viewVersion == 2) {
             this.viewVersion = 2
         }
@@ -29,7 +32,49 @@ Page({
         this.loadList();
     },
     onGoto(e) {
-        wx.jyApp.utils.navigateTo(e);
+        if (!this.share) {
+            wx.jyApp.utils.navigateTo(e);
+        } else {
+            this.gotoEvent = e;
+        }
+    },
+    onShareResult(e) {
+        var item = e.currentTarget.dataset.item;
+        var title = this.filtrateType + '筛查';
+        switch (this.filtrateType) {
+            case 'TUNOUR_FLUID':
+                title = '肿瘤恶质液评估';
+                break;
+            case 'ORAL_MUCOSA':
+                title = '口腔黏膜风险评估';
+                break;
+            case 'X_INJURY':
+                title = '放射性损伤评估';
+                break;
+            case 'FAT':
+                title = '超重与肥胖筛查';
+                break;
+
+        }
+        wx.jyApp.dialog.confirm({
+            title: `分享给：${item.doctorName}`,
+            message: `${title}结果`
+        }).then(() => {
+            wx.jyApp.http({
+                url: '/patient/filtrate/share',
+                method: 'post',
+                data: {
+                    id: this.filtrateId,
+                    doctorId: item.id
+                }
+            }).then((data) => {
+                wx.jyApp.utils.navigateBack({
+                    success: () => {
+                        wx.jyApp.utils.navigateTo(this.gotoEvent);
+                    }
+                })
+            });
+        })
     },
     //加载医生列表
     loadList() {
