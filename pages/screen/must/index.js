@@ -25,7 +25,7 @@ Page({
             fields: ['userInfo'],
         });
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.share = option.share;
+        this.share = option.share || '';
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';

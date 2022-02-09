@@ -25,7 +25,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.share = option.share;
+        this.share = option.share || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
@@ -135,7 +135,7 @@ Page({
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
-            if(data.fatEvaluate.answers) {
+            if (data.fatEvaluate.answers) {
                 data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
                     answers: data.fatEvaluate.answers,
@@ -181,9 +181,9 @@ Page({
                     if (this.data.result == '睡眠异常') {
                         result = 2;
                     }
-                    wx.jyApp.setTempData('sleep-results', this.data.resultDescription.split(';'));
+                    wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/sleep-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}`
+                        url: `/pages/screen/fat-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                     });
                 }
             });

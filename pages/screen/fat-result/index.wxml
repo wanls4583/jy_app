@@ -1,0 +1,22 @@
+<view class="container padding-bottom-footer">
+	<view class="flex--center--between flex-direction-column" style="padding:30px 0;background-color:{{color}}">
+		<view class="white-color font-bold font-title">评估结果</view>
+		<view class="font-bold" style="margin-top:30px;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
+	</view>
+	<view class="white-background-color" style="padding:20px 40px;line-height:24px" wx:if="{{filtrateType=='FAT-DISEASE'}}">
+		<view>指导建议：</view>
+		<view>肥胖已经导致了内分泌或代谢功能的紊乱，或者疑似为继发性的肥胖，需要到医院的儿童内分泌科进一步评估</view>
+	</view>
+	<view class="white-background-color" style="padding:20px 40px;line-height:24px" wx:else>
+		<view>结果解释：</view>
+		<view wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{index+1}}、{{item}}</view>
+	</view>
+</view>
+<view class="footer flex--center--between padding-30 background-color-transparent">
+	<view bindtap="onBack" class="button block primary plain">返回</view>
+	<view bindtap="onNext" class="button block primary margin-left-20" wx:if="{{filtrateType!='FAT-DISEASE'}}">
+		<text wx:if="{{filtrateType=='FAT-BODY'}}">查看报告</text>
+		<text wx:else>进一步评估</text>
+	</view>
+	<view bindtap="onShareResult" class="button block primary margin-left-20" wx:if="{{share==1}}">分享结果给医生</view>
+</view>

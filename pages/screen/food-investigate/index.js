@@ -97,7 +97,7 @@ Page({
     },
     onLoad(option) {
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.share = option.share;
+        this.share = option.share || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
@@ -243,9 +243,9 @@ Page({
                     if (this.data.result == '膳食营养有风险') {
                         result = 3
                     }
-                    wx.jyApp.setTempData('food-results', this.data.resultDescription.split(';'));
+                    wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/food-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}`
+                        url: `/pages/screen/fat-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                     });
                 }
             });

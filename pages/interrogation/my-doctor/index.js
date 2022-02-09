@@ -9,7 +9,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         this.departmentId = option.departmentId; //患者聊天室科室医生列表
-        this.share = option.share; //分享筛查结果
+        this.share = option.share || ''; //分享筛查结果
         this.filtrateId = option.filtrateId;
         this.filtrateType = option.filtrateType;
         if (this.data.userInfo.viewVersion == 2) {
@@ -54,7 +54,24 @@ Page({
             case 'FAT':
                 title = '超重与肥胖筛查';
                 break;
-
+            case 'FAT-DISEASE':
+                title = '疾病史';
+                break;
+            case 'FAT-DIET':
+                title = '膳食调查';
+                break;
+            case 'FAT-SIT':
+                title = '久坐行为调查';
+                break;
+            case 'FAT-SLEEP':
+                title = '睡眠评估';
+                break;
+            case 'FAT-ACTION':
+                title = '活动水平评估';
+                break;
+            case 'FAT-BODY':
+                title = '体脂肪含量测量';
+                break;
         }
         wx.jyApp.dialog.confirm({
             title: `分享给：${item.doctorName}`,

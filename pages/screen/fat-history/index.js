@@ -27,7 +27,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.share = option.share;
+        this.share = option.share || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';

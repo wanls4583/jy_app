@@ -104,7 +104,7 @@ Page({
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
-        this.share = option.share;
+        this.share = option.share || '';
         // 患者通过筛查选择页面进入
         this.from = option.from || '';
         this.roomId = option.roomId || '';

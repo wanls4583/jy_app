@@ -23,7 +23,7 @@ Page({
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        this.share = option.share;
+        this.share = option.share || '';
         this.doctorId = option.doctorId || '';
         this.patient = patient;
         this.from = option.from || '';
@@ -90,7 +90,7 @@ Page({
                 filtrateId: filtrateId,
                 patient: data.patientFiltrate
             });
-            if(data.fatEvaluate.answers) {
+            if (data.fatEvaluate.answers) {
                 data.fatEvaluate.answers = JSON.parse(data.fatEvaluate.answers);
                 this.setData({
                     answers: data.fatEvaluate.answers,
@@ -153,7 +153,7 @@ Page({
                 delta: 1,
                 complete: () => {
                     wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}`
+                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
                     });
                 }
             });
