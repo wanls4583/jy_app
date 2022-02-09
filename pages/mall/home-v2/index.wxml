@@ -32,7 +32,7 @@
 				</view>
 				<view class="white-background-color margin-left-right-20 margin-top-30 radius-8px shadow">
 					<view class="flex--center--between padding-left-right-20">
-						<view class="gray-color">
+						<view>
 							<text>患者信息：</text>
 							<text>{{userInfo.defaultPatient.patientName}}</text>
 							<text>，{{userInfo.defaultPatient.sex==1?'男':'女'}}</text>
@@ -43,7 +43,7 @@
 							class="flex--center--center padding-top-bottom-30 primary-color clickable"
 							data-url="/pages/interrogation/user-patient-list/index?setDefault=true"
 						>
-							<text>设置默认成员</text>
+							<text>切换默认成员</text>
 							<van-icon color="#2aafff" name="arrow" />
 						</view>
 					</view>

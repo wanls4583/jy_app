@@ -15,6 +15,7 @@ Page({
         this.uId = this.data.userInfo && this.data.userInfo.id || '';
         this.dId = this.data.doctorInfo && this.data.doctorInfo.id || '';
         this.dName = this.data.doctorInfo && this.data.doctorInfo.doctorName || '';
+        this.jobTitle = this.data.doctorInfo && this.data.doctorInfo.jobTitle || '';
         this.dpId = this.data.doctorInfo && this.data.doctorInfo.hosDepartment && this.data.doctorInfo.hosDepartment.departmentId || '';
         this.stype = option.stype; //要调转的具体筛查方式
         this.type = option.type || '';
@@ -115,7 +116,7 @@ Page({
             path += '&dpId=' + this.dpId;
         }
         return {
-            title: this.dName || '医生',
+            title: this.dName + '-' + this.jobTitle + '（点击向医生发起问诊！）',
             path: path,
             imageUrl: this.data.barcodeUrl || '/image/logo.png'
         }

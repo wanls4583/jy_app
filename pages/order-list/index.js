@@ -60,6 +60,11 @@ Page({
         this.loadInterrogationOrderList();
         this.loadApplyOrderList();
         this.loadGuidanceOrderList();
+        if (this.data.userInfo.viewVersion == 2) {
+            this.setData({
+                viewVersion: 2
+            });
+        }
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();

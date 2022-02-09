@@ -61,26 +61,13 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0
+                myDataVisible: this.data.from != 'my-product' ? 1 : 0
             });
             var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
-            // 默认显示套餐tab
-            if (option.type == 2 && this.data.taocanVisible && this.data.myDataVisible) {
+            if (toltalTab >= 2 && this.data.myDataVisible && this.data.myProductData.totalPage <= 0) {
                 this.setData({
                     active: 1
                 });
-            }
-            // 默认显示产品tab
-            if (option.type == 1 && this.data.productVisible) {
-                if (toltalTab >= 3) {
-                    this.setData({
-                        active: 2
-                    });
-                } else if (toltalTab >= 2) {
-                    this.setData({
-                        active: 1
-                    });
-                }
             }
             wx.hideLoading();
         });
@@ -262,7 +249,6 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.from != 'my-product' && this.data.myProductData.totalPage > 0 ? 1 : 0,
                 stopRefresh: true
             });
             wx.hideLoading();
@@ -316,7 +302,7 @@ Page({
                     [`myProductData.pageList[${page}]`]: data.list || [],
                     [`myProductData.page`]: page + 1,
                     [`myProductData.lastPage`]: page,
-                    [`myProductData.totalPage`]: 1
+                    [`myProductData.totalPage`]: data.list && data.list.length > 0 ? 1 : 0
                 });
             }).finally(() => {
                 this.setData({

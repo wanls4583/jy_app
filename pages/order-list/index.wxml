@@ -2,10 +2,10 @@
 <view class="container">
 	<view class="position-fixed top-0 width-100">
 		<van-tabs active="{{active}}" bind:change="onChangeTab">
-			<van-tab title="问诊订单"></van-tab>
-			<van-tab title="申请订单"></van-tab>
-			<van-tab title="处方订单"></van-tab>
-			<van-tab title="商城订单" wx:if="{{userInfo.role=='USER'}}"></van-tab>
+			<van-tab title="问诊单"></van-tab>
+			<van-tab title="申请订单" wx:if="{{viewVersion!=2}}"></van-tab>
+			<van-tab title="处方单"></van-tab>
+			<van-tab title="商城订单" wx:if="{{userInfo.role=='USER'&&viewVersion!=2}}"></van-tab>
 		</van-tabs>
 	</view>
 	<view class="height-100" style="padding-top:44px">
@@ -116,7 +116,7 @@
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
 			</swiper-item>
-			<swiper-item style="padding-top:44px">
+			<swiper-item style="padding-top:44px" wx:if="{{viewVersion!=2}}">
 				<view class="position-absolute top-0 width-100 flex--center--between padding-left-right-30 white-background-color border-bottom" style="height:44px">
 					<view bindtap="onShowDate" class="flex gray-color" data-prop="applyOrder">
 						<view class="flex">
@@ -296,7 +296,7 @@
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
 			</swiper-item>
-			<swiper-item wx:if="{{userInfo.role=='USER'}}">
+			<swiper-item wx:if="{{userInfo.role=='USER'&&viewVersion!=2}}">
 				<pull-scroll-view bindrefresh="onMallOrderRefresh" bindscrolltolower="onMallOrderLoadMore" lower-threshold="300px" stop-refresh="{{mallOrder.stopRefresh}}">
 					<view class="overflow-hidden">
 						<view class="padding-left-right-30 white-background-color margin-top-20" wx:for="{{mallOrder.orderList}}" wx:for-item="order" wx:key="id">
