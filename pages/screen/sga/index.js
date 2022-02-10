@@ -177,7 +177,8 @@ Page({
             url: `/filtrate/sga/public/save`,
             method: 'post',
             data: data
-        }).then(() => {
+        }).then((_data) => {
+            data.filtrateId = _data.filtrateId;
             this.saveSuccess(data);
         }).catch(() => {
             wx.hideLoading();

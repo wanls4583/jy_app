@@ -36,6 +36,8 @@ Page({
         this.screen = option.screen || (this.joinDoctorId && this.joinDoctorWay != 'private' ? 'mpgsga' : '');
         this.doctorId = option.doctorId || '';
         this.doctorName = option.doctorName || '';
+        // v2版本分享筛查结果
+        this.share = this.data.userInfo.viewVersion == 2 ? 1 : '';
         this.setData({
             screen: this.screen,
             joinDoctorId: this.joinDoctorId
@@ -170,7 +172,7 @@ Page({
                             }
                         }
                         wx.jyApp.utils.redirectTo({
-                            url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+                            url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen&share=${this.share}`
                         });
                     } else {
                         wx.reLaunch({

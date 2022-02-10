@@ -17,6 +17,8 @@ Page({
             fields: ['configData', 'userInfo']
         });
         this.storeBindings.updateStoreBindings();
+        // v2版本分享筛查结果
+        this.share = this.data.userInfo.viewVersion == 2 ? 1 : '';
         this.setData({
             ifSelect: option.select || this.setDefault || this.joinDoctorId || false,
             screen: this.screen
@@ -96,7 +98,7 @@ Page({
             }
             wx.jyApp.setTempData('screenPatient', this.data.patient);
             wx.jyApp.utils.redirectTo({
-                url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen`
+                url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen&share=${this.share}`
             });
         }
     },
