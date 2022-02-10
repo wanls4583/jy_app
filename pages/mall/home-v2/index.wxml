@@ -43,7 +43,7 @@
 							class="flex--center--center padding-top-bottom-30 primary-color clickable"
 							data-url="/pages/interrogation/user-patient-list/index?setDefault=true"
 						>
-							<text>切换默认成员</text>
+							<text>切换问诊成员</text>
 							<van-icon color="#2aafff" name="arrow" />
 						</view>
 					</view>

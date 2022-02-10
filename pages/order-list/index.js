@@ -46,13 +46,14 @@ Page({
             startDateVisible: false,
             endDateVisible: false
         },
-        active: 0
+        active: 0,
+        applyVisible: true
     },
     onLoad() {
         wx.test = this;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo', 'configData'],
+            fields: ['userInfo', 'doctorInfo', 'configData'],
             actions: ['addCart', 'updateCartNum', 'clearCart', 'unSelectCart', 'selectCart']
         });
         this.storeBindings.updateStoreBindings();
@@ -62,7 +63,8 @@ Page({
         this.loadGuidanceOrderList();
         if (this.data.userInfo.viewVersion == 2) {
             this.setData({
-                viewVersion: 2
+                viewVersion: 2,
+                applyVisible: this.data.doctorInfo && this.data.doctorInfo.showable == 1
             });
         }
     },
