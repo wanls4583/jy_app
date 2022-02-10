@@ -190,7 +190,8 @@ Page({
             url: `/fatevaluate/${data.id?'update':'save'}`,
             method: 'post',
             data: data
-        }).then(() => {
+        }).then((_data) => {
+            data.filtrateId = data.filtrateId || _data.filtrateId;
             wx.jyApp.toastBack('保存成功', {
                 mask: true,
                 delta: 1,

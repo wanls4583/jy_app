@@ -223,7 +223,8 @@ Page({
             url: `/filtrate/fat/${this.data.filtrateFat.id ? 'update' : 'save'}`,
             method: 'post',
             data: data
-        }).then(() => {
+        }).then((_data) => {
+            data.filtrateId = data.filtrateId || _data.filtrateId;
             var page = wx.jyApp.utils.getPageByLastIndex(2);
             if (page.route == 'pages/screen/screen-list/index') {
                 page.onRefresh();

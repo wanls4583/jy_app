@@ -57,6 +57,7 @@ Page({
         }
     },
     onLoad(option) {
+        this.share = option.share || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.setData({
@@ -98,7 +99,7 @@ Page({
     },
     onGoto(e) {
         var url = e.currentTarget.dataset.url;
-        url = url + `?from=${this.from}&consultOrderId=${this.data.consultOrderId}&patientId=${this.data.patientId}`;
+        url = url + `?from=${this.from}&consultOrderId=${this.data.consultOrderId}&patientId=${this.data.patientId}&share=${this.share}`;
         wx.jyApp.utils.navigateTo({
             url: url
         });
@@ -214,7 +215,7 @@ Page({
                 fatData: fatData,
                 fatActiveNames: fatActiveNames
             });
-        }).catch((e)=>{
+        }).catch((e) => {
             console.log(e);
         });
     },
