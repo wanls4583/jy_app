@@ -76,7 +76,7 @@ Page({
             'mna.filtrateId': option.filtrateId || '',
             'consultOrderId': option.consultOrderId || '',
             'patientId': option.patientId || '', //v2版聊天室
-            'filtrateType': option.filtrateType || '',
+            'filtrateType': 'MNA',
         });
     },
     onUnload() {

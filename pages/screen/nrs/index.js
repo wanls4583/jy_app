@@ -66,7 +66,7 @@ Page({
             'nrs.filtrateId': option.filtrateId || '',
             'consultOrderId': option.consultOrderId || '',
             'patientId': option.patientId || '',
-            'filtrateType': option.filtrateType || '',
+            'filtrateType': 'NRS 2002',
         });
     },
     onUnload() {
@@ -196,7 +196,7 @@ Page({
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
                     filtrateType: this.data.filtrateType,
-                    isSelf: true,
+                    isSelf: false,
                     roomId: this.roomId
                 }
             }).then((_data) => {

@@ -55,7 +55,7 @@ Page({
             'sga.filtrateId': option.filtrateId,
             'consultOrderId': option.consultOrderId,
             'patientId': option.patientId,
-            'filtrateType': option.filtrateType,
+            'filtrateType': 'SGA',
         });
     },
     onUnload() {
