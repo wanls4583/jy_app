@@ -81,7 +81,7 @@ Page({
                 url: '/patient/filtrate/share',
                 method: 'post',
                 data: {
-                    id: this.filtrateId,
+                    id: this.filtrateId - 0,
                     doctorId: item.id
                 }
             }).then((data) => {
