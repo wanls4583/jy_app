@@ -96,6 +96,11 @@ Page({
         }]
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.share = option.share || '';
         this.from = option.from || '';
@@ -116,6 +121,9 @@ Page({
             'consultOrderId': option.consultOrderId || '',
             'patientId': option.patientId || '',
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onInput(e) {
         wx.jyApp.utils.onInput(e, this);
@@ -263,7 +271,7 @@ Page({
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
                     filtrateType: 'FAT-DIET',
-                    isSelf: true,
+                    isSelf: this.data.userInfo.role == 'DOCTOR',
                     roomId: this.roomId
                 }
             }).then((_data) => {

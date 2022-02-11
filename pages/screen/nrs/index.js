@@ -196,7 +196,7 @@ Page({
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
                     filtrateType: this.data.filtrateType,
-                    isSelf: true,
+                    isSelf: this.data.userInfo.role == 'DOCTOR',
                     roomId: this.roomId
                 }
             }).then((_data) => {

@@ -210,7 +210,7 @@ Page({
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
                     filtrateType: 'X_INJURY',
-                    isSelf: true,
+                    isSelf: this.data.userInfo.role == 'DOCTOR',
                     roomId: this.roomId
                 }
             }).then((_data) => {

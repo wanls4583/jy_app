@@ -166,7 +166,7 @@ Page({
                     consultOrderId: this.data.consultOrderId,
                     patientId: this.data.patientId,
                     filtrateType: 'FAT-TREAT',
-                    isSelf: true,
+                    isSelf: this.data.userInfo.role == 'DOCTOR',
                     roomId: this.roomId
                 }
             }).then((_data) => {
