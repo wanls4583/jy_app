@@ -799,6 +799,9 @@ Page({
             list = list.filter((item) => {
                 return !item.del;
             });
+            if (!list.length) {
+                return;
+            }
             if (ifPre || !this.data.pages.length) { //上翻记录
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);

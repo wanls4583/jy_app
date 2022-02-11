@@ -639,6 +639,7 @@ Page({
                 return;
             }
             var list = data.page.list;
+            var originList = null;
             if (!ifPre) {
                 this.updateLastMessage(list);
             }
@@ -672,9 +673,7 @@ Page({
             list = list.filter((item) => {
                 return this.data.sendedIds.indexOf(item.id) == -1;
             });
-            if (!list.length) {
-                return;
-            }
+            originList = list;
             list.map((item) => {
                 item.id = 'msg-' + item.id;
                 item.domId = item.id; //id用来定位最新一条信息
@@ -700,6 +699,7 @@ Page({
                     });
                 }
                 if (item.type == 26) {
+                    item.del = true;
                     try {
                         var obj = JSON.parse(item.txt);
                         item._txt = obj.notice;
@@ -712,6 +712,11 @@ Page({
                             this.setData({
                                 'roomInfo.notice': item.txt
                             });
+                        }
+                        if (item.noticeType == -1 ||
+                            item.noticeType == 0 && this.data.userInfo.role == 'DOCTOR' ||
+                            item.noticeType == this.data.userInfo.id) {
+                            item.del = false;
                         }
                     } catch (e) {
                         console.log(e);
@@ -737,6 +742,16 @@ Page({
             list = list.filter((item) => {
                 return !item.del;
             });
+            if (originList.length && !list.length) { //该页消息都被隐藏
+                setTimeout(() => {
+                    clearTimeout(this.pollTimer);
+                    this.getPreHistory();
+                });
+                return;
+            }
+            if (!list.length) {
+                return;
+            }
             if (ifPre) { //上翻记录或首次加载
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);
