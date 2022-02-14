@@ -78,8 +78,7 @@ Page({
         }
     },
     onSelect(e) {
-        var item = e.currentTarget.dataset.item;
-        var index = e.currentTarget.dataset.index;
+        let item = e.currentTarget.dataset.item;
         if (!item.selected) {
             if (this.data.diagnosisArr.length >= 5) {
                 wx.jyApp.toast('最多添加5个临床诊断');
@@ -93,10 +92,22 @@ Page({
                 return _item.diagnosisName != item.diagnosisName;
             });
         }
+        this.data.diagnosisList.map((_item, i) => {
+            if (_item.id === item.id) {
+                _item.selected = item.selected
+            }
+        });
+        this.data.defaultList.map((_item, i) => {
+            if (_item.id === item.id) {
+                _item.selected = item.selected
+            }
+        });
         this.setData({
-            [`diagnosisList[${index}]`]: item,
+            diagnosisList: this.data.diagnosisList,
+            defaultList: this.data.defaultList,
             diagnosisArr: this.data.diagnosisArr.concat([])
         });
+
         this.guidanceData.diagnosisArr = this.data.diagnosisArr;
     },
     onDelete(e) {

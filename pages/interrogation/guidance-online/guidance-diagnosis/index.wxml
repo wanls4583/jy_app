@@ -46,8 +46,8 @@
 			wx:key="id"
 		>
 			<view>{{item.diagnosisName}}</view>
-			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small primary" data-index="{{index}}" data-item="{{item}}" wx:if="{{!item.selected}}">添加</view>
-			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small plain gray" data-index="{{index}}" data-item="{{item}}" wx:else>已添加</view>
+			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small primary" data-item="{{item}}" wx:if="{{!item.selected}}">添加</view>
+			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small plain gray" data-item="{{item}}" wx:else>已添加</view>
 		</view>
 	</view>
 </van-popup>
