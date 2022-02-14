@@ -799,9 +799,6 @@ Page({
             list = list.filter((item) => {
                 return !item.del;
             });
-            if (!list.length) {
-                return;
-            }
             if (ifPre || !this.data.pages.length) { //上翻记录
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);
@@ -813,13 +810,9 @@ Page({
                 }, () => {
                     this.getPageHeight(pageId);
                 });
-                if (ifPre) {
-                    this.setData({
-                        domId: 'page-id-' + this.data.pages[1]
-                    });
-                } else {
-                    this.scrollToBottom();
-                }
+                this.setData({
+                    domId: 'page-id-' + this.data.pages[1]
+                });
             } else {
                 var lastPageId = this.data.pages[this.data.pages.length - 1];
                 var lastPageList = this.data.pageMap[lastPageId];
@@ -836,7 +829,7 @@ Page({
                     }, () => {
                         this.getPageHeight(pageId);
                     });
-                    this.scrollToBottom();
+                    list.length && this.scrollToBottom();
                 } else {
                     lastPageList = lastPageList.concat(list);
                     this.data.pageMap[lastPageId] = lastPageList;
@@ -846,7 +839,7 @@ Page({
                     }, () => {
                         this.getPageHeight(lastPageId);
                     });
-                    this.scrollToBottom();
+                    list.length && this.scrollToBottom();
                 }
             }
         }).catch((err) => {

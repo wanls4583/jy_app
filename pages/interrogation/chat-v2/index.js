@@ -742,17 +742,7 @@ Page({
             list = list.filter((item) => {
                 return !item.del;
             });
-            if (originList.length && !list.length) { //该页消息都被隐藏
-                setTimeout(() => {
-                    clearTimeout(this.pollTimer);
-                    this.getPreHistory();
-                });
-                return;
-            }
-            if (!list.length) {
-                return;
-            }
-            if (ifPre) { //上翻记录或首次加载
+            if (ifPre || !this.data.pages.length) { //上翻记录或首次加载
                 var pageId = list[0].id;
                 this.data.pages.unshift(pageId);
                 this.data.pageMap[pageId] = list;
@@ -763,13 +753,9 @@ Page({
                 }, () => {
                     this.getPageHeight(pageId);
                 });
-                if (ifPre) {
-                    this.setData({
-                        domId: 'page-id-' + this.data.pages[1]
-                    });
-                } else {
-                    this.scrollToBottom();
-                }
+                this.setData({
+                    domId: 'page-id-' + this.data.pages[1]
+                });
             } else {
                 var lastPageId = this.data.pages[this.data.pages.length - 1];
                 var lastPageList = this.data.pageMap[lastPageId];
@@ -786,7 +772,7 @@ Page({
                     }, () => {
                         this.getPageHeight(pageId);
                     });
-                    this.scrollToBottom();
+                    list.length && this.scrollToBottom();
                 } else {
                     lastPageList = lastPageList.concat(list);
                     this.data.pageMap[lastPageId] = lastPageList;
@@ -796,8 +782,14 @@ Page({
                     }, () => {
                         this.getPageHeight(lastPageId);
                     });
-                    this.scrollToBottom();
+                    list.length && this.scrollToBottom();
                 }
+            }
+            if (originList.length && !list.length && data.totalPage > 1) { //该页消息都被隐藏
+                setTimeout(() => {
+                    clearTimeout(this.pollTimer);
+                    this.getPreHistory();
+                });
             }
         }).catch((err) => {
             console.log(err);
