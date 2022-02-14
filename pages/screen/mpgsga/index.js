@@ -426,7 +426,7 @@ Page({
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('screen-results', this.data.resultDescription);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}`
+                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
                     }
                 }

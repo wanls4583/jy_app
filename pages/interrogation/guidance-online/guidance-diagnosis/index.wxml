@@ -35,12 +35,16 @@
 			placeholder="请输入诊断名称搜索"
 			style="height:40px"
 			type="text"
-			value="{{text}}"
+			value="{{searchText}}"
 		/>
 		<view bindtap="onClickTemplate" class="margin-left-20 button small primary" style="width:80px;height:40px;line-height:40px">取消</view>
 	</view>
 	<view class="padding-left-right-20">
-		<view class="flex--center--between padding-20 margin-bottom-20 border radius-4px" wx:for="{{diagnosisList}}" wx:key="id">
+		<view
+			class="flex--center--between padding-20 margin-bottom-20 border radius-4px"
+			wx:for="{{diagnosisList.length||searchText?diagnosisList:defaultList}}"
+			wx:key="id"
+		>
 			<view>{{item.diagnosisName}}</view>
 			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small primary" data-index="{{index}}" data-item="{{item}}" wx:if="{{!item.selected}}">添加</view>
 			<view bindtap="onSelect" class="flex-shrink-0 margin-left-30 button small plain gray" data-index="{{index}}" data-item="{{item}}" wx:else>已添加</view>

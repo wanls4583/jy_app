@@ -8,7 +8,36 @@ Page({
         diagnosisArr: [],
         diagnosisList: [],
         diagnosisVisible: false,
-        focus: false
+        focus: false,
+        searchText: '',
+        defaultList: [],
+        defaultNames: [
+            '2型糖尿病性周围神经病',
+            '2型糖尿病性肾病',
+            '2型糖尿病足病',
+            '摄入食物结构失衡',
+            '吞咽困难',
+            '喂养困难和照管不当',
+            '肥胖症',
+            '重度营养不良伴消瘦',
+            '夸希奥科病[恶性营养不良病]（水肿型营养不良）',
+            '蛋白质-能量营养不良',
+            '恶病质',
+            '营养风险',
+            '低蛋白血症',
+            '维生素缺乏病',
+            '高钠血症',
+            '高磷酸盐血症',
+            '低钾血症',
+            '营养性巨幼细胞性贫血',
+            '营养性贫血，其他特指的',
+            '缺铁性贫血',
+            '骨质疏松  ',
+            '骨质疏松伴有病理性骨折 ',
+            '高钾血症',
+            '乳糖不耐受',
+            '高尿酸血症'
+        ]
     },
     onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
@@ -82,6 +111,7 @@ Page({
         var text = e.detail.value;
         //搜索诊断
         this.setData({
+            searchText: text,
             diagnosisList: this.allDiagnosisList.filter((item) => {
                 if (text && item.diagnosisName.indexOf(text) > -1) {
                     this.data.diagnosisArr.map((_item) => {
@@ -102,7 +132,7 @@ Page({
         this.setData({
             diagnosisVisible: !this.data.diagnosisVisible,
             diagnosisList: [],
-            text: ''
+            searchText: ''
         }, () => {
             if (this.data.diagnosisVisible) {
                 setTimeout(() => {
@@ -129,6 +159,11 @@ Page({
                     _get();
                 }, 1000);
             } else {
+                self.setData({
+                    defaultList: self.allDiagnosisList.filter((item) => {
+                        return self.data.defaultNames.indexOf(item.diagnosisName) > -1;
+                    })
+                })
                 wx.hideLoading();
             }
         }
