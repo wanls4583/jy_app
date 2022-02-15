@@ -20,7 +20,7 @@ Page({
             '喂养困难和照管不当',
             '肥胖症',
             '重度营养不良伴消瘦',
-            '夸希奥科病[恶性营养不良病]（水肿型营养不良）',
+            '夸希奥科病[恶性营养不良病]',
             '蛋白质-能量营养不良',
             '恶病质',
             '营养风险',
@@ -92,22 +92,10 @@ Page({
                 return _item.diagnosisName != item.diagnosisName;
             });
         }
-        this.data.diagnosisList.map((_item, i) => {
-            if (_item.id === item.id) {
-                _item.selected = item.selected
-            }
-        });
-        this.data.defaultList.map((_item, i) => {
-            if (_item.id === item.id) {
-                _item.selected = item.selected
-            }
-        });
         this.setData({
-            diagnosisList: this.data.diagnosisList,
-            defaultList: this.data.defaultList,
-            diagnosisArr: this.data.diagnosisArr.concat([])
+            diagnosisArr: this.data.diagnosisArr.slice()
         });
-
+        this.setSelected();
         this.guidanceData.diagnosisArr = this.data.diagnosisArr;
     },
     onDelete(e) {
@@ -117,6 +105,7 @@ Page({
             diagnosisArr: this.data.diagnosisArr.concat([])
         });
         this.guidanceData.diagnosisArr = this.data.diagnosisArr;
+        this.setSelected();
     },
     onInput(e) {
         var text = e.detail.value;
@@ -137,9 +126,6 @@ Page({
         });
     },
     onClickTemplate() {
-        this.allDiagnosisList.map((item) => {
-            item.selected = false;
-        });
         this.setData({
             diagnosisVisible: !this.data.diagnosisVisible,
             diagnosisList: [],
@@ -170,6 +156,7 @@ Page({
                     _get();
                 }, 1000);
             } else {
+                self.setSelected();
                 self.setData({
                     defaultList: self.allDiagnosisList.filter((item) => {
                         return self.data.defaultNames.indexOf(item.diagnosisName) > -1;
@@ -178,5 +165,18 @@ Page({
                 wx.hideLoading();
             }
         }
+    },
+    setSelected() {
+        let map = {};
+        this.data.diagnosisArr.map((item) => {
+            map[item.id] = true;
+        });
+        this.allDiagnosisList.map((item) => {
+            item.selected = map[item.id] || false;
+        });
+        this.setData({
+            diagnosisList: this.data.diagnosisList.slice(),
+            defaultList: this.data.defaultList.slice()
+        })
     }
 })
