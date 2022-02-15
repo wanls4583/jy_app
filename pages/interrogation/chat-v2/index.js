@@ -25,6 +25,15 @@ Page({
         this.pollStoped = false;
         if (this.data.roomId) {
             this.getNewHistory();
+            if (this.data.talker) {
+                wx.setNavigationBarTitle({
+                    title: this.data.talker.nickname
+                });
+            } else {
+                wx.setNavigationBarTitle({
+                    title: this.data.roomInfo.departmentName
+                });
+            }
         }
     },
     onHide() {
