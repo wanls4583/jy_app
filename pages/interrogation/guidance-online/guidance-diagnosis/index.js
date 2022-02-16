@@ -169,10 +169,10 @@ Page({
     setSelected() {
         let map = {};
         this.data.diagnosisArr.map((item) => {
-            map[item.id] = true;
+            map[item.diagnosisCode] = true;
         });
         this.allDiagnosisList.map((item) => {
-            item.selected = map[item.id] || false;
+            item.selected = map[item.diagnosisCode] || false;
         });
         this.setData({
             diagnosisList: this.data.diagnosisList.slice(),

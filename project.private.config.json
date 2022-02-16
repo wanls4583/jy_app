@@ -15,7 +15,7 @@
         {
           "name": "pages/index/index",
           "pathName": "pages/index/index",
-          "query": "type=-1&url=/pages/mall/product-detail/index%3Fid%3D219",
+          "query": "type=-1&url=/pages/interrogation/doctor-patient-list/index",
           "scene": null
         }
       ]

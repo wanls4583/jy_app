@@ -34,7 +34,13 @@ Component({
     methods: {
         onShow() {
             if (this.loaded) {
-                this.loadList(true);
+                this.showTimer = setTimeout(() => {
+                    if (this.data.hosDepartment && this.data.active == 0) {
+                        this.loadDepartmentPatientList();
+                    } else {
+                        this.loadList(true);
+                    }
+                }, 500);
             }
         },
         onChangeSwiper(e) {

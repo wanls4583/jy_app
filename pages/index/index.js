@@ -1,3 +1,12 @@
+// tab页
+var tabs = [
+    '/pages/mall/home/index',
+    '/pages/mall/mall/index',
+    '/pages/interrogation/home/index',
+    '/pages/interrogation/doctor-patient-list/index',
+    '/pages/interrogation/message-list/index',
+    '/pages/mine/index',
+]
 Page({
     data: {
         userInfo: null,
@@ -166,9 +175,10 @@ Page({
         });
     },
     handleUrl() {
-        if (this.routeType == 'switchTab') {
+        if (tabs.indexOf(this.url) > -1) {
+            let url = '/pages/tab-bar/index?url=' + this.url;
             wx.jyApp.utils.redirectTo({
-                url: this.url
+                url: url
             });
         } else {
             wx.jyApp.utils.navigateTo({
@@ -229,15 +239,6 @@ Page({
                 });
                 return;
             }
-            // tab页
-            var tabs = [
-                '/pages/mall/home/index',
-                '/pages/mall/mall/index',
-                '/pages/interrogation/home/index',
-                '/pages/interrogation/doctor-patient-list/index',
-                '/pages/interrogation/message-list/index',
-                '/pages/mine/index',
-            ]
             url = doctor.barcodePath;
             if (url.slice(0, 6) == '/pages') {
                 let _url = url.indexOf('?') ? url.slice(0, url.indexOf('?')) : url;

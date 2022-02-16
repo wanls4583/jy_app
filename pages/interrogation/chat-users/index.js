@@ -129,12 +129,12 @@ Page({
             }
         }).then(() => {
             wx.jyApp.toast('修改成功');
-            this.data.departmentPatient.list.map((_item, index) => {
+            this.data.patient.list.map((_item, index) => {
                 if (_item.patientId == item.patientId) {
                     _item.inHospitalStatus = item.inHospitalStatus;
                     _item.consultFlag = item.consultFlag;
                     this.setData({
-                        [`departmentPatient.list[${index}]`]: _item
+                        [`patient.list[${index}]`]: _item
                     });
                 }
             });
