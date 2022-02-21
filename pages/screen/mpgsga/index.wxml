@@ -68,7 +68,7 @@
 				<van-checkbox name="呕吐" shape="square">呕吐（3分）</van-checkbox>
 				<view class="flex--center--start">
 					<van-checkbox name="何处疼痛" shape="square">
-						<text>疼痛（2分），部位</text>
+						<text>疼痛（3分），部位</text>
 					</van-checkbox>
 					<input bindinput="onInput" class="border margin-bottom-30" data-prop="pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{pgsga.wherePained}}" />
 				</view>
@@ -79,13 +79,13 @@
 	<view class="white-background-color padding-top-30" wx:if="{{step==4}}">
 		<view class="margin-left-30 pre-vertical-line primary-line-color">身体状况</view>
 		<view class="padding-30">
-			<view class="padding-bottom-30">过去三个月，身体状况处于：</view>
+			<view class="padding-bottom-30">在过去的一个月，我的活动：</view>
 			<van-radio-group bind:change="onChange" data-prop="pgsga.physicalCondition" value="{{pgsga.physicalCondition}}">
 				<van-radio name="NORMAL">正常，没有任何限制（0分）</van-radio>
-				<van-radio name="DIFFERENT">与平常的我不同，但日常生活起居还能自我料理（1分）</van-radio>
-				<van-radio name="UNCOMFORTABLE">感觉不舒服，但躺在床上的时间不会长于半天（2分）</van-radio>
-				<van-radio name="LITTLE_MOTION">只能做少数活动，大多数时间躺在床上或坐在椅子上（3分）</van-radio>
-				<van-radio name="IN_BED">绝大多数时间躺在床上（3分）</van-radio>
+				<van-radio name="DIFFERENT">与平常相比稍差，但尚能正常活动（1分）</van-radio>
+				<van-radio name="UNCOMFORTABLE">多数时候不想起床活动，但卧床或坐着时间不超过12h（2分）</van-radio>
+				<van-radio name="LITTLE_MOTION">活动很少，一天多数时间卧床或坐着（3分）</van-radio>
+				<van-radio name="IN_BED">几乎卧床不起，很少下床（3分）</van-radio>
 			</van-radio-group>
 		</view>
 	</view>

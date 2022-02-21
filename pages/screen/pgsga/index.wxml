@@ -122,7 +122,7 @@
 					</view>
 				</van-radio>
 			</van-radio-group>
-			<view class="margin-top-30 gray-color">建议以下病情情况每项记一分：癌症，AIDS，呼吸或心脏病恶液质，存在开放性伤口或肠瘘或压疮，创伤，年龄超过65岁</view>
+			<view class="margin-top-30 gray-color">建议以下病情情况每项记一分：肿瘤，AIDS，呼吸或心脏病恶液质，存在开放性伤口或肠瘘或压疮，创伤，年龄超过65岁</view>
 		</view>
 	</view>
 	<view class="white-background-color padding-top-30" wx:if="{{step==6}}">
