@@ -115,7 +115,7 @@
 						</view>
 					</van-radio>
 				</van-radio-group>
-				<view class="margin-top-30 gray-color">建议以下病情情况每项记一分：癌症，AIDS，肺源性或心源性恶液质，出现褥疮，开放伤口或痿，存在创伤，65岁以上</view>
+				<view class="margin-top-30 gray-color">建议以下病情情况每项记一分：肿瘤，AIDS，肺源性或心源性恶液质，出现褥疮，开放伤口或痿，存在创伤，65岁以上</view>
 			</view>
 		</view>
 		<view class="white-background-color padding-top-30" wx:if="{{step==6}}">
