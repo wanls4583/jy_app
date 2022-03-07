@@ -114,6 +114,15 @@
 						<image mode="aspectFit" src="/image/icon_doctor.png" style="width:70rpx;height:70rpx" />
 						<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的医生</view>
 					</view>
+					<view
+						bindtap="onGoto"
+						class="flex--center--center flex-direction-column width-25 padding-top-bottom-30 align-center clickable"
+						data-url="/pages/mall/profit/index"
+						wx:if="{{userInfo.viewVersion!=2}}"
+					>
+						<image mode="aspectFit" src="/image/icon_trend.png" style="width:70rpx;height:70rpx" />
+						<view class="font-small margin-top-10 line-height-1em color-666" style="margin-bottom:2px">我的收益</view>
+					</view>
 				</block>
 				<block wx:if="{{userInfo.role=='DOCTOR'}}">
 					<view
