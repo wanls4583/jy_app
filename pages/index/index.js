@@ -78,9 +78,11 @@ Page({
             this.doctorId = option.dId;
         } else if (option.type == 3 && option.pId) { //产品主页
             this.productId = option.pId;
+            option.type = 7;
+            _handleType.call(this, option.type, option);
         } else if (option.type == 4) { //医生分享二维码
             option.type = option.subType;
-            _handleType.call(this, option.subType, option);
+            _handleType.call(this, option.type, option);
         } else if (option.scene) { //扫二维码进入
             var param = wx.jyApp.utils.parseScene(option.scene) || {};
             console.log(param);
@@ -114,6 +116,16 @@ Page({
                 this.inviteDoctorId = param.dId;
                 this.inviteWay = 'doctor';
                 this.barcodType = 'card';
+            } else if (type == 7 && param.pId) { //代理商分享产品
+                if (param.stp === 'user' && param.uId ||
+                    param.stp === 'agnet' && param.aId) {
+                    wx.setStorageSync('share-product', {
+                        shareType: param.stp,
+                        agentId: param.aId,
+                        uId: param.uId,
+                        shareGoodsId: param.pId,
+                    });
+                }
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
                 wx.setStorageSync('role', 'DOCTOR');

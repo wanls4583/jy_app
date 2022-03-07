@@ -11,12 +11,13 @@ Page({
         needMoney: 0,
         count: 0,
         readonly: false,
+        shareVisble: false
     },
     onLoad(option) {
         this.data.id = option.id;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['cart', 'cartTotalMoney', 'cartNum', 'configData'],
+            fields: ['userInfo', 'cart', 'cartTotalMoney', 'cartNum', 'configData'],
             actions: ['addCart', 'updateCartNum', 'clearCart'],
         });
         this.storeBindings.updateStoreBindings();
@@ -34,10 +35,16 @@ Page({
     onShow() {
         this.getProductNum();
     },
+    onShowShare() {
+        this.setData({
+            shareVisble: !this.data.shareVisble
+        });
+    },
     onShareAppMessage: function (res) {
+        let uId = this.data.userInfo && this.data.userInfo.id || '';
         return {
             title: this.data.productInfo.goodsName || '商品',
-            path: '/pages/index/index?type=3&pId=' + this.data.id,
+            path: '/pages/index/index?type=3&stp=user&pId=' + this.data.id + '&uId=' + uId,
             imageUrl: this.data.banner[0] || '/image/logo.png'
         }
     },

@@ -42,7 +42,7 @@ Page({
         });
     },
     onSubmit() {
-        if(this.onSubmit.loading) {
+        if (this.onSubmit.loading) {
             return;
         }
         this.onSubmit.loading = true;
@@ -67,22 +67,30 @@ Page({
         wx.jyApp.showLoading('支付中...', true);
         this.checkStore().then(() => {
             return _submit.bind(this)();
-        }).finally(()=>{
+        }).finally(() => {
             this.onSubmit.loading = false;
         });
         // 提交
         function _submit() {
+            let shareData = setStorageSync('share-product');
+            let data = {
+                addressId: this.data.selectAddress.id,
+                totalAmount: this.data.totalMoney,
+                goods: goods
+            }
+            if (shareData) {
+                data.shareId = shareData.shareType === 'user' ? shareData.uId : shareData.aId;
+                data.shareType = shareData.shareType;
+                data.shareGoodsId = shareData.shareGoodsId;
+            }
             return wx.jyApp.http({
                 url: '/order/save',
                 method: 'post',
-                data: {
-                    addressId: this.data.selectAddress.id,
-                    totalAmount: this.data.totalMoney,
-                    goods: goods
-                }
+                data: data
             }).then((data) => {
                 wx.hideLoading();
                 wx.jyApp.utils.pay(data.params).then(() => {
+                    wx.removeStorageSync('share-product');
                     setTimeout(() => {
                         wx.showToast({
                             title: '支付成功'

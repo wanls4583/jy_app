@@ -18,10 +18,13 @@
 		<view class="font-title font-bold color-333">{{productInfo.goodsName}}</view>
 		<view class="flex--center--between margin-top-20" hidden="{{!productInfo.goodsName}}">
 			<view class="flex--center--start danger-color font-bold">
-				<text class="font-small" style="margin-top:6rpx">￥</text>
-				<text class="font-large">{{productInfo.price}}</text>
-				<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{productInfo._unit}}</text>
+				<view>
+					<text class="font-small" style="margin-top:6rpx">￥</text>
+					<text class="font-large">{{productInfo.price}}</text>
+					<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{productInfo._unit}}</text>
+				</view>
 			</view>
+			<view bindtap="onShowShare" class="button small primary">分享有礼</view>
 			<!-- 
 			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view
@@ -107,3 +110,11 @@
 	</van-popup>
 	-->
 </view>
+<van-action-sheet bind:cancel="onShowShare" bind:click-overlay="onShowShare" cancel-text="取消" show="{{shareVisble}}">
+	<view class="flex--center--center padding-20">
+		<button bindtap="onShowShare" class="flex--center--center flex-direction-column padding-30 clickable" open-type="share">
+			<image mode="aspectFit" src="/image/icon_share_wechat.png" style="width:60px;height:60px" />
+			<text class="font-small margin-top-10">微信好友</text>
+		</button>
+	</view>
+</van-action-sheet>
