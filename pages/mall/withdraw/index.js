@@ -68,7 +68,7 @@ Page({
             }
         }).then(() => {
             wx.jyApp.utils.navigateTo({
-                url: '/pages/interrogation/withdraw-list/index'
+                url: '/pages/mall/withdraw-list/index'
             });
             setTimeout(() => {
                 wx.showToast({
