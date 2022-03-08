@@ -819,7 +819,7 @@ Page({
         return this.request;
     },
     updateLastMessage(list) {
-        var page = wx.jyApp.utils.getPages('pages/interrogation/message-list/index');
+        var page = wx.jyApp.utils.getPages('pages/tab/message-list/index');
         if (page) { //修改消息列表中的最新文案
             for (var i = 0; i < list.length; i++) {
                 if (list[i].type != 0) {

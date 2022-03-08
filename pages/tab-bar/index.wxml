@@ -1,18 +1,18 @@
 <view class="container" style="padding-bottom:{{safeBottom+50}}px">
 	<block wx:if="{{userInfo.role=='DOCTOR'}}">
-		<view hidden="{{pagePath!='/pages/interrogation/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/interrogation/home/index']}}">
+		<view hidden="{{pagePath!='/pages/tab/doctor-home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/tab/doctor-home/index']}}">
 			<doctor-home id="doctor-home"></doctor-home>
 		</view>
 		<view
-			hidden="{{pagePath!='/pages/interrogation/doctor-patient-list/index'}}"
+			hidden="{{pagePath!='/pages/tab/doctor-patient-list/index'}}"
 			style="height:100%"
-			wx:if="{{loadedPathMap['/pages/interrogation/doctor-patient-list/index']}}"
+			wx:if="{{loadedPathMap['/pages/tab/doctor-patient-list/index']}}"
 		>
 			<patient-manage id="patient-manage"></patient-manage>
 		</view>
 	</block>
 	<block wx:else>
-		<view hidden="{{pagePath!='/pages/mall/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mall/home/index']}}">
+		<view hidden="{{pagePath!='/pages/tab/home/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/tab/home/index']}}">
 			<user-home-v2 id="user-home" wx:if="{{userInfo.viewVersion==2}}"></user-home-v2>
 			<user-home id="user-home" wx:else></user-home>
 		</view>
@@ -22,14 +22,14 @@
 	</block>
 	<!-- 消息列表 -->
 	<view
-		hidden="{{pagePath!='/pages/interrogation/message-list/index'}}"
+		hidden="{{pagePath!='/pages/tab/message-list/index'}}"
 		style="height:100%"
-		wx:if="{{loadedPathMap['/pages/interrogation/message-list/index']}}"
+		wx:if="{{loadedPathMap['/pages/tab/message-list/index']}}"
 	>
 		<message-list id="message-list"></message-list>
 	</view>
 	<!-- 我的 -->
-	<view hidden="{{pagePath!='/pages/mine/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mine/index']}}">
+	<view hidden="{{pagePath!='/pages/tab/mine/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/tab/mine/index']}}">
 		<mine id="mine"></mine>
 	</view>
 </view>

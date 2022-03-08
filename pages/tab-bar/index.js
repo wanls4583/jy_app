@@ -11,7 +11,7 @@ Page({
         'backgroundColor': '#fff',
         'list': [{
                 'id': 'user-home',
-                'pagePath': '/pages/mall/home/index',
+                'pagePath': '/pages/tab/home/index',
                 'iconPath': '/image/icon_home.png',
                 'selectedIconPath': '/image/icon_home_active.png',
                 'text': '首页'
@@ -25,14 +25,14 @@ Page({
             },
             {
                 'id': 'message-list',
-                'pagePath': '/pages/interrogation/message-list/index',
+                'pagePath': '/pages/tab/message-list/index',
                 'iconPath': '/image/icon_message.png',
                 'selectedIconPath': '/image/icon_message_active.png',
                 'text': '消息'
             },
             {
                 'id': 'mine',
-                'pagePath': '/pages/mine/index',
+                'pagePath': '/pages/tab/mine/index',
                 'iconPath': '/image/icon_center.png',
                 'selectedIconPath': '/image/icon_center_active.png',
                 'text': '我的'
@@ -40,28 +40,28 @@ Page({
         ],
         doctorTabList: [{
                 'id': 'doctor-home',
-                'pagePath': '/pages/interrogation/home/index',
+                'pagePath': '/pages/tab/doctor-home/index',
                 'iconPath': '/image/icon_home.png',
                 'selectedIconPath': '/image/icon_home_active.png',
                 'text': '首页',
             },
             {
                 'id': 'patient-manage',
-                'pagePath': '/pages/interrogation/doctor-patient-list/index',
+                'pagePath': '/pages/tab/doctor-patient-list/index',
                 'iconPath': '/image/icon_users.png',
                 'selectedIconPath': '/image/icon_users_active.png',
                 'text': '患者管理',
             },
             {
                 'id': 'message-list',
-                'pagePath': '/pages/interrogation/message-list/index',
+                'pagePath': '/pages/tab/message-list/index',
                 'iconPath': '/image/icon_message.png',
                 'selectedIconPath': '/image/icon_message_active.png',
                 'text': '消息'
             },
             {
                 'id': 'mine',
-                'pagePath': '/pages/mine/index',
+                'pagePath': '/pages/tab/mine/index',
                 'iconPath': '/image/icon_center.png',
                 'selectedIconPath': '/image/icon_center_active.png',
                 'text': '我的'
@@ -72,7 +72,7 @@ Page({
         safeBottom: wx.jyApp.systemInfo.screenHeight - wx.jyApp.systemInfo.safeArea.bottom || 0
     },
     onLoad(option) {
-        var pagePath = '/pages/mall/home/index';
+        var pagePath = '/pages/tab/home/index';
         var list = this.data.list;
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
@@ -84,7 +84,7 @@ Page({
             pagePath = pagePath.slice(0, pagePath.indexOf('?') == -1 ? Infinity : pagePath.indexOf('?'));
             pagePath = pagePath.slice(0, pagePath.indexOf('#') == -1 ? Infinity : pagePath.indexOf('#'));
         } else if (this.data.userInfo.role == 'DOCTOR') {
-            pagePath = '/pages/interrogation/home/index';
+            pagePath = '/pages/tab/doctor-home/index';
         }
         if (this.data.userInfo.role == 'DOCTOR') {
             list = this.data.doctorTabList;

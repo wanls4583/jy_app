@@ -1,11 +1,12 @@
 // tab页
 var tabs = [
-    '/pages/mall/home/index',
-    '/pages/mall/mall/index',
-    '/pages/interrogation/home/index',
-    '/pages/interrogation/doctor-patient-list/index',
-    '/pages/interrogation/message-list/index',
-    '/pages/mine/index',
+    "/pages/tab/user-home/index",
+    "/pages/tab/user-home-v2/index",
+    "/pages/tab/mall/index",
+    "/pages/tab/doctor-home/index",
+    "/pages/tab/doctor-patient-list/index",
+    "/pages/tab/message-list/index",
+    "/pages/tab/mine/index",
 ]
 Page({
     data: {
