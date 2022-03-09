@@ -119,7 +119,7 @@ Page({
                 this.barcodType = 'card';
             } else if (type == 7 && param.pId) { //代理商分享产品
                 if (param.stp === 'user' && param.uId ||
-                    param.stp === 'agnet' && param.aId) {
+                    param.stp === 'agent' && param.aId) {
                     wx.setStorageSync('share-product', {
                         shareType: param.stp,
                         agentId: param.aId,
