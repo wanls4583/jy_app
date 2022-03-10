@@ -111,11 +111,18 @@ Component({
             });
         },
         loadProduct(refresh) {
-            var page = refresh ? 1 : this.data.page;
+            if (refresh) {
+                this.request && this.request.requestTask.abort();
+                this.setData({
+                    page: 1
+                });
+            } else if (this.data.loading || this.data.totalPage > -1 && this.data.page > this.data.totalPage) {
+                return;
+            }
             this.request = wx.jyApp.http({
                 url: '/goods/list',
                 data: {
-                    page: page,
+                    page: this.data.page,
                     limit: this.data.size,
                     categoryId: this.data.categoryId || '',
                     side: 'USER'
@@ -131,10 +138,13 @@ Component({
                     item.goodsPic = item.goodsPic && item.goodsPic.split(',')[0] || '';
                 });
                 this.setData({
-                    page: page + 1,
+                    page: this.data.page + 1,
                     productList: refresh ? data.page.list : this.data.productList.concat(data.page.list),
                     totalPage: data.page.totalPage
                 });
+            }).finally(() => {
+                this.request = null;
+                this.data.loading = false;
             });
             return this.request;
         },

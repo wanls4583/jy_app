@@ -72,7 +72,7 @@ Page({
         });
         // 提交
         function _submit() {
-            let shareData = setStorageSync('share-product');
+            let shareData = wx.getStorageSync('share-product');
             let data = {
                 addressId: this.data.selectAddress.id,
                 totalAmount: this.data.totalMoney,
