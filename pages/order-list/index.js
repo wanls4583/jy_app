@@ -377,6 +377,32 @@ Page({
             }
         });
     },
+    // 确认收货
+    onConfrimRecieve(e) {
+        wx.showModal({
+            content: '确认该订单已收货？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('确认中...', true);
+                    wx.jyApp.http({
+                        url: '/order/got',
+                        method: 'post',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                        if (page) {
+                            page.updateMallStatus(id, 8);
+                        }
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
     //修改处方单
     onEditOrder(e) {
         if (this.holding) {

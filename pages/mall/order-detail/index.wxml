@@ -65,7 +65,7 @@
 	</view>
 	<view
 		class="footer flex--center--end padding-30 padding-top-bottom-20 white-background-color border-top"
-		wx:if="{{order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0}}"
+		wx:if="{{order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0||order.status==7}}"
 	>
 		<view bindtap="onDelMallOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 		<view bindtap="onMallOrderReturn" class="margin-left-20 danger button small plain" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
@@ -83,5 +83,6 @@
 			wx:elif="{{applyTicketVisible}}"
 		>申请发票</view>
 		<view bindtap="onMallOrderPay" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
+		<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==7}}">确认收货</view>
 	</view>
 </view>
