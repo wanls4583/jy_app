@@ -247,7 +247,7 @@
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
-							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0)&&userInfo.role=='USER'}}"
+							wx:if="{{(order.ticketStatus||order.applyTicketVisible||order.oneMoreVisible||order.delVisible||order.status==1||order.status==0||order.status==7)&&userInfo.role=='USER'}}"
 						>
 							<view bindtap="onDelGuidanceOrder" class="margin-left-20 button small plain gray" data-id="{{order.id}}" wx:if="{{order.delVisible}}">删除订单</view>
 							<view bindtap="onGuidanceOrderReturn" class="margin-left-20 danger button plain small" data-id="{{order.id}}" wx:if="{{order.status==1}}">退费</view>
@@ -270,6 +270,7 @@
 								data-url="/pages/interrogation/guidance-order-detail/index?id={{order.id}}"
 								wx:if="{{order.status==0}}"
 							>立即支付</view>
+							<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==7}}">确认收货</view>
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"
@@ -333,7 +334,7 @@
 									wx:elif="{{applyTicketVisible}}"
 								>申请发票</view>
 								<view bindtap="onMallOrderPay" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==0}}">立即支付</view>
-								<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==7}}">确认收货</view>
+								<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.id}}" data-type="mall" wx:if="{{order.status==7}}">确认收货</view>
 							</view>
 						</view>
 					</view>

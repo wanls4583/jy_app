@@ -379,6 +379,7 @@ Page({
     },
     // 确认收货
     onConfrimRecieve(e) {
+        let type = e.currentTarget.dataset.type;
         wx.showModal({
             content: '确认该订单已收货？',
             success: (res) => {
@@ -394,7 +395,11 @@ Page({
                     }).then(() => {
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.updateMallStatus(id, 8);
+                            if (type === 'mall') {
+                                page.updateMallStatus(id, 8);
+                            } else {
+                                page.updateInterrogationStatus(id, 8);
+                            }
                         }
                     }).finally(() => {
                         wx.hideLoading();
