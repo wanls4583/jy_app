@@ -194,7 +194,7 @@ Page({
                         });
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.updateMallStatus(id, 8);
+                            page.updateGuidanceStatus(id, 8);
                         }
                     }).finally(() => {
                         wx.hideLoading();

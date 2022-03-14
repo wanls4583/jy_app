@@ -398,7 +398,7 @@ Page({
                             if (type === 'mall') {
                                 page.updateMallStatus(id, 8);
                             } else {
-                                page.updateInterrogationStatus(id, 8);
+                                page.updateGuidanceStatus(id, 8);
                             }
                         }
                     }).finally(() => {
