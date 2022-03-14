@@ -171,6 +171,38 @@ Page({
             }
         });
     },
+    // 确认收货
+    onConfrimRecieve(e) {
+        wx.showModal({
+            content: '确认该订单已收货？',
+            success: (res) => {
+                if (res.confirm) {
+                    var id = e.currentTarget.dataset.id;
+                    wx.showLoading('确认中...', true);
+                    wx.jyApp.http({
+                        url: '/order/got',
+                        method: 'post',
+                        data: {
+                            id: id
+                        }
+                    }).then(() => {
+                        this.data.order.status = 8;
+                        this.data.order._status = wx.jyApp.constData.mallOrderStatusMap[8];
+                        this.setStatusColor(this.data.order);
+                        this.setData({
+                            order: this.data.order
+                        });
+                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
+                        if (page) {
+                            page.updateMallStatus(id, 8);
+                        }
+                    }).finally(() => {
+                        wx.hideLoading();
+                    });
+                }
+            }
+        });
+    },
     onGotoSheet(e) {
         this.onGoto(e);
     },
@@ -215,7 +247,7 @@ Page({
             data.detail.oneMoreVisible = [1, 4, 6, 7, 8].indexOf(data.detail.status) > -1;
             data.detail.delVisible = [0, 4, 6, 8].indexOf(data.detail.status) > -1;
             data.detail.goods.map((item) => {
-                if(item.type == 1) {
+                if (item.type == 1) {
                     item.goodsName = `${item.goodsName}(${item.items[0].standardNum}${wx.jyApp.constData.unitChange[item.standardUnit]}/${wx.jyApp.constData.unitChange[item.unit]})`;
                 }
                 item._frequency = wx.jyApp.constData.frequencyArray[item.frequency - 1];

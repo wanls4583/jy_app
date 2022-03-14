@@ -162,6 +162,12 @@ Page({
                             id: id
                         }
                     }).then(() => {
+                        this.data.order.status = 8;
+                        this.data.order._status = wx.jyApp.constData.mallOrderStatusMap[8];
+                        this.setStatusColor(this.data.order);
+                        this.setData({
+                            order: this.data.order
+                        });
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
                             page.updateMallStatus(id, 8);
