@@ -302,7 +302,8 @@ function getAllConfig() {
         'withdrawType',
         'doctorSwitch',
         'nutritionApproveSwitch',
-        'showIncomeSwitch'
+        'showIncomeSwitch',
+        'showMyIncomeSwitch'
     ]).then((data) => {
         data.consultOrderCloseHours = data.consultOrderCloseDay * 24 || 0;
         data.jobTitle = data.jobTitle && data.jobTitle.split('#') || [];
