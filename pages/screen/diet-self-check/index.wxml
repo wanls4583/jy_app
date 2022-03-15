@@ -1,0 +1,43 @@
+<view class="container padding-bottom-footer">
+	<block wx:if="{{step==1}}">
+		<view class="white-background-color">
+			<view class="padding-left-right-30">
+				<view class="padding-top-bottom-30 border-bottom">
+					<text>{{patient.patientName}}</text>
+					<text>，{{patient._sex}}</text>
+					<text>，{{patient.age}}岁</text>
+					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+				</view>
+			</view>
+			<readonly-field label="评估日期" value="{{answers.filtrateDate}}" />
+		</view>
+		<view class="white-background-color margin-top-20">
+			<view class="padding-30">
+				<viwe class="font-bold">1、请选择你的主食类型：</viwe>
+				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+					<van-radio name="{{1}}">主食为大米</van-radio>
+					<van-radio name="{{2}}">主食为面食</van-radio>
+					<van-radio name="{{3}}">主食为米、面食</van-radio>
+				</van-radio-group>
+			</view>
+		</view>
+	</block>
+	<block wx:if="{{step==2}}">
+		<view class="white-background-color">
+			<view class="padding-30">
+				<viwe class="font-bold">2、您最近一周进食情况：（请点击选择最接近的一项）</viwe>
+			</view>
+		</view>
+	</block>
+</view>
+<footer>
+	<view bindtap="onBack" class="button primary plain" wx:if="{{step>1}}">上一页</view>
+	<view bindtap="onNext" class="button primary plain" wx:if="{{step==1}}">下一页</view>
+	<view bindtap="onSave" class="button primary" wx:if="{{step==2}}">保存</view>
+</footer>
+<footer-text>{{step}}/2</footer-text>
+<van-popup position="bottom" show="{{dateVisible}}">
+	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>

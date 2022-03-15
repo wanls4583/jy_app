@@ -65,6 +65,12 @@
 		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'mna'}}" is="chat-screen"></template>
 	</view>
 </template>
+<template name="chat-screen-diet-self-check">
+	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
+		<view class="width-100 padding-20 success-background-color white-color align-center">膳食自评表（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>
+		<template data="{{item,patient,consultOrderId:consultOrderId,viewVersion:viewVersion,stype:'diet-self-check'}}" is="chat-screen"></template>
+	</view>
+</template>
 <template name="chat-screen-tunour-fluid">
 	<view class="white-background-color border success-border-color overflow-hidden radius-8rpx">
 		<view class="width-100 padding-20 success-background-color white-color align-center">肿瘤恶液质评估（{{item.filtrateChatVO.associateId?'已完成':'待处理'}}）</view>

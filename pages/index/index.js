@@ -317,6 +317,9 @@ Page({
             case 11:
                 screen = 'mpgsga'
                 break;
+            case 12:
+                screen = 'diet-self-check'
+                break;
         }
         wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
             var doctor = data.doctor;

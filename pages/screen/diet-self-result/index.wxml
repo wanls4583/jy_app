@@ -1,0 +1,35 @@
+<import src="/template/doctor-item.wxml" />
+<import src="/template/doctor-item-v2.wxml" />
+<view class="container">
+	<view class="flex--center--between flex-direction-column" style="padding:24px 0;background-color:{{color}}">
+		<view class="white-color font-bold font-title">膳食自评分</view>
+		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{result}}</view>
+	</view>
+	<view class="white-background-color" wx:if="{{results&&results.length}}">
+		<view style="padding:20px 40px;line-height:24px">
+			<view>治疗原则：</view>
+			<view style="white-space:pre-line" wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{(!doctorId||userInfo.viewVersion==2)&&doctorList.length}}">
+		<view class="flex--center--between">
+			<text class="font-title font-bold">我的医生</text>
+			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
+				<text>全部</text>
+				<van-icon name="arrow" />
+			</view>
+		</view>
+		<view wx:if="{{userInfo.viewVersion==2}}">
+			<template data="{{doctor:item}}" is="doctor-item-v2" wx:for="{{doctorList}}" wx:key="id"></template>
+		</view>
+		<view wx:else>
+			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
+		</view>
+	</view>
+	<footer wx:if="{{doctorId&&userInfo.viewVersion!=2}}">
+		<view bindtap="onConsult" class="button primary block">立即问诊</view>
+	</footer>
+	<footer wx:elif="{{share==1}}">
+		<view bindtap="onShareResult" class="button primary block">分享结果给医生</view>
+	</footer>
+</view>

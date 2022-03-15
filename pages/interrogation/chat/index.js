@@ -106,6 +106,9 @@ Page({
                 name: 'MNA',
                 filtrateType: 'MNA'
             }, {
+                name: '膳食自评表',
+                filtrateType: 'DIET_SELF_CHECK'
+            }, {
                 name: '肿瘤恶液质评估',
                 filtrateType: 'TUNOUR_FLUID'
             }, {
@@ -1031,6 +1034,9 @@ Page({
                 break;
             case 'MNA':
                 url = '/pages/screen/mna/index';
+                break;
+            case 'DIET_SELF_CHECK':
+                url = '/pages/screen/diet-self-check/index';
                 break;
             case 'TUNOUR_FLUID':
                 url = '/pages/screen/tumour-fluid/index';

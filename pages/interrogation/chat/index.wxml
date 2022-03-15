@@ -220,6 +220,10 @@
 								<view class="position-relative" wx:elif="{{item.type==11}}">
 									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-mna"></template>
 								</view>
+								<!-- DIET_SELF_CHECK -->
+								<view class="position-relative" wx:elif="{{item.type==28}}">
+									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-diet-self-check"></template>
+								</view>
 								<!-- 肿瘤恶液质评估 -->
 								<view class="position-relative" wx:elif="{{item.type==23}}">
 									<template data="{{item:item,patient:patient,consultOrderId:consultOrderId,viewVersion:1}}" is="chat-screen-tunour-fluid"></template>

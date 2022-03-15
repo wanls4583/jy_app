@@ -130,7 +130,8 @@
             "oral-mucosa/index",
             "evaluate-result/index",
             "fat-result/index",
-            "fat/index"
+            "fat/index",
+            "diet-self-check/index"
         ]
     }, {
         "root": "pages/interrogation/guidance-online",
