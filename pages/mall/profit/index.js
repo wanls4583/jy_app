@@ -18,9 +18,9 @@ Page({
         startDateVisible: false,
         endDateVisible: false,
         statusMap: {
-            1: '已到账',
-            2: '待到账',
-            3: '已取消',
+            1: '待到账',
+            2: '已到账',
+            '-1': '已取消',
         }
     },
     onLoad() {
