@@ -112,7 +112,8 @@
 </view>
 <van-action-sheet bind:cancel="onShowShare" bind:click-overlay="onShowShare" cancel-text="取消" show="{{shareVisble}}">
 	<view class="flex--center--center padding-20">
-		<button bindtap="onShowShare" class="flex--center--center flex-direction-column padding-30 clickable" open-type="share">
+		<button bindtap="onShowShare" class="flex--center--center flex-direction-column clickable" open-type="share">
+			<text class="warn-color font-small margin-bottom-10">本商品分享后用户成功下单，预估现金奖励：￥{{productInfo._profit}}</text>
 			<image mode="aspectFit" src="/image/icon_share_wechat.png" style="width:60px;height:60px" />
 			<text class="font-small margin-top-10">微信好友</text>
 		</button>

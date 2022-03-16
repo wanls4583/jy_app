@@ -270,7 +270,7 @@
 								data-url="/pages/interrogation/guidance-order-detail/index?id={{order.id}}"
 								wx:if="{{order.status==0}}"
 							>立即支付</view>
-							<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.id}}" wx:if="{{order.status==7}}">确认收货</view>
+							<view bindtap="onConfrimRecieve" class="margin-left-20 primary button small" data-id="{{order.orderId}}" wx:if="{{order.status==7}}">确认收货</view>
 						</view>
 						<view
 							class="padding-top-bottom-20 border-top flex--center--end"

@@ -119,6 +119,8 @@ Page({
             url: `/goods/info/${this.data.id}`
         }).then((data) => {
             data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '份';
+            data.info._profit = (data.info.price - data.info.priceE) * 0.5 || 0;
+            data.info._profit = data.info._profit > 0 ? data.info._profit.toFixed(2) : 0;
             this.setData({
                 productInfo: data.info,
                 banner: data.info.goodsPic && data.info.goodsPic.split(',') || [],
