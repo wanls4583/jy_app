@@ -393,13 +393,10 @@ Page({
                             id: id
                         }
                     }).then(() => {
-                        var page = wx.jyApp.utils.getPages('pages/order-list/index');
-                        if (page) {
-                            if (type === 'mall') {
-                                page.updateMallStatus(id, 8);
-                            } else {
-                                page.updateGuidanceStatus(id, 8);
-                            }
+                        if (type === 'mall') {
+                            this.updateMallStatus(id, 8);
+                        } else {
+                            this.updateGuidanceStatus(id, 8);
                         }
                     }).finally(() => {
                         wx.hideLoading();
