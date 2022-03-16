@@ -8,7 +8,7 @@
 			<text class="primary-color">￥{{canWithdraw||0}}</text>
 		</view>
 		<view class="padding-bottom-30 font-small gray-color">
-			<text></text>
+			<text>每月11号计算税后收益后，计入可提现金额</text>
 		</view>
 	</view>
 	<view class="padding-30 padding-bottom-0 margin-top-20 white-background-color">
