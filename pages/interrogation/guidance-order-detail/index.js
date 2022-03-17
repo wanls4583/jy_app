@@ -177,13 +177,13 @@ Page({
             content: '确认该订单已收货？',
             success: (res) => {
                 if (res.confirm) {
-                    var id = e.currentTarget.dataset.id;
+                    var order = e.currentTarget.dataset.order;
                     wx.showLoading('确认中...', true);
                     wx.jyApp.http({
                         url: '/order/got',
                         method: 'post',
                         data: {
-                            id: id
+                            id: order.orderId
                         }
                     }).then(() => {
                         this.data.order.status = 8;
@@ -194,7 +194,7 @@ Page({
                         });
                         var page = wx.jyApp.utils.getPages('pages/order-list/index');
                         if (page) {
-                            page.updateGuidanceStatus(id, 8);
+                            page.updateGuidanceStatus(order.id, 8);
                         }
                     }).finally(() => {
                         wx.hideLoading();

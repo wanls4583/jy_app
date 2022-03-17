@@ -379,24 +379,24 @@ Page({
     },
     // 确认收货
     onConfrimRecieve(e) {
-        let type = e.currentTarget.dataset.type;
         wx.showModal({
             content: '确认该订单已收货？',
             success: (res) => {
                 if (res.confirm) {
-                    var id = e.currentTarget.dataset.id;
+                    let type = e.currentTarget.dataset.type;
+                    var order = e.currentTarget.dataset.order;
                     wx.showLoading('确认中...', true);
                     wx.jyApp.http({
                         url: '/order/got',
                         method: 'post',
                         data: {
-                            id: id
+                            id: type == 'mall' ? order.id : order.orderId
                         }
                     }).then(() => {
                         if (type === 'mall') {
-                            this.updateMallStatus(id, 8);
+                            this.updateMallStatus(order.id, 8);
                         } else {
-                            this.updateGuidanceStatus(id, 8);
+                            this.updateGuidanceStatus(order.id, 8);
                         }
                     }).finally(() => {
                         wx.hideLoading();
