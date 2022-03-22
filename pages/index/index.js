@@ -123,9 +123,10 @@ Page({
                     wx.setStorageSync('share-product', {
                         shareType: param.stp,
                         agentId: param.aId,
-                        uId: param.uId,
+                        userId: param.uId,
                         shareGoodsId: param.pId,
                     });
+                    this.productId = param.pId;
                 }
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {

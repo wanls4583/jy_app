@@ -79,7 +79,7 @@ Page({
                 goods: goods
             }
             if (shareData) {
-                data.shareId = shareData.shareType === 'user' ? shareData.uId : shareData.aId;
+                data.shareId = shareData.shareType === 'user' ? shareData.userId : shareData.agentId;
                 data.shareType = shareData.shareType;
                 data.shareGoodsId = shareData.shareGoodsId;
             }
