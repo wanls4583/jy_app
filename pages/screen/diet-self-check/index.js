@@ -17,6 +17,7 @@ Page({
         resultDescription: '',
         filtrateDate: new Date().getTime(),
         dateVisible: false,
+        now: 0
     },
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
@@ -88,6 +89,13 @@ Page({
             [`${prop}`]: value,
         });
     },
+    onClickImg(e) {
+        var num = e.currentTarget.dataset.num;
+        this.setData({
+            now: num,
+            [`answers.q[1]`]: num
+        });
+    },
     countResult() {
         let result = this.data.answers.q[1] || 0;
         let resultDescription = '';
@@ -140,9 +148,12 @@ Page({
                 patient: data.patientFiltrate
             });
             if (data.info.answers) {
+                let now = 0;
                 data.info.answers = JSON.parse(data.info.answers);
+                now = data.info.answers.q[1] || 0;
                 this.setData({
                     answers: data.info.answers,
+                    now: now
                 });
                 if (data.info.answers.filtrateDate) {
                     this.setData({
