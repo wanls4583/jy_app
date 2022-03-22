@@ -3,7 +3,7 @@
 <view class="container">
 	<view class="flex--center--between flex-direction-column" style="padding:24px 0;background-color:{{color}}">
 		<view class="white-color font-bold font-title">膳食自评分</view>
-		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{result}}</view>
+		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{result}}分</view>
 	</view>
 	<view class="white-background-color" wx:if="{{results&&results.length}}">
 		<view style="padding:20px 40px;line-height:24px">

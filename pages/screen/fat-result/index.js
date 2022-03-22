@@ -18,6 +18,7 @@ Page({
         this.consultOrderId = option.consultOrderId || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
+        wx.jyApp.setTempData('results', null);
         if (result == 2) {
             color = 'rgb(240,139,72)';
         }

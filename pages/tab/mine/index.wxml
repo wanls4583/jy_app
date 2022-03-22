@@ -79,7 +79,7 @@
 					<van-icon color="#fff" name="arrow" />
 				</view>
 			</view>
-			<view class="flex--center--start white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
+			<view class="flex--center--start flex-wrap-wrap white-background-color margin-20 margin-bottom-0 radius-8px overflow-hidden shadow">
 				<block wx:if="{{userInfo.role=='USER'}}">
 					<view
 						bindtap="onGoto"
