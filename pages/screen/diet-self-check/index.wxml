@@ -15,7 +15,7 @@
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
-				<viwe class="font-bold">1、请选择你的主食类型：</viwe>
+				<viwe class="font-bold">1、请选择您的主食类型：</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="{{1}}">主食为大米</van-radio>
 					<van-radio name="{{2}}">主食为面食</van-radio>
@@ -28,7 +28,7 @@
 		<view class="white-background-color">
 			<view class="padding-30">
 				<viwe class="font-bold">2、您最近一周进食情况：（请点击选择最接近的一项）</viwe>
-				<image class="width-100 margin-top-10" mode="widthFix" src="../image/diet-self-check/0.png" />
+				<image class="width-100 margin-top-20" mode="widthFix" src="../image/diet-self-check/0.png" />
 				<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="1" mode="widthFix" src="../image/diet-self-check/1{{now==1?'_1':''}}.png" />
 				<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="2" mode="widthFix" src="../image/diet-self-check/2{{now==2?'_1':''}}.png" />
 				<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="3" mode="widthFix" src="../image/diet-self-check/3{{now==3?'_1':''}}.png" />

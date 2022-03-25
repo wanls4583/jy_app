@@ -129,6 +129,10 @@ Page({
         });
     },
     onNext() {
+        if (this.data.step == 1 && !this.data.answers.q[0]) {
+            wx.jyApp.toast('请选择你的主食类型');
+            return;
+        }
         this.setData({
             step: this.data.step + 1
         });
@@ -164,6 +168,10 @@ Page({
         });
     },
     onSave() {
+        if (!this.data.answers.q[1]) {
+            wx.jyApp.toast('请选择最近一周进食情况')
+            return;
+        }
         this.countResult();
         var data = {
             id: this.data.id,
