@@ -113,7 +113,7 @@ Page({
             case 4:
                 resultDescription = '营养教育;口服营养补充（ONS)';
                 break;
-            case 3:
+            case 5:
                 resultDescription = '营养教育;口服营养补充（ONS)';
                 break;
         }

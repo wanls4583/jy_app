@@ -131,7 +131,8 @@
             "evaluate-result/index",
             "fat-result/index",
             "fat/index",
-            "diet-self-check/index"
+            "diet-self-check/index",
+            "diet-self-result/index"
         ]
     }, {
         "root": "pages/interrogation/guidance-online",
