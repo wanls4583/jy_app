@@ -743,7 +743,7 @@ Page({
                         _item.nutritionOrderChatVO._status = wx.jyApp.constData.mallOrderStatusMap[obj.status];
                         _item.nutritionOrderChatVO.status = obj.status;
                     }
-                    if ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27].indexOf(obj.type) > -1) {
+                    if ([7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28].indexOf(obj.type) > -1) {
                         _item.filtrateChatVO = _item.orderApplyVO || {};
                         _item.filtrateChatVO.associateId = obj.associateId;
                         _item.filtrateChatVO.filtrateResult = obj.filtrateResult;
