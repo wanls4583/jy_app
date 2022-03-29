@@ -240,10 +240,12 @@ Page({
                     if (this.data.result == '恶液质难治期') {
                         result = 4;
                     }
-                    wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
-                    wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/evaluate-result/index?title=肿瘤恶液质评估&result=${result}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                    });
+                    if (this.data.userInfo.role != 'DOCTOR') {
+                        wx.jyApp.setTempData('evaluate-results', [this.data._resultDescription]);
+                        wx.jyApp.utils.navigateTo({
+                            url: `/pages/screen/evaluate-result/index?title=肿瘤恶液质评估&result=${result}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+                        });
+                    }
                 }
             });
         }).catch(() => {
