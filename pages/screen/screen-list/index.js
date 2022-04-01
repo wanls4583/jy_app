@@ -181,7 +181,7 @@ Page({
                     }
                 }
                 if (item.filtrateType == 'DIET_SELF_CHECK') {
-                    item._filtrateType = '筛查自评表';
+                    item._filtrateType = '膳食自评表';
                     item.label = '评估';
                 }
                 if (item.filtrateType == 'FAT-GROW') {
