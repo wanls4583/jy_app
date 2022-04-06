@@ -87,6 +87,8 @@ Page({
         }
         this.setData({
             [`${prop}`]: value,
+            now: 0,
+            'answers.q[1]': 0
         });
     },
     onClickImg(e) {
