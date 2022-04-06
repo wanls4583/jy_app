@@ -19,14 +19,16 @@ Page({
         var results = wx.jyApp.getTempData('evaluate-results') || [];
         var result = option.result;
         var _result = option._result;
-        var color = 'rgb(126,210,107)';
+        var color = '';
         wx.jyApp.setTempData('evaluate-results', null);
-        if (result == 2) {
-            color = 'rgb(240,139,72)';
-        }
-        if (result >= 3) {
+        if (result <= 2) {
             color = 'rgb(236,76,23)';
+        } else if (result == 3) {
+            color = 'rgb(240,139,72)';
+        } else {
+            color = 'rgb(126,210,107)';
         }
+
         this.setData({
             result: result,
             results: results,
