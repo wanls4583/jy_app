@@ -17,9 +17,9 @@
 			<view class="padding-30">
 				<viwe class="font-bold">1、请选择您的主食类型：</viwe>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
-					<van-radio name="{{1}}">主食为大米</van-radio>
+					<van-radio name="{{3}}">主食为大米</van-radio>
 					<van-radio name="{{2}}">主食为面食</van-radio>
-					<van-radio name="{{3}}">主食为米、面食</van-radio>
+					<van-radio name="{{1}}">主食为米、面食</van-radio>
 				</van-radio-group>
 			</view>
 		</view>
