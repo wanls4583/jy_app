@@ -321,6 +321,9 @@ Page({
             case 12:
                 screen = 'diet-self-check'
                 break;
+            case 13:
+                screen = 'assistant-tumour'
+                break;
         }
         wx.jyApp.loginUtil.getDoctorInfo(this.screenDoctorId).then((data) => {
             var doctor = data.doctor;

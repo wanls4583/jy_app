@@ -53,6 +53,9 @@ Page({
             case 'MNA':
                 url = '/pages/screen/mna/index';
                 break;
+            case 'ASSISTANT_TUMOUR':
+                url = '/pages/screen/assistant-tumour/index';
+                break;
             case 'DIET_SELF_CHECK':
                 url = '/pages/screen/diet-self-check/index';
                 break;
@@ -179,6 +182,10 @@ Page({
                     if (item.filtrateResult == 5) {
                         item._filtrateResult = '中心性肥胖（BMI肥胖）';
                     }
+                }
+                if (item.filtrateType == 'ASSISTANT_TUMOUR') {
+                    item._filtrateType = '精准营养小助手';
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'DIET_SELF_CHECK') {
                     item._filtrateType = '膳食自评表';

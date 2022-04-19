@@ -96,6 +96,9 @@ Page({
                 name: 'MNA',
                 filtrateType: 'MNA'
             }, {
+                name: '精准营养小助手',
+                filtrateType: 'ASSISTANT_TUMOUR'
+            }, {
                 name: '膳食自评表',
                 filtrateType: 'DIET_SELF_CHECK'
             }, {
@@ -969,6 +972,9 @@ Page({
                 break;
             case 'MNA':
                 url = '/pages/screen/mna/index';
+                break;
+            case 'ASSISTANT_TUMOUR':
+                url = '/pages/screen/assistant-tumour/index';
                 break;
             case 'DIET_SELF_CHECK':
                 url = '/pages/screen/diet-self-check/index';

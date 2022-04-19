@@ -161,6 +161,10 @@ Page({
                         item._filtrateResult = '中心性肥胖（BMI肥胖）';
                     }
                 }
+                if (item.filtrateType == 'ASSISTANT_TUMOUR') {
+                    item._filtrateType = '精准营养小助手';
+                    item.label = '评估';
+                }
                 if (item.filtrateType == 'DIET_SELF_CHECK') {
                     item._filtrateType = '膳食自评表';
                     item.label = '评估';
@@ -242,6 +246,10 @@ Page({
                         item.answers.q = q;
                         item.answers.q[1] = item.answers.q[1] && item.answers.q[1].join('、');
                     }
+                }
+                if (item.filtrateType == 'ASSISTANT_TUMOUR') {
+                    item._filtrateType = '精准营养小助手';
+                    item.label = '评估';
                 }
                 if (item.filtrateType == 'DIET_SELF_CHECK') {
                     item._filtrateType = '膳食自评表';
