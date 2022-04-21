@@ -293,6 +293,7 @@ Page({
             result: result,
             resultDescription: resultDescription,
             colorResult: colorResult,
+            isRisk: result === '需营养干预'
         });
     },
     loadInfo(id) {
