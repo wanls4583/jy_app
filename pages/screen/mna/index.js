@@ -40,7 +40,7 @@ Page({
     onLoad(option) {
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
-            fields: ['userInfo'],
+            fields: ['userInfo', 'doctorInfo'],
         });
         this.storeBindings.updateStoreBindings();
         var patient = wx.jyApp.getTempData('screenPatient') || {};
@@ -52,8 +52,16 @@ Page({
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
+            var filtrateByName = option.filtrateByName;
+            if(this.from === 'screen') {
+                if(this.data.userInfo.role === 'DOCTOR' && this.data.doctorInfo) {
+                    filtrateByName = this.data.doctorInfo.doctorName;
+                } else {
+                    filtrateByName = patient.patientName;
+                }
+            }
             this.setData({
-                filtrateByName: this.from == 'screen' ? patient.patientName : option.filtrateByName,
+                filtrateByName: filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'mna.stature': patient.height,

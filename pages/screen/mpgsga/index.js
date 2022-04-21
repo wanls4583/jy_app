@@ -86,12 +86,19 @@ Page({
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
         var patient = wx.jyApp.getTempData('screenPatient') || {};
-        var filtrateByName = this.data.userInfo.role == 'DOCTOR' ? this.data.doctorInfo.doctorName : patient.patientName;
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
+            var filtrateByName = option.filtrateByName;
+            if(this.from === 'screen') {
+                if(this.data.userInfo.role === 'DOCTOR' && this.data.doctorInfo) {
+                    filtrateByName = this.data.doctorInfo.doctorName;
+                } else {
+                    filtrateByName = patient.patientName;
+                }
+            }
             this.setData({
-                filtrateByName: this.from == 'screen' ? filtrateByName : option.filtrateByName,
+                filtrateByName: filtrateByName,
                 doctorName: option.doctorName,
                 patient: patient,
                 'pgsga.currentStature': patient.height,
