@@ -14,7 +14,7 @@
 	</view>
 	<view class="white-background-color margin-top-20">
 		<view class="padding-30">
-			<viwe class="font-bold">1、请选择符合的选项</viwe>
+			<view class="font-bold">1、请选择符合的选项</view>
 			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 				<van-checkbox name="{{1}}" shape="square">5岁前开始肥胖或快速发展，尤其是与遗传相关的情况（认知发育延迟、畸形等）。</van-checkbox>
 				<van-checkbox name="{{2}}" shape="square">持续或快速的体重增加与降低的生长速度或身材矮小相关。</van-checkbox>
@@ -25,7 +25,7 @@
 			</van-checkbox-group>
 		</view>
 		<view class="padding-30">
-			<viwe class="font-bold">2、是否有以下疾病？</viwe>
+			<view class="font-bold">2、是否有以下疾病？</view>
 			<van-checkbox-group bind:change="onChange" class="margin-top" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 				<van-checkbox name="{{1}}" shape="square">脂肪肝</van-checkbox>
 				<van-checkbox name="{{2}}" shape="square">高血压</van-checkbox>

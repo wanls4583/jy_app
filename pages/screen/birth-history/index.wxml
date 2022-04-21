@@ -14,7 +14,7 @@
 	</view>
 	<view class="white-background-color padding-30 margin-top-20">
 		<view>
-			<viwe class="font-bold">1、出生体重</viwe>
+			<view class="font-bold">1、出生体重</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 				<van-radio name="{{1}}">{{'正常（2.5kg≤出生体质量≤4.0kg）'}}</van-radio>
 				<van-radio name="{{2}}">{{'低出生体质量（出生体质量<2.5kg）'}}</van-radio>
@@ -24,7 +24,7 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">2、母乳喂养时间</viwe>
+			<view class="font-bold">2、母乳喂养时间</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 				<van-radio name="{{1}}">纯母乳喂养小于6个月</van-radio>
 				<van-radio name="{{2}}">纯母乳喂养至满6个月</van-radio>
@@ -36,7 +36,7 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">3、是否早产</viwe>
+			<view class="font-bold">3、是否早产</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 				<van-radio name="{{1}}">{{'足月（37周≤胎龄<42周）'}}</van-radio>
 				<van-radio name="{{2}}">{{'早产（28周≤胎龄<37周）'}}</van-radio>
@@ -45,13 +45,13 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">4、青春期性成熟</viwe>
+			<view class="font-bold">4、青春期性成熟</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 				<van-radio name="{{1}}">提前</van-radio>
-				<viwe class="gray-color" style="display:block;margin-left:60rpx">
+				<view class="gray-color" style="display:block;margin-left:60rpx">
 					<view>男生：9岁前出现性发育征象</view>
 					<view>女生：8岁前出现性发育征象或10周岁以前出现月经</view>
-				</viwe>
+				</view>
 				<van-radio name="{{2}}">正常</van-radio>
 				<van-radio name="{{3}}">延迟</van-radio>
 				<view class="gray-color" style="display:block;margin-left:60rpx">
@@ -63,7 +63,7 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">5、辅食添加时间</viwe>
+			<view class="font-bold">5、辅食添加时间</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
 				<van-radio name="{{1}}">小于4个月</van-radio>
 				<van-radio name="{{2}}">小于6个月</van-radio>
@@ -74,7 +74,7 @@
 	</view>
 	<view class="white-background-color padding-30 padding-top-0">
 		<view class="padding-top-30 border-top">
-			<viwe class="font-bold">6、生长速率</viwe>
+			<view class="font-bold">6、生长速率</view>
 			<van-radio-group bind:change="onChange" data-prop="answers.q[5]" value="{{answers.q[5]}}">
 				<van-radio name="{{1}}">
 					<view>

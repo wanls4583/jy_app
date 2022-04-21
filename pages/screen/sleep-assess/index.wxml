@@ -15,7 +15,7 @@
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
-				<viwe class="font-bold">1、你有就寝问题吗？</viwe>
+				<view class="font-bold">1、你有就寝问题吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -26,7 +26,7 @@
 	<block wx:if="{{step==2}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">2、你白天会感到非常疲惫吗？</viwe>
+				<view class="font-bold">2、你白天会感到非常疲惫吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -37,7 +37,7 @@
 	<block wx:if="{{step==3}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</viwe>
+				<view class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -48,7 +48,7 @@
 	<block wx:if="{{step==4}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">4、你通常晚上睡多长时间？（请在家长协助下填写）</viwe>
+				<view class="font-bold">4、你通常晚上睡多长时间？（请在家长协助下填写）</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 					<van-radio name="{{1}}">少于7小时</van-radio>
 					<van-radio name="{{2}}">7-12小时</van-radio>
@@ -60,7 +60,7 @@
 	<block wx:if="{{step==5}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">5、你夜间大声打鼾，每夜都打鼾，或者呼吸困难吗？（请在家长协助下填写）</viwe>
+				<view class="font-bold">5、你夜间大声打鼾，每夜都打鼾，或者呼吸困难吗？（请在家长协助下填写）</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -86,7 +86,7 @@
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
-				<viwe class="font-bold">1、你有入睡问题吗？</viwe>
+				<view class="font-bold">1、你有入睡问题吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -97,7 +97,7 @@
 	<block wx:if="{{step==2}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">2、你白天经常感到困倦吗？</viwe>
+				<view class="font-bold">2、你白天经常感到困倦吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -108,7 +108,7 @@
 	<block wx:if="{{step==3}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</viwe>
+				<view class="font-bold">3、你夜间频繁醒来吗？再次入睡困难吗？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>
@@ -119,7 +119,7 @@
 	<block wx:if="{{step==4}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">4、你通常晚上睡多长时间？</viwe>
+				<view class="font-bold">4、你通常晚上睡多长时间？</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
 					<van-radio name="{{1}}">少于7小时</van-radio>
 					<van-radio name="{{2}}">7-12小时</van-radio>
@@ -131,7 +131,7 @@
 	<block wx:if="{{step==5}}">
 		<view class="white-background-color">
 			<view class="padding-30">
-				<viwe class="font-bold">5、你夜间大声打鼾或者每夜都打鼾吗？（请在家长协助下填写）</viwe>
+				<view class="font-bold">5、你夜间大声打鼾或者每夜都打鼾吗？（请在家长协助下填写）</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
 					<van-radio name="{{1}}">是</van-radio>
 					<van-radio name="{{0}}">否</van-radio>

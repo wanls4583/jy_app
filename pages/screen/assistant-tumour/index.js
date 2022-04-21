@@ -27,6 +27,7 @@ Page({
                 ageScore: '',
             },
             selfDiet: 0,
+            mainDiet: ''
         },
         result: '',
         resultDescription: '',
@@ -112,7 +113,7 @@ Page({
     },
     onShowDate() {
         this.setData({
-            dateVisible: true,
+            // dateVisible: true,
         });
     },
     onConfirmDate(e) {
@@ -147,7 +148,19 @@ Page({
     },
     onNext() {
         if (this.data.step == 1) {
-            if (!this.data.answers.q[0] || !this.data.answers.q[1] || !this.data.answers.q[2] || !this.data.answers.q[3]) {
+            if (!this.data.answers.q[0] || !this.data.answers.q[1] || !this.data.answers.q[2] || !this.data.answers.q[3] || !this.data.answers.q[4]) {
+                wx.jyApp.toast('必填项不能为空');
+                return;
+            }
+        }
+        if(this.data.step == 2) {
+            if(!this.data.answers.pgsga.currentStature) {
+                wx.jyApp.toast('必填项不能为空');
+                return;
+            }
+        }
+        if (this.data.step == 7) {
+            if (!this.data.answers.mainDiet) {
                 wx.jyApp.toast('必填项不能为空');
                 return;
             }

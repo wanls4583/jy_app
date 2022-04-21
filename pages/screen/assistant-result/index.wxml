@@ -13,7 +13,7 @@
 	</view>
 	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{(!doctorId||userInfo.viewVersion==2)&&doctorList.length}}">
 		<view class="flex--center--between">
-			<text class="font-title font-bold">我的医生</text>
+			<text class="font-title font-bold">推荐医生</text>
 			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
 				<text>全部</text>
 				<van-icon name="arrow" />

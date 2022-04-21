@@ -15,7 +15,7 @@
 		</view>
 		<view class="white-background-color margin-top-20">
 			<view class="padding-30">
-				<viwe class="font-bold">1、请选择你的体脂肪含量（测量方法：生物电阻抗法（BIA））</viwe>
+				<view class="font-bold">1、请选择你的体脂肪含量（测量方法：生物电阻抗法（BIA））</view>
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="{{1}}">20%以下</van-radio>
 					<van-radio name="{{2}}">20%-25%</van-radio>
