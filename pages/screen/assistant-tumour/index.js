@@ -337,6 +337,7 @@ Page({
             id: this.data.id,
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
+            doctorId: this.doctorId,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
             resultDescription: this.data.resultDescription,

@@ -15,6 +15,7 @@ Page({
         var _result = option._result;
         var color = 'rgb(126,210,107)';
         this.patientId = option.patientId || '';
+        this.doctorId = option.doctorId || '';
         this.consultOrderId = option.consultOrderId || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
@@ -67,12 +68,12 @@ Page({
                 })
             } else {
                 wx.jyApp.utils.redirectTo({
-                    url: `/pages/screen/fat-assess/index?active=1&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}&roomId=${this.roomId}`
+                    url: `/pages/screen/fat-assess/index?active=1&consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&doctorId=${this.doctorId}&from=${this.from}&roomId=${this.roomId}`
                 });
             }
         } else {
             wx.jyApp.utils.redirectTo({
-                url: `${url}?consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&from=${this.from}&roomId=${this.roomId}&share=${this.data.share}`
+                url: `${url}?consultOrderId=${this.consultOrderId}&patientId=${this.patientId}&doctorId=${this.doctorId}&from=${this.from}&roomId=${this.roomId}&share=${this.data.share}`
             });
         }
     },

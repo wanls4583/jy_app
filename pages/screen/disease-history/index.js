@@ -120,6 +120,7 @@ Page({
             id: this.data.id,
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
+            doctorId: this.doctorId,
             answers: JSON.stringify(this.data.answers),
             result: this.data.result,
             isRisk: this.data.isRisk,
@@ -150,11 +151,11 @@ Page({
                 complete: () => {
                     if (this.data.result == '异常') {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-result/index?result=3&_result=需到医院就诊&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+                            url: `/pages/screen/fat-result/index?result=3&_result=需到医院就诊&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
                     } else {
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
+                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
                         });
                     }
                 }

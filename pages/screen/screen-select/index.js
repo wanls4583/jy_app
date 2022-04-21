@@ -14,7 +14,7 @@ Page({
             fields: ['userInfo', 'doctorInfo'],
         });
         this.getPatient();
-        this.doctorId = option.doctorId;
+        this.doctorId = option.doctorId || '';
         if (option.doctorId) {
             this.getDoctorInfo();
         }

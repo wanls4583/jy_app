@@ -212,6 +212,7 @@ Page({
             id: this.data.id,
             filtrateId: this.data.filtrateId,
             patientId: this.data.patient.id,
+            doctorId: this.doctorId,
             answers: JSON.stringify(this.data.answers),
             type: 'FAT-ACTION',
             result: this.data.result,
@@ -243,7 +244,7 @@ Page({
                     if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-result/index?result=${this.result}&_result=${this.data.result}&patientId=${this.data.patientId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+                            url: `/pages/screen/fat-result/index?result=${this.result}&_result=${this.data.result}&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
                     }
                 }
