@@ -27,7 +27,7 @@ Page({
                 ageScore: '',
             },
             selfDiet: 0,
-            mainDiet: ''
+            mainDiet: '',
         },
         result: '',
         resultDescription: '',
@@ -153,8 +153,8 @@ Page({
                 return;
             }
         }
-        if(this.data.step == 2) {
-            if(!this.data.answers.pgsga.currentStature) {
+        if (this.data.step == 2) {
+            if (!this.data.answers.pgsga.currentStature) {
                 wx.jyApp.toast('必填项不能为空');
                 return;
             }
@@ -293,7 +293,7 @@ Page({
             result: result,
             resultDescription: resultDescription,
             colorResult: colorResult,
-            isRisk: result === '需营养干预'
+            isRisk: result === '需营养干预',
         });
     },
     loadInfo(id) {
@@ -332,6 +332,10 @@ Page({
             });
     },
     onSave() {
+        if (!this.data.answers.selfDiet) {
+            wx.jyApp.toast('必填项不能为空');
+            return;
+        }
         this.countResult();
         var data = {
             id: this.data.id,
@@ -365,7 +369,7 @@ Page({
                     delta: 1,
                     complete: () => {
                         if (this.data.userInfo.role != 'DOCTOR') {
-                            wx.jyApp.setTempData('evaluate-results', [this.data.resultDescription]);
+                            wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
                             wx.jyApp.utils.navigateTo({
                                 url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`,
                             });

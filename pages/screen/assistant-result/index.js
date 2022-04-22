@@ -16,11 +16,11 @@ Page({
             fields: ['userInfo'],
         });
         this.storeBindings.updateStoreBindings();
-        var results = wx.jyApp.getTempData('screen-results') || null;
+        var results = wx.jyApp.getTempData('assistant-results') || null;
         var result = option.result;
         var _result = option._result;
         var color = 'rgb(126,210,107)';
-        wx.jyApp.setTempData('screen-results', null);
+        wx.jyApp.setTempData('assistant-results', null);
         if (result == 2) {
             color = 'rgb(240,139,72)';
         }

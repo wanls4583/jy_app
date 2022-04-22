@@ -149,7 +149,7 @@
 		</view>
 	</view>
 	<view class="white-background-color padding-top-30" wx:if="{{step==8}}">
-		<view class="padding-left-right-30 align-center">您最近一周进食情况：（请点击选择最接近的一项）</view>
+		<view class="padding-left-right-30 align-center required">您最近一周进食情况：（请点击选择最接近的一项）</view>
 		<image class="width-100 margin-top-20" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/1_01.png" />
 		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="1" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=1?'-1':''}}_02.png" />
 		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="2" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=2?'-1':''}}_03.png" />
