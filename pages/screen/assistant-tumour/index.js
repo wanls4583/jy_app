@@ -239,6 +239,7 @@ Page({
         var result = '';
         var colorResult = 1;
         var resultDescription = '';
+        var C = 0;
         this.countMpgsgaScore();
         if (this.data.answers.pgsga.score === 0) {
             //判断mpgsga
@@ -287,14 +288,122 @@ Page({
                 result = '需营养干预';
                 resultDescription = '需医生会诊，并进行营养干预';
                 colorResult = 2;
+                C = B;
             }
         }
         this.setData({
+            C: C,
             result: result,
             resultDescription: resultDescription,
             colorResult: colorResult,
             isRisk: result === '需营养干预',
         });
+        this.setPlan();
+    },
+    setPlan() {
+        let C = this.data.C;
+        let plan1 = [];
+        let plan2 = [];
+        _step1();
+        this.plans = {
+            plan1: plan1,
+            plan2: plan2,
+        };
+
+        function _step1() {
+            if (C <= 300) {
+                plan1.push('0017');
+            } else {
+                _step2();
+            }
+        }
+
+        function _step2() {
+            if (this.data.answers.q[3] == 1) {
+                _step3();
+            } else {
+                _step4();
+            }
+        }
+
+        function _step3() {
+            if (this.data.answers.q[4] == 1) {
+                if (C <= 400) {
+                    plan1.push('0001');
+                } else if (C <= 500) {
+                    plan1.push('0002');
+                } else if (C <= 600) {
+                    plan1.push('0003');
+                } else {
+                    plan1.push('0004');
+                }
+            } else {
+                if (C <= 400) {
+                    plan1.push('0005');
+                } else if (C <= 500) {
+                    plan1.push('0006');
+                } else if (C <= 600) {
+                    plan1.push('0007');
+                } else {
+                    plan1.push('0008');
+                }
+            }
+            _step5();
+        }
+
+        function _step4() {
+            let symptom = this.data.answers.pgsga.symptom;
+            let symptomMap = {};
+            symptom.map((item) => {
+                symptomMap[item] = true;
+            });
+            if (symptomMap['恶心'] || symptomMap['呕吐'] || symptomMap['腹泻'] || symptomMap['腹胀'] || symptomMap['腹痛']) {
+                if (C <= 400) {
+                    plan1.push('0005');
+                } else if (C <= 500) {
+                    plan1.push('0006');
+                } else if (C <= 600) {
+                    plan1.push('0007');
+                } else {
+                    plan1.push('0008');
+                }
+            } else {
+                if (C <= 400) {
+                    plan1.push('0009');
+                } else if (C <= 500) {
+                    plan1.push('0010');
+                } else if (C <= 600) {
+                    plan1.push('0011');
+                } else {
+                    plan1.push('0012');
+                }
+            }
+            _step5();
+        }
+
+        function _step5() {
+            if (this.data.answers.q[2] == 1) {
+                if (C <= 400) {
+                    plan2.push('0005');
+                } else if (C <= 500) {
+                    plan2.push('0006');
+                } else if (C <= 600) {
+                    plan2.push('0007');
+                } else {
+                    plan2.push('0008');
+                }
+            } else {
+                if (C <= 400) {
+                    plan2.push('0013');
+                } else if (C <= 500) {
+                    plan2.push('0014');
+                } else if (C <= 600) {
+                    plan2.push('0015');
+                } else {
+                    plan2.push('0016');
+                }
+            }
+        }
     },
     loadInfo(id) {
         return wx.jyApp
@@ -368,12 +477,11 @@ Page({
                     mask: true,
                     delta: 1,
                     complete: () => {
-                        if (this.data.userInfo.role != 'DOCTOR') {
-                            wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
-                            wx.jyApp.utils.navigateTo({
-                                url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`,
-                            });
-                        }
+                        wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
+                        wx.jyApp.setTempData('assistant-plans', this.plans);
+                        wx.jyApp.utils.navigateTo({
+                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`,
+                        });
                     },
                 });
             })
