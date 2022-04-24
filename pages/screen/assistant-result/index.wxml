@@ -26,6 +26,28 @@
 			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 		</view>
 	</view>
+	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{plans.length}}">
+		<view class="flex--center--between">
+			<text class="font-title font-bold">推荐营养方案</text>
+		</view>
+		<block wx:for="{{products in plans}}">
+			<view class="padding-top-bottom-20 primary-color">方案{{index==0?'一':'二'}}</view>
+			<view class="padding-bottom-30 margin-bottom-30 border-bottom" wx:for="{{products}}" wx:for-item="product" wx:key="id">
+				<view>
+					<template data="{{goods:product}}" is="order-goods-item"></template>
+				</view>
+				<view class="gray-color font-small">{{product.usage}}</view>
+				<view class="margin-top-20 gray-color font-small" wx:if="{{product.remark}}">备注：{{product.remark}}</view>
+			</view>
+			<view class="flex--center--between margin-top-20">
+				<view class="primary-color">
+					<text>订单金额：</text>
+					<text>￥{{products.totalAmount}}</text>
+				</view>
+			</view>
+		</block>
+	</view>
+	
 	<footer wx:if="{{doctorId&&userInfo.viewVersion!=2}}">
 		<view bindtap="onConsult" class="button primary block">立即问诊</view>
 	</footer>

@@ -102,6 +102,7 @@ Page({
         let plan2 = plans.plan2;
         let products1 = [];
         let products2 = [];
+        let plans = [];
         plan1.forEach((item) => {
             let items = this.getProductListByPlanNumber(item);
             items && products1.push(...items);
@@ -110,9 +111,10 @@ Page({
             let items = this.getProductListByPlanNumber(item);
             items && products2.push(...items);
         });
+        products1.length && plans.push(products1);
+        products2.length && plans.push(products2);
         this.setData({
-            products1: products1,
-            products2: products2,
+            plans: plans,
         });
     },
     getProductListByPlanNumber(planNumber) {

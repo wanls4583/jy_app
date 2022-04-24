@@ -30,6 +30,7 @@ Component({
             this.setData({
                 minContentHeight: wx.getSystemInfoSync().windowHeight - 80 - this.data.menuRect.outerNavHeight
             });
+            this.loadPlan();
         },
         detached() {
             this.storeBindings.destroyStoreBindings();
@@ -169,6 +170,15 @@ Component({
                     categoryList: categories
                 });
             });
-        }
+        },
+        loadPlan() {
+            return wx.jyApp
+                .http({
+                    url: `/product/assistant/plan/list`,
+                })
+                .then((data) => {
+                    console.log(data.list);
+                });
+        },
     }
 })
