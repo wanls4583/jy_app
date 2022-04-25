@@ -9,6 +9,7 @@ Page({
             actions: ['addCart', 'clearCart', 'updateSelectAddress'],
         });
         this.storeBindings.updateStoreBindings();
+        var assistantGoods  = wx.jyApp.getTempData('assistant-result-goods');
         if (wx.jyApp.tempData.buyGoods) { //立即购买
             var goods = wx.jyApp.tempData.buyGoods;
             goods.selected = true;
@@ -20,6 +21,17 @@ Page({
                 cartTotalMoney: goods.price
             });
             delete wx.jyApp.tempData.buyGoods;
+        } else if(assistantGoods) {
+            let totalAmount = 0;
+            assistantGoods.forEach((item)=>{
+                item.selected = true;
+                totalAmount += item.amount;
+            });
+            this.setData({
+                cart: assistantGoods,
+                cartTotalMoney: totalAmount
+            });
+            wx.jyApp.setTempData('assistant-result-goods', null);
         }
         this.setData({
             totalMoney: (this.data.cartTotalMoney + Number(this.data.configData.deliveryCost || 0)).toFixed(2)

@@ -46,10 +46,6 @@ Page({
             filtrateType: option.filtrateType,
             roomId: this.roomId,
         });
-        this.loadPlan().then(() => {
-            this.setPlan({ plan1: ['0001'] });
-        });
-        return;
         if (result === 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && !this.roomId))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
@@ -94,6 +90,13 @@ Page({
         wx.jyApp.setTempData('guidePatient', this.patient);
         wx.jyApp.utils.navigateTo({
             url: `/pages/interrogation/guidance-online/medical-record/index?${param}`,
+        });
+    },
+    onBuy(e) {
+        let products = e.currentTarget.dataset.item;
+        wx.jyApp.setTempData('assistant-result-goods', products);
+        wx.jyApp.utils.navigateTo({
+            url: '/pages/mall/confirm-order/index'
         });
     },
     loadDoctor() {
@@ -173,6 +176,7 @@ Page({
             goods._giveWay = wx.jyApp.constData.giveWayMap[goods.giveWay];
             goods._frequency = wx.jyApp.constData.frequencyArray[goods.frequency - 1];
             goods.goodsPic = (goods.goodsPic && goods.goodsPic.split(',')[0]) || '';
+            goods.firstPic = goods.goodsPic;
             goods.productId = goods.productId;
             goods.usage = `${goods.days}天，${goods._frequency}，每次${goods.perUseNum}${wx.jyApp.constData.unitChange[goods.standardUnit]}，${goods._giveWay}`;
             return goods;

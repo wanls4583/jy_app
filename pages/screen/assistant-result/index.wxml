@@ -6,7 +6,7 @@
 		<view class="white-color font-bold font-title">营养风险等级</view>
 		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>
 	</view>
-	<view class="white-background-color" wx:if="{{results&&results.length}}">
+	<view class="white-background-color" wx:if="{{results&&results.length&&!plans.length}}">
 		<view style="padding:20px 40px;line-height:24px">
 			<view>结果解释：</view>
 			<view style="white-space:pre-line" wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>

@@ -57,6 +57,7 @@ Page({
                 })
             })
         } else if(assistantGoods) {
+            wx.jyApp.setTempData('assistant-result-goods', null);
             this.setData({
                 goodsList: assistantGoods
             });
