@@ -13,9 +13,9 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/index/index",
-          "pathName": "pages/index/index",
-          "query": "type=-1&url=/pages/interrogation/doctor-patient-list/index",
+          "name": "pages/screen/assistant-result/index",
+          "pathName": "pages/screen/assistant-result/index",
+          "query": "",
           "scene": null
         }
       ]

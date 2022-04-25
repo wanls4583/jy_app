@@ -479,8 +479,9 @@ Page({
                     complete: () => {
                         wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
                         wx.jyApp.setTempData('assistant-plans', this.plans);
+                        wx.jyApp.setTempData('assistant-patient', this.patient);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`,
+                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&roomId=${this.roomId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}`,
                         });
                     },
                 });

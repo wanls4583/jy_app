@@ -10,6 +10,7 @@ Page({
     },
     onLoad() {
         var guideOrderDetail = wx.jyApp.getTempData('guideOrderDetail');
+        var assistantGoods = wx.jyApp.getTempData('assistant-result-goods');
         var patient = wx.jyApp.getTempData('guidePatient');
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
@@ -55,6 +56,10 @@ Page({
                     return item;
                 })
             })
+        } else if(assistantGoods) {
+            this.setData({
+                goodsList: assistantGoods
+            });
         }
         if (this.data.goodsList.length) {
             this.caculateTotalAmount();

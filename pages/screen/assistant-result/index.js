@@ -6,6 +6,8 @@
 Page({
     data: {
         doctorList: [],
+        totalAmounts: [],
+        plans: [],
         result: 0,
         _result: '',
         color: '',
@@ -23,6 +25,10 @@ Page({
         var color = 'rgb(126,210,107)';
         wx.jyApp.setTempData('assistant-results', null);
         wx.jyApp.setTempData('assistant-plans', null);
+        this.roomId = option.roomId || '';
+        this.doctorId = option.doctorId || '';
+        this.patient = wx.jyApp.getTempData('assistant-patient');
+        this.consultOrderId = option.consultOrderId || '';
         if (result == 2) {
             color = 'rgb(240,139,72)';
         }
@@ -34,12 +40,17 @@ Page({
             results: results,
             _result: _result,
             color: color,
-            doctorId: option.doctorId || '',
+            doctorId: this.doctorId,
             share: option.share,
             filtrateId: option.filtrateId,
             filtrateType: option.filtrateType,
+            roomId: this.roomId,
         });
-        if (result === 2) {
+        this.loadPlan().then(() => {
+            this.setPlan({ plan1: ['0001'] });
+        });
+        return;
+        if (result === 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && !this.roomId))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
             });
@@ -76,6 +87,15 @@ Page({
             url: `/pages/interrogation/my-doctor/index?share=1&filtrateId=${this.data.filtrateId}&filtrateType=${this.data.filtrateType}`,
         });
     },
+    onGuide(e) {
+        let products = e.currentTarget.dataset.item;
+        let param = this.consultOrderId ? `id=${this.consultOrderId}` : `patientId=${this.patient.id}`;
+        wx.jyApp.setTempData('assistant-result-goods', products);
+        wx.jyApp.setTempData('guidePatient', this.patient);
+        wx.jyApp.utils.navigateTo({
+            url: `/pages/interrogation/guidance-online/medical-record/index?${param}`,
+        });
+    },
     loadDoctor() {
         var url = this.data.userInfo.viewVersion == 2 ? '/hospital/department/user/doctor' : '/wx/user/doctor';
         return wx.jyApp
@@ -98,29 +118,71 @@ Page({
             });
     },
     setPlan(plans) {
-        let plan1 = plans.plan1;
-        let plan2 = plans.plan2;
+        let plan1 = plans.plan1 || [];
+        let plan2 = plans.plan2 || [];
         let products1 = [];
         let products2 = [];
-        let plans = [];
+        let totalAmount = 0;
+        let totalAmounts = [];
+        plans = [];
         plan1.forEach((item) => {
             let items = this.getProductListByPlanNumber(item);
-            items && products1.push(...items);
+            items &&
+                products1.push(
+                    ...items.map((_item) => {
+                        _item = _setInfo(_item);
+                        totalAmount += _item.amount;
+                        return _item;
+                    })
+                );
         });
+        totalAmounts.push(totalAmount.toFixed(2));
+        totalAmount = 0;
         plan2.forEach((item) => {
             let items = this.getProductListByPlanNumber(item);
-            items && products2.push(...items);
+            items &&
+                products2.push(
+                    ...items.map((_item) => {
+                        _item = _setInfo(_item);
+                        totalAmount += _item.amount;
+                        return _item;
+                    })
+                );
         });
+        totalAmounts.push(totalAmount.toFixed(2));
         products1.length && plans.push(products1);
         products2.length && plans.push(products2);
         this.setData({
             plans: plans,
+            totalAmounts: totalAmounts,
         });
+
+        function _setInfo(item) {
+            let goods = Object.assign({}, item.goods);
+            goods.type = 1;
+            goods.frequency = item.frequency;
+            goods.giveWay = item.giveWay;
+            goods.days = item.days;
+            goods.count = item.gross;
+            goods.amount = item.sumOfMoney;
+            goods.perUseNum = item.perUseNum;
+            goods.productSequence = item.productSequence;
+            goods.remark = item.remark;
+            goods._goodsName = `${goods.goodsName}(${goods.standardNum}${wx.jyApp.constData.unitChange[goods.standardUnit]}/${wx.jyApp.constData.unitChange[goods.unit]})`;
+            goods._unit = wx.jyApp.constData.unitChange[goods.unit];
+            goods._giveWay = wx.jyApp.constData.giveWayMap[goods.giveWay];
+            goods._frequency = wx.jyApp.constData.frequencyArray[goods.frequency - 1];
+            goods.goodsPic = (goods.goodsPic && goods.goodsPic.split(',')[0]) || '';
+            goods.productId = goods.productId;
+            goods.usage = `${goods.days}天，${goods._frequency}，每次${goods.perUseNum}${wx.jyApp.constData.unitChange[goods.standardUnit]}，${goods._giveWay}`;
+            return goods;
+        }
     },
     getProductListByPlanNumber(planNumber) {
         for (let i = 0; i < this.planList.length; i++) {
-            if (this.planList[0].planNumber === planNumber) {
-                return this.planList[0].items;
+            return this.planList[i].items;
+            if (this.planList[i].planNumber === planNumber) {
+                return this.planList[i].items;
             }
         }
     },
