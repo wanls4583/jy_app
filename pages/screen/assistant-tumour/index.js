@@ -279,7 +279,7 @@ Page({
                     Z = 1350;
                     break;
             }
-            if (Z + 60 < N * 0.7) {
+            if (Z + 600 < N * 0.7) {
                 result = '需营养干预';
                 resultDescription = '需医生会诊，并进行营养干预';
                 colorResult = 3;
@@ -304,6 +304,7 @@ Page({
         let C = this.data.C;
         let plan1 = [];
         let plan2 = [];
+        let that = this;
         _step1();
         this.plans = {
             plan1: plan1,
@@ -319,7 +320,7 @@ Page({
         }
 
         function _step2() {
-            if (this.data.answers.q[3] == 1) {
+            if (that.data.answers.q[3] == 1) {
                 _step3();
             } else {
                 _step4();
@@ -327,7 +328,7 @@ Page({
         }
 
         function _step3() {
-            if (this.data.answers.q[4] == 1) {
+            if (that.data.answers.q[4] == 1) {
                 if (C <= 400) {
                     plan1.push('0001');
                 } else if (C <= 500) {
@@ -352,7 +353,7 @@ Page({
         }
 
         function _step4() {
-            let symptom = this.data.answers.pgsga.symptom;
+            let symptom = that.data.answers.pgsga.symptom;
             let symptomMap = {};
             symptom.map((item) => {
                 symptomMap[item] = true;
@@ -382,7 +383,7 @@ Page({
         }
 
         function _step5() {
-            if (this.data.answers.q[2] == 1) {
+            if (that.data.answers.q[2] == 1) {
                 if (C <= 400) {
                     plan2.push('0005');
                 } else if (C <= 500) {

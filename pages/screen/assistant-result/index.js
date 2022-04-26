@@ -46,7 +46,7 @@ Page({
             filtrateType: option.filtrateType,
             roomId: this.roomId,
         });
-        if (result === 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && !this.roomId))) {
+        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && !this.roomId))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
             });
@@ -184,7 +184,6 @@ Page({
     },
     getProductListByPlanNumber(planNumber) {
         for (let i = 0; i < this.planList.length; i++) {
-            return this.planList[i].items;
             if (this.planList[i].planNumber === planNumber) {
                 return this.planList[i].items;
             }
