@@ -132,8 +132,12 @@ Page({
         var prop = e.currentTarget.dataset.prop;
         this.setData({
             [`${prop}`]: e.detail,
-            'answers.selfDiet': 0,
         });
+        if (prop == 'mainDiet') {
+            this.setData({
+                'answers.selfDiet': 0,
+            });
+        }
     },
     onClickImg(e) {
         var num = e.currentTarget.dataset.num;
@@ -482,7 +486,7 @@ Page({
                         wx.jyApp.setTempData('assistant-plans', this.plans);
                         wx.jyApp.setTempData('assistant-patient', this.patient);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&roomId=${this.roomId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}`,
+                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}`,
                         });
                     },
                 });

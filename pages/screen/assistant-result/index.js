@@ -25,7 +25,7 @@ Page({
         var color = 'rgb(126,210,107)';
         wx.jyApp.setTempData('assistant-results', null);
         wx.jyApp.setTempData('assistant-plans', null);
-        this.roomId = option.roomId || '';
+        this.from = option.from || '';
         this.doctorId = option.doctorId || '';
         this.patient = wx.jyApp.getTempData('assistant-patient');
         this.consultOrderId = option.consultOrderId || '';
@@ -44,9 +44,9 @@ Page({
             share: option.share,
             filtrateId: option.filtrateId,
             filtrateType: option.filtrateType,
-            roomId: this.roomId,
+            from: this.from,
         });
-        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && !this.roomId))) {
+        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && this.from==='screen'))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
             });

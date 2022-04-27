@@ -1090,7 +1090,7 @@ Page({
         }
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         wx.jyApp.utils.navigateTo({
-            url: `${url}?consultOrderId=${this.data.consultOrderId}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            url: `${url}?consultOrderId=${this.data.consultOrderId}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}&from=chat`
         });
         this.setData({
             screenVisible: false
@@ -1120,9 +1120,9 @@ Page({
         var url = e.currentTarget.dataset.url;
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.currentUser.role == 'DOCTOR') {
-            url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}`
+            url = `${url}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
         } else {
-            url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.doctorInfo.doctorName}`
+            url = `${url}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.doctorInfo.doctorName}&roomId=${this.data.roomId}`
         }
         wx.jyApp.utils.navigateTo({
             url: url

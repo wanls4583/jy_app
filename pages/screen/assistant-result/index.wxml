@@ -29,7 +29,7 @@
 	</view>
 	<view class="padding-20 padding-bottom-0 margin-top-20" wx:if="{{plans.length}}">
 		<view class="flex--center--between margin-bottom-20">
-			<text class="font-title font-bold">推荐营养方案</text>
+			<text class="font-title font-bold">推荐营养干预方案</text>
 		</view>
 		<view wx:for="{{plans}}" wx:for-item="products" wx:key="id" class="white-background-color padding-20 margin-bottom-20 radius-4px">
 			<view class="padding-bottom-20 primary-color">方案{{index==0?'一':'二'}}</view>
@@ -45,7 +45,7 @@
 					<text>订单金额：</text>
 					<text>￥{{totalAmounts[index]}}</text>
 				</view>
-				<view class="button primary small" wx:if="{{roomId&&userInfo.role==='DOCTOR'}}" bindtap="onGuide" data-item="{{products}}">新开处方</view>
+				<view class="button primary small" wx:if="{{from=='chat'&&userInfo.role==='DOCTOR'}}" bindtap="onGuide" data-item="{{products}}">新开处方</view>
 				<view class="button primary small" wx:if="{{userInfo.role==='USER'}}" bindtap="onBuy" data-item="{{products}}">去支付</view>
 			</view>
 		</view>

@@ -1026,11 +1026,11 @@ Page({
         wx.jyApp.setTempData('screenPatient', this.data.patient);
         if (this.data.userInfo.role === 'DOCTOR') {
             wx.jyApp.utils.navigateTo({
-                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}`
+                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.doctorInfo.doctorName}&doctorName=${this.data.doctorInfo.doctorName}&roomId=${this.data.roomId}&from=chat`
             });
         } else {
             wx.jyApp.utils.navigateTo({
-                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.data.talker.nickname}&roomId=${this.data.roomId}&share=1`
+                url: `${url}?patientId=${this.data.patient.id}&filtrateType=${this.data.filtrateType}&filtrateByName=${this.data.patient.patientName}&doctorName=${this.data.talker.nickname}&roomId=${this.data.roomId}&share=1&from=chat`
             });
         }
         this.setData({

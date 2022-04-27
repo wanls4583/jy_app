@@ -24,7 +24,7 @@
 				bindtap="onGotoScreen"
 				class="button small success"
 				data-item="{{item}}"
-				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}"
+				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}&from=chat"
 			>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
 		</view>
 	</view>
