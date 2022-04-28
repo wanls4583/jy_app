@@ -388,14 +388,16 @@ Page({
 
         function _step5() {
             if (that.data.answers.q[2] == 1) {
-                if (C <= 400) {
-                    plan2.push('0005');
-                } else if (C <= 500) {
-                    plan2.push('0006');
-                } else if (C <= 600) {
-                    plan2.push('0007');
-                } else {
-                    plan2.push('0008');
+                if (plan1.indexOf('0005') == -1 && plan1.indexOf('0006') == -1 && plan1.indexOf('0007') == -1 && plan1.indexOf('0008') == -1) {
+                    if (C <= 400) {
+                        plan2.push('0005');
+                    } else if (C <= 500) {
+                        plan2.push('0006');
+                    } else if (C <= 600) {
+                        plan2.push('0007');
+                    } else {
+                        plan2.push('0008');
+                    }
                 }
             } else {
                 if (C <= 400) {
