@@ -294,7 +294,7 @@ function getAllConfig() {
         'showInvite',
         'allowApplyTicketDays',
         'normalOrderExpireMinute',
-        'nutritionOrderExpireDay',
+        'nutritionOrderExpireHour',
         'consultOrderExpireMinute',
         'consultOrderCloseDay',
         'hideCategory',
