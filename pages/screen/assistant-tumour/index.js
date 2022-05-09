@@ -364,16 +364,6 @@ Page({
             });
             if (symptomMap['恶心'] || symptomMap['呕吐'] || symptomMap['腹泻'] || symptomMap['腹胀'] || symptomMap['腹痛']) {
                 if (C <= 400) {
-                    plan1.push('0005');
-                } else if (C <= 500) {
-                    plan1.push('0006');
-                } else if (C <= 600) {
-                    plan1.push('0007');
-                } else {
-                    plan1.push('0008');
-                }
-            } else {
-                if (C <= 400) {
                     plan1.push('0009');
                 } else if (C <= 500) {
                     plan1.push('0010');
@@ -381,6 +371,16 @@ Page({
                     plan1.push('0011');
                 } else {
                     plan1.push('0012');
+                }
+            } else {
+                if (C <= 400) {
+                    plan1.push('0005');
+                } else if (C <= 500) {
+                    plan1.push('0006');
+                } else if (C <= 600) {
+                    plan1.push('0007');
+                } else {
+                    plan1.push('0008');
                 }
             }
             _step5();
