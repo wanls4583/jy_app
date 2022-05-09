@@ -12,21 +12,6 @@
 			<view style="white-space:pre-line" wx:for="{{results}}" wx:if="{{item}}" wx:key="index">{{results.length > 1 ? index+1+'、':''}}{{item}}</view>
 		</view>
 	</view>
-	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{(!doctorId||userInfo.viewVersion==2)&&doctorList.length}}">
-		<view class="flex--center--between">
-			<text class="font-title font-bold">推荐医生</text>
-			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
-				<text>全部</text>
-				<van-icon name="arrow" />
-			</view>
-		</view>
-		<view wx:if="{{userInfo.viewVersion==2}}">
-			<template data="{{doctor:item}}" is="doctor-item-v2" wx:for="{{doctorList}}" wx:key="id"></template>
-		</view>
-		<view wx:else>
-			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
-		</view>
-	</view>
 	<view class="padding-20 padding-bottom-0 margin-top-20" wx:if="{{plans.length}}">
 		<view class="flex--center--between margin-bottom-20">
 			<text class="font-title font-bold">推荐营养干预方案</text>
@@ -48,6 +33,21 @@
 				<view class="button primary small" wx:if="{{from=='chat'&&userInfo.role==='DOCTOR'}}" bindtap="onGuide" data-item="{{products}}">新开处方</view>
 				<view class="button primary small" wx:if="{{userInfo.role==='USER'}}" bindtap="onBuy" data-item="{{products}}">去支付</view>
 			</view>
+		</view>
+	</view>
+	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{(!doctorId||userInfo.viewVersion==2)&&doctorList.length}}">
+		<view class="flex--center--between">
+			<text class="font-title font-bold">推荐医生</text>
+			<view bindtap="onClickMore" class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable">
+				<text>全部</text>
+				<van-icon name="arrow" />
+			</view>
+		</view>
+		<view wx:if="{{userInfo.viewVersion==2}}">
+			<template data="{{doctor:item}}" is="doctor-item-v2" wx:for="{{doctorList}}" wx:key="id"></template>
+		</view>
+		<view wx:else>
+			<template data="{{doctor:item}}" is="doctor-item" wx:for="{{doctorList}}" wx:key="id"></template>
 		</view>
 	</view>
 	<block wx:if="{{userInfo.role!='DOCTOR'}}">

@@ -46,11 +46,12 @@ Page({
             filtrateType: option.filtrateType,
             from: this.from,
         });
-        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && this.from==='screen'))) {
+        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && this.from === 'screen'))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
             });
-        } else {
+        }
+        if (this.data.userInfo.role === 'USER') {
             this.loadDoctor();
         }
     },
@@ -96,7 +97,7 @@ Page({
         let products = e.currentTarget.dataset.item;
         wx.jyApp.setTempData('assistant-result-goods', products);
         wx.jyApp.utils.navigateTo({
-            url: '/pages/mall/confirm-order/index'
+            url: '/pages/mall/confirm-order/index',
         });
     },
     loadDoctor() {
