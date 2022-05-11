@@ -489,7 +489,7 @@ Page({
                         wx.jyApp.setTempData('assistant-plans', this.plans);
                         wx.jyApp.setTempData('assistant-patient', this.patient);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`,
+                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`,
                         });
                     },
                 });
