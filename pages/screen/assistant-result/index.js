@@ -28,6 +28,7 @@ Page({
         this.from = option.from || '';
         this.isEdit = option.isEdit || 'false';
         this.doctorId = option.doctorId || '';
+        this.doctorName = option.doctorName || '';
         this.patient = wx.jyApp.getTempData('assistant-patient');
         this.consultOrderId = option.consultOrderId || '';
         if (result == 2) {
@@ -47,7 +48,7 @@ Page({
             filtrateType: option.filtrateType,
             from: this.from,
         });
-        if (result == 2 && this.isEdit != 'true' && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorId && this.from === 'screen'))) {
+        if (result == 2 && (this.data.userInfo.role === 'DOCTOR' || (!this.doctorName && this.from === 'screen'))) {
             this.loadPlan().then(() => {
                 this.setPlan(plans);
             });

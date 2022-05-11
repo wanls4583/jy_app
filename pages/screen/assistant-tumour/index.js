@@ -90,7 +90,7 @@ Page({
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
-                doctorName: option.doctorName,
+                doctorName: option.doctorName || '',
                 patient: patient,
                 'answers.pgsga.currentStature': patient.height,
                 'answers.pgsga.currentWeight': patient.weight,
@@ -425,6 +425,7 @@ Page({
                 data.patientFiltrate.id = data.patientFiltrate.patientId;
                 this.setData({
                     id: data.info.id || '',
+                    doctorName: data.patientFiltrate.doctorName || '',
                     filtrateId: filtrateId,
                     patient: data.patientFiltrate,
                 });
@@ -488,7 +489,7 @@ Page({
                         wx.jyApp.setTempData('assistant-plans', this.plans);
                         wx.jyApp.setTempData('assistant-patient', this.patient);
                         wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&isEdit=${!!data.id}`,
+                            url: `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`,
                         });
                     },
                 });
