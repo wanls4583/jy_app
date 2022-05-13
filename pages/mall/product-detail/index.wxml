@@ -54,7 +54,7 @@
 	</view>
 	<view class="margin-top-20 padding-20 white-background-color">
 		<view class="font-title font-bold">商品信息</view>
-		<view class="margin-top-20 margin-bottom-20 color-666">{{productInfo.description||''}}</view>
+		<view class="margin-top-20 margin-bottom-20 color-666" style="white-space:pre-wrap">{{productInfo.description||''}}</view>
 		<image bindtap="onClickDesImg" class="flex width-100" data-src="{{item}}" mode="widthFix" src="{{item}}" wx:for="{{desImgList}}" wx:key="item" />
 	</view>
 	<view class="footer flex--center--between white-background-color border-top" wx:if="{{!readonly}}">

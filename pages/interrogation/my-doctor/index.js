@@ -72,6 +72,12 @@ Page({
             case 'FAT-BODY':
                 title = '体脂肪含量测量';
                 break;
+            case 'DIET_SELF_CHECK':
+                title = '膳食自评表';
+                break;
+            case 'ASSISTANT_TUMOUR':
+                title = '精准营养小助手';
+                break;
         }
         wx.jyApp.dialog.confirm({
             title: `分享给：${item.doctorName}`,
