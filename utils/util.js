@@ -119,7 +119,8 @@ function navigateTo(e) {
             } else {
                 wx.navigateTo({
                     url: url,
-                    fail: () => {
+                    fail: (e) => {
+                        console.log(e)
                         wx.reLaunch({
                             url: '/pages/index/index'
                         });

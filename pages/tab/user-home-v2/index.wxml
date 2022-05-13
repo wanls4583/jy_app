@@ -130,7 +130,7 @@
 						<view
 							bindtap="onGoto"
 							class="flex--center--center padding-top-bottom-10 font-small color-666 line-height-1em clickable"
-							data-url="/pages/interrogation/article-list/index"
+							data-url="/pages/interrogation/article/article-list/index"
 						>
 							<text>全部</text>
 							<van-icon name="arrow" />
@@ -139,7 +139,7 @@
 					<view
 						bindtap="onGoto"
 						class="padding-top-bottom-30 {{index<articleList.length-1?'border-bottom':''}}"
-						data-url="/pages/interrogation/article-detail/index?id={{item.id}}"
+						data-url="/pages/interrogation/article/article-detail/index?id={{item.id}}"
 						wx:for="{{articleList}}"
 						wx:key="id"
 					>
