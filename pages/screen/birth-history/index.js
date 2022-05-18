@@ -28,6 +28,7 @@ Page({
         this.patient = patient;
         this.from = option.from || '';
         this.roomId = option.roomId || '';
+        this.showResult = option.showResult || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
@@ -85,6 +86,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: filtrateId,
@@ -101,7 +103,22 @@ Page({
                     });
                 }
             }
+            if (this.showResult) {
+                this.onSave();
+            }
         });
+    },
+    gotoResult(data, redirect) {
+        const url = `/pages/screen/family-history/index?patientId=${this.data.patient.id}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`;
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     countResult() {
         var q = this.data.answers.q;
@@ -128,6 +145,10 @@ Page({
             type: 'FAT-GROW',
             isRisk: this.data.isRisk
         };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
+        };
         if (!this.data.answers.q.length) {
             wx.jyApp.toast('请至少选择一道题目的选项');
             return;
@@ -153,9 +174,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/family-history/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
-                    });
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

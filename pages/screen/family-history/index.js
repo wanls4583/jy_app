@@ -27,6 +27,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -82,6 +83,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: filtrateId,
@@ -98,7 +100,23 @@ Page({
                     });
                 }
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        const url = `/pages/screen/disease-history/index?patientId=${this.data.patient.id}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     countResult() {
         var result = '';
@@ -146,9 +164,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/disease-history/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
-                    });
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

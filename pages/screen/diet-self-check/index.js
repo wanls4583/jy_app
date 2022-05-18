@@ -31,6 +31,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -148,6 +149,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.info.id || '',
                 filtrateId: filtrateId,
@@ -167,7 +169,24 @@ Page({
                     });
                 }
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        const url= `/pages/screen/diet-self-result/index?&result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+        wx.jyApp.setTempData('evaluate-results', this.data.resultDescription.split(';'));
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     onSave() {
         if (!this.data.answers.q[1]) {
@@ -185,6 +204,10 @@ Page({
             resultDescription: this.data.resultDescription,
             isRisk: this.data.isRisk,
             type: 'DIET_SELF_CHECK'
+        };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
@@ -204,12 +227,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.setTempData('evaluate-results', this.data.resultDescription.split(';'));
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/diet-self-result/index?&result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                        });
-                    // }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

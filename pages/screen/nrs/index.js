@@ -35,6 +35,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -158,6 +159,7 @@ Page({
             data.filtrateNrs.filtrateDate = data.patientFiltrate.filtrateDate;
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 nrs: data.filtrateNrs,
                 filtrateId: filtrateId,
@@ -166,11 +168,36 @@ Page({
                 doctorName: data.patientFiltrate.doctorName,
             });
             this.setBMI();
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        var result = data.result >= 3 ? 2 : 0;
+        var _result = '每周重新评估患者的营养状况';
+        if (result == 2) {
+            _result = '有营养风险，需进行营养支持治疗';
+        }
+        const url = `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     onSave() {
         var data = {
             ...this.data.nrs
+        };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen' && !data.id) {
@@ -238,18 +265,7 @@ Page({
             mask: true,
             delta: 1,
             complete: () => {
-                var result = data.result >= 3 ? 2 : 0;
-                var _result = '每周重新评估患者的营养状况';
-                if (result == 2) {
-                    _result = '有营养风险，需进行营养支持治疗';
-                }
-                // if (this.data.userInfo.role != 'DOCTOR') {
-                    setTimeout(() => {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`
-                        });
-                    }, 500);
-                // }
+                this.gotoResult(data);
             }
         });
     }

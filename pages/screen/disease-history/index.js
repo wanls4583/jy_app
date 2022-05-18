@@ -28,6 +28,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -99,7 +100,28 @@ Page({
                     });
                 }
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        let url = '';
+        if (this.data.result == '异常') {
+            url = `/pages/screen/fat-result/index?result=3&_result=需到医院就诊&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+        } else {
+            url = `/pages/screen/fat-history/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
+        }
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     countResult() {
         var result = '';
@@ -131,6 +153,10 @@ Page({
             wx.jyApp.toast('请至少选择一道题目的选项');
             return;
         }
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
+        };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
             this.save(data);
@@ -149,15 +175,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    if (this.data.result == '异常') {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-result/index?result=3&_result=需到医院就诊&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                        });
-                    } else {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-history/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
-                        });
-                    }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

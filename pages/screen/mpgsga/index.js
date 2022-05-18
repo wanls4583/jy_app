@@ -85,6 +85,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         var patient = wx.jyApp.getTempData('screenPatient') || {};
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
@@ -364,6 +365,7 @@ Page({
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             filtrateByName = data.patientFiltrate.filtrateByName;
             filtrateByName = filtrateByName || (this.data.userInfo.role == 'DOCTOR' ? data.patientFiltrate.doctorName : data.patientFiltrate.patientName);
             this.setData({
@@ -388,7 +390,34 @@ Page({
             }
             this.setBMI();
             this.countScore();
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        var result = 1;
+        if (data.result == '轻度营养不良') {
+            result = 2;
+        }
+        if (data.result == '中度营养不良') {
+            result = 3;
+        }
+        if (data.result == '重度营养不良') {
+            result = 4;
+        }
+        const url = `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+        wx.jyApp.setTempData('screen-results', this.data.resultDescription);
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     onSave() {
         var data = {
@@ -401,6 +430,10 @@ Page({
             resultDescription: this.data.resultDescription && this.data.resultDescription.join(';'),
             isRisk: this.data.pgsga.score > 0,
             type: 'mPG-SGA'
+        };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
@@ -421,22 +454,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = 1;
-                    if (data.result == '轻度营养不良') {
-                        result = 2;
-                    }
-                    if (data.result == '中度营养不良') {
-                        result = 3;
-                    }
-                    if (data.result == '重度营养不良') {
-                        result = 4;
-                    }
-                    // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.setTempData('screen-results', this.data.resultDescription);
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${data.result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                        });
-                    // }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

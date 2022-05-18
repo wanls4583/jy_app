@@ -31,6 +31,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -139,6 +140,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.info.id || '',
                 filtrateId: filtrateId,
@@ -155,7 +157,28 @@ Page({
                     });
                 }
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        var result = 1;
+        if (this.data.result == '有营养风险') {
+            result = 4;
+        }
+        const url = `/pages/screen/evaluate-result/index?title=放射性损伤评估&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
+        wx.jyApp.setTempData('evaluate-results', [this.data.explain]);
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     onSave() {
         this.countResult();
@@ -169,6 +192,10 @@ Page({
             resultDescription: this.data.resultDescription,
             isRisk: this.data.isRisk,
             type: 'X_INJURY'
+        };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
@@ -188,16 +215,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = 1;
-                    if (this.data.result == '有营养风险') {
-                        result = 4;
-                    }
-                    // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.setTempData('evaluate-results', [this.data.explain]);
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/evaluate-result/index?title=放射性损伤评估&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                        });
-                    // }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

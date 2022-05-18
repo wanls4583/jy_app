@@ -31,6 +31,7 @@ Page({
         this.share = option.share || '';
         this.from = option.from || '';
         this.roomId = option.roomId || '';
+        this.showResult = option.showResult || '';
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
             this.setData({
@@ -195,6 +196,10 @@ Page({
             filtrateId: this.data.filtrateId,
             ...this.data.filtrateFat,
         }
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
+        };
         if (!this.data.filtrateFat.filtrateDate) {
             wx.jyApp.toast('请填写筛查日期');
             return;
@@ -218,6 +223,32 @@ Page({
             this.saveWithChat(data);
         }
     },
+    gotoResult(data, redirect) {
+        var result = this.data.filtrateFat.result;
+        var _result = '体重正常';
+        if (result == 2) {
+            _result = '超重';
+        }
+        if (result == 3) {
+            _result = '肥胖';
+        }
+        if (result == 4) {
+            _result = '中心性肥胖（BMI超重）';
+        }
+        if (result == 5) {
+            _result = '中心性肥胖（BMI肥胖）';
+        }
+        const url = `/pages/screen/evaluate-result/index?title=超重与肥胖筛查&result=${result}&_result=${_result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=FAT`
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
+    },
     save(data) {
         wx.jyApp.http({
             url: `/filtrate/fat/${this.data.filtrateFat.id ? 'update' : 'save'}`,
@@ -233,25 +264,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = this.data.filtrateFat.result;
-                    var _result = '体重正常';
-                    if (result == 2) {
-                        _result = '超重';
-                    }
-                    if (result == 3) {
-                        _result = '肥胖';
-                    }
-                    if (result == 4) {
-                        _result = '中心性肥胖（BMI超重）';
-                    }
-                    if (result == 5) {
-                        _result = '中心性肥胖（BMI肥胖）';
-                    }
-                    // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/evaluate-result/index?title=超重与肥胖筛查&result=${result}&_result=${_result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=FAT`
-                        });
-                    // }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {
@@ -295,6 +308,7 @@ Page({
             filtrateFat._sex = filtrateFat.sex == 1 ? '男' : '女';
             filtrateFat.patientId = data.patientFiltrate.patientId;
             filtrateFat.filtrateDate = data.patientFiltrate.filtrateDate;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.data.filtrateDate = Date.prototype.parseDate(data.patientFiltrate.filtrateDate).getTime();
             this.setData({
                 filtrateFat: filtrateFat,
@@ -302,6 +316,10 @@ Page({
             });
             this.setBMI();
             this.countScore();
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
     }
 })

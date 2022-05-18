@@ -31,6 +31,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -97,6 +98,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: filtrateId,
@@ -108,7 +110,23 @@ Page({
                     answers: data.fatEvaluate.answers,
                 });
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        const url = `/pages/screen/food-investigate/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     countResult() {
         var result = '无肥胖治疗史';
@@ -132,6 +150,10 @@ Page({
             isRisk: this.data.isRisk,
             type: 'FAT-TREAT'
         };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
+        };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
             this.save(data);
@@ -149,9 +171,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    wx.jyApp.utils.navigateTo({
-                        url: `/pages/screen/food-investigate/index?patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}`
-                    });
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {

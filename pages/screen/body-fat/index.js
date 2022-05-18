@@ -29,6 +29,7 @@ Page({
         this.from = option.from || '';
         this.roomId = option.roomId || '';
         this.doctorId = option.doctorId || '';
+        this.showResult = option.showResult || '';
         this.patient = patient;
         patient._sex = patient.sex == 1 ? '男' : '女';
         if (!option.id) {
@@ -148,6 +149,7 @@ Page({
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
+            this.doctorId = data.patientFiltrate.doctorId;
             this.setData({
                 id: data.fatEvaluate.id || '',
                 filtrateId: filtrateId,
@@ -164,7 +166,34 @@ Page({
                     });
                 }
             }
+            if(this.showResult) {
+                this.onSave();
+                return;
+            };
         });
+    },
+    gotoResult(data, redirect) {
+        var result = 1;
+        if (this.data.result == '轻度肥胖') {
+            result = 2;
+        }
+        if (this.data.result == '中度肥胖') {
+            result = 3;
+        }
+        if (this.data.result == '重度肥胖') {
+            result = 4;
+        }
+        const url = `/pages/screen/fat-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patient.id}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`;
+        wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
+        if(redirect) {
+            wx.redirectTo({
+                url: url
+            });
+        } else {
+            wx.jyApp.utils.navigateTo({
+                url: url
+            });
+        }
     },
     onSave() {
         this.countScore();
@@ -178,6 +207,10 @@ Page({
             result: this.data.result,
             resultDescription: this.data.resultDescription,
             isRisk: this.data.isRisk
+        };
+        if(this.showResult) {
+            this.gotoResult(data, true);
+            return;
         };
         wx.jyApp.showLoading('加载中...', true);
         if (this.from == 'screen') {
@@ -197,22 +230,7 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    var result = 1;
-                    if (this.data.result == '轻度肥胖') {
-                        result = 2;
-                    }
-                    if (this.data.result == '中度肥胖') {
-                        result = 3;
-                    }
-                    if (this.data.result == '重度肥胖') {
-                        result = 4;
-                    }
-                    // if (this.data.userInfo.role != 'DOCTOR') {
-                        wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/fat-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
-                        });
-                    // }
+                    this.gotoResult(data);
                 }
             });
         }).catch(() => {
