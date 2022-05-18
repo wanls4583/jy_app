@@ -161,7 +161,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (this.data.result == '有久坐行为') {
             result = 2;
         }

@@ -207,7 +207,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (this.data.result == '恶液质前期') {
             result = 2;
         }

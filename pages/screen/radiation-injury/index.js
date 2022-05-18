@@ -164,7 +164,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (this.data.result == '有营养风险') {
             result = 4;
         }

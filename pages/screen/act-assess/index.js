@@ -104,7 +104,7 @@ Page({
         var resultDescription = [];
         var q = this.data.answers.q;
         var isRisk = false;
-        this.result = 1;
+        this.result = 0;
         if (q[13] == 1) {
             result = '几乎没有任何体力活动';
             isRisk = true;
@@ -170,7 +170,7 @@ Page({
         }
         if (resultDescription.length) {
             isRisk = true;
-        } else if (this.result == 1) {
+        } else if (this.result == 0) {
             resultDescription.push('未发现存在活动水平问题');
         }
         this.setData({

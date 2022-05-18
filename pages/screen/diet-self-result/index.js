@@ -29,7 +29,7 @@ Page({
             color = 'rgb(126,210,107)';
         }
         // 有营养风险
-        if(result > 2 && option.share == 1) {
+        if(result > 1 && option.share == 1) {
             wx.jyApp.dialog.confirm({
                 title: `分享`,
                 message: `筛查结果有营养风险，请将筛查结果分享给医生，医生将为您提供营养支持。`

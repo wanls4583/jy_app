@@ -222,7 +222,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (this.data.result == '膳食营养风险可疑') {
             result = 2;
         }

@@ -173,7 +173,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (this.data.result == '轻度肥胖') {
             result = 2;
         }

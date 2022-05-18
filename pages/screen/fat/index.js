@@ -82,14 +82,14 @@ Page({
         return age;
     },
     countScore() {
-        var result1 = 1;
-        var result2 = 1;
-        var result3 = 1;
+        var result1 = 0;
+        var result2 = 0;
+        var result3 = 0;
         // 方式一
         for (var i = 0; i < wx.jyApp.constData.overWeight.length; i++) {
             var item = wx.jyApp.constData.overWeight[i];
             if (this.data.filtrateFat.age >= item[0]) {
-                result1 = 1;
+                result1 = 0;
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.BMI >= item[1]) {
                         result1 = 2
@@ -113,7 +113,7 @@ Page({
         for (var i = 0; i < wx.jyApp.constData.waist.length; i++) {
             var item = wx.jyApp.constData.waist[i];
             if (Math.floor(this.data.filtrateFat.age) >= item[0]) {
-                result2 = 1
+                result2 = 0
                 if (this.data.filtrateFat.sex == 1) {
                     if (this.data.filtrateFat.waist >= item[2]) {
                         result2 = 3
@@ -138,12 +138,6 @@ Page({
         if (result1 == 2 && (result2 == 3 || result3 == 3)) {
             result = 4;
         }
-        // if (result1 == 3 && result2 != 3 && result3 != 3) {
-        //     result = 3;
-        // }
-        // if (result1 == 3 && (result2 == 3 || result3 == 3)) {
-        //     result = 5;
-        // }
         this.setData({
             'filtrateFat.result': result
         });
