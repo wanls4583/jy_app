@@ -21,9 +21,12 @@
 					<van-collapse-item name="screen" title="营养筛查" wx:if="{{filtrate.length}}">
 						<view class="padding-left-right-30">
 							<view class="padding-top-bottom-20 border-bottom color-333" wx:for="{{filtrate}}" wx:key="index">
-								<view class="flex--center--start">
-									<view class="flex-shrink-0 label label-color">筛查日期：</view>
-									<view>{{item.filtrateDate || ''}}</view>
+								<view class="flex--center--between">
+									<view class="flex">
+										<view class="flex-shrink-0 label label-color">筛查日期：</view>
+										<view>{{item.filtrateDate || ''}}</view>
+									</view>
+									<view bindtap="onDetail" class="button primary text small" data-item="{{item}}">查看结果</view>
 								</view>
 								<view class="flex--center--start margin-top-20">
 									<view class="flex-shrink-0 label label-color">筛查方式：</view>

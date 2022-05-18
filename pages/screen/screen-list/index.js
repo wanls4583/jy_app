@@ -31,6 +31,7 @@ Page({
     },
     onEdit(e) {
         var item = e.currentTarget.dataset.item;
+        var showResult = e.currentTarget.dataset.showResult || '';
         var url = '';
         switch (item.filtrateType) {
             case 'NRS 2002':
@@ -108,7 +109,7 @@ Page({
             sex: item.sex,
         });
         wx.jyApp.utils.navigateTo({
-            url: `${url}?id=${item.id}&from=screen`
+            url: `${url}?id=${item.id}&from=screen&showResult=${showResult}`
         });
     },
     onDelete(e) {

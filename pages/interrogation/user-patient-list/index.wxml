@@ -1,7 +1,7 @@
 <!-- index.wxml -->
 <view class="container white-background-color padding-bottom-footer">
 	<radio-group>
-		<van-swipe-cell right-width="{{ifSelect?0:230}}" wx:for="{{patientList}}" wx:key="id">
+		<van-swipe-cell right-width="{{ifSelect?0:250}}" wx:for="{{patientList}}" wx:key="id">
 			<view class="position-relative white-background-color padding-left-right-30">
 				<view bindtap="onChange" class="flex--center--between" data-item="{{item}}">
 					<view class="flex-shrink-0 radio-wrap" wx:if="{{ifSelect}}">
@@ -18,8 +18,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:230px">
-				<view bindtap="onDetail" class="height-100 center min-width-50px button primary radius-0" data-id="{{item.id}}" style="width:100px">问诊病历</view>
+			<view class="flex--center--between position-absolute top-0 bottom-0" slot="right" style="width:250px">
+				<view bindtap="onDetail" class="height-100 center min-width-50px button primary radius-0" data-id="{{item.id}}" style="width:110px">问诊病历</view>
 				<view bindtap="onEdit" class="height-100 center min-width-50px button warn radius-0" data-id="{{item.id}}" style="width:70px">编辑</view>
 				<view bindtap="onDelete" class="height-100 center min-width-50px button danger radius-0" data-id="{{item.id}}" style="width:70px">删除</view>
 			</view>

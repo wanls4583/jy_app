@@ -95,6 +95,88 @@ Page({
             urls: picUrls
         });
     },
+    onDetail(e) {
+        var item = e.currentTarget.dataset.item;
+        var url = '';
+        switch (item.filtrateType) {
+            case 'NRS 2002':
+            case 'NRS2002':
+                url = '/pages/screen/nrs/index';
+                break;
+            case 'PG-SGA':
+            case 'PGSGA':
+                url = '/pages/screen/pgsga/index';
+                break;
+            case 'mPG-SGA':
+                url = '/pages/screen/mpgsga/index';
+                break;
+            case 'SGA':
+                url = '/pages/screen/sga/index';
+                break;
+            case 'MUST':
+                url = '/pages/screen/must/index';
+                break;
+            case 'MNA':
+                url = '/pages/screen/mna/index';
+                break;
+            case 'ASSISTANT_TUMOUR':
+                url = '/pages/screen/assistant-tumour/index';
+                break;
+            case 'DIET_SELF_CHECK':
+                url = '/pages/screen/diet-self-check/index';
+                break;
+            case 'FAT':
+                url = '/pages/screen/fat/index';
+                break;
+            case 'FAT-GROW':
+                url = '/pages/screen/birth-history/index';
+                break;
+            case 'FAT-HOME':
+                url = '/pages/screen/family-history/index';
+                break;
+            case 'FAT-DISEASE':
+                url = '/pages/screen/disease-history/index';
+                break;
+            case 'FAT-TREAT':
+                url = '/pages/screen/fat-history/index';
+                break;
+            case 'FAT-DIET':
+                url = '/pages/screen/food-investigate/index';
+                break;
+            case 'FAT-SIT':
+                url = '/pages/screen/sit-investigate/index';
+                break;
+            case 'FAT-SLEEP':
+                url = '/pages/screen/sleep-assess/index';
+                break;
+            case 'FAT-ACTION':
+                url = '/pages/screen/act-assess/index';
+                break;
+            case 'FAT-BODY':
+                url = '/pages/screen/body-fat/index';
+                break;
+            case 'TUNOUR_FLUID':
+                url = '/pages/screen/tumour-fluid/index';
+                break;
+            case 'ORAL_MUCOSA':
+                url = '/pages/screen/oral-mucosa/index';
+                break;
+            case 'X_INJURY':
+                url = '/pages/screen/radiation-injury/index';
+                break;
+        }
+        wx.jyApp.setTempData('screenPatient', {
+            id: this.data.patientDocument.id,
+            patientName: this.data.patientDocument.patientName,
+            weight: this.data.patientDocument.weight,
+            height: this.data.patientDocument.height,
+            age: this.data.patientDocument.age,
+            sex: this.data.patientDocument.sex,
+        });
+        wx.jyApp.utils.navigateTo({
+            url: `${url}?id=${item.id}&from=screen&showResult=1`
+        });
+    },
     getInfo() {
         wx.jyApp.http({
             url: `/patientdocument/detail/${this.patientId}`
