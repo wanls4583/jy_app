@@ -525,7 +525,7 @@ Page({
             }
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
-            this.doctorId = data.patientFiltrate.doctorId;
+            this.doctorId = data.patientFiltrate.doctor;
             this.setData({
                 pgsga: data.filtratePgsga,
                 filtrateId: filtrateId,

@@ -424,7 +424,7 @@ Page({
 				data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
 				var filtrateId = data.patientFiltrate.id;
 				data.patientFiltrate.id = data.patientFiltrate.patientId;
-                this.doctorId = data.patientFiltrate.doctorId;
+                this.doctorId = data.patientFiltrate.doctor;
 				this.setData({
 					id: data.info.id || '',
 					doctorName: data.patientFiltrate.doctorName || '',
