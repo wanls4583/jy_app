@@ -1,6 +1,6 @@
 <import src="/template/doctor-item.wxml" />
 <import src="/template/doctor-item-v2.wxml" />
-<view class="container">
+<view class="container padding-bottom-footer">
 	<view class="flex--center--between flex-direction-column" style="padding:24px 0;background-color:{{color}}">
 		<view class="white-color font-bold font-title">营养风险等级</view>
 		<view class="font-bold" style="margin:30px 0;font-size:24px;color:rgb(255,254,84)">{{_result}}</view>

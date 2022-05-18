@@ -329,7 +329,7 @@ Page({
             var doctor = data.doctor;
             var joinDoctorId = '';
             // 患者通过扫医生的码加入可是
-            if (data.doctor.hosDepartment) {
+            if (data.doctor.hosDepartment || doctor.authStatus == 2) {
                 joinDoctorId = data.doctor.id;
             }
             if (screen) { //跳到具体的筛查页面
