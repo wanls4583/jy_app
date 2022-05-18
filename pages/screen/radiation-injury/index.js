@@ -192,12 +192,12 @@ Page({
                     if (this.data.result == '有营养风险') {
                         result = 4;
                     }
-                    if (this.data.userInfo.role != 'DOCTOR') {
+                    // if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('evaluate-results', [this.data.explain]);
                         wx.jyApp.utils.navigateTo({
                             url: `/pages/screen/evaluate-result/index?title=放射性损伤评估&result=${result}&_result=${this.data.result}&suggestion=${this.data.suggestion}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
-                    }
+                    // }
                 }
             });
         }).catch(() => {

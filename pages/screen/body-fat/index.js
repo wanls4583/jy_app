@@ -207,12 +207,12 @@ Page({
                     if (this.data.result == '重度肥胖') {
                         result = 4;
                     }
-                    if (this.data.userInfo.role != 'DOCTOR') {
+                    // if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('results', this.data.resultDescription.split(';'));
                         wx.jyApp.utils.navigateTo({
                             url: `/pages/screen/fat-result/index?result=${result}&_result=${this.data.result}&patientId=${this.data.patientId}&doctorId=${this.doctorId}&consultOrderId=${this.data.consultOrderId}&from=${this.from}&roomId=${this.roomId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
-                    }
+                    // }
                 }
             });
         }).catch(() => {

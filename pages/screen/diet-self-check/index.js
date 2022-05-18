@@ -204,12 +204,12 @@ Page({
                 mask: true,
                 delta: 1,
                 complete: () => {
-                    if (this.data.userInfo.role != 'DOCTOR') {
+                    // if (this.data.userInfo.role != 'DOCTOR') {
                         wx.jyApp.setTempData('evaluate-results', this.data.resultDescription.split(';'));
                         wx.jyApp.utils.navigateTo({
                             url: `/pages/screen/diet-self-result/index?&result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}`
                         });
-                    }
+                    // }
                 }
             });
         }).catch(() => {

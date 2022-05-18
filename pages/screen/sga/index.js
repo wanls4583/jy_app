@@ -247,13 +247,11 @@ Page({
                     result = 2;
                     _result = '重度营养不良';
                 }
-                if (this.data.userInfo.role != 'DOCTOR') {
-                    setTimeout(() => {
-                        wx.jyApp.utils.navigateTo({
-                            url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`
-                        });
-                    }, 500);
-                }
+                // if (this.data.userInfo.role != 'DOCTOR') {
+                    wx.jyApp.utils.navigateTo({
+                        url: `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`
+                    });
+                // }
             }
         });
     }
