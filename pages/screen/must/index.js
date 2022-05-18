@@ -165,11 +165,11 @@ Page({
         var result = 0;
         var _result = '低度营养风险';
         if (data._result == '1') {
-            result = 1;
+            result = 2;
             _result = '中度营养风险';
         }
         if (data._result == '2') {
-            result = 2;
+            result = 3;
             _result = '重度营养风险';
         }
         const url = `/pages/screen/screen-result/index?result=${result}&_result=${_result}&doctorId=${this.doctorId}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.filtrateType||this.data.filtrateType}`

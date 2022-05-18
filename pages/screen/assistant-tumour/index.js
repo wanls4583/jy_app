@@ -242,7 +242,7 @@ Page({
 	},
 	countResult() {
 		var result = '';
-		var colorResult = 1;
+		var colorResult = 0;
 		var resultDescription = '';
 		var C = 0;
 		this.countMpgsgaScore();

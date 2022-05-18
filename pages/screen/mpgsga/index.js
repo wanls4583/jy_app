@@ -397,7 +397,7 @@ Page({
         });
     },
     gotoResult(data, redirect) {
-        var result = 1;
+        var result = 0;
         if (data.result == '轻度营养不良') {
             result = 2;
         }
