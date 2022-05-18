@@ -35,3 +35,4 @@
 		</footer>
 	</block>
 </view>
+<van-dialog id="van-dialog"></van-dialog>

@@ -29,3 +29,4 @@
 	<view bindtap="onBack" class="button block primary plain">返回</view>
 	<view bindtap="onShareResult" class="button block primary margin-left-20" wx:if="{{share==1}}">分享结果给医生</view>
 </view>
+<van-dialog id="van-dialog"></van-dialog>
