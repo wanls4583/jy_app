@@ -196,7 +196,7 @@ Page({
                 });
                 if (data.info.answers.filtrateDate) {
                     this.setData({
-                        filtrateDate: Date.prototype.parseDate(data.fatEvaluate.answers.filtrateDate)
+                        filtrateDate: Date.prototype.parseDate(data.info.answers.filtrateDate)
                     });
                 }
             } else {

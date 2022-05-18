@@ -25,7 +25,16 @@
 				class="button small success"
 				data-item="{{item}}"
 				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}&from=chat"
-			>{{item.filtrateChatVO.associateId?'查看结果':'开始筛查'}}</view>
+			>{{item.filtrateChatVO.associateId?'查看详情':'开始筛查'}}</view>
+			<!-- 已完成，显示查看结果按钮 -->
+			<view 
+				bindtap="onGotoScreen"
+				class="button small success plain"
+				style="margin-left: 20px"
+				data-item="{{item}}"
+				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}&from=chat&showResult=1"
+				wx:if="{{item.filtrateChatVO.associateId}}"
+			>查看结果</view>
 		</view>
 	</view>
 </template>
