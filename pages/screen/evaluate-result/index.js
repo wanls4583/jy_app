@@ -10,6 +10,11 @@ Page({
         color: ''
     },
     onLoad(option) {
+        this.storeBindings = wx.jyApp.createStoreBindings(this, {
+            store: wx.jyApp.store,
+            fields: ['userInfo'],
+        });
+        this.storeBindings.updateStoreBindings();
         var title = option.title || '评估结果';
         var suggestion = option.suggestion || '';
         var results = wx.jyApp.getTempData('evaluate-results') || [];
@@ -24,10 +29,10 @@ Page({
             color = 'rgb(236,76,23)';
         }
         // 有营养风险
-        if(result > 0 && option.share == 1) {
+        if(result > 0 && option.share == 1 && this.data.userInfo.role == 'USER') {
             wx.jyApp.dialog.confirm({
                 title: `分享`,
-                message: `筛查结果有营养风险，请将筛查结果分享给医生，医生将为您提供营养支持。`
+                message: `筛查结果有营养风险，请将筛查结果分享给医生，医生将为您提供营养支持治疗。`
             }).then(() => {
                 this.onShareResult();
             });
@@ -46,6 +51,9 @@ Page({
         wx.setNavigationBarTitle({
             title: title
         });
+    },
+    onUnload() {
+        this.storeBindings.destroyStoreBindings();
     },
     onGoto(e) {
         wx.jyApp.utils.navigateTo(e);

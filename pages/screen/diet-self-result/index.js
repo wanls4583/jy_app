@@ -29,14 +29,17 @@ Page({
             color = 'rgb(126,210,107)';
         }
         // 有营养风险
-        if(result > 1 && option.share == 1) {
+        if(result > 1 && option.share == 1 && this.data.userInfo.role == 'USER') {
             wx.jyApp.dialog.confirm({
                 title: `分享`,
-                message: `筛查结果有营养风险，请将筛查结果分享给医生，医生将为您提供营养支持。`
+                message: `筛查结果有营养风险，请将筛查结果分享给医生，医生将为您提供营养支持治疗。`
             }).then(() => {
                 this.onShareResult();
             });
         }
+        if (this.data.userInfo.role == 'USER') {
+			this.loadDoctor();
+		}
         this.setData({
             result: result,
             results: results,
@@ -47,7 +50,6 @@ Page({
             filtrateId: option.filtrateId,
             filtrateType: option.filtrateType
         });
-        this.loadDoctor();
     },
     onUnload() {
         this.storeBindings.destroyStoreBindings();
