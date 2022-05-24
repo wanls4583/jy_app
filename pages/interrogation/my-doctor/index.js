@@ -41,6 +41,9 @@ Page({
     onShareResult(e) {
         var item = e.currentTarget.dataset.item;
         var title = this.filtrateType + '筛查';
+        if(!this.share) {
+            return;
+        }
         switch (this.filtrateType) {
             case 'TUNOUR_FLUID':
                 title = '肿瘤恶质液评估';
