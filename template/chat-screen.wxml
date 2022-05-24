@@ -19,7 +19,7 @@
 			</block>
 			<text wx:else>{{item.filtrateChatVO.filtrateResult}}</text>
 		</view>
-		<view class="align-center padding-bottom-30">
+		<view class="align-center padding-30 padding-top-0">
 			<view
 				bindtap="onGotoScreen"
 				class="button small success"
@@ -30,7 +30,7 @@
 			<view 
 				bindtap="onGotoScreen"
 				class="button small success plain"
-				style="margin-left: 20px"
+				style="margin-left: 30rpx"
 				data-item="{{item}}"
 				data-url="/pages/screen/{{stype}}/index?id={{item.associateId||''}}&filtrateId={{item.associateId}}&patientId={{viewVersion==2?patient.id:''}}&consultOrderId={{viewVersion==2?'':consultOrderId}}&from=chat&showResult=1"
 				wx:if="{{item.filtrateChatVO.associateId}}"
