@@ -34,6 +34,24 @@
 				<view class="button primary small" wx:if="{{userInfo.role==='USER'}}" bindtap="onBuy" data-item="{{products}}">去支付</view>
 			</view>
 		</view>
+		<view class="white-background-color padding-20 margin-bottom-20 radius-4px">
+			<view class="padding-bottom-30 font-title">方案推荐参考值</view>
+			<view>目标营养素</view>
+			<view class="flex--center--between padding-top-bottom-30">
+				<view>能量：{{recommend[0][0]}}kcal</view>
+				<view>蛋白质：{{recommend[0][1]}}g</view>
+			</view>
+			<view>已摄入营养素</view>
+			<view class="flex--center--between padding-top-bottom-30">
+				<view>能量：{{recommend[1][0]}}kcal</view>
+				<view>蛋白质：{{recommend[1][1]}}g</view>
+			</view>
+			<view>需补充营养素</view>
+			<view class="flex--center--between padding-top-bottom-30">
+				<view>能量：{{recommend[2][0]}}kcal</view>
+				<view>蛋白质：{{recommend[2][1]}}g</view>
+			</view>
+		</view>
 	</view>
 	<view class="white-background-color padding-20 padding-bottom-0 margin-top-20" wx:if="{{(!doctorId||userInfo.viewVersion==2)&&doctorList.length}}">
 		<view class="flex--center--between">

@@ -86,7 +86,7 @@ Page({
 		this.from = option.from || '';
 		this.roomId = option.roomId || '';
 		this.doctorId = option.doctorId || '';
-        this.showResult = option.showResult || '';
+		this.showResult = option.showResult || '';
 		this.patient = patient;
 		patient._sex = patient.sex == 1 ? '男' : '女';
 		if (!option.id) {
@@ -244,6 +244,9 @@ Page({
 		var result = '';
 		var colorResult = 0;
 		var resultDescription = '';
+		var W = 0;
+		var N = 0;
+		var Z = 0;
 		var C = 0;
 		this.countMpgsgaScore();
 		if (this.data.answers.pgsga.score === 0) {
@@ -266,12 +269,12 @@ Page({
 			resultDescription = '需医生会诊，并进行营养干预';
 			colorResult = 3;
 		} else if (Number(this.data.answers.pgsga.currentStature)) {
-			let weight = this.data.answers.pgsga.currentStature - 105;
-			let N = 30 * weight;
-			let Z = 0;
+			W = this.data.answers.pgsga.currentStature - 105;
+			N = 30 * W;
+			Z = 0;
 			if (this.data.answers.q[3] == 1) {
 				//为糖尿病
-				N = 28 * weight;
+				N = 28 * W;
 			}
 			switch (this.data.answers.selfDiet) {
 				case '3':
@@ -297,6 +300,8 @@ Page({
 			}
 		}
 		this.setData({
+			W: W,
+			N: N,
 			C: C,
 			result: result,
 			resultDescription: resultDescription,
@@ -304,6 +309,7 @@ Page({
 			isRisk: result === '需营养干预',
 		});
 		this.setPlan();
+		this.setRecommend();
 	},
 	setPlan() {
 		let C = this.data.C;
@@ -413,6 +419,48 @@ Page({
 			}
 		}
 	},
+	setRecommend() {
+		this.recommend = [];
+		this.recommend[0] = [this.data.N, [this.data.W, this.data.W * 1.5]];
+		this.recommend[1] = [0, 0];
+		this.recommend[2] = [0, 0];
+		if (this.data.answers.selfDiet == 3) {
+			this.recommend[1] = [
+				[600, 900],
+				[30, 40],
+			];
+		} else if (this.data.answers.selfDiet == 4) {
+			this.recommend[1] = [
+				[900, 1200],
+				[40, 50],
+			];
+		} else if (this.data.answers.selfDiet == 4) {
+			this.recommend[1] = [
+				[1200, 1500],
+				[50, 60],
+			];
+		}
+		if (this.data.C < 300) {
+			this.recommend[2][0] = 300;
+		} else if (this.data.C <= 400) {
+			this.recommend[2][0] = [300, 400];
+		} else if (this.data.C <= 500) {
+			this.recommend[2][0] = [400, 500];
+		} else if (this.data.C <= 600) {
+			this.recommend[2][0] = [500, 600];
+		} else {
+			this.recommend[2][0] = 600;
+		}
+		this.recommend[2][1] = [this.recommend[0][1][0] - this.recommend[1][1][1], this.recommend[0][1][1] - this.recommend[1][1][0]];
+		this.recommend[2][1] = [this.recommend[2][1][0] > 0 ? this.recommend[2][1][0] : 0, this.recommend[2][1][1] > 0 ? this.recommend[2][1][1] : 0];
+		this.recommend.forEach(item => {
+			item.forEach((_item, index) => {
+				if (_item instanceof Array) {
+					item[index] = _item.join('-');
+				}
+			});
+		});
+	},
 	loadInfo(id) {
 		return wx.jyApp
 			.http({
@@ -424,7 +472,7 @@ Page({
 				data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
 				var filtrateId = data.patientFiltrate.id;
 				data.patientFiltrate.id = data.patientFiltrate.patientId;
-                this.doctorId = data.patientFiltrate.doctor;
+				this.doctorId = data.patientFiltrate.doctor;
 				this.setData({
 					id: data.info.id || '',
 					doctorName: data.patientFiltrate.doctorName || '',
@@ -454,17 +502,18 @@ Page({
 			});
 	},
 	gotoResult(data, redirect) {
-        const url = `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`;
+		const url = `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`;
 		wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
 		wx.jyApp.setTempData('assistant-plans', this.plans);
+		wx.jyApp.setTempData('assistant-recommend', this.recommend);
 		wx.jyApp.setTempData('assistant-patient', this.patient);
 		if (redirect) {
 			wx.redirectTo({
-                url: url
+				url: url,
 			});
 		} else {
 			wx.jyApp.utils.navigateTo({
-                url: url
+				url: url,
 			});
 		}
 	},

@@ -20,6 +20,7 @@ Page({
         this.storeBindings.updateStoreBindings();
         var results = wx.jyApp.getTempData('assistant-results') || null;
         var plans = wx.jyApp.getTempData('assistant-plans') || null;
+        var recommend = wx.jyApp.getTempData('assistant-recommend') || null
         var result = option.result;
         var _result = option._result;
         var color = 'rgb(126,210,107)';
@@ -50,6 +51,7 @@ Page({
             result: result,
             results: results,
             _result: _result,
+            recommend: recommend,
             color: color,
             doctorId: this.doctorId,
             share: option.share,
