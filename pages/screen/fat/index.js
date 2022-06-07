@@ -302,7 +302,7 @@ Page({
             filtrateFat._sex = filtrateFat.sex == 1 ? '男' : '女';
             filtrateFat.patientId = data.patientFiltrate.patientId;
             filtrateFat.filtrateDate = data.patientFiltrate.filtrateDate;
-            this.doctorId = data.patientFiltrate.doctor;
+            this.doctorId = data.patientFiltrate.doctor || '';
             this.data.filtrateDate = Date.prototype.parseDate(data.patientFiltrate.filtrateDate).getTime();
             this.setData({
                 filtrateFat: filtrateFat,

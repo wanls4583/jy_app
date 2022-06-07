@@ -242,7 +242,7 @@ Page({
             data.filtrateMna.filtrateDate = data.patientFiltrate.filtrateDate;
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
-            this.doctorId = data.patientFiltrate.doctor;
+            this.doctorId = data.patientFiltrate.doctor || '';
             this.setData({
                 mna: data.filtrateMna,
                 filtrateId: filtrateId,

@@ -143,7 +143,7 @@ Page({
             data.filtrateMust.filtrateDate = data.patientFiltrate.filtrateDate;
             var filtrateId = data.patientFiltrate.id;
             data.patientFiltrate.id = data.patientFiltrate.patientId;
-            this.doctorId = data.patientFiltrate.doctor;
+            this.doctorId = data.patientFiltrate.doctor || '';
             if (data.filtrateMust.result) {
                 data.filtrateMust._result = data.filtrateMust.result == 0 ? '0' : (data.filtrateMust.result == 1 ? '1' : '2');
             }

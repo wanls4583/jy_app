@@ -365,7 +365,7 @@ Page({
             data.patientFiltrate = data.patientFiltrate || {};
             data.patientFiltrate._sex = data.patientFiltrate.sex == 1 ? '男' : '女';
             data.patientFiltrate.id = data.patientFiltrate.patientId;
-            this.doctorId = data.patientFiltrate.doctor;
+            this.doctorId = data.patientFiltrate.doctor || '';
             filtrateByName = data.patientFiltrate.filtrateByName;
             filtrateByName = filtrateByName || (this.data.userInfo.role == 'DOCTOR' ? data.patientFiltrate.doctorName : data.patientFiltrate.patientName);
             this.setData({
