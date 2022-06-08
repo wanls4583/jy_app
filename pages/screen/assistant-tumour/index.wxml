@@ -19,6 +19,7 @@
 				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
 					<van-radio name="1">是</van-radio>
 					<van-radio name="0">否</van-radio>
+					<van-radio name="2">不知道</van-radio>
 				</van-radio-group>
 			</view>
 			<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
