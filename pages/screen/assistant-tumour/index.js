@@ -258,7 +258,7 @@ Page({
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
 			colorResult = 3;
-		} else if (this.data.answers.q[0] == 1) {
+		} else if (this.data.answers.q[0] > 0) {
 			//是否有严重肝肾功能受损
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
