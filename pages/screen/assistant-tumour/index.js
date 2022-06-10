@@ -157,10 +157,18 @@ Page({
 				wx.jyApp.toast('必填项不能为空');
 				return;
 			}
+			if (this.data.patient.age < 16) {
+				wx.jyApp.toast('年龄必须大于等于16岁');
+				return;
+			}
 		}
 		if (this.data.step == 2) {
 			if (!this.data.answers.pgsga.currentStature) {
 				wx.jyApp.toast('必填项不能为空');
+				return;
+			}
+			if (this.data.answers.pgsga.currentStature <= 105) {
+				wx.jyApp.toast('身高必须大于105cm');
 				return;
 			}
 		}
