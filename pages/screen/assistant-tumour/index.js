@@ -434,7 +434,7 @@ Page({
 				[900, 1200],
 				[40, 50],
 			];
-		} else if (this.data.answers.selfDiet == 4) {
+		} else if (this.data.answers.selfDiet == 5) {
 			this.recommend[1] = [
 				[1200, 1500],
 				[50, 60],
