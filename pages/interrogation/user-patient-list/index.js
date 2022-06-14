@@ -96,6 +96,16 @@ Page({
                     return;
                 }
             }
+            if(this.screen == 'assistant-tumour') {
+                if(this.data.patient.age < 16) {
+                    wx.jyApp.toast('该项筛查/评估适用年龄大于等于16岁');
+                    return;
+                }
+                if(this.data.patient.height <= 105) {
+                    wx.jyApp.toast('该项筛查/评估适用身高大于105cm');
+                    return;
+                }
+            }
             wx.jyApp.setTempData('screenPatient', this.data.patient);
             wx.jyApp.utils.redirectTo({
                 url: `/pages/screen/${this.screen}/index?doctorId=${this.doctorId}&&doctorName=${this.doctorName}&from=screen&share=${this.share}`
