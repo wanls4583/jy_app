@@ -465,7 +465,7 @@ Page({
 			item.forEach((_item, index) => {
 				if (_item instanceof Array) {
 					item[index] = _item.join('-');
-					if ((item[index] = '0-0')) {
+					if ((item[index] === '0-0')) {
 						item[index] = '0';
 					}
 				}
