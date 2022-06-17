@@ -128,6 +128,8 @@ Page({
                     });
                     this.productId = param.pId;
                 }
+            } else if (type == 8 && param.pId) { //产品主页
+                this.productId = param.pId;
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
                 wx.setStorageSync('role', 'DOCTOR');
