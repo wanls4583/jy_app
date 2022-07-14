@@ -18,7 +18,7 @@ Page({
             },
             {
                 'id': 'user-mall',
-                'pagePath': '/pages/mall/mall/index',
+                'pagePath': '/pages/tab/mall/index',
                 'iconPath': '/image/icon_marks.png',
                 'selectedIconPath': '/image/icon_marks_active.png',
                 'text': '制剂中心'
@@ -74,22 +74,24 @@ Page({
     onLoad(option) {
         var pagePath = '/pages/tab/home/index';
         var list = this.data.list;
+        var allPagePaths = [];
         this.storeBindings = wx.jyApp.createStoreBindings(this, {
             store: wx.jyApp.store,
             fields: ['userInfo', 'msgCount']
         });
         this.storeBindings.updateStoreBindings();
-        if (option.url) {
+        if (this.data.userInfo.role == 'DOCTOR') {
+            list = this.data.doctorTabList;
+        } else if (this.data.userInfo.viewVersion == 2) {
+            list.splice(1, 1);
+        }
+        allPagePaths = list.map((item)=>{ return item.pagePath });
+        if (option.url && allPagePaths.indexOf(option.url) > -1) {
             pagePath = option.url;
             pagePath = pagePath.slice(0, pagePath.indexOf('?') == -1 ? Infinity : pagePath.indexOf('?'));
             pagePath = pagePath.slice(0, pagePath.indexOf('#') == -1 ? Infinity : pagePath.indexOf('#'));
         } else if (this.data.userInfo.role == 'DOCTOR') {
             pagePath = '/pages/tab/doctor-home/index';
-        }
-        if (this.data.userInfo.role == 'DOCTOR') {
-            list = this.data.doctorTabList;
-        } else if (this.data.userInfo.viewVersion == 2) {
-            list.splice(1, 1);
         }
         this.data.loadedPathMap[pagePath] = true;
         list.map((item) => {

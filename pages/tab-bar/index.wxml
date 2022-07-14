@@ -16,7 +16,7 @@
 			<user-home-v2 id="user-home" wx:if="{{userInfo.viewVersion==2}}"></user-home-v2>
 			<user-home id="user-home" wx:else></user-home>
 		</view>
-		<view hidden="{{pagePath!='/pages/mall/mall/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/mall/mall/index']}}">
+		<view hidden="{{pagePath!='/pages/tab/mall/index'}}" style="height:100%" wx:if="{{loadedPathMap['/pages/tab/mall/index']}}">
 			<user-mall id="user-mall"></user-mall>
 		</view>
 	</block>
