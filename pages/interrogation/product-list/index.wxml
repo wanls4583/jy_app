@@ -28,8 +28,8 @@
 					>
 						<block wx:if="{{page>=myProductData.nowPage-1 && page<=myProductData.nowPage+1}}" wx:key="id">
 							<block wx:for="{{myProductData.pageList[page]}}" wx:key="id">
-								<template data="{{taocan:item,btnType:from=='my-product'?2:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
-								<template data="{{product:item,btnType:from=='my-product'?2:0}}" is="doctor-product-item" wx:else></template>
+								<template data="{{taocan:item,btnType:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
+								<template data="{{product:item,btnType:from=='my-product'?1:0}}" is="doctor-product-item" wx:else></template>
 							</block>
 						</block>
 					</view>

@@ -164,19 +164,6 @@ Page({
                 });
             }
         });
-        list = this.data.myProductData.renderList;
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            if (item.id == id) {
-                this.data.myProductData.renderList.splice(i, 1);
-                this.data.myProductData.list.splice(this.data.myProductData.list.indexOf(item), 1);
-                this.setData({
-                    'myProductData.renderList': this.data.myProductData.renderList,
-                    'myProductData.list': this.data.myProductData.list
-                })
-                break;
-            }
-        }
         var index = this.addedList.indexOf(id);
         if (added) {
             index == -1 && this.addedList.push(id);
@@ -303,6 +290,7 @@ Page({
                 } else {
                     item._unit = wx.jyApp.constData.unitChange[item.unit];
                 }
+                item.added = true;
             });
             data.list = data.list.filter((item)=>{
                 return item.goodsName.indexOf(this.data.goodsName) > -1;

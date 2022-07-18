@@ -26,8 +26,8 @@
 		<view class="padding-left-right-30 white-background-color" wx:if="{{myProductData.list.length&&from!='add-product'}}">
 			<view class="font-bold padding-top-30 border-top">我的产品</view>
 			<view wx:for="{{myProductData.renderList}}" wx:key="id">
-				<template data="{{taocan:item,btnType:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
-				<template data="{{product:item,btnType:from=='my-product'?1:0}}" is="doctor-product-item" wx:else></template>
+				<template data="{{taocan:item}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
+				<template data="{{product:item}}" is="doctor-product-item" wx:else></template>
 			</view>
 			<view class="padding-top-bottom-30 align-center" wx:if="{{myProductData.renderList.length<myProductData.list.length}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="4">查看更多</view>
