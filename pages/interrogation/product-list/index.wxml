@@ -28,8 +28,8 @@
 					>
 						<block wx:if="{{page>=myProductData.nowPage-1 && page<=myProductData.nowPage+1}}" wx:key="id">
 							<block wx:for="{{myProductData.pageList[page]}}" wx:key="id">
-								<template data="{{taocan:item,btnType:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
-								<template data="{{product:item,btnType:from=='my-product'?1:0}}" is="doctor-product-item" wx:else></template>
+								<template data="{{taocan:item,btnType:from=='my-product'?1:0,share:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:if="{{item.type==3}}"></template>
+								<template data="{{product:item,btnType:from=='my-product'?1:0,share:from=='my-product'?1:0}}" is="doctor-product-item" wx:else></template>
 							</block>
 						</block>
 					</view>
@@ -58,7 +58,7 @@
 						wx:key="index"
 					>
 						<block wx:if="{{page>=taocanData.nowPage-1 && page<=taocanData.nowPage+1}}">
-							<template data="{{taocan:item,btnType:from=='my-product'?2:0}}" is="doctor-taocan-item" wx:for="{{taocanData.pageList[page]}}" wx:key="id"></template>
+							<template data="{{taocan:item,btnType:from=='my-product'?2:0,share:from=='my-product'?1:0}}" is="doctor-taocan-item" wx:for="{{taocanData.pageList[page]}}" wx:key="id"></template>
 						</block>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{taocanData.totalPage>0&&taocanData.lastPage>=taocanData.totalPage}}">没有更多了</view>
@@ -86,7 +86,7 @@
 						wx:key="index"
 					>
 						<block wx:if="{{page>=productData.nowPage-1 && page<=productData.nowPage+1}}">
-							<template data="{{product:item,btnType:from=='my-product'?2:0}}" is="doctor-product-item" wx:for="{{productData.pageList[page]}}" wx:key="id"></template>
+							<template data="{{product:item,btnType:from=='my-product'?2:0,share:from=='my-product'?1:0}}" is="doctor-product-item" wx:for="{{productData.pageList[page]}}" wx:key="id"></template>
 						</block>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{productData.totalPage>0&&productData.lastPage>=productData.totalPage}}">没有更多了</view>

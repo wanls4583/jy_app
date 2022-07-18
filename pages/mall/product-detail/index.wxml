@@ -24,7 +24,7 @@
 					<text class="font-small" decode="{{true}}" style="margin-top:6rpx">/{{productInfo._unit}}</text>
 				</view>
 			</view>
-			<view bindtap="onShowShare" class="button small primary">分享有礼</view>
+			<!-- <view bindtap="onShowShare" class="button small primary">分享有礼</view> -->
 			<!-- 
 			<view class="flex--center--between radius-100px" style="height:30px" wx:if="{{!readonly}}">
 				<view

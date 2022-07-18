@@ -44,6 +44,10 @@ Page({
         } else if (option.from == 'invite') { //邀请医生二维码
             this.type = 3;
             this.getQrCode();
+        } else if (option.from == 'product') { //
+            this.type = 8;
+            this.pId = option.pId;
+            this.getQrCode();
         } else if (this.type) {
             this.getQrCode();
         } else {
@@ -70,6 +74,8 @@ Page({
             title = '邀请科室医生加入团队';
         } else if (option.from == 'screen') {
             tip = '将二维码展示给患者，扫码后可进行营养筛查';
+        }  else if (option.from == 'product') {
+            tip = '将二维码展示给患者，扫码后可直接购买产品';
         } else {
             tip = '将二维码展示给患者，扫码后可进行线上问诊';
             title = '邀请患者线上问诊';
@@ -114,6 +120,9 @@ Page({
         }
         if (this.data.from == 'team') {
             path += '&dpId=' + this.dpId;
+        }
+        if (this.data.from == 'product') {
+            path += '&pId=' + this.pId;
         }
         return {
             title: this.dName + '-' + this.jobTitle + '（点击向医生发起问诊！）',
@@ -204,11 +213,13 @@ Page({
             });
             return;
         }
+        let stype = this.type == 2 && this.stype ? ',stype=' + this.stype : '';
+        let pId = this.type == 8 && this.pId ? ',pId=' + this.pId : '';
         return wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${this.type==2&&this.stype?',stype='+this.stype:''}`
+                scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${stype}${pId}`
             }
         }).then((data) => {
             this.qrMap[this.type] = data.barcode;

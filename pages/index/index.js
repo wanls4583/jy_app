@@ -130,6 +130,7 @@ Page({
                 }
             } else if (type == 8 && param.pId) { //产品主页
                 this.productId = param.pId;
+                this.inviteDoctorId = param.dId;
             }
             if (this.inviteWay == 'salesman' || this.inviteWay == 'department') {
                 wx.setStorageSync('role', 'DOCTOR');
@@ -172,13 +173,13 @@ Page({
                 this.handleCardCode();
             } else if (this.barcodType == 'screen') { //扫医生筛查二维码进入
                 this.handleScreenCode();
-            } else if (this.doctorId || this.inviteDoctorId) { //医生主页
-                wx.jyApp.utils.navigateTo({
-                    url: '/pages/interrogation/doctor-detail/index?doctorId=' + (this.doctorId || this.inviteDoctorId)
-                });
             } else if (this.productId) { //产品主页
                 wx.jyApp.utils.navigateTo({
                     url: '/pages/mall/product-detail/index?id=' + this.productId
+                });
+            } else if (this.doctorId || this.inviteDoctorId) { //医生主页
+                wx.jyApp.utils.navigateTo({
+                    url: '/pages/interrogation/doctor-detail/index?doctorId=' + (this.doctorId || this.inviteDoctorId)
                 });
             } else {
                 wx.jyApp.utils.redirectTo({

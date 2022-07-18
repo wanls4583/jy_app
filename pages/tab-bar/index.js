@@ -83,7 +83,7 @@ Page({
         if (this.data.userInfo.role == 'DOCTOR') {
             list = this.data.doctorTabList;
         } else if (this.data.userInfo.viewVersion == 2) {
-            list.splice(1, 1);
+            // list.splice(1, 1);
         }
         allPagePaths = list.map((item)=>{ return item.pagePath });
         if (option.url && allPagePaths.indexOf(option.url) > -1) {

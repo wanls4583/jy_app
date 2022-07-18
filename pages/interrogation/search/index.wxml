@@ -36,7 +36,7 @@
 		<view class="padding-left-right-30 white-background-color" wx:if="{{taocanData.list.length&&from!='my-product'}}">
 			<view class="font-bold padding-top-30 border-top">营养套餐</view>
 			<view>
-				<template data="{{taocan:item,btnType:from=='add-product'?2:0}}" is="doctor-taocan-item" wx:for="{{taocanData.renderList}}" wx:key="id"></template>
+				<template data="{{taocan:item,btnType:from=='add-product'?2:0,share:from=='add-product'?1:0}}" is="doctor-taocan-item" wx:for="{{taocanData.renderList}}" wx:key="id"></template>
 			</view>
 			<view class="padding-top-bottom-30 align-center" wx:if="{{taocanData.renderList.length<taocanData.totalCount}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="2">查看更多</view>
@@ -45,7 +45,7 @@
 		<view class="padding-left-right-30 white-background-color" wx:if="{{productData.list.length&&from!='my-product'}}">
 			<view class="font-bold padding-top-30 border-top">营养产品</view>
 			<view>
-				<template data="{{product:item,btnType:from=='add-product'?2:0}}" is="doctor-product-item" wx:for="{{productData.renderList}}" wx:key="id"></template>
+				<template data="{{product:item,btnType:from=='add-product'?2:0,share:from=='add-product'?1:0}}" is="doctor-product-item" wx:for="{{productData.renderList}}" wx:key="id"></template>
 			</view>
 			<view class="padding-top-bottom-30 align-center" wx:if="{{productData.renderList.length<productData.totalCount}}">
 				<view bindtap="onLoadMore" class="button text primary" data-type="1">查看更多</view>
