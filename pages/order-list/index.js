@@ -64,7 +64,7 @@ Page({
         if (this.data.userInfo.viewVersion == 2) {
             this.setData({
                 viewVersion: 2,
-                applyVisible: this.data.doctorInfo && this.data.doctorInfo.showable == 1
+                applyVisible: this.data.userInfo.role === 'DOCTOR' && this.data.doctorInfo && this.data.doctorInfo.showable == 1
             });
         }
     },
