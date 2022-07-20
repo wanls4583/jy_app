@@ -38,10 +38,10 @@ Page({
             from: option.from || ''
         });
         this.addedList = [];
-        // 从我的产品跳转过来
+        // 从首页跳转过来
         if (this.data.from === 'my-product') {
             wx.setNavigationBarTitle({
-                title: '我的产品'
+                title: '产品管理'
             });
             this.addedList = wx.getStorageSync('my-product-ids') || [];
         }
@@ -70,6 +70,11 @@ Page({
                 });
             }
             wx.hideLoading();
+        });
+    },
+    onGotoAdd() {
+        this.setData({
+            active: 1
         });
     },
     onAddTaocan(e) {

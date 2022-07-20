@@ -34,8 +34,11 @@
 						</block>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{myProductData.totalPage>0&&myProductData.lastPage>=myProductData.totalPage}}">没有更多了</view>
-					<view class="padding-30 gray-color align-center font-small" wx:elif="{{myProductData.totalPage==0}}">
-						<empty description="未查询到相关商品，请重新搜索" />
+					<view wx:elif="{{myProductData.totalPage==0}}">
+						<empty description="未查询到相关商品" />
+						<view class="flex--center--center">
+							<view class="button primary" bindtap="onGotoAdd">添加产品</view>
+						</view>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -62,8 +65,8 @@
 						</block>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{taocanData.totalPage>0&&taocanData.lastPage>=taocanData.totalPage}}">没有更多了</view>
-					<view class="padding-30 gray-color align-center font-small" wx:elif="{{taocanData.totalPage==0}}">
-						<empty description="未查询到相关商品，请重新搜索" />
+					<view wx:elif="{{taocanData.totalPage==0}}">
+						<empty description="未查询到相关商品" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -90,8 +93,8 @@
 						</block>
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:if="{{productData.totalPage>0&&productData.lastPage>=productData.totalPage}}">没有更多了</view>
-					<view class="padding-30 gray-color align-center font-small" wx:elif="{{productData.totalPage==0}}">
-						<empty description="未查询到相关商品，请重新搜索" />
+					<view wx:elif="{{productData.totalPage==0}}">
+						<empty description="未查询到相关商品" />
 					</view>
 					<view class="padding-30 gray-color align-center font-small" wx:else>正在加载中...</view>
 				</pull-scroll-view>
@@ -102,8 +105,8 @@
 			stop-refresh="{{stopRefresh}}"
 			wx:elif="{{taocanData.totalPage==0&&productData.totalPage==0&&myProductData.totalPage==0}}"
 		>
-			<view class="padding-30 gray-color align-center font-small">
-				<empty description="未查询到相关商品，请重新搜索" />
+			<view>
+				<empty description="未查询到相关商品" />
 			</view>
 		</pull-scroll-view>
 	</view>

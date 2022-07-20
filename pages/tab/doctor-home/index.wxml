@@ -120,7 +120,7 @@
 					data-url="/pages/interrogation/product-list/index?from=my-product"
 				>
 					<image src="/image/icon_product.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666">我的产品</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">产品管理</view>
 				</view>
 				<view
 					bindtap="onGoto"
