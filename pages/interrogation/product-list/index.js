@@ -64,7 +64,7 @@ Page({
                 myDataVisible: 1
             });
             var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
-            if (toltalTab >= 2 && this.data.myDataVisible && this.data.myProductData.totalPage <= 0) {
+            if (toltalTab >= 2 && this.data.myDataVisible && this.data.myProductData.totalPage <= 0 && this.data.from != 'my-product') {
                 this.setData({
                     active: 1
                 });
