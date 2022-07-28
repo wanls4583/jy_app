@@ -21,26 +21,44 @@ Page({
 		selectedFood: {
 			'7': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 			'8': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 			'9': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 			'10': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 			'11': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 			'12': {
 				totalEnergy: 0,
+				totalProtein: 0,
+				totalFat: 0,
+				toatalCarbohydrate: 0,
 				list: []
 			},
 		},
@@ -456,25 +474,20 @@ Page({
 	},
 	setRecommend() {
 		this.recommend = [];
-		this.recommend[0] = [this.data.N, [this.data.W, this.data.W * 1.5]];
-		this.recommend[1] = [0, 0];
-		this.recommend[2] = [0, 0];
-		// if (this.data.answers.selfDiet == 3) {
-		// 	this.recommend[1] = [
-		// 		[600, 900],
-		// 		[30, 40],
-		// 	];
-		// } else if (this.data.answers.selfDiet == 4) {
-		// 	this.recommend[1] = [
-		// 		[900, 1200],
-		// 		[40, 50],
-		// 	];
-		// } else if (this.data.answers.selfDiet == 5) {
-		// 	this.recommend[1] = [
-		// 		[1200, 1500],
-		// 		[50, 60],
-		// 	];
-		// }
+		this.recommend[0] = [this.data.N, [this.data.W, this.data.W * 1.5], 0, 0];
+		this.recommend[1] = [0, 0, 0, 0];
+		this.recommend[2] = [0, 0, 0, 0];
+		for (let step in this.data.selectedFood) {
+			let foodData = this.data.selectedFood[step];
+			this.recommend[1][0] += foodData.totalEnergy;
+			this.recommend[1][1] += foodData.totalProtein;
+			this.recommend[1][2] += foodData.totalFat;
+			this.recommend[1][3] += foodData.toatalCarbohydrate;
+		}
+		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(2));
+		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(2));
+		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(2));
+		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(2));
 		if (this.data.C < 300) {
 			this.recommend[2][0] = 300;
 		} else if (this.data.C <= 400) {
@@ -582,6 +595,9 @@ Page({
 	onSaveFood() {
 		if (this.data.gross) {
 			let totalEnergy = 0;
+			let totalProtein = 0;
+			let totalFat = 0;
+			let toatalCarbohydrate = 0;
 			let food = { ...this.data.foodItem };
 			let foodData = this.data.selectedFood[this.data.step];
 			food.id = this.foodIdCount++;
@@ -613,8 +629,14 @@ Page({
 			foodData.list.push(food);
 			foodData.list.forEach((item) => {
 				totalEnergy += item.energy;
+				totalProtein += item.protein;
+				totalFat += item.fat;
+				toatalCarbohydrate += item.carbohydrate;
 			});
 			foodData.totalEnergy = totalEnergy;
+			foodData.totalProtein = totalProtein;
+			foodData.totalFat = totalFat;
+			foodData.toatalCarbohydrate = toatalCarbohydrate;
 			this.setData({
 				[`selectedFood[${this.data.step}]`]: foodData,
 				editFoodVisible: false
@@ -636,9 +658,17 @@ Page({
 		let foodData = this.data.selectedFood[this.data.step];
 		for (let i = 0; i < foodData.list.length; i++) {
 			if (foodData.list[i].id == id) {
-				foodData.totalEnergy -= foodData.list[i].energy;
-				foodData.totalEnergy = Number(foodData.totalEnergy.toFixed(2));
 				foodData.list.splice(i, 1);
+				foodData.totalEnergy = 0;
+				foodData.totalProtein = 0;
+				foodData.totalFat = 0;
+				foodData.toatalCarbohydrate = 0;
+				foodData.list.forEach((item) => {
+					foodData.totalEnergy += item.energy;
+					foodData.totalProtein += item.protein;
+					foodData.totalFat += item.fat;
+					foodData.toatalCarbohydrate += item.carbohydrate;
+				});
 				this.setData({
 					[`selectedFood[${this.data.step}]`]: foodData
 				});

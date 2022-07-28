@@ -39,19 +39,37 @@
 		</view>
 		<view class="white-background-color padding-20 margin-bottom-20 radius-4px">
 			<view class="font-bold">目标营养素</view>
-			<view class="flex padding-top-bottom-30">
-				<view style="width:60%">能量：{{recommend[0][0]}}kcal</view>
-				<view>蛋白质：{{recommend[0][1]}}g</view>
+			<view class="padding-top-bottom-30">
+				<view class="flex">
+					<view style="width:60%">能量：{{recommend[0][0]}}kcal</view>
+					<view>蛋白质：{{recommend[0][1]}}g</view>
+				</view>
+				<view class="flex">
+					<view style="width:60%">脂肪：{{recommend[0][2]}}kcal</view>
+					<view>碳水化合物：{{recommend[0][3]}}g</view>
+				</view>
 			</view>
 			<view class="font-bold padding-top-30 border-top">已摄入营养素</view>
-			<view class="flex padding-top-bottom-30">
-				<view style="width:60%">能量：{{recommend[1][0]}}kcal</view>
-				<view>蛋白质：{{recommend[1][1]}}g</view>
+			<view class="padding-top-bottom-30">
+				<view class="flex">
+					<view style="width:60%">能量：{{recommend[1][0]}}kcal</view>
+					<view>蛋白质：{{recommend[1][1]}}g</view>
+				</view>
+				<view class="flex">
+					<view style="width:60%">脂肪：{{recommend[1][2]}}kcal</view>
+					<view>碳水化合物：{{recommend[1][3]}}g</view>
+				</view>
 			</view>
 			<view class="font-bold padding-top-30 border-top">需补充营养素</view>
-			<view class="flex padding-top-bottom-30">
-				<view style="width:60%">能量：{{recommend[2][0]}}kcal</view>
-				<view>蛋白质：{{recommend[2][1]}}g</view>
+			<view class="padding-top-bottom-30">
+				<view class="flex">
+					<view style="width:60%">能量：{{recommend[2][0]}}kcal</view>
+					<view>蛋白质：{{recommend[2][1]}}g</view>
+				</view>
+				<view class="flex">
+					<view style="width:60%">脂肪：{{recommend[2][2]}}kcal</view>
+					<view>碳水化合物：{{recommend[2][3]}}g</view>
+				</view>
 			</view>
 		</view>
 	</view>
