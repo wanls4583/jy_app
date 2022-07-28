@@ -1,17 +1,36 @@
 .van-radio__label--right {
-    flex-grow: 1;
-    padding: 30rpx 0;
+	flex-grow: 1;
+	padding: 30rpx 0;
 }
 
 .van-radio__icon-wrap {
-    padding: 30rpx 0;
+	padding: 30rpx 0;
 }
 
 .van-radio {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
 }
 
 .van-radio:first-child {
-    margin-top: 20rpx !important;
+	margin-top: 20rpx !important;
+}
+
+.active-category {
+	background-color: #fff;
+	color: rgb(42, 175, 255);
+}
+
+.gross-choice .van-radio {
+	margin-top: 0 !important;
+	margin-right: 0 !important;
+}
+
+.food-list .van-popup--bottom {
+	bottom: 72px;
+    z-index: 99 !important;
+}
+
+.food-list .van-transition {
+	z-index: 99 !important;
 }

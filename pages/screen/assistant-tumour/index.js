@@ -9,6 +9,46 @@ Page({
 		id: '',
 		filtrateId: '',
 		patient: {},
+		foods: [],
+		eatNameMap: {
+			'7': '早餐',
+			'8': '早餐加餐',
+			'9': '午餐',
+			'10': '午餐加餐',
+			'11': '晚餐',
+			'12': '晚餐加餐',
+		},
+		selectedFood: {
+			'7': {
+				totalEnergy: 0,
+				list: []
+			},
+			'8': {
+				totalEnergy: 0,
+				list: []
+			},
+			'9': {
+				totalEnergy: 0,
+				list: []
+			},
+			'10': {
+				totalEnergy: 0,
+				list: []
+			},
+			'11': {
+				totalEnergy: 0,
+				list: []
+			},
+			'12': {
+				totalEnergy: 0,
+				list: []
+			},
+		},
+		categroyIndex: 0,
+		gross: 0,
+		other: '',
+		editFoodVisible: false,
+		foodListVisible: false,
 		answers: {
 			filtrateDate: new Date().formatTime('yyyy-MM-dd'),
 			q: [],
@@ -80,6 +120,7 @@ Page({
 			fields: ['userInfo'],
 		});
 		this.storeBindings.updateStoreBindings();
+		this.foodIdCount = 1;
 		var patient = wx.jyApp.getTempData('screenPatient') || {};
 		this.share = option.share || '';
 		// 患者通过筛查选择页面进入
@@ -100,6 +141,7 @@ Page({
 		} else {
 			this.loadInfo(option.id);
 		}
+		this.loadFoodList();
 		this.setData({
 			filtrateId: option.filtrateId || '',
 			consultOrderId: option.consultOrderId || '',
@@ -134,17 +176,6 @@ Page({
 		this.setData({
 			[`${prop}`]: e.detail,
 		});
-		if (prop == 'mainDiet') {
-			this.setData({
-				'answers.selfDiet': 0,
-			});
-		}
-	},
-	onClickImg(e) {
-		var num = e.currentTarget.dataset.num;
-		this.setData({
-			'answers.selfDiet': num,
-		});
 	},
 	onPre() {
 		this.setData({
@@ -172,14 +203,15 @@ Page({
 				return;
 			}
 		}
-		if (this.data.step == 7) {
-			if (!this.data.answers.mainDiet) {
-				wx.jyApp.toast('必填项不能为空');
-				return;
-			}
-		}
+		// if (this.data.step == 7) {
+		// 	if (!this.data.answers.mainDiet) {
+		// 		wx.jyApp.toast('必填项不能为空');
+		// 		return;
+		// 	}
+		// }
 		this.setData({
 			step: this.data.step + 1,
+			foodListVisible: false
 		});
 	},
 	countMpgsgaScore() {
@@ -261,12 +293,14 @@ Page({
 			//判断mpgsga
 			result = '营养良好';
 			resultDescription = '不需要进行营养干预';
-		} else if (this.data.selfDiet <= 2) {
-			//判断膳食自评表
-			result = '需营养干预';
-			resultDescription = '需医生会诊，并进行营养干预';
-			colorResult = 3;
-		} else if (this.data.answers.q[0] > 0) {
+		}
+		// else if (this.data.selfDiet <= 2) {
+		// 	//判断膳食自评表
+		// 	result = '需营养干预';
+		// 	resultDescription = '需医生会诊，并进行营养干预';
+		// 	colorResult = 3;
+		// } 
+		else if (this.data.answers.q[0] > 0) {
 			//是否有严重肝肾功能受损
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
@@ -284,17 +318,10 @@ Page({
 				//为糖尿病
 				N = 28 * W;
 			}
-			switch (this.data.answers.selfDiet) {
-				case '3':
-					Z = 750;
-					break;
-				case '4':
-					Z = 1050;
-					break;
-				case '5':
-					Z = 1350;
-					break;
+			for (let foodData of this.data.selectedFood) {
+				Z += foodData.totalEnergy;
 			}
+			Z = Number(Z.toFixed(2)) || 0;
 			if (Z + 600 < N * 0.7) {
 				result = '需营养干预';
 				resultDescription = '需医生会诊，并进行营养干预';
@@ -432,22 +459,22 @@ Page({
 		this.recommend[0] = [this.data.N, [this.data.W, this.data.W * 1.5]];
 		this.recommend[1] = [0, 0];
 		this.recommend[2] = [0, 0];
-		if (this.data.answers.selfDiet == 3) {
-			this.recommend[1] = [
-				[600, 900],
-				[30, 40],
-			];
-		} else if (this.data.answers.selfDiet == 4) {
-			this.recommend[1] = [
-				[900, 1200],
-				[40, 50],
-			];
-		} else if (this.data.answers.selfDiet == 5) {
-			this.recommend[1] = [
-				[1200, 1500],
-				[50, 60],
-			];
-		}
+		// if (this.data.answers.selfDiet == 3) {
+		// 	this.recommend[1] = [
+		// 		[600, 900],
+		// 		[30, 40],
+		// 	];
+		// } else if (this.data.answers.selfDiet == 4) {
+		// 	this.recommend[1] = [
+		// 		[900, 1200],
+		// 		[40, 50],
+		// 	];
+		// } else if (this.data.answers.selfDiet == 5) {
+		// 	this.recommend[1] = [
+		// 		[1200, 1500],
+		// 		[50, 60],
+		// 	];
+		// }
 		if (this.data.C < 300) {
 			this.recommend[2][0] = 300;
 		} else if (this.data.C <= 400) {
@@ -512,6 +539,18 @@ Page({
 				}
 			});
 	},
+	loadFoodList(id) {
+		return wx.jyApp
+			.http({
+				url: `/food/list`,
+			})
+			.then(data => {
+				this.setData({
+					foods: data.foods,
+					categroyIndex: 0
+				});
+			});
+	},
 	gotoResult(data, redirect) {
 		const url = `/pages/screen/assistant-result/index?title=精准营养小助手&result=${this.data.colorResult}&_result=${this.data.result}&share=${this.share}&filtrateId=${data.filtrateId}&filtrateType=${data.type}&from=${this.from}&doctorId=${this.doctorId}&doctorName=${this.data.doctorName}&consultOrderId=${this.data.consultOrderId}`;
 		wx.jyApp.setTempData('assistant-results', [this.data.resultDescription]);
@@ -528,11 +567,100 @@ Page({
 			});
 		}
 	},
-	onSave() {
-		if (!this.data.answers.selfDiet) {
-			wx.jyApp.toast('必填项不能为空');
-			return;
+	onClickFood(e) {
+		this.setData({
+			editFoodVisible: true,
+			gross: 0,
+			foodItem: e.currentTarget.dataset.item
+		});
+	},
+	onCloseFood(e) {
+		this.setData({
+			editFoodVisible: false
+		});
+	},
+	onSaveFood() {
+		if (this.data.gross) {
+			let totalEnergy = 0;
+			let food = { ...this.data.foodItem };
+			let foodData = this.data.selectedFood[this.data.step];
+			food.id = this.foodIdCount++;
+			switch (this.data.gross) {
+				case '1':
+					food.gross = _getGross(this.data.foodItem.option1);
+					break;
+				case '2':
+					food.gross = _getGross(this.data.foodItem.option2);
+					break;
+				case '3':
+					food.gross = _getGross(this.data.foodItem.option3);
+					break;
+				case '4':
+					food.gross = _getGross(this.data.foodItem.option4);
+					break;
+				case '5':
+					food.gross = Number(parseFloat(this.data.other).toFixed(2)) || 0;
+					break;
+			}
+			food.energy = (food.gross * food.energy / 100).toFixed(2);
+			food.energy = Number(food.energy);
+			food.protein = (food.gross * food.protein / 100).toFixed(2);
+			food.protein = Number(food.energy);
+			food.fat = (food.gross * food.fat / 100).toFixed(2);
+			food.fat = Number(food.energy);
+			food.carbohydrate = (food.gross * food.carbohydrate / 100).toFixed(2);
+			food.carbohydrate = Number(food.energy);
+			foodData.list.push(food);
+			foodData.list.forEach((item) => {
+				totalEnergy += item.energy;
+			});
+			foodData.totalEnergy = totalEnergy;
+			this.setData({
+				[`selectedFood[${this.data.step}]`]: foodData,
+				editFoodVisible: false
+			});
 		}
+
+		function _getGross(gross) {
+			if (gross.indexOf('-') > -1 || gross.indexOf('~') > -1) {
+				gross = gross.split(/\-|\~/);
+				gross = Number(((parseFloat(gross[0]) + parseFloat(gross[1])) / 2).toFixed(2)) || 0
+			} else {
+				gross = Number(parseFloat(gross).toFixed(2)) || 0;
+			}
+			return gross;
+		}
+	},
+	onDelFood(e) {
+		let id = e.currentTarget.dataset.id;
+		let foodData = this.data.selectedFood[this.data.step];
+		for (let i = 0; i < foodData.list.length; i++) {
+			if (foodData.list[i].id == id) {
+				foodData.totalEnergy -= foodData.list[i].energy;
+				foodData.totalEnergy = Number(foodData.totalEnergy.toFixed(2));
+				foodData.list.splice(i, 1);
+				this.setData({
+					[`selectedFood[${this.data.step}]`]: foodData
+				});
+				break;
+			}
+		}
+	},
+	onShowFoodLisst() {
+		this.setData({
+			foodListVisible: true
+		});
+	},
+	onCloseFoodList() {
+		this.setData({
+			foodListVisible: false
+		});
+	},
+	onSave() {
+		// if (!this.data.answers.selfDiet) {
+		// 	wx.jyApp.toast('必填项不能为空');
+		// 	return;
+		// }
 		this.countResult();
 		var data = {
 			id: this.data.id,

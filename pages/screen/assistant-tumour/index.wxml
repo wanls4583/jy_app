@@ -1,4 +1,4 @@
-<view class="container padding-bottom-footer">
+<view class="container white-background-color" style="padding-bottom:72px">
 	<view wx:if="{{step==1}}">
 		<view class="white-background-color">
 			<view class="padding-left-right-30">
@@ -139,31 +139,99 @@
 			</van-radio-group>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==7}}">
-		<view class="padding-30">
-			<view class="padding-bottom-30 required">请选择您的主食类型：</view>
-			<van-radio-group bind:change="onChange" data-prop="answers.mainDiet" value="{{answers.mainDiet}}">
-				<van-radio name="{{3}}">主食为大米</van-radio>
-				<van-radio name="{{2}}">主食为面食</van-radio>
-				<van-radio name="{{1}}">主食为米、面食</van-radio>
-			</van-radio-group>
+	<view class="weidth-100 height-100 position-relative white-background-color" wx:if="{{step>=7}}">
+		<view class="flex--center--between padding-left-right-30" style="height:50px">
+			<view class="flex--center--start">
+				<view>您最近一周进食状况：</view>
+				<view class="success-background-color white-color" style="padding:2px 5px">{{eatNameMap[step]}}</view>
+			</view>
+			<van-icon name="bag-o" size="{{25}}" bindtap="onShowFoodLisst" />
+		</view>
+		<view class="position-absolute bottom-0 width-100 flex" style="top:50px">
+			<view class="height-100 gray-background-color">
+				<view wx:for="{{foods}}" class="padding-30 align-center {{index===categroyIndex?'active-category':''}}">{{item.categoryName}}</view>
+			</view>
+			<view class="height-100 padding-left-right-30 flex-grow-1">
+				<view wx:for="{{foods[categroyIndex].items}}" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
+					<image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
+					<view class="flex--start--between flex-direction-column margin-left-20">
+						<view class="font-title">{{item.foodName}}</view>
+						<view class="flex">
+							<view class="warn-color">{{item.energy}}</view>
+							<view class="gray-color">千卡/克</view>
+						</view>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==8}}">
-		<view class="padding-left-right-30 align-center required">您最近一周进食情况：（请点击选择最接近的一项）</view>
-		<image class="width-100 margin-top-20" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/1_01.png" />
-		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="1" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=1?'-1':''}}_02.png" />
-		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="2" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=2?'-1':''}}_03.png" />
-		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="3" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=3?'-1':''}}_04.png" />
-		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="4" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=4?'-1':''}}_05.png" />
-		<image bindtap="onClickImg" class="width-100 margin-top-10" data-num="5" mode="widthFix" src="http://juyuanmenzhenbu.com/ihospital/static/image/screen/diet-self-check/{{answers.mainDiet}}{{answers.selfDiet!=5?'-1':''}}_06.png" />
-	</view>
 </view>
-<view class="footer flex--center--around padding-30">
+<view class="footer flex--center--around padding-30 white-background-color" style="z-index:100">
 	<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
-	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<8}}">下一页</view>
-	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==8}}">保存</view>
+	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<12}}">下一页</view>
+	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==12}}">保存</view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
 	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+</van-popup>
+<van-popup position="bottom" bind:close="onCloseFood" closeable show="{{editFoodVisible}}">
+	<view class="padding-30">
+		<view class="font-title padding-30 align-center">{{eatNameMap[step]}}</view>
+		<view class="flex padding-top-bottom-30 border-bottom">
+			<image src="{{foodItem.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
+			<view class="flex--start--between flex-direction-column margin-left-20">
+				<view class="font-title">{{foodItem.foodName}}</view>
+				<view class="flex">
+					<view class="warn-color">{{foodItem.energy}}</view>
+					<view class="gray-color">千卡/克</view>
+				</view>
+			</view>
+		</view>
+		<view class="font-title padding-30">请选择进食量：</view>
+		<van-radio-group bind:change="onChange" data-prop="gross" value="{{gross}}">
+			<view class="flex flex-wrap-wrap gross-choice">
+				<view class="width-50 flex-shrink-0">
+					<van-radio name="1">{{foodItem.option1}}克</van-radio>
+				</view>
+				<view class="width-50 flex-shrink-0">
+					<van-radio name="2">{{foodItem.option2}}克</van-radio>
+				</view>
+				<view class="width-50 flex-shrink-0">
+					<van-radio name="3">{{foodItem.option3}}克</van-radio>
+				</view>
+				<view class="width-50 flex-shrink-0">
+					<van-radio name="4">{{foodItem.option4}}克</van-radio>
+				</view>
+				<view class="flex--center--start margin-bottom-30">
+					<van-radio name="5" shape="square">
+						<text>其他：</text>
+					</van-radio>
+					<input bindinput="onInput" class="border-bottom" data-prop="other" type="text" value="{{other}}" />
+					<text>克</text>
+				</view>
+			</view>
+		</van-radio-group>
+		<view class="flex--center--center">
+			<view class="button primary" bindtap="onSaveFood">保存</view>
+		</view>
+	</view>
+</van-popup>
+<van-popup position="bottom" bind:close="onCloseFoodList" closeable class="food-list" show="{{foodListVisible}}">
+	<view class="padding-left-right-30">
+		<view class="font-title flex--center--start" style="height:56px">
+			<view>{{eatNameMap[step]}}</view>
+			<view class="gray-color margin-left-20">总计：{{selectedFood[step].totalEnergy}}千卡</view>
+		</view>
+		<view class="flex padding-top-bottom-30 border-bottom" wx:for="{{selectedFood[step].list}}">
+			<image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
+			<view class="flex--start--between flex-direction-column flex-grow-1 margin-left-20">
+				<view class="font-title">{{item.foodName}}</view>
+				<view class="flex">
+					<view class="gray-color">{{item.gross}}克</view>
+					<view class="gray-color">{{item.energy}}千卡</view>
+				</view>
+			</view>
+			<van-icon name="delete" size="{{20}}" color="#ccc" bindtap="onDelFood" data-id="{{item.id}}" />
+		</view>
+	</view>
 </van-popup>
