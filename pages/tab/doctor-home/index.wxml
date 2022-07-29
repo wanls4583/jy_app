@@ -117,10 +117,10 @@
 				<view
 					bindtap="onCheckGoto"
 					class="flex--center--center flex-direction-column width-25 padding-top-30 align-center"
-					data-url="/pages/interrogation/my-product/index"
+					data-url="/pages/interrogation/product-list/index?from=my-product"
 				>
 					<image src="/image/icon_product.png" style="width:70rpx;height:70rpx" />
-					<view class="font-small margin-top-10 line-height-1em color-666">我的产品</view>
+					<view class="font-small margin-top-10 line-height-1em color-666">产品管理</view>
 				</view>
 				<view
 					bindtap="onGoto"

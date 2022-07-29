@@ -38,10 +38,10 @@ Page({
             from: option.from || ''
         });
         this.addedList = [];
-        // 从我的产品跳转过来
+        // 从首页跳转过来
         if (this.data.from === 'my-product') {
             wx.setNavigationBarTitle({
-                title: '添加产品'
+                title: '产品管理'
             });
             this.addedList = wx.getStorageSync('my-product-ids') || [];
         }
@@ -61,15 +61,20 @@ Page({
             this.setData({
                 productVisible: this.data.productData.totalPage > 0 ? 1 : 0,
                 taocanVisible: this.data.taocanData.totalPage > 0 ? 1 : 0,
-                myDataVisible: this.data.from != 'my-product' ? 1 : 0
+                myDataVisible: 1
             });
             var toltalTab = this.data.myDataVisible + this.data.taocanVisible + this.data.productVisible;
-            if (toltalTab >= 2 && this.data.myDataVisible && this.data.myProductData.totalPage <= 0) {
+            if (toltalTab >= 2 && this.data.myDataVisible && this.data.myProductData.totalPage <= 0 && this.data.from != 'my-product') {
                 this.setData({
                     active: 1
                 });
             }
             wx.hideLoading();
+        });
+    },
+    onGotoAdd() {
+        this.setData({
+            active: 1
         });
     },
     onAddTaocan(e) {
@@ -134,6 +139,7 @@ Page({
         });
     },
     changeAddFlag(id, added) {
+        this.loadList(true, 4);
         for (var page in this.data.productData.pageList) {
             var list = this.data.productData.pageList[page];
             list = list || [];
@@ -264,9 +270,6 @@ Page({
     loadList(refresh, type) {
         var page = 0;
         if (type == 4) {
-            if (this.data.from == 'my-product') {
-                return wx.jyApp.Promise.resolve();
-            }
             if (this.data.myProductData.loading || !refresh && this.data.myProductData.totalPage > -1 && this.data.myProductData.page > this.data.myProductData.totalPage) {
                 return wx.jyApp.Promise.reject();
             }

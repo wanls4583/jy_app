@@ -44,6 +44,10 @@ Page({
         } else if (option.from == 'invite') { //邀请医生二维码
             this.type = 3;
             this.getQrCode();
+        } else if (option.from == 'product') { //
+            this.type = 8;
+            this.pId = option.pId;
+            this.getQrCode();
         } else if (this.type) {
             this.getQrCode();
         } else {
@@ -57,6 +61,11 @@ Page({
             wx.setNavigationBarTitle({
                 title: '邀请团队成员'
             });
+        } else if (option.from === 'product') {
+            wx.setNavigationBarTitle({
+                title: '产品二维码'
+            });
+            this.getProductInfo();
         }
         var tip = '';
         var title = '';
@@ -70,6 +79,8 @@ Page({
             title = '邀请科室医生加入团队';
         } else if (option.from == 'screen') {
             tip = '将二维码展示给患者，扫码后可进行营养筛查';
+        } else if (option.from == 'product') {
+            tip = '将二维码展示给患者，扫码后可直接购买产品';
         } else {
             tip = '将二维码展示给患者，扫码后可进行线上问诊';
             title = '邀请患者线上问诊';
@@ -109,16 +120,25 @@ Page({
     },
     onShareAppMessage: function () {
         var path = `/pages/index/index?type=4&subType=${this.type}&uId=${this.uId}&dId=${this.dId}`;
+        var title = this.dName + '-' + this.jobTitle + '（点击向医生发起问诊！）';
+        var imageUrl = this.data.barcodeUrl || '/image/logo.png';
         if (this.data.from == 'screen') {
             path += `&stype=${this.stype || -1}`
         }
         if (this.data.from == 'team') {
             path += '&dpId=' + this.dpId;
         }
+        if (this.data.from == 'product') {
+            path += '&pId=' + this.pId;
+            if (this.product) {
+                title = this.product.goodsName || title;
+                imageUrl = this.product.imageUrl || imageUrl;
+            }
+        }
         return {
-            title: this.dName + '-' + this.jobTitle + '（点击向医生发起问诊！）',
+            title: title,
             path: path,
-            imageUrl: this.data.barcodeUrl || '/image/logo.png'
+            imageUrl: imageUrl
         }
     },
     //保存二维码
@@ -204,17 +224,34 @@ Page({
             });
             return;
         }
+        let stype = this.type == 2 && this.stype ? ',stype=' + this.stype : '';
+        let pId = this.type == 8 && this.pId ? ',pId=' + this.pId : '';
         return wx.jyApp.http({
             url: '/wx/share/barcode',
             data: {
                 page: 'pages/index/index',
-                scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${this.type==2&&this.stype?',stype='+this.stype:''}`
+                scene: `type=${this.type},dId=${this.dId},uId=${this.uId}${stype}${pId}`
             }
         }).then((data) => {
             this.qrMap[this.type] = data.barcode;
             this.setData({
                 barcodeUrl: data.barcode
             });
+        });
+    },
+    getProductInfo() {
+        wx.jyApp.showLoading('加载中...', true);
+        wx.jyApp.http({
+            url: `/goods/info/${this.pId}`
+        }).then((data) => {
+            data.info._unit = data.info.type == 1 ? wx.jyApp.constData.unitChange[data.info.unit] : '份';
+            data.info._profit = (data.info.price - data.info.priceE) * 0.5 || 0;
+            data.info._profit = data.info._profit > 0 ? data.info._profit.toFixed(2) : 0;
+            data.info.imageUrl = data.info.goodsPic && data.info.goodsPic.split(',') || [];
+            data.info.imageUrl = data.info.imageUrl[0];
+            this.product = data.info;
+        }).finally(() => {
+            wx.hideLoading();
         });
     }
 })
