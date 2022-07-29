@@ -511,7 +511,7 @@ Page({
 		// 	this.recommend[2][0] = 600;
 		// }
 		this.recommend[2][0] = this.recommend[0][0] - this.recommend[1][0];
-		this.recommend[2][0] = this.recommend[2][0] < 0 ? 0: this.recommend[2][0];
+		this.recommend[2][0] = this.recommend[2][0] < 0 ? 0 : this.recommend[2][0];
 		this.recommend[2][0] = Number(this.recommend[2][0].toFixed(2)) || 0;
 		let min1 = 0,
 			max1 = 0;
@@ -698,7 +698,6 @@ Page({
 			let toatalCarbohydrate = 0;
 			let food = {
 				...this.data.foodItem,
-				_gross: this.data.gross
 			};
 			let foodData = this.data.selectedFood[this.data.step];
 			let index = foodData.list.length;
@@ -711,18 +710,23 @@ Page({
 			switch (this.data.gross) {
 				case '1':
 					food.gross = _getGross(this.data.foodItem.option1);
+					food._gross = food.option1;
 					break;
 				case '2':
 					food.gross = _getGross(this.data.foodItem.option2);
+					food._gross = food.option2;
 					break;
 				case '3':
 					food.gross = _getGross(this.data.foodItem.option3);
+					food._gross = food.option3;
 					break;
 				case '4':
 					food.gross = _getGross(this.data.foodItem.option4);
+					food._gross = food.option4;
 					break;
 				case '5':
 					food.gross = Number(parseFloat(this.data.other).toFixed(2)) || 0;
+					food._gross = food.gross;
 					break;
 			}
 			if (this.data.gross == 5 && !food.gross) {
@@ -753,6 +757,8 @@ Page({
 				selectedFood: this.data.selectedFood,
 				editFoodVisible: false
 			});
+		} else {
+			wx.jyApp.toast('请选择');
 		}
 
 		function _getGross(gross) {
@@ -814,6 +820,7 @@ Page({
 				return {
 					foodCode: item.foodCode,
 					gross: item.gross,
+					_gross: item._gross,
 					energy: item.energy,
 					protein: item.protein,
 					fat: item.fat,

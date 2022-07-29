@@ -34,3 +34,7 @@
 .food-list .van-transition {
 	z-index: 99 !important;
 }
+
+.van-popup {
+	max-height: 100% !important;
+}

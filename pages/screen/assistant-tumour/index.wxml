@@ -224,13 +224,16 @@
                 <view class="width-50 flex-shrink-0" wx:if="{{foodItem.option4}}">
                     <van-radio name="4">{{foodItem.option4}}克</van-radio>
                 </view>
-                <view class="flex--center--start margin-bottom-30">
+                <view class="flex--center--start">
                     <van-radio name="5">
                         <text>其他：</text>
                     </van-radio>
                     <input bindinput="onInput" class="border-bottom align-center" data-prop="other" type="text" value="{{other}}" style="width:60px" />
                     <text>克</text>
                 </view>
+            </view>
+            <view class="margin-bottom-30 flex--center--center">
+                <image src="{{foodItem.sampleUrl}}" style="width:150px;height:150px;border-radius:20px" mode="aspectFill" />
             </view>
         </van-radio-group>
         <view class="flex--center--center">
