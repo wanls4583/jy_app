@@ -580,6 +580,12 @@ Page({
 			});
 		}
 	},
+	onChaneCategory(e) {
+		let index = e.currentTarget.dataset.index;
+		this.setData({
+			categroyIndex: index
+		});
+	},
 	onClickFood(e) {
 		this.setData({
 			editFoodVisible: true,

@@ -1,237 +1,247 @@
 <view class="container white-background-color" style="padding-bottom:72px">
-	<view wx:if="{{step==1}}">
-		<view class="white-background-color">
-			<view class="padding-left-right-30">
-				<view class="padding-top-bottom-30 border-bottom">
-					<text>{{patient.patientName}}</text>
-					<text>，{{patient._sex}}</text>
-					<text>，{{patient.age}}岁</text>
-					<text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
-					<text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
-					<text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
-				</view>
-			</view>
-			<readonly-field bindtap="onShowDate" label="评估日期" value="{{answers.filtrateDate}}" />
-		</view>
-		<view class="white-background-color padding-top-bottom-30 margin-top-20">
-			<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
-				<view class="padding-bottom-30 required">1、是否有严重肝肾功能受损？</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
-					<van-radio name="1">是</van-radio>
-					<van-radio name="0">否</van-radio>
-					<van-radio name="2">不知道</van-radio>
-				</van-radio-group>
-			</view>
-			<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
-				<view class="padding-bottom-30 required">2、是否心肺功能受损？</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
-					<van-radio name="1">是</van-radio>
-					<van-radio name="0">否</van-radio>
-				</van-radio-group>
-			</view>
-			<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
-				<view class="padding-bottom-30 required">3、是否存在高尿酸或痛风情况？</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
-					<van-radio name="1">是</van-radio>
-					<van-radio name="0">否</van-radio>
-				</van-radio-group>
-			</view>
-			<view class="padding-top-bottom-30 margin-left-right-30">
-				<view class="padding-bottom-30 required">4、是否为糖尿病患者？</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
-					<van-radio name="1">是</van-radio>
-					<van-radio name="0">否</van-radio>
-				</van-radio-group>
-			</view>
-			<view class="padding-top-bottom-30 margin-left-right-30">
-				<view class="padding-bottom-30 required">5、是否使用胰岛素，或者曾经出现过低血糖反应</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
-					<van-radio name="1">是</van-radio>
-					<van-radio name="0">否</van-radio>
-				</van-radio-group>
-			</view>
-		</view>
-	</view>
-	<view wx:if="{{step==2}}">
-		<view class="white-background-color padding-top-bottom-30 margin-top-20">
-			<view class="margin-left-30 pre-vertical-line primary-line-color">体重变化</view>
-			<van-field bind:input="onInput" data-prop="answers.pgsga.currentWeight" type="number" label="当前体重(kg)" value="{{answers.pgsga.currentWeight}}" />
-			<van-field bind:input="onInput" data-prop="answers.pgsga.currentStature" type="number" required="{{true}}" label="当前身高(cm)" value="{{answers.pgsga.currentStature}}" />
-			<van-field bind:input="onInput" data-prop="answers.pgsga.weightOneMouthAgo" type="number" label="一个月前体重(kg)" title-width="8em" value="{{answers.pgsga.weightOneMouthAgo}}" />
-			<van-field bind:input="onInput" data-prop="answers.pgsga.weightSixMouthAgo" type="number" label="六个月前体重(kg)" title-width="8em" value="{{answers.pgsga.weightSixMouthAgo}}" />
-			<view class="padding-30">
-				<view class="padding-bottom-30">最近两周内我的体重：</view>
-				<van-radio-group bind:change="onChange" data-prop="answers.pgsga.weightChange" value="{{answers.pgsga.weightChange}}">
-					<van-radio name="NO_CHANGE">无改变（0分）</van-radio>
-					<van-radio name="MORE_THAN_BEFORE">增加（0分）</van-radio>
-					<van-radio name="LESS_THAN_BEFORE">下降（1分）</van-radio>
-				</van-radio-group>
-			</view>
-		</view>
-	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==3}}">
-		<view class="margin-left-30 pre-vertical-line primary-line-color">饮食变化</view>
-		<view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
-			<view class="padding-bottom-30">在过去的一个月里，我的进食情况与平时情况相比：</view>
-			<van-radio-group bind:change="onChange" data-prop="answers.pgsga.appetiteChange" value="{{answers.pgsga.appetiteChange}}">
-				<van-radio name="NO_CHANGE">无变化（0分）</van-radio>
-				<van-radio name="MORE">大于平常（0分）</van-radio>
-				<van-radio name="LESS">小于平常（1分）</van-radio>
-			</van-radio-group>
-		</view>
-		<view class="padding-30" wx:if="{{answers.pgsga.appetiteChange=='LESS'}}">
-			<view class="padding-bottom-30">如果进食情况小于平常，我目前进食：</view>
-			<van-checkbox-group bind:change="onChange" data-prop="answers.pgsga.dieteticChange" value="{{answers.pgsga.dieteticChange}}">
-				<van-checkbox name="NORMAL_FEED" shape="square">正常饮食，但比正常情况少（1分）</van-checkbox>
-				<van-checkbox name="SOLID_FEED" shape="square">进食少量固体食物（2分）</van-checkbox>
-				<van-checkbox name="FLUID_FEED" shape="square">只能进食流质食物（3分）</van-checkbox>
-				<van-checkbox name="ONLY_NUTRITION" shape="square">只能口服营养制剂（3分）</van-checkbox>
-				<van-checkbox name="LITTLE_FEED" shape="square">几乎吃不下食物（4分）</van-checkbox>
-				<van-checkbox name="INJECTABLE_FEED" shape="square">只能依赖管饲或静脉营养（0分）</van-checkbox>
-			</van-checkbox-group>
-		</view>
-	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==4}}">
-		<view class="margin-left-30 pre-vertical-line primary-line-color">症状</view>
-		<view class="padding-30">
-			<view class="padding-bottom-30">近2周来，我有以下的问题，影响我的饮食：</view>
-			<van-checkbox-group bind:change="onChange" data-prop="answers.pgsga.symptom" value="{{answers.pgsga.symptom}}">
-				<van-checkbox name="没有饮食困难" shape="square">没有饮食问题（0分）</van-checkbox>
-				<van-checkbox name="恶心" shape="square">恶心（1分）</van-checkbox>
-				<van-checkbox name="口干" shape="square">口干（1分）</van-checkbox>
-				<van-checkbox name="便秘" shape="square">便秘（1分）</van-checkbox>
-				<van-checkbox name="食物有怪味或没有味道" shape="square">食物没有味道（1分）</van-checkbox>
-				<van-checkbox name="食物气味不好" shape="square">食物气味不好（1分）</van-checkbox>
-				<van-checkbox name="吃一会就饱了" shape="square">吃一会就饱了（1分）</van-checkbox>
-				<van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
-				<van-checkbox name="腹泻" shape="square">腹泻（3分）</van-checkbox>
-				<van-checkbox name="呕吐" shape="square">呕吐（3分）</van-checkbox>
-				<view class="flex--center--start">
-					<van-checkbox name="何处疼痛" shape="square">
-						<text>疼痛（3分），部位</text>
-					</van-checkbox>
-					<input bindinput="onInput" class="border margin-bottom-30" data-prop="answers.pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{answers.pgsga.wherePained}}" />
-				</view>
-				<van-checkbox name="没有食欲" shape="square">没有食欲，不想吃饭（3分）</van-checkbox>
-			</van-checkbox-group>
-		</view>
-	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==5}}">
-		<view class="margin-left-30 pre-vertical-line primary-line-color">身体状况</view>
-		<view class="padding-30">
-			<view class="padding-bottom-30">在过去的一个月，我的活动：</view>
-			<van-radio-group bind:change="onChange" data-prop="answers.pgsga.physicalCondition" value="{{answers.pgsga.physicalCondition}}">
-				<van-radio name="NORMAL">正常，没有任何限制（0分）</van-radio>
-				<van-radio name="DIFFERENT">与平常相比稍差，但尚能正常活动（1分）</van-radio>
-				<van-radio name="UNCOMFORTABLE">多数时候不想起床活动，但卧床或坐着时间不超过12h（2分）</van-radio>
-				<van-radio name="LITTLE_MOTION">活动很少，一天多数时间卧床或坐着（3分）</van-radio>
-				<van-radio name="IN_BED">几乎卧床不起，很少下床（3分）</van-radio>
-			</van-radio-group>
-		</view>
-	</view>
-	<view class="white-background-color padding-top-30" wx:if="{{step==6}}">
-		<view class="margin-left-30 pre-vertical-line primary-line-color">年龄评分</view>
-		<view class="padding-30">
-			<view class="padding-bottom-30">年龄是否超过65岁：</view>
-			<van-radio-group value="{{answers.pgsga.ageScore}}">
-				<van-radio name="0">年龄≤65岁（0分）</van-radio>
-				<van-radio name="1">年龄>65岁（1分）</van-radio>
-			</van-radio-group>
-		</view>
-	</view>
-	<view class="weidth-100 height-100 position-relative white-background-color" wx:if="{{step>=7}}">
-		<view class="flex--center--between padding-left-right-30" style="height:50px">
-			<view class="flex--center--start">
-				<view>您最近一周进食状况：</view>
-				<view class="success-background-color white-color" style="padding:2px 5px">{{eatNameMap[step]}}</view>
-			</view>
-			<van-icon name="bag-o" size="{{25}}" bindtap="onShowFoodLisst" />
-		</view>
-		<view class="position-absolute bottom-0 width-100 flex" style="top:50px">
-			<view class="height-100 gray-background-color">
-				<view wx:for="{{foods}}" class="padding-30 align-center {{index===categroyIndex?'active-category':''}}">{{item.categoryName}}</view>
-			</view>
-			<view class="height-100 padding-left-right-30 flex-grow-1">
-				<view wx:for="{{foods[categroyIndex].items}}" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
-					<image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
-					<view class="flex--start--between flex-direction-column margin-left-20">
-						<view class="font-title">{{item.foodName}}</view>
-						<view class="flex">
-							<view class="warn-color">{{item.energy}}</view>
-							<view class="gray-color">千卡/克</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-	</view>
+    <view wx:if="{{step==1}}">
+        <view class="white-background-color">
+            <view class="padding-left-right-30">
+                <view class="padding-top-bottom-30 border-bottom">
+                    <text>{{patient.patientName}}</text>
+                    <text>，{{patient._sex}}</text>
+                    <text>，{{patient.age}}岁</text>
+                    <text wx:if="{{patient.height}}">，{{patient.height}}cm</text>
+                    <text wx:if="{{patient.weight}}">，{{patient.weight}}kg</text>
+                    <text wx:if="{{patient.BMI}}">，{{patient.BMI}}</text>
+                </view>
+            </view>
+            <readonly-field bindtap="onShowDate" label="评估日期" value="{{answers.filtrateDate}}" />
+        </view>
+        <view class="white-background-color padding-top-bottom-30 margin-top-20">
+            <view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
+                <view class="padding-bottom-30 required">1、是否有严重肝肾功能受损？</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[0]" value="{{answers.q[0]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                    <van-radio name="2">不知道</van-radio>
+                </van-radio-group>
+            </view>
+            <view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
+                <view class="padding-bottom-30 required">2、是否心肺功能受损？</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[1]" value="{{answers.q[1]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                </van-radio-group>
+            </view>
+            <view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
+                <view class="padding-bottom-30 required">3、是否存在高尿酸或痛风情况？</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[2]" value="{{answers.q[2]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                </van-radio-group>
+            </view>
+            <view class="padding-top-bottom-30 margin-left-right-30">
+                <view class="padding-bottom-30 required">4、是否为糖尿病患者？</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[3]" value="{{answers.q[3]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                </van-radio-group>
+            </view>
+            <view class="padding-top-bottom-30 margin-left-right-30">
+                <view class="padding-bottom-30 required">5、是否使用胰岛素，或者曾经出现过低血糖反应</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[4]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                </van-radio-group>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{step==2}}">
+        <view class="white-background-color padding-top-bottom-30 margin-top-20">
+            <view class="margin-left-30 pre-vertical-line primary-line-color">体重变化</view>
+            <van-field bind:input="onInput" data-prop="answers.pgsga.currentWeight" type="number" label="当前体重(kg)" value="{{answers.pgsga.currentWeight}}" />
+            <van-field bind:input="onInput" data-prop="answers.pgsga.currentStature" type="number" required="{{true}}" label="当前身高(cm)" value="{{answers.pgsga.currentStature}}" />
+            <van-field bind:input="onInput" data-prop="answers.pgsga.weightOneMouthAgo" type="number" label="一个月前体重(kg)" title-width="8em" value="{{answers.pgsga.weightOneMouthAgo}}" />
+            <van-field bind:input="onInput" data-prop="answers.pgsga.weightSixMouthAgo" type="number" label="六个月前体重(kg)" title-width="8em" value="{{answers.pgsga.weightSixMouthAgo}}" />
+            <view class="padding-30">
+                <view class="padding-bottom-30">最近两周内我的体重：</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.pgsga.weightChange" value="{{answers.pgsga.weightChange}}">
+                    <van-radio name="NO_CHANGE">无改变（0分）</van-radio>
+                    <van-radio name="MORE_THAN_BEFORE">增加（0分）</van-radio>
+                    <van-radio name="LESS_THAN_BEFORE">下降（1分）</van-radio>
+                </van-radio-group>
+            </view>
+        </view>
+    </view>
+    <view class="white-background-color padding-top-30" wx:if="{{step==3}}">
+        <view class="margin-left-30 pre-vertical-line primary-line-color">饮食变化</view>
+        <view class="padding-top-bottom-30 margin-left-right-30 border-bottom">
+            <view class="padding-bottom-30">在过去的一个月里，我的进食情况与平时情况相比：</view>
+            <van-radio-group bind:change="onChange" data-prop="answers.pgsga.appetiteChange" value="{{answers.pgsga.appetiteChange}}">
+                <van-radio name="NO_CHANGE">无变化（0分）</van-radio>
+                <van-radio name="MORE">大于平常（0分）</van-radio>
+                <van-radio name="LESS">小于平常（1分）</van-radio>
+            </van-radio-group>
+        </view>
+        <view class="padding-30" wx:if="{{answers.pgsga.appetiteChange=='LESS'}}">
+            <view class="padding-bottom-30">如果进食情况小于平常，我目前进食：</view>
+            <van-checkbox-group bind:change="onChange" data-prop="answers.pgsga.dieteticChange" value="{{answers.pgsga.dieteticChange}}">
+                <van-checkbox name="NORMAL_FEED" shape="square">正常饮食，但比正常情况少（1分）</van-checkbox>
+                <van-checkbox name="SOLID_FEED" shape="square">进食少量固体食物（2分）</van-checkbox>
+                <van-checkbox name="FLUID_FEED" shape="square">只能进食流质食物（3分）</van-checkbox>
+                <van-checkbox name="ONLY_NUTRITION" shape="square">只能口服营养制剂（3分）</van-checkbox>
+                <van-checkbox name="LITTLE_FEED" shape="square">几乎吃不下食物（4分）</van-checkbox>
+                <van-checkbox name="INJECTABLE_FEED" shape="square">只能依赖管饲或静脉营养（0分）</van-checkbox>
+            </van-checkbox-group>
+        </view>
+    </view>
+    <view class="white-background-color padding-top-30" wx:if="{{step==4}}">
+        <view class="margin-left-30 pre-vertical-line primary-line-color">症状</view>
+        <view class="padding-30">
+            <view class="padding-bottom-30">近2周来，我有以下的问题，影响我的饮食：</view>
+            <van-checkbox-group bind:change="onChange" data-prop="answers.pgsga.symptom" value="{{answers.pgsga.symptom}}">
+                <van-checkbox name="没有饮食困难" shape="square">没有饮食问题（0分）</van-checkbox>
+                <van-checkbox name="恶心" shape="square">恶心（1分）</van-checkbox>
+                <van-checkbox name="口干" shape="square">口干（1分）</van-checkbox>
+                <van-checkbox name="便秘" shape="square">便秘（1分）</van-checkbox>
+                <van-checkbox name="食物有怪味或没有味道" shape="square">食物没有味道（1分）</van-checkbox>
+                <van-checkbox name="食物气味不好" shape="square">食物气味不好（1分）</van-checkbox>
+                <van-checkbox name="吃一会就饱了" shape="square">吃一会就饱了（1分）</van-checkbox>
+                <van-checkbox name="吞咽困难" shape="square">吞咽困难（2分）</van-checkbox>
+                <van-checkbox name="腹泻" shape="square">腹泻（3分）</van-checkbox>
+                <van-checkbox name="呕吐" shape="square">呕吐（3分）</van-checkbox>
+                <view class="flex--center--start">
+                    <van-checkbox name="何处疼痛" shape="square">
+                        <text>疼痛（3分），部位</text>
+                    </van-checkbox>
+                    <input bindinput="onInput" class="border margin-bottom-30" data-prop="answers.pgsga.wherePained" placeholder="请输入疼痛部位" type="text" value="{{answers.pgsga.wherePained}}" />
+                </view>
+                <van-checkbox name="没有食欲" shape="square">没有食欲，不想吃饭（3分）</van-checkbox>
+            </van-checkbox-group>
+        </view>
+    </view>
+    <view class="white-background-color padding-top-30" wx:if="{{step==5}}">
+        <view class="margin-left-30 pre-vertical-line primary-line-color">身体状况</view>
+        <view class="padding-30">
+            <view class="padding-bottom-30">在过去的一个月，我的活动：</view>
+            <van-radio-group bind:change="onChange" data-prop="answers.pgsga.physicalCondition" value="{{answers.pgsga.physicalCondition}}">
+                <van-radio name="NORMAL">正常，没有任何限制（0分）</van-radio>
+                <van-radio name="DIFFERENT">与平常相比稍差，但尚能正常活动（1分）</van-radio>
+                <van-radio name="UNCOMFORTABLE">多数时候不想起床活动，但卧床或坐着时间不超过12h（2分）</van-radio>
+                <van-radio name="LITTLE_MOTION">活动很少，一天多数时间卧床或坐着（3分）</van-radio>
+                <van-radio name="IN_BED">几乎卧床不起，很少下床（3分）</van-radio>
+            </van-radio-group>
+        </view>
+    </view>
+    <view class="white-background-color padding-top-30" wx:if="{{step==6}}">
+        <view class="margin-left-30 pre-vertical-line primary-line-color">年龄评分</view>
+        <view class="padding-30">
+            <view class="padding-bottom-30">年龄是否超过65岁：</view>
+            <van-radio-group value="{{answers.pgsga.ageScore}}">
+                <van-radio name="0">年龄≤65岁（0分）</van-radio>
+                <van-radio name="1">年龄>65岁（1分）</van-radio>
+            </van-radio-group>
+        </view>
+    </view>
+    <view class="weidth-100 height-100 position-relative white-background-color" wx:if="{{step>=7}}">
+        <view class="flex--center--between padding-left-right-30" style="height:50px">
+            <view class="flex--center--start">
+                <view>您最近一周进食状况：</view>
+                <view class="success-background-color white-color" style="padding:2px 5px">
+                    {{eatNameMap[step]}}
+                </view>
+            </view>
+            <van-icon name="bag-o" size="{{25}}" bindtap="onShowFoodLisst" />
+        </view>
+        <view class="position-absolute bottom-0 width-100 flex" style="top:50px">
+            <view class="height-100 gray-background-color">
+                <view wx:for="{{foods}}" class="padding-30 align-center {{index==categroyIndex?'active-category':''}}" bindtap="onChaneCategory" data-index="{{index}}">
+                    {{item.categoryName}}
+                </view>
+            </view>
+            <view class="height-100 padding-left-right-30 flex-grow-1">
+                <view wx:for="{{foods[categroyIndex].items}}" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
+                    <image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
+                    <view class="flex--start--between flex-direction-column margin-left-20">
+                        <view class="font-title">{{item.foodName}}</view>
+                        <view class="flex">
+                            <view class="warn-color">{{item.energy}}</view>
+                            <view class="gray-color">千卡/克</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
 </view>
 <view class="footer flex--center--around padding-30 white-background-color" style="z-index:100">
-	<view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">上一页</view>
-	<view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<12}}">下一页</view>
-	<view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==12}}">保存</view>
+    <view bindtap="onPre" class="button primary block plain" style="width:40%" wx:if="{{step>1}}">
+        上一页
+    </view>
+    <view bindtap="onNext" class="button primary block" style="width:40%" wx:if="{{step<12}}">
+        下一页
+    </view>
+    <view bindtap="onSave" class="button primary block" style="width:40%" wx:if="{{step==12}}">
+        保存
+    </view>
 </view>
 <van-popup position="bottom" show="{{dateVisible}}">
-	<van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
+    <van-datetime-picker bind:cancel="onCancelDate" bind:confirm="onConfirmDate" type="date" value="{{filtrateDate}}" />
 </van-popup>
 <van-popup position="bottom" bind:close="onCloseFood" closeable show="{{editFoodVisible}}">
-	<view class="padding-30">
-		<view class="font-title padding-30 align-center">{{eatNameMap[step]}}</view>
-		<view class="flex padding-top-bottom-30 border-bottom">
-			<image src="{{foodItem.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
-			<view class="flex--start--between flex-direction-column margin-left-20">
-				<view class="font-title">{{foodItem.foodName}}</view>
-				<view class="flex">
-					<view class="warn-color">{{foodItem.energy}}</view>
-					<view class="gray-color">千卡/克</view>
-				</view>
-			</view>
-		</view>
-		<view class="font-title padding-30">请选择进食量：</view>
-		<van-radio-group bind:change="onChange" data-prop="gross" value="{{gross}}">
-			<view class="flex flex-wrap-wrap gross-choice">
-				<view class="width-50 flex-shrink-0">
-					<van-radio name="1">{{foodItem.option1}}克</van-radio>
-				</view>
-				<view class="width-50 flex-shrink-0">
-					<van-radio name="2">{{foodItem.option2}}克</van-radio>
-				</view>
-				<view class="width-50 flex-shrink-0">
-					<van-radio name="3">{{foodItem.option3}}克</van-radio>
-				</view>
-				<view class="width-50 flex-shrink-0">
-					<van-radio name="4">{{foodItem.option4}}克</van-radio>
-				</view>
-				<view class="flex--center--start margin-bottom-30">
-					<van-radio name="5" shape="square">
-						<text>其他：</text>
-					</van-radio>
-					<input bindinput="onInput" class="border-bottom" data-prop="other" type="text" value="{{other}}" />
-					<text>克</text>
-				</view>
-			</view>
-		</van-radio-group>
-		<view class="flex--center--center">
-			<view class="button primary" bindtap="onSaveFood">保存</view>
-		</view>
-	</view>
+    <view class="padding-30">
+        <view class="font-title padding-30 align-center">{{eatNameMap[step]}}</view>
+        <view class="flex padding-top-bottom-30 border-bottom">
+            <image src="{{foodItem.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
+            <view class="flex--start--between flex-direction-column margin-left-20">
+                <view class="font-title">{{foodItem.foodName}}</view>
+                <view class="flex">
+                    <view class="warn-color">{{foodItem.energy}}</view>
+                    <view class="gray-color">千卡/克</view>
+                </view>
+            </view>
+        </view>
+        <view class="font-title padding-30">请选择进食量：</view>
+        <van-radio-group bind:change="onChange" data-prop="gross" value="{{gross}}">
+            <view class="flex flex-wrap-wrap gross-choice">
+                <view class="width-50 flex-shrink-0">
+                    <van-radio name="1">{{foodItem.option1}}克</van-radio>
+                </view>
+                <view class="width-50 flex-shrink-0">
+                    <van-radio name="2">{{foodItem.option2}}克</van-radio>
+                </view>
+                <view class="width-50 flex-shrink-0">
+                    <van-radio name="3">{{foodItem.option3}}克</van-radio>
+                </view>
+                <view class="width-50 flex-shrink-0">
+                    <van-radio name="4">{{foodItem.option4}}克</van-radio>
+                </view>
+                <view class="flex--center--start margin-bottom-30">
+                    <van-radio name="5" shape="square">
+                        <text>其他：</text>
+                    </van-radio>
+                    <input bindinput="onInput" class="border-bottom" data-prop="other" type="text" value="{{other}}" />
+                    <text>克</text>
+                </view>
+            </view>
+        </van-radio-group>
+        <view class="flex--center--center">
+            <view class="button primary" bindtap="onSaveFood">保存</view>
+        </view>
+    </view>
 </van-popup>
 <van-popup position="bottom" bind:close="onCloseFoodList" closeable class="food-list" show="{{foodListVisible}}">
-	<view class="padding-left-right-30">
-		<view class="font-title flex--center--start" style="height:56px">
-			<view>{{eatNameMap[step]}}</view>
-			<view class="gray-color margin-left-20">总计：{{selectedFood[step].totalEnergy}}千卡</view>
-		</view>
-		<view class="flex padding-top-bottom-30 border-bottom" wx:for="{{selectedFood[step].list}}">
-			<image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill"/>
-			<view class="flex--start--between flex-direction-column flex-grow-1 margin-left-20">
-				<view class="font-title">{{item.foodName}}</view>
-				<view class="flex">
-					<view class="gray-color">{{item.gross}}克</view>
-					<view class="gray-color">{{item.energy}}千卡</view>
-				</view>
-			</view>
-			<van-icon name="delete" size="{{20}}" color="#ccc" bindtap="onDelFood" data-id="{{item.id}}" />
-		</view>
-	</view>
+    <view class="padding-left-right-30">
+        <view class="font-title flex--center--start" style="height:56px">
+            <view>{{eatNameMap[step]}}</view>
+            <view class="gray-color margin-left-20">总计：{{selectedFood[step].totalEnergy}}千卡</view>
+        </view>
+        <view class="flex padding-top-bottom-30 border-bottom" wx:for="{{selectedFood[step].list}}">
+            <image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
+            <view class="flex--start--between flex-direction-column flex-grow-1 margin-left-20">
+                <view class="font-title">{{item.foodName}}</view>
+                <view class="flex">
+                    <view class="gray-color">{{item.gross}}克</view>
+                    <view class="gray-color">{{item.energy}}千卡</view>
+                </view>
+            </view>
+            <van-icon name="delete" size="{{20}}" color="#ccc" bindtap="onDelFood" data-id="{{item.id}}" />
+        </view>
+    </view>
 </van-popup>
