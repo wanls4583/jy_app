@@ -156,19 +156,19 @@
             </view>
             <view class="flex position-relative">
                 <image src="/image/meal.png" style="width:25px;height:25px" bindtap="onShowFoodLisst"/>
-                <view class="position-absolute font-small radius-100px danger-background-color white-color" style="top:-5px;right:-5px;line-height:1;padding:0 2px;min-width:12">
+                <view class="position-absolute font-small radius-100px danger-background-color white-color" style="top:-5px;right:-5px;line-height:1;padding:0 2px;min-width:12px">
                     {{selectedFood[step].list.length}}
                 </view>
             </view>
         </view>
         <view class="position-absolute bottom-0 width-100 flex" style="top:50px">
             <view class="height-100 gray-background-color">
-                <view wx:for="{{foods}}" class="padding-30 align-center font-title {{index==categroyIndex?'active-category':''}}" bindtap="onChaneCategory" data-index="{{index}}">
+                <view wx:for="{{foods}}" wx:key="categoryCode" class="padding-30 align-center font-title {{index==categroyIndex?'active-category':''}}" bindtap="onChaneCategory" data-index="{{index}}">
                     {{item.categoryName}}
                 </view>
             </view>
             <view class="height-100 padding-left-right-30 flex-grow-1" style="overflow:auto">
-                <view wx:for="{{foods[categroyIndex].items}}" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
+                <view wx:for="{{foods[categroyIndex].items}}" wx:key="foodCode" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
                     <image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
                     <view class="flex--start--between flex-direction-column margin-left-20">
                         <view class="font-title">{{item.foodName}}</view>
@@ -242,15 +242,13 @@
     <view class="padding-left-right-30">
         <view class="font-title flex--center--start" style="height:56px">
             <view>{{eatNameMap[step]}}</view>
-            <view class="gray-color margin-left-20">总计：{{selectedFood[step].totalEnergy}}千卡</view>
         </view>
-        <view class="flex padding-top-bottom-30 border-bottom" wx:for="{{selectedFood[step].list}}">
+        <view class="flex padding-top-bottom-30 border-bottom" wx:key="foodCode" wx:for="{{selectedFood[step].list}}">
             <image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
             <view class="flex--start--between flex-direction-column flex-grow-1 margin-left-20">
                 <view class="font-title">{{item.foodName}}</view>
                 <view class="flex">
-                    <view class="gray-color">{{item.gross}}克</view>
-                    <view class="gray-color margin-left-10">{{item.energy}}千卡</view>
+                    <view class="gray-color">{{item._gross}}克</view>
                 </view>
             </view>
             <van-icon name="delete" size="{{20}}" color="#ccc" bindtap="onDelFood" data-id="{{item.id}}" />

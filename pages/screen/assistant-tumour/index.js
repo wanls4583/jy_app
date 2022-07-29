@@ -86,6 +86,7 @@ Page({
 			},
 			selfDiet: 0,
 			mainDiet: '',
+			selectedFood: {},
 		},
 		result: '',
 		resultDescription: '',
@@ -318,18 +319,19 @@ Page({
 			result = '营养良好';
 			resultDescription = '不需要进行营养干预';
 		}
-		// else if (this.data.selfDiet <= 2) {
-		// 	//判断膳食自评表
-		// 	result = '需营养干预';
-		// 	resultDescription = '需医生会诊，并进行营养干预';
-		// 	colorResult = 3;
-		// } 
+		else if (Z < 600) {
+			//判断膳食自评表
+			result = '需营养干预';
+			resultDescription = '需医生会诊，并进行营养干预';
+			colorResult = 3;
+		}
 		else if (this.data.answers.q[0] > 0) {
 			//是否有严重肝肾功能受损
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
 			colorResult = 3;
-		} else if (this.data.answers.q[1] == 1) {
+		}
+		else if (this.data.answers.q[1] == 1) {
 			//是否心肺功能受损
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
@@ -497,17 +499,20 @@ Page({
 			this.recommend[1][2] += foodData.totalFat;
 			this.recommend[1][3] += foodData.toatalCarbohydrate;
 		}
-		if (this.data.C < 300) {
-			this.recommend[2][0] = 300;
-		} else if (this.data.C <= 400) {
-			this.recommend[2][0] = [300, 400];
-		} else if (this.data.C <= 500) {
-			this.recommend[2][0] = [400, 500];
-		} else if (this.data.C <= 600) {
-			this.recommend[2][0] = [500, 600];
-		} else {
-			this.recommend[2][0] = 600;
-		}
+		// if (this.data.C < 300) {
+		// 	this.recommend[2][0] = 300;
+		// } else if (this.data.C <= 400) {
+		// 	this.recommend[2][0] = [300, 400];
+		// } else if (this.data.C <= 500) {
+		// 	this.recommend[2][0] = [400, 500];
+		// } else if (this.data.C <= 600) {
+		// 	this.recommend[2][0] = [500, 600];
+		// } else {
+		// 	this.recommend[2][0] = 600;
+		// }
+		this.recommend[2][0] = this.recommend[0][0] - this.recommend[1][0];
+		this.recommend[2][0] = this.recommend[2][0] < 0 ? 0: this.recommend[2][0];
+		this.recommend[2][0] = Number(this.recommend[2][0].toFixed(2)) || 0;
 		let min1 = 0,
 			max1 = 0;
 		let min2 = 0,
@@ -515,23 +520,23 @@ Page({
 		let min3 = 0,
 			max3 = 0;
 		if (this.data.answers.q[5] == 1) {
-			min1 = this.data.Z * 0.15 / 4;
-			max1 = this.data.Z * 0.3 / 4;
-			min2 = this.data.Z * 0.25 / 9;
-			max2 = this.data.Z * 0.4 / 9;
-			min3 = this.data.Z * 0.3 / 4;
-			max3 = this.data.Z * 0.5 / 4;
+			min1 = this.data.N * 0.15 / 4;
+			max1 = this.data.N * 0.3 / 4;
+			min2 = this.data.N * 0.25 / 9;
+			max2 = this.data.N * 0.4 / 9;
+			min3 = this.data.N * 0.3 / 4;
+			max3 = this.data.N * 0.5 / 4;
 		} else {
-			min1 = this.data.Z * 0.2 / 4;
-			max1 = this.data.Z * 0.25 / 4;
-			min2 = this.data.Z * 0.25 / 9;
-			max2 = this.data.Z * 0.3 / 9;
-			min3 = this.data.Z * 0.5 / 4;
-			max3 = this.data.Z * 0.55 / 4;
+			min1 = this.data.N * 0.2 / 4;
+			max1 = this.data.N * 0.25 / 4;
+			min2 = this.data.N * 0.25 / 9;
+			max2 = this.data.N * 0.3 / 9;
+			min3 = this.data.N * 0.5 / 4;
+			max3 = this.data.N * 0.55 / 4;
 		}
-		this.recommend[0][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
-		this.recommend[0][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
-		this.recommend[0][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
+		this.recommend[0][1] = [Number(min1.toFixed(1)), Number(max1.toFixed(1))];
+		this.recommend[0][2] = [Number(min2.toFixed(1)), Number(max2.toFixed(1))];
+		this.recommend[0][3] = [Number(min3.toFixed(1)), Number(max3.toFixed(1))];
 
 		min1 -= this.recommend[1][1];
 		max1 -= this.recommend[1][1];
@@ -547,14 +552,14 @@ Page({
 		max2 = max2 < 0 ? 0 : max2;
 		max3 = max3 < 0 ? 0 : max3;
 
-		this.recommend[2][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
-		this.recommend[2][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
-		this.recommend[2][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
+		this.recommend[2][1] = [Number(min1.toFixed(1)), Number(max1.toFixed(1))];
+		this.recommend[2][2] = [Number(min2.toFixed(1)), Number(max2.toFixed(1))];
+		this.recommend[2][3] = [Number(min3.toFixed(1)), Number(max3.toFixed(1))];
 
-		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(2));
-		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(2));
-		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(2));
-		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(2));
+		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(1));
+		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(1));
+		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(1));
+		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(1));
 
 		this.recommend.forEach(item => {
 			item.forEach((_item, index) => {
@@ -590,6 +595,12 @@ Page({
 					this.setData({
 						answers: data.info.answers,
 					});
+					if (data.info.answers.selectedFood) {
+						for (let step in data.info.answers.selectedFood) {
+							Object.assign(this.data.selectedFood[step], data.info.answers.selectedFood[step]);
+						}
+						this.assignSelectedFood();
+					}
 				} else {
 					this.setData({
 						'answers.pgsga.currentStature': this.data.patient.height,
@@ -607,6 +618,30 @@ Page({
 				}
 			});
 	},
+	assignSelectedFood() {
+		let foodMap = {};
+		for (let step in this.data.selectedFood) {
+			let foodData = this.data.selectedFood[step];
+			foodData.list.forEach((item) => {
+				foodMap[item.foodCode] = foodMap[item.foodCode] || [];
+				foodMap[item.foodCode].push(item)
+			});
+		}
+		this.data.foods.forEach((foodData) => {
+			foodData.items.forEach((food) => {
+				if (foodMap[food.foodCode]) {
+					foodMap[food.foodCode].forEach((item) => {
+						item.foodName = food.foodName;
+						item.picUrl = food.picUrl;
+						item.sampleUrl = food.sampleUrl;
+					});
+				}
+			});
+		});
+		this.setData({
+			selectedFood: this.data.selectedFood
+		});
+	},
 	loadFoodList(id) {
 		return wx.jyApp
 			.http({
@@ -617,6 +652,7 @@ Page({
 					foods: data.foods,
 					categroyIndex: 0
 				});
+				this.assignSelectedFood();
 			});
 	},
 	gotoResult(data, redirect) {
@@ -645,6 +681,7 @@ Page({
 		this.setData({
 			editFoodVisible: true,
 			gross: 0,
+			other: '',
 			foodItem: e.currentTarget.dataset.item
 		});
 	},
@@ -660,7 +697,8 @@ Page({
 			let totalFat = 0;
 			let toatalCarbohydrate = 0;
 			let food = {
-				...this.data.foodItem
+				...this.data.foodItem,
+				_gross: this.data.gross
 			};
 			let foodData = this.data.selectedFood[this.data.step];
 			let index = foodData.list.length;
@@ -694,11 +732,11 @@ Page({
 			food.energy = (food.gross * food.energy / 100).toFixed(2);
 			food.energy = Number(food.energy);
 			food.protein = (food.gross * food.protein / 100).toFixed(2);
-			food.protein = Number(food.energy);
+			food.protein = Number(food.protein);
 			food.fat = (food.gross * food.fat / 100).toFixed(2);
-			food.fat = Number(food.energy);
+			food.fat = Number(food.fat);
 			food.carbohydrate = (food.gross * food.carbohydrate / 100).toFixed(2);
-			food.carbohydrate = Number(food.energy);
+			food.carbohydrate = Number(food.carbohydrate);
 			foodData.list.splice(index, 1, food);
 			foodData.list.forEach((item) => {
 				totalEnergy += item.energy;
@@ -706,10 +744,10 @@ Page({
 				totalFat += item.fat;
 				toatalCarbohydrate += item.carbohydrate;
 			});
-			foodData.totalEnergy = totalEnergy;
-			foodData.totalProtein = totalProtein;
-			foodData.totalFat = totalFat;
-			foodData.toatalCarbohydrate = toatalCarbohydrate;
+			foodData.totalEnergy = Number(totalEnergy.toFixed(2));
+			foodData.totalProtein = Number(totalProtein.toFixed(2));
+			foodData.totalFat = Number(totalFat.toFixed(2));
+			foodData.toatalCarbohydrate = Number(toatalCarbohydrate.toFixed(2));
 			this.data.selectedFood[this.data.step] = foodData;
 			this.setData({
 				selectedFood: this.data.selectedFood,
@@ -767,12 +805,30 @@ Page({
 		// 	return;
 		// }
 		this.countResult();
+		var answers = this.data.answers;
+		var selectedFood = {};
+		for (let step in this.data.selectedFood) {
+			let foodData = this.data.selectedFood[step];
+			selectedFood[step] = { ...foodData };
+			selectedFood[step].list = foodData.list.map((item) => {
+				return {
+					foodCode: item.foodCode,
+					gross: item.gross,
+					energy: item.energy,
+					protein: item.protein,
+					fat: item.fat,
+					carbohydrate: item.carbohydrate,
+				}
+			});
+		}
+		answers.selectedFood = selectedFood;
+
 		var data = {
 			id: this.data.id,
 			filtrateId: this.data.filtrateId,
 			patientId: this.data.patient.id,
 			doctorId: this.doctorId,
-			answers: JSON.stringify(this.data.answers),
+			answers: JSON.stringify(answers),
 			result: this.data.result,
 			resultDescription: this.data.resultDescription,
 			isRisk: this.data.isRisk,
