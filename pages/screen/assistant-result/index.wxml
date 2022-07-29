@@ -34,8 +34,10 @@
 				<view class="button primary small" wx:if="{{userInfo.role==='USER'}}" bindtap="onBuy" data-item="{{products}}">去支付</view>
 			</view>
 		</view>
+	</view>
+	<view class="padding-20 padding-bottom-0">
 		<view class="flex--center--between padding-top-bottom-20">
-			<text class="font-title font-bold">方案推荐参考值</text>
+			<text class="font-title font-bold">营养素参考值</text>
 		</view>
 		<view class="white-background-color padding-20 margin-bottom-20 radius-4px">
 			<view class="font-bold">目标营养素</view>

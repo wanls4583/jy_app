@@ -336,7 +336,8 @@ Page({
 				//为糖尿病
 				N = 28 * W;
 			}
-			for (let foodData of this.data.selectedFood) {
+			for (let step in this.data.selectedFood) {
+				let foodData = this.data.selectedFood[step];
 				Z += foodData.totalEnergy;
 			}
 			Z = Number(Z.toFixed(2)) || 0;
@@ -356,6 +357,7 @@ Page({
 			W: W,
 			N: N,
 			C: C,
+			Z: Z,
 			result: result,
 			resultDescription: resultDescription,
 			colorResult: colorResult,
@@ -474,9 +476,19 @@ Page({
 	},
 	setRecommend() {
 		this.recommend = [];
-		this.recommend[0] = [this.data.N, [this.data.W, this.data.W * 1.5], 0, 0];
+		this.recommend[0] = [
+			this.data.N,
+			[0, 0],
+			[0, 0],
+			[0, 0]
+		];
 		this.recommend[1] = [0, 0, 0, 0];
-		this.recommend[2] = [0, 0, 0, 0];
+		this.recommend[2] = [
+			[0, 0],
+			[0, 0],
+			[0, 0],
+			[0, 0]
+		];
 		for (let step in this.data.selectedFood) {
 			let foodData = this.data.selectedFood[step];
 			this.recommend[1][0] += foodData.totalEnergy;
@@ -484,10 +496,6 @@ Page({
 			this.recommend[1][2] += foodData.totalFat;
 			this.recommend[1][3] += foodData.toatalCarbohydrate;
 		}
-		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(2));
-		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(2));
-		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(2));
-		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(2));
 		if (this.data.C < 300) {
 			this.recommend[2][0] = 300;
 		} else if (this.data.C <= 400) {
@@ -499,8 +507,47 @@ Page({
 		} else {
 			this.recommend[2][0] = 600;
 		}
-		this.recommend[2][1] = [this.recommend[0][1][0] - this.recommend[1][1][1], this.recommend[0][1][1] - this.recommend[1][1][0]];
-		this.recommend[2][1] = [this.recommend[2][1][0] > 0 ? this.recommend[2][1][0] : 0, this.recommend[2][1][1] > 0 ? this.recommend[2][1][1] : 0];
+		let min1 = 0,
+			max1 = 0;
+		let min2 = 0,
+			max2 = 0;
+		let min3 = 0,
+			max3 = 0;
+		if (this.data.answers.q[5] = 1) {
+			min1 = this.data.Z * 0.15 / 4;
+			max1 = this.data.Z * 0.3 / 4;
+			min2 = this.data.Z * 0.25 / 9;
+			max2 = this.data.Z * 0.4 / 9;
+			min3 = this.data.Z * 0.3 / 4;
+			max3 = this.data.Z * 0.5 / 4;
+		} else {
+			min1 = this.data.Z * 0.2 / 4;
+			max1 = this.data.Z * 0.25 / 4;
+			min2 = this.data.Z * 0.25 / 9;
+			max2 = this.data.Z * 0.3 / 9;
+			min3 = this.data.Z * 0.5 / 4;
+			max3 = this.data.Z * 0.55 / 4;
+		}
+		this.recommend[0][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
+		this.recommend[0][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
+		this.recommend[0][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
+		
+		min1 -= this.recommend[1][1];
+		max1 -= this.recommend[1][1];
+		min2 -= this.recommend[1][2];
+		max2 -= this.recommend[1][2];
+		min3 -= this.recommend[1][3];
+		max3 -= this.recommend[1][3];
+		
+		this.recommend[2][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
+		this.recommend[2][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
+		this.recommend[2][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
+		
+		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(2));
+		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(2));
+		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(2));
+		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(2));
+		
 		this.recommend.forEach(item => {
 			item.forEach((_item, index) => {
 				if (_item instanceof Array) {
@@ -604,7 +651,9 @@ Page({
 			let totalProtein = 0;
 			let totalFat = 0;
 			let toatalCarbohydrate = 0;
-			let food = { ...this.data.foodItem };
+			let food = {
+				...this.data.foodItem
+			};
 			let foodData = this.data.selectedFood[this.data.step];
 			food.id = this.foodIdCount++;
 			switch (this.data.gross) {

@@ -50,6 +50,13 @@
                     <van-radio name="0">否</van-radio>
                 </van-radio-group>
             </view>
+			<view class="padding-top-bottom-30 margin-left-right-30">
+                <view class="padding-bottom-30 required"> 6、是否为荷瘤患者？（荷瘤患者：有影像学或肉眼可见的肿瘤组织）</view>
+                <van-radio-group bind:change="onChange" data-prop="answers.q[4]" value="{{answers.q[5]}}">
+                    <van-radio name="1">是</van-radio>
+                    <van-radio name="0">否</van-radio>
+                </van-radio-group>
+            </view>
         </view>
     </view>
     <view wx:if="{{step==2}}">
