@@ -27,7 +27,7 @@
 }
 
 .food-list .van-popup--bottom {
-	bottom: 72px;
+	bottom: 68px;
     z-index: 99 !important;
 }
 

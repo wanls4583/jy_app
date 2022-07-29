@@ -202,7 +202,8 @@ Page({
 	},
 	onNext() {
 		if (this.data.step == 1) {
-			if (!this.data.answers.q[0] || !this.data.answers.q[1] || !this.data.answers.q[2] || !this.data.answers.q[3] || !this.data.answers.q[4]) {
+			if (!this.data.answers.q[0] || !this.data.answers.q[1] || !this.data.answers.q[2] ||
+				!this.data.answers.q[3] || !this.data.answers.q[4] || !this.data.answers.q[5]) {
 				wx.jyApp.toast('必填项不能为空');
 				return;
 			}
@@ -306,6 +307,11 @@ Page({
 		var N = 0;
 		var Z = 0;
 		var C = 0;
+		for (let step in this.data.selectedFood) {
+			let foodData = this.data.selectedFood[step];
+			Z += foodData.totalEnergy;
+		}
+		Z = Number(Z.toFixed(2)) || 0;
 		this.countMpgsgaScore();
 		if (this.data.answers.pgsga.score === 0) {
 			//判断mpgsga
@@ -328,19 +334,14 @@ Page({
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
 			colorResult = 3;
-		} else if (Number(this.data.answers.pgsga.currentStature)) {
+		}
+		if (Number(this.data.answers.pgsga.currentStature)) {
 			W = this.data.answers.pgsga.currentStature - 105;
 			N = 30 * W;
-			Z = 0;
 			if (this.data.answers.q[3] == 1) {
 				//为糖尿病
 				N = 28 * W;
 			}
-			for (let step in this.data.selectedFood) {
-				let foodData = this.data.selectedFood[step];
-				Z += foodData.totalEnergy;
-			}
-			Z = Number(Z.toFixed(2)) || 0;
 			if (Z + 600 < N * 0.7) {
 				result = '需营养干预';
 				resultDescription = '需医生会诊，并进行营养干预';
@@ -513,7 +514,7 @@ Page({
 			max2 = 0;
 		let min3 = 0,
 			max3 = 0;
-		if (this.data.answers.q[5] = 1) {
+		if (this.data.answers.q[5] == 1) {
 			min1 = this.data.Z * 0.15 / 4;
 			max1 = this.data.Z * 0.3 / 4;
 			min2 = this.data.Z * 0.25 / 9;
@@ -531,23 +532,30 @@ Page({
 		this.recommend[0][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
 		this.recommend[0][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
 		this.recommend[0][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
-		
+
 		min1 -= this.recommend[1][1];
 		max1 -= this.recommend[1][1];
 		min2 -= this.recommend[1][2];
 		max2 -= this.recommend[1][2];
 		min3 -= this.recommend[1][3];
 		max3 -= this.recommend[1][3];
-		
+
+		min1 = min1 < 0 ? 0 : min1;
+		min2 = min2 < 0 ? 0 : min2;
+		min3 = min3 < 0 ? 0 : min3;
+		max1 = max1 < 0 ? 0 : max1;
+		max2 = max2 < 0 ? 0 : max2;
+		max3 = max3 < 0 ? 0 : max3;
+
 		this.recommend[2][1] = [Number(min1.toFixed(2)), Number(max1.toFixed(2))];
 		this.recommend[2][2] = [Number(min2.toFixed(2)), Number(max2.toFixed(2))];
 		this.recommend[2][3] = [Number(min3.toFixed(2)), Number(max3.toFixed(2))];
-		
+
 		this.recommend[1][0] = Number(this.recommend[1][0].toFixed(2));
 		this.recommend[1][1] = Number(this.recommend[1][1].toFixed(2));
 		this.recommend[1][2] = Number(this.recommend[1][2].toFixed(2));
 		this.recommend[1][3] = Number(this.recommend[1][3].toFixed(2));
-		
+
 		this.recommend.forEach(item => {
 			item.forEach((_item, index) => {
 				if (_item instanceof Array) {
@@ -655,6 +663,12 @@ Page({
 				...this.data.foodItem
 			};
 			let foodData = this.data.selectedFood[this.data.step];
+			let index = foodData.list.length;
+			for (let i = 0; i < foodData.list.length; i++) {
+				if (food.foodCode == foodData.list[i].foodCode) {
+					index = i;
+				}
+			}
 			food.id = this.foodIdCount++;
 			switch (this.data.gross) {
 				case '1':
@@ -673,6 +687,10 @@ Page({
 					food.gross = Number(parseFloat(this.data.other).toFixed(2)) || 0;
 					break;
 			}
+			if (this.data.gross == 5 && !food.gross) {
+				wx.jyApp.toast('请输入正确数值')
+				return;
+			}
 			food.energy = (food.gross * food.energy / 100).toFixed(2);
 			food.energy = Number(food.energy);
 			food.protein = (food.gross * food.protein / 100).toFixed(2);
@@ -681,7 +699,7 @@ Page({
 			food.fat = Number(food.energy);
 			food.carbohydrate = (food.gross * food.carbohydrate / 100).toFixed(2);
 			food.carbohydrate = Number(food.energy);
-			foodData.list.push(food);
+			foodData.list.splice(index, 1, food);
 			foodData.list.forEach((item) => {
 				totalEnergy += item.energy;
 				totalProtein += item.protein;
@@ -692,8 +710,9 @@ Page({
 			foodData.totalProtein = totalProtein;
 			foodData.totalFat = totalFat;
 			foodData.toatalCarbohydrate = toatalCarbohydrate;
+			this.data.selectedFood[this.data.step] = foodData;
 			this.setData({
-				[`selectedFood[${this.data.step}]`]: foodData,
+				selectedFood: this.data.selectedFood,
 				editFoodVisible: false
 			});
 		}
@@ -724,8 +743,9 @@ Page({
 					foodData.totalFat += item.fat;
 					foodData.toatalCarbohydrate += item.carbohydrate;
 				});
+				this.data.selectedFood[this.data.step] = foodData;
 				this.setData({
-					[`selectedFood[${this.data.step}]`]: foodData
+					selectedFood: this.data.selectedFood
 				});
 				break;
 			}
