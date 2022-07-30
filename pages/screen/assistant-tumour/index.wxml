@@ -155,7 +155,7 @@
                 </view>
             </view>
             <view class="flex position-relative">
-                <image src="/image/meal.png" style="width:25px;height:25px" bindtap="onShowFoodLisst"/>
+                <image src="/image/meal.png" style="width:25px;height:25px" bindtap="onShowFoodLisst" />
                 <view class="position-absolute font-small radius-100px danger-background-color white-color" style="top:-5px;right:-5px;line-height:1;padding:0 2px;min-width:12px">
                     {{selectedFood[step].list.length}}
                 </view>
@@ -168,15 +168,16 @@
                 </view>
             </view>
             <view class="height-100 padding-left-right-30 flex-grow-1" style="overflow:auto">
-                <view wx:for="{{foods[categroyIndex].items}}" wx:key="foodCode" bindtap="onClickFood" data-item="{{item}}" class="flex padding-top-bottom-30 border-bottom">
+                <view wx:for="{{foods[categroyIndex].items}}" wx:key="foodCode" bindtap="onClickFood" data-item="{{item}}" class="flex--center--between padding-top-bottom-30 border-bottom">
                     <image src="{{item.picUrl}}" class="width-60px height-60px" mode="aspectFill" />
-                    <view class="flex--start--between flex-direction-column margin-left-20">
+                    <view class="flex--start--between flex-direction-column flex-grow-1 height-60px margin-left-20">
                         <view class="font-title">{{item.foodName}}</view>
                         <view class="flex">
                             <view class="warn-color">{{item.energy}}</view>
                             <view class="gray-color margin-left-10">千卡/100克</view>
                         </view>
                     </view>
+                    <view wx:if="{{selectedFoodMap[step][item.foodCode]}}" class="success-background-color" style="width:8px;height:8px;border-radius:50%"></view>
                 </view>
             </view>
         </view>

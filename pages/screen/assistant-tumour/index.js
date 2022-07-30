@@ -62,6 +62,14 @@ Page({
 				list: []
 			},
 		},
+		selectedFoodMap: {
+			'7': {},
+			'8': {},
+			'9': {},
+			'10': {},
+			'11': {},
+			'12': {},
+		},
 		categroyIndex: 0,
 		gross: 0,
 		other: '',
@@ -348,7 +356,7 @@ Page({
 				result = '需营养干预';
 				resultDescription = '需医生会诊，并进行营养干预';
 				colorResult = 3;
-			} else {
+			} else if (Z < 600) {
 				let B = N - Z;
 				result = '需营养干预';
 				resultDescription = '需医生会诊，并进行营养干预';
@@ -512,7 +520,7 @@ Page({
 		// }
 		this.recommend[2][0] = this.recommend[0][0] - this.recommend[1][0];
 		this.recommend[2][0] = this.recommend[2][0] < 0 ? 0 : this.recommend[2][0];
-		this.recommend[2][0] = Number(this.recommend[2][0].toFixed(2)) || 0;
+		this.recommend[2][0] = Number(this.recommend[2][0].toFixed(1)) || 0;
 		let min1 = 0,
 			max1 = 0;
 		let min2 = 0,
@@ -624,7 +632,8 @@ Page({
 			let foodData = this.data.selectedFood[step];
 			foodData.list.forEach((item) => {
 				foodMap[item.foodCode] = foodMap[item.foodCode] || [];
-				foodMap[item.foodCode].push(item)
+				foodMap[item.foodCode].push(item);
+				this.data.selectedFoodMap[step][item.foodCode] = true;
 			});
 		}
 		this.data.foods.forEach((foodData) => {
@@ -639,7 +648,8 @@ Page({
 			});
 		});
 		this.setData({
-			selectedFood: this.data.selectedFood
+			selectedFood: this.data.selectedFood,
+			selectedFoodMap: this.data.selectedFoodMap
 		});
 	},
 	loadFoodList(id) {
@@ -753,8 +763,10 @@ Page({
 			foodData.totalFat = Number(totalFat.toFixed(2));
 			foodData.toatalCarbohydrate = Number(toatalCarbohydrate.toFixed(2));
 			this.data.selectedFood[this.data.step] = foodData;
+			this.data.selectedFoodMap[this.data.step][food.foodCode] = true;
 			this.setData({
 				selectedFood: this.data.selectedFood,
+				selectedFoodMap: this.data.selectedFoodMap,
 				editFoodVisible: false
 			});
 		} else {
@@ -776,6 +788,7 @@ Page({
 		let foodData = this.data.selectedFood[this.data.step];
 		for (let i = 0; i < foodData.list.length; i++) {
 			if (foodData.list[i].id == id) {
+				this.data.selectedFoodMap[this.data.step][foodData.list[i].foodCode] = false;
 				foodData.list.splice(i, 1);
 				foodData.totalEnergy = 0;
 				foodData.totalProtein = 0;
@@ -789,7 +802,8 @@ Page({
 				});
 				this.data.selectedFood[this.data.step] = foodData;
 				this.setData({
-					selectedFood: this.data.selectedFood
+					selectedFood: this.data.selectedFood,
+					selectedFoodMap: this.data.selectedFoodMap
 				});
 				break;
 			}
