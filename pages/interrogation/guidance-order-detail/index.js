@@ -41,7 +41,7 @@ Page({
             url: '/wx/pay/nutrition/submit',
             method: 'post',
             data: {
-                addressId: this.data.selectAddress.id,
+                addressId: this.data.selectAddress && this.data.selectAddress.id,
                 orderId: this.id
             }
         }).then((data) => {
