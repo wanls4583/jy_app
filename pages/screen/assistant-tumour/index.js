@@ -322,6 +322,25 @@ Page({
 		}
 		Z = Number(Z.toFixed(2)) || 0;
 		this.countMpgsgaScore();
+		if (Number(this.data.answers.pgsga.currentStature)) {
+			W = this.data.answers.pgsga.currentStature - 105;
+			N = 30 * W;
+			if (this.data.answers.q[3] == 1) {
+				//为糖尿病
+				N = 28 * W;
+			}
+			if (Z + 600 < N * 0.7) {
+				result = '需营养干预';
+				resultDescription = '需医生会诊，并进行营养干预';
+				colorResult = 3;
+			} else {
+				let B = N - Z;
+				result = '需营养干预';
+				resultDescription = '需医生会诊，并进行营养干预';
+				colorResult = 2;
+				C = B;
+			}
+		}
 		if (this.data.answers.pgsga.score === 0) {
 			//判断mpgsga
 			result = '营养良好';
@@ -344,25 +363,6 @@ Page({
 			result = '需营养干预';
 			resultDescription = '需医生会诊，并进行营养干预';
 			colorResult = 3;
-		}
-		if (Number(this.data.answers.pgsga.currentStature)) {
-			W = this.data.answers.pgsga.currentStature - 105;
-			N = 30 * W;
-			if (this.data.answers.q[3] == 1) {
-				//为糖尿病
-				N = 28 * W;
-			}
-			if (Z + 600 < N * 0.7) {
-				result = '需营养干预';
-				resultDescription = '需医生会诊，并进行营养干预';
-				colorResult = 3;
-			} else if (Z < 600) {
-				let B = N - Z;
-				result = '需营养干预';
-				resultDescription = '需医生会诊，并进行营养干预';
-				colorResult = 2;
-				C = B;
-			}
 		}
 		this.setData({
 			W: W,

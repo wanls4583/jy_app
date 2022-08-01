@@ -32,7 +32,7 @@ Page({
     },
     //支付电子处方
     onGuidanceOrderPay() {
-        if (!this.data.contactName && !this.data.selectAddress) {
+        if (!this.data.order.contactName && !this.data.contactName && !this.data.selectAddress) {
             wx.jyApp.toast('请先选择收货地址');
             return;
         }
