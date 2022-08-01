@@ -345,6 +345,7 @@ Page({
 			//判断mpgsga
 			result = '营养良好';
 			resultDescription = '不需要进行营养干预';
+			colorResult = 0;
 		}
 		else if (Z < 600) {
 			//判断膳食自评表
